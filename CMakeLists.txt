@@ -5,22 +5,27 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
-
-set(CMAKE_PREFIX_PATH "E:/cpp_library/Qt/Qt6.5/6.6.0/mingw_64/lib/cmake")
-
+set(CGAL_DO_NOT_WARN_ABOUT_CMAKE_BUILD_TYPE TRUE)
 find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
         REQUIRED)
 
+find_package(Eigen3 CONFIG REQUIRED)
+find_package(openmesh REQUIRED)
+find_package(CGAL CONFIG REQUIRED)
+
 add_executable(RSMesh main.cpp)
+
+target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})
 target_link_libraries(RSMesh
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        ${OPENMESH_LIBRARIES}
+        CGAL::CGAL
 )
-
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
     if (MSVC AND CMAKE_BUILD_TYPE MATCHES "Debug")
