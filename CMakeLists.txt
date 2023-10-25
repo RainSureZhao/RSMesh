@@ -6,6 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CGAL_DO_NOT_WARN_ABOUT_CMAKE_BUILD_TYPE TRUE)
+set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS ON)
 find_package(Qt6 COMPONENTS
         Core
         Gui
@@ -16,8 +17,21 @@ find_package(Eigen3 CONFIG REQUIRED)
 find_package(openmesh REQUIRED)
 find_package(CGAL CONFIG REQUIRED)
 
-add_executable(RSMesh main.cpp)
+# Geometry
+file(GLOB GEOMETRY "*.h" "${PROJECT_SOURCE_DIR}/include/geometry/*.h")
 
+#common
+file(GLOB COMMON "*.h" "${PROJECT_SOURCE_DIR}/include/common/*.h")
+
+file(GLOB NORMAL "*.h" "${PROJECT_SOURCE_DIR}/include/*.h")
+
+add_executable(RSMesh 
+        main.cpp
+        ${GEOMETRY}
+        ${COMMON}
+        ${NORMAL}
+)
+target_include_directories(RSMesh PRIVATE "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})
 target_link_libraries(RSMesh
         Qt::Core
@@ -26,6 +40,9 @@ target_link_libraries(RSMesh
         ${OPENMESH_LIBRARIES}
         CGAL::CGAL
 )
+
+add_subdirectory(src)
+
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
     if (MSVC AND CMAKE_BUILD_TYPE MATCHES "Debug")
