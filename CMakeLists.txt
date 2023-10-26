@@ -16,10 +16,10 @@ find_package(Qt6 COMPONENTS
 find_package(Eigen3 CONFIG REQUIRED)
 find_package(openmesh REQUIRED)
 find_package(CGAL CONFIG REQUIRED)
+find_package(flann CONFIG REQUIRED)
 
 # Geometry
-file(GLOB GEOMETRY "*.h" "${PROJECT_SOURCE_DIR}/include/geometry/*.h")
-
+file(GLOB GEOMETRY "*.h" "${PROJECT_SOURCE_DIR}/include/geometry/*.h" "${PROJECT_SOURCE_DIR}/src/geometry/*.cpp")
 #common
 file(GLOB COMMON "*.h" "${PROJECT_SOURCE_DIR}/include/common/*.h")
 
@@ -39,8 +39,8 @@ target_link_libraries(RSMesh
         Qt::Widgets
         ${OPENMESH_LIBRARIES}
         CGAL::CGAL
+        flann::flann flann::flann_cpp
 )
-
 add_subdirectory(src)
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)

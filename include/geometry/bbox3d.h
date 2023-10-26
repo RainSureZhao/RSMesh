@@ -13,11 +13,11 @@ namespace rsmesh {
 
         class bbox3d {
         public:
-            bbox3d() = default;
+            bbox3d();
             
             bbox3d(const point3d& min, const point3d &max);
             
-            bool operator== (const point3d& rhs) const;
+            bool operator== (const bbox3d& rhs) const;
             
             point3d center() const;
             
