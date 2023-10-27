@@ -18,18 +18,22 @@ find_package(openmesh REQUIRED)
 find_package(CGAL CONFIG REQUIRED)
 find_package(flann CONFIG REQUIRED)
 
-# Geometry
-file(GLOB GEOMETRY "*.h" "${PROJECT_SOURCE_DIR}/include/geometry/*.h" "${PROJECT_SOURCE_DIR}/src/geometry/*.cpp")
 #common
-file(GLOB COMMON "*.h" "${PROJECT_SOURCE_DIR}/include/common/*.h")
+file(GLOB COMMON "${PROJECT_SOURCE_DIR}/include/common/*.h")
+# Geometry
+file(GLOB GEOMETRY "${PROJECT_SOURCE_DIR}/include/geometry/*.h" "${PROJECT_SOURCE_DIR}/src/geometry/*.cpp")
+#Point Cloud
+file(GLOB POINTCLOUD "${PROJECT_SOURCE_DIR}/include/point_cloud/*.h" "${PROJECT_SOURCE_DIR}/src/point_cloud/*.cpp")
+# Normal
+file(GLOB NORMAL "${PROJECT_SOURCE_DIR}/include/*.h")
 
-file(GLOB NORMAL "*.h" "${PROJECT_SOURCE_DIR}/include/*.h")
 
 add_executable(RSMesh 
         main.cpp
         ${GEOMETRY}
         ${COMMON}
         ${NORMAL}
+        ${POINTCLOUD}
 )
 target_include_directories(RSMesh PRIVATE "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})
@@ -41,8 +45,6 @@ target_link_libraries(RSMesh
         CGAL::CGAL
         flann::flann flann::flann_cpp
 )
-add_subdirectory(src)
-
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
     if (MSVC AND CMAKE_BUILD_TYPE MATCHES "Debug")

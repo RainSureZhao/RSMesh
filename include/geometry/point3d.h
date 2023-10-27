@@ -26,10 +26,12 @@ namespace rsmesh {
             return Eigen::Transform<double, 3, Eigen::Affine, Eigen::RowMajor>(t).linear();
         }
         
+        inline
         point3d transform_point(const linear_transformation3d &lhs, const point3d &p) {
             return lhs * p.transpose();
         }
         
+        inline
         vector3d transform_vector(const linear_transformation3d &lhs, const vector3d &v) {
             return lhs * v.transpose();
         }

@@ -1,37 +1,28 @@
-#include <QApplication>
-#include <QPushButton>
-#include <CGAL/Simple_cartesian.h>
-#include <CGAL/Surface_mesh.h>
-#include <CGAL/draw_surface_mesh.h>
-#include <filesystem>
-typedef CGAL::Simple_cartesian<double>                       Kernel;
-typedef Kernel::Point_3                                      Point;
-typedef CGAL::Surface_mesh<Point>                            Mesh;
+#include <iostream>
+#include "include/point_cloud/kdtree.h"
+
+using namespace rsmesh::point_cloud;
+using namespace rsmesh::geometry;
 
 int main(int argc, char *argv[]) {
-    std::filesystem::current_path(R"(E:\Code\Cpp_project\RSMesh)");
-    const std::string filename = (argc>1) ? argv[1] : CGAL::data_file_path("meshes/Models/Apple.off");
-    Mesh sm;
-    if(!CGAL::IO::read_polygon_mesh(filename, sm))
-    {
-        std::cerr << "Invalid input file." << std::endl;
-        return EXIT_FAILURE;
+    points3d points;
+    points.resize(10, 3);
+    points << 0, 0, 0,
+              1, 1, 1,
+              2, 2, 2,
+              3, 3, 3,
+              4, 4, 4,
+              5, 5, 5,
+              6, 6, 6,
+              7, 7, 7,
+              8, 8, 8,
+              9, 9, 9;
+    
+    kdtree tree(points, false);
+    
+    auto res = tree.knn_search(point3d(1.7, 1, 2), 3);
+    for(const auto &p : res.second) {
+        std::cout << p << std::endl;
     }
-    // Internal color property maps are used if they exist and are called "v:color", "e:color" and "f:color".
-    auto vcm = sm.add_property_map<Mesh::Vertex_index, CGAL::IO::Color>("v:color").first;
-    auto ecm = sm.add_property_map<Mesh::Edge_index, CGAL::IO::Color>("e:color").first;
-    auto fcm = sm.add_property_map<Mesh::Face_index>("f:color", CGAL::IO::white() /*default*/).first;
-    for(auto v : vertices(sm))
-    {
-        if(v.idx() % 2)
-            put(vcm, v, CGAL::IO::black());
-        else
-            put(vcm, v, CGAL::IO::blue());
-    }
-    for(auto e : edges(sm))
-        put(ecm, e, CGAL::IO::gray());
-    CGAL_USE(fcm);
-    // Draw!
-    CGAL::draw(sm);
-    return EXIT_SUCCESS;
+    return 0;
 }
