@@ -41,18 +41,19 @@ namespace rsmesh {
                 bbox3d result;
                 if(points_begin == points_end) return result;
                 auto it = points_begin;
-                result.min_[0] = result.max_[0] = *it[0];
-                result.min_[1] = result.max_[1] = *it[1];
-                result.min_[2] = result.max_[2] = *it[2];
+                auto first_point = *it;
+                result.min_(0) = result.max_(0) = first_point(0);
+                result.min_(1) = result.max_(1) = first_point(1);
+                result.min_(2) = result.max_(2) = first_point(2);
                 
                 for( ; it != points_end; it ++) {
                     auto point = *it;
-                    result.min_[0] = std::min(result.min_[0], point[0]);
-                    result.min_[1] = std::min(result.min_[1], point[1]);
-                    result.min_[2] = std::min(result.min_[2], point[2]);
-                    result.max_[0] = std::max(result.max_[0], point[0]);
-                    result.max_[1] = std::max(result.max_[1], point[1]);
-                    result.max_[2] = std::max(result.max_[2], point[2]);
+                    result.min_(0) = std::min(result.min_(0), point(0));
+                    result.min_(1) = std::min(result.min_(1), point(1));
+                    result.min_(2) = std::min(result.min_(2), point(2));
+                    result.max_(0) = std::max(result.max_(0), point(0));
+                    result.max_(1) = std::max(result.max_(1), point(1));
+                    result.max_(2) = std::max(result.max_(2), point(2));
                 }
                 
                 return result;

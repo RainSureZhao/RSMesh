@@ -3,6 +3,7 @@
 //
 
 #include "geometry/bbox3d.h"
+#include "common/eigen_utility.h"
 #include <limits>
 
 namespace rsmesh {
@@ -70,13 +71,13 @@ namespace rsmesh {
         bbox3d bbox3d::union_hull(const bbox3d &other) const {
             return {
                     min().cwiseMin(other.min()),
-                    max().cwiseMax(other.max());
+                    max().cwiseMax(other.max())
             };
         }
 
-//        bbox3d bbox3d::from_points(const points3d &points) {
-//            return from_points(common::row_begin(points), common::row_end(points));
-//        }
+        bbox3d bbox3d::from_points(const points3d &points) {
+            return from_points(common::row_begin(points), common::row_end(points));
+        }
         
     } // rsmesh
 } // geometry
