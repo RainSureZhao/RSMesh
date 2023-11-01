@@ -445,7 +445,7 @@ namespace rsmesh {
             void take_cols_impl(Eigen::MatrixBase<ResultDerived>& result, const Eigen::MatrixBase<Derived>& m, Eigen::Index index, Ts... indices) {
                 result.col(0) = m.col(index);
                 auto result_tail = result.rightCols(result.cols() - 1);
-                concatenate_cols_impl(result, m, indices...);
+                take_cols_impl(result, m, indices...);
             }
             
             template <class ResultDerived, class Derived>
@@ -457,10 +457,107 @@ namespace rsmesh {
             void take_rows_impl(Eigen::MatrixBase<ResultDerived>& result, const Eigen::MatrixBase<Derived>& m, Eigen::Index index, Ts... indices) {
                 result.row(0) = m.row(index);
                 auto result_tail = result.bottomRows(result.rows() - 1);
-                concatenate_rows_impl(result, m, indices...);
+                take_rows_impl(result, m, indices...);
             }
             
         } // detail
+        
+        template <class ...Args>
+        auto concatenate_cols(Args&&... args) {
+            Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> result (
+                detail::common_rows(std::forward<Args>(args)...),
+                common::fold_left(std::plus<>(), args.cols()...)
+            );
+            
+            detail::concatenate_cols_impl(result, std::forward<Args>(args)...);
+            return result;
+        }
+        
+        template <class ...Args>
+        auto concatenate_rows(Args&&... args) {
+            Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> result (
+                common::fold_left(std::plus<>(), args.rows()...),
+                detail::common_cols(std::forward<Args>(args)...)
+            );
+            
+            detail::concatenate_rows_impl(result, std::forward<Args>(args)...);
+            return result;
+        }
+        
+        template <class Derived, class... Ts>
+        auto take_cols(const Eigen::MatrixBase<Derived>& m, Ts... indices) {
+            Eigen::Matrix<
+                typename Eigen::MatrixBase<Derived>::Scalar,
+                Eigen::MatrixBase<Derived>::RowsAtCompileTime,
+                sizeof...(indices),
+                Eigen::MatrixBase<Derived>::IsRowMajor ? Eigen::RowMajor : Eigen::ColMajor
+            > result(m.rows(), sizeof...(indices));
+            
+            detail::take_cols_impl(result, m, indices...);
+            
+            return result;
+        }
+        
+        template <class Derived, class ForwardRange>
+        auto take_cols(const Eigen::MatrixBase<Derived>& m, ForwardRange indices) {
+            Eigen::Index n_cols = std::distance(indices.begin(), indices.end());
+            
+            Eigen::Matrix<
+                typename Eigen::MatrixBase<Derived>::Scalar,
+                Eigen::MatrixBase<Derived>::RowsAtCompileTime,
+                Eigen::Dynamic, // 编译期无法确定indices的大小，不可以显式指定为n_cols，因为C++模板元编程时，模板参数必须是编译时已知的值
+                Eigen::MatrixBase<Derived>::IsRowMajor ? Eigen::RowMajor : Eigen::ColMajor
+            > result(m.rows(), n_cols);
+            
+            auto it = indices.begin();
+            for (Eigen::Index i = 0; i < n_cols; i ++) {
+                result.col(i) = m.col(*it ++);
+            }
+            return result;
+        }
+        
+        template <class Derived>
+        auto take_cols(const Eigen::MatrixBase<Derived>& m, const std::vector<Eigen::Index> &indices) {
+            return take_cols(m, make_range(indices.begin(), indices.end()));
+        }
+        
+        template <class Derived, class... Ts>
+        auto take_rows(const Eigen::MatrixBase<Derived>& m, Ts... indices) {
+            Eigen::Matrix <
+                typename Eigen::MatrixBase<Derived>::Scalar,
+                sizeof...(indices),
+                Eigen::MatrixBase<Derived>::ColsAtCompileTime,
+                Eigen::MatrixBase<Derived>::IsRowMajor ? Eigen::RowMajor : Eigen::ColMajor
+            > result(sizeof...(indices), m.cols());
+            
+            detail::take_rows_impl(result, m, indices...);
+            
+            return result;
+        }
+        
+        template <class Derived, class ForwardRange>
+        auto take_rows(const Eigen::MatrixBase<Derived>& m, ForwardRange indices) {
+            Eigen::Index n_rows = std::distance(indices.begin(), indices.end());
+            
+            Eigen::Matrix <
+                typename Eigen::MatrixBase<Derived>::Scalar,
+                Eigen::Dynamic,
+                Eigen::MatrixBase<Derived>::ColsAtCompileTime,
+                Eigen::MatrixBase<Derived>::IsRowMajor ? Eigen::RowMajor : Eigen::ColMajor
+            > result(n_rows, m.cols());
+            
+            auto it = indices.begin();
+            for(Eigen::Index i = 0; i < n_rows; i ++) {
+                result.row(i) = m.row(i);
+            }
+            return result;
+        } 
+        
+        template <class Derived>
+        auto take_rows(const Eigen::MatrixBase<Derived>& m, const std::vector<Eigen::Index>& indices) {
+            return take_rows(m, make_range(indices.begin(), indices.end()));
+        }
+        
     } // common
 } // rsmesh
 
