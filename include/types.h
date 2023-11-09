@@ -7,7 +7,9 @@
 
 namespace rsmesh {
 
-    using index_t = int;
+    using index_t = Eigen::Index;
+
+    using valuesd = Eigen::VectorXd;
 
 } // rsmesh
 
