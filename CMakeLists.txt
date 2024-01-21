@@ -12,11 +12,11 @@ find_package(Qt6 COMPONENTS
         Gui
         Widgets
         REQUIRED)
-
 find_package(Eigen3 CONFIG REQUIRED)
 find_package(openmesh REQUIRED)
 find_package(CGAL CONFIG REQUIRED)
 find_package(flann CONFIG REQUIRED)
+find_package(double-conversion CONFIG REQUIRED)
 
 #common
 file(GLOB COMMON "${PROJECT_SOURCE_DIR}/include/common/*.h")
@@ -24,8 +24,12 @@ file(GLOB COMMON "${PROJECT_SOURCE_DIR}/include/common/*.h")
 file(GLOB GEOMETRY "${PROJECT_SOURCE_DIR}/include/geometry/*.h" "${PROJECT_SOURCE_DIR}/src/geometry/*.cpp")
 #Point Cloud
 file(GLOB POINTCLOUD "${PROJECT_SOURCE_DIR}/include/point_cloud/*.h" "${PROJECT_SOURCE_DIR}/src/point_cloud/*.cpp")
+#Numeric
+file(GLOB NUMERIC "${PROJECT_SOURCE_DIR}/include/numeric/*.h")
 # Normal
 file(GLOB NORMAL "${PROJECT_SOURCE_DIR}/include/*.h")
+#polynomial
+file(GLOB POLYNOMIAL "${PROJECT_SOURCE_DIR}/include/polynomial/*.h" "${PROJECT_SOURCE_DIR}/src/polynomial/*.cpp")
 
 
 add_executable(RSMesh 
@@ -34,6 +38,8 @@ add_executable(RSMesh
         ${COMMON}
         ${NORMAL}
         ${POINTCLOUD}
+        ${NUMERIC}
+        ${POLYNOMIAL}
 )
 target_include_directories(RSMesh PRIVATE "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})
@@ -44,6 +50,7 @@ target_link_libraries(RSMesh
         ${OPENMESH_LIBRARIES}
         CGAL::CGAL
         flann::flann flann::flann_cpp
+        double-conversion::double-conversion
 )
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)

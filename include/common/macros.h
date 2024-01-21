@@ -2,8 +2,8 @@
 // Created by 赵润朔 on 2023/10/25.
 //
 
-#ifndef RSMESH_MARCOS_H
-#define RSMESH_MARCOS_H
+#ifndef RSMESH_MACROS_H
+#define RSMESH_MACROS_H
 
 #include <cassert>
 
@@ -14,4 +14,10 @@
 #define RSMESH_LIKELY(X) (X)
 #define RSMESH_UNLIKELY(X) (X)
 
-#endif //RSMESH_MARCOS_H
+namespace rsmesh {
+    inline void RSMESH_UNREACHABLE() {
+        assert(false);
+    }
+}
+
+#endif //RSMESH_MACROS_H

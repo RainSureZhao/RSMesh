@@ -4,6 +4,7 @@
 
 #ifndef RSMESH_TYPES_H
 #define RSMESH_TYPES_H
+#include "Eigen/Dense"
 
 namespace rsmesh {
 

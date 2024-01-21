@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "include/point_cloud/kdtree.h"
 
 using namespace rsmesh::point_cloud;

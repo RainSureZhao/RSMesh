@@ -7,7 +7,7 @@
 #include <cmath>
 #include <limits>
 
-#include "common/marcos.h"
+#include "common/macros.h"
 
 namespace rsmesh {
     namespace point_cloud {

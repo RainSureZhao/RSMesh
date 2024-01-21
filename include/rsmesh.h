@@ -6,6 +6,6 @@
 #define RSMESH_RSMESH_H
 
 #include "geometry/point3d.h"
-#include "common/marcos.h"
+#include "common/macros.h"
 
 #endif //RSMESH_RSMESH_H

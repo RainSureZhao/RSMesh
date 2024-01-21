@@ -6,7 +6,7 @@
 #define RSMESH_BBOX3D_H
 
 #include "point3d.h"
-#include "common/marcos.h"
+#include "common/macros.h"
 
 namespace rsmesh {
     namespace geometry {

@@ -3,7 +3,7 @@
 //
 
 #include "point_cloud/kdtree.h"
-#include "common/marcos.h"
+#include "common/macros.h"
 #include <cmath>
 #include <stdexcept>
 
