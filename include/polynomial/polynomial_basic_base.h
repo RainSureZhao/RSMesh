@@ -26,7 +26,7 @@ namespace rsmesh::polynomial {
         [[nodiscard]] int dimension() const {return dimension_;}
         [[nodiscard]] int degree() const {return degree_;}
 
-        index_t basis_size() const {return basis_size(dimension_, degree_);}
+        [[nodiscard]] index_t basis_size() const {return basis_size(dimension_, degree_);}
 
         static index_t basis_size(int dimension, int degree) {
             if(degree < 0) {

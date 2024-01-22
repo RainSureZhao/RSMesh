@@ -48,8 +48,8 @@ namespace rsmesh::polynomial {
                             }
                             for(index_t i = 0; i < sigma; i ++) {
                                 auto i_x = mu + i;
-                                result(0, i_x) = 0.0; // c' = 0
-                                result(1, i_x) = 1.0; // x' = 1
+                                result(0, i_x) = 0.0; // 1_x
+                                result(1, i_x) = 1.0; // x_x = 1
                             }
                             break;
                         case 2:
@@ -62,9 +62,9 @@ namespace rsmesh::polynomial {
                             for(index_t i = 0; i < sigma; i ++) {
                                 auto i_x = i + mu;
                                 auto p = grad_points.row(i);
-                                result(0, i_x) = 0.0; // c' = 0
-                                result(1, i_x) = 1.0; // x' = 1
-                                result(2, i_x) = 2.0 * p(0); // x'^2 = 2x'
+                                result(0, i_x) = 0.0; // 1_x
+                                result(1, i_x) = 1.0; // x_x
+                                result(2, i_x) = 2.0 * p(0); // x^2_x
                             }
                             break;
                         default:
