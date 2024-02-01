@@ -30,7 +30,10 @@ file(GLOB NUMERIC "${PROJECT_SOURCE_DIR}/include/numeric/*.h")
 file(GLOB NORMAL "${PROJECT_SOURCE_DIR}/include/*.h")
 #polynomial
 file(GLOB POLYNOMIAL "${PROJECT_SOURCE_DIR}/include/polynomial/*.h" "${PROJECT_SOURCE_DIR}/src/polynomial/*.cpp")
-
+#interpolation
+file(GLOB INTERPOLATION "${PROJECT_SOURCE_DIR}/include/interpolation/*.h" "${PROJECT_SOURCE_DIR}/src/interpolation/*.cpp")
+#rbf
+file(GLOB RBF "${PROJECT_SOURCE_DIR}/include/rbf/*.h" "${PROJECT_SOURCE_DIR}/src/rbf/*.cpp")
 
 add_executable(RSMesh 
         main.cpp
@@ -40,6 +43,8 @@ add_executable(RSMesh
         ${POINTCLOUD}
         ${NUMERIC}
         ${POLYNOMIAL}
+        ${INTERPOLATION}
+        ${RBF}
 )
 target_include_directories(RSMesh PRIVATE "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})
