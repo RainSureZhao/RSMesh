@@ -36,7 +36,8 @@ file(GLOB POLYNOMIAL "${PROJECT_SOURCE_DIR}/include/polynomial/*.h" "${PROJECT_S
 file(GLOB INTERPOLATION "${PROJECT_SOURCE_DIR}/include/interpolation/*.h" "${PROJECT_SOURCE_DIR}/src/interpolation/*.cpp")
 #rbf
 file(GLOB RBF "${PROJECT_SOURCE_DIR}/include/rbf/*.h" "${PROJECT_SOURCE_DIR}/src/rbf/*.cpp")
-
+#fmm
+file(GLOB FMM "${PROJECT_SOURCE_DIR}/include/fmm/*.h" "${PROJECT_SOURCE_DIR}/src/fmm/*.cpp")
 
 
 add_executable(RSMesh 
@@ -49,6 +50,7 @@ add_executable(RSMesh
         ${POLYNOMIAL}
         ${INTERPOLATION}
         ${RBF}
+        ${FMM}
 )
 target_include_directories(RSMesh PRIVATE "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})
