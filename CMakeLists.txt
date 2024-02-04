@@ -18,6 +18,8 @@ find_package(CGAL CONFIG REQUIRED)
 find_package(flann CONFIG REQUIRED)
 find_package(double-conversion CONFIG REQUIRED)
 
+add_subdirectory(third_party)
+
 #common
 file(GLOB COMMON "${PROJECT_SOURCE_DIR}/include/common/*.h")
 # Geometry
@@ -35,6 +37,8 @@ file(GLOB INTERPOLATION "${PROJECT_SOURCE_DIR}/include/interpolation/*.h" "${PRO
 #rbf
 file(GLOB RBF "${PROJECT_SOURCE_DIR}/include/rbf/*.h" "${PROJECT_SOURCE_DIR}/src/rbf/*.cpp")
 
+
+
 add_executable(RSMesh 
         main.cpp
         ${GEOMETRY}
@@ -48,6 +52,7 @@ add_executable(RSMesh
 )
 target_include_directories(RSMesh PRIVATE "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})
+
 target_link_libraries(RSMesh
         Qt::Core
         Qt::Gui
@@ -56,6 +61,7 @@ target_link_libraries(RSMesh
         CGAL::CGAL
         flann::flann flann::flann_cpp
         double-conversion::double-conversion
+        ScalFmm
 )
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
