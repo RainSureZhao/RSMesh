@@ -21,7 +21,7 @@ namespace rsmesh::fmm {
         fmm_symmetric_evaluator& operator=(const fmm_symmetric_evaluator&) = delete;
         fmm_symmetric_evaluator& operator=(fmm_symmetric_evaluator&&) = delete;
 
-        valuesd evaluate() const;
+        [[nodiscard]] valuesd evaluate() const;
 
         void set_points(const geometry::points3d& points);
 

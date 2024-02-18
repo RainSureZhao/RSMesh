@@ -4,9 +4,9 @@
 
 #include <complex>
 
-#if defined(POLATORY_USE_ACCELERATE)
+#if defined(RSMESH_USE_ACCELERATE)
 #include "FBlasAccelerate.hpp"
-#elif defined(POLATORY_USE_MKL)
+#elif defined(RSMESH_USE_MKL)
 #include "FBlasMKL.hpp"
 #else
 #error "No BLAS/LAPACK has been selected"

@@ -7,6 +7,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CGAL_DO_NOT_WARN_ABOUT_CMAKE_BUILD_TYPE TRUE)
 set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS ON)
+
 find_package(Qt6 COMPONENTS
         Core
         Gui
@@ -17,9 +18,24 @@ find_package(openmesh REQUIRED)
 find_package(CGAL CONFIG REQUIRED)
 find_package(flann CONFIG REQUIRED)
 find_package(double-conversion CONFIG REQUIRED)
+find_package(MKL CONFIG REQUIRED)
+find_package(OpenMP REQUIRED)
 
 add_subdirectory(third_party)
-
+link_directories()
+set(MKL_INCLUDE_DIRS "${MKL_ROOT}/include")
+# !!! Add MKL redist directory to PATH, or you will get -1073741515 (0xC0000135)
+set(MKL_LIBRARIES   "${MKL_ROOT}/redist/intel64/mkl_def.2.dll"
+                    "${MKL_ROOT}/redist/intel64/mkl_mc.2.dll"
+                    "${MKL_ROOT}/redist/intel64/mkl_mc3.2.dll"
+                    "${MKL_ROOT}/redist/intel64/mkl_avx.2.dll"
+                    "${MKL_ROOT}/redist/intel64/mkl_avx2.2.dll"
+                    "${MKL_ROOT}/redist/intel64/mkl_avx512.2.dll"
+                    "${MKL_ROOT}/redist/intel64/mkl_core.2.dll"
+                    "${MKL_ROOT}/redist/intel64/mkl_intel_thread.2.dll"
+                    "${MKL_ROOT}/redist/intel64/mkl_sequential.2.dll"
+                    "${MKL_ROOT}/redist/intel64/mkl_rt.2.dll"
+                    )
 #common
 file(GLOB COMMON "${PROJECT_SOURCE_DIR}/include/common/*.h")
 # Geometry
@@ -38,7 +54,10 @@ file(GLOB INTERPOLATION "${PROJECT_SOURCE_DIR}/include/interpolation/*.h" "${PRO
 file(GLOB RBF "${PROJECT_SOURCE_DIR}/include/rbf/*.h" "${PROJECT_SOURCE_DIR}/src/rbf/*.cpp")
 #fmm
 file(GLOB FMM "${PROJECT_SOURCE_DIR}/include/fmm/*.h" "${PROJECT_SOURCE_DIR}/src/fmm/*.cpp")
-
+#krylov
+file(GLOB KRYLOV "${PROJECT_SOURCE_DIR}/include/krylov/*.h" "${PROJECT_SOURCE_DIR}/src/krylov/*.cpp")
+#preconditioner
+file(GLOB PRECONDITIONER "${PROJECT_SOURCE_DIR}/include/preconditioner/*.h" "${PROJECT_SOURCE_DIR}/src/preconditioner/*.cpp")
 
 add_executable(RSMesh 
         main.cpp
@@ -51,9 +70,12 @@ add_executable(RSMesh
         ${INTERPOLATION}
         ${RBF}
         ${FMM}
+        ${KRYLOV}
+        ${PRECONDITIONER}
 )
 target_include_directories(RSMesh PRIVATE "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})
+target_include_directories(RSMesh PRIVATE ${MKL_INCLUDE_DIRS})
 
 target_link_libraries(RSMesh
         Qt::Core
@@ -64,7 +86,17 @@ target_link_libraries(RSMesh
         flann::flann flann::flann_cpp
         double-conversion::double-conversion
         ScalFmm
+        ${MKL_LIBRARIES}
+        OpenMP::OpenMP_CXX
 )
+
+target_compile_definitions(RSMesh PUBLIC
+    EIGEN_USE_MKL_ALL
+    RSMESH_USE_MKL
+)
+
+# message(STATUS "MKL_INCLUDE_DIRS: ${MKL_INCLUDE_DIRS}")
+
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
     if (MSVC AND CMAKE_BUILD_TYPE MATCHES "Debug")

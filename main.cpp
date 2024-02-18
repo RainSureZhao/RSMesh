@@ -18,12 +18,13 @@ int main(int argc, char *argv[]) {
               7, 7, 7,
               8, 8, 8,
               9, 9, 9;
-    
+
     kdtree tree(points, false);
     std::shared_ptr<rsmesh::rbf::rbf_base> ptr = nullptr;
     auto res = tree.knn_search(point3d(1.7, 1, 2), 3);
     for(const auto &p : res.second) {
         std::cout << p << std::endl;
     }
+    std::cout << "Hello World" << std::endl;
     return 0;
 }
