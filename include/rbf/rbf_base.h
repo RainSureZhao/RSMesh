@@ -42,6 +42,11 @@ namespace rsmesh::rbf{
             return evaluate_gradient_isotropic(a_diff);
         }
 
+        matrix3d evaluate_hessian(const vector3d& diff) const {
+            auto a_diff = geometry::transform_vector(aniso_, diff);
+            return aniso_.transpose() * evaluate_hessian_isotropic(a_diff) * aniso_;
+        }
+
         [[nodiscard]] virtual double evaluate_isotropic(const vector3d& diff) const = 0;
 
         [[nodiscard]] virtual vector3d evaluate_gradient_isotropic(const vector3d& diff) const = 0;

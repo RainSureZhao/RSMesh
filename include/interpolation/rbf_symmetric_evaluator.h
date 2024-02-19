@@ -35,7 +35,7 @@ namespace rsmesh::interpolation {
             }
         }
 
-        valuesd evaluate() const {
+        [[nodiscard]] valuesd evaluate() const {
             auto y = a_->evaluate();
 
             if (n_poly_basis_ > 0) {
@@ -48,7 +48,7 @@ namespace rsmesh::interpolation {
 
         template <class Derived>
         void set_weights(const Eigen::MatrixBase<Derived>& weights) {
-            POLATORY_ASSERT(weights.rows() == n_points_ + n_poly_basis_);
+            RSMESH_ASSERT(weights.rows() == n_points_ + n_poly_basis_);
 
             a_->set_weights(weights.head(n_points_));
 

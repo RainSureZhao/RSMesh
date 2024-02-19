@@ -22,6 +22,8 @@ namespace rsmesh {
             point3d center() const;
             
             bool contains(const point3d& p) const;
+
+            bbox3d convex_hull(const bbox3d& other) const;
             
             const point3d& max() const;
             

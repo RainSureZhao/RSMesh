@@ -64,8 +64,4 @@ namespace rsmesh::preconditioner {
         Eigen::MatrixXd ap_;
     };
 } // rsmesh::preconditioner
-
-
-
-
 #endif //RSMESH_RAS_PRECONDITIONER_H

@@ -29,6 +29,10 @@ namespace rsmesh {
             p[2] >= min_[2] and p[2] <= max_[2];
         }
 
+        bbox3d bbox3d::convex_hull(const bbox3d& other) const {
+            return {min_.cwiseMin(other.min_), max_.cwiseMax(other.max_)};
+        }
+
         const point3d &bbox3d::max() const {
             return max_;
         }

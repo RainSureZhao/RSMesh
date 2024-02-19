@@ -32,7 +32,7 @@ namespace rsmesh {
                     auto j = p.at(i);
                     
                     while(i != j) {
-                        swap(begin(prev_j), begin(j));
+                        swap(begin[prev_j], begin[j]);
                         done.at(j) = true;
                         prev_j = j;
                         j = p.at(j);
