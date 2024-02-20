@@ -59,7 +59,7 @@ namespace rsmesh {
         }
 
         Eigen::JacobiSVD<Eigen::MatrixXd> plane_estimator::pca_svd(const geometry::points3d &points) {
-            auto barycenter = points.colwise().mean();
+            geometry::point3d barycenter = points.colwise().mean();
             return Eigen::JacobiSVD<Eigen::MatrixXd>(points.rowwise() - barycenter, Eigen::ComputeThinV);
         }
         

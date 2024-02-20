@@ -404,7 +404,7 @@ namespace rsmesh {
             }
             
             template <class Derived, class ...Args>
-            Eigen::Index common_rows(const Eigen::MatrixBase<Derived>& m, const Args&&... args) {
+            Eigen::Index common_rows(const Eigen::MatrixBase<Derived>& m, Args&&... args) {
                 if(m.rows() != common_rows(std::forward<Args>(args)...)) {
                     throw std::invalid_argument("All inputs must have the same number of rows");
                 }
@@ -416,7 +416,7 @@ namespace rsmesh {
                 result = m;
             }
             
-            template <class ResultDerived, class Derived, class ...Args>
+            template <class ResultDerived, class Derived, class... Args>
             void concatenate_cols_impl(Eigen::MatrixBase<ResultDerived>& result, const Eigen::MatrixBase<Derived>&m, Args&&... args) {
                 result.leftCols(m.cols()) = m;
                 auto result_tail = result.rightCols(result.cols() - m.cols());
@@ -466,7 +466,7 @@ namespace rsmesh {
         auto concatenate_cols(Args&&... args) {
             Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> result (
                 detail::common_rows(std::forward<Args>(args)...),
-                common::fold_left(std::plus<>(), args.cols()...)
+                (args.cols() + ...)
             );
             
             detail::concatenate_cols_impl(result, std::forward<Args>(args)...);

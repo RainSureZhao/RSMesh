@@ -17,12 +17,11 @@ find_package(Eigen3 CONFIG REQUIRED)
 find_package(openmesh REQUIRED)
 find_package(CGAL CONFIG REQUIRED)
 find_package(flann CONFIG REQUIRED)
-find_package(double-conversion CONFIG REQUIRED)
+# find_package(double-conversion CONFIG REQUIRED)
 find_package(MKL CONFIG REQUIRED)
 find_package(OpenMP REQUIRED)
 
 add_subdirectory(third_party)
-link_directories()
 set(MKL_INCLUDE_DIRS "${MKL_ROOT}/include")
 # !!! Add MKL redist directory to PATH, or you will get -1073741515 (0xC0000135)
 set(MKL_LIBRARIES   "${MKL_ROOT}/redist/intel64/mkl_def.2.dll"
@@ -59,6 +58,9 @@ file(GLOB KRYLOV "${PROJECT_SOURCE_DIR}/include/krylov/*.h" "${PROJECT_SOURCE_DI
 #preconditioner
 file(GLOB PRECONDITIONER "${PROJECT_SOURCE_DIR}/include/preconditioner/*.h" "${PROJECT_SOURCE_DIR}/src/preconditioner/*.cpp")
 
+#examples
+file(GLOB EXAMPLES "${PROJECT_SOURCE_DIR}/include/examples/*.h" "${PROJECT_SOURCE_DIR}/examples/*.cpp")
+
 add_executable(RSMesh 
         main.cpp
         ${GEOMETRY}
@@ -72,26 +74,27 @@ add_executable(RSMesh
         ${FMM}
         ${KRYLOV}
         ${PRECONDITIONER}
+        ${EXAMPLES}
 )
-target_include_directories(RSMesh PRIVATE "${PROJECT_SOURCE_DIR}/include")
+target_include_directories(RSMesh PUBLIC "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})
 target_include_directories(RSMesh PRIVATE ${MKL_INCLUDE_DIRS})
 
-target_link_libraries(RSMesh
+target_link_libraries(RSMesh PUBLIC
         Qt::Core
         Qt::Gui
         Qt::Widgets
         ${OPENMESH_LIBRARIES}
         CGAL::CGAL
         flann::flann flann::flann_cpp
-        double-conversion::double-conversion
         ScalFmm
         ${MKL_LIBRARIES}
         OpenMP::OpenMP_CXX
+        double-conversion
 )
 
 target_compile_definitions(RSMesh PUBLIC
-    EIGEN_USE_MKL_ALL
+    # EIGEN_USE_MKL_ALL
     RSMESH_USE_MKL
 )
 

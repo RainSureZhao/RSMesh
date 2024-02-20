@@ -78,10 +78,10 @@ namespace rsmesh {
                     max().cwiseMax(other.max())
             };
         }
-
-        bbox3d bbox3d::from_points(const points3d &points) {
-            return from_points(common::row_begin(points), common::row_end(points));
-        }
+        // 以下代码无用了，替换为了更简洁的模板写法
+//        bbox3d bbox3d::from_points(const points3d &points) {
+//            return from_points(common::row_begin(points), common::row_end(points));
+//        }
         
     } // rsmesh
 } // geometry

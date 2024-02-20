@@ -19,23 +19,23 @@ namespace rsmesh {
             
             bool operator== (const bbox3d& rhs) const;
             
-            point3d center() const;
+            [[nodiscard]] point3d center() const;
             
-            bool contains(const point3d& p) const;
+            [[nodiscard]] bool contains(const point3d& p) const;
 
-            bbox3d convex_hull(const bbox3d& other) const;
+            [[nodiscard]] bbox3d convex_hull(const bbox3d& other) const;
             
-            const point3d& max() const;
+            [[nodiscard]] const point3d& max() const;
             
-            const point3d& min() const;
+            [[nodiscard]] const point3d& min() const;
             
-            vector3d size() const;
+            [[nodiscard]] vector3d size() const;
             
-            bbox3d transform(const linear_transformation3d& t) const;
+            [[nodiscard]] bbox3d transform(const linear_transformation3d& t) const;
             
-            bbox3d union_hull(const bbox3d& other) const;
+            [[nodiscard]] bbox3d union_hull(const bbox3d& other) const;
             
-            static bbox3d from_points(const points3d& points);
+            // static bbox3d from_points(const points3d& points);
             
             
             template<class InputIterator>
@@ -59,6 +59,15 @@ namespace rsmesh {
                 }
                 
                 return result;
+            }
+
+            template <class Derived>
+            static bbox3d from_points(const Eigen::MatrixBase<Derived>& points) {
+                if (points.rows() == 0) {
+                    return {};
+                }
+
+                return {points.colwise().minCoeff(), points.colwise().maxCoeff()};
             }
             
         private:

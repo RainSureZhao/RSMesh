@@ -74,6 +74,7 @@ namespace rsmesh {
                  
                  for(auto k : ks_sorted) {
                      nn_indices.resize(k);
+                     auto tmp = points_(nn_indices, Eigen::all);
                      plane_estimator est(points_(nn_indices, Eigen::all));
                      plane_factors.push_back(est.plane_factor());
                      plane_normals.push_back(est.plane_normal());
@@ -128,7 +129,6 @@ namespace rsmesh {
 
 
         geometry::vectors3d normal_estimator::orient_closed_surface(rsmesh::index_t k) {
-            
             if(n_points_ > 0 and normals_.rows() == 0) {
                 throw std::runtime_error("Normals have not been estimated yet.");
             }
@@ -147,16 +147,15 @@ namespace rsmesh {
             
             std::vector<index_t> indices(n_points_);
             std::iota(begin(indices), end(indices), 0);
-
             {
                 std::vector<double> distances(n_points_);
                 for(index_t i = 0; i < n_points_; i ++) {
                     auto p = points_.row(i);
-                    distances[i] = (p - p_outer).norm();
+                    distances.at(i) = (p_outer - p).norm();
                 }
                 
                 std::sort(begin(indices), end(indices), [&](int i, int j) {
-                    return distances.at(i) > distances.at(j); 
+                    return distances.at(i) < distances.at(j);
                 });
             }
             
