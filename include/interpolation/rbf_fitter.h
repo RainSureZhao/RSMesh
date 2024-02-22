@@ -11,9 +11,10 @@
 
 namespace rsmesh::interpolation {
     class rbf_fitter {
-        rbf_fitter(const model& model, const geometry::points3d& points) : model_(model), points_(points) {};
+    public:
+        rbf_fitter(const model& model, const geometry::points3d& points);
 
-        valuesd fit(const valuesd& values, double absolute_tolerance, int max_iter) const;
+        [[nodiscard]] valuesd fit(const valuesd& values, double absolute_tolerance, int max_iter) const;
 
     private:
         const model& model_;

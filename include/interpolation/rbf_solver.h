@@ -54,7 +54,32 @@ namespace rsmesh::interpolation {
                 common::orthonormalize_cols(p_);
             }
         }
+        template <class Derived>
+        valuesd solve(const Eigen::MatrixBase<Derived>& values, double absolute_tolerance,
+                              int max_iter) const {
+            RSMESH_ASSERT(values.rows() == n_points_);
 
+            return solve_impl(values, absolute_tolerance, max_iter);
+        }
+
+        template <class Derived, class Derived2>
+        valuesd solve(const Eigen::MatrixBase<Derived>& values, double absolute_tolerance,
+                              int max_iter, const Eigen::MatrixBase<Derived2>& initial_solution) const {
+            RSMESH_ASSERT(values.rows() == n_points_);
+            RSMESH_ASSERT(initial_solution.rows() == n_points_ + n_poly_basis_);
+
+            valuesd ini_sol = initial_solution;
+
+            if (n_poly_basis_ > 0) {
+                // Orthogonalize weights against P.
+                auto n_cols = p_.cols();
+                for (index_t i = 0; i < n_cols; i++) {
+                    ini_sol.head(n_points_) -= p_.col(i).dot(ini_sol.head(n_points_)) * p_.col(i);
+                }
+            }
+
+            return solve_impl(values, absolute_tolerance, max_iter, &ini_sol);
+        }
 
     private:
         template <class Derived, class Derived2 = valuesd>

@@ -66,7 +66,7 @@ namespace rsmesh::interpolation {
             return evaluate();
         }
 
-        void set_field_points(const geometry::points3d& points) {
+        void set_field_points(const geometry::points3d& points) const {
             a_->set_field_points(points);
             if(n_poly_basis_ > 0) {
                 p_->set_field_points(points);
