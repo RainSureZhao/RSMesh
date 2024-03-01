@@ -10,7 +10,11 @@
 
 namespace rsmesh {
     namespace geometry {
-        
+
+        using vector2d = Eigen::RowVector2d;
+
+        using point2d = vector2d;
+
         using vector3d = Eigen::RowVector3d;
 
         using matrix3d = Eigen::Matrix<double, 3, 3, Eigen::RowMajor>;

@@ -18,13 +18,21 @@
 #include "common/eigen_utility.h"
 
 namespace rsmesh::examples {
+    struct SdfParameters {
+        std::string input;
+        std::string output;
+        double max_offset;
+        double min_offset = 0.0;
+        double sdf_multiplication = 2.0;
+    };
     void generate_sdf(
-        const std::string& input,
-        const std::string& output,
-        const double max_offset,
-        const double min_offset = 0.0,
-        const double sdf_multiplication = 2.0
+        const SdfParameters& parameters
             ) {
+        const std::string& input = parameters.input;
+        const std::string& output = parameters.output;
+        const double max_offset = parameters.max_offset;
+        const double min_offset = parameters.min_offset;
+        const double sdf_multiplication = parameters.sdf_multiplication;
         // read data: points(x, y, z) and normals(nx, ny, nz)
         tabled table = read_table(input);
 

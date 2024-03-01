@@ -16,14 +16,22 @@
 #include <iostream>
 
 namespace rsmesh::examples {
+    struct ClosedNormalsParameters {
+        std::string input;
+        std::string output;
+        std::vector<index_t> knn_number_normals = {10, 30, 100, 300};
+        index_t knn_number_orientations = 20;
+        double min_plane_factor = 1.8;
+    };
     void generate_closed_normals(
-            const std::string& input,
-            const std::string& output,
-            const std::vector<index_t>& knn_number_normals = {10, 30, 100, 300},
-            const index_t knn_number_orientations = 20,
-            const double min_plane_factor = 1.8
+            const ClosedNormalsParameters& parameters
             ) {
         try {
+            const std::string& input = parameters.input;
+            const std::string& output = parameters.output;
+            const std::vector<index_t>& knn_number_normals = parameters.knn_number_normals;
+            const index_t knn_number_orientations = parameters.knn_number_orientations;
+            const double min_plane_factor = parameters.min_plane_factor;
             // read points x, y, z
             tabled table = read_table(input);
             geometry::points3d points = table(Eigen::all, {0, 1, 2});

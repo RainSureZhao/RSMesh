@@ -57,6 +57,9 @@ file(GLOB FMM "${PROJECT_SOURCE_DIR}/include/fmm/*.h" "${PROJECT_SOURCE_DIR}/src
 file(GLOB KRYLOV "${PROJECT_SOURCE_DIR}/include/krylov/*.h" "${PROJECT_SOURCE_DIR}/src/krylov/*.cpp")
 #preconditioner
 file(GLOB PRECONDITIONER "${PROJECT_SOURCE_DIR}/include/preconditioner/*.h" "${PROJECT_SOURCE_DIR}/src/preconditioner/*.cpp")
+#isosurface
+file(GLOB ISOSURFACE "${PROJECT_SOURCE_DIR}/include/isosurface/*.h" "${PROJECT_SOURCE_DIR}/src/isosurface/*.cpp")
+
 
 #examples
 file(GLOB EXAMPLES "${PROJECT_SOURCE_DIR}/include/examples/*.h" "${PROJECT_SOURCE_DIR}/examples/*.cpp")
@@ -75,6 +78,7 @@ add_executable(RSMesh
         ${KRYLOV}
         ${PRECONDITIONER}
         ${EXAMPLES}
+        ${ISOSURFACE}
 )
 target_include_directories(RSMesh PUBLIC "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})

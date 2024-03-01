@@ -121,6 +121,7 @@ namespace rsmesh::interpolation {
                     throw std::runtime_error("Reached the maximum number of iterations.");
                 }
             }
+            return solution;
         }
         const model& model_;
         const index_t n_poly_basis_;
