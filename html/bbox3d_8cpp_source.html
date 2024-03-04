@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: src/geometry/bbox3d.cpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_405fd32de3649961a5f009c7a3fe84df.html">geometry</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">bbox3d.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Created by RainSure on 2023/10/26.</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;geometry/bbox3d.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;common/eigen_utility.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacersmesh.html">rsmesh</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">namespace </span>geometry {</div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classrsmesh_1_1geometry_1_1bbox3d.html#a609d14a0d2ebb28710ee180395e372ee">   16</a></span>        <a class="code hl_function" href="classrsmesh_1_1geometry_1_1bbox3d.html#a609d14a0d2ebb28710ee180395e372ee">bbox3d::bbox3d</a>() : min_(std::numeric_limits&lt;double&gt;::infinity(), std::numeric_limits&lt;double&gt;::infinity(), std::numeric_limits&lt;double&gt;::infinity()), </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            max_(-std::numeric_limits&lt;double&gt;::infinity(), -std::numeric_limits&lt;double&gt;::infinity(), -std::numeric_limits&lt;double&gt;::infinity()){}</div>
+</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classrsmesh_1_1geometry_1_1bbox3d.html#abcf9409fb5b2380f17d8d5cee45158ff">   24</a></span>        <a class="code hl_function" href="classrsmesh_1_1geometry_1_1bbox3d.html#a609d14a0d2ebb28710ee180395e372ee">bbox3d::bbox3d</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;min, <span class="keyword">const</span> <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;max) : min_(min), max_(max){</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        }</div>
+</div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classrsmesh_1_1geometry_1_1bbox3d.html#a62f7df24ceee045ec118410c0e9e8bd4">   31</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classrsmesh_1_1geometry_1_1bbox3d.html#a62f7df24ceee045ec118410c0e9e8bd4">bbox3d::operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> &amp;rhs)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            <span class="keywordflow">return</span> min_ == rhs.min_ and max_ == rhs.max_;   </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
+</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classrsmesh_1_1geometry_1_1bbox3d.html#ae76e49563d29ff3dde265e60d6843abd">   39</a></span>        <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> <a class="code hl_function" href="classrsmesh_1_1geometry_1_1bbox3d.html#ae76e49563d29ff3dde265e60d6843abd">bbox3d::center</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordflow">return</span> min_ + size() / 2.0;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        }</div>
+</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classrsmesh_1_1geometry_1_1bbox3d.html#a2addc943fb0a5d602c7a77f3219a94dd">   48</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classrsmesh_1_1geometry_1_1bbox3d.html#a2addc943fb0a5d602c7a77f3219a94dd">bbox3d::contains</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;p)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordflow">return</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            p[0] &gt;= min_[0] and p[0] &lt;= max_[0] and </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            p[1] &gt;= min_[1] and p[1] &lt;= max_[1] and </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            p[2] &gt;= min_[2] and p[2] &lt;= max_[2];</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
+</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classrsmesh_1_1geometry_1_1bbox3d.html#a656d03a7ebcb7f5c9c4e33798aecf7e5">   60</a></span>        <a class="code hl_class" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> <a class="code hl_function" href="classrsmesh_1_1geometry_1_1bbox3d.html#a656d03a7ebcb7f5c9c4e33798aecf7e5">bbox3d::convex_hull</a>(<span class="keyword">const</span> <a class="code hl_class" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a>&amp; other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keywordflow">return</span> {min_.cwiseMin(other.min_), max_.cwiseMax(other.max_)};</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        }</div>
+</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;bbox3d::max()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keywordflow">return</span> max_;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;bbox3d::min()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordflow">return</span> min_;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a9076acee1b46c372f8242499125dc608">vector3d</a> bbox3d::size()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keywordflow">return</span> max_ - min_;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        bbox3d bbox3d::transform(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a72e45be83081efde821fab26fdbdaae3">linear_transformation3d</a> &amp;t)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keyword">auto</span> c = <a class="code hl_function" href="classrsmesh_1_1geometry_1_1bbox3d.html#ae76e49563d29ff3dde265e60d6843abd">center</a>();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a9076acee1b46c372f8242499125dc608">vector3d</a> v1 = <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a>(min_[0], max_[1], max_[2]) - c;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a9076acee1b46c372f8242499125dc608">vector3d</a> v2 = <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a>(max_[0], min_[1], max_[2]) - c;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a9076acee1b46c372f8242499125dc608">vector3d</a> v3 = <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a>(max_[0], max_[1], min_[2]) - c;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            c = <a class="code hl_function" href="namespacersmesh_1_1geometry.html#a2f87b1ef9ad7cab8fb11b8247dc0c774">transform_point</a>(t, c);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            v1 = <a class="code hl_function" href="namespacersmesh_1_1geometry.html#a48974d1e3db5a23c6025e7d53d595a13">transform_vector</a>(t, v1);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            v2 = <a class="code hl_function" href="namespacersmesh_1_1geometry.html#a48974d1e3db5a23c6025e7d53d595a13">transform_vector</a>(t, v2);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            v3 = <a class="code hl_function" href="namespacersmesh_1_1geometry.html#a48974d1e3db5a23c6025e7d53d595a13">transform_vector</a>(t, v3);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <a class="code hl_typedef" href="namespacersmesh_1_1geometry.html#a20da587d2d750d8fdf5a15d2171aaaa4">vectors3d</a> vertices(8, 3);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            vertices.row(0) = -v1 - v2 - v3; <span class="comment">// min, min, min</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            vertices.row(1) = -v1;           <span class="comment">// max, min, min</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            vertices.row(2) = v3;            <span class="comment">// max, max, min</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            vertices.row(3) = -v2;           <span class="comment">// min, max, min</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            vertices.row(4) = v1;            <span class="comment">// min, max, max</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            vertices.row(5) = -v3;           <span class="comment">// min, min, max</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            vertices.row(6) = v2;            <span class="comment">// max, min, max</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            vertices.row(7) = v1 + v2 + v3;  <span class="comment">// max, max, max</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            <span class="keyword">auto</span> min = c + vertices.colwise().minCoeff();</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            <span class="keyword">auto</span> max = c + vertices.colwise().maxCoeff();</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            <span class="keywordflow">return</span> {min, max};</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        bbox3d bbox3d::union_hull(<span class="keyword">const</span> bbox3d &amp;other)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">return</span> {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                    min().cwiseMin(other.min()),</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                    max().cwiseMax(other.max())</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            };</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="comment">// 以下代码无用了，替换为了更简洁的模板写法</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">//        bbox3d bbox3d::from_points(const points3d &amp;points) {</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment">//            return from_points(common::row_begin(points), common::row_end(points));</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment">//        }</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    } <span class="comment">// rsmesh</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>} <span class="comment">// geometry</span></div>
+<div class="ttc" id="aclassrsmesh_1_1geometry_1_1bbox3d_html"><div class="ttname"><a href="classrsmesh_1_1geometry_1_1bbox3d.html">rsmesh::geometry::bbox3d</a></div><div class="ttdef"><b>Definition</b> <a href="bbox3d_8h_source.html#l00014">bbox3d.h:14</a></div></div>
+<div class="ttc" id="aclassrsmesh_1_1geometry_1_1bbox3d_html_a2addc943fb0a5d602c7a77f3219a94dd"><div class="ttname"><a href="classrsmesh_1_1geometry_1_1bbox3d.html#a2addc943fb0a5d602c7a77f3219a94dd">rsmesh::geometry::bbox3d::contains</a></div><div class="ttdeci">bool contains(const point3d &amp;p) const</div><div class="ttdef"><b>Definition</b> <a href="#l00048">bbox3d.cpp:48</a></div></div>
+<div class="ttc" id="aclassrsmesh_1_1geometry_1_1bbox3d_html_a609d14a0d2ebb28710ee180395e372ee"><div class="ttname"><a href="classrsmesh_1_1geometry_1_1bbox3d.html#a609d14a0d2ebb28710ee180395e372ee">rsmesh::geometry::bbox3d::bbox3d</a></div><div class="ttdeci">bbox3d()</div><div class="ttdoc">bbox3d类的默认构造函数</div><div class="ttdef"><b>Definition</b> <a href="#l00016">bbox3d.cpp:16</a></div></div>
+<div class="ttc" id="aclassrsmesh_1_1geometry_1_1bbox3d_html_a62f7df24ceee045ec118410c0e9e8bd4"><div class="ttname"><a href="classrsmesh_1_1geometry_1_1bbox3d.html#a62f7df24ceee045ec118410c0e9e8bd4">rsmesh::geometry::bbox3d::operator==</a></div><div class="ttdeci">bool operator==(const bbox3d &amp;rhs) const</div><div class="ttdoc">重载了==运算符，用于判断两个bbox3d是否相等</div><div class="ttdef"><b>Definition</b> <a href="#l00031">bbox3d.cpp:31</a></div></div>
+<div class="ttc" id="aclassrsmesh_1_1geometry_1_1bbox3d_html_a656d03a7ebcb7f5c9c4e33798aecf7e5"><div class="ttname"><a href="classrsmesh_1_1geometry_1_1bbox3d.html#a656d03a7ebcb7f5c9c4e33798aecf7e5">rsmesh::geometry::bbox3d::convex_hull</a></div><div class="ttdeci">bbox3d convex_hull(const bbox3d &amp;other) const</div><div class="ttdef"><b>Definition</b> <a href="#l00060">bbox3d.cpp:60</a></div></div>
+<div class="ttc" id="aclassrsmesh_1_1geometry_1_1bbox3d_html_ae76e49563d29ff3dde265e60d6843abd"><div class="ttname"><a href="classrsmesh_1_1geometry_1_1bbox3d.html#ae76e49563d29ff3dde265e60d6843abd">rsmesh::geometry::bbox3d::center</a></div><div class="ttdeci">point3d center() const</div><div class="ttdoc">返回包围盒的中心点</div><div class="ttdef"><b>Definition</b> <a href="#l00039">bbox3d.cpp:39</a></div></div>
+<div class="ttc" id="anamespacersmesh_1_1geometry_html_a20da587d2d750d8fdf5a15d2171aaaa4"><div class="ttname"><a href="namespacersmesh_1_1geometry.html#a20da587d2d750d8fdf5a15d2171aaaa4">rsmesh::geometry::vectors3d</a></div><div class="ttdeci">Eigen::Matrix&lt; double, Eigen::Dynamic, 3, Eigen::RowMajor &gt; vectors3d</div><div class="ttdoc">3维向量的集合</div><div class="ttdef"><b>Definition</b> <a href="point3d_8h_source.html#l00044">point3d.h:44</a></div></div>
+<div class="ttc" id="anamespacersmesh_1_1geometry_html_a2f87b1ef9ad7cab8fb11b8247dc0c774"><div class="ttname"><a href="namespacersmesh_1_1geometry.html#a2f87b1ef9ad7cab8fb11b8247dc0c774">rsmesh::geometry::transform_point</a></div><div class="ttdeci">point3d transform_point(const linear_transformation3d &amp;lhs, const point3d &amp;p)</div><div class="ttdoc">对一个三维点进行线性变换</div><div class="ttdef"><b>Definition</b> <a href="point3d_8h_source.html#l00075">point3d.h:75</a></div></div>
+<div class="ttc" id="anamespacersmesh_1_1geometry_html_a48974d1e3db5a23c6025e7d53d595a13"><div class="ttname"><a href="namespacersmesh_1_1geometry.html#a48974d1e3db5a23c6025e7d53d595a13">rsmesh::geometry::transform_vector</a></div><div class="ttdeci">vector3d transform_vector(const linear_transformation3d &amp;lhs, const vector3d &amp;v)</div><div class="ttdoc">对一个三维向量进行线性变换</div><div class="ttdef"><b>Definition</b> <a href="point3d_8h_source.html#l00087">point3d.h:87</a></div></div>
+<div class="ttc" id="anamespacersmesh_1_1geometry_html_a5a8298c925fa95dd2345ab74c96efaf8"><div class="ttname"><a href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">rsmesh::geometry::point3d</a></div><div class="ttdeci">vector3d point3d</div><div class="ttdoc">3维点</div><div class="ttdef"><b>Definition</b> <a href="point3d_8h_source.html#l00039">point3d.h:39</a></div></div>
+<div class="ttc" id="anamespacersmesh_1_1geometry_html_a72e45be83081efde821fab26fdbdaae3"><div class="ttname"><a href="namespacersmesh_1_1geometry.html#a72e45be83081efde821fab26fdbdaae3">rsmesh::geometry::linear_transformation3d</a></div><div class="ttdeci">Eigen::Matrix&lt; double, 3, 3, Eigen::RowMajor &gt; linear_transformation3d</div><div class="ttdoc">线性变换矩阵</div><div class="ttdef"><b>Definition</b> <a href="point3d_8h_source.html#l00053">point3d.h:53</a></div></div>
+<div class="ttc" id="anamespacersmesh_1_1geometry_html_a9076acee1b46c372f8242499125dc608"><div class="ttname"><a href="namespacersmesh_1_1geometry.html#a9076acee1b46c372f8242499125dc608">rsmesh::geometry::vector3d</a></div><div class="ttdeci">Eigen::RowVector3d vector3d</div><div class="ttdoc">3维向量</div><div class="ttdef"><b>Definition</b> <a href="point3d_8h_source.html#l00030">point3d.h:30</a></div></div>
+<div class="ttc" id="anamespacersmesh_html"><div class="ttname"><a href="namespacersmesh.html">rsmesh</a></div><div class="ttdoc">本系统的主命名空间，包含了common, examples, fmm, geometry, numeric, point_cloud等子命名空间</div><div class="ttdef"><b>Definition</b> <a href="eigen__utility_8h_source.html#l00023">eigen_utility.h:23</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

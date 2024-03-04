@@ -1,0 +1,566 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FFmmAlgorithmPeriodic&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-methods">Protected 成员函数</a> &#124;
+<a href="class_f_fmm_algorithm_periodic-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FFmmAlgorithmPeriodic&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Please read the license  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_fmm_algorithm_periodic_8hpp_source.html">FFmmAlgorithmPeriodic.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FFmmAlgorithmPeriodic&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_fmm_algorithm_periodic.png" usemap="#FFmmAlgorithmPeriodic_3C_20FReal_2C_20OctreeClass_2C_20CellClass_2C_20ContainerClass_2C_20KernelClass_2C_20LeafClass_20_3E_map" alt=""/>
+  <map id="FFmmAlgorithmPeriodic_3C_20FReal_2C_20OctreeClass_2C_20CellClass_2C_20ContainerClass_2C_20KernelClass_2C_20LeafClass_20_3E_map" name="FFmmAlgorithmPeriodic_3C_20FReal_2C_20OctreeClass_2C_20CellClass_2C_20ContainerClass_2C_20KernelClass_2C_20LeafClass_20_3E_map">
+<area href="class_f_abstract_algorithm.html" title="Base class of algorithms" alt="FAbstractAlgorithm" shape="rect" coords="0,0,581,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a1148ee1202cc888b8ca505380a6c56d4" id="r_a1148ee1202cc888b8ca505380a6c56d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1148ee1202cc888b8ca505380a6c56d4">FFmmAlgorithmPeriodic</a> (OctreeClass *const inTree, const int inUpperLevel=0, const int inLeafLevelSeperationCriteria=1)</td></tr>
+<tr class="separator:a1148ee1202cc888b8ca505380a6c56d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8000050b9ac97721cceeaf8a1366bfd5" id="r_a8000050b9ac97721cceeaf8a1366bfd5"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8000050b9ac97721cceeaf8a1366bfd5">~FFmmAlgorithmPeriodic</a> ()</td></tr>
+<tr class="separator:a8000050b9ac97721cceeaf8a1366bfd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f6997bb7ad707481e7d168154be38ed" id="r_a9f6997bb7ad707481e7d168154be38ed"><td class="memItemLeft" align="right" valign="top"><a id="a9f6997bb7ad707481e7d168154be38ed" name="a9f6997bb7ad707481e7d168154be38ed"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setKernel</b> (KernelClass *const inKernel)</td></tr>
+<tr class="separator:a9f6997bb7ad707481e7d168154be38ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bb57c6c983c220a2813d7262ef64e12" id="r_a6bb57c6c983c220a2813d7262ef64e12"><td class="memItemLeft" align="right" valign="top"><a id="a6bb57c6c983c220a2813d7262ef64e12" name="a6bb57c6c983c220a2813d7262ef64e12"></a>
+long long int&#160;</td><td class="memItemRight" valign="bottom"><b>theoricalRepetition</b> () const</td></tr>
+<tr class="separator:a6bb57c6c983c220a2813d7262ef64e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac92f257f0e41245f6d82d9e7528a4dd9" id="r_ac92f257f0e41245f6d82d9e7528a4dd9"><td class="memItemLeft" align="right" valign="top"><a id="ac92f257f0e41245f6d82d9e7528a4dd9" name="ac92f257f0e41245f6d82d9e7528a4dd9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>repetitionsIntervals</b> (<a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> *const min, <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> *const max) const</td></tr>
+<tr class="separator:ac92f257f0e41245f6d82d9e7528a4dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0505a1969d5f057eaa2103f5aa07bde8" id="r_a0505a1969d5f057eaa2103f5aa07bde8"><td class="memItemLeft" align="right" valign="top"><a id="a0505a1969d5f057eaa2103f5aa07bde8" name="a0505a1969d5f057eaa2103f5aa07bde8"></a>
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>extendedBoxWidth</b> () const</td></tr>
+<tr class="separator:a0505a1969d5f057eaa2103f5aa07bde8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a063b102f17898f91e14d9f01e4efe9b5" id="r_a063b102f17898f91e14d9f01e4efe9b5"><td class="memItemLeft" align="right" valign="top"><a id="a063b102f17898f91e14d9f01e4efe9b5" name="a063b102f17898f91e14d9f01e4efe9b5"></a>
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>extendedBoxWidthBoundary</b> () const</td></tr>
+<tr class="separator:a063b102f17898f91e14d9f01e4efe9b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad33105e379076119af77d1e849038661" id="r_ad33105e379076119af77d1e849038661"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad33105e379076119af77d1e849038661">extendedBoxCenter</a> () const</td></tr>
+<tr class="separator:ad33105e379076119af77d1e849038661"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab04cfc3616d3637f9e3fd25390964451" id="r_ab04cfc3616d3637f9e3fd25390964451"><td class="memItemLeft" align="right" valign="top"><a id="ab04cfc3616d3637f9e3fd25390964451" name="ab04cfc3616d3637f9e3fd25390964451"></a>
+<a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>extendedBoxCenterBoundary</b> () const</td></tr>
+<tr class="separator:ab04cfc3616d3637f9e3fd25390964451"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0764d8ad4f7eef353454baa458e2b70" id="r_ae0764d8ad4f7eef353454baa458e2b70"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0764d8ad4f7eef353454baa458e2b70">extendedTreeHeight</a> () const</td></tr>
+<tr class="separator:ae0764d8ad4f7eef353454baa458e2b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb08dab75f2aaabe0cd0a3294411938" id="r_a3cb08dab75f2aaabe0cd0a3294411938"><td class="memItemLeft" align="right" valign="top"><a id="a3cb08dab75f2aaabe0cd0a3294411938" name="a3cb08dab75f2aaabe0cd0a3294411938"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>extendedTreeHeightBoundary</b> () const</td></tr>
+<tr class="separator:a3cb08dab75f2aaabe0cd0a3294411938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_f_abstract_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_f_abstract_algorithm')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="class_f_abstract_algorithm.html">FAbstractAlgorithm</a></td></tr>
+<tr class="memitem:ad7a63872accd27bf737746ad3dd6ce59 inherit pub_methods_class_f_abstract_algorithm" id="r_ad7a63872accd27bf737746ad3dd6ce59"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const int inUpperWorkingLevel, const int inLowerWorkingLevel) final</td></tr>
+<tr class="memdesc:ad7a63872accd27bf737746ad3dd6ce59 inherit pub_methods_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the whole fmm for given levels. <br /></td></tr>
+<tr class="separator:ad7a63872accd27bf737746ad3dd6ce59 inherit pub_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50596bdd3235bc4d2a7b8415f0b6d8d5 inherit pub_methods_class_f_abstract_algorithm" id="r_a50596bdd3235bc4d2a7b8415f0b6d8d5"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> () final</td></tr>
+<tr class="memdesc:a50596bdd3235bc4d2a7b8415f0b6d8d5 inherit pub_methods_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the whole fmm. <br /></td></tr>
+<tr class="separator:a50596bdd3235bc4d2a7b8415f0b6d8d5 inherit pub_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fbd7069185281dd3c9ede89c2d030b6 inherit pub_methods_class_f_abstract_algorithm" id="r_a4fbd7069185281dd3c9ede89c2d030b6"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const unsigned operationsToProceed, const int inUpperWorkingLevel, const int inLowerWorkingLevel) final</td></tr>
+<tr class="memdesc:a4fbd7069185281dd3c9ede89c2d030b6 inherit pub_methods_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute only some FMM operations for given levels. <br /></td></tr>
+<tr class="separator:a4fbd7069185281dd3c9ede89c2d030b6 inherit pub_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c5dc685cb49818bb8c3ad7ca9e9bcea inherit pub_methods_class_f_abstract_algorithm" id="r_a8c5dc685cb49818bb8c3ad7ca9e9bcea"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const unsigned operationsToProceed) final</td></tr>
+<tr class="memdesc:a8c5dc685cb49818bb8c3ad7ca9e9bcea inherit pub_methods_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute only some steps. <br /></td></tr>
+<tr class="separator:a8c5dc685cb49818bb8c3ad7ca9e9bcea inherit pub_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected 成员函数</h2></td></tr>
+<tr class="memitem:a2a4040917c958637510c57c1f9762855" id="r_a2a4040917c958637510c57c1f9762855"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a4040917c958637510c57c1f9762855">executeCore</a> (const unsigned operationsToProceed) override</td></tr>
+<tr class="separator:a2a4040917c958637510c57c1f9762855"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9622b9ab48e82bb7e2f99657394cdcc3" id="r_a9622b9ab48e82bb7e2f99657394cdcc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9622b9ab48e82bb7e2f99657394cdcc3">bottomPass</a> ()</td></tr>
+<tr class="separator:a9622b9ab48e82bb7e2f99657394cdcc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24058f800c2ab55f04885f688374b975" id="r_a24058f800c2ab55f04885f688374b975"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24058f800c2ab55f04885f688374b975">upwardPass</a> ()</td></tr>
+<tr class="separator:a24058f800c2ab55f04885f688374b975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bcb9e4d251530c1ab245aa67dda3ef2" id="r_a1bcb9e4d251530c1ab245aa67dda3ef2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1bcb9e4d251530c1ab245aa67dda3ef2">transferPass</a> ()</td></tr>
+<tr class="separator:a1bcb9e4d251530c1ab245aa67dda3ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bdeca05b7344344a81e2e215195a6c4" id="r_a7bdeca05b7344344a81e2e215195a6c4"><td class="memItemLeft" align="right" valign="top"><a id="a7bdeca05b7344344a81e2e215195a6c4" name="a7bdeca05b7344344a81e2e215195a6c4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>downardPass</b> ()</td></tr>
+<tr class="separator:a7bdeca05b7344344a81e2e215195a6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a616121e8b7a83e0aa438bbec81a31e1a" id="r_a616121e8b7a83e0aa438bbec81a31e1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a616121e8b7a83e0aa438bbec81a31e1a">directPass</a> (const bool p2pEnabled, const bool l2pEnabled)</td></tr>
+<tr class="separator:a616121e8b7a83e0aa438bbec81a31e1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab33f1f51b8f6c95afdde5d17f3b54e59" id="r_ab33f1f51b8f6c95afdde5d17f3b54e59"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab33f1f51b8f6c95afdde5d17f3b54e59">neighIndex</a> (const int x, const int y, const int z) const</td></tr>
+<tr class="separator:ab33f1f51b8f6c95afdde5d17f3b54e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb34585501367cfed4c981c9cdd03704" id="r_acb34585501367cfed4c981c9cdd03704"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb34585501367cfed4c981c9cdd03704">processPeriodicLevels</a> ()</td></tr>
+<tr class="separator:acb34585501367cfed4c981c9cdd03704"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_f_abstract_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_f_abstract_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="class_f_abstract_algorithm.html">FAbstractAlgorithm</a></td></tr>
+<tr class="memitem:afa60bb68168233ef8a43a81070d5e242 inherit pro_methods_class_f_abstract_algorithm" id="r_afa60bb68168233ef8a43a81070d5e242"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setNbLevelsInTree</b> (const int inNbLevelsInTree)</td></tr>
+<tr class="separator:afa60bb68168233ef8a43a81070d5e242 inherit pro_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7322f6c45d77e17c8e00a7ed83c9b248 inherit pro_methods_class_f_abstract_algorithm" id="r_a7322f6c45d77e17c8e00a7ed83c9b248"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>validateLevels</b> () const</td></tr>
+<tr class="separator:a7322f6c45d77e17c8e00a7ed83c9b248 inherit pro_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+额外继承的成员函数</h2></td></tr>
+<tr class="inherit_header pro_attribs_class_f_abstract_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_f_abstract_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected 属性 继承自 <a class="el" href="class_f_abstract_algorithm.html">FAbstractAlgorithm</a></td></tr>
+<tr class="memitem:ade49cb5ede82d078261e576a9d809dc2 inherit pro_attribs_class_f_abstract_algorithm" id="r_ade49cb5ede82d078261e576a9d809dc2"><td class="memItemLeft" align="right" valign="top">
+int&#160;</td><td class="memItemRight" valign="bottom"><b>upperWorkingLevel</b></td></tr>
+<tr class="memdesc:ade49cb5ede82d078261e576a9d809dc2 inherit pro_attribs_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Where to start the work <br /></td></tr>
+<tr class="separator:ade49cb5ede82d078261e576a9d809dc2 inherit pro_attribs_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a694b8888186be58e38691ce08b177d46 inherit pro_attribs_class_f_abstract_algorithm" id="r_a694b8888186be58e38691ce08b177d46"><td class="memItemLeft" align="right" valign="top">
+int&#160;</td><td class="memItemRight" valign="bottom"><b>lowerWorkingLevel</b></td></tr>
+<tr class="memdesc:a694b8888186be58e38691ce08b177d46 inherit pro_attribs_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Where to end the work (exclusive) <br /></td></tr>
+<tr class="separator:a694b8888186be58e38691ce08b177d46 inherit pro_attribs_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8f5112c47480a494a15ffddd172079a inherit pro_attribs_class_f_abstract_algorithm" id="r_af8f5112c47480a494a15ffddd172079a"><td class="memItemLeft" align="right" valign="top">
+int&#160;</td><td class="memItemRight" valign="bottom"><b>nbLevelsInTree</b></td></tr>
+<tr class="memdesc:af8f5112c47480a494a15ffddd172079a inherit pro_attribs_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Height of the tree <br /></td></tr>
+<tr class="separator:af8f5112c47480a494a15ffddd172079a inherit pro_attribs_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, class OctreeClass, class CellClass, class ContainerClass, class KernelClass, class LeafClass&gt;<br />
+class FFmmAlgorithmPeriodic&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;</div><p>Please read the license </p>
+<dl class="section author"><dt>作者</dt><dd>Berenger Bramas (<a href="#" onclick="location.href='mai'+'lto:'+'ber'+'en'+'ger'+'.b'+'ram'+'as'+'@in'+'ri'+'a.f'+'r'; return false;">beren<span class="obfuscator">.nosp@m.</span>ger.<span class="obfuscator">.nosp@m.</span>brama<span class="obfuscator">.nosp@m.</span>s@in<span class="obfuscator">.nosp@m.</span>ria.f<span class="obfuscator">.nosp@m.</span>r</a>)</dd></dl>
+<p>This class is a basic FMM algorithm with periodic behavior It just iterates on a tree and call the kernels with good arguments.</p>
+<p>Of course this class does not deallocate pointer given in arguments. </p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a1148ee1202cc888b8ca505380a6c56d4" name="a1148ee1202cc888b8ca505380a6c56d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1148ee1202cc888b8ca505380a6c56d4">&#9670;&#160;</a></span>FFmmAlgorithmPeriodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;<a class="el" href="class_f_fmm_algorithm_periodic.html">::FFmmAlgorithmPeriodic</a> </td>
+          <td>(</td>
+          <td class="paramtype">OctreeClass *const</td>          <td class="paramname"><span class="paramname"><em>inTree</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inUpperLevel</em><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inLeafLevelSeperationCriteria</em><span class="paramdefsep"> = </span><span class="paramdefval">1</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The constructor need the octree and the kernels used for computation </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inTree</td><td>the octree to work on </td></tr>
+    <tr><td class="paramname">inKernels</td><td>the kernels to call An assert is launched if one of the arguments is null </td></tr>
+    <tr><td class="paramname">inUpperLevel</td><td>this parameter defines the behavior of the periodicity refer to the main doc </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8000050b9ac97721cceeaf8a1366bfd5" name="a8000050b9ac97721cceeaf8a1366bfd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8000050b9ac97721cceeaf8a1366bfd5">&#9670;&#160;</a></span>~FFmmAlgorithmPeriodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;::~<a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default destructor </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a9622b9ab48e82bb7e2f99657394cdcc3" name="a9622b9ab48e82bb7e2f99657394cdcc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9622b9ab48e82bb7e2f99657394cdcc3">&#9670;&#160;</a></span>bottomPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;::bottomPass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>P2M </p>
+
+</div>
+</div>
+<a id="a616121e8b7a83e0aa438bbec81a31e1a" name="a616121e8b7a83e0aa438bbec81a31e1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a616121e8b7a83e0aa438bbec81a31e1a">&#9670;&#160;</a></span>directPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;::directPass </td>
+          <td>(</td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>p2pEnabled</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>l2pEnabled</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>P2P </p>
+
+</div>
+</div>
+<a id="a2a4040917c958637510c57c1f9762855" name="a2a4040917c958637510c57c1f9762855"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a4040917c958637510c57c1f9762855">&#9670;&#160;</a></span>executeCore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;::executeCore </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned</td>          <td class="paramname"><span class="paramname"><em>operationsToProceed</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To execute the fmm algorithm Call this function to run the complete algorithm </p>
+
+<p>实现了 <a class="el" href="class_f_abstract_algorithm.html">FAbstractAlgorithm</a>.</p>
+
+</div>
+</div>
+<a id="ad33105e379076119af77d1e849038661" name="ad33105e379076119af77d1e849038661"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33105e379076119af77d1e849038661">&#9670;&#160;</a></span>extendedBoxCenter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; <a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;::extendedBoxCenter </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This function has to be used to init the kernel with correct args it return the box cneter seen from a kernel point of view from the periodicity the user ask for this is computed using the originalBoxWidth and originalBoxCenter given in parameter </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">originalBoxCenter</td><td>the real system center </td></tr>
+    <tr><td class="paramname">originalBoxWidth</td><td>the real system size </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>the center the kernel should use </dd></dl>
+
+</div>
+</div>
+<a id="ae0764d8ad4f7eef353454baa458e2b70" name="ae0764d8ad4f7eef353454baa458e2b70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0764d8ad4f7eef353454baa458e2b70">&#9670;&#160;</a></span>extendedTreeHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;::extendedTreeHeight </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This function has to be used to init the kernel with correct args it return the tree heigh seen from a kernel point of view from the periodicity the user ask for this is computed using the originalTreeHeight given in parameter </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">originalTreeHeight</td><td>the real tree heigh </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>the heigh the kernel should use </dd></dl>
+
+</div>
+</div>
+<a id="ab33f1f51b8f6c95afdde5d17f3b54e59" name="ab33f1f51b8f6c95afdde5d17f3b54e59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab33f1f51b8f6c95afdde5d17f3b54e59">&#9670;&#160;</a></span>neighIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;::neighIndex </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>x</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>y</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>z</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the index of a interaction neighbors (for M2L) </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>the x position in the interactions (from -3 to +3) </td></tr>
+    <tr><td class="paramname">y</td><td>the y position in the interactions (from -3 to +3) </td></tr>
+    <tr><td class="paramname">z</td><td>the z position in the interactions (from -3 to +3) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>the index (from 0 to 342) </dd></dl>
+
+</div>
+</div>
+<a id="acb34585501367cfed4c981c9cdd03704" name="acb34585501367cfed4c981c9cdd03704"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb34585501367cfed4c981c9cdd03704">&#9670;&#160;</a></span>processPeriodicLevels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;::processPeriodicLevels </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Periodicity Core This function is split in several part: 1 - special case managment There is nothing to do if nbLevelsAboveRoot == -1 and only a M2L if nbLevelsAboveRoot == 0 2 - if nbLevelsAboveRoot &gt; 0 First we compute M2M and special M2M if needed for the border Then the M2L by taking into account the periodicity directions Then the border by using the precomputed M2M Finally the L2L </p>
+
+</div>
+</div>
+<a id="a1bcb9e4d251530c1ab245aa67dda3ef2" name="a1bcb9e4d251530c1ab245aa67dda3ef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bcb9e4d251530c1ab245aa67dda3ef2">&#9670;&#160;</a></span>transferPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;::transferPass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>M2L L2L </p>
+
+</div>
+</div>
+<a id="a24058f800c2ab55f04885f688374b975" name="a24058f800c2ab55f04885f688374b975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24058f800c2ab55f04885f688374b975">&#9670;&#160;</a></span>upwardPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_periodic.html">FFmmAlgorithmPeriodic</a>&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;::upwardPass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>M2M </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Core/<a class="el" href="_f_fmm_algorithm_periodic_8hpp_source.html">FFmmAlgorithmPeriodic.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

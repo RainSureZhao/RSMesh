@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: third_party/ScalFMM/include/ScalFMM/Kernels/Chebyshev/FChebTensorialM2LHandler.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_44f42edf5dd23d4deca0321224e9ce90.html">third_party</a></li><li class="navelem"><a class="el" href="dir_61e2dd9f1d9796d3cea0fd381fea5190.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_0546f01e16a5efd4e4f6e4ca02f395da.html">include</a></li><li class="navelem"><a class="el" href="dir_97d8df139c79c55828f3d66e7d34077f.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_ddddf8995cfe822d901046f00434dab3.html">Kernels</a></li><li class="navelem"><a class="el" href="dir_b7597e5b4e657e60cca215b38128e6c2.html">Chebyshev</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">FChebTensorialM2LHandler.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// See LICENCE file at project root</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef FCHEBTENSORIALM2LHANDLER_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#define FCHEBTENSORIALM2LHANDLER_HPP</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;numeric&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;typeinfo&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;../../Utils/FBlas.hpp&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;../../Utils/FTic.hpp&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;./FChebTensor.hpp&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> FReal, <span class="keywordtype">int</span> ORDER, <span class="keyword">class</span> MatrixKernelClass&gt;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> Compute(<span class="keyword">const</span> MatrixKernelClass *<span class="keyword">const</span> MatrixKernel, </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                                <span class="keyword">const</span> FReal CellWidth,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                                FReal** &amp;C);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">//template &lt;int ORDER&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">//unsigned int Compress(const FReal epsilon, const unsigned int ninteractions,</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">//                                          FReal* &amp;U,  FReal* &amp;C, FReal* &amp;B);</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_f_cheb_tensorial_m2_l_handler.html">   56</a></span><span class="keyword">template</span> &lt;<span class="keyword">class</span> FReal, <span class="keywordtype">int</span> ORDER, <span class="keyword">class</span> MatrixKernelClass, KERNEL_FUNCTION_TYPE TYPE&gt; <span class="keyword">class </span><a class="code hl_class" href="class_f_cheb_tensorial_m2_l_handler.html">FChebTensorialM2LHandler</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> FReal, <span class="keywordtype">int</span> ORDER, <span class="keyword">class</span> MatrixKernelClass&gt;</div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="};">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_h_o_m_o_g_e_n_e_o_u_s_01_4.html">   59</a></span><span class="keyword">class </span><a class="code hl_class" href="class_f_cheb_tensorial_m2_l_handler.html">FChebTensorialM2LHandler</a>&lt;FReal, ORDER,MatrixKernelClass,HOMOGENEOUS&gt; : <a class="code hl_class" href="class_f_no_copyable.html">FNoCopyable</a></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">enum</span> {order = ORDER,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>          nnodes = <a class="code hl_class" href="struct_tensor_traits.html">TensorTraits&lt;ORDER&gt;::nnodes</a>,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>          ninteractions = 316,<span class="comment">// 7^3 - 3^3 (max num cells in far-field)</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>          ncmp = MatrixKernelClass::NCMP};</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    FReal** C;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">const</span> FReal CellWidthExtension; <span class="comment">//&lt;! extension of cells width</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rank;   <span class="comment">//&lt;! truncation rank, satisfies @p epsilon</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">static</span> <span class="keyword">const</span> std::string getFileName()</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> precision_type = (<span class="keyword">typeid</span>(FReal)==<span class="keyword">typeid</span>(<span class="keywordtype">double</span>) ? <span class="charliteral">&#39;d&#39;</span> : <span class="charliteral">&#39;f&#39;</span>);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        std::stringstream stream;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        stream &lt;&lt; <span class="stringliteral">&quot;m2l_k&quot;</span>&lt;&lt; MatrixKernelClass::getID() &lt;&lt; <span class="stringliteral">&quot;_&quot;</span> &lt;&lt; precision_type</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                     &lt;&lt; <span class="stringliteral">&quot;_o&quot;</span> &lt;&lt; order &lt;&lt; <span class="stringliteral">&quot;.bin&quot;</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> stream.str();</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_class" href="class_f_cheb_tensorial_m2_l_handler.html">FChebTensorialM2LHandler</a>(<span class="keyword">const</span> MatrixKernelClass *<span class="keyword">const</span> MatrixKernel, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>, <span class="keyword">const</span> FReal, <span class="keyword">const</span> FReal inCellWidthExtension)</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        : CellWidthExtension(inCellWidthExtension), </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>          rank(0)</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="comment">// measure time</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_class" href="class_f_tic.html">FTic</a> time; time.<a class="code hl_function" href="class_f_tic.html#ac0e070e65af128fbe5af711e51033b0a">tic</a>();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="comment">// allocate C</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        C = <span class="keyword">new</span> FReal*[ncmp];</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d) C[d]=<span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">if</span> (C[d]) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Compressed M2L operator already set&quot;</span>);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="comment">// Compute matrix of interactions</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="comment">// reference cell width is arbitrarly set to 2. </span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="comment">// but it NEEDS to match the numerator of the scale factor in matrix kernel!</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="comment">// Therefore box width extension is not yet supported for homog kernels</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keyword">const</span> FReal ReferenceCellWidth = FReal(2.);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        rank = Compute&lt;order&gt;(MatrixKernel, ReferenceCellWidth, 0., C);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> sizeM2L = 343*ncmp*rank*rank*<span class="keyword">sizeof</span>(FReal);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="comment">// write info</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;Compute and set full M2L operators (&quot;</span> &lt;&lt; long(sizeM2L) &lt;&lt; <span class="stringliteral">&quot; B) in &quot;</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                  &lt;&lt; time.<a class="code hl_function" href="class_f_tic.html#ade3afdb1aa198635ebbc5ee8b7f4f081">tacAndElapsed</a>() &lt;&lt; <span class="stringliteral">&quot;sec.&quot;</span>   &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_class" href="class_f_cheb_tensorial_m2_l_handler.html">~FChebTensorialM2LHandler</a>()</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d)</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="keywordflow">if</span> (C[d] != <span class="keyword">nullptr</span>) <span class="keyword">delete</span> [] C[d];</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_h_o_m_o_g_e_n_e_o_u_s_01_4.html#a32cc188fe09c963f76c3fe4c93837b94">  122</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_h_o_m_o_g_e_n_e_o_u_s_01_4.html#a32cc188fe09c963f76c3fe4c93837b94">getRank</a>()<span class="keyword"> const </span>{<span class="keywordflow">return</span> rank;}</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="foldopen" id="foldopen00135" data-start="{" data-end="}">
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_h_o_m_o_g_e_n_e_o_u_s_01_4.html#a2b34476dbffc692b4d9c1db527bf9ec6">  135</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_h_o_m_o_g_e_n_e_o_u_s_01_4.html#a2b34476dbffc692b4d9c1db527bf9ec6">applyC</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> idx, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> , </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                <span class="keyword">const</span> FReal scale, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d,</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                <span class="keyword">const</span> FReal *<span class="keyword">const</span> Y, FReal *<span class="keyword">const</span> X)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        FBlas::gemva(rank, rank, scale, C[d] + idx*rank*rank, <span class="keyword">const_cast&lt;</span>FReal*<span class="keyword">&gt;</span>(Y), X);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
+</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>};</div>
+</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> FReal, <span class="keywordtype">int</span> ORDER, <span class="keyword">class</span> MatrixKernelClass&gt;</div>
+<div class="foldopen" id="foldopen00146" data-start="{" data-end="};">
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892.html">  146</a></span><span class="keyword">class </span><a class="code hl_class" href="class_f_cheb_tensorial_m2_l_handler.html">FChebTensorialM2LHandler</a>&lt;FReal,ORDER,MatrixKernelClass,NON_HOMOGENEOUS&gt; : <a class="code hl_class" href="class_f_no_copyable.html">FNoCopyable</a></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>{</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">enum</span> {order = ORDER,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>          nnodes = <a class="code hl_class" href="struct_tensor_traits.html">TensorTraits&lt;ORDER&gt;::nnodes</a>,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>          ninteractions = 316,<span class="comment">// 7^3 - 3^3 (max num cells in far-field)</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>          ncmp = MatrixKernelClass::NCMP};</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="comment">// Tensorial MatrixKernel and homogeneity specific</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    FReal*** C;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> TreeHeight; <span class="comment">//&lt;! number of levels</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keyword">const</span> FReal RootCellWidth; <span class="comment">//&lt;! width of root cell</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keyword">const</span> FReal CellWidthExtension; <span class="comment">//&lt;! extension of cells width</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> *rank;   <span class="comment">//&lt;! truncation rank, satisfies @p epsilon</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keyword">static</span> <span class="keyword">const</span> std::string getFileName()</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> precision_type = (<span class="keyword">typeid</span>(FReal)==<span class="keyword">typeid</span>(<span class="keywordtype">double</span>) ? <span class="charliteral">&#39;d&#39;</span> : <span class="charliteral">&#39;f&#39;</span>);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        std::stringstream stream;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        stream &lt;&lt; <span class="stringliteral">&quot;m2l_k&quot;</span>&lt;&lt; MatrixKernelClass::getID() &lt;&lt; <span class="stringliteral">&quot;_&quot;</span> &lt;&lt; precision_type</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                     &lt;&lt; <span class="stringliteral">&quot;_o&quot;</span> &lt;&lt; order &lt;&lt; <span class="stringliteral">&quot;.bin&quot;</span>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordflow">return</span> stream.str();</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    }</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00174" data-start="{" data-end="}">
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892.html#a649c4eb80b26ee38c6f2ba56bc3b3ab9">  174</a></span>    <a class="code hl_function" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892.html#a649c4eb80b26ee38c6f2ba56bc3b3ab9">FChebTensorialM2LHandler</a>(<span class="keyword">const</span> MatrixKernelClass *<span class="keyword">const</span> MatrixKernel, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> inTreeHeight, <span class="keyword">const</span> FReal inRootCellWidth, <span class="keyword">const</span> FReal inCellWidthExtension)</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        : TreeHeight(inTreeHeight),</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>          RootCellWidth(inRootCellWidth),</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>          CellWidthExtension(inCellWidthExtension)</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    {</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="comment">// measure time</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <a class="code hl_class" href="class_f_tic.html">FTic</a> time; time.<a class="code hl_function" href="class_f_tic.html#ac0e070e65af128fbe5af711e51033b0a">tic</a>();</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="comment">// allocate rank</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        rank = <span class="keyword">new</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>[TreeHeight];</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="comment">// allocate C</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        C = <span class="keyword">new</span> FReal**[TreeHeight];</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> l=0; l&lt;TreeHeight; ++l){ </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            C[l] = <span class="keyword">new</span> FReal*[ncmp];</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d)</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                C[l][d]=<span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        }</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> l=0; l&lt;TreeHeight; ++l) {</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d)</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                <span class="keywordflow">if</span> (C[l][d]) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Compressed M2L operator already set&quot;</span>);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        }</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="comment">// Compute matrix of interactions at each level !! (since non homog)</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        FReal CellWidth = RootCellWidth / FReal(2.); <span class="comment">// at level 1</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        CellWidth /= FReal(2.);                      <span class="comment">// at level 2</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        rank[0]=rank[1]=0;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> l=2; l&lt;TreeHeight; ++l) {</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            <span class="comment">// compute m2l operator on extended cell</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            rank[l] = Compute&lt;FReal, order&gt;(MatrixKernel, CellWidth, CellWidthExtension, C[l]);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            <span class="comment">// update cell width</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            CellWidth /= FReal(2.);                    <span class="comment">// at level l+1 </span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        }</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> sizeM2L = (TreeHeight-2)*343*ncmp*rank[2]*rank[2]*<span class="keyword">sizeof</span>(FReal);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <span class="comment">// write info</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;Compute and Set full M2L operators of &quot;</span> &lt;&lt; TreeHeight-2 &lt;&lt; <span class="stringliteral">&quot; levels (&quot;</span>&lt;&lt; long(sizeM2L) &lt;&lt;<span class="stringliteral">&quot; Bytes) in &quot;</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>                                &lt;&lt; time.<a class="code hl_function" href="class_f_tic.html#ade3afdb1aa198635ebbc5ee8b7f4f081">tacAndElapsed</a>() &lt;&lt; <span class="stringliteral">&quot;sec.&quot;</span>   &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    }</div>
+</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <a class="code hl_class" href="class_f_cheb_tensorial_m2_l_handler.html">~FChebTensorialM2LHandler</a>()</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    {</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keywordflow">if</span> (rank != <span class="keyword">nullptr</span>) <span class="keyword">delete</span> [] rank;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> l=0; l&lt;TreeHeight; ++l) {</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d)</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                <span class="keywordflow">if</span> (C[l][d] != <span class="keyword">nullptr</span>) <span class="keyword">delete</span> [] C[l][d];</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        }</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892.html#a73e249ffb96555f9b763fc5f1c039a09">  227</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892.html#a73e249ffb96555f9b763fc5f1c039a09">getRank</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> l = 2)<span class="keyword"> const </span>{<span class="keywordflow">return</span> rank[l];}</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="foldopen" id="foldopen00240" data-start="{" data-end="}">
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892.html#a46ad2aee9105e0437c7ef25760b2b230">  240</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892.html#a46ad2aee9105e0437c7ef25760b2b230">applyC</a>(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> idx, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> l, </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                <span class="keyword">const</span> FReal, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d,</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                <span class="keyword">const</span> FReal *<span class="keyword">const</span> Y, FReal *<span class="keyword">const</span> X)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        FBlas::gemva(rank[l], rank[l], 1., C[l][d] + idx*rank[l]*rank[l], <span class="keyword">const_cast&lt;</span>FReal*<span class="keyword">&gt;</span>(Y), X);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    }</div>
+</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>};</div>
+</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="comment">// definition ////////////////////////////////////////////////////////</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> FReal, <span class="keywordtype">int</span> ORDER, <span class="keyword">class</span> MatrixKernelClass&gt;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> Compute(<span class="keyword">const</span> MatrixKernelClass *<span class="keyword">const</span> MatrixKernel, </div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>                                <span class="keyword">const</span> FReal CellWidth, </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>                                <span class="keyword">const</span> FReal CellWidthExtension,</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>                                FReal** &amp;C)</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>{</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="comment">// PB: need to redefine some constant since not function from m2lhandler class</span></div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> order = ORDER;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nnodes = <a class="code hl_class" href="struct_tensor_traits.html">TensorTraits&lt;ORDER&gt;::nnodes</a>;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ninteractions = 316;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ncmp = MatrixKernelClass::NCMP;</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="comment">// allocate memory and store compressed M2L operators</span></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d) </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordflow">if</span> (C[d]) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Compressed M2L operators are already set&quot;</span>);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="comment">// interpolation points of source (Y) and target (X) cell</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> X[nnodes], Y[nnodes];</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="comment">// set roots of target cell (X)</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <span class="keyword">const</span> FReal ExtendedCellWidth(CellWidth+CellWidthExtension);</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <a class="code hl_function" href="class_f_interp_tensor.html#ac8107c468326e9c786873c23fe2e8766">FChebTensor&lt;FReal,order&gt;::setRoots</a>(<a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a>(0.,0.,0.), ExtendedCellWidth, X);</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    <span class="comment">// allocate memory and compute 316 m2l operators</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    FReal** _C; </div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    _C  = <span class="keyword">new</span> FReal* [ncmp];</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d) </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    _C[d] = <span class="keyword">new</span> FReal [nnodes*nnodes * ninteractions];</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> counter = 0;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=-3; i&lt;=3; ++i) {</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j=-3; j&lt;=3; ++j) {</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k=-3; k&lt;=3; ++k) {</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>                <span class="keywordflow">if</span> (abs(i)&gt;1 || abs(j)&gt;1 || abs(k)&gt;1) {</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>                    <span class="comment">// set roots of source cell (Y)</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>                    <span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> cy(CellWidth*FReal(i), CellWidth*FReal(j), CellWidth*FReal(k));</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                    <a class="code hl_function" href="class_f_interp_tensor.html#ac8107c468326e9c786873c23fe2e8766">FChebTensor&lt;FReal,order&gt;::setRoots</a>(cy, ExtendedCellWidth, Y);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>                    <span class="comment">// evaluate m2l operator</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>                    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> n=0; n&lt;nnodes; ++n)</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>                        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m=0; m&lt;nnodes; ++m){</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>                            <span class="comment">// Compute current M2L interaction (block matrix)</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>                            FReal* block; </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>                            block = <span class="keyword">new</span> FReal[ncmp]; </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>                            MatrixKernel-&gt;evaluateBlock(X[m], Y[n], block);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>                            <span class="comment">// Copy block in C</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>                            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d) </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                                _C[d][counter*nnodes*nnodes + n*nnodes + m] = block[d];</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>                            <span class="keyword">delete</span> [] block;</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>              </div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                        }</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>                    <span class="comment">// increment interaction counter</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>                    counter++;</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>                }</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>            }</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        }</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    }</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keywordflow">if</span> (counter != ninteractions)</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Number of interactions must correspond to 316&quot;</span>);</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>   </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    <span class="comment">// Copy M2L operators</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rank   = nnodes; <span class="comment">//PB: dense Chebyshev</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    <span class="keywordflow">if</span> (!(rank&gt;0)) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Size must be larger than 0!&quot;</span>);</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    <span class="comment">// store C</span></div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    counter = 0;</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d) </div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    C[d] = <span class="keyword">new</span> FReal [343 * rank*rank];</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=-3; i&lt;=3; ++i)</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j=-3; j&lt;=3; ++j)</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k=-3; k&lt;=3; ++k) {</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>                <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> idx = (i+3)*7*7 + (j+3)*7 + (k+3);</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>                <span class="keywordflow">if</span> (abs(i)&gt;1 || abs(j)&gt;1 || abs(k)&gt;1) {</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>                    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d) </div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>                        FBlas::copy(rank*rank, _C[d] + counter*rank*rank, C[d] + idx*rank*rank);</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>                    counter++;</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>                } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>                    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d) </div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>                        FBlas::setzero(rank*rank, C[d] + idx*rank*rank);</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>                }</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>            }</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keywordflow">if</span> (counter != ninteractions)</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Number of interactions must correspond to 316&quot;</span>);</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d=0; d&lt;ncmp; ++d) </div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keyword">delete</span> [] _C[d];</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="comment">// return low rank</span></div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    <span class="keywordflow">return</span> rank;</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>}</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span><span class="preprocessor">#endif </span><span class="comment">// FCHEBTENSORIALM2LHANDLER_HPP</span></div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="comment">// [--END--]</span></div>
+<div class="ttc" id="aclass_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892_html_a46ad2aee9105e0437c7ef25760b2b230"><div class="ttname"><a href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892.html#a46ad2aee9105e0437c7ef25760b2b230">FChebTensorialM2LHandler&lt; FReal, ORDER, MatrixKernelClass, NON_HOMOGENEOUS &gt;::applyC</a></div><div class="ttdeci">void applyC(const unsigned int idx, const unsigned int l, const FReal, const unsigned int d, const FReal *const Y, FReal *const X) const</div><div class="ttdef"><b>Definition</b> FChebTensorialM2LHandler.hpp:240</div></div>
+<div class="ttc" id="aclass_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892_html_a649c4eb80b26ee38c6f2ba56bc3b3ab9"><div class="ttname"><a href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892.html#a649c4eb80b26ee38c6f2ba56bc3b3ab9">FChebTensorialM2LHandler&lt; FReal, ORDER, MatrixKernelClass, NON_HOMOGENEOUS &gt;::FChebTensorialM2LHandler</a></div><div class="ttdeci">FChebTensorialM2LHandler(const MatrixKernelClass *const MatrixKernel, const unsigned int inTreeHeight, const FReal inRootCellWidth, const FReal inCellWidthExtension)</div><div class="ttdef"><b>Definition</b> FChebTensorialM2LHandler.hpp:174</div></div>
+<div class="ttc" id="aclass_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892_html_a73e249ffb96555f9b763fc5f1c039a09"><div class="ttname"><a href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_d6ce8de73ea42a0f1a05f3489d579892.html#a73e249ffb96555f9b763fc5f1c039a09">FChebTensorialM2LHandler&lt; FReal, ORDER, MatrixKernelClass, NON_HOMOGENEOUS &gt;::getRank</a></div><div class="ttdeci">unsigned int getRank(unsigned int l=2) const</div><div class="ttdef"><b>Definition</b> FChebTensorialM2LHandler.hpp:227</div></div>
+<div class="ttc" id="aclass_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_h_o_m_o_g_e_n_e_o_u_s_01_4_html_a2b34476dbffc692b4d9c1db527bf9ec6"><div class="ttname"><a href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_h_o_m_o_g_e_n_e_o_u_s_01_4.html#a2b34476dbffc692b4d9c1db527bf9ec6">FChebTensorialM2LHandler&lt; FReal, ORDER, MatrixKernelClass, HOMOGENEOUS &gt;::applyC</a></div><div class="ttdeci">void applyC(const unsigned int idx, const unsigned int, const FReal scale, const unsigned int d, const FReal *const Y, FReal *const X) const</div><div class="ttdef"><b>Definition</b> FChebTensorialM2LHandler.hpp:135</div></div>
+<div class="ttc" id="aclass_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_h_o_m_o_g_e_n_e_o_u_s_01_4_html_a32cc188fe09c963f76c3fe4c93837b94"><div class="ttname"><a href="class_f_cheb_tensorial_m2_l_handler_3_01_f_real_00_01_o_r_d_e_r_00_01_matrix_kernel_class_00_01_h_o_m_o_g_e_n_e_o_u_s_01_4.html#a32cc188fe09c963f76c3fe4c93837b94">FChebTensorialM2LHandler&lt; FReal, ORDER, MatrixKernelClass, HOMOGENEOUS &gt;::getRank</a></div><div class="ttdeci">unsigned int getRank() const</div><div class="ttdef"><b>Definition</b> FChebTensorialM2LHandler.hpp:122</div></div>
+<div class="ttc" id="aclass_f_cheb_tensorial_m2_l_handler_html"><div class="ttname"><a href="class_f_cheb_tensorial_m2_l_handler.html">FChebTensorialM2LHandler</a></div><div class="ttdef"><b>Definition</b> FChebTensorialM2LHandler.hpp:56</div></div>
+<div class="ttc" id="aclass_f_interp_tensor_html_ac8107c468326e9c786873c23fe2e8766"><div class="ttname"><a href="class_f_interp_tensor.html#ac8107c468326e9c786873c23fe2e8766">FInterpTensor&lt; FReal, ORDER, FChebRoots&lt; FReal, ORDER &gt; &gt;::setRoots</a></div><div class="ttdeci">static void setRoots(const FPoint&lt; FReal &gt; &amp;center, const FReal width, FPoint&lt; FReal &gt; rootPositions[nnodes])</div><div class="ttdef"><b>Definition</b> FInterpTensor.hpp:75</div></div>
+<div class="ttc" id="aclass_f_no_copyable_html"><div class="ttname"><a href="class_f_no_copyable.html">FNoCopyable</a></div><div class="ttdef"><b>Definition</b> FNoCopyable.hpp:10</div></div>
+<div class="ttc" id="aclass_f_point_html"><div class="ttname"><a href="class_f_point.html">FPoint</a></div><div class="ttdef"><b>Definition</b> FPoint.hpp:26</div></div>
+<div class="ttc" id="aclass_f_tic_html"><div class="ttname"><a href="class_f_tic.html">FTic</a></div><div class="ttdoc">Time counter class.</div><div class="ttdef"><b>Definition</b> FTic.hpp:54</div></div>
+<div class="ttc" id="aclass_f_tic_html_ac0e070e65af128fbe5af711e51033b0a"><div class="ttname"><a href="class_f_tic.html#ac0e070e65af128fbe5af711e51033b0a">FTic::tic</a></div><div class="ttdeci">void tic()</div><div class="ttdoc">Start measuring time.</div><div class="ttdef"><b>Definition</b> FTic.hpp:103</div></div>
+<div class="ttc" id="aclass_f_tic_html_ade3afdb1aa198635ebbc5ee8b7f4f081"><div class="ttname"><a href="class_f_tic.html#ade3afdb1aa198635ebbc5ee8b7f4f081">FTic::tacAndElapsed</a></div><div class="ttdeci">double tacAndElapsed()</div><div class="ttdoc">Combination of tic() and elapsed().</div><div class="ttdef"><b>Definition</b> FTic.hpp:136</div></div>
+<div class="ttc" id="astruct_tensor_traits_html"><div class="ttname"><a href="struct_tensor_traits.html">TensorTraits</a></div><div class="ttdef"><b>Definition</b> FInterpTensor.hpp:24</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

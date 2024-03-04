@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: third_party/ScalFMM/include/ScalFMM/Containers/FBufferReader.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_44f42edf5dd23d4deca0321224e9ce90.html">third_party</a></li><li class="navelem"><a class="el" href="dir_61e2dd9f1d9796d3cea0fd381fea5190.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_0546f01e16a5efd4e4f6e4ca02f395da.html">include</a></li><li class="navelem"><a class="el" href="dir_97d8df139c79c55828f3d66e7d34077f.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_f8d197668353e508972b8e6d7aa4920b.html">Containers</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">FBufferReader.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// See LICENCE file at project root</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef FBUFFERREADER_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#define FBUFFERREADER_HPP</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;FVector.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;FAbstractBuffer.hpp&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="class_f_buffer_reader.html">FBufferReader</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_f_abstract_buffer_reader.html">FAbstractBufferReader</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_class" href="class_f_vector.html">FVector&lt;char&gt;</a> buffer;   <span class="comment">//&lt; The memory buffer</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    FSize index;              <span class="comment">//&lt; The current index reading position</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#a6c161898adfb87bca7a2c8eecad05801">   21</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="class_f_buffer_reader.html#a6c161898adfb87bca7a2c8eecad05801">FBufferReader</a>(<span class="keyword">const</span> FSize inCapacity = 0) : buffer(inCapacity), index(0) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">if</span>(inCapacity){</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <a class="code hl_function" href="class_f_buffer_reader.html#ad987d238621b29a501b0b16477fd9620">reserve</a>(inCapacity);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
+</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#a34c4c22394a19cdbfc8fba0e3b4e342f">   28</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="class_f_buffer_reader.html#a34c4c22394a19cdbfc8fba0e3b4e342f">~FBufferReader</a>()<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#a9a48e983f6c37e62c8ec5ecb544d1e5c">   32</a></span>    <span class="keywordtype">char</span>* <a class="code hl_function" href="class_f_buffer_reader.html#a9a48e983f6c37e62c8ec5ecb544d1e5c">data</a>()<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">return</span> buffer.<a class="code hl_function" href="class_f_vector.html#a7609237a1fe28ddad0d24b032d1c0d41">data</a>();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#aa0b22d57fee2cf2aaf614749be2a3ac3">   37</a></span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="class_f_buffer_reader.html#aa0b22d57fee2cf2aaf614749be2a3ac3">data</a>()<span class="keyword"> const  override </span>{</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">return</span> buffer.<a class="code hl_function" href="class_f_vector.html#a7609237a1fe28ddad0d24b032d1c0d41">data</a>();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#a91d85432998534e635ce1888f0d595f0">   42</a></span>    FSize <a class="code hl_function" href="class_f_buffer_reader.html#a91d85432998534e635ce1888f0d595f0">getSize</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">return</span> buffer.<a class="code hl_function" href="class_f_vector.html#ae27a83b0b3e11851c9b3f5991937e3f2">getSize</a>();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#af928c1bd4fc1b2ec84d2749ebe933e57">   47</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_buffer_reader.html#af928c1bd4fc1b2ec84d2749ebe933e57">seek</a>(<span class="keyword">const</span> FSize inIndex)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        index = inIndex;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
+</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#aac40b8c49468d558a30c9cd8d3043ff0">   52</a></span>    FSize <a class="code hl_function" href="class_f_buffer_reader.html#aac40b8c49468d558a30c9cd8d3043ff0">tell</a>()<span class="keyword"> const  override </span>{</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">return</span> index;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
+</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#ad987d238621b29a501b0b16477fd9620">   57</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_buffer_reader.html#ad987d238621b29a501b0b16477fd9620">reserve</a>(<span class="keyword">const</span> FSize nbBytes){</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_function" href="class_f_buffer_reader.html#aaa585da8f94df831ab45a4d6d41de51b">reset</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        buffer.<a class="code hl_function" href="class_f_vector.html#ad621d915aaa6f3719cbafe1a6cfbe857">set</a>( 0, nbBytes);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#aaa585da8f94df831ab45a4d6d41de51b">   63</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_buffer_reader.html#aaa585da8f94df831ab45a4d6d41de51b">reset</a>(){</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        buffer.<a class="code hl_function" href="class_f_vector.html#a2170b11fb4c60ab9660884a210e9fa6f">clear</a>();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        index = 0;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> ClassType&gt;</div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#a4de997cbf9caffc7043a628f8a16b27d">   70</a></span>    ClassType <a class="code hl_function" href="class_f_buffer_reader.html#a4de997cbf9caffc7043a628f8a16b27d">getValue</a>(){</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        ClassType value = (*<span class="keyword">reinterpret_cast&lt;</span>ClassType*<span class="keyword">&gt;</span>(&amp;buffer[index]));</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        index += FSize(<span class="keyword">sizeof</span>(ClassType));</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> value;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> ClassType&gt;</div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#ad45cc44decab2086b5a1ed1308573b15">   78</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_buffer_reader.html#ad45cc44decab2086b5a1ed1308573b15">fillValue</a>(ClassType* <span class="keyword">const</span> inValue){</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        (*inValue) = (*<span class="keyword">reinterpret_cast&lt;</span>ClassType*<span class="keyword">&gt;</span>(&amp;buffer[index]));</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        index += FSize(<span class="keyword">sizeof</span>(ClassType));</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> ClassType&gt;</div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#a04f1f99eac2d9b03bd97a1c842db8374">   85</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_buffer_reader.html#a04f1f99eac2d9b03bd97a1c842db8374">fillArray</a>(ClassType* <span class="keyword">const</span> inArray, <span class="keyword">const</span> FSize inSize){</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        memcpy( inArray, &amp;buffer[index], <span class="keyword">sizeof</span>(ClassType) * inSize);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        index += FSize(<span class="keyword">sizeof</span>(ClassType) * inSize);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
+</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> ClassType&gt;</div>
+<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="class_f_buffer_reader.html#afba754793953541d87a6187a4c113358">   92</a></span>    <a class="code hl_class" href="class_f_buffer_reader.html">FBufferReader</a>&amp; <a class="code hl_function" href="class_f_buffer_reader.html#afba754793953541d87a6187a4c113358">operator&gt;&gt;</a>(ClassType&amp; <span class="keywordtype">object</span>){</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <a class="code hl_function" href="class_f_buffer_reader.html#ad45cc44decab2086b5a1ed1308573b15">fillValue</a>(&amp;<span class="keywordtype">object</span>);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
+</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>};</div>
+</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">#endif </span><span class="comment">// FBUFFERREADER_HPP</span></div>
+<div class="ttc" id="aclass_f_abstract_buffer_reader_html"><div class="ttname"><a href="class_f_abstract_buffer_reader.html">FAbstractBufferReader</a></div><div class="ttdoc">The FAbstractBufferReader class defines what is an abstract buffer reader. The buffer used by the mpi...</div><div class="ttdef"><b>Definition</b> FAbstractBuffer.hpp:9</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html"><div class="ttname"><a href="class_f_buffer_reader.html">FBufferReader</a></div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:15</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_a04f1f99eac2d9b03bd97a1c842db8374"><div class="ttname"><a href="class_f_buffer_reader.html#a04f1f99eac2d9b03bd97a1c842db8374">FBufferReader::fillArray</a></div><div class="ttdeci">void fillArray(ClassType *const inArray, const FSize inSize)</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:85</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_a34c4c22394a19cdbfc8fba0e3b4e342f"><div class="ttname"><a href="class_f_buffer_reader.html#a34c4c22394a19cdbfc8fba0e3b4e342f">FBufferReader::~FBufferReader</a></div><div class="ttdeci">virtual ~FBufferReader() override</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:28</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_a4de997cbf9caffc7043a628f8a16b27d"><div class="ttname"><a href="class_f_buffer_reader.html#a4de997cbf9caffc7043a628f8a16b27d">FBufferReader::getValue</a></div><div class="ttdeci">ClassType getValue()</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:70</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_a6c161898adfb87bca7a2c8eecad05801"><div class="ttname"><a href="class_f_buffer_reader.html#a6c161898adfb87bca7a2c8eecad05801">FBufferReader::FBufferReader</a></div><div class="ttdeci">FBufferReader(const FSize inCapacity=0)</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:21</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_a91d85432998534e635ce1888f0d595f0"><div class="ttname"><a href="class_f_buffer_reader.html#a91d85432998534e635ce1888f0d595f0">FBufferReader::getSize</a></div><div class="ttdeci">FSize getSize() const override</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:42</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_a9a48e983f6c37e62c8ec5ecb544d1e5c"><div class="ttname"><a href="class_f_buffer_reader.html#a9a48e983f6c37e62c8ec5ecb544d1e5c">FBufferReader::data</a></div><div class="ttdeci">char * data() override</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:32</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_aa0b22d57fee2cf2aaf614749be2a3ac3"><div class="ttname"><a href="class_f_buffer_reader.html#aa0b22d57fee2cf2aaf614749be2a3ac3">FBufferReader::data</a></div><div class="ttdeci">const char * data() const override</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:37</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_aaa585da8f94df831ab45a4d6d41de51b"><div class="ttname"><a href="class_f_buffer_reader.html#aaa585da8f94df831ab45a4d6d41de51b">FBufferReader::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:63</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_aac40b8c49468d558a30c9cd8d3043ff0"><div class="ttname"><a href="class_f_buffer_reader.html#aac40b8c49468d558a30c9cd8d3043ff0">FBufferReader::tell</a></div><div class="ttdeci">FSize tell() const override</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:52</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_ad45cc44decab2086b5a1ed1308573b15"><div class="ttname"><a href="class_f_buffer_reader.html#ad45cc44decab2086b5a1ed1308573b15">FBufferReader::fillValue</a></div><div class="ttdeci">void fillValue(ClassType *const inValue)</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:78</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_ad987d238621b29a501b0b16477fd9620"><div class="ttname"><a href="class_f_buffer_reader.html#ad987d238621b29a501b0b16477fd9620">FBufferReader::reserve</a></div><div class="ttdeci">void reserve(const FSize nbBytes)</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:57</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_af928c1bd4fc1b2ec84d2749ebe933e57"><div class="ttname"><a href="class_f_buffer_reader.html#af928c1bd4fc1b2ec84d2749ebe933e57">FBufferReader::seek</a></div><div class="ttdeci">void seek(const FSize inIndex) override</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:47</div></div>
+<div class="ttc" id="aclass_f_buffer_reader_html_afba754793953541d87a6187a4c113358"><div class="ttname"><a href="class_f_buffer_reader.html#afba754793953541d87a6187a4c113358">FBufferReader::operator&gt;&gt;</a></div><div class="ttdeci">FBufferReader &amp; operator&gt;&gt;(ClassType &amp;object)</div><div class="ttdef"><b>Definition</b> FBufferReader.hpp:92</div></div>
+<div class="ttc" id="aclass_f_vector_html"><div class="ttname"><a href="class_f_vector.html">FVector</a></div><div class="ttdef"><b>Definition</b> FVector.hpp:21</div></div>
+<div class="ttc" id="aclass_f_vector_html_a2170b11fb4c60ab9660884a210e9fa6f"><div class="ttname"><a href="class_f_vector.html#a2170b11fb4c60ab9660884a210e9fa6f">FVector::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Delete all, then size = 0 but capacity is unchanged</div><div class="ttdef"><b>Definition</b> FVector.hpp:202</div></div>
+<div class="ttc" id="aclass_f_vector_html_a7609237a1fe28ddad0d24b032d1c0d41"><div class="ttname"><a href="class_f_vector.html#a7609237a1fe28ddad0d24b032d1c0d41">FVector::data</a></div><div class="ttdeci">ObjectType * data()</div><div class="ttdef"><b>Definition</b> FVector.hpp:288</div></div>
+<div class="ttc" id="aclass_f_vector_html_ad621d915aaa6f3719cbafe1a6cfbe857"><div class="ttname"><a href="class_f_vector.html#ad621d915aaa6f3719cbafe1a6cfbe857">FVector::set</a></div><div class="ttdeci">void set(const ObjectType &amp;inValue, const FSize inRepeat)</div><div class="ttdef"><b>Definition</b> FVector.hpp:256</div></div>
+<div class="ttc" id="aclass_f_vector_html_ae27a83b0b3e11851c9b3f5991937e3f2"><div class="ttname"><a href="class_f_vector.html#ae27a83b0b3e11851c9b3f5991937e3f2">FVector::getSize</a></div><div class="ttdeci">FSize getSize() const</div><div class="ttdef"><b>Definition</b> FVector.hpp:212</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FGroupTree&lt; FReal, CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass, GroupAttachedLeafClass, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-attribs">Protected 属性</a> &#124;
+<a href="class_f_group_tree-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FGroupTree&lt; FReal, CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass, GroupAttachedLeafClass, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a3c827e731ac69dfe5527cd2d69664c1f" id="r_a3c827e731ac69dfe5527cd2d69664c1f"><td class="memItemLeft" align="right" valign="top"><a id="a3c827e731ac69dfe5527cd2d69664c1f" name="a3c827e731ac69dfe5527cd2d69664c1f"></a>
+typedef GroupAttachedLeafClass&#160;</td><td class="memItemRight" valign="bottom"><b>BasicAttachedClass</b></td></tr>
+<tr class="separator:a3c827e731ac69dfe5527cd2d69664c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81107080b53e3b962c31d8b7a74a80fa" id="r_a81107080b53e3b962c31d8b7a74a80fa"><td class="memItemLeft" align="right" valign="top"><a id="a81107080b53e3b962c31d8b7a74a80fa" name="a81107080b53e3b962c31d8b7a74a80fa"></a>
+typedef <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ParticleGroupClass</b></td></tr>
+<tr class="separator:a81107080b53e3b962c31d8b7a74a80fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2afbb477e3e5dc2066b379fbda0697c1" id="r_a2afbb477e3e5dc2066b379fbda0697c1"><td class="memItemLeft" align="right" valign="top"><a id="a2afbb477e3e5dc2066b379fbda0697c1" name="a2afbb477e3e5dc2066b379fbda0697c1"></a>
+typedef <a class="el" href="class_f_group_of_cells.html">FGroupOfCells</a>&lt; CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>CellGroupClass</b></td></tr>
+<tr class="separator:a2afbb477e3e5dc2066b379fbda0697c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e38d95a1f1654a403b8c3fec3c5db36" id="r_a9e38d95a1f1654a403b8c3fec3c5db36"><td class="memItemLeft" align="right" valign="top"><a id="a9e38d95a1f1654a403b8c3fec3c5db36" name="a9e38d95a1f1654a403b8c3fec3c5db36"></a>
+typedef std::vector&lt; <a class="el" href="class_f_group_of_cells.html">CellGroupClass</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>CellGroupIterator</b></td></tr>
+<tr class="separator:a9e38d95a1f1654a403b8c3fec3c5db36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ff1d9a11bcb18e37471089e55fb073f" id="r_a0ff1d9a11bcb18e37471089e55fb073f"><td class="memItemLeft" align="right" valign="top"><a id="a0ff1d9a11bcb18e37471089e55fb073f" name="a0ff1d9a11bcb18e37471089e55fb073f"></a>
+typedef std::vector&lt; <a class="el" href="class_f_group_of_cells.html">CellGroupClass</a> * &gt;::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>CellGroupConstIterator</b></td></tr>
+<tr class="separator:a0ff1d9a11bcb18e37471089e55fb073f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a996149f5179200dd17da0f97387f66e3" id="r_a996149f5179200dd17da0f97387f66e3"><td class="memItemLeft" align="right" valign="top"><a id="a996149f5179200dd17da0f97387f66e3" name="a996149f5179200dd17da0f97387f66e3"></a>
+typedef std::vector&lt; <a class="el" href="class_f_group_of_particles.html">ParticleGroupClass</a> * &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>ParticleGroupIterator</b></td></tr>
+<tr class="separator:a996149f5179200dd17da0f97387f66e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a009fdf553e955ffa37ad9b2189c4a211" id="r_a009fdf553e955ffa37ad9b2189c4a211"><td class="memItemLeft" align="right" valign="top"><a id="a009fdf553e955ffa37ad9b2189c4a211" name="a009fdf553e955ffa37ad9b2189c4a211"></a>
+typedef std::vector&lt; <a class="el" href="class_f_group_of_particles.html">ParticleGroupClass</a> * &gt;::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>ParticleGroupConstIterator</b></td></tr>
+<tr class="separator:a009fdf553e955ffa37ad9b2189c4a211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a34acc12640f196f68787c6de9d18d092" id="r_a34acc12640f196f68787c6de9d18d092"><td class="memTemplParams" colspan="2">template&lt;class OctreeClass &gt; </td></tr>
+<tr class="memitem:a34acc12640f196f68787c6de9d18d092"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a34acc12640f196f68787c6de9d18d092">FGroupTree</a> (const int inTreeHeight, const int inNbElementsPerBlock, OctreeClass *const inOctreeSrc)</td></tr>
+<tr class="separator:a34acc12640f196f68787c6de9d18d092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5a7d5bbcc024faecf364e10fef9ffeb" id="r_ae5a7d5bbcc024faecf364e10fef9ffeb"><td class="memTemplParams" colspan="2">template&lt;class ParticleContainer &gt; </td></tr>
+<tr class="memitem:ae5a7d5bbcc024faecf364e10fef9ffeb"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae5a7d5bbcc024faecf364e10fef9ffeb">FGroupTree</a> (const int inTreeHeight, const FReal inBoxWidth, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inBoxCenter, const int inNbElementsPerBlock, ParticleContainer *inParticlesContainer, const bool particlesAreSorted=false, MortonIndex inLeftLimite=-1)</td></tr>
+<tr class="separator:ae5a7d5bbcc024faecf364e10fef9ffeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af76df98ddb521ee8812cc876d724283e" id="r_af76df98ddb521ee8812cc876d724283e"><td class="memTemplParams" colspan="2">template&lt;class ParticleContainer &gt; </td></tr>
+<tr class="memitem:af76df98ddb521ee8812cc876d724283e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#af76df98ddb521ee8812cc876d724283e">FGroupTree</a> (const int inTreeHeight, const FReal inBoxWidth, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inBoxCenter, const int inNbElementsPerBlock, ParticleContainer *inParticlesContainer, const bool particlesAreSorted, const bool oneParent, const FReal inCoverRatio=0.0, MortonIndex inLeftLimite=-1)</td></tr>
+<tr class="separator:af76df98ddb521ee8812cc876d724283e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa448c9702161a25d7d5221dfe82826a9" id="r_aa448c9702161a25d7d5221dfe82826a9"><td class="memTemplParams" colspan="2"><a id="aa448c9702161a25d7d5221dfe82826a9" name="aa448c9702161a25d7d5221dfe82826a9"></a>
+template&lt;class ParticleContainer &gt; </td></tr>
+<tr class="memitem:aa448c9702161a25d7d5221dfe82826a9"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>FGroupTree</b> (const int inTreeHeight, const FReal inBoxWidth, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inBoxCenter, const int inNbElementsPerBlock, ParticleContainer *inParticlesContainer, std::vector&lt; std::vector&lt; int &gt; &gt; &amp;blockSizeAtEachLevel, const bool particlesAreSorted=false)</td></tr>
+<tr class="separator:aa448c9702161a25d7d5221dfe82826a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e931217a62322a2d67b5121144bd9a1" id="r_a7e931217a62322a2d67b5121144bd9a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e931217a62322a2d67b5121144bd9a1">~FGroupTree</a> ()</td></tr>
+<tr class="separator:a7e931217a62322a2d67b5121144bd9a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea609fd093d99653bdcba998e6c44d0b" id="r_aea609fd093d99653bdcba998e6c44d0b"><td class="memTemplParams" colspan="2">template&lt;class ParticlesAttachedClass &gt; </td></tr>
+<tr class="memitem:aea609fd093d99653bdcba998e6c44d0b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aea609fd093d99653bdcba998e6c44d0b">forEachLeaf</a> (std::function&lt; void(ParticlesAttachedClass *)&gt; function)</td></tr>
+<tr class="memdesc:aea609fd093d99653bdcba998e6c44d0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">forEachLeaf iterate on the leaf and apply the function  <br /></td></tr>
+<tr class="separator:aea609fd093d99653bdcba998e6c44d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c80c8fc0934b93fbadf1b4713b829a2" id="r_a2c80c8fc0934b93fbadf1b4713b829a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c80c8fc0934b93fbadf1b4713b829a2">forEachCell</a> (std::function&lt; void(CompositeCellClass)&gt; function)</td></tr>
+<tr class="memdesc:a2c80c8fc0934b93fbadf1b4713b829a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">forEachLeaf iterate on the cell and apply the function  <br /></td></tr>
+<tr class="separator:a2c80c8fc0934b93fbadf1b4713b829a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99e48c67d204e2b1da2308311f21efdf" id="r_a99e48c67d204e2b1da2308311f21efdf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99e48c67d204e2b1da2308311f21efdf">forEachCellWithLevel</a> (std::function&lt; void(CompositeCellClass, const int)&gt; function)</td></tr>
+<tr class="memdesc:a99e48c67d204e2b1da2308311f21efdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">forEachLeaf iterate on the cell and apply the function  <br /></td></tr>
+<tr class="separator:a99e48c67d204e2b1da2308311f21efdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c8f4688cc42dd72c9d0d6d806cc0422" id="r_a0c8f4688cc42dd72c9d0d6d806cc0422"><td class="memTemplParams" colspan="2">template&lt;class ParticlesAttachedClass &gt; </td></tr>
+<tr class="memitem:a0c8f4688cc42dd72c9d0d6d806cc0422"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a0c8f4688cc42dd72c9d0d6d806cc0422">forEachCellLeaf</a> (std::function&lt; void(CompositeCellClass, ParticlesAttachedClass *)&gt; function)</td></tr>
+<tr class="memdesc:a0c8f4688cc42dd72c9d0d6d806cc0422"><td class="mdescLeft">&#160;</td><td class="mdescRight">forEachLeaf iterate on the cell and apply the function  <br /></td></tr>
+<tr class="separator:a0c8f4688cc42dd72c9d0d6d806cc0422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad838a71648c7ea9cc71385457e493fc0" id="r_ad838a71648c7ea9cc71385457e493fc0"><td class="memItemLeft" align="right" valign="top"><a id="ad838a71648c7ea9cc71385457e493fc0" name="ad838a71648c7ea9cc71385457e493fc0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printInfoBlocks</b> ()</td></tr>
+<tr class="memdesc:ad838a71648c7ea9cc71385457e493fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">, for statistic purpose, display each block with number of cell, size of header, starting index, and ending index <br /></td></tr>
+<tr class="separator:ad838a71648c7ea9cc71385457e493fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a157537e314e8893419546d91a891c4dd" id="r_a157537e314e8893419546d91a891c4dd"><td class="memItemLeft" align="right" valign="top"><a id="a157537e314e8893419546d91a891c4dd" name="a157537e314e8893419546d91a891c4dd"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getHeight</b> () const</td></tr>
+<tr class="separator:a157537e314e8893419546d91a891c4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0a3f1400d49bd986fa7d9490cb7f99f" id="r_ae0a3f1400d49bd986fa7d9490cb7f99f"><td class="memItemLeft" align="right" valign="top"><a id="ae0a3f1400d49bd986fa7d9490cb7f99f" name="ae0a3f1400d49bd986fa7d9490cb7f99f"></a>
+CellGroupIterator&#160;</td><td class="memItemRight" valign="bottom"><b>cellsBegin</b> (const int inLevel)</td></tr>
+<tr class="separator:ae0a3f1400d49bd986fa7d9490cb7f99f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a972d34c44f54cd6e31aaac3332cbcb50" id="r_a972d34c44f54cd6e31aaac3332cbcb50"><td class="memItemLeft" align="right" valign="top"><a id="a972d34c44f54cd6e31aaac3332cbcb50" name="a972d34c44f54cd6e31aaac3332cbcb50"></a>
+CellGroupConstIterator&#160;</td><td class="memItemRight" valign="bottom"><b>cellsBegin</b> (const int inLevel) const</td></tr>
+<tr class="separator:a972d34c44f54cd6e31aaac3332cbcb50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17a36845eb2e9206143a29297d186c99" id="r_a17a36845eb2e9206143a29297d186c99"><td class="memItemLeft" align="right" valign="top"><a id="a17a36845eb2e9206143a29297d186c99" name="a17a36845eb2e9206143a29297d186c99"></a>
+CellGroupIterator&#160;</td><td class="memItemRight" valign="bottom"><b>cellsEnd</b> (const int inLevel)</td></tr>
+<tr class="separator:a17a36845eb2e9206143a29297d186c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc76a6bb38a33cbebd1cee15331be2c7" id="r_abc76a6bb38a33cbebd1cee15331be2c7"><td class="memItemLeft" align="right" valign="top"><a id="abc76a6bb38a33cbebd1cee15331be2c7" name="abc76a6bb38a33cbebd1cee15331be2c7"></a>
+CellGroupConstIterator&#160;</td><td class="memItemRight" valign="bottom"><b>cellsEnd</b> (const int inLevel) const</td></tr>
+<tr class="separator:abc76a6bb38a33cbebd1cee15331be2c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c440bd3b0178a4bbb2c811dcf4d7bb4" id="r_a7c440bd3b0178a4bbb2c811dcf4d7bb4"><td class="memItemLeft" align="right" valign="top"><a id="a7c440bd3b0178a4bbb2c811dcf4d7bb4" name="a7c440bd3b0178a4bbb2c811dcf4d7bb4"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getNbCellGroupAtLevel</b> (const int inLevel) const</td></tr>
+<tr class="separator:a7c440bd3b0178a4bbb2c811dcf4d7bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe666e841d99123d4b185dfcf07f7b38" id="r_abe666e841d99123d4b185dfcf07f7b38"><td class="memItemLeft" align="right" valign="top"><a id="abe666e841d99123d4b185dfcf07f7b38" name="abe666e841d99123d4b185dfcf07f7b38"></a>
+<a class="el" href="class_f_group_of_cells.html">CellGroupClass</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getCellGroup</b> (const int inLevel, const int inIdx)</td></tr>
+<tr class="separator:abe666e841d99123d4b185dfcf07f7b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a605d5404c4bcf420ae21d17d5cdbbcd5" id="r_a605d5404c4bcf420ae21d17d5cdbbcd5"><td class="memItemLeft" align="right" valign="top"><a id="a605d5404c4bcf420ae21d17d5cdbbcd5" name="a605d5404c4bcf420ae21d17d5cdbbcd5"></a>
+const <a class="el" href="class_f_group_of_cells.html">CellGroupClass</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getCellGroup</b> (const int inLevel, const int inIdx) const</td></tr>
+<tr class="separator:a605d5404c4bcf420ae21d17d5cdbbcd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a052c1d3f458a9a879f1c73b76ff4b698" id="r_a052c1d3f458a9a879f1c73b76ff4b698"><td class="memItemLeft" align="right" valign="top"><a id="a052c1d3f458a9a879f1c73b76ff4b698" name="a052c1d3f458a9a879f1c73b76ff4b698"></a>
+ParticleGroupIterator&#160;</td><td class="memItemRight" valign="bottom"><b>leavesBegin</b> ()</td></tr>
+<tr class="separator:a052c1d3f458a9a879f1c73b76ff4b698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fe508bdcf5f38a8e8377804a4b3b56a" id="r_a3fe508bdcf5f38a8e8377804a4b3b56a"><td class="memItemLeft" align="right" valign="top"><a id="a3fe508bdcf5f38a8e8377804a4b3b56a" name="a3fe508bdcf5f38a8e8377804a4b3b56a"></a>
+ParticleGroupConstIterator&#160;</td><td class="memItemRight" valign="bottom"><b>leavesBegin</b> () const</td></tr>
+<tr class="separator:a3fe508bdcf5f38a8e8377804a4b3b56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18a53d289fc291dc53ebb4d1a17b0f2b" id="r_a18a53d289fc291dc53ebb4d1a17b0f2b"><td class="memItemLeft" align="right" valign="top"><a id="a18a53d289fc291dc53ebb4d1a17b0f2b" name="a18a53d289fc291dc53ebb4d1a17b0f2b"></a>
+ParticleGroupIterator&#160;</td><td class="memItemRight" valign="bottom"><b>leavesEnd</b> ()</td></tr>
+<tr class="separator:a18a53d289fc291dc53ebb4d1a17b0f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a659136b9578ddf1b17b3098826ac8ead" id="r_a659136b9578ddf1b17b3098826ac8ead"><td class="memItemLeft" align="right" valign="top"><a id="a659136b9578ddf1b17b3098826ac8ead" name="a659136b9578ddf1b17b3098826ac8ead"></a>
+ParticleGroupConstIterator&#160;</td><td class="memItemRight" valign="bottom"><b>leavesEnd</b> () const</td></tr>
+<tr class="separator:a659136b9578ddf1b17b3098826ac8ead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a548896a9135047086ebe58b5cc142800" id="r_a548896a9135047086ebe58b5cc142800"><td class="memItemLeft" align="right" valign="top"><a id="a548896a9135047086ebe58b5cc142800" name="a548896a9135047086ebe58b5cc142800"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getNbParticleGroup</b> () const</td></tr>
+<tr class="separator:a548896a9135047086ebe58b5cc142800"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd6aa1d8e37e9fe7a14c72c8483f5bba" id="r_abd6aa1d8e37e9fe7a14c72c8483f5bba"><td class="memItemLeft" align="right" valign="top"><a id="abd6aa1d8e37e9fe7a14c72c8483f5bba" name="abd6aa1d8e37e9fe7a14c72c8483f5bba"></a>
+<a class="el" href="class_f_group_of_particles.html">ParticleGroupClass</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getParticleGroup</b> (const int inIdx)</td></tr>
+<tr class="separator:abd6aa1d8e37e9fe7a14c72c8483f5bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2da7397795f67c6d1c15dac82d9d0dc" id="r_aa2da7397795f67c6d1c15dac82d9d0dc"><td class="memItemLeft" align="right" valign="top"><a id="aa2da7397795f67c6d1c15dac82d9d0dc" name="aa2da7397795f67c6d1c15dac82d9d0dc"></a>
+const <a class="el" href="class_f_group_of_particles.html">ParticleGroupClass</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getParticleGroup</b> (const int inIdx) const</td></tr>
+<tr class="separator:aa2da7397795f67c6d1c15dac82d9d0dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected 属性</h2></td></tr>
+<tr class="memitem:a04b5dc405ab7b76ef057de0facf9b5ea" id="r_a04b5dc405ab7b76ef057de0facf9b5ea"><td class="memItemLeft" align="right" valign="top"><a id="a04b5dc405ab7b76ef057de0facf9b5ea" name="a04b5dc405ab7b76ef057de0facf9b5ea"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>treeHeight</b></td></tr>
+<tr class="separator:a04b5dc405ab7b76ef057de0facf9b5ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78ebf26c9607b2cbf1c80931997a74d5" id="r_a78ebf26c9607b2cbf1c80931997a74d5"><td class="memItemLeft" align="right" valign="top"><a id="a78ebf26c9607b2cbf1c80931997a74d5" name="a78ebf26c9607b2cbf1c80931997a74d5"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>nbElementsPerBlock</b></td></tr>
+<tr class="separator:a78ebf26c9607b2cbf1c80931997a74d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a304e16fce0defc9480b848a573926f67" id="r_a304e16fce0defc9480b848a573926f67"><td class="memItemLeft" align="right" valign="top"><a id="a304e16fce0defc9480b848a573926f67" name="a304e16fce0defc9480b848a573926f67"></a>
+std::vector&lt; <a class="el" href="class_f_group_of_cells.html">CellGroupClass</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>cellBlocksPerLevel</b></td></tr>
+<tr class="separator:a304e16fce0defc9480b848a573926f67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2510c835d2d1e2afe158a5641465351b" id="r_a2510c835d2d1e2afe158a5641465351b"><td class="memItemLeft" align="right" valign="top"><a id="a2510c835d2d1e2afe158a5641465351b" name="a2510c835d2d1e2afe158a5641465351b"></a>
+std::vector&lt; <a class="el" href="class_f_group_of_particles.html">ParticleGroupClass</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>particleBlocks</b></td></tr>
+<tr class="separator:a2510c835d2d1e2afe158a5641465351b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd7364a7bf6083e14d4823e5ca27f830" id="r_afd7364a7bf6083e14d4823e5ca27f830"><td class="memItemLeft" align="right" valign="top"><a id="afd7364a7bf6083e14d4823e5ca27f830" name="afd7364a7bf6083e14d4823e5ca27f830"></a>
+const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>boxCenter</b></td></tr>
+<tr class="separator:afd7364a7bf6083e14d4823e5ca27f830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87a62f371bcbdba5254cfc76870edd9a" id="r_a87a62f371bcbdba5254cfc76870edd9a"><td class="memItemLeft" align="right" valign="top"><a id="a87a62f371bcbdba5254cfc76870edd9a" name="a87a62f371bcbdba5254cfc76870edd9a"></a>
+const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>boxCorner</b></td></tr>
+<tr class="separator:a87a62f371bcbdba5254cfc76870edd9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab25f4c4b4e1f2d27c3681f73957efef3" id="r_ab25f4c4b4e1f2d27c3681f73957efef3"><td class="memItemLeft" align="right" valign="top"><a id="ab25f4c4b4e1f2d27c3681f73957efef3" name="ab25f4c4b4e1f2d27c3681f73957efef3"></a>
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>boxWidth</b></td></tr>
+<tr class="separator:ab25f4c4b4e1f2d27c3681f73957efef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0412c16422965e7a4cc4865df7c6f2da" id="r_a0412c16422965e7a4cc4865df7c6f2da"><td class="memItemLeft" align="right" valign="top"><a id="a0412c16422965e7a4cc4865df7c6f2da" name="a0412c16422965e7a4cc4865df7c6f2da"></a>
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>boxWidthAtLeafLevel</b></td></tr>
+<tr class="separator:a0412c16422965e7a4cc4865df7c6f2da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a34acc12640f196f68787c6de9d18d092" name="a34acc12640f196f68787c6de9d18d092"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34acc12640f196f68787c6de9d18d092">&#9670;&#160;</a></span>FGroupTree() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CompositeCellClass , class SymboleCellClass , class PoleCellClass , class LocalCellClass , class GroupAttachedLeafClass , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<div class="memtemplate">
+template&lt;class OctreeClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_group_tree.html">FGroupTree</a>&lt; FReal, CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass, GroupAttachedLeafClass, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;<a class="el" href="class_f_group_tree.html">::FGroupTree</a> </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inTreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inNbElementsPerBlock</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OctreeClass *const</td>          <td class="paramname"><span class="paramname"><em>inOctreeSrc</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This constructor create a blocked octree from a usual octree The cell are allocated as in the usual octree (no copy constructor are called!) Once allocated each cell receive its morton index and tree coordinate. No blocks are allocated at level 0. </p>
+
+</div>
+</div>
+<a id="ae5a7d5bbcc024faecf364e10fef9ffeb" name="ae5a7d5bbcc024faecf364e10fef9ffeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5a7d5bbcc024faecf364e10fef9ffeb">&#9670;&#160;</a></span>FGroupTree() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CompositeCellClass , class SymboleCellClass , class PoleCellClass , class LocalCellClass , class GroupAttachedLeafClass , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<div class="memtemplate">
+template&lt;class ParticleContainer &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_group_tree.html">FGroupTree</a>&lt; FReal, CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass, GroupAttachedLeafClass, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;<a class="el" href="class_f_group_tree.html">::FGroupTree</a> </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inTreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>inBoxWidth</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>inBoxCenter</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inNbElementsPerBlock</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ParticleContainer *</td>          <td class="paramname"><span class="paramname"><em>inParticlesContainer</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>particlesAreSorted</em><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MortonIndex</td>          <td class="paramname"><span class="paramname"><em>inLeftLimite</em><span class="paramdefsep"> = </span><span class="paramdefval">-1</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This constructor create a group tree from a particle container index. The morton index are computed and the particles are sorted in a first stage. Then the leaf level is done. Finally the other leve are proceed one after the other. It should be easy to make it parallel using for and tasks. If no limite give inLeftLimite = -1 </p>
+
+</div>
+</div>
+<a id="af76df98ddb521ee8812cc876d724283e" name="af76df98ddb521ee8812cc876d724283e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af76df98ddb521ee8812cc876d724283e">&#9670;&#160;</a></span>FGroupTree() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CompositeCellClass , class SymboleCellClass , class PoleCellClass , class LocalCellClass , class GroupAttachedLeafClass , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<div class="memtemplate">
+template&lt;class ParticleContainer &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_group_tree.html">FGroupTree</a>&lt; FReal, CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass, GroupAttachedLeafClass, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;<a class="el" href="class_f_group_tree.html">::FGroupTree</a> </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inTreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>inBoxWidth</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>inBoxCenter</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inNbElementsPerBlock</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ParticleContainer *</td>          <td class="paramname"><span class="paramname"><em>inParticlesContainer</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>particlesAreSorted</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>oneParent</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>inCoverRatio</em><span class="paramdefsep"> = </span><span class="paramdefval">0.0</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MortonIndex</td>          <td class="paramname"><span class="paramname"><em>inLeftLimite</em><span class="paramdefsep"> = </span><span class="paramdefval">-1</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This constructor create a group tree from a particle container index. The morton index are computed and the particles are sorted in a first stage. Then the leaf level is done. Finally the other leve are proceed one after the other. It should be easy to make it parallel using for and tasks. If no limite give inLeftLimite = -1 The cover ration is the minimum pourcentage of cell that should exist in a group (0 means no limite, 1 means the block must be dense) oneParent should be turned on if it is better to have one block parent per sublock (in case of have the cost of FMM that increase with the level this could be an asset). </p>
+
+</div>
+</div>
+<a id="a7e931217a62322a2d67b5121144bd9a1" name="a7e931217a62322a2d67b5121144bd9a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e931217a62322a2d67b5121144bd9a1">&#9670;&#160;</a></span>~FGroupTree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CompositeCellClass , class SymboleCellClass , class PoleCellClass , class LocalCellClass , class GroupAttachedLeafClass , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_group_tree.html">FGroupTree</a>&lt; FReal, CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass, GroupAttachedLeafClass, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::~<a class="el" href="class_f_group_tree.html">FGroupTree</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This function dealloc the tree by deleting each block </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a2c80c8fc0934b93fbadf1b4713b829a2" name="a2c80c8fc0934b93fbadf1b4713b829a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c80c8fc0934b93fbadf1b4713b829a2">&#9670;&#160;</a></span>forEachCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CompositeCellClass , class SymboleCellClass , class PoleCellClass , class LocalCellClass , class GroupAttachedLeafClass , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_group_tree.html">FGroupTree</a>&lt; FReal, CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass, GroupAttachedLeafClass, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::forEachCell </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(CompositeCellClass)&gt;</td>          <td class="paramname"><span class="paramname"><em>function</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>forEachLeaf iterate on the cell and apply the function </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">function</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0c8f4688cc42dd72c9d0d6d806cc0422" name="a0c8f4688cc42dd72c9d0d6d806cc0422"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c8f4688cc42dd72c9d0d6d806cc0422">&#9670;&#160;</a></span>forEachCellLeaf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CompositeCellClass , class SymboleCellClass , class PoleCellClass , class LocalCellClass , class GroupAttachedLeafClass , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<div class="memtemplate">
+template&lt;class ParticlesAttachedClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_group_tree.html">FGroupTree</a>&lt; FReal, CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass, GroupAttachedLeafClass, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::forEachCellLeaf </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(CompositeCellClass, ParticlesAttachedClass *)&gt;</td>          <td class="paramname"><span class="paramname"><em>function</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>forEachLeaf iterate on the cell and apply the function </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">function</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a99e48c67d204e2b1da2308311f21efdf" name="a99e48c67d204e2b1da2308311f21efdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99e48c67d204e2b1da2308311f21efdf">&#9670;&#160;</a></span>forEachCellWithLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CompositeCellClass , class SymboleCellClass , class PoleCellClass , class LocalCellClass , class GroupAttachedLeafClass , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_group_tree.html">FGroupTree</a>&lt; FReal, CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass, GroupAttachedLeafClass, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::forEachCellWithLevel </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(CompositeCellClass, const int)&gt;</td>          <td class="paramname"><span class="paramname"><em>function</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>forEachLeaf iterate on the cell and apply the function </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">function</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aea609fd093d99653bdcba998e6c44d0b" name="aea609fd093d99653bdcba998e6c44d0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea609fd093d99653bdcba998e6c44d0b">&#9670;&#160;</a></span>forEachLeaf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CompositeCellClass , class SymboleCellClass , class PoleCellClass , class LocalCellClass , class GroupAttachedLeafClass , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<div class="memtemplate">
+template&lt;class ParticlesAttachedClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_group_tree.html">FGroupTree</a>&lt; FReal, CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass, GroupAttachedLeafClass, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::forEachLeaf </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(ParticlesAttachedClass *)&gt;</td>          <td class="paramname"><span class="paramname"><em>function</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>forEachLeaf iterate on the leaf and apply the function </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">function</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/GroupTree/Core/<a class="el" href="_f_group_tree_8hpp_source.html">FGroupTree.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

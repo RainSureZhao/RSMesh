@@ -1,0 +1,590 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FChebInterpolator&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-methods">Protected 成员函数</a> &#124;
+<a href="#pro-attribs">Protected 属性</a> &#124;
+<a href="class_f_cheb_interpolator-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FChebInterpolator&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_cheb_interpolator_8hpp_source.html">FChebInterpolator.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FChebInterpolator&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_cheb_interpolator.png" usemap="#FChebInterpolator_3C_20FReal_2C_20ORDER_2C_20MatrixKernelClass_2C_20NVALS_20_3E_map" alt=""/>
+  <map id="FChebInterpolator_3C_20FReal_2C_20ORDER_2C_20MatrixKernelClass_2C_20NVALS_20_3E_map" name="FChebInterpolator_3C_20FReal_2C_20ORDER_2C_20MatrixKernelClass_2C_20NVALS_20_3E_map">
+<area href="class_f_no_copyable.html" alt="FNoCopyable" shape="rect" coords="0,0,386,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_cheb_interpolator_1_1_i_j_k2_j_k_i.html">IJK2JKI</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_cheb_interpolator_1_1_i_j_k2_k_i_j.html">IJK2KIJ</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_cheb_interpolator_1_1_i_m_n2_m_n_i.html">IMN2MNI</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_cheb_interpolator_1_1_j_n_i2_n_i_j.html">JNI2NIJ</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_cheb_interpolator_1_1_k_i_j2_i_j_k.html">KIJ2IJK</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_cheb_interpolator_1_1_l_j_k2_j_k_l.html">LJK2JKL</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_cheb_interpolator_1_1_l_j_k2_k_l_j.html">LJK2KLJ</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_cheb_interpolator_1_1_m_k_i2_k_i_m.html">MKI2KIM</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_cheb_interpolator_1_1_m_k_l2_k_l_m.html">MKL2KLM</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_cheb_interpolator_1_1_n_l_m2_l_m_n.html">NLM2LMN</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a37f3c5b7163c5465202fe1529f7cc7f8" id="r_a37f3c5b7163c5465202fe1529f7cc7f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37f3c5b7163c5465202fe1529f7cc7f8">FChebInterpolator</a> (const int inTreeHeight=3, const FReal inRootCellWidth=FReal(1.), const FReal inCellWidthExtension=FReal(0.))</td></tr>
+<tr class="separator:a37f3c5b7163c5465202fe1529f7cc7f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64553d580d0c6b32ccf8ece1a2765ed8" id="r_a64553d580d0c6b32ccf8ece1a2765ed8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64553d580d0c6b32ccf8ece1a2765ed8">~FChebInterpolator</a> ()</td></tr>
+<tr class="separator:a64553d580d0c6b32ccf8ece1a2765ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a147b0202ce6c3c70765baa391e7825f4" id="r_a147b0202ce6c3c70765baa391e7825f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a147b0202ce6c3c70765baa391e7825f4">assembleInterpolator</a> (const unsigned int NumberOfLocalPoints, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; *const LocalPoints, FReal *const Interpolator) const</td></tr>
+<tr class="separator:a147b0202ce6c3c70765baa391e7825f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9798b51de3cdf7c028d5b02b6e847f2c" id="r_a9798b51de3cdf7c028d5b02b6e847f2c"><td class="memItemLeft" align="right" valign="top"><a id="a9798b51de3cdf7c028d5b02b6e847f2c" name="a9798b51de3cdf7c028d5b02b6e847f2c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>assembleInterpolator</b> (const unsigned int M, const FReal *const x, FReal *const S) const</td></tr>
+<tr class="separator:a9798b51de3cdf7c028d5b02b6e847f2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa60bec4e673d23be092b040253e918f6" id="r_aa60bec4e673d23be092b040253e918f6"><td class="memItemLeft" align="right" valign="top"><a id="aa60bec4e673d23be092b040253e918f6" name="aa60bec4e673d23be092b040253e918f6"></a>
+const unsigned int *&#160;</td><td class="memItemRight" valign="bottom"><b>getPermutationsM2ML2L</b> (unsigned int i) const</td></tr>
+<tr class="separator:aa60bec4e673d23be092b040253e918f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4c31b108e19215b2c4b70f217aeee3f" id="r_ae4c31b108e19215b2c4b70f217aeee3f"><td class="memTemplParams" colspan="2">template&lt;class ContainerClass &gt; </td></tr>
+<tr class="memitem:ae4c31b108e19215b2c4b70f217aeee3f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae4c31b108e19215b2c4b70f217aeee3f">applyP2M</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;center, const FReal width, FReal *const multipoleExpansion, const ContainerClass *const sourceParticles) const</td></tr>
+<tr class="separator:ae4c31b108e19215b2c4b70f217aeee3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcf3f59d0d46a5fdc56a246b27432dfa" id="r_adcf3f59d0d46a5fdc56a246b27432dfa"><td class="memTemplParams" colspan="2">template&lt;class ContainerClass &gt; </td></tr>
+<tr class="memitem:adcf3f59d0d46a5fdc56a246b27432dfa"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#adcf3f59d0d46a5fdc56a246b27432dfa">applyL2P</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;center, const FReal width, const FReal *const localExpansion, ContainerClass *const localParticles) const</td></tr>
+<tr class="memdesc:adcf3f59d0d46a5fdc56a246b27432dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">&zwj;**  <br /></td></tr>
+<tr class="separator:adcf3f59d0d46a5fdc56a246b27432dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1eba40f12be2f8f60a747ae947d2642f" id="r_a1eba40f12be2f8f60a747ae947d2642f"><td class="memTemplParams" colspan="2">template&lt;class ContainerClass &gt; </td></tr>
+<tr class="memitem:a1eba40f12be2f8f60a747ae947d2642f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1eba40f12be2f8f60a747ae947d2642f">applyL2PGradient</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;center, const FReal width, const FReal *const localExpansion, ContainerClass *const localParticles) const</td></tr>
+<tr class="memdesc:a1eba40f12be2f8f60a747ae947d2642f"><td class="mdescLeft">&#160;</td><td class="mdescRight">&zwj;**  <br /></td></tr>
+<tr class="separator:a1eba40f12be2f8f60a747ae947d2642f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21ca0aabd7b14d6a53cf97a12070cab8" id="r_a21ca0aabd7b14d6a53cf97a12070cab8"><td class="memTemplParams" colspan="2">template&lt;class ContainerClass &gt; </td></tr>
+<tr class="memitem:a21ca0aabd7b14d6a53cf97a12070cab8"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a21ca0aabd7b14d6a53cf97a12070cab8">applyL2PTotal</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;center, const FReal width, const FReal *const localExpansion, ContainerClass *const localParticles) const</td></tr>
+<tr class="separator:a21ca0aabd7b14d6a53cf97a12070cab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6dbb55b470a3d05d8b7ef0e91190b2c" id="r_ae6dbb55b470a3d05d8b7ef0e91190b2c"><td class="memItemLeft" align="right" valign="top"><a id="ae6dbb55b470a3d05d8b7ef0e91190b2c" name="ae6dbb55b470a3d05d8b7ef0e91190b2c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>applyM2M</b> (const unsigned int ChildIndex, const FReal *const ChildExpansion, FReal *const ParentExpansion, const unsigned int TreeLevel=2) const</td></tr>
+<tr class="separator:ae6dbb55b470a3d05d8b7ef0e91190b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acddaa2e7b8eba0acead3d8a97e703d0e" id="r_acddaa2e7b8eba0acead3d8a97e703d0e"><td class="memItemLeft" align="right" valign="top"><a id="acddaa2e7b8eba0acead3d8a97e703d0e" name="acddaa2e7b8eba0acead3d8a97e703d0e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>applyL2L</b> (const unsigned int ChildIndex, const FReal *const ParentExpansion, FReal *const ChildExpansion, const unsigned int TreeLevel=2) const</td></tr>
+<tr class="separator:acddaa2e7b8eba0acead3d8a97e703d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected 成员函数</h2></td></tr>
+<tr class="memitem:abf2f611f9d0b350969c6145003570896" id="r_abf2f611f9d0b350969c6145003570896"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf2f611f9d0b350969c6145003570896">initM2MandL2L</a> (const int TreeLevel, const FReal ParentWidth)</td></tr>
+<tr class="separator:abf2f611f9d0b350969c6145003570896"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ed6e8c71de65ed81e36f607e3555d52" id="r_a0ed6e8c71de65ed81e36f607e3555d52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ed6e8c71de65ed81e36f607e3555d52">initTensorM2MandL2L</a> (const int TreeLevel, const FReal ParentWidth)</td></tr>
+<tr class="separator:a0ed6e8c71de65ed81e36f607e3555d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected 属性</h2></td></tr>
+<tr class="memitem:a1ebefc569faf162e1b18ea76a0fdcf12" id="r_a1ebefc569faf162e1b18ea76a0fdcf12"><td class="memItemLeft" align="right" valign="top"><a id="a1ebefc569faf162e1b18ea76a0fdcf12" name="a1ebefc569faf162e1b18ea76a0fdcf12"></a>
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>T_of_roots</b> [ORDER][ORDER]</td></tr>
+<tr class="separator:a1ebefc569faf162e1b18ea76a0fdcf12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6eeceaac07f1daea235bddc563d36c7d" id="r_a6eeceaac07f1daea235bddc563d36c7d"><td class="memItemLeft" align="right" valign="top"><a id="a6eeceaac07f1daea235bddc563d36c7d" name="a6eeceaac07f1daea235bddc563d36c7d"></a>
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>T</b> [ORDER *(ORDER-1)]</td></tr>
+<tr class="separator:a6eeceaac07f1daea235bddc563d36c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6259ca9c35f49f0591a4ef72d5ec680" id="r_ae6259ca9c35f49f0591a4ef72d5ec680"><td class="memItemLeft" align="right" valign="top"><a id="ae6259ca9c35f49f0591a4ef72d5ec680" name="ae6259ca9c35f49f0591a4ef72d5ec680"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>node_ids</b> [nnodes][3]</td></tr>
+<tr class="separator:ae6259ca9c35f49f0591a4ef72d5ec680"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d60b16ebb32d02812475ab49906bc7b" id="r_a9d60b16ebb32d02812475ab49906bc7b"><td class="memItemLeft" align="right" valign="top"><a id="a9d60b16ebb32d02812475ab49906bc7b" name="a9d60b16ebb32d02812475ab49906bc7b"></a>
+FReal ***&#160;</td><td class="memItemRight" valign="bottom"><b>ChildParentInterpolator</b></td></tr>
+<tr class="separator:a9d60b16ebb32d02812475ab49906bc7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36f0266b16ff9949db0b617565be78c8" id="r_a36f0266b16ff9949db0b617565be78c8"><td class="memItemLeft" align="right" valign="top"><a id="a36f0266b16ff9949db0b617565be78c8" name="a36f0266b16ff9949db0b617565be78c8"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>TreeHeight</b></td></tr>
+<tr class="separator:a36f0266b16ff9949db0b617565be78c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e82bf8d9858cb20d5f9605be49e8edd" id="r_a1e82bf8d9858cb20d5f9605be49e8edd"><td class="memItemLeft" align="right" valign="top"><a id="a1e82bf8d9858cb20d5f9605be49e8edd" name="a1e82bf8d9858cb20d5f9605be49e8edd"></a>
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>RootCellWidth</b></td></tr>
+<tr class="separator:a1e82bf8d9858cb20d5f9605be49e8edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a139b3e3b81860064c253f36b1ce0cc1a" id="r_a139b3e3b81860064c253f36b1ce0cc1a"><td class="memItemLeft" align="right" valign="top"><a id="a139b3e3b81860064c253f36b1ce0cc1a" name="a139b3e3b81860064c253f36b1ce0cc1a"></a>
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>CellWidthExtension</b></td></tr>
+<tr class="separator:a139b3e3b81860064c253f36b1ce0cc1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafc0659eabb33e127780d9454ca3678a" id="r_aafc0659eabb33e127780d9454ca3678a"><td class="memItemLeft" align="right" valign="top"><a id="aafc0659eabb33e127780d9454ca3678a" name="aafc0659eabb33e127780d9454ca3678a"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>perm</b> [3][nnodes]</td></tr>
+<tr class="separator:aafc0659eabb33e127780d9454ca3678a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbf77523aeef2af18256c131e68f755e" id="r_acbf77523aeef2af18256c131e68f755e"><td class="memItemLeft" align="right" valign="top"><a id="acbf77523aeef2af18256c131e68f755e" name="acbf77523aeef2af18256c131e68f755e"></a>
+struct <a class="el" href="struct_f_cheb_interpolator_1_1_i_m_n2_m_n_i.html">FChebInterpolator::IMN2MNI</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perm0</b></td></tr>
+<tr class="separator:acbf77523aeef2af18256c131e68f755e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50dbe54eb57e30b4b5a31e4c08a2e08b" id="r_a50dbe54eb57e30b4b5a31e4c08a2e08b"><td class="memItemLeft" align="right" valign="top"><a id="a50dbe54eb57e30b4b5a31e4c08a2e08b" name="a50dbe54eb57e30b4b5a31e4c08a2e08b"></a>
+struct <a class="el" href="struct_f_cheb_interpolator_1_1_j_n_i2_n_i_j.html">FChebInterpolator::JNI2NIJ</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perm1</b></td></tr>
+<tr class="separator:a50dbe54eb57e30b4b5a31e4c08a2e08b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c3b1e54e7320ae052338758f1cbf1f7" id="r_a4c3b1e54e7320ae052338758f1cbf1f7"><td class="memItemLeft" align="right" valign="top"><a id="a4c3b1e54e7320ae052338758f1cbf1f7" name="a4c3b1e54e7320ae052338758f1cbf1f7"></a>
+struct <a class="el" href="struct_f_cheb_interpolator_1_1_k_i_j2_i_j_k.html">FChebInterpolator::KIJ2IJK</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perm2</b></td></tr>
+<tr class="separator:a4c3b1e54e7320ae052338758f1cbf1f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a657bf3ff997e6993df1861974641cf0c" id="r_a657bf3ff997e6993df1861974641cf0c"><td class="memItemLeft" align="right" valign="top"><a id="a657bf3ff997e6993df1861974641cf0c" name="a657bf3ff997e6993df1861974641cf0c"></a>
+struct <a class="el" href="struct_f_cheb_interpolator_1_1_i_j_k2_j_k_i.html">FChebInterpolator::IJK2JKI</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perm3</b></td></tr>
+<tr class="separator:a657bf3ff997e6993df1861974641cf0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48a29a9996419ce1bc57def75e2ad2fa" id="r_a48a29a9996419ce1bc57def75e2ad2fa"><td class="memItemLeft" align="right" valign="top"><a id="a48a29a9996419ce1bc57def75e2ad2fa" name="a48a29a9996419ce1bc57def75e2ad2fa"></a>
+struct <a class="el" href="struct_f_cheb_interpolator_1_1_i_j_k2_k_i_j.html">FChebInterpolator::IJK2KIJ</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perm4</b></td></tr>
+<tr class="separator:a48a29a9996419ce1bc57def75e2ad2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacac62b0c7125fdc98042149e16d9917" id="r_aacac62b0c7125fdc98042149e16d9917"><td class="memItemLeft" align="right" valign="top"><a id="aacac62b0c7125fdc98042149e16d9917" name="aacac62b0c7125fdc98042149e16d9917"></a>
+struct <a class="el" href="struct_f_cheb_interpolator_1_1_l_j_k2_j_k_l.html">FChebInterpolator::LJK2JKL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perm5</b></td></tr>
+<tr class="separator:aacac62b0c7125fdc98042149e16d9917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37c6a71ae87212a08544df33618115ff" id="r_a37c6a71ae87212a08544df33618115ff"><td class="memItemLeft" align="right" valign="top"><a id="a37c6a71ae87212a08544df33618115ff" name="a37c6a71ae87212a08544df33618115ff"></a>
+struct <a class="el" href="struct_f_cheb_interpolator_1_1_l_j_k2_k_l_j.html">FChebInterpolator::LJK2KLJ</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perm6</b></td></tr>
+<tr class="separator:a37c6a71ae87212a08544df33618115ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84e4114ea01e6ec4d8ba25b01292432f" id="r_a84e4114ea01e6ec4d8ba25b01292432f"><td class="memItemLeft" align="right" valign="top"><a id="a84e4114ea01e6ec4d8ba25b01292432f" name="a84e4114ea01e6ec4d8ba25b01292432f"></a>
+struct <a class="el" href="struct_f_cheb_interpolator_1_1_m_k_i2_k_i_m.html">FChebInterpolator::MKI2KIM</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perm7</b></td></tr>
+<tr class="separator:a84e4114ea01e6ec4d8ba25b01292432f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe7a92b71901763c167291601a660fdd" id="r_afe7a92b71901763c167291601a660fdd"><td class="memItemLeft" align="right" valign="top"><a id="afe7a92b71901763c167291601a660fdd" name="afe7a92b71901763c167291601a660fdd"></a>
+struct <a class="el" href="struct_f_cheb_interpolator_1_1_m_k_l2_k_l_m.html">FChebInterpolator::MKL2KLM</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perm8</b></td></tr>
+<tr class="separator:afe7a92b71901763c167291601a660fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3af9a9c59f4108b4bec01b643a58c42" id="r_ae3af9a9c59f4108b4bec01b643a58c42"><td class="memItemLeft" align="right" valign="top"><a id="ae3af9a9c59f4108b4bec01b643a58c42" name="ae3af9a9c59f4108b4bec01b643a58c42"></a>
+struct <a class="el" href="struct_f_cheb_interpolator_1_1_n_l_m2_l_m_n.html">FChebInterpolator::NLM2LMN</a>&#160;</td><td class="memItemRight" valign="bottom"><b>perm9</b></td></tr>
+<tr class="separator:ae3af9a9c59f4108b4bec01b643a58c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, int ORDER, class MatrixKernelClass = struct FInterpMatrixKernelR&lt;FReal&gt;, int NVALS = 1&gt;<br />
+class FChebInterpolator&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;</div><dl class="section author"><dt>作者</dt><dd>Matthias Messner (<a href="#" onclick="location.href='mai'+'lto:'+'mat'+'th'+'ias'+'.m'+'att'+'hi'+'as@'+'in'+'ria'+'.f'+'r'; return false;">matth<span class="obfuscator">.nosp@m.</span>ias.<span class="obfuscator">.nosp@m.</span>matth<span class="obfuscator">.nosp@m.</span>ias@<span class="obfuscator">.nosp@m.</span>inria<span class="obfuscator">.nosp@m.</span>.fr</a>) Please read the license</dd></dl>
+<p>The class <code><a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a></code> defines the anterpolation (M2M) and interpolation (L2L) concerning operations.</p>
+<p>PB: MatrixKernelClass is passed as template in order to inform interpolator of the size of the vectorial interpolators. Default is the scalar matrix kernel class of type ONE_OVER_R (NRHS=NLHS=1). </p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a37f3c5b7163c5465202fe1529f7cc7f8" name="a37f3c5b7163c5465202fe1529f7cc7f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37f3c5b7163c5465202fe1529f7cc7f8">&#9670;&#160;</a></span>FChebInterpolator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass  = struct FInterpMatrixKernelR&lt;FReal&gt;, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;<a class="el" href="class_f_cheb_interpolator.html">::FChebInterpolator</a> </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inTreeHeight</em><span class="paramdefsep"> = </span><span class="paramdefval">3</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>inRootCellWidth</em><span class="paramdefsep"> = </span><span class="paramdefval">FReal(1.)</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>inCellWidthExtension</em><span class="paramdefsep"> = </span><span class="paramdefval">FReal(0.)</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constructor: Initialize the Chebyshev polynomials at the Chebyshev roots/interpolation point</p>
+<p>PB: Input parameters ONLY affect the computation of the M2M/L2L ops. These parameters are ONLY required in the context of extended bbox. If no M2M/L2L is required then the interpolator can be built with the default ctor. </p>
+
+</div>
+</div>
+<a id="a64553d580d0c6b32ccf8ece1a2765ed8" name="a64553d580d0c6b32ccf8ece1a2765ed8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64553d580d0c6b32ccf8ece1a2765ed8">&#9670;&#160;</a></span>~FChebInterpolator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass  = struct FInterpMatrixKernelR&lt;FReal&gt;, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;::~<a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Destructor: Delete dynamically allocated memory for M2M and L2L operator </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="adcf3f59d0d46a5fdc56a246b27432dfa" name="adcf3f59d0d46a5fdc56a246b27432dfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcf3f59d0d46a5fdc56a246b27432dfa">&#9670;&#160;</a></span>applyL2P()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass , int NVALS&gt; </div>
+<div class="memtemplate">
+template&lt;class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;::applyL2P </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>center</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>width</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal *const</td>          <td class="paramname"><span class="paramname"><em>localExpansion</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inParticles</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>&zwj;** </p>
+<p>Local to particle operation: application of <picture><source srcset="form_16_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$S_\ell(x,\bar x_m)$" src="form_16.png"/></picture> (interpolation) </p>
+
+</div>
+</div>
+<a id="a1eba40f12be2f8f60a747ae947d2642f" name="a1eba40f12be2f8f60a747ae947d2642f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eba40f12be2f8f60a747ae947d2642f">&#9670;&#160;</a></span>applyL2PGradient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass , int NVALS&gt; </div>
+<div class="memtemplate">
+template&lt;class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;::applyL2PGradient </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>center</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>width</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal *const</td>          <td class="paramname"><span class="paramname"><em>localExpansion</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inParticles</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>&zwj;** </p>
+<p>Local to particle operation: application of <picture><source srcset="form_17_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\nabla_x S_\ell(x,\bar x_m)$" src="form_17.png"/></picture> (interpolation) </p>
+
+</div>
+</div>
+<a id="a21ca0aabd7b14d6a53cf97a12070cab8" name="a21ca0aabd7b14d6a53cf97a12070cab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21ca0aabd7b14d6a53cf97a12070cab8">&#9670;&#160;</a></span>applyL2PTotal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass , int NVALS&gt; </div>
+<div class="memtemplate">
+template&lt;class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;::applyL2PTotal </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>center</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>width</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal *const</td>          <td class="paramname"><span class="paramname"><em>localExpansion</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inParticles</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Local to particle operation: application of <picture><source srcset="form_16_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$S_\ell(x,\bar x_m)$" src="form_16.png"/></picture> and <picture><source srcset="form_17_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\nabla_x S_\ell(x,\bar x_m)$" src="form_17.png"/></picture> (interpolation) </p>
+
+</div>
+</div>
+<a id="ae4c31b108e19215b2c4b70f217aeee3f" name="ae4c31b108e19215b2c4b70f217aeee3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4c31b108e19215b2c4b70f217aeee3f">&#9670;&#160;</a></span>applyP2M()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass , int NVALS&gt; </div>
+<div class="memtemplate">
+template&lt;class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;::applyP2M </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>center</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>width</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FReal *const</td>          <td class="paramname"><span class="paramname"><em>multipoleExpansion</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inParticles</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Particle to moment: application of <picture><source srcset="form_15_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$S_\ell(y,\bar y_n)$" src="form_15.png"/></picture> (anterpolation, it is the transposed interpolation) </p>
+
+</div>
+</div>
+<a id="a147b0202ce6c3c70765baa391e7825f4" name="a147b0202ce6c3c70765baa391e7825f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a147b0202ce6c3c70765baa391e7825f4">&#9670;&#160;</a></span>assembleInterpolator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass  = struct FInterpMatrixKernelR&lt;FReal&gt;, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;::assembleInterpolator </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int</td>          <td class="paramname"><span class="paramname"><em>NumberOfLocalPoints</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; *const</td>          <td class="paramname"><span class="paramname"><em>LocalPoints</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FReal *const</td>          <td class="paramname"><span class="paramname"><em>Interpolator</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Assembles the interpolator <picture><source srcset="form_18_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$S_\ell$" src="form_18.png"/></picture> of size <picture><source srcset="form_19_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$N\times
+\ell^3$" src="form_19.png"/></picture>. Here local points is meant as points whose global coordinates have already been mapped to the reference interval [-1,1].</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">NumberOfLocalPoints</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">LocalPoints</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">Interpolator</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abf2f611f9d0b350969c6145003570896" name="abf2f611f9d0b350969c6145003570896"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf2f611f9d0b350969c6145003570896">&#9670;&#160;</a></span>initM2MandL2L()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass  = struct FInterpMatrixKernelR&lt;FReal&gt;, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;::initM2MandL2L </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>TreeLevel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>ParentWidth</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Initialize the child - parent - interpolator, it is basically the matrix S which is precomputed and reused for all M2M and L2L operations, ie for all non leaf inter/anterpolations. This is a sub-optimal version : complexity p^6. This function handles extended cells. </p>
+
+</div>
+</div>
+<a id="a0ed6e8c71de65ed81e36f607e3555d52" name="a0ed6e8c71de65ed81e36f607e3555d52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ed6e8c71de65ed81e36f607e3555d52">&#9670;&#160;</a></span>initTensorM2MandL2L()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass  = struct FInterpMatrixKernelR&lt;FReal&gt;, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;::initTensorM2MandL2L </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>TreeLevel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>ParentWidth</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Initialize the child - parent - interpolator, it is basically the matrix S which is precomputed and reused for all M2M and L2L operations, ie for all non leaf inter/anterpolations. This is a more optimal version : complexity p^4. This function handles extended cells. </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Chebyshev/<a class="el" href="_f_cheb_interpolator_8hpp_source.html">FChebInterpolator.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

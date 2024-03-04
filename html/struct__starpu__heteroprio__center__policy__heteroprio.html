@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: _starpu_heteroprio_center_policy_heteroprio结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public 属性</a> &#124;
+<a href="struct__starpu__heteroprio__center__policy__heteroprio-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">_starpu_heteroprio_center_policy_heteroprio结构体 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public 属性</h2></td></tr>
+<tr class="memitem:aa3f8b114de9fb2e3c6e44b0ec5c8115b" id="r_aa3f8b114de9fb2e3c6e44b0ec5c8115b"><td class="memItemLeft" align="right" valign="top"><a id="aa3f8b114de9fb2e3c6e44b0ec5c8115b" name="aa3f8b114de9fb2e3c6e44b0ec5c8115b"></a>
+starpu_pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><b>policy_mutex</b></td></tr>
+<tr class="separator:aa3f8b114de9fb2e3c6e44b0ec5c8115b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c84673a1faca6cbffaf4b2f43d3f412" id="r_a0c84673a1faca6cbffaf4b2f43d3f412"><td class="memItemLeft" align="right" valign="top"><a id="a0c84673a1faca6cbffaf4b2f43d3f412" name="a0c84673a1faca6cbffaf4b2f43d3f412"></a>
+struct starpu_bitmap *&#160;</td><td class="memItemRight" valign="bottom"><b>waiters</b></td></tr>
+<tr class="separator:a0c84673a1faca6cbffaf4b2f43d3f412"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a661a201a4bca44e84f856f62a3fc9472" id="r_a661a201a4bca44e84f856f62a3fc9472"><td class="memItemLeft" align="right" valign="top"><a id="a661a201a4bca44e84f856f62a3fc9472" name="a661a201a4bca44e84f856f62a3fc9472"></a>
+struct <a class="el" href="struct__starpu__heteroprio__bucket.html">_starpu_heteroprio_bucket</a>&#160;</td><td class="memItemRight" valign="bottom"><b>buckets</b> [HETEROPRIO_MAX_PRIO]</td></tr>
+<tr class="separator:a661a201a4bca44e84f856f62a3fc9472"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab47ef6a3855bfc33fbb74eea180fcc72" id="r_ab47ef6a3855bfc33fbb74eea180fcc72"><td class="memItemLeft" align="right" valign="top"><a id="ab47ef6a3855bfc33fbb74eea180fcc72" name="ab47ef6a3855bfc33fbb74eea180fcc72"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>nb_prio_per_arch_index</b> [FSTARPU_NB_TYPES]</td></tr>
+<tr class="separator:ab47ef6a3855bfc33fbb74eea180fcc72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49119c266b1bb5ffc4c72135fa874b92" id="r_a49119c266b1bb5ffc4c72135fa874b92"><td class="memItemLeft" align="right" valign="top"><a id="a49119c266b1bb5ffc4c72135fa874b92" name="a49119c266b1bb5ffc4c72135fa874b92"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>prio_mapping_per_arch_index</b> [FSTARPU_NB_TYPES][HETEROPRIO_MAX_PRIO]</td></tr>
+<tr class="separator:a49119c266b1bb5ffc4c72135fa874b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d2d2c815b3d17dc1635e29b79bfc2a9" id="r_a7d2d2c815b3d17dc1635e29b79bfc2a9"><td class="memItemLeft" align="right" valign="top"><a id="a7d2d2c815b3d17dc1635e29b79bfc2a9" name="a7d2d2c815b3d17dc1635e29b79bfc2a9"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>nb_remaining_tasks_per_arch_index</b> [FSTARPU_NB_TYPES]</td></tr>
+<tr class="separator:a7d2d2c815b3d17dc1635e29b79bfc2a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0df76774dc3801cf08961e37ea1528f1" id="r_a0df76774dc3801cf08961e37ea1528f1"><td class="memItemLeft" align="right" valign="top"><a id="a0df76774dc3801cf08961e37ea1528f1" name="a0df76774dc3801cf08961e37ea1528f1"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>total_tasks_in_buckets</b></td></tr>
+<tr class="separator:a0df76774dc3801cf08961e37ea1528f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5c734f255007affe96f6b8537c16b3c" id="r_ad5c734f255007affe96f6b8537c16b3c"><td class="memItemLeft" align="right" valign="top"><a id="ad5c734f255007affe96f6b8537c16b3c" name="ad5c734f255007affe96f6b8537c16b3c"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>nb_prefetched_tasks_per_arch_index</b> [FSTARPU_NB_TYPES]</td></tr>
+<tr class="separator:ad5c734f255007affe96f6b8537c16b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95cee7153a454bf93e4c793d57fbf9ff" id="r_a95cee7153a454bf93e4c793d57fbf9ff"><td class="memItemLeft" align="right" valign="top"><a id="a95cee7153a454bf93e4c793d57fbf9ff" name="a95cee7153a454bf93e4c793d57fbf9ff"></a>
+struct <a class="el" href="struct__starpu__heteroprio__worker.html">_starpu_heteroprio_worker</a>&#160;</td><td class="memItemRight" valign="bottom"><b>workers_heteroprio</b> [STARPU_NMAXWORKERS]</td></tr>
+<tr class="separator:a95cee7153a454bf93e4c793d57fbf9ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f0f1dd762e140cd134c9e6f39222f0f" id="r_a5f0f1dd762e140cd134c9e6f39222f0f"><td class="memItemLeft" align="right" valign="top"><a id="a5f0f1dd762e140cd134c9e6f39222f0f" name="a5f0f1dd762e140cd134c9e6f39222f0f"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>nb_workers</b></td></tr>
+<tr class="separator:a5f0f1dd762e140cd134c9e6f39222f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad060b1e635866189be60ac80af45faca" id="r_ad060b1e635866189be60ac80af45faca"><td class="memItemLeft" align="right" valign="top"><a id="ad060b1e635866189be60ac80af45faca" name="ad060b1e635866189be60ac80af45faca"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>nb_workers_per_arch_index</b> [FSTARPU_NB_TYPES]</td></tr>
+<tr class="separator:ad060b1e635866189be60ac80af45faca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/GroupTree/StarPUUtils/<a class="el" href="_f_star_p_u_heteoprio_8hpp_source.html">FStarPUHeteoprio.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FInterpMatrixKernels_TensorialInteractions类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">FInterpMatrixKernels_TensorialInteractions类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_interp_matrix_kernel___tensorial_interactions_8hpp_source.html">FInterpMatrixKernel_TensorialInteractions.hpp</a>&gt;</code></p>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><dl class="section author"><dt>作者</dt><dd>Pierre Blanchard (<a href="#" onclick="location.href='mai'+'lto:'+'pie'+'rr'+'e.b'+'la'+'nch'+'ar'+'d@i'+'nr'+'ia.'+'fr'; return false;">pierr<span class="obfuscator">.nosp@m.</span>e.bl<span class="obfuscator">.nosp@m.</span>ancha<span class="obfuscator">.nosp@m.</span>rd@i<span class="obfuscator">.nosp@m.</span>nria.<span class="obfuscator">.nosp@m.</span>fr</a>)</dd></dl>
+<p>Please read the license</p>
+<p>This class provides the evaluators and scaling functions of the matrix kernels. A matrix kernel should be understood in the sense of a kernel of interaction (or the fundamental solution of a given equation). It can either be scalar (NCMP=1) or tensorial (NCMP&gt;1) depending on the dimension of the equation considered. NCMP denotes the number of components that are actually stored (e.g. 6 for a <picture><source srcset="form_53_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$3\times3$" src="form_53.png"/></picture> symmetric tensor).</p>
+<p>Notes on the application scheme: Let there be a kernel <picture><source srcset="form_54_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$K$" src="form_54.png"/></picture> such that <picture><source srcset="form_59_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$P_i(X)X=K_{ij}(X,Y)W_j(Y)$" src="form_59.png"/></picture> with <picture><source srcset="form_60_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$P$" src="form_60.png"/></picture> the lhs of size NLHS and <picture><source srcset="form_61_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$W$" src="form_61.png"/></picture> the rhs of size NRHS. The table applyTab provides the indices in the reduced storage table corresponding to the application scheme depicted earlier.</p>
+<dl class="section warning"><dt>警告</dt><dd>BEWARE! Homogeneous matrix kernels do not support cell width extension yet. Is it possible to find a reference width and a scale factor such that only 1 set of M2L opt can be used for all levels?? The definition of the potential p and force f are extended to the case of tensorial interaction kernels:</dd></dl>
+<p><picture><source srcset="form_62_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$ p_i(x) = K_{ip}(x,y)w_p(y),$" src="form_62.png"/></picture> <picture><source srcset="form_63_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$ \forall i=1..NPOT, p=1..NPV$" src="form_63.png"/></picture></p>
+<p><picture><source srcset="form_64_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$f_{ik}= w_p(x)K_{ip,k}(x,y)w_p(y)$" src="form_64.png"/></picture></p>
+<p>Since the interpolation scheme is such that</p>
+<p><picture><source srcset="form_65_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$ p_i(x) \approx S^m(x) L^{m}_{ip}$" src="form_65.png"/></picture></p>
+<p><picture><source srcset="form_66_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$f_{ik}= w_p(x) \nabla_k S^m(x) L^{m}_{ip}$" src="form_66.png"/></picture></p>
+<p>with</p>
+<p><picture><source srcset="form_67_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$  L^{m}_{ip} = K^{mn}_{ip} S^n(y) w_p(y)$" src="form_67.png"/></picture> (local expansion)</p>
+<p><picture><source srcset="form_68_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$ M^{m}_{p} = S^n(y) w_p(y)$" src="form_68.png"/></picture> (multipole expansion) <br  />
+</p>
+<p>then the multipole exp have NPV components and the local exp NPOT*NPV.</p>
+<p>NB1: Only the computation of forces requires that the sum over p is performed at L2P step. It could be done at M2L step for the potential.</p>
+<p>NB2: An efficient application of the matrix kernel is highly kernel dependent, we recommand overriding the P2M/M2L/L2P function of the kernel you are using in order to have opsimal performances + set your own NRHS/NLHS.* </p>
+</div><hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Interpolation/<a class="el" href="_f_interp_matrix_kernel___tensorial_interactions_8hpp_source.html">FInterpMatrixKernel_TensorialInteractions.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

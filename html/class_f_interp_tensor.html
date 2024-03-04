@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FInterpTensor&lt; FReal, ORDER, RootsClass &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="class_f_interp_tensor-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FInterpTensor&lt; FReal, ORDER, RootsClass &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_interp_tensor_8hpp_source.html">FInterpTensor.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FInterpTensor&lt; FReal, ORDER, RootsClass &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_interp_tensor.png" usemap="#FInterpTensor_3C_20FReal_2C_20ORDER_2C_20RootsClass_20_3E_map" alt=""/>
+  <map id="FInterpTensor_3C_20FReal_2C_20ORDER_2C_20RootsClass_20_3E_map" name="FInterpTensor_3C_20FReal_2C_20ORDER_2C_20RootsClass_20_3E_map">
+<area href="class_f_no_copyable.html" alt="FNoCopyable" shape="rect" coords="0,0,271,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:aeecba74045a1cd16382c87ab3acdb20a" id="r_aeecba74045a1cd16382c87ab3acdb20a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeecba74045a1cd16382c87ab3acdb20a">setNodeIds</a> (unsigned int NodeIds[nnodes][3])</td></tr>
+<tr class="separator:aeecba74045a1cd16382c87ab3acdb20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8107c468326e9c786873c23fe2e8766" id="r_ac8107c468326e9c786873c23fe2e8766"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8107c468326e9c786873c23fe2e8766">setRoots</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;center, const FReal width, <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; rootPositions[nnodes])</td></tr>
+<tr class="separator:ac8107c468326e9c786873c23fe2e8766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc18f0f754049c342b5f808990ba95d0" id="r_abc18f0f754049c342b5f808990ba95d0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc18f0f754049c342b5f808990ba95d0">setPolynomialsRoots</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;center, const FReal width, FReal roots[3][ORDER])</td></tr>
+<tr class="separator:abc18f0f754049c342b5f808990ba95d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e87e6a9c05e36db6e7e902d81ff1e66" id="r_a3e87e6a9c05e36db6e7e902d81ff1e66"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e87e6a9c05e36db6e7e902d81ff1e66">setRelativeChildCenter</a> (const unsigned int ChildIndex, <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;ChildCenter, const FReal ExtendedCellRatio=FReal(.5))</td></tr>
+<tr class="separator:a3e87e6a9c05e36db6e7e902d81ff1e66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, int ORDER, typename RootsClass&gt;<br />
+class FInterpTensor&lt; FReal, ORDER, RootsClass &gt;</div><p>The class <a class="el" href="class_f_interp_tensor.html">FInterpTensor</a> provides function considering the tensor product interpolation.</p>
+<dl class="tparams"><dt>模板参数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">ORDER</td><td>interpolation order <picture><source srcset="form_2_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell$" src="form_2.png"/></picture> </td></tr>
+    <tr><td class="paramname">RootsClass</td><td>class containing the roots choosen for the interpolation (e.g. <a class="el" href="struct_f_cheb_roots.html">FChebRoots</a>, <a class="el" href="struct_f_unif_roots.html">FUnifRoots</a>...) </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><h2 class="groupheader">成员函数说明</h2>
+<a id="aeecba74045a1cd16382c87ab3acdb20a" name="aeecba74045a1cd16382c87ab3acdb20a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeecba74045a1cd16382c87ab3acdb20a">&#9670;&#160;</a></span>setNodeIds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, typename RootsClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_f_interp_tensor.html">FInterpTensor</a>&lt; FReal, ORDER, RootsClass &gt;::setNodeIds </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>NodeIds</em>[nnodes][3]</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Sets the ids of the coordinates of all <picture><source srcset="form_33_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell^3$" src="form_33.png"/></picture> interpolation nodes</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">NodeIds</td><td>ids of coordinates of interpolation nodes </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abc18f0f754049c342b5f808990ba95d0" name="abc18f0f754049c342b5f808990ba95d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc18f0f754049c342b5f808990ba95d0">&#9670;&#160;</a></span>setPolynomialsRoots()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, typename RootsClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_f_interp_tensor.html">FInterpTensor</a>&lt; FReal, ORDER, RootsClass &gt;::setPolynomialsRoots </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>center</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>width</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FReal</td>          <td class="paramname"><span class="paramname"><em>roots</em>[3][ORDER]</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Sets the equispaced roots in the cluster with <code>center</code> and <code>width</code> </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">center</td><td>of cluster </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">width</td><td>of cluster </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">roots</td><td>coordinates of equispaced roots </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3e87e6a9c05e36db6e7e902d81ff1e66" name="a3e87e6a9c05e36db6e7e902d81ff1e66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e87e6a9c05e36db6e7e902d81ff1e66">&#9670;&#160;</a></span>setRelativeChildCenter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, typename RootsClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_f_interp_tensor.html">FInterpTensor</a>&lt; FReal, ORDER, RootsClass &gt;::setRelativeChildCenter </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int</td>          <td class="paramname"><span class="paramname"><em>ChildIndex</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>ChildCenter</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>ExtendedCellRatio</em><span class="paramdefsep"> = </span><span class="paramdefval">FReal(.5)</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Set the relative child (width = 1) center according to the Morton index.</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ChildIndex</td><td>index of child according to Morton index </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">center</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ExtendedCellRatio</td><td>ratio between extended child and parent widths </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac8107c468326e9c786873c23fe2e8766" name="ac8107c468326e9c786873c23fe2e8766"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8107c468326e9c786873c23fe2e8766">&#9670;&#160;</a></span>setRoots()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, typename RootsClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_f_interp_tensor.html">FInterpTensor</a>&lt; FReal, ORDER, RootsClass &gt;::setRoots </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>center</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>width</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;</td>          <td class="paramname"><span class="paramname"><em>rootPositions</em>[nnodes]</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Sets the interpolation points in the cluster with <code>center</code> and <code>width</code> </p>
+<p>PB: tensorial version</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">center</td><td>of cluster </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">width</td><td>of cluster </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rootPositions</td><td>coordinates of interpolation points </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Interpolation/<a class="el" href="_f_interp_tensor_8hpp_source.html">FInterpTensor.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

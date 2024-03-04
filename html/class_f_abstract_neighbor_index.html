@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FAbstractNeighborIndex类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="class_f_abstract_neighbor_index-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FAbstractNeighborIndex类 参考<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>The <a class="el" href="class_f_abstract_neighbor_index.html" title="The FAbstractNeighborIndex class is an abstraction of what should propose classes that can find the n...">FAbstractNeighborIndex</a> class is an abstraction of what should propose classes that can find the neighbor morton indexes from a given index. These kind of classes are useful in the P2P and the M2L (in the find neighbors functions)  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_neighbor_indexes_8hpp_source.html">FNeighborIndexes.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FAbstractNeighborIndex 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_abstract_neighbor_index.png" usemap="#FAbstractNeighborIndex_map" alt=""/>
+  <map id="FAbstractNeighborIndex_map" name="FAbstractNeighborIndex_map">
+<area href="class_f_bits_neighbor_index.html" alt="FBitsNeighborIndex" shape="rect" coords="0,56,164,80"/>
+<area href="class_f_coordinate_neighbor_index.html" alt="FCoordinateNeighborIndex" shape="rect" coords="174,56,338,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a6db5e2f6933fe04ffdac5d039424abf7" id="r_a6db5e2f6933fe04ffdac5d039424abf7"><td class="memItemLeft" align="right" valign="top"><a id="a6db5e2f6933fe04ffdac5d039424abf7" name="a6db5e2f6933fe04ffdac5d039424abf7"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>minX</b> ()=0</td></tr>
+<tr class="separator:a6db5e2f6933fe04ffdac5d039424abf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf16d1defed09469f86cc5a6e126765f" id="r_abf16d1defed09469f86cc5a6e126765f"><td class="memItemLeft" align="right" valign="top"><a id="abf16d1defed09469f86cc5a6e126765f" name="abf16d1defed09469f86cc5a6e126765f"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>minY</b> ()=0</td></tr>
+<tr class="separator:abf16d1defed09469f86cc5a6e126765f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42d2ed63a6064504dafa18242d0483e5" id="r_a42d2ed63a6064504dafa18242d0483e5"><td class="memItemLeft" align="right" valign="top"><a id="a42d2ed63a6064504dafa18242d0483e5" name="a42d2ed63a6064504dafa18242d0483e5"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>minZ</b> ()=0</td></tr>
+<tr class="separator:a42d2ed63a6064504dafa18242d0483e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a382b7989ce86b49c8ea13a65018fde39" id="r_a382b7989ce86b49c8ea13a65018fde39"><td class="memItemLeft" align="right" valign="top"><a id="a382b7989ce86b49c8ea13a65018fde39" name="a382b7989ce86b49c8ea13a65018fde39"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>maxX</b> ()=0</td></tr>
+<tr class="separator:a382b7989ce86b49c8ea13a65018fde39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a578613e0a6a2a72a6bb98b4c410a15c5" id="r_a578613e0a6a2a72a6bb98b4c410a15c5"><td class="memItemLeft" align="right" valign="top"><a id="a578613e0a6a2a72a6bb98b4c410a15c5" name="a578613e0a6a2a72a6bb98b4c410a15c5"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>maxY</b> ()=0</td></tr>
+<tr class="separator:a578613e0a6a2a72a6bb98b4c410a15c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f586c1683ab7d2d896ff7bfbc1ca890" id="r_a4f586c1683ab7d2d896ff7bfbc1ca890"><td class="memItemLeft" align="right" valign="top"><a id="a4f586c1683ab7d2d896ff7bfbc1ca890" name="a4f586c1683ab7d2d896ff7bfbc1ca890"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>maxZ</b> ()=0</td></tr>
+<tr class="separator:a4f586c1683ab7d2d896ff7bfbc1ca890"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37dfede0b31886671d59000a3a2e9294" id="r_a37dfede0b31886671d59000a3a2e9294"><td class="memItemLeft" align="right" valign="top"><a id="a37dfede0b31886671d59000a3a2e9294" name="a37dfede0b31886671d59000a3a2e9294"></a>
+virtual MortonIndex&#160;</td><td class="memItemRight" valign="bottom"><b>getIndex</b> (const int inX, const int inY, const int inZ)=0</td></tr>
+<tr class="separator:a37dfede0b31886671d59000a3a2e9294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>The <a class="el" href="class_f_abstract_neighbor_index.html" title="The FAbstractNeighborIndex class is an abstraction of what should propose classes that can find the n...">FAbstractNeighborIndex</a> class is an abstraction of what should propose classes that can find the neighbor morton indexes from a given index. These kind of classes are useful in the P2P and the M2L (in the find neighbors functions) </p>
+</div><hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Containers/<a class="el" href="_f_neighbor_indexes_8hpp_source.html">FNeighborIndexes.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

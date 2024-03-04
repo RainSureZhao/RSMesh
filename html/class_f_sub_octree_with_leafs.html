@@ -1,0 +1,503 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FSubOctreeWithLeafs&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="class_f_sub_octree_with_leafs-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FSubOctreeWithLeafs&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_sub_octree_8hpp_source.html">FSubOctree.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FSubOctreeWithLeafs&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_sub_octree_with_leafs.png" usemap="#FSubOctreeWithLeafs_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20LeafClass_2C_20CellAllocatorClass_20_3E_map" alt=""/>
+  <map id="FSubOctreeWithLeafs_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20LeafClass_2C_20CellAllocatorClass_20_3E_map" name="FSubOctreeWithLeafs_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20LeafClass_2C_20CellAllocatorClass_20_3E_map">
+<area href="class_f_abstract_sub_octree.html" alt="FAbstractSubOctree&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;" shape="rect" coords="0,0,528,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a5929c5b37cceba9e21d5a0121b423ebe" id="r_a5929c5b37cceba9e21d5a0121b423ebe"><td class="memItemLeft" align="right" valign="top"><a id="a5929c5b37cceba9e21d5a0121b423ebe" name="a5929c5b37cceba9e21d5a0121b423ebe"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FSubOctreeWithLeafs</b> (const <a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a> &amp;)=delete</td></tr>
+<tr class="separator:a5929c5b37cceba9e21d5a0121b423ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeebdb69c52f7c590c6d0cd9e20911ce4" id="r_aeebdb69c52f7c590c6d0cd9e20911ce4"><td class="memItemLeft" align="right" valign="top"><a id="aeebdb69c52f7c590c6d0cd9e20911ce4" name="aeebdb69c52f7c590c6d0cd9e20911ce4"></a>
+<a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a> &amp;)=delete</td></tr>
+<tr class="separator:aeebdb69c52f7c590c6d0cd9e20911ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78198a4e76ad3224968cc31cea40bab4" id="r_a78198a4e76ad3224968cc31cea40bab4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78198a4e76ad3224968cc31cea40bab4">FSubOctreeWithLeafs</a> (<a class="el" href="class_f_abstract_sub_octree.html">FAbstractSubOctree</a>&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt; *const inParent, const int inIndexInParent, const int inSubOctreeHeight, const int inSubOctreePosition)</td></tr>
+<tr class="separator:a78198a4e76ad3224968cc31cea40bab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98e30dec1145147e954942a1c9029790" id="r_a98e30dec1145147e954942a1c9029790"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98e30dec1145147e954942a1c9029790">~FSubOctreeWithLeafs</a> ()</td></tr>
+<tr class="separator:a98e30dec1145147e954942a1c9029790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1096ffbe5aaa3f9e99c91e1868490720" id="r_a1096ffbe5aaa3f9e99c91e1868490720"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a1096ffbe5aaa3f9e99c91e1868490720"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1096ffbe5aaa3f9e99c91e1868490720">insert</a> (const MortonIndex index, const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;host, const int inTreeHeight, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inParticlePosition, Args... args)</td></tr>
+<tr class="separator:a1096ffbe5aaa3f9e99c91e1868490720"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a524eb2e1ae69c98f4680b772f7c307" id="r_a5a524eb2e1ae69c98f4680b772f7c307"><td class="memItemLeft" align="right" valign="top"><a id="a5a524eb2e1ae69c98f4680b772f7c307" name="a5a524eb2e1ae69c98f4680b772f7c307"></a>
+LeafClass *&#160;</td><td class="memItemRight" valign="bottom"><b>createLeaf</b> (const MortonIndex index, const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;host, const int inTreeHeight)</td></tr>
+<tr class="separator:a5a524eb2e1ae69c98f4680b772f7c307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab57adb129b6c2789504c438fbce182ce" id="r_ab57adb129b6c2789504c438fbce182ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab57adb129b6c2789504c438fbce182ce">removeLeaf</a> (const MortonIndex index, const int inTreeHeight)</td></tr>
+<tr class="separator:ab57adb129b6c2789504c438fbce182ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59bc247222a0327a8595bd0ba7644ee7" id="r_a59bc247222a0327a8595bd0ba7644ee7"><td class="memItemLeft" align="right" valign="top">ContainerClass *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59bc247222a0327a8595bd0ba7644ee7">getLeafSrc</a> (const int index)</td></tr>
+<tr class="separator:a59bc247222a0327a8595bd0ba7644ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf39c505c5224371d0637fa5f03b8511" id="r_adf39c505c5224371d0637fa5f03b8511"><td class="memItemLeft" align="right" valign="top">ContainerClass *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf39c505c5224371d0637fa5f03b8511">getLeafTargets</a> (const int index)</td></tr>
+<tr class="separator:adf39c505c5224371d0637fa5f03b8511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56b44106b4e66be077d4933e4574d756" id="r_a56b44106b4e66be077d4933e4574d756"><td class="memItemLeft" align="right" valign="top">const ContainerClass *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56b44106b4e66be077d4933e4574d756">getLeafSrc</a> (const int index) const</td></tr>
+<tr class="separator:a56b44106b4e66be077d4933e4574d756"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a194610f2a1105aeadde48625157db32c" id="r_a194610f2a1105aeadde48625157db32c"><td class="memItemLeft" align="right" valign="top">const ContainerClass *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a194610f2a1105aeadde48625157db32c">getLeafTargets</a> (const int index) const</td></tr>
+<tr class="separator:a194610f2a1105aeadde48625157db32c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afceee5a45ec0871ad31ccd8c053bbf0e" id="r_afceee5a45ec0871ad31ccd8c053bbf0e"><td class="memItemLeft" align="right" valign="top"><a id="afceee5a45ec0871ad31ccd8c053bbf0e" name="afceee5a45ec0871ad31ccd8c053bbf0e"></a>
+LeafClass *&#160;</td><td class="memItemRight" valign="bottom"><b>getLeaf</b> (const int index)</td></tr>
+<tr class="separator:afceee5a45ec0871ad31ccd8c053bbf0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_f_abstract_sub_octree"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_f_abstract_sub_octree')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="class_f_abstract_sub_octree.html">FAbstractSubOctree&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;</a></td></tr>
+<tr class="memitem:a515d55d96f3760560d1826866f618eff inherit pub_methods_class_f_abstract_sub_octree" id="r_a515d55d96f3760560d1826866f618eff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a515d55d96f3760560d1826866f618eff">FAbstractSubOctree</a> (<a class="el" href="class_f_abstract_sub_octree.html">FAbstractSubOctree</a> *const inParent, const int inIndexInParent, const int inSubOctreeHeight, const int inSubOctreePosition, const bool inIsLeafSubtree)</td></tr>
+<tr class="separator:a515d55d96f3760560d1826866f618eff inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27cf32745a2164a3be2331b47050e0ce inherit pub_methods_class_f_abstract_sub_octree" id="r_a27cf32745a2164a3be2331b47050e0ce"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a27cf32745a2164a3be2331b47050e0ce">~FAbstractSubOctree</a> ()</td></tr>
+<tr class="separator:a27cf32745a2164a3be2331b47050e0ce inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9f3abf46b21de91bcad5a2d37fadf53 inherit pub_methods_class_f_abstract_sub_octree" id="r_ad9f3abf46b21de91bcad5a2d37fadf53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#ad9f3abf46b21de91bcad5a2d37fadf53">getSubOctreeHeight</a> () const</td></tr>
+<tr class="separator:ad9f3abf46b21de91bcad5a2d37fadf53 inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4a0b99836c592fe29aa4beb790ef67a inherit pub_methods_class_f_abstract_sub_octree" id="r_ae4a0b99836c592fe29aa4beb790ef67a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#ae4a0b99836c592fe29aa4beb790ef67a">getSubOctreePosition</a> () const</td></tr>
+<tr class="separator:ae4a0b99836c592fe29aa4beb790ef67a inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a236da7fc2c05843766d6886943b11294 inherit pub_methods_class_f_abstract_sub_octree" id="r_a236da7fc2c05843766d6886943b11294"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a236da7fc2c05843766d6886943b11294">getLeftLeafIndex</a> () const</td></tr>
+<tr class="separator:a236da7fc2c05843766d6886943b11294 inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63a17e493316d4783dff0f364f29dc7f inherit pub_methods_class_f_abstract_sub_octree" id="r_a63a17e493316d4783dff0f364f29dc7f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a63a17e493316d4783dff0f364f29dc7f">getRightLeafIndex</a> () const</td></tr>
+<tr class="separator:a63a17e493316d4783dff0f364f29dc7f inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a050cd28487c6de247f43754e4704d4f9 inherit pub_methods_class_f_abstract_sub_octree" id="r_a050cd28487c6de247f43754e4704d4f9"><td class="memItemLeft" align="right" valign="top">CellClass **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a050cd28487c6de247f43754e4704d4f9">cellsAt</a> (const int level) const</td></tr>
+<tr class="separator:a050cd28487c6de247f43754e4704d4f9 inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4463c8521a998faea5ef22881eaaab2 inherit pub_methods_class_f_abstract_sub_octree" id="r_ae4463c8521a998faea5ef22881eaaab2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#ae4463c8521a998faea5ef22881eaaab2">hasParent</a> () const</td></tr>
+<tr class="separator:ae4463c8521a998faea5ef22881eaaab2 inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecf661b9a25c2ba8e900d746bd9925f8 inherit pub_methods_class_f_abstract_sub_octree" id="r_aecf661b9a25c2ba8e900d746bd9925f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_abstract_sub_octree.html">FAbstractSubOctree</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#aecf661b9a25c2ba8e900d746bd9925f8">getParent</a> ()</td></tr>
+<tr class="separator:aecf661b9a25c2ba8e900d746bd9925f8 inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1006838e9ccf9915596759f51b4ad4bd inherit pub_methods_class_f_abstract_sub_octree" id="r_a1006838e9ccf9915596759f51b4ad4bd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_f_abstract_sub_octree.html">FAbstractSubOctree</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a1006838e9ccf9915596759f51b4ad4bd">getParent</a> () const</td></tr>
+<tr class="separator:a1006838e9ccf9915596759f51b4ad4bd inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a247a065649be7bbda0b4a95bffbded68 inherit pub_methods_class_f_abstract_sub_octree" id="r_a247a065649be7bbda0b4a95bffbded68"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a247a065649be7bbda0b4a95bffbded68">getIndexInParent</a> () const</td></tr>
+<tr class="separator:a247a065649be7bbda0b4a95bffbded68 inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a421a3044968d532b28a3ac6c5ad61948 inherit pub_methods_class_f_abstract_sub_octree" id="r_a421a3044968d532b28a3ac6c5ad61948"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a421a3044968d532b28a3ac6c5ad61948">isLeafPart</a> () const</td></tr>
+<tr class="separator:a421a3044968d532b28a3ac6c5ad61948 inherit pub_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+额外继承的成员函数</h2></td></tr>
+<tr class="inherit_header pro_methods_class_f_abstract_sub_octree"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_f_abstract_sub_octree')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="class_f_abstract_sub_octree.html">FAbstractSubOctree&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;</a></td></tr>
+<tr class="memitem:a2e6f0fbaf44bffd7750bf8693616be37 inherit pro_methods_class_f_abstract_sub_octree" id="r_a2e6f0fbaf44bffd7750bf8693616be37"><td class="memItemLeft" align="right" valign="top">MortonIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a2e6f0fbaf44bffd7750bf8693616be37">getLeafIndex</a> (const MortonIndex index, const int inTreeHeight) const</td></tr>
+<tr class="separator:a2e6f0fbaf44bffd7750bf8693616be37 inherit pro_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76762507d25c257b44d2750aaf316c4f inherit pro_methods_class_f_abstract_sub_octree" id="r_a76762507d25c257b44d2750aaf316c4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a76762507d25c257b44d2750aaf316c4f">createPreviousCells</a> (MortonIndex arrayIndex, MortonIndex inLeafCellIndex, const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;treePosition)</td></tr>
+<tr class="separator:a76762507d25c257b44d2750aaf316c4f inherit pro_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13e167390ab62e103952b37e97e45338 inherit pro_methods_class_f_abstract_sub_octree" id="r_a13e167390ab62e103952b37e97e45338"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a13e167390ab62e103952b37e97e45338">newLeafInserted</a> (const int arrayIndex, const MortonIndex inLeafCellIndex, const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;host)</td></tr>
+<tr class="separator:a13e167390ab62e103952b37e97e45338 inherit pro_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a25af8c62187c430a4360f3e1465159 inherit pro_methods_class_f_abstract_sub_octree" id="r_a0a25af8c62187c430a4360f3e1465159"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sub_octree.html#a0a25af8c62187c430a4360f3e1465159">removeCellsFromLeaf</a> (int arrayIndex)</td></tr>
+<tr class="separator:a0a25af8c62187c430a4360f3e1465159 inherit pro_methods_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_f_abstract_sub_octree"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_f_abstract_sub_octree')"><img src="closed.png" alt="-"/>&#160;Protected 属性 继承自 <a class="el" href="class_f_abstract_sub_octree.html">FAbstractSubOctree&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;</a></td></tr>
+<tr class="memitem:a7aff463fcbb625c0828adfaf7b691f11 inherit pro_attribs_class_f_abstract_sub_octree" id="r_a7aff463fcbb625c0828adfaf7b691f11"><td class="memItemLeft" align="right" valign="top">
+CellClass ***&#160;</td><td class="memItemRight" valign="bottom"><b>cells</b></td></tr>
+<tr class="separator:a7aff463fcbb625c0828adfaf7b691f11 inherit pro_attribs_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25a5d5f15a91937ced3aa0cca1f9faaa inherit pro_attribs_class_f_abstract_sub_octree" id="r_a25a5d5f15a91937ced3aa0cca1f9faaa"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="class_f_abstract_sub_octree.html">FAbstractSubOctree</a> *const&#160;</td><td class="memItemRight" valign="bottom"><b>parent</b></td></tr>
+<tr class="separator:a25a5d5f15a91937ced3aa0cca1f9faaa inherit pro_attribs_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35a956754573a99577a48a7ab22204c3 inherit pro_attribs_class_f_abstract_sub_octree" id="r_a35a956754573a99577a48a7ab22204c3"><td class="memItemLeft" align="right" valign="top">
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>indexInParent</b></td></tr>
+<tr class="separator:a35a956754573a99577a48a7ab22204c3 inherit pro_attribs_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6efe1bdbc3ed07da3c569b60a3db5aa inherit pro_attribs_class_f_abstract_sub_octree" id="r_af6efe1bdbc3ed07da3c569b60a3db5aa"><td class="memItemLeft" align="right" valign="top">
+int&#160;</td><td class="memItemRight" valign="bottom"><b>leftLeafIndex</b></td></tr>
+<tr class="separator:af6efe1bdbc3ed07da3c569b60a3db5aa inherit pro_attribs_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83d4f121d62844bbe496626a16b69fc4 inherit pro_attribs_class_f_abstract_sub_octree" id="r_a83d4f121d62844bbe496626a16b69fc4"><td class="memItemLeft" align="right" valign="top">
+int&#160;</td><td class="memItemRight" valign="bottom"><b>rightLeafIndex</b></td></tr>
+<tr class="separator:a83d4f121d62844bbe496626a16b69fc4 inherit pro_attribs_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ee31852ee79227eb04f6ede11e5baf4 inherit pro_attribs_class_f_abstract_sub_octree" id="r_a6ee31852ee79227eb04f6ede11e5baf4"><td class="memItemLeft" align="right" valign="top">
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>subOctreeHeight</b></td></tr>
+<tr class="separator:a6ee31852ee79227eb04f6ede11e5baf4 inherit pro_attribs_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7942a60ee0d508c27e2284d509591055 inherit pro_attribs_class_f_abstract_sub_octree" id="r_a7942a60ee0d508c27e2284d509591055"><td class="memItemLeft" align="right" valign="top">
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>subOctreePosition</b></td></tr>
+<tr class="separator:a7942a60ee0d508c27e2284d509591055 inherit pro_attribs_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55c75670223554909beb43e3f7867d65 inherit pro_attribs_class_f_abstract_sub_octree" id="r_a55c75670223554909beb43e3f7867d65"><td class="memItemLeft" align="right" valign="top">
+const bool&#160;</td><td class="memItemRight" valign="bottom"><b>isLeafSubtree</b></td></tr>
+<tr class="separator:a55c75670223554909beb43e3f7867d65 inherit pro_attribs_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9986a4e6ff32afeb31b7113ea5c8725 inherit pro_attribs_class_f_abstract_sub_octree" id="r_aa9986a4e6ff32afeb31b7113ea5c8725"><td class="memItemLeft" align="right" valign="top">
+CellAllocatorClass&#160;</td><td class="memItemRight" valign="bottom"><b>cellAllocator</b></td></tr>
+<tr class="separator:aa9986a4e6ff32afeb31b7113ea5c8725 inherit pro_attribs_class_f_abstract_sub_octree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, class CellClass, class ContainerClass, class LeafClass, class CellAllocatorClass&gt;<br />
+class FSubOctreeWithLeafs&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;</div><dl class="section author"><dt>作者</dt><dd>Berenger Bramas (<a href="#" onclick="location.href='mai'+'lto:'+'ber'+'en'+'ger'+'.b'+'ram'+'as'+'@in'+'ri'+'a.f'+'r'; return false;">beren<span class="obfuscator">.nosp@m.</span>ger.<span class="obfuscator">.nosp@m.</span>brama<span class="obfuscator">.nosp@m.</span>s@in<span class="obfuscator">.nosp@m.</span>ria.f<span class="obfuscator">.nosp@m.</span>r</a>)</dd></dl>
+<p>Please read the license</p>
+<p>This class is an sub-octree container. But this is the specialized bottom part, in fact the last level is composed by a cells array (managing by abstract class) and lists of particles.</p>
+<p>Please refere to testOctree.cpp to see an example. </p><dl class="section warning"><dt>警告</dt><dd>Give the particleClass &amp; cellClass </dd></dl>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a78198a4e76ad3224968cc31cea40bab4" name="a78198a4e76ad3224968cc31cea40bab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78198a4e76ad3224968cc31cea40bab4">&#9670;&#160;</a></span>FSubOctreeWithLeafs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class LeafClass , class CellAllocatorClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a>&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;<a class="el" href="class_f_sub_octree_with_leafs.html">::FSubOctreeWithLeafs</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_f_abstract_sub_octree.html">FAbstractSubOctree</a>&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt; *const</td>          <td class="paramname"><span class="paramname"><em>inParent</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inIndexInParent</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSubOctreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSubOctreePosition</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constructor Allocate the leafs array </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inParent</td><td>the SubOctree parent (0 if node) </td></tr>
+    <tr><td class="paramname">inSubOctreeHeight</td><td>Height of this suboctree </td></tr>
+    <tr><td class="paramname">inSubOctreePosition</td><td>Level of the current suboctree in the global tree (1 if upper tree) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a98e30dec1145147e954942a1c9029790" name="a98e30dec1145147e954942a1c9029790"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98e30dec1145147e954942a1c9029790">&#9670;&#160;</a></span>~FSubOctreeWithLeafs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class LeafClass , class CellAllocatorClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a>&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;::~<a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Destructor dealloc all leafs &amp; the leaf array </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a59bc247222a0327a8595bd0ba7644ee7" name="a59bc247222a0327a8595bd0ba7644ee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59bc247222a0327a8595bd0ba7644ee7">&#9670;&#160;</a></span>getLeafSrc() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class LeafClass , class CellAllocatorClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ContainerClass * <a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a>&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;::getLeafSrc </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get access to leafs elements </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>the position of the leaf </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>the list of particles at this index </dd></dl>
+
+</div>
+</div>
+<a id="a56b44106b4e66be077d4933e4574d756" name="a56b44106b4e66be077d4933e4574d756"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56b44106b4e66be077d4933e4574d756">&#9670;&#160;</a></span>getLeafSrc() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class LeafClass , class CellAllocatorClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const ContainerClass * <a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a>&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;::getLeafSrc </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get access to leafs elements </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>the position of the leaf </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>the list of particles at this index </dd></dl>
+
+</div>
+</div>
+<a id="adf39c505c5224371d0637fa5f03b8511" name="adf39c505c5224371d0637fa5f03b8511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf39c505c5224371d0637fa5f03b8511">&#9670;&#160;</a></span>getLeafTargets() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class LeafClass , class CellAllocatorClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ContainerClass * <a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a>&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;::getLeafTargets </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get access to leafs elements </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>the position of the leaf </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>the list of particles at this index </dd></dl>
+
+</div>
+</div>
+<a id="a194610f2a1105aeadde48625157db32c" name="a194610f2a1105aeadde48625157db32c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a194610f2a1105aeadde48625157db32c">&#9670;&#160;</a></span>getLeafTargets() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class LeafClass , class CellAllocatorClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const ContainerClass * <a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a>&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;::getLeafTargets </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get access to leafs elements </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>the position of the leaf </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>the list of particles at this index </dd></dl>
+
+</div>
+</div>
+<a id="a1096ffbe5aaa3f9e99c91e1868490720" name="a1096ffbe5aaa3f9e99c91e1868490720"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1096ffbe5aaa3f9e99c91e1868490720">&#9670;&#160;</a></span>insert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class LeafClass , class CellAllocatorClass &gt; </div>
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a>&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;::insert </td>
+          <td>(</td>
+          <td class="paramtype">const MortonIndex</td>          <td class="paramname"><span class="paramname"><em>index</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>host</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inTreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>inParticlePosition</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Refer to FAbstractSubOctree::insert </p>
+
+</div>
+</div>
+<a id="ab57adb129b6c2789504c438fbce182ce" name="ab57adb129b6c2789504c438fbce182ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab57adb129b6c2789504c438fbce182ce">&#9670;&#160;</a></span>removeLeaf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class LeafClass , class CellAllocatorClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_f_sub_octree_with_leafs.html">FSubOctreeWithLeafs</a>&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;::removeLeaf </td>
+          <td>(</td>
+          <td class="paramtype">const MortonIndex</td>          <td class="paramname"><span class="paramname"><em>index</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inTreeHeight</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Remove a leaf and every cells if needed </p>
+
+<p>实现了 <a class="el" href="class_f_abstract_sub_octree.html#ac7f182a25b647bc54b21d663be54bdfd">FAbstractSubOctree&lt; FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass &gt;</a>.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Containers/<a class="el" href="_f_sub_octree_8hpp_source.html">FSubOctree.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

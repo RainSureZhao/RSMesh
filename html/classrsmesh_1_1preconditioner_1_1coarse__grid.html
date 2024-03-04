@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::preconditioner::coarse_grid类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><a class="el" href="namespacersmesh_1_1preconditioner.html">preconditioner</a></li><li class="navelem"><a class="el" href="classrsmesh_1_1preconditioner_1_1coarse__grid.html">coarse_grid</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classrsmesh_1_1preconditioner_1_1coarse__grid-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::preconditioner::coarse_grid类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a8889681e04f3a5725b50a572f7db9cae" id="r_a8889681e04f3a5725b50a572f7db9cae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8889681e04f3a5725b50a572f7db9cae">coarse_grid</a> (const <a class="el" href="classrsmesh_1_1model.html">model</a> &amp;<a class="el" href="classrsmesh_1_1model.html">model</a>, <a class="el" href="classrsmesh_1_1preconditioner_1_1domain.html">domain</a> &amp;&amp;<a class="el" href="classrsmesh_1_1preconditioner_1_1domain.html">domain</a>)</td></tr>
+<tr class="separator:a8889681e04f3a5725b50a572f7db9cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b2226b288e39b1b74f272063eb5b9a7" id="r_a7b2226b288e39b1b74f272063eb5b9a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b2226b288e39b1b74f272063eb5b9a7">clear</a> ()</td></tr>
+<tr class="separator:a7b2226b288e39b1b74f272063eb5b9a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab467a34426903506b0dd0603b4c9225a" id="r_ab467a34426903506b0dd0603b4c9225a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab467a34426903506b0dd0603b4c9225a">setup</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;points_full, const Eigen::MatrixXd &amp;lagrange_pt_full)</td></tr>
+<tr class="separator:ab467a34426903506b0dd0603b4c9225a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae06ac91e0c6d0b37c83c7b8a409e87b" id="r_aae06ac91e0c6d0b37c83c7b8a409e87b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae06ac91e0c6d0b37c83c7b8a409e87b">setup</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;points_full, const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;grad_points_full, const Eigen::MatrixXd &amp;lagrange_pt_full)</td></tr>
+<tr class="separator:aae06ac91e0c6d0b37c83c7b8a409e87b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57749d070e24a83c4526d6b1624ca056" id="r_a57749d070e24a83c4526d6b1624ca056"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57749d070e24a83c4526d6b1624ca056">set_solution_to</a> (Eigen::Ref&lt; valuesd &gt; weights_full) const</td></tr>
+<tr class="separator:a57749d070e24a83c4526d6b1624ca056"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d879149c08784da303f5ea0863cb36d" id="r_a4d879149c08784da303f5ea0863cb36d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d879149c08784da303f5ea0863cb36d">solve</a> (const Eigen::Ref&lt; const valuesd &gt; &amp;values_full)</td></tr>
+<tr class="separator:a4d879149c08784da303f5ea0863cb36d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="coarse__grid_8h_source.html">coarse_grid.h</a> 第 <a class="el" href="coarse__grid_8h_source.html#l00022">22</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a8889681e04f3a5725b50a572f7db9cae" name="a8889681e04f3a5725b50a572f7db9cae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8889681e04f3a5725b50a572f7db9cae">&#9670;&#160;</a></span>coarse_grid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::preconditioner::coarse_grid::coarse_grid </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1model.html">model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classrsmesh_1_1preconditioner_1_1domain.html">domain</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>domain</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="coarse__grid_8cpp_source.html">coarse_grid.cpp</a> 第 <a class="el" href="coarse__grid_8cpp_source.html#l00012">12</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a7b2226b288e39b1b74f272063eb5b9a7" name="a7b2226b288e39b1b74f272063eb5b9a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b2226b288e39b1b74f272063eb5b9a7">&#9670;&#160;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::preconditioner::coarse_grid::clear </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="coarse__grid_8cpp_source.html">coarse_grid.cpp</a> 第 <a class="el" href="coarse__grid_8cpp_source.html#l00024">24</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a57749d070e24a83c4526d6b1624ca056" name="a57749d070e24a83c4526d6b1624ca056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57749d070e24a83c4526d6b1624ca056">&#9670;&#160;</a></span>set_solution_to()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::preconditioner::coarse_grid::set_solution_to </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::Ref&lt; valuesd &gt;</td>          <td class="paramname"><span class="paramname"><em>weights_full</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="coarse__grid_8cpp_source.html">coarse_grid.cpp</a> 第 <a class="el" href="coarse__grid_8cpp_source.html#l00080">80</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ab467a34426903506b0dd0603b4c9225a" name="ab467a34426903506b0dd0603b4c9225a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab467a34426903506b0dd0603b4c9225a">&#9670;&#160;</a></span>setup() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::preconditioner::coarse_grid::setup </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>points_full</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::MatrixXd &amp;</td>          <td class="paramname"><span class="paramname"><em>lagrange_pt_full</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="coarse__grid_8cpp_source.html">coarse_grid.cpp</a> 第 <a class="el" href="coarse__grid_8cpp_source.html#l00032">32</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aae06ac91e0c6d0b37c83c7b8a409e87b" name="aae06ac91e0c6d0b37c83c7b8a409e87b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae06ac91e0c6d0b37c83c7b8a409e87b">&#9670;&#160;</a></span>setup() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::preconditioner::coarse_grid::setup </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>points_full</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>grad_points_full</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::MatrixXd &amp;</td>          <td class="paramname"><span class="paramname"><em>lagrange_pt_full</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="coarse__grid_8cpp_source.html">coarse_grid.cpp</a> 第 <a class="el" href="coarse__grid_8cpp_source.html#l00037">37</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a4d879149c08784da303f5ea0863cb36d" name="a4d879149c08784da303f5ea0863cb36d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d879149c08784da303f5ea0863cb36d">&#9670;&#160;</a></span>solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::preconditioner::coarse_grid::solve </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Ref&lt; const valuesd &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>values_full</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="coarse__grid_8cpp_source.html">coarse_grid.cpp</a> 第 <a class="el" href="coarse__grid_8cpp_source.html#l00090">90</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/preconditioner/<a class="el" href="coarse__grid_8h_source.html">coarse_grid.h</a></li>
+<li>src/preconditioner/<a class="el" href="coarse__grid_8cpp_source.html">coarse_grid.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

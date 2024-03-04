@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FAbstractAlgorithm类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-methods">Protected 成员函数</a> &#124;
+<a href="#pro-attribs">Protected 属性</a> &#124;
+<a href="class_f_abstract_algorithm-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FAbstractAlgorithm类 参考<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Base class of algorithms  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_core_common_8hpp_source.html">FCoreCommon.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FAbstractAlgorithm 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_abstract_algorithm.png" usemap="#FAbstractAlgorithm_map" alt=""/>
+  <map id="FAbstractAlgorithm_map" name="FAbstractAlgorithm_map">
+<area href="class_f_fmm_algorithm.html" title="Implements a basic FMM algorithm." alt="FFmmAlgorithm&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;" shape="rect" coords="1063,56,2116,80"/>
+<area href="class_f_fmm_algorithm_omp4.html" title="Please read the license" alt="FFmmAlgorithmOmp4&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;" shape="rect" coords="1063,112,2116,136"/>
+<area href="class_f_fmm_algorithm_periodic.html" title="Please read the license" alt="FFmmAlgorithmPeriodic&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;" shape="rect" coords="1063,168,2116,192"/>
+<area href="class_f_fmm_algorithm_section_task.html" title="Parallel FMM algorithm implementation using OpenMP sections. Please read the license" alt="FFmmAlgorithmSectionTask&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;" shape="rect" coords="1063,224,2116,248"/>
+<area href="class_f_fmm_algorithm_task.html" title="Please read the license" alt="FFmmAlgorithmTask&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;" shape="rect" coords="1063,280,2116,304"/>
+<area href="class_f_fmm_algorithm_thread.html" title="Implements an FMM algorithm threaded using OpenMP." alt="FFmmAlgorithmThread&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;" shape="rect" coords="1063,336,2116,360"/>
+<area href="class_f_fmm_algorithm_thread_balance.html" title="Implements an FMM algorithm threaded using OpenMP." alt="FFmmAlgorithmThreadBalance&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;" shape="rect" coords="1063,392,2116,416"/>
+<area href="class_f_fmm_algorithm_thread_proc.html" alt="FFmmAlgorithmThreadProc&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;" shape="rect" coords="1063,448,2116,472"/>
+<area href="class_f_fmm_algorithm_thread_proc_periodic.html" title="Please read the license" alt="FFmmAlgorithmThreadProcPeriodic&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;" shape="rect" coords="1063,504,2116,528"/>
+<area href="class_f_fmm_algorithm_thread_proc_tsm.html" alt="FFmmAlgorithmThreadProcTsm&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;" shape="rect" coords="1063,560,2116,584"/>
+<area href="class_f_fmm_algorithm_thread_tsm.html" title="Please read the license" alt="FFmmAlgorithmThreadTsm&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;" shape="rect" coords="1063,616,2116,640"/>
+<area href="class_f_fmm_algorithm_tsm.html" title="Please read the license" alt="FFmmAlgorithmTsm&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;" shape="rect" coords="1063,672,2116,696"/>
+<area href="class_f_group_seq_algorithm.html" alt="FGroupSeqAlgorithm&lt; OctreeClass, CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass &gt;" shape="rect" coords="1063,728,2116,752"/>
+<area href="class_f_group_task_algorithm.html" alt="FGroupTaskAlgorithm&lt; OctreeClass, CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass &gt;" shape="rect" coords="1063,784,2116,808"/>
+<area href="class_f_group_task_dep_algorithm.html" alt="FGroupTaskDepAlgorithm&lt; OctreeClass, CellContainerClass, CellClass, SymboleCellClass, PoleCellClass, LocalCellClass, KernelClass, ParticleGroupClass, ParticleContainerClass &gt;" shape="rect" coords="1063,840,2116,864"/>
+<area href="class_f_group_task_star_p_u_algorithm.html" alt="FGroupTaskStarPUAlgorithm&lt; OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass &gt;" shape="rect" coords="1063,896,2116,920"/>
+<area href="class_f_group_task_star_p_u_implicit_algorithm.html" alt="FGroupTaskStarPUImplicitAlgorithm&lt; OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass &gt;" shape="rect" coords="1063,952,2116,976"/>
+<area href="class_f_group_task_star_p_u_mpi_algorithm.html" alt="FGroupTaskStarPUMpiAlgorithm&lt; OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass &gt;" shape="rect" coords="1063,1008,2116,1032"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:ad7a63872accd27bf737746ad3dd6ce59" id="r_ad7a63872accd27bf737746ad3dd6ce59"><td class="memItemLeft" align="right" valign="top"><a id="ad7a63872accd27bf737746ad3dd6ce59" name="ad7a63872accd27bf737746ad3dd6ce59"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const int inUpperWorkingLevel, const int inLowerWorkingLevel) final</td></tr>
+<tr class="memdesc:ad7a63872accd27bf737746ad3dd6ce59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the whole fmm for given levels. <br /></td></tr>
+<tr class="separator:ad7a63872accd27bf737746ad3dd6ce59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50596bdd3235bc4d2a7b8415f0b6d8d5" id="r_a50596bdd3235bc4d2a7b8415f0b6d8d5"><td class="memItemLeft" align="right" valign="top"><a id="a50596bdd3235bc4d2a7b8415f0b6d8d5" name="a50596bdd3235bc4d2a7b8415f0b6d8d5"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> () final</td></tr>
+<tr class="memdesc:a50596bdd3235bc4d2a7b8415f0b6d8d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the whole fmm. <br /></td></tr>
+<tr class="separator:a50596bdd3235bc4d2a7b8415f0b6d8d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fbd7069185281dd3c9ede89c2d030b6" id="r_a4fbd7069185281dd3c9ede89c2d030b6"><td class="memItemLeft" align="right" valign="top"><a id="a4fbd7069185281dd3c9ede89c2d030b6" name="a4fbd7069185281dd3c9ede89c2d030b6"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const unsigned operationsToProceed, const int inUpperWorkingLevel, const int inLowerWorkingLevel) final</td></tr>
+<tr class="memdesc:a4fbd7069185281dd3c9ede89c2d030b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute only some FMM operations for given levels. <br /></td></tr>
+<tr class="separator:a4fbd7069185281dd3c9ede89c2d030b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c5dc685cb49818bb8c3ad7ca9e9bcea" id="r_a8c5dc685cb49818bb8c3ad7ca9e9bcea"><td class="memItemLeft" align="right" valign="top"><a id="a8c5dc685cb49818bb8c3ad7ca9e9bcea" name="a8c5dc685cb49818bb8c3ad7ca9e9bcea"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const unsigned operationsToProceed) final</td></tr>
+<tr class="memdesc:a8c5dc685cb49818bb8c3ad7ca9e9bcea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute only some steps. <br /></td></tr>
+<tr class="separator:a8c5dc685cb49818bb8c3ad7ca9e9bcea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected 成员函数</h2></td></tr>
+<tr class="memitem:afa60bb68168233ef8a43a81070d5e242" id="r_afa60bb68168233ef8a43a81070d5e242"><td class="memItemLeft" align="right" valign="top"><a id="afa60bb68168233ef8a43a81070d5e242" name="afa60bb68168233ef8a43a81070d5e242"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setNbLevelsInTree</b> (const int inNbLevelsInTree)</td></tr>
+<tr class="separator:afa60bb68168233ef8a43a81070d5e242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7322f6c45d77e17c8e00a7ed83c9b248" id="r_a7322f6c45d77e17c8e00a7ed83c9b248"><td class="memItemLeft" align="right" valign="top"><a id="a7322f6c45d77e17c8e00a7ed83c9b248" name="a7322f6c45d77e17c8e00a7ed83c9b248"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>validateLevels</b> () const</td></tr>
+<tr class="separator:a7322f6c45d77e17c8e00a7ed83c9b248"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc84cd14f1c92dcc526f94873fc2e450" id="r_acc84cd14f1c92dcc526f94873fc2e450"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc84cd14f1c92dcc526f94873fc2e450">executeCore</a> (const unsigned operationsToProceed)=0</td></tr>
+<tr class="separator:acc84cd14f1c92dcc526f94873fc2e450"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected 属性</h2></td></tr>
+<tr class="memitem:ade49cb5ede82d078261e576a9d809dc2" id="r_ade49cb5ede82d078261e576a9d809dc2"><td class="memItemLeft" align="right" valign="top"><a id="ade49cb5ede82d078261e576a9d809dc2" name="ade49cb5ede82d078261e576a9d809dc2"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>upperWorkingLevel</b></td></tr>
+<tr class="memdesc:ade49cb5ede82d078261e576a9d809dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Where to start the work <br /></td></tr>
+<tr class="separator:ade49cb5ede82d078261e576a9d809dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a694b8888186be58e38691ce08b177d46" id="r_a694b8888186be58e38691ce08b177d46"><td class="memItemLeft" align="right" valign="top"><a id="a694b8888186be58e38691ce08b177d46" name="a694b8888186be58e38691ce08b177d46"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>lowerWorkingLevel</b></td></tr>
+<tr class="memdesc:a694b8888186be58e38691ce08b177d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Where to end the work (exclusive) <br /></td></tr>
+<tr class="separator:a694b8888186be58e38691ce08b177d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8f5112c47480a494a15ffddd172079a" id="r_af8f5112c47480a494a15ffddd172079a"><td class="memItemLeft" align="right" valign="top"><a id="af8f5112c47480a494a15ffddd172079a" name="af8f5112c47480a494a15ffddd172079a"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>nbLevelsInTree</b></td></tr>
+<tr class="memdesc:af8f5112c47480a494a15ffddd172079a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Height of the tree <br /></td></tr>
+<tr class="separator:af8f5112c47480a494a15ffddd172079a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>Base class of algorithms </p>
+<p>This class is an abstract algorithm to be able to use the <a class="el" href="class_f_algorithm_builder.html" title="The FAlgorithmBuilder class This class manage the creation of an algorithm.">FAlgorithmBuilder</a> and execute from an abstract pointer. </p>
+</div><h2 class="groupheader">成员函数说明</h2>
+<a id="acc84cd14f1c92dcc526f94873fc2e450" name="acc84cd14f1c92dcc526f94873fc2e450"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc84cd14f1c92dcc526f94873fc2e450">&#9670;&#160;</a></span>executeCore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void FAbstractAlgorithm::executeCore </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned</td>          <td class="paramname"><span class="paramname"><em>operationsToProceed</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="class_f_fmm_algorithm.html#acd2de48892c0850b192bc0d48af0f324">FFmmAlgorithm&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_omp4.html#a60521afc136626232a078cc7f795a522">FFmmAlgorithmOmp4&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_periodic.html#a2a4040917c958637510c57c1f9762855">FFmmAlgorithmPeriodic&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_section_task.html#a9f8868b83e97f0eca0f7187903f6064a">FFmmAlgorithmSectionTask&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_task.html#accf5716cfa0f7ac8c0d38c0c862faea8">FFmmAlgorithmTask&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_thread.html#ad49e8fb991f705dca0806c03aea669e4">FFmmAlgorithmThread&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_thread_balance.html#a22e60e7874ffe2306cb98085d1ff88b2">FFmmAlgorithmThreadBalance&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_thread_proc.html#a5f127ed25e3ff5b11c9ca06e74528e36">FFmmAlgorithmThreadProc&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_thread_proc_periodic.html#aba55ca07931868790ca33ea7d084b4b6">FFmmAlgorithmThreadProcPeriodic&lt; FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_thread_proc_tsm.html#a25090d1ef02dd57f63bc97b1c2567a48">FFmmAlgorithmThreadProcTsm&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_thread_tsm.html#a72211b070988b9351dec609f3417e071">FFmmAlgorithmThreadTsm&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;</a>, <a class="el" href="class_f_fmm_algorithm_tsm.html#a6fa32f59009bd16033e9f2c5d62c38d4">FFmmAlgorithmTsm&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass &gt;</a>, <a class="el" href="class_f_group_seq_algorithm.html#a3104b2c5dca757f5073ea109212fdc9f">FGroupSeqAlgorithm&lt; OctreeClass, CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass &gt;</a>, <a class="el" href="class_f_group_task_algorithm.html#a98422d6bfbb39549183262c3436f2c79">FGroupTaskAlgorithm&lt; OctreeClass, CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass &gt;</a>, <a class="el" href="class_f_group_task_dep_algorithm.html#a6afc2b0057b7cabcb5fb484fdd4ad7e6">FGroupTaskDepAlgorithm&lt; OctreeClass, CellContainerClass, CellClass, SymboleCellClass, PoleCellClass, LocalCellClass, KernelClass, ParticleGroupClass, ParticleContainerClass &gt;</a>, <a class="el" href="class_f_group_task_star_p_u_algorithm.html#a2f1de612bd9b981e6eb15f5a782fa183">FGroupTaskStarPUAlgorithm&lt; OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass &gt;</a>, <a class="el" href="class_f_group_task_star_p_u_implicit_algorithm.html#a46b7936ac044e89b440dd501aed93871">FGroupTaskStarPUImplicitAlgorithm&lt; OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass &gt;</a> , 以及 <a class="el" href="class_f_group_task_star_p_u_mpi_algorithm.html#a041d36d4ea9e6bb425ed5c9b7ce6e9b0">FGroupTaskStarPUMpiAlgorithm&lt; OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass &gt;</a> 内被实现.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Core/<a class="el" href="_f_core_common_8hpp_source.html">FCoreCommon.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

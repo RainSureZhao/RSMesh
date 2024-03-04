@@ -1,0 +1,483 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FChebM2LHandler&lt; FReal, ORDER, MatrixKernelClass &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="class_f_cheb_m2_l_handler-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FChebM2LHandler&lt; FReal, ORDER, MatrixKernelClass &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_cheb_m2_l_handler_8hpp_source.html">FChebM2LHandler.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FChebM2LHandler&lt; FReal, ORDER, MatrixKernelClass &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_cheb_m2_l_handler.png" usemap="#FChebM2LHandler_3C_20FReal_2C_20ORDER_2C_20MatrixKernelClass_20_3E_map" alt=""/>
+  <map id="FChebM2LHandler_3C_20FReal_2C_20ORDER_2C_20MatrixKernelClass_20_3E_map" name="FChebM2LHandler_3C_20FReal_2C_20ORDER_2C_20MatrixKernelClass_20_3E_map">
+<area href="class_f_no_copyable.html" alt="FNoCopyable" shape="rect" coords="0,0,341,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a4e5dc64df275548edfd7f469fdd130c5" id="r_a4e5dc64df275548edfd7f469fdd130c5"><td class="memItemLeft" align="right" valign="top"><a id="a4e5dc64df275548edfd7f469fdd130c5" name="a4e5dc64df275548edfd7f469fdd130c5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FChebM2LHandler</b> (const MatrixKernelClass *const inMatrixKernel, const FReal _epsilon)</td></tr>
+<tr class="separator:a4e5dc64df275548edfd7f469fdd130c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbd171865c6efd661f208f1f94d32a34" id="r_acbd171865c6efd661f208f1f94d32a34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbd171865c6efd661f208f1f94d32a34">ComputeAndCompressAndSet</a> ()</td></tr>
+<tr class="separator:acbd171865c6efd661f208f1f94d32a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96d77431183165d82f4c858f6b724021" id="r_a96d77431183165d82f4c858f6b724021"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96d77431183165d82f4c858f6b724021">ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet</a> ()</td></tr>
+<tr class="separator:a96d77431183165d82f4c858f6b724021"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a247ce5b02f0812e8a459acf1db9ffa24" id="r_a247ce5b02f0812e8a459acf1db9ffa24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a247ce5b02f0812e8a459acf1db9ffa24">ReadFromBinaryFileAndSet</a> ()</td></tr>
+<tr class="separator:a247ce5b02f0812e8a459acf1db9ffa24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4fa32bd50ecc34a35919d8a0b3a523c" id="r_ad4fa32bd50ecc34a35919d8a0b3a523c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4fa32bd50ecc34a35919d8a0b3a523c">getRank</a> () const</td></tr>
+<tr class="separator:ad4fa32bd50ecc34a35919d8a0b3a523c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9725b744399d14f29267268d55e6a6ef" id="r_a9725b744399d14f29267268d55e6a6ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9725b744399d14f29267268d55e6a6ef">applyU</a> (const FReal *const X, FReal *const x) const</td></tr>
+<tr class="separator:a9725b744399d14f29267268d55e6a6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0463cee2a593beadc1640d7fcfa084a1" id="r_a0463cee2a593beadc1640d7fcfa084a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0463cee2a593beadc1640d7fcfa084a1">applyC</a> (const int transfer[3], FReal CellWidth, const FReal *const Y, FReal *const X) const</td></tr>
+<tr class="separator:a0463cee2a593beadc1640d7fcfa084a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7da43f0979701db73c7d6db3d836f871" id="r_a7da43f0979701db73c7d6db3d836f871"><td class="memItemLeft" align="right" valign="top"><a id="a7da43f0979701db73c7d6db3d836f871" name="a7da43f0979701db73c7d6db3d836f871"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>applyC</b> (const unsigned int idx, FReal CellWidth, const FReal *const Y, FReal *const X) const</td></tr>
+<tr class="separator:a7da43f0979701db73c7d6db3d836f871"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad122198800f28d8910ff943cafb050df" id="r_ad122198800f28d8910ff943cafb050df"><td class="memItemLeft" align="right" valign="top"><a id="ad122198800f28d8910ff943cafb050df" name="ad122198800f28d8910ff943cafb050df"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>applyC</b> (FReal CellWidth, const FReal *const Y, FReal *const X) const</td></tr>
+<tr class="separator:ad122198800f28d8910ff943cafb050df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4408d1c4afd8fd489768092aa885d074" id="r_a4408d1c4afd8fd489768092aa885d074"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4408d1c4afd8fd489768092aa885d074">applyB</a> (FReal *const y, FReal *const Y) const</td></tr>
+<tr class="separator:a4408d1c4afd8fd489768092aa885d074"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:ab6281c59de16ca5b764e73137a8e7e42" id="r_ab6281c59de16ca5b764e73137a8e7e42"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6281c59de16ca5b764e73137a8e7e42">ComputeAndCompress</a> (const MatrixKernelClass *const MatrixKernel, const FReal epsilon, FReal *&amp;U, FReal *&amp;C, FReal *&amp;B)</td></tr>
+<tr class="separator:ab6281c59de16ca5b764e73137a8e7e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fcf5d2a0cba740c8db39001e52b0b44" id="r_a2fcf5d2a0cba740c8db39001e52b0b44"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fcf5d2a0cba740c8db39001e52b0b44">ComputeAndCompressAndStoreInBinaryFile</a> (const MatrixKernelClass *const MatrixKernel, const FReal epsilon)</td></tr>
+<tr class="separator:a2fcf5d2a0cba740c8db39001e52b0b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, int ORDER, class MatrixKernelClass&gt;<br />
+class FChebM2LHandler&lt; FReal, ORDER, MatrixKernelClass &gt;</div><dl class="section author"><dt>作者</dt><dd>Matthias Messner (<a href="#" onclick="location.href='mai'+'lto:'+'mat'+'th'+'ias'+'.m'+'ess'+'ne'+'r@i'+'nr'+'ia.'+'fr'; return false;">matth<span class="obfuscator">.nosp@m.</span>ias.<span class="obfuscator">.nosp@m.</span>messn<span class="obfuscator">.nosp@m.</span>er@i<span class="obfuscator">.nosp@m.</span>nria.<span class="obfuscator">.nosp@m.</span>fr</a>)</dd></dl>
+<p>Please read the license</p>
+<p>This class precomputes and compresses the M2L operators <picture><source srcset="form_0_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$[K_1,\dots,K_{316}]$" src="form_0.png"/></picture> for all ( <picture><source srcset="form_1_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$7^3-3^3 = 316$" src="form_1.png"/></picture> possible interacting cells in the far-field) interactions for the Chebyshev interpolation approach. The class uses the compression via a truncated SVD and represents the compressed M2L operator as <picture><source srcset="form_20_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$K_t \sim U C_t B^\top$" src="form_20.png"/></picture> with <picture><source srcset="form_21_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$t=1,\dots,316$" src="form_21.png"/></picture>. The truncation rank is denoted by <picture><source srcset="form_11_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$r$" src="form_11.png"/></picture> and is determined by the prescribed accuracy <picture><source srcset="form_22_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\varepsilon$" src="form_22.png"/></picture>. Hence, the originally <picture><source srcset="form_5_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$K_t$" src="form_5.png"/></picture> of size <picture><source srcset="form_23_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell^3\times\ell^3$" src="form_23.png"/></picture> times <picture><source srcset="form_24_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$316$" src="form_24.png"/></picture> for all interactions is reduced to only one <picture><source srcset="form_25_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$U$" src="form_25.png"/></picture> and one <picture><source srcset="form_26_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$B$" src="form_26.png"/></picture>, each of size <picture><source srcset="form_27_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell^3\times r$" src="form_27.png"/></picture>, and <picture><source srcset="form_24_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$316$" src="form_24.png"/></picture> <picture><source srcset="form_3_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$C_t$" src="form_3.png"/></picture>, each of size <picture><source srcset="form_28_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$r\times
+r$" src="form_28.png"/></picture>.</p>
+<p>PB: <a class="el" href="class_f_cheb_m2_l_handler.html">FChebM2LHandler</a> does not seem to support non-homogeneous kernels! In fact nothing appears to handle this here (i.e. adapt scaling and storage to MatrixKernelClass::Type). Given the relatively important cost of the Chebyshev variant, it is probably a choice not to have implemented this feature here but instead in the ChebyshevSym variant. But what if the kernel is non homogeneous and non symmetric (e.g. Dislocations)...</p>
+<p>TODO Specialize class (see UnifM2LHandler) OR prevent from using this class with non homogeneous kernels ?!</p>
+<dl class="tparams"><dt>模板参数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">ORDER</td><td>interpolation order <picture><source srcset="form_2_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell$" src="form_2.png"/></picture></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section author"><dt>作者</dt><dd>Matthias Messner (<a href="#" onclick="location.href='mai'+'lto:'+'mat'+'th'+'ias'+'.m'+'ess'+'ne'+'r@i'+'nr'+'ia.'+'fr'; return false;">matth<span class="obfuscator">.nosp@m.</span>ias.<span class="obfuscator">.nosp@m.</span>messn<span class="obfuscator">.nosp@m.</span>er@i<span class="obfuscator">.nosp@m.</span>nria.<span class="obfuscator">.nosp@m.</span>fr</a>)</dd></dl>
+<p>Please read the license</p>
+<p>This class precomputes and compresses the M2L operators <picture><source srcset="form_0_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$[K_1,\dots,K_{316}]$" src="form_0.png"/></picture> for all ( <picture><source srcset="form_1_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$7^3-3^3 = 316$" src="form_1.png"/></picture> possible interacting cells in the far-field) interactions for the Chebyshev interpolation approach. The class uses the compression via a truncated SVD and represents the compressed M2L operator as <picture><source srcset="form_20_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$K_t \sim U C_t B^\top$" src="form_20.png"/></picture> with <picture><source srcset="form_21_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$t=1,\dots,316$" src="form_21.png"/></picture>. The truncation rank is denoted by <picture><source srcset="form_11_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$r$" src="form_11.png"/></picture> and is determined by the prescribed accuracy <picture><source srcset="form_22_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\varepsilon$" src="form_22.png"/></picture>. Hence, the originally <picture><source srcset="form_5_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$K_t$" src="form_5.png"/></picture> of size <picture><source srcset="form_23_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell^3\times\ell^3$" src="form_23.png"/></picture> times <picture><source srcset="form_24_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$316$" src="form_24.png"/></picture> for all interactions is reduced to only one <picture><source srcset="form_25_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$U$" src="form_25.png"/></picture> and one <picture><source srcset="form_26_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$B$" src="form_26.png"/></picture>, each of size <picture><source srcset="form_27_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell^3\times r$" src="form_27.png"/></picture>, and <picture><source srcset="form_24_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$316$" src="form_24.png"/></picture> <picture><source srcset="form_3_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$C_t$" src="form_3.png"/></picture>, each of size <picture><source srcset="form_28_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$r\times
+r$" src="form_28.png"/></picture>.</p>
+<p>PB: BEWARE! Homogeneous matrix kernels do not support cell width extension yet. Is it possible to find a reference width and a scale factor such that only 1 set of M2L ops can be used for all levels??</p>
+<dl class="tparams"><dt>模板参数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">ORDER</td><td>interpolation order <picture><source srcset="form_2_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell$" src="form_2.png"/></picture> </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><h2 class="groupheader">成员函数说明</h2>
+<a id="a4408d1c4afd8fd489768092aa885d074" name="a4408d1c4afd8fd489768092aa885d074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4408d1c4afd8fd489768092aa885d074">&#9670;&#160;</a></span>applyB()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_m2_l_handler.html">FChebM2LHandler</a>&lt; FReal, ORDER, MatrixKernelClass &gt;::applyB </td>
+          <td>(</td>
+          <td class="paramtype">FReal *const</td>          <td class="paramname"><span class="paramname"><em>y</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FReal *const</td>          <td class="paramname"><span class="paramname"><em>Y</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Compresses densities <picture><source srcset="form_34_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$Y=B^\top y$" src="form_34.png"/></picture> of a source cell. This operation can be seen as part of the M2M operation.</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>multipole expansion of size <picture><source srcset="form_33_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell^3$" src="form_33.png"/></picture> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">Y</td><td>compressed multipole expansion of size <picture><source srcset="form_11_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$r$" src="form_11.png"/></picture> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0463cee2a593beadc1640d7fcfa084a1" name="a0463cee2a593beadc1640d7fcfa084a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0463cee2a593beadc1640d7fcfa084a1">&#9670;&#160;</a></span>applyC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_m2_l_handler.html">FChebM2LHandler</a>&lt; FReal, ORDER, MatrixKernelClass &gt;::applyC </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>transfer</em>[3], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FReal</td>          <td class="paramname"><span class="paramname"><em>CellWidth</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal *const</td>          <td class="paramname"><span class="paramname"><em>Y</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FReal *const</td>          <td class="paramname"><span class="paramname"><em>X</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Compressed M2L operation <picture><source srcset="form_8_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$X+=C_tY$" src="form_8.png"/></picture>, where <picture><source srcset="form_9_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$Y$" src="form_9.png"/></picture> is the compressed multipole expansion and <picture><source srcset="form_10_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$X$" src="form_10.png"/></picture> is the compressed local expansion, both of size <picture><source srcset="form_11_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$r$" src="form_11.png"/></picture>. The index <picture><source srcset="form_12_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$t$" src="form_12.png"/></picture> denotes the transfer vector of the target cell to the source cell.</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">transfer</td><td>transfer vector </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">Y</td><td>compressed multipole expansion </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">X</td><td>compressed local expansion </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">CellWidth</td><td>needed for the scaling of the compressed M2L operators which are based on a homogeneous matrix kernel computed for the reference cell width <picture><source srcset="form_13_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$w=2$" src="form_13.png"/></picture>, ie in <picture><source srcset="form_14_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$[-1,1]^3$" src="form_14.png"/></picture>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9725b744399d14f29267268d55e6a6ef" name="a9725b744399d14f29267268d55e6a6ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9725b744399d14f29267268d55e6a6ef">&#9670;&#160;</a></span>applyU()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_m2_l_handler.html">FChebM2LHandler</a>&lt; FReal, ORDER, MatrixKernelClass &gt;::applyU </td>
+          <td>(</td>
+          <td class="paramtype">const FReal *const</td>          <td class="paramname"><span class="paramname"><em>X</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FReal *const</td>          <td class="paramname"><span class="paramname"><em>x</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Expands potentials <picture><source srcset="form_32_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x+=UX$" src="form_32.png"/></picture> of a target cell. This operation can be seen as part of the L2L operation.</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">X</td><td>compressed local expansion of size <picture><source srcset="form_11_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$r$" src="form_11.png"/></picture> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">x</td><td>local expansion of size <picture><source srcset="form_33_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell^3$" src="form_33.png"/></picture> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab6281c59de16ca5b764e73137a8e7e42" name="ab6281c59de16ca5b764e73137a8e7e42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6281c59de16ca5b764e73137a8e7e42">&#9670;&#160;</a></span>ComputeAndCompress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="class_f_cheb_m2_l_handler.html">FChebM2LHandler</a>&lt; FReal, ORDER, MatrixKernelClass &gt;::ComputeAndCompress </td>
+          <td>(</td>
+          <td class="paramtype">const MatrixKernelClass *const</td>          <td class="paramname"><span class="paramname"><em>MatrixKernel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>epsilon</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FReal *&amp;</td>          <td class="paramname"><span class="paramname"><em>U</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FReal *&amp;</td>          <td class="paramname"><span class="paramname"><em>C</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FReal *&amp;</td>          <td class="paramname"><span class="paramname"><em>B</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Computes and compressed all <picture><source srcset="form_5_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$K_t$" src="form_5.png"/></picture>.</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">epsilon</td><td>accuracy </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">U</td><td>matrix of size <picture><source srcset="form_27_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell^3\times r$" src="form_27.png"/></picture> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">C</td><td>matrix of size <picture><source srcset="form_6_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$r\times 316 r$" src="form_6.png"/></picture> storing <picture><source srcset="form_7_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$[C_1,\dots,C_{316}]$" src="form_7.png"/></picture> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">B</td><td>matrix of size <picture><source srcset="form_27_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\ell^3\times r$" src="form_27.png"/></picture> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acbd171865c6efd661f208f1f94d32a34" name="acbd171865c6efd661f208f1f94d32a34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbd171865c6efd661f208f1f94d32a34">&#9670;&#160;</a></span>ComputeAndCompressAndSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_m2_l_handler.html">FChebM2LHandler</a>&lt; FReal, ORDER, MatrixKernelClass &gt;::ComputeAndCompressAndSet </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Computes, compresses and sets the matrices <picture><source srcset="form_4_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$Y, C_t, B$" src="form_4.png"/></picture> </p>
+
+</div>
+</div>
+<a id="a2fcf5d2a0cba740c8db39001e52b0b44" name="a2fcf5d2a0cba740c8db39001e52b0b44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fcf5d2a0cba740c8db39001e52b0b44">&#9670;&#160;</a></span>ComputeAndCompressAndStoreInBinaryFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_m2_l_handler.html">FChebM2LHandler</a>&lt; FReal, ORDER, MatrixKernelClass &gt;::ComputeAndCompressAndStoreInBinaryFile </td>
+          <td>(</td>
+          <td class="paramtype">const MatrixKernelClass *const</td>          <td class="paramname"><span class="paramname"><em>MatrixKernel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>epsilon</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Computes, compresses and stores the matrices <picture><source srcset="form_4_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$Y, C_t, B$" src="form_4.png"/></picture> in a binary file </p>
+
+</div>
+</div>
+<a id="a96d77431183165d82f4c858f6b724021" name="a96d77431183165d82f4c858f6b724021"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96d77431183165d82f4c858f6b724021">&#9670;&#160;</a></span>ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_m2_l_handler.html">FChebM2LHandler</a>&lt; FReal, ORDER, MatrixKernelClass &gt;::ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Computes, compresses, writes to binary file, reads it and sets the matrices <picture><source srcset="form_4_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$Y, C_t, B$" src="form_4.png"/></picture> </p>
+
+</div>
+</div>
+<a id="ad4fa32bd50ecc34a35919d8a0b3a523c" name="ad4fa32bd50ecc34a35919d8a0b3a523c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4fa32bd50ecc34a35919d8a0b3a523c">&#9670;&#160;</a></span>getRank()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="class_f_cheb_m2_l_handler.html">FChebM2LHandler</a>&lt; FReal, ORDER, MatrixKernelClass &gt;::getRank </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>返回</dt><dd>rank of the SVD compressed M2L operators </dd></dl>
+
+</div>
+</div>
+<a id="a247ce5b02f0812e8a459acf1db9ffa24" name="a247ce5b02f0812e8a459acf1db9ffa24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a247ce5b02f0812e8a459acf1db9ffa24">&#9670;&#160;</a></span>ReadFromBinaryFileAndSet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int ORDER, class MatrixKernelClass &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_m2_l_handler.html">FChebM2LHandler</a>&lt; FReal, ORDER, MatrixKernelClass &gt;::ReadFromBinaryFileAndSet </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Reads the matrices <picture><source srcset="form_4_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$Y, C_t, B$" src="form_4.png"/></picture> from the respective binary file </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Chebyshev/<a class="el" href="_f_cheb_m2_l_handler_8hpp_source.html">FChebM2LHandler.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

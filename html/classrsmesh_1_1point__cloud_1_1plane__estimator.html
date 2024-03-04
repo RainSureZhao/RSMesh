@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::point_cloud::plane_estimator类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><a class="el" href="namespacersmesh_1_1point__cloud.html">point_cloud</a></li><li class="navelem"><a class="el" href="classrsmesh_1_1point__cloud_1_1plane__estimator.html">plane_estimator</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classrsmesh_1_1point__cloud_1_1plane__estimator-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::point_cloud::plane_estimator类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a7b665a421f0d15e38f36858f70ee3394" id="r_a7b665a421f0d15e38f36858f70ee3394"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b665a421f0d15e38f36858f70ee3394">plane_estimator</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;points)</td></tr>
+<tr class="separator:a7b665a421f0d15e38f36858f70ee3394"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16d6c2daf63b7fd9a00b0453faf68632" id="r_a16d6c2daf63b7fd9a00b0453faf68632"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16d6c2daf63b7fd9a00b0453faf68632">line_error</a> () const</td></tr>
+<tr class="separator:a16d6c2daf63b7fd9a00b0453faf68632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae456a32f711af8e3e381917c1964b0ec" id="r_ae456a32f711af8e3e381917c1964b0ec"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae456a32f711af8e3e381917c1964b0ec">plane_factor</a> () const</td></tr>
+<tr class="separator:ae456a32f711af8e3e381917c1964b0ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb13a0e5953c1ef3d9846bedae38973" id="r_acbb13a0e5953c1ef3d9846bedae38973"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacersmesh_1_1geometry.html#a9076acee1b46c372f8242499125dc608">geometry::vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbb13a0e5953c1ef3d9846bedae38973">plane_normal</a> () const</td></tr>
+<tr class="separator:acbb13a0e5953c1ef3d9846bedae38973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1c71dd135a84394816573994c034cd2" id="r_ab1c71dd135a84394816573994c034cd2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1c71dd135a84394816573994c034cd2">plane_error</a> () const</td></tr>
+<tr class="separator:ab1c71dd135a84394816573994c034cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac210170c97d8755b5a2c839aa93fb5a2" id="r_ac210170c97d8755b5a2c839aa93fb5a2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac210170c97d8755b5a2c839aa93fb5a2">point_error</a> () const</td></tr>
+<tr class="separator:ac210170c97d8755b5a2c839aa93fb5a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="plane__estimator_8h_source.html">plane_estimator.h</a> 第 <a class="el" href="plane__estimator_8h_source.html#l00015">15</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a7b665a421f0d15e38f36858f70ee3394" name="a7b665a421f0d15e38f36858f70ee3394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b665a421f0d15e38f36858f70ee3394">&#9670;&#160;</a></span>plane_estimator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::point_cloud::plane_estimator::plane_estimator </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>points</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="plane__estimator_8cpp_source.html">plane_estimator.cpp</a> 第 <a class="el" href="plane__estimator_8cpp_source.html#l00014">14</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a16d6c2daf63b7fd9a00b0453faf68632" name="a16d6c2daf63b7fd9a00b0453faf68632"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16d6c2daf63b7fd9a00b0453faf68632">&#9670;&#160;</a></span>line_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double rsmesh::point_cloud::plane_estimator::line_error </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="plane__estimator_8cpp_source.html">plane_estimator.cpp</a> 第 <a class="el" href="plane__estimator_8cpp_source.html#l00041">41</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ab1c71dd135a84394816573994c034cd2" name="ab1c71dd135a84394816573994c034cd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1c71dd135a84394816573994c034cd2">&#9670;&#160;</a></span>plane_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double rsmesh::point_cloud::plane_estimator::plane_error </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="plane__estimator_8cpp_source.html">plane_estimator.cpp</a> 第 <a class="el" href="plane__estimator_8cpp_source.html#l00053">53</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ae456a32f711af8e3e381917c1964b0ec" name="ae456a32f711af8e3e381917c1964b0ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae456a32f711af8e3e381917c1964b0ec">&#9670;&#160;</a></span>plane_factor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double rsmesh::point_cloud::plane_estimator::plane_factor </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="plane__estimator_8cpp_source.html">plane_estimator.cpp</a> 第 <a class="el" href="plane__estimator_8cpp_source.html#l00045">45</a> 行定义.</p>
+
+</div>
+</div>
+<a id="acbb13a0e5953c1ef3d9846bedae38973" name="acbb13a0e5953c1ef3d9846bedae38973"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbb13a0e5953c1ef3d9846bedae38973">&#9670;&#160;</a></span>plane_normal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacersmesh_1_1geometry.html#a9076acee1b46c372f8242499125dc608">geometry::vector3d</a> rsmesh::point_cloud::plane_estimator::plane_normal </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="plane__estimator_8cpp_source.html">plane_estimator.cpp</a> 第 <a class="el" href="plane__estimator_8cpp_source.html#l00049">49</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ac210170c97d8755b5a2c839aa93fb5a2" name="ac210170c97d8755b5a2c839aa93fb5a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac210170c97d8755b5a2c839aa93fb5a2">&#9670;&#160;</a></span>point_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double rsmesh::point_cloud::plane_estimator::point_error </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="plane__estimator_8cpp_source.html">plane_estimator.cpp</a> 第 <a class="el" href="plane__estimator_8cpp_source.html#l00057">57</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/point_cloud/<a class="el" href="plane__estimator_8h_source.html">plane_estimator.h</a></li>
+<li>src/point_cloud/<a class="el" href="plane__estimator_8cpp_source.html">plane_estimator.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

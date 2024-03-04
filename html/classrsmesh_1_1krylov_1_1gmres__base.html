@@ -1,0 +1,947 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::krylov::gmres_base类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><b>krylov</b></li><li class="navelem"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-attribs">静态 Public 属性</a> &#124;
+<a href="#pro-methods">Protected 成员函数</a> &#124;
+<a href="#pro-attribs">Protected 属性</a> &#124;
+<a href="classrsmesh_1_1krylov_1_1gmres__base-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::krylov::gmres_base类 参考<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+类 rsmesh::krylov::gmres_base 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classrsmesh_1_1krylov_1_1gmres__base.png" usemap="#rsmesh::krylov::gmres_5Fbase_map" alt=""/>
+  <map id="rsmesh::krylov::gmres_5Fbase_map" name="rsmesh::krylov::gmres_5Fbase_map">
+<area href="classrsmesh_1_1krylov_1_1gmres.html" alt="rsmesh::krylov::gmres" shape="rect" coords="0,56,167,80"/>
+<area href="classrsmesh_1_1krylov_1_1minres.html" alt="rsmesh::krylov::minres" shape="rect" coords="177,56,344,80"/>
+<area href="classrsmesh_1_1krylov_1_1fgmres.html" alt="rsmesh::krylov::fgmres" shape="rect" coords="0,112,167,136"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a3344afe60ae44047faef770ea2fb220b" id="r_a3344afe60ae44047faef770ea2fb220b"><td class="memItemLeft" align="right" valign="top"><a id="a3344afe60ae44047faef770ea2fb220b" name="a3344afe60ae44047faef770ea2fb220b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>gmres_base</b> (const <a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;)=delete</td></tr>
+<tr class="separator:a3344afe60ae44047faef770ea2fb220b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78102ffbb70f9899862324764d855695" id="r_a78102ffbb70f9899862324764d855695"><td class="memItemLeft" align="right" valign="top"><a id="a78102ffbb70f9899862324764d855695" name="a78102ffbb70f9899862324764d855695"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>gmres_base</b> (<a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:a78102ffbb70f9899862324764d855695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace928dfbbd9697ed329af86cfe11d9e8" id="r_ace928dfbbd9697ed329af86cfe11d9e8"><td class="memItemLeft" align="right" valign="top"><a id="ace928dfbbd9697ed329af86cfe11d9e8" name="ace928dfbbd9697ed329af86cfe11d9e8"></a>
+<a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;)=delete</td></tr>
+<tr class="separator:ace928dfbbd9697ed329af86cfe11d9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b6c040cc4881a0aeafbef484be4659a" id="r_a5b6c040cc4881a0aeafbef484be4659a"><td class="memItemLeft" align="right" valign="top"><a id="a5b6c040cc4881a0aeafbef484be4659a" name="a5b6c040cc4881a0aeafbef484be4659a"></a>
+<a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:a5b6c040cc4881a0aeafbef484be4659a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1685d83eb6055babdcd535bc9a08cda6" id="r_a1685d83eb6055babdcd535bc9a08cda6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1685d83eb6055babdcd535bc9a08cda6">absolute_residual</a> () const</td></tr>
+<tr class="separator:a1685d83eb6055babdcd535bc9a08cda6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d2ec732614a70f648b7de093b51cabe" id="r_a2d2ec732614a70f648b7de093b51cabe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d2ec732614a70f648b7de093b51cabe">converged</a> () const</td></tr>
+<tr class="separator:a2d2ec732614a70f648b7de093b51cabe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5ac450d07e6bd1eb8c0a4318be0df05" id="r_ae5ac450d07e6bd1eb8c0a4318be0df05"><td class="memItemLeft" align="right" valign="top"><a id="ae5ac450d07e6bd1eb8c0a4318be0df05" name="ae5ac450d07e6bd1eb8c0a4318be0df05"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>iterate_process</b> ()=0</td></tr>
+<tr class="separator:ae5ac450d07e6bd1eb8c0a4318be0df05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbbfbb60a658dbb84043c81a3a49e3c1" id="r_afbbfbb60a658dbb84043c81a3a49e3c1"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbbfbb60a658dbb84043c81a3a49e3c1">iteration_count</a> () const</td></tr>
+<tr class="separator:afbbfbb60a658dbb84043c81a3a49e3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b95b4f7b90ed05e19d20caf04089a3f" id="r_a1b95b4f7b90ed05e19d20caf04089a3f"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b95b4f7b90ed05e19d20caf04089a3f">max_iterations</a> () const</td></tr>
+<tr class="separator:a1b95b4f7b90ed05e19d20caf04089a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab5d8349bb5c07c247f01d12337c1734" id="r_aab5d8349bb5c07c247f01d12337c1734"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab5d8349bb5c07c247f01d12337c1734">relative_residual</a> () const</td></tr>
+<tr class="separator:aab5d8349bb5c07c247f01d12337c1734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a3929a7ddad6822f268f0cba15cfd18" id="r_a7a3929a7ddad6822f268f0cba15cfd18"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a3929a7ddad6822f268f0cba15cfd18">set_left_preconditioner</a> (const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;left_preconditioner)</td></tr>
+<tr class="separator:a7a3929a7ddad6822f268f0cba15cfd18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade8cabdf3f374682c358f0384a2d77f6" id="r_ade8cabdf3f374682c358f0384a2d77f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade8cabdf3f374682c358f0384a2d77f6">set_initial_solution</a> (const valuesd &amp;x0)</td></tr>
+<tr class="separator:ade8cabdf3f374682c358f0384a2d77f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3af7f8ecabebabf593f9cde98ab26e58" id="r_a3af7f8ecabebabf593f9cde98ab26e58"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3af7f8ecabebabf593f9cde98ab26e58">set_right_preconditioner</a> (const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;right_preconditioner)</td></tr>
+<tr class="separator:a3af7f8ecabebabf593f9cde98ab26e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afae8faa7d7c2646180a4032d67a27839" id="r_afae8faa7d7c2646180a4032d67a27839"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afae8faa7d7c2646180a4032d67a27839">setup</a> ()</td></tr>
+<tr class="separator:afae8faa7d7c2646180a4032d67a27839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad451b4fc830b4ef2e4b93880be48dafa" id="r_ad451b4fc830b4ef2e4b93880be48dafa"><td class="memItemLeft" align="right" valign="top">virtual valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad451b4fc830b4ef2e4b93880be48dafa">solution_vector</a> () const</td></tr>
+<tr class="separator:ad451b4fc830b4ef2e4b93880be48dafa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a145e43d007199d7bf65ac1fb4eac9" id="r_a71a145e43d007199d7bf65ac1fb4eac9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71a145e43d007199d7bf65ac1fb4eac9">solve</a> (double tolerance)</td></tr>
+<tr class="separator:a71a145e43d007199d7bf65ac1fb4eac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+静态 Public 属性</h2></td></tr>
+<tr class="memitem:ace616e80ea0f04ee112711f048a5223b" id="r_ace616e80ea0f04ee112711f048a5223b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace616e80ea0f04ee112711f048a5223b">print_progress</a> = true</td></tr>
+<tr class="separator:ace616e80ea0f04ee112711f048a5223b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected 成员函数</h2></td></tr>
+<tr class="memitem:aec090c49005e339bda7f7f122726d65c" id="r_aec090c49005e339bda7f7f122726d65c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec090c49005e339bda7f7f122726d65c">gmres_base</a> (const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;op, const valuesd &amp;rhs, index_t max_iter)</td></tr>
+<tr class="separator:aec090c49005e339bda7f7f122726d65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a144982cc3d83ea9503ef8256652539af" id="r_a144982cc3d83ea9503ef8256652539af"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a144982cc3d83ea9503ef8256652539af">add_preconditioned_krylov_basis</a> (const valuesd &amp;)</td></tr>
+<tr class="separator:a144982cc3d83ea9503ef8256652539af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3db6f7a324a8a065126108fecdc746b5" id="r_a3db6f7a324a8a065126108fecdc746b5"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3db6f7a324a8a065126108fecdc746b5">left_preconditioned</a> (const valuesd &amp;x) const</td></tr>
+<tr class="separator:a3db6f7a324a8a065126108fecdc746b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0416e4e7be5391b4ebcdddca2ccbba96" id="r_a0416e4e7be5391b4ebcdddca2ccbba96"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0416e4e7be5391b4ebcdddca2ccbba96">right_preconditioned</a> (const valuesd &amp;x) const</td></tr>
+<tr class="separator:a0416e4e7be5391b4ebcdddca2ccbba96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected 属性</h2></td></tr>
+<tr class="memitem:a3d433a409f0ef3cc3d07bec1c361fe28" id="r_a3d433a409f0ef3cc3d07bec1c361fe28"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d433a409f0ef3cc3d07bec1c361fe28">op_</a></td></tr>
+<tr class="separator:a3d433a409f0ef3cc3d07bec1c361fe28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63df8808b7b9fad15ca5d0445b74b319" id="r_a63df8808b7b9fad15ca5d0445b74b319"><td class="memItemLeft" align="right" valign="top">const index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63df8808b7b9fad15ca5d0445b74b319">m_</a></td></tr>
+<tr class="separator:a63df8808b7b9fad15ca5d0445b74b319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a6d738035f2876e20a144601bf394eb" id="r_a5a6d738035f2876e20a144601bf394eb"><td class="memItemLeft" align="right" valign="top">const index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a6d738035f2876e20a144601bf394eb">max_iter_</a></td></tr>
+<tr class="separator:a5a6d738035f2876e20a144601bf394eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4831b64c0858b97a86d62e43a7e11ab5" id="r_a4831b64c0858b97a86d62e43a7e11ab5"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4831b64c0858b97a86d62e43a7e11ab5">x0_</a></td></tr>
+<tr class="separator:a4831b64c0858b97a86d62e43a7e11ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52376c6a9ebae26a8fa540e4ec4f229f" id="r_a52376c6a9ebae26a8fa540e4ec4f229f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52376c6a9ebae26a8fa540e4ec4f229f">left_pc_</a> {}</td></tr>
+<tr class="separator:a52376c6a9ebae26a8fa540e4ec4f229f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5106eff5df68a8189ed3ec1a7b602953" id="r_a5106eff5df68a8189ed3ec1a7b602953"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5106eff5df68a8189ed3ec1a7b602953">right_pc_</a> {}</td></tr>
+<tr class="separator:a5106eff5df68a8189ed3ec1a7b602953"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e8e2cfe2603c3a58107859974fa52d" id="r_ae3e8e2cfe2603c3a58107859974fa52d"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3e8e2cfe2603c3a58107859974fa52d">iter_</a> {}</td></tr>
+<tr class="separator:ae3e8e2cfe2603c3a58107859974fa52d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae40c60aa1700ce29f3a561105e1f2cd2" id="r_ae40c60aa1700ce29f3a561105e1f2cd2"><td class="memItemLeft" align="right" valign="top">const valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae40c60aa1700ce29f3a561105e1f2cd2">rhs_</a></td></tr>
+<tr class="separator:ae40c60aa1700ce29f3a561105e1f2cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1809f1453cd598a49a523afb95d96f8" id="r_ae1809f1453cd598a49a523afb95d96f8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1809f1453cd598a49a523afb95d96f8">rhs_norm_</a></td></tr>
+<tr class="separator:ae1809f1453cd598a49a523afb95d96f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6477fbcec32af29672a0831534f6de9d" id="r_a6477fbcec32af29672a0831534f6de9d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; valuesd &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6477fbcec32af29672a0831534f6de9d">vs_</a></td></tr>
+<tr class="separator:a6477fbcec32af29672a0831534f6de9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0e339c6b9f93b50972e99bd9d8c1570" id="r_ad0e339c6b9f93b50972e99bd9d8c1570"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0e339c6b9f93b50972e99bd9d8c1570">r_</a></td></tr>
+<tr class="separator:ad0e339c6b9f93b50972e99bd9d8c1570"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34c0f5288d3b89c9f4808a15c991be40" id="r_a34c0f5288d3b89c9f4808a15c991be40"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34c0f5288d3b89c9f4808a15c991be40">c_</a></td></tr>
+<tr class="separator:a34c0f5288d3b89c9f4808a15c991be40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24dc30981731e21294bd5d0d52a7f00f" id="r_a24dc30981731e21294bd5d0d52a7f00f"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24dc30981731e21294bd5d0d52a7f00f">s_</a></td></tr>
+<tr class="separator:a24dc30981731e21294bd5d0d52a7f00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a020ae2edd4265276dff4e705df7532" id="r_a2a020ae2edd4265276dff4e705df7532"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a020ae2edd4265276dff4e705df7532">g_</a></td></tr>
+<tr class="separator:a2a020ae2edd4265276dff4e705df7532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48d776f112001640b3e57cfed6617d70" id="r_a48d776f112001640b3e57cfed6617d70"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48d776f112001640b3e57cfed6617d70">converged_</a> {}</td></tr>
+<tr class="separator:a48d776f112001640b3e57cfed6617d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00014">14</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="aec090c49005e339bda7f7f122726d65c" name="aec090c49005e339bda7f7f122726d65c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec090c49005e339bda7f7f122726d65c">&#9670;&#160;</a></span>gmres_base()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::krylov::gmres_base::gmres_base </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>op</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const valuesd &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t</td>          <td class="paramname"><span class="paramname"><em>max_iter</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00096">96</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a1685d83eb6055babdcd535bc9a08cda6" name="a1685d83eb6055babdcd535bc9a08cda6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1685d83eb6055babdcd535bc9a08cda6">&#9670;&#160;</a></span>absolute_residual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double rsmesh::krylov::gmres_base::absolute_residual </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00012">12</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a144982cc3d83ea9503ef8256652539af" name="a144982cc3d83ea9503ef8256652539af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a144982cc3d83ea9503ef8256652539af">&#9670;&#160;</a></span>add_preconditioned_krylov_basis()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void rsmesh::krylov::gmres_base::add_preconditioned_krylov_basis </td>
+          <td>(</td>
+          <td class="paramtype">const valuesd &amp;</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00056">56</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a2d2ec732614a70f648b7de093b51cabe" name="a2d2ec732614a70f648b7de093b51cabe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d2ec732614a70f648b7de093b51cabe">&#9670;&#160;</a></span>converged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rsmesh::krylov::gmres_base::converged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00014">14</a> 行定义.</p>
+
+</div>
+</div>
+<a id="afbbfbb60a658dbb84043c81a3a49e3c1" name="afbbfbb60a658dbb84043c81a3a49e3c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbbfbb60a658dbb84043c81a3a49e3c1">&#9670;&#160;</a></span>iteration_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">index_t rsmesh::krylov::gmres_base::iteration_count </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00016">16</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a3db6f7a324a8a065126108fecdc746b5" name="a3db6f7a324a8a065126108fecdc746b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3db6f7a324a8a065126108fecdc746b5">&#9670;&#160;</a></span>left_preconditioned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">valuesd rsmesh::krylov::gmres_base::left_preconditioned </td>
+          <td>(</td>
+          <td class="paramtype">const valuesd &amp;</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00104">104</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a1b95b4f7b90ed05e19d20caf04089a3f" name="a1b95b4f7b90ed05e19d20caf04089a3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b95b4f7b90ed05e19d20caf04089a3f">&#9670;&#160;</a></span>max_iterations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">index_t rsmesh::krylov::gmres_base::max_iterations </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00018">18</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aab5d8349bb5c07c247f01d12337c1734" name="aab5d8349bb5c07c247f01d12337c1734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab5d8349bb5c07c247f01d12337c1734">&#9670;&#160;</a></span>relative_residual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double rsmesh::krylov::gmres_base::relative_residual </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00020">20</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a0416e4e7be5391b4ebcdddca2ccbba96" name="a0416e4e7be5391b4ebcdddca2ccbba96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0416e4e7be5391b4ebcdddca2ccbba96">&#9670;&#160;</a></span>right_preconditioned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">valuesd rsmesh::krylov::gmres_base::right_preconditioned </td>
+          <td>(</td>
+          <td class="paramtype">const valuesd &amp;</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00108">108</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ade8cabdf3f374682c358f0384a2d77f6" name="ade8cabdf3f374682c358f0384a2d77f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade8cabdf3f374682c358f0384a2d77f6">&#9670;&#160;</a></span>set_initial_solution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::krylov::gmres_base::set_initial_solution </td>
+          <td>(</td>
+          <td class="paramtype">const valuesd &amp;</td>          <td class="paramname"><span class="paramname"><em>x0</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00028">28</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a7a3929a7ddad6822f268f0cba15cfd18" name="a7a3929a7ddad6822f268f0cba15cfd18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a3929a7ddad6822f268f0cba15cfd18">&#9670;&#160;</a></span>set_left_preconditioner()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::krylov::gmres_base::set_left_preconditioner </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>left_preconditioner</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00022">22</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a3af7f8ecabebabf593f9cde98ab26e58" name="a3af7f8ecabebabf593f9cde98ab26e58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3af7f8ecabebabf593f9cde98ab26e58">&#9670;&#160;</a></span>set_right_preconditioner()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::krylov::gmres_base::set_right_preconditioner </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>right_preconditioner</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00034">34</a> 行定义.</p>
+
+</div>
+</div>
+<a id="afae8faa7d7c2646180a4032d67a27839" name="afae8faa7d7c2646180a4032d67a27839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afae8faa7d7c2646180a4032d67a27839">&#9670;&#160;</a></span>setup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::krylov::gmres_base::setup </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00040">40</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad451b4fc830b4ef2e4b93880be48dafa" name="ad451b4fc830b4ef2e4b93880be48dafa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad451b4fc830b4ef2e4b93880be48dafa">&#9670;&#160;</a></span>solution_vector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">valuesd rsmesh::krylov::gmres_base::solution_vector </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00058">58</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a71a145e43d007199d7bf65ac1fb4eac9" name="a71a145e43d007199d7bf65ac1fb4eac9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71a145e43d007199d7bf65ac1fb4eac9">&#9670;&#160;</a></span>solve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::krylov::gmres_base::solve </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>tolerance</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a> 第 <a class="el" href="gmres__base_8cpp_source.html#l00080">80</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="a34c0f5288d3b89c9f4808a15c991be40" name="a34c0f5288d3b89c9f4808a15c991be40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c0f5288d3b89c9f4808a15c991be40">&#9670;&#160;</a></span>c_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">valuesd rsmesh::krylov::gmres_base::c_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00095">95</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a48d776f112001640b3e57cfed6617d70" name="a48d776f112001640b3e57cfed6617d70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48d776f112001640b3e57cfed6617d70">&#9670;&#160;</a></span>converged_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rsmesh::krylov::gmres_base::converged_ {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00103">103</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a2a020ae2edd4265276dff4e705df7532" name="a2a020ae2edd4265276dff4e705df7532"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a020ae2edd4265276dff4e705df7532">&#9670;&#160;</a></span>g_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">valuesd rsmesh::krylov::gmres_base::g_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00101">101</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ae3e8e2cfe2603c3a58107859974fa52d" name="ae3e8e2cfe2603c3a58107859974fa52d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3e8e2cfe2603c3a58107859974fa52d">&#9670;&#160;</a></span>iter_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">index_t rsmesh::krylov::gmres_base::iter_ {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00080">80</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a52376c6a9ebae26a8fa540e4ec4f229f" name="a52376c6a9ebae26a8fa540e4ec4f229f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52376c6a9ebae26a8fa540e4ec4f229f">&#9670;&#160;</a></span>left_pc_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a>* rsmesh::krylov::gmres_base::left_pc_ {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00074">74</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a63df8808b7b9fad15ca5d0445b74b319" name="a63df8808b7b9fad15ca5d0445b74b319"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63df8808b7b9fad15ca5d0445b74b319">&#9670;&#160;</a></span>m_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const index_t rsmesh::krylov::gmres_base::m_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00065">65</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a5a6d738035f2876e20a144601bf394eb" name="a5a6d738035f2876e20a144601bf394eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a6d738035f2876e20a144601bf394eb">&#9670;&#160;</a></span>max_iter_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const index_t rsmesh::krylov::gmres_base::max_iter_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00068">68</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a3d433a409f0ef3cc3d07bec1c361fe28" name="a3d433a409f0ef3cc3d07bec1c361fe28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d433a409f0ef3cc3d07bec1c361fe28">&#9670;&#160;</a></span>op_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a>&amp; rsmesh::krylov::gmres_base::op_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00062">62</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ace616e80ea0f04ee112711f048a5223b" name="ace616e80ea0f04ee112711f048a5223b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace616e80ea0f04ee112711f048a5223b">&#9670;&#160;</a></span>print_progress</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rsmesh::krylov::gmres_base::print_progress = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00016">16</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad0e339c6b9f93b50972e99bd9d8c1570" name="ad0e339c6b9f93b50972e99bd9d8c1570"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0e339c6b9f93b50972e99bd9d8c1570">&#9670;&#160;</a></span>r_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXd rsmesh::krylov::gmres_base::r_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00092">92</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ae40c60aa1700ce29f3a561105e1f2cd2" name="ae40c60aa1700ce29f3a561105e1f2cd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae40c60aa1700ce29f3a561105e1f2cd2">&#9670;&#160;</a></span>rhs_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const valuesd rsmesh::krylov::gmres_base::rhs_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00083">83</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ae1809f1453cd598a49a523afb95d96f8" name="ae1809f1453cd598a49a523afb95d96f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1809f1453cd598a49a523afb95d96f8">&#9670;&#160;</a></span>rhs_norm_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double rsmesh::krylov::gmres_base::rhs_norm_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00086">86</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a5106eff5df68a8189ed3ec1a7b602953" name="a5106eff5df68a8189ed3ec1a7b602953"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5106eff5df68a8189ed3ec1a7b602953">&#9670;&#160;</a></span>right_pc_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a>* rsmesh::krylov::gmres_base::right_pc_ {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00077">77</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a24dc30981731e21294bd5d0d52a7f00f" name="a24dc30981731e21294bd5d0d52a7f00f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24dc30981731e21294bd5d0d52a7f00f">&#9670;&#160;</a></span>s_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">valuesd rsmesh::krylov::gmres_base::s_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00098">98</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a6477fbcec32af29672a0831534f6de9d" name="a6477fbcec32af29672a0831534f6de9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6477fbcec32af29672a0831534f6de9d">&#9670;&#160;</a></span>vs_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;valuesd&gt; rsmesh::krylov::gmres_base::vs_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00089">89</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a4831b64c0858b97a86d62e43a7e11ab5" name="a4831b64c0858b97a86d62e43a7e11ab5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4831b64c0858b97a86d62e43a7e11ab5">&#9670;&#160;</a></span>x0_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">valuesd rsmesh::krylov::gmres_base::x0_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres__base_8h_source.html">gmres_base.h</a> 第 <a class="el" href="gmres__base_8h_source.html#l00071">71</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/krylov/<a class="el" href="gmres__base_8h_source.html">gmres_base.h</a></li>
+<li>src/krylov/<a class="el" href="gmres__base_8cpp_source.html">gmres_base.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FCudaP2P&lt; FReal &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="#pub-static-attribs">静态 Public 属性</a> &#124;
+<a href="class_f_cuda_p2_p-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FCudaP2P&lt; FReal &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_cuda_p2_p_8hpp_source.html">FCudaP2P.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:ad4d2ff367541af75d8f221408b531755" id="r_ad4d2ff367541af75d8f221408b531755"><td class="memItemLeft" align="right" valign="top"><a id="ad4d2ff367541af75d8f221408b531755" name="ad4d2ff367541af75d8f221408b531755"></a>
+typedef <a class="el" href="class_f_cuda_group_attached_leaf.html">FCudaGroupAttachedLeaf</a>&lt; FReal, 1, 4, FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ContainerClass</b></td></tr>
+<tr class="separator:ad4d2ff367541af75d8f221408b531755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1f64f295ec6d22254eed95fcb2de5ea" id="r_ad1f64f295ec6d22254eed95fcb2de5ea"><td class="memItemLeft" align="right" valign="top"><a id="ad1f64f295ec6d22254eed95fcb2de5ea" name="ad1f64f295ec6d22254eed95fcb2de5ea"></a>
+typedef <a class="el" href="struct_f_cuda_composite_cell.html">FCudaCompositeCell</a>&lt; <a class="el" href="struct_f_cuda_empty_cell_symb.html">FCudaEmptyCellSymb</a>, int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>CellClass</b></td></tr>
+<tr class="separator:ad1f64f295ec6d22254eed95fcb2de5ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a3953b6a27e49e81670ba87540a3e252e" id="r_a3953b6a27e49e81670ba87540a3e252e"><td class="memItemLeft" align="right" valign="top"><a id="a3953b6a27e49e81670ba87540a3e252e" name="a3953b6a27e49e81670ba87540a3e252e"></a>
+__device__ void&#160;</td><td class="memItemRight" valign="bottom"><b>DirectComputation</b> (const FReal &amp;targetX, const FReal &amp;targetY, const FReal &amp;targetZ, const FReal &amp;targetPhys, FReal &amp;forceX, FReal &amp;forceY, FReal &amp;forceZ, FReal &amp;potential, const FReal &amp;sourcesX, const FReal &amp;sourcesY, const FReal &amp;sourcesZ, const FReal &amp;sourcesPhys) const</td></tr>
+<tr class="separator:a3953b6a27e49e81670ba87540a3e252e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e13ba4bcaf30450fb76e72d790f1fd6" id="r_a3e13ba4bcaf30450fb76e72d790f1fd6"><td class="memItemLeft" align="right" valign="top"><a id="a3e13ba4bcaf30450fb76e72d790f1fd6" name="a3e13ba4bcaf30450fb76e72d790f1fd6"></a>
+__device__ void&#160;</td><td class="memItemRight" valign="bottom"><b>P2M</b> (<a class="el" href="struct_f_cuda_composite_cell.html">CellClass</a>, const <a class="el" href="class_f_cuda_group_attached_leaf.html">ContainerClass</a> *const)</td></tr>
+<tr class="separator:a3e13ba4bcaf30450fb76e72d790f1fd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37cbfaa951c5cc6a7497ac1fa40295a0" id="r_a37cbfaa951c5cc6a7497ac1fa40295a0"><td class="memItemLeft" align="right" valign="top"><a id="a37cbfaa951c5cc6a7497ac1fa40295a0" name="a37cbfaa951c5cc6a7497ac1fa40295a0"></a>
+__device__ void&#160;</td><td class="memItemRight" valign="bottom"><b>M2M</b> (<a class="el" href="struct_f_cuda_composite_cell.html">CellClass</a>, const <a class="el" href="struct_f_cuda_composite_cell.html">CellClass</a>[8], const int)</td></tr>
+<tr class="separator:a37cbfaa951c5cc6a7497ac1fa40295a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bea31a12042785a5e29a1e6fe4271ea" id="r_a6bea31a12042785a5e29a1e6fe4271ea"><td class="memItemLeft" align="right" valign="top"><a id="a6bea31a12042785a5e29a1e6fe4271ea" name="a6bea31a12042785a5e29a1e6fe4271ea"></a>
+__device__ void&#160;</td><td class="memItemRight" valign="bottom"><b>M2L</b> (<a class="el" href="struct_f_cuda_composite_cell.html">CellClass</a>, const <a class="el" href="struct_f_cuda_composite_cell.html">CellClass</a> *, const int *, const int, const int)</td></tr>
+<tr class="separator:a6bea31a12042785a5e29a1e6fe4271ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fddd4b07897d53e9229d282ef9ba1dc" id="r_a4fddd4b07897d53e9229d282ef9ba1dc"><td class="memItemLeft" align="right" valign="top"><a id="a4fddd4b07897d53e9229d282ef9ba1dc" name="a4fddd4b07897d53e9229d282ef9ba1dc"></a>
+__device__ void&#160;</td><td class="memItemRight" valign="bottom"><b>L2L</b> (const <a class="el" href="struct_f_cuda_composite_cell.html">CellClass</a>, <a class="el" href="struct_f_cuda_composite_cell.html">CellClass</a>[8], const int)</td></tr>
+<tr class="separator:a4fddd4b07897d53e9229d282ef9ba1dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45910f609b43e7c4ff08c46aebc1c3bd" id="r_a45910f609b43e7c4ff08c46aebc1c3bd"><td class="memItemLeft" align="right" valign="top"><a id="a45910f609b43e7c4ff08c46aebc1c3bd" name="a45910f609b43e7c4ff08c46aebc1c3bd"></a>
+__device__ void&#160;</td><td class="memItemRight" valign="bottom"><b>L2P</b> (const <a class="el" href="struct_f_cuda_composite_cell.html">CellClass</a>, <a class="el" href="class_f_cuda_group_attached_leaf.html">ContainerClass</a> *const)</td></tr>
+<tr class="separator:a45910f609b43e7c4ff08c46aebc1c3bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a469953181949d7d39667c4b7117d7ad5" id="r_a469953181949d7d39667c4b7117d7ad5"><td class="memItemLeft" align="right" valign="top"><a id="a469953181949d7d39667c4b7117d7ad5" name="a469953181949d7d39667c4b7117d7ad5"></a>
+__device__ void&#160;</td><td class="memItemRight" valign="bottom"><b>P2P</b> (const int3 &amp;pos, <a class="el" href="class_f_cuda_group_attached_leaf.html">ContainerClass</a> *const targets, const <a class="el" href="class_f_cuda_group_attached_leaf.html">ContainerClass</a> *const sources, <a class="el" href="class_f_cuda_group_attached_leaf.html">ContainerClass</a> *const directNeighborsParticles, const int *neighborPositions, const int counter)</td></tr>
+<tr class="separator:a469953181949d7d39667c4b7117d7ad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac21eebd510179f70ce66185f0aebd1cb" id="r_ac21eebd510179f70ce66185f0aebd1cb"><td class="memItemLeft" align="right" valign="top"><a id="ac21eebd510179f70ce66185f0aebd1cb" name="ac21eebd510179f70ce66185f0aebd1cb"></a>
+__device__ void&#160;</td><td class="memItemRight" valign="bottom"><b>P2PRemote</b> (const int3 &amp;, <a class="el" href="class_f_cuda_group_attached_leaf.html">ContainerClass</a> *const targets, const <a class="el" href="class_f_cuda_group_attached_leaf.html">ContainerClass</a> *const, <a class="el" href="class_f_cuda_group_attached_leaf.html">ContainerClass</a> *const directNeighborsParticles, const int *, const int counter)</td></tr>
+<tr class="separator:ac21eebd510179f70ce66185f0aebd1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8b64027158fc8ed31d7f0dc28324b29" id="r_ad8b64027158fc8ed31d7f0dc28324b29"><td class="memItemLeft" align="right" valign="top"><a id="ad8b64027158fc8ed31d7f0dc28324b29" name="ad8b64027158fc8ed31d7f0dc28324b29"></a>
+__device__ void&#160;</td><td class="memItemRight" valign="bottom"><b>P2POuter</b> (const int3 &amp;, <a class="el" href="class_f_cuda_group_attached_leaf.html">ContainerClass</a> *const targets, <a class="el" href="class_f_cuda_group_attached_leaf.html">ContainerClass</a> *const directNeighborsParticles, const int *, const int counter)</td></tr>
+<tr class="separator:ad8b64027158fc8ed31d7f0dc28324b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:afa4f95c0ecbe58b0cab6920a22d4294e" id="r_afa4f95c0ecbe58b0cab6920a22d4294e"><td class="memItemLeft" align="right" valign="top"><a id="afa4f95c0ecbe58b0cab6920a22d4294e" name="afa4f95c0ecbe58b0cab6920a22d4294e"></a>
+static double&#160;</td><td class="memItemRight" valign="bottom"><b>DSqrt</b> (const double val)</td></tr>
+<tr class="separator:afa4f95c0ecbe58b0cab6920a22d4294e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05795eca329907322b6df911a9513372" id="r_a05795eca329907322b6df911a9513372"><td class="memItemLeft" align="right" valign="top"><a id="a05795eca329907322b6df911a9513372" name="a05795eca329907322b6df911a9513372"></a>
+static float&#160;</td><td class="memItemRight" valign="bottom"><b>FSqrt</b> (const float val)</td></tr>
+<tr class="separator:a05795eca329907322b6df911a9513372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade819b7f75cf5a7faf792a101bbfdfc3" id="r_ade819b7f75cf5a7faf792a101bbfdfc3"><td class="memItemLeft" align="right" valign="top"><a id="ade819b7f75cf5a7faf792a101bbfdfc3" name="ade819b7f75cf5a7faf792a101bbfdfc3"></a>
+static __host__ <a class="el" href="class_f_cuda_p2_p.html">FCudaP2P</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>InitKernelKernel</b> (void *)</td></tr>
+<tr class="separator:ade819b7f75cf5a7faf792a101bbfdfc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a294932fe144883510e92fe04697eee6a" id="r_a294932fe144883510e92fe04697eee6a"><td class="memItemLeft" align="right" valign="top"><a id="a294932fe144883510e92fe04697eee6a" name="a294932fe144883510e92fe04697eee6a"></a>
+static __host__ void&#160;</td><td class="memItemRight" valign="bottom"><b>ReleaseKernel</b> (<a class="el" href="class_f_cuda_p2_p.html">FCudaP2P</a> *)</td></tr>
+<tr class="separator:a294932fe144883510e92fe04697eee6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f64f7f99046d8f5fb3c4bf06ebec052" id="r_a5f64f7f99046d8f5fb3c4bf06ebec052"><td class="memItemLeft" align="right" valign="top"><a id="a5f64f7f99046d8f5fb3c4bf06ebec052" name="a5f64f7f99046d8f5fb3c4bf06ebec052"></a>
+static __host__ dim3&#160;</td><td class="memItemRight" valign="bottom"><b>GetGridSize</b> (const int)</td></tr>
+<tr class="separator:a5f64f7f99046d8f5fb3c4bf06ebec052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab172c6872af6604e8a944f66471ea11a" id="r_ab172c6872af6604e8a944f66471ea11a"><td class="memItemLeft" align="right" valign="top"><a id="ab172c6872af6604e8a944f66471ea11a" name="ab172c6872af6604e8a944f66471ea11a"></a>
+static __host__ dim3&#160;</td><td class="memItemRight" valign="bottom"><b>GetBlocksSize</b> ()</td></tr>
+<tr class="separator:ab172c6872af6604e8a944f66471ea11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+静态 Public 属性</h2></td></tr>
+<tr class="memitem:acf9dc0d174f358da57d53727b69643e9" id="r_acf9dc0d174f358da57d53727b69643e9"><td class="memItemLeft" align="right" valign="top"><a id="acf9dc0d174f358da57d53727b69643e9" name="acf9dc0d174f358da57d53727b69643e9"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>NB_THREAD_GROUPS</b> = 30</td></tr>
+<tr class="separator:acf9dc0d174f358da57d53727b69643e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7322df31ec8bdb8bf498ca3178b18df4" id="r_a7322df31ec8bdb8bf498ca3178b18df4"><td class="memItemLeft" align="right" valign="top"><a id="a7322df31ec8bdb8bf498ca3178b18df4" name="a7322df31ec8bdb8bf498ca3178b18df4"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>THREAD_GROUP_SIZE</b> = 256</td></tr>
+<tr class="separator:a7322df31ec8bdb8bf498ca3178b18df4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6af6e8a9244e608a07c8819036517990" id="r_a6af6e8a9244e608a07c8819036517990"><td class="memItemLeft" align="right" valign="top"><a id="a6af6e8a9244e608a07c8819036517990" name="a6af6e8a9244e608a07c8819036517990"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>SHARED_MEMORY_SIZE</b> = 512</td></tr>
+<tr class="separator:a6af6e8a9244e608a07c8819036517990"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal&gt;<br />
+class FCudaP2P&lt; FReal &gt;</div><p>This class defines what should be a Cuda kernel. </p>
+</div><hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/GroupTree/P2P/<a class="el" href="_f_cuda_p2_p_8hpp_source.html">FCudaP2P.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

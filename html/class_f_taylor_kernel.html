@@ -1,0 +1,743 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FTaylorKernel&lt; FReal, CellClass, ContainerClass, P, order &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="class_f_taylor_kernel-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FTaylorKernel&lt; FReal, CellClass, ContainerClass, P, order &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This kernel is an implementation of the different operators needed to compute the Fast Multipole Method using Taylor Expansion for the Far fields interaction.  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_taylor_kernel_8hpp_source.html">FTaylorKernel.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FTaylorKernel&lt; FReal, CellClass, ContainerClass, P, order &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_taylor_kernel.png" usemap="#FTaylorKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20P_2C_20order_20_3E_map" alt=""/>
+  <map id="FTaylorKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20P_2C_20order_20_3E_map" name="FTaylorKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20P_2C_20order_20_3E_map">
+<area href="class_f_abstract_kernels.html" alt="FAbstractKernels&lt; CellClass, ContainerClass &gt;" shape="rect" coords="0,0,364,24"/>
+<area href="class_f_abstract_kernels.html" alt="FAbstractKernels&lt; CellClass, ContainerClass &gt;" shape="rect" coords="374,0,738,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:af0bd6363b8ee2008e67617def2ff9c8c" id="r_af0bd6363b8ee2008e67617def2ff9c8c"><td class="memItemLeft" align="right" valign="top"><a id="af0bd6363b8ee2008e67617def2ff9c8c" name="af0bd6363b8ee2008e67617def2ff9c8c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FTaylorKernel</b> (const int inTreeHeight, const FReal inBoxWidth, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inBoxCenter)</td></tr>
+<tr class="separator:af0bd6363b8ee2008e67617def2ff9c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad504e923e718ebd25dd83f11d7a99b33" id="r_ad504e923e718ebd25dd83f11d7a99b33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad504e923e718ebd25dd83f11d7a99b33">P2M</a> (CellClass *const pole, const ContainerClass *const particles) override</td></tr>
+<tr class="memdesc:ad504e923e718ebd25dd83f11d7a99b33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill the Multipole with the field created by the cell particles.  <br /></td></tr>
+<tr class="separator:ad504e923e718ebd25dd83f11d7a99b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9974eee68de43cd44f5c229fc6f8c11" id="r_ac9974eee68de43cd44f5c229fc6f8c11"><td class="memItemLeft" align="right" valign="top"><a id="ac9974eee68de43cd44f5c229fc6f8c11" name="ac9974eee68de43cd44f5c229fc6f8c11"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>M2M</b> (CellClass *const FRestrict pole, const CellClass *const FRestrict *const FRestrict child, const int inLevel) override</td></tr>
+<tr class="memdesc:ac9974eee68de43cd44f5c229fc6f8c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill the parent multipole with the 8 values of child multipoles <br /></td></tr>
+<tr class="separator:ac9974eee68de43cd44f5c229fc6f8c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a517b6fcc317f2ce9e2a37690cc7c6c3c" id="r_a517b6fcc317f2ce9e2a37690cc7c6c3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a517b6fcc317f2ce9e2a37690cc7c6c3c">M2L</a> (CellClass *const FRestrict inLocal, const CellClass *distantNeighbors[], const int neighborPositions[], const int inSize, const int inLevel) override</td></tr>
+<tr class="memdesc:a517b6fcc317f2ce9e2a37690cc7c6c3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the multipole expansion into local expansion The operator do not use symmetries.  <br /></td></tr>
+<tr class="separator:a517b6fcc317f2ce9e2a37690cc7c6c3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a248a840c8d2064e252e90e1eb0d2e007" id="r_a248a840c8d2064e252e90e1eb0d2e007"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a248a840c8d2064e252e90e1eb0d2e007">L2L</a> (const CellClass *const FRestrict fatherCell, CellClass *FRestrict *const FRestrict childCell, const int inLevel) override</td></tr>
+<tr class="memdesc:a248a840c8d2064e252e90e1eb0d2e007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate the local expansion of parent cell to child cell  <br /></td></tr>
+<tr class="separator:a248a840c8d2064e252e90e1eb0d2e007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68f51a6ab1ff33cff3cfe2790735ff2a" id="r_a68f51a6ab1ff33cff3cfe2790735ff2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68f51a6ab1ff33cff3cfe2790735ff2a">L2P</a> (const CellClass *const local, ContainerClass *const particles) override</td></tr>
+<tr class="memdesc:a68f51a6ab1ff33cff3cfe2790735ff2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply on the particles the force computed from the local expansion to all particles in the cell  <br /></td></tr>
+<tr class="separator:a68f51a6ab1ff33cff3cfe2790735ff2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92ae46dae23395eabc0af1118309ab87" id="r_a92ae46dae23395eabc0af1118309ab87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92ae46dae23395eabc0af1118309ab87">P2P</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;inPosition, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict inSources, ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:a92ae46dae23395eabc0af1118309ab87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9055ff841186ce013c1e7d31c3734532" id="r_a9055ff841186ce013c1e7d31c3734532"><td class="memItemLeft" align="right" valign="top"><a id="a9055ff841186ce013c1e7d31c3734532" name="a9055ff841186ce013c1e7d31c3734532"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>P2POuter</b> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;, ContainerClass *const FRestrict inTargets, ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:a9055ff841186ce013c1e7d31c3734532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e4d6f0cec1b72903f1a2d2dc6dd7325" id="r_a4e4d6f0cec1b72903f1a2d2dc6dd7325"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e4d6f0cec1b72903f1a2d2dc6dd7325">P2PRemote</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict, const ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:a4e4d6f0cec1b72903f1a2d2dc6dd7325"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0bd6363b8ee2008e67617def2ff9c8c" id="r_af0bd6363b8ee2008e67617def2ff9c8c"><td class="memItemLeft" align="right" valign="top"><a id="af0bd6363b8ee2008e67617def2ff9c8c" name="af0bd6363b8ee2008e67617def2ff9c8c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FTaylorKernel</b> (const int inTreeHeight, const FReal inBoxWidth, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inBoxCenter)</td></tr>
+<tr class="separator:af0bd6363b8ee2008e67617def2ff9c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad504e923e718ebd25dd83f11d7a99b33" id="r_ad504e923e718ebd25dd83f11d7a99b33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad504e923e718ebd25dd83f11d7a99b33">P2M</a> (CellClass *const pole, const ContainerClass *const particles) override</td></tr>
+<tr class="memdesc:ad504e923e718ebd25dd83f11d7a99b33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill the Multipole with the field created by the cell particles.  <br /></td></tr>
+<tr class="separator:ad504e923e718ebd25dd83f11d7a99b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9974eee68de43cd44f5c229fc6f8c11" id="r_ac9974eee68de43cd44f5c229fc6f8c11"><td class="memItemLeft" align="right" valign="top"><a id="ac9974eee68de43cd44f5c229fc6f8c11" name="ac9974eee68de43cd44f5c229fc6f8c11"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>M2M</b> (CellClass *const FRestrict pole, const CellClass *const FRestrict *const FRestrict child, const int inLevel) override</td></tr>
+<tr class="memdesc:ac9974eee68de43cd44f5c229fc6f8c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill the parent multipole with the 8 values of child multipoles <br /></td></tr>
+<tr class="separator:ac9974eee68de43cd44f5c229fc6f8c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a378bade4838fd8f5c8a00a164e2c6999" id="r_a378bade4838fd8f5c8a00a164e2c6999"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a378bade4838fd8f5c8a00a164e2c6999">M2L</a> (CellClass *const FRestrict inLocal, const CellClass *distantNeighbors[], const int[], const int inSize, const int inLevel) override</td></tr>
+<tr class="memdesc:a378bade4838fd8f5c8a00a164e2c6999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the multipole expansion into local expansion The operator do not use symmetries.  <br /></td></tr>
+<tr class="separator:a378bade4838fd8f5c8a00a164e2c6999"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a248a840c8d2064e252e90e1eb0d2e007" id="r_a248a840c8d2064e252e90e1eb0d2e007"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a248a840c8d2064e252e90e1eb0d2e007">L2L</a> (const CellClass *const FRestrict fatherCell, CellClass *FRestrict *const FRestrict childCell, const int inLevel) override</td></tr>
+<tr class="memdesc:a248a840c8d2064e252e90e1eb0d2e007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate the local expansion of parent cell to child cell  <br /></td></tr>
+<tr class="separator:a248a840c8d2064e252e90e1eb0d2e007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68f51a6ab1ff33cff3cfe2790735ff2a" id="r_a68f51a6ab1ff33cff3cfe2790735ff2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68f51a6ab1ff33cff3cfe2790735ff2a">L2P</a> (const CellClass *const local, ContainerClass *const particles) override</td></tr>
+<tr class="memdesc:a68f51a6ab1ff33cff3cfe2790735ff2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply on the particles the force computed from the local expansion to all particles in the cell  <br /></td></tr>
+<tr class="separator:a68f51a6ab1ff33cff3cfe2790735ff2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92ae46dae23395eabc0af1118309ab87" id="r_a92ae46dae23395eabc0af1118309ab87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92ae46dae23395eabc0af1118309ab87">P2P</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;inPosition, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict inSources, ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:a92ae46dae23395eabc0af1118309ab87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9055ff841186ce013c1e7d31c3734532" id="r_a9055ff841186ce013c1e7d31c3734532"><td class="memItemLeft" align="right" valign="top"><a id="a9055ff841186ce013c1e7d31c3734532" name="a9055ff841186ce013c1e7d31c3734532"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>P2POuter</b> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;, ContainerClass *const FRestrict inTargets, ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:a9055ff841186ce013c1e7d31c3734532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e4d6f0cec1b72903f1a2d2dc6dd7325" id="r_a4e4d6f0cec1b72903f1a2d2dc6dd7325"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e4d6f0cec1b72903f1a2d2dc6dd7325">P2PRemote</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict, const ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:a4e4d6f0cec1b72903f1a2d2dc6dd7325"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, class CellClass, class ContainerClass, int P, int order&gt;<br />
+class FTaylorKernel&lt; FReal, CellClass, ContainerClass, P, order &gt;</div><p>This kernel is an implementation of the different operators needed to compute the Fast Multipole Method using Taylor Expansion for the Far fields interaction. </p>
+<dl class="section author"><dt>作者</dt><dd>Cyrille Piacibello </dd></dl>
+</div><h2 class="groupheader">成员函数说明</h2>
+<a id="a248a840c8d2064e252e90e1eb0d2e007" name="a248a840c8d2064e252e90e1eb0d2e007"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a248a840c8d2064e252e90e1eb0d2e007">&#9670;&#160;</a></span>L2L() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::L2L </td>
+          <td>(</td>
+          <td class="paramtype">const CellClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>fatherCell</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CellClass *FRestrict *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>childCell</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Translate the local expansion of parent cell to child cell </p>
+<p>One need to translate the local expansion on a father cell centered in <picture><source srcset="form_109_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\mathbf{x}_p$" src="form_109.png"/></picture> to its eight daughters centered in <picture><source srcset="form_109_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\mathbf{x}_p$" src="form_109.png"/></picture> .</p>
+<p>Local expansion for the daughters will be : </p><p class="formulaDsp">
+<picture><source srcset="form_110_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[ \sum_{\mathbf{k}=0}^{|k|&lt;P} L_k * (\mathbf{x}-\mathbf{x}_f)^{\mathbf{k}} \]" src="form_110.png"/></picture>
+</p>
+<p> with :</p>
+<p class="formulaDsp">
+<picture><source srcset="form_111_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[ L_{n} = \sum_{\mathbf{k}=\mathbf{n}}^{|k|&lt;P} C_{\mathbf{k}}^{\mathbf{n}} * (\mathbf{x}_f-\mathbf{x}_p)^{\mathbf{k}-\mathbf{n}} \]" src="form_111.png"/></picture>
+</p>
+ 
+</div>
+</div>
+<a id="a248a840c8d2064e252e90e1eb0d2e007" name="a248a840c8d2064e252e90e1eb0d2e007"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a248a840c8d2064e252e90e1eb0d2e007">&#9670;&#160;</a></span>L2L() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::L2L </td>
+          <td>(</td>
+          <td class="paramtype">const CellClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>fatherCell</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CellClass *FRestrict *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>childCell</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Translate the local expansion of parent cell to child cell </p>
+<p>One need to translate the local expansion on a father cell centered in <picture><source srcset="form_109_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\mathbf{x}_p$" src="form_109.png"/></picture> to its eight daughters centered in <picture><source srcset="form_109_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$\mathbf{x}_p$" src="form_109.png"/></picture> .</p>
+<p>Local expansion for the daughters will be : </p><p class="formulaDsp">
+<picture><source srcset="form_110_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[ \sum_{\mathbf{k}=0}^{|k|&lt;P} L_k * (\mathbf{x}-\mathbf{x}_f)^{\mathbf{k}} \]" src="form_110.png"/></picture>
+</p>
+<p> with :</p>
+<p class="formulaDsp">
+<picture><source srcset="form_111_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[ L_{n} = \sum_{\mathbf{k}=\mathbf{n}}^{|k|&lt;P} C_{\mathbf{k}}^{\mathbf{n}} * (\mathbf{x}_f-\mathbf{x}_p)^{\mathbf{k}-\mathbf{n}} \]" src="form_111.png"/></picture>
+</p>
+ 
+</div>
+</div>
+<a id="a68f51a6ab1ff33cff3cfe2790735ff2a" name="a68f51a6ab1ff33cff3cfe2790735ff2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68f51a6ab1ff33cff3cfe2790735ff2a">&#9670;&#160;</a></span>L2P() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::L2P </td>
+          <td>(</td>
+          <td class="paramtype">const CellClass *const</td>          <td class="paramname"><span class="paramname"><em>local</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>particles</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apply on the particles the force computed from the local expansion to all particles in the cell </p>
+<p>L2P </p>
+<p>Formula :  </p><p class="formulaDsp">
+<picture><source srcset="form_112_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[
+   Potential = \sum_{j=0}^{nb_{particles}}{q_j \sum_{k=0}^{P}{ L_k * (x_j-x_c)^{k}}}
+ \]" src="form_112.png"/></picture>
+</p>
+<p>where <picture><source srcset="form_100_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_c$" src="form_100.png"/></picture> is the centre of the local cell and <picture><source srcset="form_101_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_j$" src="form_101.png"/></picture> the <picture><source srcset="form_102_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$j^{th}$" src="form_102.png"/></picture> particles and <picture><source srcset="form_103_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$q_j$" src="form_103.png"/></picture> its charge. </p>
+
+</div>
+</div>
+<a id="a68f51a6ab1ff33cff3cfe2790735ff2a" name="a68f51a6ab1ff33cff3cfe2790735ff2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68f51a6ab1ff33cff3cfe2790735ff2a">&#9670;&#160;</a></span>L2P() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::L2P </td>
+          <td>(</td>
+          <td class="paramtype">const CellClass *const</td>          <td class="paramname"><span class="paramname"><em>local</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>particles</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apply on the particles the force computed from the local expansion to all particles in the cell </p>
+<p>L2P </p>
+<p>Formula :  </p><p class="formulaDsp">
+<picture><source srcset="form_112_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[
+   Potential = \sum_{j=0}^{nb_{particles}}{q_j \sum_{k=0}^{P}{ L_k * (x_j-x_c)^{k}}}
+ \]" src="form_112.png"/></picture>
+</p>
+<p>where <picture><source srcset="form_100_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_c$" src="form_100.png"/></picture> is the centre of the local cell and <picture><source srcset="form_101_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_j$" src="form_101.png"/></picture> the <picture><source srcset="form_102_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$j^{th}$" src="form_102.png"/></picture> particles and <picture><source srcset="form_103_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$q_j$" src="form_103.png"/></picture> its charge. </p>
+
+</div>
+</div>
+<a id="a517b6fcc317f2ce9e2a37690cc7c6c3c" name="a517b6fcc317f2ce9e2a37690cc7c6c3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a517b6fcc317f2ce9e2a37690cc7c6c3c">&#9670;&#160;</a></span>M2L() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::M2L </td>
+          <td>(</td>
+          <td class="paramtype">CellClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inLocal</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const CellClass *</td>          <td class="paramname"><span class="paramname"><em>distantNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert the multipole expansion into local expansion The operator do not use symmetries. </p>
+<p>Formula : </p><p class="formulaDsp">
+<picture><source srcset="form_105_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[ L_{\mathbf{n}}^{c} = \frac{|n|!}{n! n!}
+ \sum_{\mathbf{k}=0}^{p} \left [ M_\mathbf{k}^c \,
+ \Psi_{\mathbf{,n+k}}( \mathbf{x}_c^{target})\right ] \]" src="form_105.png"/></picture>
+</p>
+<p> and </p><p class="formulaDsp">
+<picture><source srcset="form_106_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[ \Psi_{\mathbf{,i}}^{c}(\mathbf{x}) =
+ \frac{\partial^i}{\partial x^i} \frac{1}{|x-x_c^{src}|} =  \frac{\partial^{i_1}}{\partial x_1^{i_1}} \frac{\partial^{i_2}}{\partial x_2^{i_2}} \frac{\partial^{i_3}}{\partial x_3^{i_3}} \frac{1}{|x-x_c^{src}|}\]" src="form_106.png"/></picture>
+</p>
+<p>Where <picture><source srcset="form_107_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_c^{src}$" src="form_107.png"/></picture> is the centre of the cell where the multiplole are considered, <picture><source srcset="form_108_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_c^{target}$" src="form_108.png"/></picture> is the centre of the current cell. The cell where we compute the local expansion. </p>
+
+</div>
+</div>
+<a id="a378bade4838fd8f5c8a00a164e2c6999" name="a378bade4838fd8f5c8a00a164e2c6999"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a378bade4838fd8f5c8a00a164e2c6999">&#9670;&#160;</a></span>M2L() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::M2L </td>
+          <td>(</td>
+          <td class="paramtype">CellClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inLocal</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const CellClass *</td>          <td class="paramname"><span class="paramname"><em>distantNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname">[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convert the multipole expansion into local expansion The operator do not use symmetries. </p>
+<p>Formula : </p><p class="formulaDsp">
+<picture><source srcset="form_105_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[ L_{\mathbf{n}}^{c} = \frac{|n|!}{n! n!}
+ \sum_{\mathbf{k}=0}^{p} \left [ M_\mathbf{k}^c \,
+ \Psi_{\mathbf{,n+k}}( \mathbf{x}_c^{target})\right ] \]" src="form_105.png"/></picture>
+</p>
+<p> and </p><p class="formulaDsp">
+<picture><source srcset="form_106_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[ \Psi_{\mathbf{,i}}^{c}(\mathbf{x}) =
+ \frac{\partial^i}{\partial x^i} \frac{1}{|x-x_c^{src}|} =  \frac{\partial^{i_1}}{\partial x_1^{i_1}} \frac{\partial^{i_2}}{\partial x_2^{i_2}} \frac{\partial^{i_3}}{\partial x_3^{i_3}} \frac{1}{|x-x_c^{src}|}\]" src="form_106.png"/></picture>
+</p>
+<p>Where <picture><source srcset="form_107_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_c^{src}$" src="form_107.png"/></picture> is the centre of the cell where the multiplole are considered, <picture><source srcset="form_108_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_c^{target}$" src="form_108.png"/></picture> is the centre of the current cell. The cell where we compute the local expansion. </p>
+
+</div>
+</div>
+<a id="ad504e923e718ebd25dd83f11d7a99b33" name="ad504e923e718ebd25dd83f11d7a99b33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad504e923e718ebd25dd83f11d7a99b33">&#9670;&#160;</a></span>P2M() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::P2M </td>
+          <td>(</td>
+          <td class="paramtype">CellClass *const</td>          <td class="paramname"><span class="paramname"><em>pole</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>particles</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fill the Multipole with the field created by the cell particles. </p>
+<p>P2M </p>
+<p>Formula :  </p><p class="formulaDsp">
+<picture><source srcset="form_99_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[
+  M_{k} = \frac{|k|!}{k! k!} \sum_{j=0}^{N}{ q_j   (x_c-x_j)^{k}}
+\]" src="form_99.png"/></picture>
+</p>
+<p> where <picture><source srcset="form_100_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_c$" src="form_100.png"/></picture> is the centre of the cell and <picture><source srcset="form_101_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_j$" src="form_101.png"/></picture> the <picture><source srcset="form_102_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$j^{th}$" src="form_102.png"/></picture> particles and <picture><source srcset="form_103_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$q_j$" src="form_103.png"/></picture> its charge and <picture><source srcset="form_104_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$N$" src="form_104.png"/></picture> the particle number. </p>
+
+</div>
+</div>
+<a id="ad504e923e718ebd25dd83f11d7a99b33" name="ad504e923e718ebd25dd83f11d7a99b33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad504e923e718ebd25dd83f11d7a99b33">&#9670;&#160;</a></span>P2M() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::P2M </td>
+          <td>(</td>
+          <td class="paramtype">CellClass *const</td>          <td class="paramname"><span class="paramname"><em>pole</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>particles</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fill the Multipole with the field created by the cell particles. </p>
+<p>P2M </p>
+<p>Formula :  </p><p class="formulaDsp">
+<picture><source srcset="form_99_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaDsp" alt="\[
+  M_{k} = \frac{|k|!}{k! k!} \sum_{j=0}^{N}{ q_j   (x_c-x_j)^{k}}
+\]" src="form_99.png"/></picture>
+</p>
+<p> where <picture><source srcset="form_100_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_c$" src="form_100.png"/></picture> is the centre of the cell and <picture><source srcset="form_101_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$x_j$" src="form_101.png"/></picture> the <picture><source srcset="form_102_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$j^{th}$" src="form_102.png"/></picture> particles and <picture><source srcset="form_103_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$q_j$" src="form_103.png"/></picture> its charge and <picture><source srcset="form_104_dark.png" media="(prefers-color-scheme: dark)"/><img class="formulaInl" alt="$N$" src="form_104.png"/></picture> the particle number. </p>
+
+</div>
+</div>
+<a id="a92ae46dae23395eabc0af1118309ab87" name="a92ae46dae23395eabc0af1118309ab87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92ae46dae23395eabc0af1118309ab87">&#9670;&#160;</a></span>P2P() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::P2P </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>inPosition</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inTargets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inSources</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>P2P This function proceed the P2P using particlesMutualInteraction The computation is done for interactions with an index &lt;= 13. (13 means current leaf (x;y;z) = (0;0;0)). Calling this method in multi thread should be done carrefully. </p>
+
+</div>
+</div>
+<a id="a92ae46dae23395eabc0af1118309ab87" name="a92ae46dae23395eabc0af1118309ab87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92ae46dae23395eabc0af1118309ab87">&#9670;&#160;</a></span>P2P() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::P2P </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>inPosition</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inTargets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inSources</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>P2P This function proceed the P2P using particlesMutualInteraction The computation is done for interactions with an index &lt;= 13. (13 means current leaf (x;y;z) = (0;0;0)). Calling this method in multi thread should be done carrefully. </p>
+
+</div>
+</div>
+<a id="a4e4d6f0cec1b72903f1a2d2dc6dd7325" name="a4e4d6f0cec1b72903f1a2d2dc6dd7325"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e4d6f0cec1b72903f1a2d2dc6dd7325">&#9670;&#160;</a></span>P2PRemote() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::P2PRemote </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inTargets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>FRestrict</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Use mutual even if it not useful and call particlesMutualInteraction </p>
+
+</div>
+</div>
+<a id="a4e4d6f0cec1b72903f1a2d2dc6dd7325" name="a4e4d6f0cec1b72903f1a2d2dc6dd7325"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e4d6f0cec1b72903f1a2d2dc6dd7325">&#9670;&#160;</a></span>P2PRemote() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_taylor_kernel.html">FTaylorKernel</a>&lt; FReal, CellClass, ContainerClass, P, order &gt;::P2PRemote </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inTargets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>FRestrict</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Use mutual even if it not useful and call particlesMutualInteraction </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Taylor/<a class="el" href="_f_taylor_kernel_8hpp_source.html">FTaylorKernel.hpp</a></li>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Taylor/<a class="el" href="_f_taylor_kernel_simple_8hpp_source.html">FTaylorKernelSimple.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

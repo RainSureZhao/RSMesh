@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FAbstractLoader&lt; FReal &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="class_f_abstract_loader-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FAbstractLoader&lt; FReal &gt; 模板类 参考<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_abstract_loader_8hpp_source.html">FAbstractLoader.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FAbstractLoader&lt; FReal &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_abstract_loader.png" usemap="#FAbstractLoader_3C_20FReal_20_3E_map" alt=""/>
+  <map id="FAbstractLoader_3C_20FReal_20_3E_map" name="FAbstractLoader_3C_20FReal_20_3E_map">
+<area href="class_f_basic_loader.html" alt="FBasicLoader&lt; FReal &gt;" shape="rect" coords="0,56,207,80"/>
+<area href="class_f_dlpoly_loader.html" alt="FDlpolyLoader&lt; FReal &gt;" shape="rect" coords="217,56,424,80"/>
+<area href="class_f_fma_generic_loader.html" title="Reads an FMA formated particle file." alt="FFmaGenericLoader&lt; FReal &gt;" shape="rect" coords="651,56,858,80"/>
+<area href="class_f_fma_scanf_loader.html" alt="FFmaScanfLoader&lt; FReal &gt;" shape="rect" coords="868,56,1075,80"/>
+<area href="class_f_fma_tsm_loader.html" alt="FFmaTsmLoader&lt; FReal &gt;" shape="rect" coords="1085,56,1292,80"/>
+<area href="class_f_h_loader.html" alt="FHLoader&lt; FReal &gt;" shape="rect" coords="1302,56,1509,80"/>
+<area href="class_f_random_loader.html" alt="FRandomLoader&lt; FReal &gt;" shape="rect" coords="1519,56,1726,80"/>
+<area href="class_f_dlpoly_ascii_loader.html" alt="FDlpolyAsciiLoader&lt; FReal &gt;" shape="rect" coords="108,112,315,136"/>
+<area href="class_f_dlpoly_bin_loader.html" alt="FDlpolyBinLoader&lt; FReal &gt;" shape="rect" coords="325,112,532,136"/>
+<area href="class_f_mpi_fma_generic_loader.html" alt="FMpiFmaGenericLoader&lt; FReal &gt;" shape="rect" coords="542,112,749,136"/>
+<area href="class_f_mpi_split_fma_loader.html" alt="FMpiSplitFmaLoader&lt; FReal &gt;" shape="rect" coords="759,112,966,136"/>
+<area href="class_f_random_loader_tsm.html" alt="FRandomLoaderTsm&lt; FReal &gt;" shape="rect" coords="1519,112,1726,136"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a50fdd33c7eac1ec0733b79ed1bd4b4e8" id="r_a50fdd33c7eac1ec0733b79ed1bd4b4e8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50fdd33c7eac1ec0733b79ed1bd4b4e8">~FAbstractLoader</a> ()</td></tr>
+<tr class="separator:a50fdd33c7eac1ec0733b79ed1bd4b4e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2e8ad65f225d66660fede162fe2765b" id="r_aa2e8ad65f225d66660fede162fe2765b"><td class="memItemLeft" align="right" valign="top">virtual FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2e8ad65f225d66660fede162fe2765b">getNumberOfParticles</a> () const =0</td></tr>
+<tr class="separator:aa2e8ad65f225d66660fede162fe2765b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3b312747bb0063d23477ea2706ccd5b" id="r_ad3b312747bb0063d23477ea2706ccd5b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3b312747bb0063d23477ea2706ccd5b">getCenterOfBox</a> () const =0</td></tr>
+<tr class="separator:ad3b312747bb0063d23477ea2706ccd5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cbf052128fb47a1072fe556e1b37a3e" id="r_a2cbf052128fb47a1072fe556e1b37a3e"><td class="memItemLeft" align="right" valign="top">virtual FReal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2cbf052128fb47a1072fe556e1b37a3e">getBoxWidth</a> () const =0</td></tr>
+<tr class="separator:a2cbf052128fb47a1072fe556e1b37a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1c647e0fb2ae0de47c1cfab4ad6d811" id="r_ad1c647e0fb2ae0de47c1cfab4ad6d811"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1c647e0fb2ae0de47c1cfab4ad6d811">isOpen</a> () const =0</td></tr>
+<tr class="separator:ad1c647e0fb2ae0de47c1cfab4ad6d811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal&gt;<br />
+class FAbstractLoader&lt; FReal &gt;</div><dl class="section author"><dt>作者</dt><dd>Berenger Bramas (<a href="#" onclick="location.href='mai'+'lto:'+'ber'+'en'+'ger'+'.b'+'ram'+'as'+'@in'+'ri'+'a.f'+'r'; return false;">beren<span class="obfuscator">.nosp@m.</span>ger.<span class="obfuscator">.nosp@m.</span>brama<span class="obfuscator">.nosp@m.</span>s@in<span class="obfuscator">.nosp@m.</span>ria.f<span class="obfuscator">.nosp@m.</span>r</a>)</dd></dl>
+<p>Please read the license</p>
+<p>A loader is the component that fills an octree.</p>
+<p>If you want to use a specific file format you then need to inherit from this loader and implement several methods.</p>
+<p>Please look at <a class="el" href="class_f_basic_loader.html">FBasicLoader</a> or FFmaLoader to see an example.</p>
+<dl class="section warning"><dt>警告</dt><dd>Inherit from this class when defining a loader class </dd></dl>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a50fdd33c7eac1ec0733b79ed1bd4b4e8" name="a50fdd33c7eac1ec0733b79ed1bd4b4e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50fdd33c7eac1ec0733b79ed1bd4b4e8">&#9670;&#160;</a></span>~FAbstractLoader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_f_abstract_loader.html">FAbstractLoader</a>&lt; FReal &gt;::~<a class="el" href="class_f_abstract_loader.html">FAbstractLoader</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default destructor </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a2cbf052128fb47a1072fe556e1b37a3e" name="a2cbf052128fb47a1072fe556e1b37a3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cbf052128fb47a1072fe556e1b37a3e">&#9670;&#160;</a></span>getBoxWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual FReal <a class="el" href="class_f_abstract_loader.html">FAbstractLoader</a>&lt; FReal &gt;::getBoxWidth </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the simulation box width </p><dl class="section return"><dt>返回</dt><dd>box width needed by the octree </dd></dl>
+
+<p>在 <a class="el" href="class_f_basic_loader.html#a5a7e94325f60380945e6fb2257a3e1c0">FBasicLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_dlpoly_loader.html#ab515a75b4d0b4c76f0c9092642de3ef2">FDlpolyLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_generic_loader.html#ada3d289cddb6b42042e16e9b02e9f8d8">FFmaGenericLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_scanf_loader.html#a04f34ccaa87e3e6addf6fdd4c9e06bfd">FFmaScanfLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_tsm_loader.html#a31c3879802ae78e6a065fdd39de6e919">FFmaTsmLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_h_loader.html#a4a68307eaaa483082b009d081cc388f7">FHLoader&lt; FReal &gt;</a> , 以及 <a class="el" href="class_f_random_loader.html#a256450fd24db70862715bb8da6480912">FRandomLoader&lt; FReal &gt;</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="ad3b312747bb0063d23477ea2706ccd5b" name="ad3b312747bb0063d23477ea2706ccd5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3b312747bb0063d23477ea2706ccd5b">&#9670;&#160;</a></span>getCenterOfBox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; <a class="el" href="class_f_abstract_loader.html">FAbstractLoader</a>&lt; FReal &gt;::getCenterOfBox </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the center of the simulation box </p><dl class="section return"><dt>返回</dt><dd>box center needed by the octree </dd></dl>
+
+<p>在 <a class="el" href="class_f_basic_loader.html#ae42a614177b005002610aa18c825a464">FBasicLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_dlpoly_loader.html#a0352bea3b5bf9d3ac216c991a5ba85e7">FDlpolyLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_generic_loader.html#af861de4a5396827fc1f2eaed48271a25">FFmaGenericLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_scanf_loader.html#a8a5ca63456c4647bc02b666346c1ceb7">FFmaScanfLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_tsm_loader.html#a000a3ea033f39481c0bb8b79b4affacd">FFmaTsmLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_h_loader.html#a35d2af7687a32e3f2f403adda05cb734">FHLoader&lt; FReal &gt;</a> , 以及 <a class="el" href="class_f_random_loader.html#a8614c831bbe9120125931a36cd4fd2b5">FRandomLoader&lt; FReal &gt;</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="aa2e8ad65f225d66660fede162fe2765b" name="aa2e8ad65f225d66660fede162fe2765b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2e8ad65f225d66660fede162fe2765b">&#9670;&#160;</a></span>getNumberOfParticles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual FSize <a class="el" href="class_f_abstract_loader.html">FAbstractLoader</a>&lt; FReal &gt;::getNumberOfParticles </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the number of particles for this simulation </p><dl class="section return"><dt>返回</dt><dd>number of particles that the loader can fill </dd></dl>
+
+<p>在 <a class="el" href="class_f_basic_loader.html#a1912bd0997df8d06ce55d1965ae6089a">FBasicLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_dlpoly_loader.html#ae4d2e8d81e946487155d2bff0f428cfd">FDlpolyLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_generic_loader.html#a0eae474db04243aa97ce35da95931cc4">FFmaGenericLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_scanf_loader.html#a2de8b4eeb5ff26a35d755c93392260bd">FFmaScanfLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_tsm_loader.html#a84dc394cbea347881500c6ad7ad06b7d">FFmaTsmLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_h_loader.html#accbba8762bd8addffb0464a2884443ad">FHLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_mpi_split_fma_loader.html#a602209ea0f99a62e49c93ad636f4eaa8">FMpiSplitFmaLoader&lt; FReal &gt;</a> , 以及 <a class="el" href="class_f_random_loader.html#ae89fc8d0094362544726dd52377b9089">FRandomLoader&lt; FReal &gt;</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="ad1c647e0fb2ae0de47c1cfab4ad6d811" name="ad1c647e0fb2ae0de47c1cfab4ad6d811"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1c647e0fb2ae0de47c1cfab4ad6d811">&#9670;&#160;</a></span>isOpen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="class_f_abstract_loader.html">FAbstractLoader</a>&lt; FReal &gt;::isOpen </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To know if the loader is valide (file opened, etc.) </p><dl class="section return"><dt>返回</dt><dd>true if file is open </dd></dl>
+
+<p>在 <a class="el" href="class_f_basic_loader.html#a8dd1a349465023ee44cbb37cfe4d2621">FBasicLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_dlpoly_ascii_loader.html#a29c7fe3ebbc51995a4d7681aabe44ff4">FDlpolyAsciiLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_dlpoly_bin_loader.html#a1e97d0e5f0ab8ebdfdeab2c323ad7e32">FDlpolyBinLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_generic_loader.html#afc1689c8e7ca6cbeaa1800c0d4e94577">FFmaGenericLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_scanf_loader.html#a89b955ea78d310507767c42ac9283244">FFmaScanfLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_fma_tsm_loader.html#a9cc064c7c7e55cddf477e4ee81f7c8a8">FFmaTsmLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_h_loader.html#af41b5a24fc1bd4d837f350fd503337ee">FHLoader&lt; FReal &gt;</a>, <a class="el" href="class_f_random_loader.html#ade10eb1237fc856a9d9eb25c4b9f98ff">FRandomLoader&lt; FReal &gt;</a> , 以及 <a class="el" href="class_f_dlpoly_loader.html#a9838a0fc9e8c4146cdc4bc82bcc0c9a0">FDlpolyLoader&lt; FReal &gt;</a> 内被实现.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Files/<a class="el" href="_f_abstract_loader_8hpp_source.html">FAbstractLoader.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

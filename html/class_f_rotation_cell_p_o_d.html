@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FRotationCellPOD&lt; FReal, P &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="class_f_rotation_cell_p_o_d-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FRotationCellPOD&lt; FReal, P &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a2e9be1ba03f989bf862e58e8a4269124" id="r_a2e9be1ba03f989bf862e58e8a4269124"><td class="memItemLeft" align="right" valign="top"><a id="a2e9be1ba03f989bf862e58e8a4269124" name="a2e9be1ba03f989bf862e58e8a4269124"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FRotationCellPOD</b> (<a class="el" href="struct_f_basic_cell_p_o_d.html">FRotationCellPODCore</a> *inSymb, <a class="el" href="struct_f_rotation_cell_p_o_d_pole.html">FRotationCellPODPole</a>&lt; FReal, P &gt; *inUp, <a class="el" href="struct_f_rotation_cell_p_o_d_local.html">FRotationCellPODLocal</a>&lt; FReal, P &gt; *inDown)</td></tr>
+<tr class="separator:a2e9be1ba03f989bf862e58e8a4269124"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade9308465f174be01f97b950b0f45ec3" id="r_ade9308465f174be01f97b950b0f45ec3"><td class="memItemLeft" align="right" valign="top">MortonIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade9308465f174be01f97b950b0f45ec3">getMortonIndex</a> () const</td></tr>
+<tr class="separator:ade9308465f174be01f97b950b0f45ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cf85f403af9d2aaa951d1cda4441fbb" id="r_a4cf85f403af9d2aaa951d1cda4441fbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cf85f403af9d2aaa951d1cda4441fbb">setMortonIndex</a> (const MortonIndex inMortonIndex)</td></tr>
+<tr class="separator:a4cf85f403af9d2aaa951d1cda4441fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adceed91fbabf9652d5e8ec9a0c6e9bf9" id="r_adceed91fbabf9652d5e8ec9a0c6e9bf9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adceed91fbabf9652d5e8ec9a0c6e9bf9">getLevel</a> () const</td></tr>
+<tr class="separator:adceed91fbabf9652d5e8ec9a0c6e9bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7511a46f2d9907043457681572aada0a" id="r_a7511a46f2d9907043457681572aada0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7511a46f2d9907043457681572aada0a">setLevel</a> (const int level)</td></tr>
+<tr class="separator:a7511a46f2d9907043457681572aada0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a765fecc3a73c55db0a8f36b9362cefe1" id="r_a765fecc3a73c55db0a8f36b9362cefe1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a765fecc3a73c55db0a8f36b9362cefe1">getCoordinate</a> () const</td></tr>
+<tr class="separator:a765fecc3a73c55db0a8f36b9362cefe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af08f4503739aed52479983e4f148a270" id="r_af08f4503739aed52479983e4f148a270"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af08f4503739aed52479983e4f148a270">setCoordinate</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;inCoordinate)</td></tr>
+<tr class="separator:af08f4503739aed52479983e4f148a270"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1922fc447400402f4b24018acf0138c1" id="r_a1922fc447400402f4b24018acf0138c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1922fc447400402f4b24018acf0138c1">setCoordinate</a> (const int inX, const int inY, const int inZ)</td></tr>
+<tr class="separator:a1922fc447400402f4b24018acf0138c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0141686e379e86aadd95225c43005fa4" id="r_a0141686e379e86aadd95225c43005fa4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0141686e379e86aadd95225c43005fa4">getMultipole</a> () const</td></tr>
+<tr class="separator:a0141686e379e86aadd95225c43005fa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80179f133f679d56a97eb068cd3a6ba6" id="r_a80179f133f679d56a97eb068cd3a6ba6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80179f133f679d56a97eb068cd3a6ba6">getLocal</a> () const</td></tr>
+<tr class="separator:a80179f133f679d56a97eb068cd3a6ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92de8ea0d4585af89b13963f939e6c96" id="r_a92de8ea0d4585af89b13963f939e6c96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92de8ea0d4585af89b13963f939e6c96">getMultipole</a> ()</td></tr>
+<tr class="separator:a92de8ea0d4585af89b13963f939e6c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd922a209625851af6207474f3087f62" id="r_abd922a209625851af6207474f3087f62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd922a209625851af6207474f3087f62">getLocal</a> ()</td></tr>
+<tr class="separator:abd922a209625851af6207474f3087f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab74fbe7754a85c25d7174ee51c306e94" id="r_ab74fbe7754a85c25d7174ee51c306e94"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab74fbe7754a85c25d7174ee51c306e94">getVectorSize</a> () const</td></tr>
+<tr class="separator:ab74fbe7754a85c25d7174ee51c306e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6252536d106ab6ef37f19de96477af7f" id="r_a6252536d106ab6ef37f19de96477af7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6252536d106ab6ef37f19de96477af7f">resetToInitialState</a> ()</td></tr>
+<tr class="separator:a6252536d106ab6ef37f19de96477af7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a765fecc3a73c55db0a8f36b9362cefe1" name="a765fecc3a73c55db0a8f36b9362cefe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a765fecc3a73c55db0a8f36b9362cefe1">&#9670;&#160;</a></span>getCoordinate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::getCoordinate </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get the position </p>
+
+</div>
+</div>
+<a id="adceed91fbabf9652d5e8ec9a0c6e9bf9" name="adceed91fbabf9652d5e8ec9a0c6e9bf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adceed91fbabf9652d5e8ec9a0c6e9bf9">&#9670;&#160;</a></span>getLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::getLevel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get the cell level </p>
+
+</div>
+</div>
+<a id="abd922a209625851af6207474f3087f62" name="abd922a209625851af6207474f3087f62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd922a209625851af6207474f3087f62">&#9670;&#160;</a></span>getLocal() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; * <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::getLocal </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get Local </p>
+
+</div>
+</div>
+<a id="a80179f133f679d56a97eb068cd3a6ba6" name="a80179f133f679d56a97eb068cd3a6ba6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80179f133f679d56a97eb068cd3a6ba6">&#9670;&#160;</a></span>getLocal() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; * <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::getLocal </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get Local </p>
+
+</div>
+</div>
+<a id="ade9308465f174be01f97b950b0f45ec3" name="ade9308465f174be01f97b950b0f45ec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade9308465f174be01f97b950b0f45ec3">&#9670;&#160;</a></span>getMortonIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MortonIndex <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::getMortonIndex </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get the morton index </p>
+
+</div>
+</div>
+<a id="a92de8ea0d4585af89b13963f939e6c96" name="a92de8ea0d4585af89b13963f939e6c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92de8ea0d4585af89b13963f939e6c96">&#9670;&#160;</a></span>getMultipole() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; * <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::getMultipole </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get Multipole </p>
+
+</div>
+</div>
+<a id="a0141686e379e86aadd95225c43005fa4" name="a0141686e379e86aadd95225c43005fa4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0141686e379e86aadd95225c43005fa4">&#9670;&#160;</a></span>getMultipole() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; * <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::getMultipole </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get Multipole </p>
+
+</div>
+</div>
+<a id="ab74fbe7754a85c25d7174ee51c306e94" name="ab74fbe7754a85c25d7174ee51c306e94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab74fbe7754a85c25d7174ee51c306e94">&#9670;&#160;</a></span>getVectorSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::getVectorSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get the leading dim of a vec </p>
+
+</div>
+</div>
+<a id="a6252536d106ab6ef37f19de96477af7f" name="a6252536d106ab6ef37f19de96477af7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6252536d106ab6ef37f19de96477af7f">&#9670;&#160;</a></span>resetToInitialState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::resetToInitialState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Make it like the begining </p>
+
+</div>
+</div>
+<a id="af08f4503739aed52479983e4f148a270" name="af08f4503739aed52479983e4f148a270"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af08f4503739aed52479983e4f148a270">&#9670;&#160;</a></span>setCoordinate() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::setCoordinate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>inCoordinate</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To set the position </p>
+
+</div>
+</div>
+<a id="a1922fc447400402f4b24018acf0138c1" name="a1922fc447400402f4b24018acf0138c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1922fc447400402f4b24018acf0138c1">&#9670;&#160;</a></span>setCoordinate() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::setCoordinate </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inX</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inY</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inZ</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To set the position from 3 FReals </p>
+
+</div>
+</div>
+<a id="a7511a46f2d9907043457681572aada0a" name="a7511a46f2d9907043457681572aada0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7511a46f2d9907043457681572aada0a">&#9670;&#160;</a></span>setLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::setLevel </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To set the cell level </p>
+
+</div>
+</div>
+<a id="a4cf85f403af9d2aaa951d1cda4441fbb" name="a4cf85f403af9d2aaa951d1cda4441fbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cf85f403af9d2aaa951d1cda4441fbb">&#9670;&#160;</a></span>setMortonIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_rotation_cell_p_o_d.html">FRotationCellPOD</a>&lt; FReal, P &gt;::setMortonIndex </td>
+          <td>(</td>
+          <td class="paramtype">const MortonIndex</td>          <td class="paramname"><span class="paramname"><em>inMortonIndex</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To set the morton index </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/GroupTree/Rotation/<a class="el" href="_f_rotation_cell_p_o_d_8hpp_source.html">FRotationCellPOD.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

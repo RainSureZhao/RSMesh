@@ -1,0 +1,453 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::geometry::bbox3d类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><a class="el" href="namespacersmesh_1_1geometry.html">geometry</a></li><li class="navelem"><a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="classrsmesh_1_1geometry_1_1bbox3d-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::geometry::bbox3d类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a609d14a0d2ebb28710ee180395e372ee" id="r_a609d14a0d2ebb28710ee180395e372ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a609d14a0d2ebb28710ee180395e372ee">bbox3d</a> ()</td></tr>
+<tr class="memdesc:a609d14a0d2ebb28710ee180395e372ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">bbox3d类的默认构造函数  <br /></td></tr>
+<tr class="separator:a609d14a0d2ebb28710ee180395e372ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcf9409fb5b2380f17d8d5cee45158ff" id="r_abcf9409fb5b2380f17d8d5cee45158ff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abcf9409fb5b2380f17d8d5cee45158ff">bbox3d</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;min, const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;max)</td></tr>
+<tr class="memdesc:abcf9409fb5b2380f17d8d5cee45158ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">bbox3d类的构造函数，根据传入的左下角的点和右上角的点来构造包围盒  <br /></td></tr>
+<tr class="separator:abcf9409fb5b2380f17d8d5cee45158ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62f7df24ceee045ec118410c0e9e8bd4" id="r_a62f7df24ceee045ec118410c0e9e8bd4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62f7df24ceee045ec118410c0e9e8bd4">operator==</a> (const <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> &amp;rhs) const</td></tr>
+<tr class="memdesc:a62f7df24ceee045ec118410c0e9e8bd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">重载了==运算符，用于判断两个bbox3d是否相等  <br /></td></tr>
+<tr class="separator:a62f7df24ceee045ec118410c0e9e8bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae76e49563d29ff3dde265e60d6843abd" id="r_ae76e49563d29ff3dde265e60d6843abd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae76e49563d29ff3dde265e60d6843abd">center</a> () const</td></tr>
+<tr class="memdesc:ae76e49563d29ff3dde265e60d6843abd"><td class="mdescLeft">&#160;</td><td class="mdescRight">返回包围盒的中心点  <br /></td></tr>
+<tr class="separator:ae76e49563d29ff3dde265e60d6843abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2addc943fb0a5d602c7a77f3219a94dd" id="r_a2addc943fb0a5d602c7a77f3219a94dd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2addc943fb0a5d602c7a77f3219a94dd">contains</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;p) const</td></tr>
+<tr class="separator:a2addc943fb0a5d602c7a77f3219a94dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a656d03a7ebcb7f5c9c4e33798aecf7e5" id="r_a656d03a7ebcb7f5c9c4e33798aecf7e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a656d03a7ebcb7f5c9c4e33798aecf7e5">convex_hull</a> (const <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> &amp;other) const</td></tr>
+<tr class="separator:a656d03a7ebcb7f5c9c4e33798aecf7e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54ea646e03f0d7c8b31baf5aad5e97a9" id="r_a54ea646e03f0d7c8b31baf5aad5e97a9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54ea646e03f0d7c8b31baf5aad5e97a9">max</a> () const</td></tr>
+<tr class="separator:a54ea646e03f0d7c8b31baf5aad5e97a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f8f48092284b77ad0fdabc4f2c62d5a" id="r_a7f8f48092284b77ad0fdabc4f2c62d5a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f8f48092284b77ad0fdabc4f2c62d5a">min</a> () const</td></tr>
+<tr class="separator:a7f8f48092284b77ad0fdabc4f2c62d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26add3e6e434d9c6e79896faeb9f94ab" id="r_a26add3e6e434d9c6e79896faeb9f94ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacersmesh_1_1geometry.html#a9076acee1b46c372f8242499125dc608">vector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26add3e6e434d9c6e79896faeb9f94ab">size</a> () const</td></tr>
+<tr class="separator:a26add3e6e434d9c6e79896faeb9f94ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09af90e2fa2f1d814b96b1d50024dd58" id="r_a09af90e2fa2f1d814b96b1d50024dd58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09af90e2fa2f1d814b96b1d50024dd58">transform</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a72e45be83081efde821fab26fdbdaae3">linear_transformation3d</a> &amp;t) const</td></tr>
+<tr class="separator:a09af90e2fa2f1d814b96b1d50024dd58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50c1cc50a37792bd67e9ef67ce4c873d" id="r_a50c1cc50a37792bd67e9ef67ce4c873d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50c1cc50a37792bd67e9ef67ce4c873d">union_hull</a> (const <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> &amp;other) const</td></tr>
+<tr class="separator:a50c1cc50a37792bd67e9ef67ce4c873d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:a2b7bba445fdb0edd678eb28aa1d3d9dd" id="r_a2b7bba445fdb0edd678eb28aa1d3d9dd"><td class="memTemplParams" colspan="2">template&lt;class InputIterator &gt; </td></tr>
+<tr class="memitem:a2b7bba445fdb0edd678eb28aa1d3d9dd"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a2b7bba445fdb0edd678eb28aa1d3d9dd">from_points</a> (InputIterator points_begin, InputIterator points_end)</td></tr>
+<tr class="separator:a2b7bba445fdb0edd678eb28aa1d3d9dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade94895ce92bf7680f278073f6c467c6" id="r_ade94895ce92bf7680f278073f6c467c6"><td class="memTemplParams" colspan="2">template&lt;class Derived &gt; </td></tr>
+<tr class="memitem:ade94895ce92bf7680f278073f6c467c6"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ade94895ce92bf7680f278073f6c467c6">from_points</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;points)</td></tr>
+<tr class="separator:ade94895ce92bf7680f278073f6c467c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="bbox3d_8h_source.html">bbox3d.h</a> 第 <a class="el" href="bbox3d_8h_source.html#l00014">14</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a609d14a0d2ebb28710ee180395e372ee" name="a609d14a0d2ebb28710ee180395e372ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a609d14a0d2ebb28710ee180395e372ee">&#9670;&#160;</a></span>bbox3d() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::geometry::bbox3d::bbox3d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>bbox3d类的默认构造函数 </p>
+<p>主要实现逻辑是将min_初始化为无穷大，max_初始化为负无穷大 </p>
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00016">16</a> 行定义.</p>
+
+</div>
+</div>
+<a id="abcf9409fb5b2380f17d8d5cee45158ff" name="abcf9409fb5b2380f17d8d5cee45158ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcf9409fb5b2380f17d8d5cee45158ff">&#9670;&#160;</a></span>bbox3d() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::geometry::bbox3d::bbox3d </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>min</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>max</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>bbox3d类的构造函数，根据传入的左下角的点和右上角的点来构造包围盒 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">min</td><td>传入的包围盒的左下角点 </td></tr>
+    <tr><td class="paramname">max</td><td>传入的包围盒的右上角点 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00024">24</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="ae76e49563d29ff3dde265e60d6843abd" name="ae76e49563d29ff3dde265e60d6843abd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae76e49563d29ff3dde265e60d6843abd">&#9670;&#160;</a></span>center()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> rsmesh::geometry::bbox3d::center </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>返回包围盒的中心点 </p>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00039">39</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a2addc943fb0a5d602c7a77f3219a94dd" name="a2addc943fb0a5d602c7a77f3219a94dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2addc943fb0a5d602c7a77f3219a94dd">&#9670;&#160;</a></span>contains()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rsmesh::geometry::bbox3d::contains </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>判断包围盒是否包含某个点 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>判断的点 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00048">48</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a656d03a7ebcb7f5c9c4e33798aecf7e5" name="a656d03a7ebcb7f5c9c4e33798aecf7e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a656d03a7ebcb7f5c9c4e33798aecf7e5">&#9670;&#160;</a></span>convex_hull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> rsmesh::geometry::bbox3d::convex_hull </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>计算该包围盒和另一个包围盒的凸包 </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00060">60</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ade94895ce92bf7680f278073f6c467c6" name="ade94895ce92bf7680f278073f6c467c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade94895ce92bf7680f278073f6c467c6">&#9670;&#160;</a></span>from_points() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> rsmesh::geometry::bbox3d::from_points </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::MatrixBase&lt; Derived &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>points</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8h_source.html">bbox3d.h</a> 第 <a class="el" href="bbox3d_8h_source.html#l00065">65</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a2b7bba445fdb0edd678eb28aa1d3d9dd" name="a2b7bba445fdb0edd678eb28aa1d3d9dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b7bba445fdb0edd678eb28aa1d3d9dd">&#9670;&#160;</a></span>from_points() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class InputIterator &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> rsmesh::geometry::bbox3d::from_points </td>
+          <td>(</td>
+          <td class="paramtype">InputIterator</td>          <td class="paramname"><span class="paramname"><em>points_begin</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">InputIterator</td>          <td class="paramname"><span class="paramname"><em>points_end</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8h_source.html">bbox3d.h</a> 第 <a class="el" href="bbox3d_8h_source.html#l00042">42</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a54ea646e03f0d7c8b31baf5aad5e97a9" name="a54ea646e03f0d7c8b31baf5aad5e97a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54ea646e03f0d7c8b31baf5aad5e97a9">&#9670;&#160;</a></span>max()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp; rsmesh::geometry::bbox3d::max </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00064">64</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a7f8f48092284b77ad0fdabc4f2c62d5a" name="a7f8f48092284b77ad0fdabc4f2c62d5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f8f48092284b77ad0fdabc4f2c62d5a">&#9670;&#160;</a></span>min()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">point3d</a> &amp; rsmesh::geometry::bbox3d::min </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00068">68</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a62f7df24ceee045ec118410c0e9e8bd4" name="a62f7df24ceee045ec118410c0e9e8bd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62f7df24ceee045ec118410c0e9e8bd4">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rsmesh::geometry::bbox3d::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>重载了==运算符，用于判断两个bbox3d是否相等 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rhs</td><td>比较的另一个bbox3d </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00031">31</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a26add3e6e434d9c6e79896faeb9f94ab" name="a26add3e6e434d9c6e79896faeb9f94ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26add3e6e434d9c6e79896faeb9f94ab">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacersmesh_1_1geometry.html#a9076acee1b46c372f8242499125dc608">vector3d</a> rsmesh::geometry::bbox3d::size </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00072">72</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a09af90e2fa2f1d814b96b1d50024dd58" name="a09af90e2fa2f1d814b96b1d50024dd58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09af90e2fa2f1d814b96b1d50024dd58">&#9670;&#160;</a></span>transform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> rsmesh::geometry::bbox3d::transform </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a72e45be83081efde821fab26fdbdaae3">linear_transformation3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>t</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00076">76</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a50c1cc50a37792bd67e9ef67ce4c873d" name="a50c1cc50a37792bd67e9ef67ce4c873d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50c1cc50a37792bd67e9ef67ce4c873d">&#9670;&#160;</a></span>union_hull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> rsmesh::geometry::bbox3d::union_hull </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">bbox3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a> 第 <a class="el" href="bbox3d_8cpp_source.html#l00103">103</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/geometry/<a class="el" href="bbox3d_8h_source.html">bbox3d.h</a></li>
+<li>src/geometry/<a class="el" href="bbox3d_8cpp_source.html">bbox3d.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

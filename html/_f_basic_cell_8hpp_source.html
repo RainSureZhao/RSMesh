@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: third_party/ScalFMM/include/ScalFMM/Components/FBasicCell.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_44f42edf5dd23d4deca0321224e9ce90.html">third_party</a></li><li class="navelem"><a class="el" href="dir_61e2dd9f1d9796d3cea0fd381fea5190.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_0546f01e16a5efd4e4f6e4ca02f395da.html">include</a></li><li class="navelem"><a class="el" href="dir_97d8df139c79c55828f3d66e7d34077f.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_92188ee20c8bbddb17bf3018f0d6faca.html">Components</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">FBasicCell.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// See LICENCE file at project root</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef FBASICCELL_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#define FBASICCELL_HPP</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;../Utils/FGlobal.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;../Containers/FTreeCoordinate.hpp&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;FAbstractSerializable.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;FAbstractSendable.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="class_f_basic_cell.html">FBasicCell</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_f_abstract_serializable.html">FAbstractSerializable</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    MortonIndex mortonIndex;    </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="class_f_tree_coordinate.html">FTreeCoordinate</a> coordinate; </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    std::size_t level;          </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html#aa480833943dc33766ae8a6b2f51bfbff">   30</a></span>    <a class="code hl_function" href="class_f_basic_cell.html#aa480833943dc33766ae8a6b2f51bfbff">FBasicCell</a>() : mortonIndex(0) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html#afd4e5209baf262deef7daeaf2e1ec014">   34</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="class_f_basic_cell.html#afd4e5209baf262deef7daeaf2e1ec014">~FBasicCell</a>(){</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    std::size_t getLevel()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">return</span> this-&gt;level;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> setLevel(std::size_t inLevel) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        this-&gt;level = inLevel;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html#ae5c9343c2c978ef93cbca34cadf999cb">   46</a></span>    MortonIndex <a class="code hl_function" href="class_f_basic_cell.html#ae5c9343c2c978ef93cbca34cadf999cb">getMortonIndex</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> this-&gt;mortonIndex;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html#aa77a0f5eb1217c62698b729a0c08baff">   51</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_cell.html#aa77a0f5eb1217c62698b729a0c08baff">setMortonIndex</a>(<span class="keyword">const</span> MortonIndex inMortonIndex) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        this-&gt;mortonIndex = inMortonIndex;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html#abfe4b59f7e7131dd40853169ab7d02f2">   56</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="class_f_tree_coordinate.html">FTreeCoordinate</a>&amp; <a class="code hl_function" href="class_f_basic_cell.html#abfe4b59f7e7131dd40853169ab7d02f2">getCoordinate</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">return</span> this-&gt;coordinate;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html#a4af5f33aba8ab0877e0edcc83ea3f63b">   61</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_cell.html#a4af5f33aba8ab0877e0edcc83ea3f63b">setCoordinate</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_f_tree_coordinate.html">FTreeCoordinate</a>&amp; inCoordinate) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        this-&gt;coordinate = inCoordinate;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html#ac64d9215bdaa1d64cd4b9231ecc71e00">   66</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_cell.html#ac64d9215bdaa1d64cd4b9231ecc71e00">setCoordinate</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> inX, <span class="keyword">const</span> <span class="keywordtype">int</span> inY, <span class="keyword">const</span> <span class="keywordtype">int</span> inZ) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        this-&gt;coordinate.<a class="code hl_function" href="class_f_point.html#ae08932bdb7ad1ea001db52d4cd01d195">setX</a>(inX);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        this-&gt;coordinate.<a class="code hl_function" href="class_f_point.html#a622643561f2dfb77492c45d08db146d9">setY</a>(inY);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        this-&gt;coordinate.<a class="code hl_function" href="class_f_point.html#a20e63cebc8f4f2a7d1773e606d7b70da">setZ</a>(inZ);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> BufferWriterClass&gt;</div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html#a3dc6668a1c58e990a97361fcbe11253a">   74</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_cell.html#a3dc6668a1c58e990a97361fcbe11253a">save</a>(BufferWriterClass&amp; buffer)<span class="keyword"> const</span>{</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        buffer &lt;&lt; mortonIndex;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        coordinate.<a class="code hl_function" href="class_f_abstract_serializable.html#a45fdedf0656ebbfbe53b0d17b6ccece5">save</a>(buffer);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
+</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> BufferReaderClass&gt;</div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html#ace2456e7d5cb4d0888e19e14e565597b">   80</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_cell.html#ace2456e7d5cb4d0888e19e14e565597b">restore</a>(BufferReaderClass&amp; buffer){</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        buffer &gt;&gt; mortonIndex;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        coordinate.<a class="code hl_function" href="class_f_abstract_serializable.html#ab11ebf8e05ea24fd43723cb6f14a39c9">restore</a>(buffer);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    FSize getSavedSize()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">return</span> FSize(<span class="keyword">sizeof</span>(mortonIndex)) +  coordinate.<a class="code hl_function" href="class_f_tree_coordinate.html#a7b36ce7fc354a3489db59d2a8889c054">getSavedSize</a>();</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="class_f_basic_cell.html#a0da529ab6c72f185b7889b6f816cb8a0">   90</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_cell.html#a0da529ab6c72f185b7889b6f816cb8a0">resetToInitialState</a>(){</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>};</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#endif </span><span class="comment">//FBASICCELL_HPP</span></div>
+<div class="ttc" id="aclass_f_abstract_serializable_html"><div class="ttname"><a href="class_f_abstract_serializable.html">FAbstractSerializable</a></div><div class="ttdef"><b>Definition</b> FAbstractSerializable.hpp:15</div></div>
+<div class="ttc" id="aclass_f_abstract_serializable_html_a45fdedf0656ebbfbe53b0d17b6ccece5"><div class="ttname"><a href="class_f_abstract_serializable.html#a45fdedf0656ebbfbe53b0d17b6ccece5">FAbstractSerializable::save</a></div><div class="ttdeci">void save(BufferWriterClass &amp;) const</div><div class="ttdef"><b>Definition</b> FAbstractSerializable.hpp:21</div></div>
+<div class="ttc" id="aclass_f_abstract_serializable_html_ab11ebf8e05ea24fd43723cb6f14a39c9"><div class="ttname"><a href="class_f_abstract_serializable.html#ab11ebf8e05ea24fd43723cb6f14a39c9">FAbstractSerializable::restore</a></div><div class="ttdeci">void restore(BufferReaderClass &amp;)</div><div class="ttdef"><b>Definition</b> FAbstractSerializable.hpp:30</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html"><div class="ttname"><a href="class_f_basic_cell.html">FBasicCell</a></div><div class="ttdoc">This class is used in the FTestKernels, please look at this class to know how to customize a cell.</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:23</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html_a0da529ab6c72f185b7889b6f816cb8a0"><div class="ttname"><a href="class_f_basic_cell.html#a0da529ab6c72f185b7889b6f816cb8a0">FBasicCell::resetToInitialState</a></div><div class="ttdeci">void resetToInitialState()</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:90</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html_a3dc6668a1c58e990a97361fcbe11253a"><div class="ttname"><a href="class_f_basic_cell.html#a3dc6668a1c58e990a97361fcbe11253a">FBasicCell::save</a></div><div class="ttdeci">void save(BufferWriterClass &amp;buffer) const</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:74</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html_a4af5f33aba8ab0877e0edcc83ea3f63b"><div class="ttname"><a href="class_f_basic_cell.html#a4af5f33aba8ab0877e0edcc83ea3f63b">FBasicCell::setCoordinate</a></div><div class="ttdeci">void setCoordinate(const FTreeCoordinate &amp;inCoordinate)</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:61</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html_aa480833943dc33766ae8a6b2f51bfbff"><div class="ttname"><a href="class_f_basic_cell.html#aa480833943dc33766ae8a6b2f51bfbff">FBasicCell::FBasicCell</a></div><div class="ttdeci">FBasicCell()</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:30</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html_aa77a0f5eb1217c62698b729a0c08baff"><div class="ttname"><a href="class_f_basic_cell.html#aa77a0f5eb1217c62698b729a0c08baff">FBasicCell::setMortonIndex</a></div><div class="ttdeci">void setMortonIndex(const MortonIndex inMortonIndex)</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:51</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html_abfe4b59f7e7131dd40853169ab7d02f2"><div class="ttname"><a href="class_f_basic_cell.html#abfe4b59f7e7131dd40853169ab7d02f2">FBasicCell::getCoordinate</a></div><div class="ttdeci">const FTreeCoordinate &amp; getCoordinate() const</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:56</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html_ac64d9215bdaa1d64cd4b9231ecc71e00"><div class="ttname"><a href="class_f_basic_cell.html#ac64d9215bdaa1d64cd4b9231ecc71e00">FBasicCell::setCoordinate</a></div><div class="ttdeci">void setCoordinate(const int inX, const int inY, const int inZ)</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:66</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html_ace2456e7d5cb4d0888e19e14e565597b"><div class="ttname"><a href="class_f_basic_cell.html#ace2456e7d5cb4d0888e19e14e565597b">FBasicCell::restore</a></div><div class="ttdeci">void restore(BufferReaderClass &amp;buffer)</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:80</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html_ae5c9343c2c978ef93cbca34cadf999cb"><div class="ttname"><a href="class_f_basic_cell.html#ae5c9343c2c978ef93cbca34cadf999cb">FBasicCell::getMortonIndex</a></div><div class="ttdeci">MortonIndex getMortonIndex() const</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:46</div></div>
+<div class="ttc" id="aclass_f_basic_cell_html_afd4e5209baf262deef7daeaf2e1ec014"><div class="ttname"><a href="class_f_basic_cell.html#afd4e5209baf262deef7daeaf2e1ec014">FBasicCell::~FBasicCell</a></div><div class="ttdeci">virtual ~FBasicCell()</div><div class="ttdef"><b>Definition</b> FBasicCell.hpp:34</div></div>
+<div class="ttc" id="aclass_f_point_html_a20e63cebc8f4f2a7d1773e606d7b70da"><div class="ttname"><a href="class_f_point.html#a20e63cebc8f4f2a7d1773e606d7b70da">FPoint::setZ</a></div><div class="ttdeci">void setZ(const FReal inZ)</div><div class="ttdoc">Set z</div><div class="ttdef"><b>Definition</b> FPoint.hpp:170</div></div>
+<div class="ttc" id="aclass_f_point_html_a622643561f2dfb77492c45d08db146d9"><div class="ttname"><a href="class_f_point.html#a622643561f2dfb77492c45d08db146d9">FPoint::setY</a></div><div class="ttdeci">void setY(const FReal inY)</div><div class="ttdoc">Set y</div><div class="ttdef"><b>Definition</b> FPoint.hpp:162</div></div>
+<div class="ttc" id="aclass_f_point_html_ae08932bdb7ad1ea001db52d4cd01d195"><div class="ttname"><a href="class_f_point.html#ae08932bdb7ad1ea001db52d4cd01d195">FPoint::setX</a></div><div class="ttdeci">void setX(const FReal inX)</div><div class="ttdoc">Set x</div><div class="ttdef"><b>Definition</b> FPoint.hpp:154</div></div>
+<div class="ttc" id="aclass_f_tree_coordinate_html"><div class="ttname"><a href="class_f_tree_coordinate.html">FTreeCoordinate</a></div><div class="ttdef"><b>Definition</b> FTreeCoordinate.hpp:23</div></div>
+<div class="ttc" id="aclass_f_tree_coordinate_html_a7b36ce7fc354a3489db59d2a8889c054"><div class="ttname"><a href="class_f_tree_coordinate.html#a7b36ce7fc354a3489db59d2a8889c054">FTreeCoordinate::getSavedSize</a></div><div class="ttdeci">FSize getSavedSize() const</div><div class="ttdef"><b>Definition</b> FTreeCoordinate.hpp:162</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

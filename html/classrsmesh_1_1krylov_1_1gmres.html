@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::krylov::gmres类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><b>krylov</b></li><li class="navelem"><a class="el" href="classrsmesh_1_1krylov_1_1gmres.html">gmres</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classrsmesh_1_1krylov_1_1gmres-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::krylov::gmres类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+类 rsmesh::krylov::gmres 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classrsmesh_1_1krylov_1_1gmres.png" usemap="#rsmesh::krylov::gmres_map" alt=""/>
+  <map id="rsmesh::krylov::gmres_map" name="rsmesh::krylov::gmres_map">
+<area href="classrsmesh_1_1krylov_1_1gmres__base.html" alt="rsmesh::krylov::gmres_base" shape="rect" coords="0,0,167,24"/>
+<area href="classrsmesh_1_1krylov_1_1fgmres.html" alt="rsmesh::krylov::fgmres" shape="rect" coords="0,112,167,136"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a54586ae49871a922f8c9d4054a23e3e9" id="r_a54586ae49871a922f8c9d4054a23e3e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54586ae49871a922f8c9d4054a23e3e9">gmres</a> (const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;op, const valuesd &amp;rhs, index_t max_iter)</td></tr>
+<tr class="separator:a54586ae49871a922f8c9d4054a23e3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93138f2f207a2bcb29b4683af912fa9e" id="r_a93138f2f207a2bcb29b4683af912fa9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93138f2f207a2bcb29b4683af912fa9e">iterate_process</a> () override</td></tr>
+<tr class="separator:a93138f2f207a2bcb29b4683af912fa9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classrsmesh_1_1krylov_1_1gmres__base')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">rsmesh::krylov::gmres_base</a></td></tr>
+<tr class="memitem:a3344afe60ae44047faef770ea2fb220b inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a3344afe60ae44047faef770ea2fb220b"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>gmres_base</b> (const <a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;)=delete</td></tr>
+<tr class="separator:a3344afe60ae44047faef770ea2fb220b inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78102ffbb70f9899862324764d855695 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a78102ffbb70f9899862324764d855695"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>gmres_base</b> (<a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:a78102ffbb70f9899862324764d855695 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace928dfbbd9697ed329af86cfe11d9e8 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_ace928dfbbd9697ed329af86cfe11d9e8"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;)=delete</td></tr>
+<tr class="separator:ace928dfbbd9697ed329af86cfe11d9e8 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b6c040cc4881a0aeafbef484be4659a inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a5b6c040cc4881a0aeafbef484be4659a"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">gmres_base</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:a5b6c040cc4881a0aeafbef484be4659a inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1685d83eb6055babdcd535bc9a08cda6 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a1685d83eb6055babdcd535bc9a08cda6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a1685d83eb6055babdcd535bc9a08cda6">absolute_residual</a> () const</td></tr>
+<tr class="separator:a1685d83eb6055babdcd535bc9a08cda6 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d2ec732614a70f648b7de093b51cabe inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a2d2ec732614a70f648b7de093b51cabe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a2d2ec732614a70f648b7de093b51cabe">converged</a> () const</td></tr>
+<tr class="separator:a2d2ec732614a70f648b7de093b51cabe inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbbfbb60a658dbb84043c81a3a49e3c1 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_afbbfbb60a658dbb84043c81a3a49e3c1"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#afbbfbb60a658dbb84043c81a3a49e3c1">iteration_count</a> () const</td></tr>
+<tr class="separator:afbbfbb60a658dbb84043c81a3a49e3c1 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b95b4f7b90ed05e19d20caf04089a3f inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a1b95b4f7b90ed05e19d20caf04089a3f"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a1b95b4f7b90ed05e19d20caf04089a3f">max_iterations</a> () const</td></tr>
+<tr class="separator:a1b95b4f7b90ed05e19d20caf04089a3f inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab5d8349bb5c07c247f01d12337c1734 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_aab5d8349bb5c07c247f01d12337c1734"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#aab5d8349bb5c07c247f01d12337c1734">relative_residual</a> () const</td></tr>
+<tr class="separator:aab5d8349bb5c07c247f01d12337c1734 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a3929a7ddad6822f268f0cba15cfd18 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a7a3929a7ddad6822f268f0cba15cfd18"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a7a3929a7ddad6822f268f0cba15cfd18">set_left_preconditioner</a> (const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;left_preconditioner)</td></tr>
+<tr class="separator:a7a3929a7ddad6822f268f0cba15cfd18 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade8cabdf3f374682c358f0384a2d77f6 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_ade8cabdf3f374682c358f0384a2d77f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#ade8cabdf3f374682c358f0384a2d77f6">set_initial_solution</a> (const valuesd &amp;x0)</td></tr>
+<tr class="separator:ade8cabdf3f374682c358f0384a2d77f6 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3af7f8ecabebabf593f9cde98ab26e58 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a3af7f8ecabebabf593f9cde98ab26e58"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a3af7f8ecabebabf593f9cde98ab26e58">set_right_preconditioner</a> (const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;right_preconditioner)</td></tr>
+<tr class="separator:a3af7f8ecabebabf593f9cde98ab26e58 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afae8faa7d7c2646180a4032d67a27839 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_afae8faa7d7c2646180a4032d67a27839"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#afae8faa7d7c2646180a4032d67a27839">setup</a> ()</td></tr>
+<tr class="separator:afae8faa7d7c2646180a4032d67a27839 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad451b4fc830b4ef2e4b93880be48dafa inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_ad451b4fc830b4ef2e4b93880be48dafa"><td class="memItemLeft" align="right" valign="top">virtual valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#ad451b4fc830b4ef2e4b93880be48dafa">solution_vector</a> () const</td></tr>
+<tr class="separator:ad451b4fc830b4ef2e4b93880be48dafa inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a145e43d007199d7bf65ac1fb4eac9 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a71a145e43d007199d7bf65ac1fb4eac9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a71a145e43d007199d7bf65ac1fb4eac9">solve</a> (double tolerance)</td></tr>
+<tr class="separator:a71a145e43d007199d7bf65ac1fb4eac9 inherit pub_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+额外继承的成员函数</h2></td></tr>
+<tr class="inherit_header pub_static_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_attribs_classrsmesh_1_1krylov_1_1gmres__base')"><img src="closed.png" alt="-"/>&#160;静态 Public 属性 继承自 <a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">rsmesh::krylov::gmres_base</a></td></tr>
+<tr class="memitem:ace616e80ea0f04ee112711f048a5223b inherit pub_static_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_ace616e80ea0f04ee112711f048a5223b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#ace616e80ea0f04ee112711f048a5223b">print_progress</a> = true</td></tr>
+<tr class="separator:ace616e80ea0f04ee112711f048a5223b inherit pub_static_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classrsmesh_1_1krylov_1_1gmres__base"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classrsmesh_1_1krylov_1_1gmres__base')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">rsmesh::krylov::gmres_base</a></td></tr>
+<tr class="memitem:aec090c49005e339bda7f7f122726d65c inherit pro_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_aec090c49005e339bda7f7f122726d65c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#aec090c49005e339bda7f7f122726d65c">gmres_base</a> (const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;op, const valuesd &amp;rhs, index_t max_iter)</td></tr>
+<tr class="separator:aec090c49005e339bda7f7f122726d65c inherit pro_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a144982cc3d83ea9503ef8256652539af inherit pro_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a144982cc3d83ea9503ef8256652539af"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a144982cc3d83ea9503ef8256652539af">add_preconditioned_krylov_basis</a> (const valuesd &amp;)</td></tr>
+<tr class="separator:a144982cc3d83ea9503ef8256652539af inherit pro_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3db6f7a324a8a065126108fecdc746b5 inherit pro_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a3db6f7a324a8a065126108fecdc746b5"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a3db6f7a324a8a065126108fecdc746b5">left_preconditioned</a> (const valuesd &amp;x) const</td></tr>
+<tr class="separator:a3db6f7a324a8a065126108fecdc746b5 inherit pro_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0416e4e7be5391b4ebcdddca2ccbba96 inherit pro_methods_classrsmesh_1_1krylov_1_1gmres__base" id="r_a0416e4e7be5391b4ebcdddca2ccbba96"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a0416e4e7be5391b4ebcdddca2ccbba96">right_preconditioned</a> (const valuesd &amp;x) const</td></tr>
+<tr class="separator:a0416e4e7be5391b4ebcdddca2ccbba96 inherit pro_methods_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classrsmesh_1_1krylov_1_1gmres__base')"><img src="closed.png" alt="-"/>&#160;Protected 属性 继承自 <a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">rsmesh::krylov::gmres_base</a></td></tr>
+<tr class="memitem:a3d433a409f0ef3cc3d07bec1c361fe28 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a3d433a409f0ef3cc3d07bec1c361fe28"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a3d433a409f0ef3cc3d07bec1c361fe28">op_</a></td></tr>
+<tr class="separator:a3d433a409f0ef3cc3d07bec1c361fe28 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63df8808b7b9fad15ca5d0445b74b319 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a63df8808b7b9fad15ca5d0445b74b319"><td class="memItemLeft" align="right" valign="top">const index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a63df8808b7b9fad15ca5d0445b74b319">m_</a></td></tr>
+<tr class="separator:a63df8808b7b9fad15ca5d0445b74b319 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a6d738035f2876e20a144601bf394eb inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a5a6d738035f2876e20a144601bf394eb"><td class="memItemLeft" align="right" valign="top">const index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a5a6d738035f2876e20a144601bf394eb">max_iter_</a></td></tr>
+<tr class="separator:a5a6d738035f2876e20a144601bf394eb inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4831b64c0858b97a86d62e43a7e11ab5 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a4831b64c0858b97a86d62e43a7e11ab5"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a4831b64c0858b97a86d62e43a7e11ab5">x0_</a></td></tr>
+<tr class="separator:a4831b64c0858b97a86d62e43a7e11ab5 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52376c6a9ebae26a8fa540e4ec4f229f inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a52376c6a9ebae26a8fa540e4ec4f229f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a52376c6a9ebae26a8fa540e4ec4f229f">left_pc_</a> {}</td></tr>
+<tr class="separator:a52376c6a9ebae26a8fa540e4ec4f229f inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5106eff5df68a8189ed3ec1a7b602953 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a5106eff5df68a8189ed3ec1a7b602953"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a5106eff5df68a8189ed3ec1a7b602953">right_pc_</a> {}</td></tr>
+<tr class="separator:a5106eff5df68a8189ed3ec1a7b602953 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3e8e2cfe2603c3a58107859974fa52d inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_ae3e8e2cfe2603c3a58107859974fa52d"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#ae3e8e2cfe2603c3a58107859974fa52d">iter_</a> {}</td></tr>
+<tr class="separator:ae3e8e2cfe2603c3a58107859974fa52d inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae40c60aa1700ce29f3a561105e1f2cd2 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_ae40c60aa1700ce29f3a561105e1f2cd2"><td class="memItemLeft" align="right" valign="top">const valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#ae40c60aa1700ce29f3a561105e1f2cd2">rhs_</a></td></tr>
+<tr class="separator:ae40c60aa1700ce29f3a561105e1f2cd2 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1809f1453cd598a49a523afb95d96f8 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_ae1809f1453cd598a49a523afb95d96f8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#ae1809f1453cd598a49a523afb95d96f8">rhs_norm_</a></td></tr>
+<tr class="separator:ae1809f1453cd598a49a523afb95d96f8 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6477fbcec32af29672a0831534f6de9d inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a6477fbcec32af29672a0831534f6de9d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; valuesd &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a6477fbcec32af29672a0831534f6de9d">vs_</a></td></tr>
+<tr class="separator:a6477fbcec32af29672a0831534f6de9d inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0e339c6b9f93b50972e99bd9d8c1570 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_ad0e339c6b9f93b50972e99bd9d8c1570"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#ad0e339c6b9f93b50972e99bd9d8c1570">r_</a></td></tr>
+<tr class="separator:ad0e339c6b9f93b50972e99bd9d8c1570 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34c0f5288d3b89c9f4808a15c991be40 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a34c0f5288d3b89c9f4808a15c991be40"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a34c0f5288d3b89c9f4808a15c991be40">c_</a></td></tr>
+<tr class="separator:a34c0f5288d3b89c9f4808a15c991be40 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24dc30981731e21294bd5d0d52a7f00f inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a24dc30981731e21294bd5d0d52a7f00f"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a24dc30981731e21294bd5d0d52a7f00f">s_</a></td></tr>
+<tr class="separator:a24dc30981731e21294bd5d0d52a7f00f inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a020ae2edd4265276dff4e705df7532 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a2a020ae2edd4265276dff4e705df7532"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a2a020ae2edd4265276dff4e705df7532">g_</a></td></tr>
+<tr class="separator:a2a020ae2edd4265276dff4e705df7532 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48d776f112001640b3e57cfed6617d70 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base" id="r_a48d776f112001640b3e57cfed6617d70"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html#a48d776f112001640b3e57cfed6617d70">converged_</a> {}</td></tr>
+<tr class="separator:a48d776f112001640b3e57cfed6617d70 inherit pro_attribs_classrsmesh_1_1krylov_1_1gmres__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="gmres_8h_source.html">gmres.h</a> 第 <a class="el" href="gmres_8h_source.html#l00012">12</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a54586ae49871a922f8c9d4054a23e3e9" name="a54586ae49871a922f8c9d4054a23e3e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54586ae49871a922f8c9d4054a23e3e9">&#9670;&#160;</a></span>gmres()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::krylov::gmres::gmres </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1krylov_1_1linear__operator.html">linear_operator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>op</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const valuesd &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t</td>          <td class="paramname"><span class="paramname"><em>max_iter</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="gmres_8cpp_source.html">gmres.cpp</a> 第 <a class="el" href="gmres_8cpp_source.html#l00008">8</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a93138f2f207a2bcb29b4683af912fa9e" name="a93138f2f207a2bcb29b4683af912fa9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93138f2f207a2bcb29b4683af912fa9e">&#9670;&#160;</a></span>iterate_process()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::krylov::gmres::iterate_process </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="classrsmesh_1_1krylov_1_1gmres__base.html">rsmesh::krylov::gmres_base</a>.</p>
+
+<p class="definition">在文件 <a class="el" href="gmres_8cpp_source.html">gmres.cpp</a> 第 <a class="el" href="gmres_8cpp_source.html#l00011">11</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/krylov/<a class="el" href="gmres_8h_source.html">gmres.h</a></li>
+<li>src/krylov/<a class="el" href="gmres_8cpp_source.html">gmres.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

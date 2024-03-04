@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FAbstractUnifKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-types">Protected 类型</a> &#124;
+<a href="#pro-methods">Protected 成员函数</a> &#124;
+<a href="#pro-attribs">Protected 属性</a> &#124;
+<a href="class_f_abstract_unif_kernel-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FAbstractUnifKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt; 模板类 参考<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This kernels implement the Lagrange interpolation based FMM operators. It implements all interfaces (P2P, P2M, M2M, M2L, L2L, L2P) which are required by the <a class="el" href="class_f_fmm_algorithm.html" title="Implements a basic FMM algorithm.">FFmmAlgorithm</a> and <a class="el" href="class_f_fmm_algorithm_thread.html" title="Implements an FMM algorithm threaded using OpenMP.">FFmmAlgorithmThread</a>.  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_abstract_unif_kernel_8hpp_source.html">FAbstractUnifKernel.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FAbstractUnifKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_abstract_unif_kernel.png" usemap="#FAbstractUnifKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20MatrixKernelClass_2C_20ORDER_2C_20NVALS_20_3E_map" alt=""/>
+  <map id="FAbstractUnifKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20MatrixKernelClass_2C_20ORDER_2C_20NVALS_20_3E_map" name="FAbstractUnifKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20MatrixKernelClass_2C_20ORDER_2C_20NVALS_20_3E_map">
+<area href="class_f_abstract_kernels.html" alt="FAbstractKernels&lt; CellClass, ContainerClass &gt;" shape="rect" coords="570,0,1130,24"/>
+<area href="class_f_unif_dense_kernel.html" title="Please read the license" alt="FUnifDenseKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;" shape="rect" coords="0,112,560,136"/>
+<area href="class_f_unif_kernel.html" title="Please read the license" alt="FUnifKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;" shape="rect" coords="570,112,1130,136"/>
+<area href="class_f_unif_tensorial_kernel.html" title="Please read the license" alt="FUnifTensorialKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;" shape="rect" coords="1140,112,1700,136"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a4e6a0473bc1af07e46621cfbf6b70a4c" id="r_a4e6a0473bc1af07e46621cfbf6b70a4c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e6a0473bc1af07e46621cfbf6b70a4c">FAbstractUnifKernel</a> (const int inTreeHeight, const FReal inBoxWidth, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inBoxCenter, const FReal inBoxWidthExtension=0.0)</td></tr>
+<tr class="separator:a4e6a0473bc1af07e46621cfbf6b70a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f4dfb7879c81319f4fdceae59cdfb69" id="r_a3f4dfb7879c81319f4fdceae59cdfb69"><td class="memItemLeft" align="right" valign="top"><a id="a3f4dfb7879c81319f4fdceae59cdfb69" name="a3f4dfb7879c81319f4fdceae59cdfb69"></a>
+const <a class="el" href="class_f_unif_interpolator.html">InterpolatorClass</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getPtrToInterpolator</b> () const</td></tr>
+<tr class="separator:a3f4dfb7879c81319f4fdceae59cdfb69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a428dc428f2a218d9664acc6f40473633" id="r_a428dc428f2a218d9664acc6f40473633"><td class="memItemLeft" align="right" valign="top"><a id="a428dc428f2a218d9664acc6f40473633" name="a428dc428f2a218d9664acc6f40473633"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>P2M</b> (CellClass *const LeafCell, const ContainerClass *const SourceParticles)=0</td></tr>
+<tr class="separator:a428dc428f2a218d9664acc6f40473633"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7c9689e5b32e0f09c75b3b1f6302cee" id="r_aa7c9689e5b32e0f09c75b3b1f6302cee"><td class="memItemLeft" align="right" valign="top"><a id="aa7c9689e5b32e0f09c75b3b1f6302cee" name="aa7c9689e5b32e0f09c75b3b1f6302cee"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>M2M</b> (CellClass *const FRestrict ParentCell, const CellClass *const FRestrict *const FRestrict ChildCells, const int TreeLevel)=0</td></tr>
+<tr class="separator:aa7c9689e5b32e0f09c75b3b1f6302cee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceea48c1d0b80aaaf56af20f65c5b3bc" id="r_aceea48c1d0b80aaaf56af20f65c5b3bc"><td class="memItemLeft" align="right" valign="top"><a id="aceea48c1d0b80aaaf56af20f65c5b3bc" name="aceea48c1d0b80aaaf56af20f65c5b3bc"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>M2L</b> (CellClass *const FRestrict TargetCell, const CellClass *SourceCells[], const int neighborPositions[], const int inSize, const int TreeLevel)=0</td></tr>
+<tr class="separator:aceea48c1d0b80aaaf56af20f65c5b3bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cc01081fc37bf17ac513361885bfa98" id="r_a4cc01081fc37bf17ac513361885bfa98"><td class="memItemLeft" align="right" valign="top"><a id="a4cc01081fc37bf17ac513361885bfa98" name="a4cc01081fc37bf17ac513361885bfa98"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>L2L</b> (const CellClass *const FRestrict ParentCell, CellClass *FRestrict *const FRestrict ChildCells, const int TreeLevel)=0</td></tr>
+<tr class="separator:a4cc01081fc37bf17ac513361885bfa98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4cb79464556d49f2675a531c4a273bc" id="r_af4cb79464556d49f2675a531c4a273bc"><td class="memItemLeft" align="right" valign="top"><a id="af4cb79464556d49f2675a531c4a273bc" name="af4cb79464556d49f2675a531c4a273bc"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>L2P</b> (const CellClass *const LeafCell, ContainerClass *const TargetParticles)=0</td></tr>
+<tr class="separator:af4cb79464556d49f2675a531c4a273bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67347b78f360d0743798f16e247609bc" id="r_a67347b78f360d0743798f16e247609bc"><td class="memItemLeft" align="right" valign="top"><a id="a67347b78f360d0743798f16e247609bc" name="a67347b78f360d0743798f16e247609bc"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>P2P</b> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;, ContainerClass *const FRestrict TargetParticles, const ContainerClass *const FRestrict, ContainerClass *const NeighborSourceParticles[], const int neighborPositions[], const int)=0</td></tr>
+<tr class="separator:a67347b78f360d0743798f16e247609bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a380f03a51a9763eadf779d66071a80" id="r_a0a380f03a51a9763eadf779d66071a80"><td class="memItemLeft" align="right" valign="top"><a id="a0a380f03a51a9763eadf779d66071a80" name="a0a380f03a51a9763eadf779d66071a80"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>P2PRemote</b> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict, const ContainerClass *const inNeighbors[], const int neighborPositions[], const int)=0</td></tr>
+<tr class="separator:a0a380f03a51a9763eadf779d66071a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-types" name="pro-types"></a>
+Protected 类型</h2></td></tr>
+<tr class="memitem:ab31f3e12d8b4e00464eff756d6675862" id="r_ab31f3e12d8b4e00464eff756d6675862"><td class="memItemLeft" align="right" valign="top"><a id="ab31f3e12d8b4e00464eff756d6675862" name="ab31f3e12d8b4e00464eff756d6675862"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>nnodes</b> = TensorTraits&lt;ORDER&gt;::nnodes
+ }</td></tr>
+<tr class="separator:ab31f3e12d8b4e00464eff756d6675862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb9a63135d15735e8638d4201f9d6544" id="r_acb9a63135d15735e8638d4201f9d6544"><td class="memItemLeft" align="right" valign="top"><a id="acb9a63135d15735e8638d4201f9d6544" name="acb9a63135d15735e8638d4201f9d6544"></a>
+typedef <a class="el" href="class_f_unif_interpolator.html">FUnifInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>InterpolatorClass</b></td></tr>
+<tr class="separator:acb9a63135d15735e8638d4201f9d6544"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected 成员函数</h2></td></tr>
+<tr class="memitem:ae782a8f6445eb06ef6a64056e0d15505" id="r_ae782a8f6445eb06ef6a64056e0d15505"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae782a8f6445eb06ef6a64056e0d15505">getLeafCellCenter</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;Coordinate) const</td></tr>
+<tr class="separator:ae782a8f6445eb06ef6a64056e0d15505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47d5b64ea111bc5441ab7f870437048e" id="r_a47d5b64ea111bc5441ab7f870437048e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47d5b64ea111bc5441ab7f870437048e">getCellCenter</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> coordinate, int inLevel)</td></tr>
+<tr class="memdesc:a47d5b64ea111bc5441ab7f870437048e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the position of the center of a cell from its tree coordinate  <br /></td></tr>
+<tr class="separator:a47d5b64ea111bc5441ab7f870437048e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected 属性</h2></td></tr>
+<tr class="memitem:aaae189e6d0e79353caca92223c994fdd" id="r_aaae189e6d0e79353caca92223c994fdd"><td class="memItemLeft" align="right" valign="top"><a id="aaae189e6d0e79353caca92223c994fdd" name="aaae189e6d0e79353caca92223c994fdd"></a>
+const <a class="el" href="class_f_smart_pointer.html">FSmartPointer</a>&lt; <a class="el" href="class_f_unif_interpolator.html">InterpolatorClass</a>, FSmartPointerMemory &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Interpolator</b></td></tr>
+<tr class="memdesc:aaae189e6d0e79353caca92223c994fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Needed for P2M, M2M, L2L and L2P operators <br /></td></tr>
+<tr class="separator:aaae189e6d0e79353caca92223c994fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bdcb8418a455ad8448d6a697d0002f8" id="r_a2bdcb8418a455ad8448d6a697d0002f8"><td class="memItemLeft" align="right" valign="top"><a id="a2bdcb8418a455ad8448d6a697d0002f8" name="a2bdcb8418a455ad8448d6a697d0002f8"></a>
+const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>TreeHeight</b></td></tr>
+<tr class="memdesc:a2bdcb8418a455ad8448d6a697d0002f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Height of the entire oct-tree <br /></td></tr>
+<tr class="separator:a2bdcb8418a455ad8448d6a697d0002f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33867a6b58b3b329cb50f1549bb2ef8f" id="r_a33867a6b58b3b329cb50f1549bb2ef8f"><td class="memItemLeft" align="right" valign="top"><a id="a33867a6b58b3b329cb50f1549bb2ef8f" name="a33867a6b58b3b329cb50f1549bb2ef8f"></a>
+const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>BoxCorner</b></td></tr>
+<tr class="memdesc:a33867a6b58b3b329cb50f1549bb2ef8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Corner of oct-tree box <br /></td></tr>
+<tr class="separator:a33867a6b58b3b329cb50f1549bb2ef8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ef05da990af17200577acd8168ab7de" id="r_a9ef05da990af17200577acd8168ab7de"><td class="memItemLeft" align="right" valign="top"><a id="a9ef05da990af17200577acd8168ab7de" name="a9ef05da990af17200577acd8168ab7de"></a>
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>BoxWidth</b></td></tr>
+<tr class="memdesc:a9ef05da990af17200577acd8168ab7de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of oct-tree box <br /></td></tr>
+<tr class="separator:a9ef05da990af17200577acd8168ab7de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1392395ded4feb98ed6accf5cadc9b6" id="r_ae1392395ded4feb98ed6accf5cadc9b6"><td class="memItemLeft" align="right" valign="top"><a id="ae1392395ded4feb98ed6accf5cadc9b6" name="ae1392395ded4feb98ed6accf5cadc9b6"></a>
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>BoxWidthLeaf</b></td></tr>
+<tr class="memdesc:ae1392395ded4feb98ed6accf5cadc9b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of a leaf cell box <br /></td></tr>
+<tr class="separator:ae1392395ded4feb98ed6accf5cadc9b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a138e3c5beffad58f666992037bdbf94e" id="r_a138e3c5beffad58f666992037bdbf94e"><td class="memItemLeft" align="right" valign="top"><a id="a138e3c5beffad58f666992037bdbf94e" name="a138e3c5beffad58f666992037bdbf94e"></a>
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>BoxWidthExtension</b></td></tr>
+<tr class="memdesc:a138e3c5beffad58f666992037bdbf94e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extension of the box width ( same for all level! ) <br /></td></tr>
+<tr class="separator:a138e3c5beffad58f666992037bdbf94e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, class CellClass, class ContainerClass, class MatrixKernelClass, int ORDER, int NVALS = 1&gt;<br />
+class FAbstractUnifKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</div><p>This kernels implement the Lagrange interpolation based FMM operators. It implements all interfaces (P2P, P2M, M2M, M2L, L2L, L2P) which are required by the <a class="el" href="class_f_fmm_algorithm.html" title="Implements a basic FMM algorithm.">FFmmAlgorithm</a> and <a class="el" href="class_f_fmm_algorithm_thread.html" title="Implements an FMM algorithm threaded using OpenMP.">FFmmAlgorithmThread</a>. </p>
+<dl class="section author"><dt>作者</dt><dd>Pierre Blanchard (<a href="#" onclick="location.href='mai'+'lto:'+'pie'+'rr'+'e.b'+'la'+'nch'+'ar'+'d@i'+'nr'+'ia.'+'fr'; return false;">pierr<span class="obfuscator">.nosp@m.</span>e.bl<span class="obfuscator">.nosp@m.</span>ancha<span class="obfuscator">.nosp@m.</span>rd@i<span class="obfuscator">.nosp@m.</span>nria.<span class="obfuscator">.nosp@m.</span>fr</a>)</dd></dl>
+<dl class="tparams"><dt>模板参数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">CellClass</td><td>Type of cell </td></tr>
+    <tr><td class="paramname">ContainerClass</td><td>Type of container to store particles </td></tr>
+    <tr><td class="paramname">MatrixKernelClass</td><td>Type of matrix kernel function </td></tr>
+    <tr><td class="paramname">ORDER</td><td>Lagrange interpolation order</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Related publications: Fast hierarchical algorithms for generating Gaussian random fields (<a href="https://hal.inria.fr/hal-01228519">https://hal.inria.fr/hal-01228519</a>) </p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a4e6a0473bc1af07e46621cfbf6b70a4c" name="a4e6a0473bc1af07e46621cfbf6b70a4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e6a0473bc1af07e46621cfbf6b70a4c">&#9670;&#160;</a></span>FAbstractUnifKernel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_abstract_unif_kernel.html">FAbstractUnifKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;<a class="el" href="class_f_abstract_unif_kernel.html">::FAbstractUnifKernel</a> </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inTreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>inBoxWidth</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>inBoxCenter</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>inBoxWidthExtension</em><span class="paramdefsep"> = </span><span class="paramdefval">0.0</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The constructor initializes all constant attributes and it reads the precomputed and compressed M2L operators from a binary file (an runtime_error is thrown if the required file is not valid). </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a47d5b64ea111bc5441ab7f870437048e" name="a47d5b64ea111bc5441ab7f870437048e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47d5b64ea111bc5441ab7f870437048e">&#9670;&#160;</a></span>getCellCenter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; <a class="el" href="class_f_abstract_unif_kernel.html">FAbstractUnifKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;::getCellCenter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a></td>          <td class="paramname"><span class="paramname"><em>coordinate</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>inLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the position of the center of a cell from its tree coordinate </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a></td><td></td></tr>
+    <tr><td class="paramname">inLevel</td><td>the current level of Cell </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae782a8f6445eb06ef6a64056e0d15505" name="ae782a8f6445eb06ef6a64056e0d15505"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae782a8f6445eb06ef6a64056e0d15505">&#9670;&#160;</a></span>getLeafCellCenter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; <a class="el" href="class_f_abstract_unif_kernel.html">FAbstractUnifKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;::getLeafCellCenter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Coordinate</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Compute center of leaf cell from its tree coordinate. </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Coordinate</td><td>tree coordinate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>center of leaf cell </dd></dl>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Uniform/<a class="el" href="_f_abstract_unif_kernel_8hpp_source.html">FAbstractUnifKernel.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FAbstractBufferReader类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="class_f_abstract_buffer_reader-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FAbstractBufferReader类 参考<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>The <a class="el" href="class_f_abstract_buffer_reader.html" title="The FAbstractBufferReader class defines what is an abstract buffer reader. The buffer used by the mpi...">FAbstractBufferReader</a> class defines what is an abstract buffer reader. The buffer used by the mpi algorithm for example should defines this methods.  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_abstract_buffer_8hpp_source.html">FAbstractBuffer.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FAbstractBufferReader 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_abstract_buffer_reader.png" usemap="#FAbstractBufferReader_map" alt=""/>
+  <map id="FAbstractBufferReader_map" name="FAbstractBufferReader_map">
+<area href="class_f_buffer_reader.html" alt="FBufferReader" shape="rect" coords="0,56,143,80"/>
+<area href="class_f_mpi_buffer_reader.html" alt="FMpiBufferReader" shape="rect" coords="153,56,296,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:abcc60836f700b590576e3be9393afa40" id="r_abcc60836f700b590576e3be9393afa40"><td class="memItemLeft" align="right" valign="top">virtual char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abcc60836f700b590576e3be9393afa40">data</a> ()=0</td></tr>
+<tr class="separator:abcc60836f700b590576e3be9393afa40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3578255f7efbb893eb332db39f9b6bed" id="r_a3578255f7efbb893eb332db39f9b6bed"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3578255f7efbb893eb332db39f9b6bed">data</a> () const =0</td></tr>
+<tr class="separator:a3578255f7efbb893eb332db39f9b6bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14a4620238731341e38fe68f4faf890d" id="r_a14a4620238731341e38fe68f4faf890d"><td class="memItemLeft" align="right" valign="top">virtual FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14a4620238731341e38fe68f4faf890d">getSize</a> () const =0</td></tr>
+<tr class="separator:a14a4620238731341e38fe68f4faf890d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09f512b49b97add3fc3202804c815a14" id="r_a09f512b49b97add3fc3202804c815a14"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09f512b49b97add3fc3202804c815a14">seek</a> (const FSize inIndex)=0</td></tr>
+<tr class="separator:a09f512b49b97add3fc3202804c815a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02f37f3a3cd7b721bbff017b1be5e099" id="r_a02f37f3a3cd7b721bbff017b1be5e099"><td class="memItemLeft" align="right" valign="top">virtual FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02f37f3a3cd7b721bbff017b1be5e099">tell</a> () const =0</td></tr>
+<tr class="separator:a02f37f3a3cd7b721bbff017b1be5e099"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a119b7fa232273fe12afcf06e3a64a4cf" id="r_a119b7fa232273fe12afcf06e3a64a4cf"><td class="memTemplParams" colspan="2"><a id="a119b7fa232273fe12afcf06e3a64a4cf" name="a119b7fa232273fe12afcf06e3a64a4cf"></a>
+template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:a119b7fa232273fe12afcf06e3a64a4cf"><td class="memTemplItemLeft" align="right" valign="top">ClassType&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getValue</b> ()</td></tr>
+<tr class="separator:a119b7fa232273fe12afcf06e3a64a4cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3135b3306d8307b4a416f8a5114b59f" id="r_ac3135b3306d8307b4a416f8a5114b59f"><td class="memTemplParams" colspan="2"><a id="ac3135b3306d8307b4a416f8a5114b59f" name="ac3135b3306d8307b4a416f8a5114b59f"></a>
+template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:ac3135b3306d8307b4a416f8a5114b59f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>fillValue</b> (ClassType *const)</td></tr>
+<tr class="separator:ac3135b3306d8307b4a416f8a5114b59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a703d5e6e030a85389e2b6c74e8f9c703" id="r_a703d5e6e030a85389e2b6c74e8f9c703"><td class="memTemplParams" colspan="2"><a id="a703d5e6e030a85389e2b6c74e8f9c703" name="a703d5e6e030a85389e2b6c74e8f9c703"></a>
+template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:a703d5e6e030a85389e2b6c74e8f9c703"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>fillArray</b> (ClassType *const, const FSize)</td></tr>
+<tr class="separator:a703d5e6e030a85389e2b6c74e8f9c703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79ae92511f36072f2446a3757aff41a8" id="r_a79ae92511f36072f2446a3757aff41a8"><td class="memTemplParams" colspan="2"><a id="a79ae92511f36072f2446a3757aff41a8" name="a79ae92511f36072f2446a3757aff41a8"></a>
+template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:a79ae92511f36072f2446a3757aff41a8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_abstract_buffer_reader.html">FAbstractBufferReader</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator&gt;&gt;</b> (ClassType &amp;)</td></tr>
+<tr class="separator:a79ae92511f36072f2446a3757aff41a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>The <a class="el" href="class_f_abstract_buffer_reader.html" title="The FAbstractBufferReader class defines what is an abstract buffer reader. The buffer used by the mpi...">FAbstractBufferReader</a> class defines what is an abstract buffer reader. The buffer used by the mpi algorithm for example should defines this methods. </p>
+</div><h2 class="groupheader">成员函数说明</h2>
+<a id="a3578255f7efbb893eb332db39f9b6bed" name="a3578255f7efbb893eb332db39f9b6bed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3578255f7efbb893eb332db39f9b6bed">&#9670;&#160;</a></span>data() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const char * FAbstractBufferReader::data </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="class_f_buffer_reader.html#aa0b22d57fee2cf2aaf614749be2a3ac3">FBufferReader</a> , 以及 <a class="el" href="class_f_mpi_buffer_reader.html#a85189ddcadd5e24c63b80614927f00a9">FMpiBufferReader</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="abcc60836f700b590576e3be9393afa40" name="abcc60836f700b590576e3be9393afa40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcc60836f700b590576e3be9393afa40">&#9670;&#160;</a></span>data() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual char * FAbstractBufferReader::data </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="class_f_buffer_reader.html#a9a48e983f6c37e62c8ec5ecb544d1e5c">FBufferReader</a> , 以及 <a class="el" href="class_f_mpi_buffer_reader.html#aafcbe5cbd8a2e8434426959b4aba2c97">FMpiBufferReader</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="a14a4620238731341e38fe68f4faf890d" name="a14a4620238731341e38fe68f4faf890d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14a4620238731341e38fe68f4faf890d">&#9670;&#160;</a></span>getSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual FSize FAbstractBufferReader::getSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="class_f_buffer_reader.html#a91d85432998534e635ce1888f0d595f0">FBufferReader</a> , 以及 <a class="el" href="class_f_mpi_buffer_reader.html#abf7be319a03927f87c977d858a0e3ab4">FMpiBufferReader</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="a09f512b49b97add3fc3202804c815a14" name="a09f512b49b97add3fc3202804c815a14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09f512b49b97add3fc3202804c815a14">&#9670;&#160;</a></span>seek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void FAbstractBufferReader::seek </td>
+          <td>(</td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>inIndex</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="class_f_buffer_reader.html#af928c1bd4fc1b2ec84d2749ebe933e57">FBufferReader</a> , 以及 <a class="el" href="class_f_mpi_buffer_reader.html#a9ea55066fda1b31f13c1c175b39f1f64">FMpiBufferReader</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="a02f37f3a3cd7b721bbff017b1be5e099" name="a02f37f3a3cd7b721bbff017b1be5e099"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02f37f3a3cd7b721bbff017b1be5e099">&#9670;&#160;</a></span>tell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual FSize FAbstractBufferReader::tell </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>在 <a class="el" href="class_f_buffer_reader.html#aac40b8c49468d558a30c9cd8d3043ff0">FBufferReader</a> , 以及 <a class="el" href="class_f_mpi_buffer_reader.html#a5a5cef9b49b77fb16da9427d608f06ee">FMpiBufferReader</a> 内被实现.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Containers/<a class="el" href="_f_abstract_buffer_8hpp_source.html">FAbstractBuffer.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

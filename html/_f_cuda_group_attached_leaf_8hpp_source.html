@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: third_party/ScalFMM/include/ScalFMM/GroupTree/Cuda/FCudaGroupAttachedLeaf.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_44f42edf5dd23d4deca0321224e9ce90.html">third_party</a></li><li class="navelem"><a class="el" href="dir_61e2dd9f1d9796d3cea0fd381fea5190.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_0546f01e16a5efd4e4f6e4ca02f395da.html">include</a></li><li class="navelem"><a class="el" href="dir_97d8df139c79c55828f3d66e7d34077f.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_55d136ae5e223ffa546b239b4f50531e.html">GroupTree</a></li><li class="navelem"><a class="el" href="dir_8684c8aa18de37d9bca10afd429e73d3.html">Cuda</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">FCudaGroupAttachedLeaf.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef FCUDAGROUPATTACHEDLEAF_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define FCUDAGROUPATTACHEDLEAF_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;FCudaGlobal.hpp&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> FReal, <span class="keywordtype">unsigned</span> NbSymbAttributes, <span class="keywordtype">unsigned</span> NbAttributesPerParticle, <span class="keyword">class</span> AttributeClass = FReal&gt;</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html">    7</a></span><span class="keyword">class </span><a class="code hl_class" href="class_f_cuda_group_attached_leaf.html">FCudaGroupAttachedLeaf</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="comment">//&lt; Nb of particles in the current leaf</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    FSize nbParticles;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">//&lt; Pointers to the positions of the particles</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    FReal* positionsPointers[3];</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="comment">//&lt; Pointers to the attributes of the particles</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    AttributeClass* attributes[NbSymbAttributes+NbAttributesPerParticle];</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#ad585c1940575dd1e49dd9043dba65f01">   18</a></span>    __device__ <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#ad585c1940575dd1e49dd9043dba65f01">FCudaGroupAttachedLeaf</a>() : nbParticles(-1) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        memset(positionsPointers, 0, <span class="keyword">sizeof</span>(FReal*) * 3);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        memset(attributes, 0, <span class="keyword">sizeof</span>(AttributeClass*) * (NbSymbAttributes+NbAttributesPerParticle));</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    }</div>
+</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#afaa0d1ccf8b85e460457d8172b591c43">   31</a></span>    __device__ <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#afaa0d1ccf8b85e460457d8172b591c43">FCudaGroupAttachedLeaf</a>(<span class="keyword">const</span> FSize inNbParticles, FReal* inPositionBuffer, <span class="keyword">const</span> <span class="keywordtype">size_t</span> inLeadingPosition,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                       AttributeClass* inAttributesBuffer, <span class="keyword">const</span> <span class="keywordtype">size_t</span> inLeadingAttributes)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        : nbParticles(inNbParticles){</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="comment">// Redirect pointers to position</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        positionsPointers[0] = inPositionBuffer;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        positionsPointers[1] = <span class="keyword">reinterpret_cast&lt;</span>FReal*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(inPositionBuffer) + inLeadingPosition);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        positionsPointers[2] = <span class="keyword">reinterpret_cast&lt;</span>FReal*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(inPositionBuffer) + inLeadingPosition*2);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idxAttribute = 0 ; idxAttribute &lt; NbSymbAttributes ; ++idxAttribute){</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            attributes[idxAttribute] = <span class="keyword">reinterpret_cast&lt;</span>AttributeClass*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(inPositionBuffer) + inLeadingPosition*3 + inLeadingAttributes*idxAttribute);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="comment">// Redirect pointers to data</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">if</span>(inAttributesBuffer){</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idxAttribute = 0 ; idxAttribute &lt; NbAttributesPerParticle ; ++idxAttribute){</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                attributes[idxAttribute+NbSymbAttributes] = <span class="keyword">reinterpret_cast&lt;</span>AttributeClass*<span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(inAttributesBuffer) + idxAttribute*inLeadingAttributes);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            memset(&amp;attributes[NbSymbAttributes], 0, <span class="keyword">sizeof</span>(AttributeClass*)*NbAttributesPerParticle);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#a961374e93434771cb628388670713d02">   55</a></span>    __device__ <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#a961374e93434771cb628388670713d02">FCudaGroupAttachedLeaf</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_f_cuda_group_attached_leaf.html">FCudaGroupAttachedLeaf</a>&amp; other) : nbParticles(other.nbParticles) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        positionsPointers[0] = other.positionsPointers[0];</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        positionsPointers[1] = other.positionsPointers[1];</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        positionsPointers[2] = other.positionsPointers[2];</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="comment">// Redirect pointers to data</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idxAttribute = 0 ; idxAttribute &lt; NbAttributesPerParticle ; ++idxAttribute){</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            attributes[idxAttribute] = other.attributes[idxAttribute];</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#a05b0ff6ba363959a3fdf29ec2d00f8f7">   67</a></span>    __device__ <a class="code hl_class" href="class_f_cuda_group_attached_leaf.html">FCudaGroupAttachedLeaf</a>&amp; <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#a05b0ff6ba363959a3fdf29ec2d00f8f7">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_f_cuda_group_attached_leaf.html">FCudaGroupAttachedLeaf</a>&amp; other){</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        nbParticles = (other.nbParticles);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        positionsPointers[0] = other.positionsPointers[0];</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        positionsPointers[1] = other.positionsPointers[1];</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        positionsPointers[2] = other.positionsPointers[2];</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="comment">// Redirect pointers to data</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idxAttribute = 0 ; idxAttribute &lt; NbAttributesPerParticle ; ++idxAttribute){</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            attributes[idxAttribute] = other.attributes[idxAttribute];</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> (*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#a4ed25fd18f5450d3d1d254c5f12c980f">   86</a></span>    __device__ FSize <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#a4ed25fd18f5450d3d1d254c5f12c980f">getNbParticles</a>()<span class="keyword"> const</span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">return</span> nbParticles;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
+</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="}">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#a3b8a5687176f5f1e8c24a9065e009bbd">   94</a></span>    __device__ <span class="keyword">const</span> FReal*<span class="keyword">const</span>* <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#a3b8a5687176f5f1e8c24a9065e009bbd">getPositions</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">return</span> positionsPointers;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    }</div>
+</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#ab1572a8ef56ed4c739d9cf081dac7dfb">  102</a></span>    __device__ FReal* <span class="keyword">const</span>* <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#ab1572a8ef56ed4c739d9cf081dac7dfb">getWPositions</a>() {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">return</span> positionsPointers;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
+</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="}">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#ac01175ceb3da978aef24d53941713575">  111</a></span>    __device__ AttributeClass* <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#ac01175ceb3da978aef24d53941713575">getAttribute</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> index) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> attributes[index];</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="foldopen" id="foldopen00120" data-start="{" data-end="}">
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#a2078ac9a44ff92c3b84cff5b7fb736e5">  120</a></span>    __device__ <span class="keyword">const</span> AttributeClass* <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#a2078ac9a44ff92c3b84cff5b7fb736e5">getAttribute</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordflow">return</span> attributes[index];</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> index&gt;</div>
+<div class="foldopen" id="foldopen00128" data-start="{" data-end="}">
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#acb3e776230c48b774453f26a43cd1996">  128</a></span>    __device__ AttributeClass* <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#acb3e776230c48b774453f26a43cd1996">getAttribute</a>() {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keyword">static_assert</span>(index &lt; NbAttributesPerParticle, <span class="stringliteral">&quot;Index to get attributes is out of scope.&quot;</span>);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">return</span> attributes[index];</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    }</div>
+</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> index&gt;</div>
+<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#aa286c2d2ac452006af84ca9c04edc065">  137</a></span>    __device__ <span class="keyword">const</span> AttributeClass* <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#aa286c2d2ac452006af84ca9c04edc065">getAttribute</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keyword">static_assert</span>(index &lt; NbAttributesPerParticle, <span class="stringliteral">&quot;Index to get attributes is out of scope.&quot;</span>);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordflow">return</span> attributes[index];</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
+</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#a02023f3a360dbd8ee9e393621e7dbfe2">  143</a></span>    __device__ <span class="keywordtype">bool</span> <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#a02023f3a360dbd8ee9e393621e7dbfe2">isAttachedToSomething</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordflow">return</span> nbParticles != -1;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
+</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> ParticleClassContainer&gt;</div>
+<div class="foldopen" id="foldopen00149" data-start="{" data-end="}">
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="class_f_cuda_group_attached_leaf.html#a70178a2540b4b8cf679f94198c7ae76d">  149</a></span>    __device__ <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_cuda_group_attached_leaf.html#a70178a2540b4b8cf679f94198c7ae76d">setParticle</a>(<span class="keyword">const</span> FSize destPartIdx, <span class="keyword">const</span> FSize srcPartIdx, <span class="keyword">const</span> ParticleClassContainer* particles){</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="comment">// Copy position</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        positionsPointers[0][destPartIdx] = particles-&gt;getPositions()[0][srcPartIdx];</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        positionsPointers[1][destPartIdx] = particles-&gt;getPositions()[1][srcPartIdx];</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        positionsPointers[2][destPartIdx] = particles-&gt;getPositions()[2][srcPartIdx];</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="comment">// Copy data</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idxAttribute = 0 ; idxAttribute &lt; NbAttributesPerParticle ; ++idxAttribute){</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            attributes[idxAttribute][destPartIdx] = particles-&gt;getAttribute(idxAttribute)[srcPartIdx];</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        }</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    }</div>
+</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>};</div>
+</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="preprocessor">#endif </span><span class="comment">// FCUDAGROUPATTACHEDLEAF_HPP</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html">FCudaGroupAttachedLeaf</a></div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:7</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_a02023f3a360dbd8ee9e393621e7dbfe2"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#a02023f3a360dbd8ee9e393621e7dbfe2">FCudaGroupAttachedLeaf::isAttachedToSomething</a></div><div class="ttdeci">__device__ bool isAttachedToSomething() const</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:143</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_a05b0ff6ba363959a3fdf29ec2d00f8f7"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#a05b0ff6ba363959a3fdf29ec2d00f8f7">FCudaGroupAttachedLeaf::operator=</a></div><div class="ttdeci">__device__ FCudaGroupAttachedLeaf &amp; operator=(const FCudaGroupAttachedLeaf &amp;other)</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:67</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_a2078ac9a44ff92c3b84cff5b7fb736e5"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#a2078ac9a44ff92c3b84cff5b7fb736e5">FCudaGroupAttachedLeaf::getAttribute</a></div><div class="ttdeci">__device__ const AttributeClass * getAttribute(const int index) const</div><div class="ttdoc">getAttribute</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:120</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_a3b8a5687176f5f1e8c24a9065e009bbd"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#a3b8a5687176f5f1e8c24a9065e009bbd">FCudaGroupAttachedLeaf::getPositions</a></div><div class="ttdeci">__device__ const FReal *const * getPositions() const</div><div class="ttdoc">getPositions</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:94</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_a4ed25fd18f5450d3d1d254c5f12c980f"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#a4ed25fd18f5450d3d1d254c5f12c980f">FCudaGroupAttachedLeaf::getNbParticles</a></div><div class="ttdeci">__device__ FSize getNbParticles() const</div><div class="ttdoc">getNbParticles</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:86</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_a70178a2540b4b8cf679f94198c7ae76d"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#a70178a2540b4b8cf679f94198c7ae76d">FCudaGroupAttachedLeaf::setParticle</a></div><div class="ttdeci">__device__ void setParticle(const FSize destPartIdx, const FSize srcPartIdx, const ParticleClassContainer *particles)</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:149</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_a961374e93434771cb628388670713d02"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#a961374e93434771cb628388670713d02">FCudaGroupAttachedLeaf::FCudaGroupAttachedLeaf</a></div><div class="ttdeci">__device__ FCudaGroupAttachedLeaf(const FCudaGroupAttachedLeaf &amp;other)</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:55</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_aa286c2d2ac452006af84ca9c04edc065"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#aa286c2d2ac452006af84ca9c04edc065">FCudaGroupAttachedLeaf::getAttribute</a></div><div class="ttdeci">__device__ const AttributeClass * getAttribute() const</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:137</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_ab1572a8ef56ed4c739d9cf081dac7dfb"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#ab1572a8ef56ed4c739d9cf081dac7dfb">FCudaGroupAttachedLeaf::getWPositions</a></div><div class="ttdeci">__device__ FReal *const * getWPositions()</div><div class="ttdoc">getWPositions</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:102</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_ac01175ceb3da978aef24d53941713575"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#ac01175ceb3da978aef24d53941713575">FCudaGroupAttachedLeaf::getAttribute</a></div><div class="ttdeci">__device__ AttributeClass * getAttribute(const int index)</div><div class="ttdoc">getAttribute</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:111</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_acb3e776230c48b774453f26a43cd1996"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#acb3e776230c48b774453f26a43cd1996">FCudaGroupAttachedLeaf::getAttribute</a></div><div class="ttdeci">__device__ AttributeClass * getAttribute()</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:128</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_ad585c1940575dd1e49dd9043dba65f01"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#ad585c1940575dd1e49dd9043dba65f01">FCudaGroupAttachedLeaf::FCudaGroupAttachedLeaf</a></div><div class="ttdeci">__device__ FCudaGroupAttachedLeaf()</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:18</div></div>
+<div class="ttc" id="aclass_f_cuda_group_attached_leaf_html_afaa0d1ccf8b85e460457d8172b591c43"><div class="ttname"><a href="class_f_cuda_group_attached_leaf.html#afaa0d1ccf8b85e460457d8172b591c43">FCudaGroupAttachedLeaf::FCudaGroupAttachedLeaf</a></div><div class="ttdeci">__device__ FCudaGroupAttachedLeaf(const FSize inNbParticles, FReal *inPositionBuffer, const size_t inLeadingPosition, AttributeClass *inAttributesBuffer, const size_t inLeadingAttributes)</div><div class="ttdoc">FCudaGroupAttachedLeaf</div><div class="ttdef"><b>Definition</b> FCudaGroupAttachedLeaf.hpp:31</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

@@ -1,0 +1,634 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FChebDenseKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="class_f_cheb_dense_kernel-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FChebDenseKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Chebyshev interpolation based FMM operators for general non oscillatory kernels..  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_cheb_dense_kernel_8hpp_source.html">FChebDenseKernel.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FChebDenseKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_cheb_dense_kernel.png" usemap="#FChebDenseKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20MatrixKernelClass_2C_20ORDER_2C_20NVALS_20_3E_map" alt=""/>
+  <map id="FChebDenseKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20MatrixKernelClass_2C_20ORDER_2C_20NVALS_20_3E_map" name="FChebDenseKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_2C_20MatrixKernelClass_2C_20ORDER_2C_20NVALS_20_3E_map">
+<area href="class_f_abstract_cheb_kernel.html" title="This kernels implement the Chebyshev interpolation based FMM operators. It implements all interfaces ..." alt="FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;" shape="rect" coords="0,56,552,80"/>
+<area href="class_f_abstract_kernels.html" alt="FAbstractKernels&lt; CellClass, ContainerClass &gt;" shape="rect" coords="0,0,552,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a52fcca4cc61e98e78295b40f9869ed6b" id="r_a52fcca4cc61e98e78295b40f9869ed6b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52fcca4cc61e98e78295b40f9869ed6b">FChebDenseKernel</a> (const int inTreeHeight, const FReal inBoxWidth, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inBoxCenter, const MatrixKernelClass *const inMatrixKernel, const FReal Epsilon)</td></tr>
+<tr class="separator:a52fcca4cc61e98e78295b40f9869ed6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2ad716f8b391eef0f53c732d8a1d60f" id="r_af2ad716f8b391eef0f53c732d8a1d60f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2ad716f8b391eef0f53c732d8a1d60f">FChebDenseKernel</a> (const int inTreeHeight, const FReal inBoxWidth, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inBoxCenter, const MatrixKernelClass *const inMatrixKernel)</td></tr>
+<tr class="separator:af2ad716f8b391eef0f53c732d8a1d60f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69e625ed58c558b56b00ac9556f33b80" id="r_a69e625ed58c558b56b00ac9556f33b80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69e625ed58c558b56b00ac9556f33b80">P2M</a> (CellClass *const LeafCell, const ContainerClass *const SourceParticles)</td></tr>
+<tr class="separator:a69e625ed58c558b56b00ac9556f33b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeedd7c11ab4e39da7d4c14f4777003ef" id="r_aeedd7c11ab4e39da7d4c14f4777003ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeedd7c11ab4e39da7d4c14f4777003ef">M2M</a> (CellClass *const FRestrict ParentCell, const CellClass *const FRestrict *const FRestrict ChildCells, const int)</td></tr>
+<tr class="separator:aeedd7c11ab4e39da7d4c14f4777003ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adecdae1b49de991f26b529e5128abfa1" id="r_adecdae1b49de991f26b529e5128abfa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adecdae1b49de991f26b529e5128abfa1">M2L</a> (CellClass *const FRestrict TargetCell, const CellClass *SourceCells[], const int neighborPositions[], const int inSize, const int TreeLevel) override</td></tr>
+<tr class="separator:adecdae1b49de991f26b529e5128abfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e9e59b1a2ed97175d4c4a42736916b8" id="r_a9e9e59b1a2ed97175d4c4a42736916b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e9e59b1a2ed97175d4c4a42736916b8">L2L</a> (const CellClass *const FRestrict ParentCell, CellClass *FRestrict *const FRestrict ChildCells, const int)</td></tr>
+<tr class="separator:a9e9e59b1a2ed97175d4c4a42736916b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac47df71076b1325e9f88a3321ca3fb3d" id="r_ac47df71076b1325e9f88a3321ca3fb3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac47df71076b1325e9f88a3321ca3fb3d">L2P</a> (const CellClass *const LeafCell, ContainerClass *const TargetParticles)</td></tr>
+<tr class="separator:ac47df71076b1325e9f88a3321ca3fb3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae97c6434292bb8218313d5b428d562fa" id="r_ae97c6434292bb8218313d5b428d562fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae97c6434292bb8218313d5b428d562fa">P2P</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;inPosition, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict inSources, ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:ae97c6434292bb8218313d5b428d562fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8e43497ad8db375f4b4c84b9a6decc1" id="r_af8e43497ad8db375f4b4c84b9a6decc1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8e43497ad8db375f4b4c84b9a6decc1">P2POuter</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;, ContainerClass *const FRestrict inTargets, ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:af8e43497ad8db375f4b4c84b9a6decc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a092dfe6aa938737c4219ea9097772e04" id="r_a092dfe6aa938737c4219ea9097772e04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a092dfe6aa938737c4219ea9097772e04">P2PRemote</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict, const ContainerClass *const inNeighbors[], const int[], const int inSize) override</td></tr>
+<tr class="separator:a092dfe6aa938737c4219ea9097772e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_f_abstract_cheb_kernel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_f_abstract_cheb_kernel')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a></td></tr>
+<tr class="memitem:aca6c0bbd63564632cfb655fdcf2c1db3 inherit pub_methods_class_f_abstract_cheb_kernel" id="r_aca6c0bbd63564632cfb655fdcf2c1db3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_cheb_kernel.html#aca6c0bbd63564632cfb655fdcf2c1db3">FAbstractChebKernel</a> (const int inTreeHeight, const FReal inBoxWidth, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inBoxCenter, const FReal inBoxWidthExtension=0.0)</td></tr>
+<tr class="separator:aca6c0bbd63564632cfb655fdcf2c1db3 inherit pub_methods_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c49f896b353d1d5201f7c87d8bf8cfc inherit pub_methods_class_f_abstract_cheb_kernel" id="r_a7c49f896b353d1d5201f7c87d8bf8cfc"><td class="memItemLeft" align="right" valign="top">
+const <a class="el" href="class_f_cheb_interpolator.html">InterpolatorClass</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getPtrToInterpolator</b> () const</td></tr>
+<tr class="separator:a7c49f896b353d1d5201f7c87d8bf8cfc inherit pub_methods_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+额外继承的成员函数</h2></td></tr>
+<tr class="inherit_header pro_types_class_f_abstract_cheb_kernel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_types_class_f_abstract_cheb_kernel')"><img src="closed.png" alt="-"/>&#160;Protected 类型 继承自 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a></td></tr>
+<tr class="memitem:a4d1d43f73eec18a60c439928fae87d65 inherit pro_types_class_f_abstract_cheb_kernel" id="r_a4d1d43f73eec18a60c439928fae87d65"><td class="memItemLeft" align="right" valign="top"><a id="a4d1d43f73eec18a60c439928fae87d65" name="a4d1d43f73eec18a60c439928fae87d65"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>nnodes</b> = TensorTraits&lt;ORDER&gt;::nnodes
+ }</td></tr>
+<tr class="separator:a4d1d43f73eec18a60c439928fae87d65 inherit pro_types_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f0bdd77eaba6585a817cd043cddce7b inherit pro_types_class_f_abstract_cheb_kernel" id="r_a7f0bdd77eaba6585a817cd043cddce7b"><td class="memItemLeft" align="right" valign="top">
+typedef <a class="el" href="class_f_cheb_interpolator.html">FChebInterpolator</a>&lt; FReal, ORDER, MatrixKernelClass, NVALS &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>InterpolatorClass</b></td></tr>
+<tr class="separator:a7f0bdd77eaba6585a817cd043cddce7b inherit pro_types_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_f_abstract_cheb_kernel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_f_abstract_cheb_kernel')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a></td></tr>
+<tr class="memitem:af57d7784efc2307a362e8546fbf6e0c2 inherit pro_methods_class_f_abstract_cheb_kernel" id="r_af57d7784efc2307a362e8546fbf6e0c2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_cheb_kernel.html#af57d7784efc2307a362e8546fbf6e0c2">getLeafCellCenter</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;Coordinate) const</td></tr>
+<tr class="separator:af57d7784efc2307a362e8546fbf6e0c2 inherit pro_methods_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeada2f69df8dc8850541d246efa0c0d6 inherit pro_methods_class_f_abstract_cheb_kernel" id="r_aeada2f69df8dc8850541d246efa0c0d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_cheb_kernel.html#aeada2f69df8dc8850541d246efa0c0d6">getCellCenter</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> coordinate, int inLevel)</td></tr>
+<tr class="memdesc:aeada2f69df8dc8850541d246efa0c0d6 inherit pro_methods_class_f_abstract_cheb_kernel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the position of the center of a cell from its tree coordinate  <br /></td></tr>
+<tr class="separator:aeada2f69df8dc8850541d246efa0c0d6 inherit pro_methods_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_f_abstract_cheb_kernel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_f_abstract_cheb_kernel')"><img src="closed.png" alt="-"/>&#160;Protected 属性 继承自 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a></td></tr>
+<tr class="memitem:af955284daad25daea271b4382fb88b05 inherit pro_attribs_class_f_abstract_cheb_kernel" id="r_af955284daad25daea271b4382fb88b05"><td class="memItemLeft" align="right" valign="top">
+const <a class="el" href="class_f_smart_pointer.html">FSmartPointer</a>&lt; <a class="el" href="class_f_cheb_interpolator.html">InterpolatorClass</a>, FSmartPointerMemory &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Interpolator</b></td></tr>
+<tr class="memdesc:af955284daad25daea271b4382fb88b05 inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Needed for P2M, M2M, L2L and L2P operators <br /></td></tr>
+<tr class="separator:af955284daad25daea271b4382fb88b05 inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a146e282fbe4e3c48786b1c79bebb4572 inherit pro_attribs_class_f_abstract_cheb_kernel" id="r_a146e282fbe4e3c48786b1c79bebb4572"><td class="memItemLeft" align="right" valign="top">
+const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>TreeHeight</b></td></tr>
+<tr class="memdesc:a146e282fbe4e3c48786b1c79bebb4572 inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Height of the entire oct-tree <br /></td></tr>
+<tr class="separator:a146e282fbe4e3c48786b1c79bebb4572 inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff89fa9a60111b72c40091cbcf95a999 inherit pro_attribs_class_f_abstract_cheb_kernel" id="r_aff89fa9a60111b72c40091cbcf95a999"><td class="memItemLeft" align="right" valign="top">
+const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>BoxCorner</b></td></tr>
+<tr class="memdesc:aff89fa9a60111b72c40091cbcf95a999 inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Corner of oct-tree box <br /></td></tr>
+<tr class="separator:aff89fa9a60111b72c40091cbcf95a999 inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4ffad9e8de0dfbf65de79e72da2b47a inherit pro_attribs_class_f_abstract_cheb_kernel" id="r_ab4ffad9e8de0dfbf65de79e72da2b47a"><td class="memItemLeft" align="right" valign="top">
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>BoxWidth</b></td></tr>
+<tr class="memdesc:ab4ffad9e8de0dfbf65de79e72da2b47a inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of oct-tree box <br  />
+ <br /></td></tr>
+<tr class="separator:ab4ffad9e8de0dfbf65de79e72da2b47a inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d5f2c54264bdf5b5339901f129e4049 inherit pro_attribs_class_f_abstract_cheb_kernel" id="r_a4d5f2c54264bdf5b5339901f129e4049"><td class="memItemLeft" align="right" valign="top">
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>BoxWidthLeaf</b></td></tr>
+<tr class="memdesc:a4d5f2c54264bdf5b5339901f129e4049 inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Width of a leaf cell box <br /></td></tr>
+<tr class="separator:a4d5f2c54264bdf5b5339901f129e4049 inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a239735a4f77b2d13dd5538cfc95ebc0b inherit pro_attribs_class_f_abstract_cheb_kernel" id="r_a239735a4f77b2d13dd5538cfc95ebc0b"><td class="memItemLeft" align="right" valign="top">
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>BoxWidthExtension</b></td></tr>
+<tr class="memdesc:a239735a4f77b2d13dd5538cfc95ebc0b inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extension of the box width ( same for all level! ) <br /></td></tr>
+<tr class="separator:a239735a4f77b2d13dd5538cfc95ebc0b inherit pro_attribs_class_f_abstract_cheb_kernel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, class CellClass, class ContainerClass, class MatrixKernelClass, int ORDER, int NVALS = 1&gt;<br />
+class FChebDenseKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</div><p>Chebyshev interpolation based FMM operators for general non oscillatory kernels.. </p>
+<dl class="section author"><dt>作者</dt><dd>Matthias Messner(<a href="#" onclick="location.href='mai'+'lto:'+'mat'+'th'+'ias'+'.m'+'ess'+'ne'+'r@i'+'nr'+'ia.'+'fr'; return false;">matth<span class="obfuscator">.nosp@m.</span>ias.<span class="obfuscator">.nosp@m.</span>messn<span class="obfuscator">.nosp@m.</span>er@i<span class="obfuscator">.nosp@m.</span>nria.<span class="obfuscator">.nosp@m.</span>fr</a>)</dd></dl>
+<p>This class implements the Chebyshev interpolation based FMM operators. It implements all interfaces (P2P, P2M, M2M, M2L, L2L, L2P) which are required by the <a class="el" href="class_f_fmm_algorithm.html" title="Implements a basic FMM algorithm.">FFmmAlgorithm</a>, <a class="el" href="class_f_fmm_algorithm_thread.html" title="Implements an FMM algorithm threaded using OpenMP.">FFmmAlgorithmThread</a> ...</p>
+<dl class="tparams"><dt>模板参数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">CellClass</td><td>Type of cell </td></tr>
+    <tr><td class="paramname">ContainerClass</td><td>Type of container to store particles </td></tr>
+    <tr><td class="paramname">MatrixKernelClass</td><td>Type of matrix kernel function </td></tr>
+    <tr><td class="paramname">ORDER</td><td>Chebyshev interpolation order</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>The ORDER sets the accuracy of the Chebyshev FMM while the EPSILON parameter introduces extra error but optimize the M2L step. In fact, in the Chebyshev FMM we perform compression on the M2L operators using various low rank approximation techniques (see <a href="https://arxiv.org/abs/1210.7292">https://arxiv.org/abs/1210.7292</a> for further details). Therefore we use a second accuracy criterion, namely EPSILON, in order to set the accuracy of these methods. For most kernels that we tested and in particular for 1/r, setting EPSILON=10^-ORDER d oes not introduce extra error in the FMM and captures the rank efficiently. If you think that for your kernel you need a better approximation of the M2L operators, then you can try to set EPSILON to 10 ^- (ORDER+{1,2,...}). </p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a52fcca4cc61e98e78295b40f9869ed6b" name="a52fcca4cc61e98e78295b40f9869ed6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52fcca4cc61e98e78295b40f9869ed6b">&#9670;&#160;</a></span>FChebDenseKernel() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_cheb_dense_kernel.html">FChebDenseKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;<a class="el" href="class_f_cheb_dense_kernel.html">::FChebDenseKernel</a> </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inTreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>inBoxWidth</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>inBoxCenter</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const MatrixKernelClass *const</td>          <td class="paramname"><span class="paramname"><em>inMatrixKernel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>Epsilon</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The constructor initializes all constant attributes and it reads the precomputed and compressed M2L operators from a binary file (an runtime_error is thrown if the required file is not valid).</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">epsilon</td><td>The compression parameter for M2L operator.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>The M2L optimized Chebyshev FMM implemented in ScalFMM are kernel dependent, but keeping EPSILON=10^-ORDER is usually fine. On the other hand you can short-circuit this feature by setting EPSILON to the machine accuracy, but this will significantly slow down the computations. </p>
+
+</div>
+</div>
+<a id="af2ad716f8b391eef0f53c732d8a1d60f" name="af2ad716f8b391eef0f53c732d8a1d60f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2ad716f8b391eef0f53c732d8a1d60f">&#9670;&#160;</a></span>FChebDenseKernel() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_cheb_dense_kernel.html">FChebDenseKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;<a class="el" href="class_f_cheb_dense_kernel.html">::FChebDenseKernel</a> </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inTreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>inBoxWidth</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>inBoxCenter</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const MatrixKernelClass *const</td>          <td class="paramname"><span class="paramname"><em>inMatrixKernel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The constructor initializes all constant attributes and it reads the precomputed and compressed M2L operators from a binary file (an runtime_error is thrown if the required file is not valid). Same as </p><dl class="section see"><dt>参见</dt><dd>above constructor but the epsilon is automatically set to EPSILON=10^-ORDER </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a9e9e59b1a2ed97175d4c4a42736916b8" name="a9e9e59b1a2ed97175d4c4a42736916b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e9e59b1a2ed97175d4c4a42736916b8">&#9670;&#160;</a></span>L2L()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_dense_kernel.html">FChebDenseKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;::L2L </td>
+          <td>(</td>
+          <td class="paramtype">const CellClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>ParentCell</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CellClass *FRestrict *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>ChildCells</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a>.</p>
+
+</div>
+</div>
+<a id="ac47df71076b1325e9f88a3321ca3fb3d" name="ac47df71076b1325e9f88a3321ca3fb3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac47df71076b1325e9f88a3321ca3fb3d">&#9670;&#160;</a></span>L2P()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_dense_kernel.html">FChebDenseKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;::L2P </td>
+          <td>(</td>
+          <td class="paramtype">const CellClass *const</td>          <td class="paramname"><span class="paramname"><em>LeafCell</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>TargetParticles</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a>.</p>
+
+</div>
+</div>
+<a id="adecdae1b49de991f26b529e5128abfa1" name="adecdae1b49de991f26b529e5128abfa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adecdae1b49de991f26b529e5128abfa1">&#9670;&#160;</a></span>M2L()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_dense_kernel.html">FChebDenseKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;::M2L </td>
+          <td>(</td>
+          <td class="paramtype">CellClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>TargetCell</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const CellClass *</td>          <td class="paramname"><span class="paramname"><em>SourceCells</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>TreeLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a>.</p>
+
+</div>
+</div>
+<a id="aeedd7c11ab4e39da7d4c14f4777003ef" name="aeedd7c11ab4e39da7d4c14f4777003ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeedd7c11ab4e39da7d4c14f4777003ef">&#9670;&#160;</a></span>M2M()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_dense_kernel.html">FChebDenseKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;::M2M </td>
+          <td>(</td>
+          <td class="paramtype">CellClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>ParentCell</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const CellClass *const FRestrict *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>ChildCells</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a69e625ed58c558b56b00ac9556f33b80" name="a69e625ed58c558b56b00ac9556f33b80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69e625ed58c558b56b00ac9556f33b80">&#9670;&#160;</a></span>P2M()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_dense_kernel.html">FChebDenseKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;::P2M </td>
+          <td>(</td>
+          <td class="paramtype">CellClass *const</td>          <td class="paramname"><span class="paramname"><em>LeafCell</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>SourceParticles</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a>.</p>
+
+</div>
+</div>
+<a id="ae97c6434292bb8218313d5b428d562fa" name="ae97c6434292bb8218313d5b428d562fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae97c6434292bb8218313d5b428d562fa">&#9670;&#160;</a></span>P2P()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_dense_kernel.html">FChebDenseKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;::P2P </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>inPosition</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inTargets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inSources</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a>.</p>
+
+</div>
+</div>
+<a id="af8e43497ad8db375f4b4c84b9a6decc1" name="af8e43497ad8db375f4b4c84b9a6decc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8e43497ad8db375f4b4c84b9a6decc1">&#9670;&#160;</a></span>P2POuter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_dense_kernel.html">FChebDenseKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;::P2POuter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inTargets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a092dfe6aa938737c4219ea9097772e04" name="a092dfe6aa938737c4219ea9097772e04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a092dfe6aa938737c4219ea9097772e04">&#9670;&#160;</a></span>P2PRemote()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass , class MatrixKernelClass , int ORDER, int NVALS = 1&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_cheb_dense_kernel.html">FChebDenseKernel</a>&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;::P2PRemote </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inTargets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>FRestrict</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname">[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="class_f_abstract_cheb_kernel.html">FAbstractChebKernel&lt; FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS &gt;</a>.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Chebyshev/<a class="el" href="_f_cheb_dense_kernel_8hpp_source.html">FChebDenseKernel.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

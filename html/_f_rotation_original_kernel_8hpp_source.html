@@ -1,0 +1,761 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: third_party/ScalFMM/include/ScalFMM/Kernels/Rotation/FRotationOriginalKernel.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_44f42edf5dd23d4deca0321224e9ce90.html">third_party</a></li><li class="navelem"><a class="el" href="dir_61e2dd9f1d9796d3cea0fd381fea5190.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_0546f01e16a5efd4e4f6e4ca02f395da.html">include</a></li><li class="navelem"><a class="el" href="dir_97d8df139c79c55828f3d66e7d34077f.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_ddddf8995cfe822d901046f00434dab3.html">Kernels</a></li><li class="navelem"><a class="el" href="dir_c118ca81723edb7ccd920ff37277f6a5.html">Rotation</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">FRotationOriginalKernel.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// See LICENCE file at project root</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef FROTATIONORIGINALKERNEL_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#define FROTATIONORIGINALKERNEL_HPP</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;../../Components/FAbstractKernels.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;../../Utils/FSmartPointer.hpp&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;../../Utils/FComplex.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;../../Utils/FMemUtils.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;../../Utils/FSpherical.hpp&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;../P2P/FP2PR.hpp&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">template</span>&lt; <span class="keyword">class</span> FReal, <span class="keyword">class</span> CellClass, <span class="keyword">class</span> ContainerClass, <span class="keywordtype">int</span> P&gt;</div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="class_f_rotation_original_kernel.html">   38</a></span><span class="keyword">class </span><a class="code hl_class" href="class_f_rotation_original_kernel.html">FRotationOriginalKernel</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_f_abstract_kernels.html">FAbstractKernels</a>&lt;CellClass,ContainerClass&gt; {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">//&lt; Size of the data array computed using a suite relation</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> SizeArray = ((P+2)*(P+1))/2;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// Object attributes</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> FReal boxWidth;               <span class="comment">//&lt; the box width at leaf level</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> <span class="keywordtype">int</span>   treeHeight;             <span class="comment">//&lt; The height of the tree</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">const</span> FReal widthAtLeafLevel;       <span class="comment">//&lt; width of box at leaf level</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">const</span> FReal widthAtLeafLevelDiv2;   <span class="comment">//&lt; width of box at leaf leve div 2</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> boxCorner;             <span class="comment">//&lt; position of the box corner</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_class" href="class_f_smart_pointer.html">FSmartPointer&lt;FSpherical&lt;FReal&gt;</a>&gt; childrenPosition;     <span class="comment">//&lt; The transfers between level</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="class_f_smart_pointer.html">FSmartPointer&lt;FSpherical&lt;FReal&gt;</a>&gt; interactionsPosition; <span class="comment">//&lt; The transfers at a same level</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment">// d_lmk</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">int</span> atLm(<span class="keyword">const</span> <span class="keywordtype">int</span> l, <span class="keyword">const</span> <span class="keywordtype">int</span> m){</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="comment">// summation series over l + m =&gt; (l*(l+1))/2 + m</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">return</span> ((l*(l+1))&gt;&gt;1) + m;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">template</span> &lt; <span class="keyword">class</span> T &gt;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    T Sgn(<span class="keyword">const</span> T a){</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span>(a &lt; 0) <span class="keywordflow">return</span> T(-1);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>(a &gt; 0) <span class="keywordflow">return</span> T(1);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> T(0);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    FReal fact(<span class="keyword">const</span> <span class="keywordtype">int</span> a){</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">if</span>(a&lt;0) printf(<span class="stringliteral">&quot;Error factorial negative!! a=%d\n&quot;</span>,a);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        FReal result = 1;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 1 ; i &lt;= a ; ++i){</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            result *= FReal(i);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    FReal combin(<span class="keyword">const</span> <span class="keywordtype">int</span>&amp; a, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; b){</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">if</span>(a-b&lt;0) printf(<span class="stringliteral">&quot;Error combi negative!! a=%d b=%d\n&quot;</span>,a,b);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">return</span> fact(a) / (fact(b)*fact(a-b));</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    FReal d_lmk_analytical(<span class="keyword">const</span> FReal cosTheta, <span class="keyword">const</span> FReal sinTheta, <span class="keyword">const</span> <span class="keywordtype">int</span> l , <span class="keyword">const</span> <span class="keywordtype">int</span> m, <span class="keyword">const</span> <span class="keywordtype">int</span> k){</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">if</span>( l &gt;= 0 &amp;&amp; -l &lt;= k &amp;&amp; k &lt;= l &amp;&amp; <a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(k) &lt;= m &amp;&amp; m &lt;= l ){</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            FReal sum = 0;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> n = <a class="code hl_function" href="struct_f_math.html#ada359f2b021ce4b999c0fd7a6e9daae6">FMath::Max</a>(-(m+k),0) ; n &lt;= <a class="code hl_function" href="struct_f_math.html#a43635af3d44bb1868015681ce994df7b">FMath::Min</a>(l-m,l-k) ; ++n){</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>          sum += <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0), <a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(l-m-n)) * combin(l-k, n) * combin(l+k, l-m-n) * <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(1.0)+cosTheta,<a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(n)) * <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(1.0)-cosTheta, <a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(l-m-n));</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <span class="keywordflow">return</span> (FReal(1.0)/<a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(2.0),<a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(l))) * <a class="code hl_function" href="struct_f_math.html#a2494d4d6618d79e61324a0dfa372855f">FMath::Sqrt</a>((fact(l-m)*fact(l+m))/(fact(l-k)*fact(l+k)))</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>          * <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(1.0) + FReal(Sgn(k))*cosTheta, <a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(k)) * <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(sinTheta, <a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(m - <a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(k))) * sum;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        }</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="comment">// P^{l}_{m,k} = (-1)^{m+k} P^{l}_{k,m} , l \ge 0, -l \leq m \le 0, |m| \leq k \leq l</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>( (l &gt; 0 &amp;&amp; -l &lt;= m &amp;&amp; m &lt; 0 &amp;&amp; <a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(m) &lt;= k &amp;&amp; k &lt;= l)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                 ||  (l &gt; 0 &amp;&amp; 0 &lt;= m &amp;&amp; m &lt; l &amp;&amp; m &lt; k &amp;&amp; k &lt;= l )) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0), <a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(m+k)) * d_lmk_analytical(cosTheta,sinTheta, l, k ,m);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="comment">// P^{l}_{m,k} = (-1)^{m+k} P^{l}_{k,m} , l \ge 0, 0 \leq m \le l, m \le k \leq l</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span>( l &gt; 0 &amp;&amp; -l &lt;= m &amp;&amp; m &lt; l &amp;&amp; -l &lt;= k &amp;&amp; k &lt; -m ){</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0), <a class="code hl_function" href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a>(m+k)) * d_lmk_analytical(cosTheta,sinTheta, l, -m, -k);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            printf(<span class="stringliteral">&quot;Error that should not be possible!\n&quot;</span>);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            <span class="keywordflow">return</span> FReal(0.0);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        }</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="comment">// legendre</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordtype">void</span> computeLegendre(FReal legendre[], <span class="keyword">const</span> FReal inCosTheta, <span class="keyword">const</span> FReal inSinTheta){</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keyword">const</span> FReal invSinTheta = -inSinTheta;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        legendre[atLm(0,0)] = 1.0;             <span class="comment">// P_0,0(1) = 1</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        legendre[atLm(1,0)] = inCosTheta;      <span class="comment">// P_1,0 = cos(theta)</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        legendre[atLm(1,1)] = invSinTheta;     <span class="comment">// P_1,1 = -sin(theta)</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="comment">// Compute using recurrence</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 2; l &lt;= P ; ++l ){</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <span class="keywordflow">for</span>( <span class="keywordtype">int</span> m = 0; m &lt; l - 1 ; ++m ){</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                <span class="comment">// P_{l,m} = \frac{(2l-1) cos( \theta ) P_{l-1,m} - (l+m-1) P_{l-2,m}x}{(l-k)}</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                legendre[atLm(l,m)] = (FReal(2*l-1) * inCosTheta * legendre[atLm(l-1,m)] - FReal( l + m - 1 ) * legendre[atLm(l-2,m)] )</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                                                                    / FReal( l - m );</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            }</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <span class="comment">// P_{l,l-1} = (2l-1) cos( \theta ) P_{l-1,l-1}</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            legendre[atLm(l,l-1)] = FReal(2*l-1) * inCosTheta * legendre[atLm(l-1,l-1)];</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>            <span class="comment">// P_{l,l} = (2l-1) sin( \theta ) P_{l-1,l-1}</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>            legendre[atLm(l,l)] = FReal(2*l-1) * invSinTheta * legendre[atLm(l-1,l-1)];</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        }</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    }</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="comment">// Real rotation</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordtype">void</span> rotateMultipoleAroundZ(<a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> vec[], <span class="keyword">const</span> FReal phi){</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> cell_rotate[SizeArray];</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 0 ; l &lt;= P ; ++l){</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> m = 0 ; m &lt;= l ; ++m ){</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                <span class="comment">// O_{l,m}( \alpha, \beta + \phi ) = e^{-i \phi m} O_{l,m}( \alpha, \beta )</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                <span class="keyword">const</span> <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> exp_minus_imphi(<a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(-phi * FReal(m)), <a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(-phi * FReal(m)));</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                cell_rotate[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#ac0243f8ed4c18c1f639b62f0ecc1bf49">equalMul</a>(exp_minus_imphi , vec[atLm(l,m)]);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            }</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        }</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <a class="code hl_function" href="namespace_f_mem_utils.html#a85a4b506a3e71e70cfb0c4e38320182e">FMemUtils::copyall</a>(vec,cell_rotate,SizeArray);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    }</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordtype">void</span> rotateTaylorAroundZ(<a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> vec[], <span class="keyword">const</span> FReal phi){</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> cell_rotate[SizeArray];</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 0 ; l &lt;= P ; ++l){</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> m = 0 ; m &lt;= l ; ++m ){</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                <span class="comment">// M_{l,m}( \alpha, \beta + \phi ) = e^{i \phi m} M_{l,m}( \alpha, \beta )</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                <span class="keyword">const</span> <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> exp_imphi(<a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(phi * FReal(m)), <a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(phi * FReal(m)));</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>                cell_rotate[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#ac0243f8ed4c18c1f639b62f0ecc1bf49">equalMul</a>(exp_imphi , vec[atLm(l,m)]);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            }</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        }</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <a class="code hl_function" href="namespace_f_mem_utils.html#a85a4b506a3e71e70cfb0c4e38320182e">FMemUtils::copyall</a>(vec,cell_rotate,SizeArray);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    }</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordtype">void</span> rotateMultipoleAroundY(<a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> vec[], <span class="keyword">const</span> FReal theta){</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> cell_rotate[SizeArray];</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 0 ; l &lt;= P ; ++l){</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> m = 0 ; m &lt;= l ; ++m ){</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                FReal w_lkm_real = 0.0;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                FReal w_lkm_imag = 0.0;</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> k = -l ; k &lt; 0 ; ++k){</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>                    <span class="comment">// O_{l,-m} = \bar{ O_{l,m} } (-1)^m</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>                    <span class="keyword">const</span> FReal d_lmk = d_lmk_analytical(<a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(theta),<a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(theta),l,m,k);</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>                    <span class="comment">// \sqrt{ \frac{(l-k)!(l+k)!}{(l-|m|)!(l+|m|)!} }</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                    <span class="keyword">const</span> FReal factor = <a class="code hl_function" href="struct_f_math.html#a2494d4d6618d79e61324a0dfa372855f">FMath::Sqrt</a>((fact(l-k)*fact(l+k))/(fact(l-abs(m))*fact(l+abs(m))));</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                    w_lkm_real += <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),-k) * factor * d_lmk * vec[atLm(l,-k)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>(); <span class="comment">// k&lt;0 =&gt; Conjugate * -1^k</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                    w_lkm_imag -= <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),-k) * factor * d_lmk * vec[atLm(l,-k)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>(); <span class="comment">// k&lt;0 =&gt; Conjugate * -1^k</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                }</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> k = 0 ; k &lt;= l ; ++k){</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                    <span class="keyword">const</span> FReal d_lmk = d_lmk_analytical(<a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(theta),<a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(theta),l,m,k);</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                    <span class="comment">// \sqrt{ \frac{(l-k)!(l+k)!}{(l-|m|)!(l+|m|)!} }</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                    <span class="keyword">const</span> FReal factor = <a class="code hl_function" href="struct_f_math.html#a2494d4d6618d79e61324a0dfa372855f">FMath::Sqrt</a>((fact(l-k)*fact(l+k))/(fact(l-abs(m))*fact(l+abs(m))));</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                    w_lkm_real += factor * d_lmk * vec[atLm(l,k)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>();</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>                    w_lkm_imag += factor * d_lmk * vec[atLm(l,k)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>();</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                }</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                cell_rotate[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a0a39bf6c1f122ffcfc8da36c13952013">setRealImag</a>(w_lkm_real, w_lkm_imag);</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>            }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        }</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        <a class="code hl_function" href="namespace_f_mem_utils.html#a85a4b506a3e71e70cfb0c4e38320182e">FMemUtils::copyall</a>(vec,cell_rotate,SizeArray);</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keywordtype">void</span> rotateTaylorAroundY(<a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> vec[], <span class="keyword">const</span> FReal theta){</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> cell_rotate[SizeArray];</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 0 ; l &lt;= P ; ++l){</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> m = 0 ; m &lt;= l ; ++m ){</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>                FReal w_lkm_real = 0.0;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>                FReal w_lkm_imag = 0.0;</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> k = -l ; k &lt; 0 ; ++k){</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>                    <span class="comment">// M_{l,-m} = \bar{ M_{l,m} } (-1)^m</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                    <span class="keyword">const</span> FReal d_lmk = d_lmk_analytical(<a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(theta),<a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(theta),l,m,k);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                    <span class="comment">// \sqrt{ \frac{(l-|m|)!(l+|m|)!}{(l-k)!(l+k)!} }</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>                    <span class="keyword">const</span> FReal factor = <a class="code hl_function" href="struct_f_math.html#a2494d4d6618d79e61324a0dfa372855f">FMath::Sqrt</a>((fact(l-abs(m))*fact(l+abs(m)))/(fact(l-k)*fact(l+k)));</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>                    w_lkm_real += <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),-k) * factor * d_lmk * vec[atLm(l,-k)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>(); <span class="comment">// k&lt;0 =&gt; Conjugate * -1^k</span></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>                    w_lkm_imag -= <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),-k) * factor * d_lmk * vec[atLm(l,-k)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>(); <span class="comment">// k&lt;0 =&gt; Conjugate * -1^k</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>                }</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> k = 0 ; k &lt;= l ; ++k){</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>                    <span class="keyword">const</span> FReal d_lmk = d_lmk_analytical(<a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(theta),<a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(theta),l,m,k);</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>                    <span class="comment">// \sqrt{ \frac{(l-|m|)!(l+|m|)!}{(l-k)!(l+k)!} }</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>                    <span class="keyword">const</span> FReal factor = <a class="code hl_function" href="struct_f_math.html#a2494d4d6618d79e61324a0dfa372855f">FMath::Sqrt</a>((fact(l-abs(m))*fact(l+abs(m)))/(fact(l-k)*fact(l+k)));</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>                    w_lkm_real += factor * d_lmk * vec[atLm(l,k)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>();</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>                    w_lkm_imag += factor * d_lmk * vec[atLm(l,k)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>();</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>                }</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>                cell_rotate[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a0a39bf6c1f122ffcfc8da36c13952013">setRealImag</a>(w_lkm_real, w_lkm_imag);</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>            }</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        }</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        <a class="code hl_function" href="namespace_f_mem_utils.html#a85a4b506a3e71e70cfb0c4e38320182e">FMemUtils::copyall</a>(vec,cell_rotate,SizeArray);</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    }</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordtype">void</span> rotateMultipole(<a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> vec[], <span class="keyword">const</span> FReal azimuth, <span class="keyword">const</span> FReal inclination){</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        rotateMultipoleAroundZ(vec,(FMath::FPiDiv2&lt;FReal&gt;() + azimuth));</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        rotateMultipoleAroundY(vec,inclination);</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    }</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <span class="keywordtype">void</span> deRotateMultipole(<a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> vec[], <span class="keyword">const</span> FReal azimuth, <span class="keyword">const</span> FReal inclination){</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        rotateMultipoleAroundY(vec,-inclination);</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        rotateMultipoleAroundZ(vec,-(FMath::FPiDiv2&lt;FReal&gt;() + azimuth));</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    }</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    <span class="keywordtype">void</span> rotateTaylor(<a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> vec[], <span class="keyword">const</span> FReal azimuth, <span class="keyword">const</span> FReal inclination){</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        rotateTaylorAroundZ(vec,(FMath::FPiDiv2&lt;FReal&gt;() + azimuth));</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        rotateTaylorAroundY(vec,inclination);</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    }</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    <span class="keywordtype">void</span> deRotateTaylor(<a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> vec[], <span class="keyword">const</span> FReal azimuth, <span class="keyword">const</span> FReal inclination){</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        rotateTaylorAroundY(vec,-inclination);</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>        rotateTaylorAroundZ(vec,-(FMath::FPiDiv2&lt;FReal&gt;() + azimuth));</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    }</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    <span class="comment">// Position precomputation</span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="keywordtype">void</span> preComputePosition(){</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        <span class="comment">// Compute the parent/children relation for M2M L2L</span></div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        childrenPosition = <span class="keyword">new</span> <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a>[8 * (treeHeight-1)];</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        {</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>            FReal subBoxWidth = widthAtLeafLevelDiv2;</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>            <span class="comment">// For each</span></div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idxLevel = treeHeight-2 ; idxLevel &gt; 0 ; --idxLevel){</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idxChild = 0 ; idxChild &lt; 8 ; ++idxChild ){</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>                    <span class="comment">// coord from child to parent</span></div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>                    <span class="keyword">const</span> FReal x = FReal((idxChild&amp;4)? -subBoxWidth : subBoxWidth);</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>                    <span class="keyword">const</span> FReal y = FReal((idxChild&amp;2)? -subBoxWidth : subBoxWidth);</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>                    <span class="keyword">const</span> FReal z = FReal((idxChild&amp;1)? -subBoxWidth : subBoxWidth);</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>                    <span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> relativePosition( x , y , z );</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>                    childrenPosition[(idxLevel-1)*8 + idxChild] = <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a>(relativePosition);</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>                }</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>                subBoxWidth *= FReal(2.0);</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>            }</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        }</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        <span class="comment">// Compute the interaction relations for M2L</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        interactionsPosition = <span class="keyword">new</span> <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a>[343 * (treeHeight-1)];</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        {</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>            FReal boxWidthAtLevel = widthAtLeafLevel;</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idxLevel = treeHeight-1 ; idxLevel &gt; 0 ; --idxLevel){</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idxX = -3 ; idxX &lt;= 3 ; ++idxX ){</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>                    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idxY = -3 ; idxY &lt;= 3 ; ++idxY ){</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>                        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idxZ = -3 ; idxZ &lt;= 3 ; ++idxZ ){</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>                            <span class="keywordflow">if</span>( idxX != 0 || idxY != 0 || idxZ != 0 ){</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>                                <span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> relativePosition( -FReal(idxX)*boxWidthAtLevel,</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>                                                               -FReal(idxY)*boxWidthAtLevel,</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>                                                               -FReal(idxZ)*boxWidthAtLevel);</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>                                <span class="keyword">const</span> <span class="keywordtype">int</span> position = ((( (idxX+3) * 7) + (idxY+3))) * 7 + idxZ + 3;</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>                                interactionsPosition[(idxLevel-1)*343 + position] = <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a>(relativePosition);</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>                            }</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>                        }</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>                    }</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>                }</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>                boxWidthAtLevel *= FReal(2.0);</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>            }</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>        }</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    }</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span> </div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a> getSphericalChild(<span class="keyword">const</span> <span class="keywordtype">int</span> idxLevel, <span class="keyword">const</span> <span class="keywordtype">int</span> position)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>        <span class="keywordflow">return</span> childrenPosition[(idxLevel-1)*8 + position];</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    }</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span> </div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a> getSphericalInteraction(<span class="keyword">const</span> <span class="keywordtype">int</span> idxLevel, <span class="keyword">const</span> <span class="keywordtype">int</span> position)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>        <span class="keywordflow">return</span> interactionsPosition[(idxLevel-1)*343 + position];</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    }</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span> </div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> getLeafCenter(<span class="keyword">const</span> <a class="code hl_class" href="class_f_tree_coordinate.html">FTreeCoordinate</a> coordinate)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a>(</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>                    FReal(coordinate.<a class="code hl_function" href="class_f_point.html#a58d3859160347552d6a4a94fbdf883c3">getX</a>()) * widthAtLeafLevel + widthAtLeafLevelDiv2 + boxCorner.<a class="code hl_function" href="class_f_point.html#a58d3859160347552d6a4a94fbdf883c3">getX</a>(),</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>                    FReal(coordinate.<a class="code hl_function" href="class_f_point.html#ae4383512b9b8d216775b3fb92325cfc9">getY</a>()) * widthAtLeafLevel + widthAtLeafLevelDiv2 + boxCorner.<a class="code hl_function" href="class_f_point.html#ae4383512b9b8d216775b3fb92325cfc9">getY</a>(),</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>                    FReal(coordinate.<a class="code hl_function" href="class_f_point.html#a02208d4db50cbafe597adcbfb152b536">getZ</a>()) * widthAtLeafLevel + widthAtLeafLevelDiv2 + boxCorner.<a class="code hl_function" href="class_f_point.html#a02208d4db50cbafe597adcbfb152b536">getZ</a>());</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>    }</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span> </div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span> </div>
+<div class="foldopen" id="foldopen00409" data-start="{" data-end="}">
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno"><a class="line" href="class_f_rotation_original_kernel.html#a799aee24353a10ab4bef526f3faccedf">  409</a></span>    <a class="code hl_function" href="class_f_rotation_original_kernel.html#a799aee24353a10ab4bef526f3faccedf">FRotationOriginalKernel</a>( <span class="keyword">const</span> <span class="keywordtype">int</span> inTreeHeight, <span class="keyword">const</span> FReal inBoxWidth, <span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a>&amp; inBoxCenter) :</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        boxWidth(inBoxWidth),</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>        treeHeight(inTreeHeight),</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>        widthAtLeafLevel(inBoxWidth/FReal(1 &lt;&lt; (inTreeHeight-1))),</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        widthAtLeafLevelDiv2(widthAtLeafLevel/2),</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>        boxCorner(inBoxCenter.getX()-(inBoxWidth/2),inBoxCenter.getY()-(inBoxWidth/2),inBoxCenter.getZ()-(inBoxWidth/2))</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>        {</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>        <span class="comment">// simply does the precomputation</span></div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>        preComputePosition();</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>    }</div>
+</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span> </div>
+<div class="foldopen" id="foldopen00421" data-start="{" data-end="}">
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno"><a class="line" href="class_f_rotation_original_kernel.html#ac8285fe51680063061b68fd16e2d6e6a">  421</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="class_f_rotation_original_kernel.html#ac8285fe51680063061b68fd16e2d6e6a">~FRotationOriginalKernel</a>(){</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>    }</div>
+</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span> </div>
+<div class="foldopen" id="foldopen00432" data-start="{" data-end="}">
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno"><a class="line" href="class_f_rotation_original_kernel.html#a213eb0a57beca6ea85fd0014b9d2f217">  432</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_rotation_original_kernel.html#a213eb0a57beca6ea85fd0014b9d2f217">P2M</a>(CellClass* <span class="keyword">const</span> inPole, <span class="keyword">const</span> ContainerClass* <span class="keyword">const</span> inParticles )<span class="keyword">override </span>{</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>        <span class="keyword">const</span> FReal i_pow_m[4] = {0, FMath::FPiDiv2&lt;FReal&gt;(), FMath::FPi&lt;FReal&gt;(), -FMath::FPiDiv2&lt;FReal&gt;()};</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>        <span class="comment">// w is the multipole moment</span></div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>        <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a>* FRestrict <span class="keyword">const</span> w = inPole-&gt;getMultipole();</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span> </div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>        <span class="comment">// Copying the position is faster than using cell position</span></div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> cellPosition = getLeafCenter(inPole-&gt;getCoordinate());</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span> </div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>        <span class="comment">// We need a legendre array</span></div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>        FReal legendre[SizeArray];</div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span> </div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>        <span class="comment">// For all particles in the leaf box</span></div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>        <span class="keyword">const</span> FReal*<span class="keyword">const</span> physicalValues = inParticles-&gt;getPhysicalValues();</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>        <span class="keyword">const</span> FReal*<span class="keyword">const</span> positionsX = inParticles-&gt;getPositions()[0];</div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>        <span class="keyword">const</span> FReal*<span class="keyword">const</span> positionsY = inParticles-&gt;getPositions()[1];</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span>        <span class="keyword">const</span> FReal*<span class="keyword">const</span> positionsZ = inParticles-&gt;getPositions()[2];</div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span> </div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>        <span class="keywordflow">for</span>(FSize idxPart = 0 ; idxPart &lt; inParticles-&gt;getNbParticles() ; ++ idxPart){</div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>            <span class="comment">// P2M</span></div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> position(positionsX[idxPart],positionsY[idxPart],positionsZ[idxPart]);</div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a> sph(position - cellPosition);</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span> </div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>            <span class="comment">// The physical value (charge, mass)</span></div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>            <span class="keyword">const</span> FReal q = physicalValues[idxPart];</div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>            <span class="comment">// The distance between the SH and the particle</span></div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>            <span class="keyword">const</span> FReal a = sph.<a class="code hl_function" href="class_f_spherical.html#afe70b334deb1d5feae782bda8851056d">getR</a>();</div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span> </div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>            <span class="comment">// Compute the legendre polynomial</span></div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>            computeLegendre(legendre, sph.<a class="code hl_function" href="class_f_spherical.html#a7f3ca3427a17cf1b9e114aa1ed7049a3">getCosTheta</a>(), sph.<a class="code hl_function" href="class_f_spherical.html#accff4b45e34fd2b215715563a68a412f">getSinTheta</a>());</div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span> </div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>            <span class="comment">// w{l,m}(q,a) = q a^l/(l+|m|)! P{l,m}(cos(alpha)) exp(-i m Beta)</span></div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 0 ; l &lt;= P ; ++l ){</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> m = 0 ; m &lt;= l ; ++m ){</div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>                    <span class="keyword">const</span> FReal magnitude = q * (<a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>( a , l )/fact(l+m))</div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>                            * legendre[atLm(l,m)];</div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>                    w[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a239af6b36a7a875cf409af96ed286bf8">incReal</a>(magnitude * <a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(FReal(m) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[m &amp; 0x3]));</div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>                    w[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a5da751a7b9af375136091cad0bc8e1d9">incImag</a>(magnitude * <a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(FReal(m) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[m &amp; 0x3]));</div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>                }</div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>            }</div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>        }</div>
+<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>    }</div>
+</div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span> </div>
+<div class="foldopen" id="foldopen00485" data-start="{" data-end="}">
+<div class="line"><a id="l00485" name="l00485"></a><span class="lineno"><a class="line" href="class_f_rotation_original_kernel.html#a4657a3435e6e2232d33f5af5c4205628">  485</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_rotation_original_kernel.html#a4657a3435e6e2232d33f5af5c4205628">M2M</a>(CellClass* <span class="keyword">const</span> FRestrict inPole, <span class="keyword">const</span> CellClass*<span class="keyword">const</span> FRestrict *<span class="keyword">const</span> FRestrict inChildren, <span class="keyword">const</span> <span class="keywordtype">int</span> inLevel)<span class="keyword">override </span>{</div>
+<div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span>        <span class="comment">// A buffer to copy the source w allocated once</span></div>
+<div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span>        <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> source_w[SizeArray];</div>
+<div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span>        <span class="comment">// For all children</span></div>
+<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idxChild = 0 ; idxChild &lt; 8 ; ++idxChild){</div>
+<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span>            <span class="comment">// if child exists</span></div>
+<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>            <span class="keywordflow">if</span>(inChildren[idxChild]){</div>
+<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span>                <span class="comment">// Copy the source</span></div>
+<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span>                <a class="code hl_function" href="namespace_f_mem_utils.html#a85a4b506a3e71e70cfb0c4e38320182e">FMemUtils::copyall</a>(source_w, inChildren[idxChild]-&gt;getMultipole(), SizeArray);</div>
+<div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span> </div>
+<div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span>                <span class="comment">// rotate it forward</span></div>
+<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>                <span class="keyword">const</span> <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a> sph = getSphericalChild(inLevel, idxChild);</div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>                rotateMultipole(source_w, sph.<a class="code hl_function" href="class_f_spherical.html#ac47e9ee1557ed6e700cc985c9031a02b">getPhiZero2Pi</a>(), sph.<a class="code hl_function" href="class_f_spherical.html#a142b6af5616618a154c76983acdab34f">getInclination</a>());</div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span> </div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>                <span class="keyword">const</span> FReal b = -sph.<a class="code hl_function" href="class_f_spherical.html#afe70b334deb1d5feae782bda8851056d">getR</a>();</div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>                <span class="comment">// Translate it</span></div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>                <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> target_w[SizeArray];</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 0 ; l &lt;= P ; ++l ){</div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>                    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> m = 0 ; m &lt;= l ; ++m ){</div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span>                        <span class="comment">// w{l,m}(a+b) = sum(j=m:l, b^(l-j)/(l-j)! w{j,m}(a)</span></div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>                        FReal w_lm_real = 0.0;</div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>                        FReal w_lm_imag = 0.0;</div>
+<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>                        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j = m ; j &lt;= l ; ++j ){</div>
+<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>                            <span class="keyword">const</span> FReal coef = <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(b,l-j) / fact(l-j);</div>
+<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>                            w_lm_real += coef * source_w[atLm(j,m)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>();</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>                            w_lm_imag += coef * source_w[atLm(j,m)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>();</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>                        }</div>
+<div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>                        target_w[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a0a39bf6c1f122ffcfc8da36c13952013">setRealImag</a>(w_lm_real,w_lm_imag);</div>
+<div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>                    }</div>
+<div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>                }</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span> </div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>                <span class="comment">// Rotate it back</span></div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>                deRotateMultipole(target_w, sph.<a class="code hl_function" href="class_f_spherical.html#ac47e9ee1557ed6e700cc985c9031a02b">getPhiZero2Pi</a>(), sph.<a class="code hl_function" href="class_f_spherical.html#a142b6af5616618a154c76983acdab34f">getInclination</a>());</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span> </div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>                <span class="comment">// Sum the result</span></div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>                <a class="code hl_function" href="namespace_f_mem_utils.html#a5120d91235543eec7ee0ff0fc4bccebe">FMemUtils::addall</a>( inPole-&gt;getMultipole(), target_w, SizeArray);</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>            }</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>        }</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    }</div>
+</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span> </div>
+<div class="foldopen" id="foldopen00536" data-start="{" data-end="}">
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno"><a class="line" href="class_f_rotation_original_kernel.html#a735ac75069992ffd47e9c18b542a1058">  536</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_rotation_original_kernel.html#a735ac75069992ffd47e9c18b542a1058">M2L</a>(CellClass* <span class="keyword">const</span> FRestrict inLocal, <span class="keyword">const</span> CellClass* inInteractions[],</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>             <span class="keyword">const</span> <span class="keywordtype">int</span> neighborPositions[], <span class="keyword">const</span> <span class="keywordtype">int</span> inSize, <span class="keyword">const</span> <span class="keywordtype">int</span> inLevel)<span class="keyword">  override </span>{</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>        <span class="comment">// To copy the multipole data allocated once</span></div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>        <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> source_w[SizeArray];</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>        <span class="comment">// For all children</span></div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idxExistingNeigh = 0 ; idxExistingNeigh &lt; inSize ; ++idxExistingNeigh){</div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>            <span class="keyword">const</span> <span class="keywordtype">int</span> idxNeigh = neighborPositions[idxExistingNeigh];</div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>            <span class="comment">// Copy multipole data into buffer</span></div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>            <a class="code hl_function" href="namespace_f_mem_utils.html#a85a4b506a3e71e70cfb0c4e38320182e">FMemUtils::copyall</a>(source_w, inInteractions[idxExistingNeigh]-&gt;getMultipole(), SizeArray);</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span> </div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>            <span class="comment">// Rotate</span></div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a> sph = getSphericalInteraction(inLevel, idxNeigh);</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>            rotateMultipole(source_w, sph.<a class="code hl_function" href="class_f_spherical.html#ac47e9ee1557ed6e700cc985c9031a02b">getPhiZero2Pi</a>(), sph.<a class="code hl_function" href="class_f_spherical.html#a142b6af5616618a154c76983acdab34f">getInclination</a>());</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span> </div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>            <span class="keyword">const</span> FReal b = sph.<a class="code hl_function" href="class_f_spherical.html#afe70b334deb1d5feae782bda8851056d">getR</a>();</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>            <span class="comment">// Transfer to u</span></div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>            <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> target_u[SizeArray];</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 0 ; l &lt;= P ; ++l ){</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> m = 0 ; m &lt;= l ; ++m ){</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>                    <span class="comment">// u{l,m}(a-b) = sum(j=|m|:P-l, (j+l)!/b^(j+l+1) w{j,-m}(a)</span></div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>                    FReal u_lm_real = 0.0;</div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>                    FReal u_lm_imag = 0.0;</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>                    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j = m ; j &lt;= P-l ; ++j ){</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>                        <span class="keyword">const</span> FReal coef = <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),m) * ( fact(j+l) / <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(b,j+l+1));</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>                        <span class="comment">// because {l,-m} =&gt; {l,m} conjugate -1^m with -i</span></div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>                        u_lm_real += coef * source_w[atLm(j,m)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>();</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>                        u_lm_imag -= coef * source_w[atLm(j,m)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>();</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>                    }</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>                    target_u[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a0a39bf6c1f122ffcfc8da36c13952013">setRealImag</a>(u_lm_real,u_lm_imag);</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>                }</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>            }</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span> </div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>            <span class="comment">// Rotate it back</span></div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>            deRotateTaylor(target_u, sph.<a class="code hl_function" href="class_f_spherical.html#ac47e9ee1557ed6e700cc985c9031a02b">getPhiZero2Pi</a>(), sph.<a class="code hl_function" href="class_f_spherical.html#a142b6af5616618a154c76983acdab34f">getInclination</a>());</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span> </div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>            <span class="comment">// Sum</span></div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>            <a class="code hl_function" href="namespace_f_mem_utils.html#a5120d91235543eec7ee0ff0fc4bccebe">FMemUtils::addall</a>(inLocal-&gt;getLocal(), target_u, SizeArray);</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>        }</div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>    }</div>
+</div>
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span> </div>
+<div class="foldopen" id="foldopen00587" data-start="{" data-end="}">
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno"><a class="line" href="class_f_rotation_original_kernel.html#aecb8098cddbb2facc14cb14060011a94">  587</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_rotation_original_kernel.html#aecb8098cddbb2facc14cb14060011a94">L2L</a>(<span class="keyword">const</span> CellClass* <span class="keyword">const</span> FRestrict inLocal, CellClass* FRestrict *<span class="keyword">const</span> FRestrict  inChildren, <span class="keyword">const</span> <span class="keywordtype">int</span> inLevel)<span class="keyword">override </span>{</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>        <span class="comment">// To copy the source local allocated once</span></div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>        <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> source_u[SizeArray];</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>        <span class="comment">// For all children</span></div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idxChild = 0 ; idxChild &lt; 8 ; ++idxChild){</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>            <span class="comment">// if child exists</span></div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>            <span class="keywordflow">if</span>(inChildren[idxChild]){</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>                <span class="comment">// Copy the local data into the buffer</span></div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>                <a class="code hl_function" href="namespace_f_mem_utils.html#a85a4b506a3e71e70cfb0c4e38320182e">FMemUtils::copyall</a>(source_u, inLocal-&gt;getLocal(), SizeArray);</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span> </div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>                <span class="comment">// Rotate</span></div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>                <span class="keyword">const</span> <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a> sph = getSphericalChild(inLevel, idxChild);</div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>                rotateTaylor(source_u, sph.<a class="code hl_function" href="class_f_spherical.html#ac47e9ee1557ed6e700cc985c9031a02b">getPhiZero2Pi</a>(), sph.<a class="code hl_function" href="class_f_spherical.html#a142b6af5616618a154c76983acdab34f">getInclination</a>());</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span> </div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>                <span class="keyword">const</span> FReal b = sph.<a class="code hl_function" href="class_f_spherical.html#afe70b334deb1d5feae782bda8851056d">getR</a>();</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>                <span class="comment">// Translate</span></div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>                <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a> target_u[SizeArray];</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 0 ; l &lt;= P ; ++l ){</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>                    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> m = 0 ; m &lt;= l ; ++m ){</div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>                        <span class="comment">// u{l,m}(r-b) = sum(j=0:P, b^(j-l)/(j-l)! u{j,m}(r);</span></div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>                        FReal u_lm_real = 0.0;</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>                        FReal u_lm_imag = 0.0;</div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>                        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j = l ; j &lt;= P ; ++j ){</div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>                            <span class="keyword">const</span> FReal coef = <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(b,j-l) / fact(j-l);</div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>                            u_lm_real += coef * source_u[atLm(j,m)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>();</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>                            u_lm_imag += coef * source_u[atLm(j,m)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>();</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>                        }</div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>                        target_u[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a0a39bf6c1f122ffcfc8da36c13952013">setRealImag</a>(u_lm_real,u_lm_imag);</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>                    }</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>                }</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span> </div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>                <span class="comment">// Rotate</span></div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>                deRotateTaylor(target_u, sph.<a class="code hl_function" href="class_f_spherical.html#ac47e9ee1557ed6e700cc985c9031a02b">getPhiZero2Pi</a>(), sph.<a class="code hl_function" href="class_f_spherical.html#a142b6af5616618a154c76983acdab34f">getInclination</a>());</div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span> </div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>                <span class="comment">// Sum in child</span></div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>                <a class="code hl_function" href="namespace_f_mem_utils.html#a5120d91235543eec7ee0ff0fc4bccebe">FMemUtils::addall</a>(inChildren[idxChild]-&gt;getLocal(), target_u, SizeArray);</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>            }</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>        }</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    }</div>
+</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span> </div>
+<div class="foldopen" id="foldopen00645" data-start="{" data-end="}">
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno"><a class="line" href="class_f_rotation_original_kernel.html#ae303a3929d3ebf29c386241cba3b7e1d">  645</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_rotation_original_kernel.html#ae303a3929d3ebf29c386241cba3b7e1d">L2P</a>(<span class="keyword">const</span> CellClass* <span class="keyword">const</span> inLocal, ContainerClass* <span class="keyword">const</span> inParticles)<span class="keyword">override</span>{</div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>        <span class="keyword">const</span> FReal i_pow_m[4] = {0, FMath::FPiDiv2&lt;FReal&gt;(), FMath::FPi&lt;FReal&gt;(), -FMath::FPiDiv2&lt;FReal&gt;()};</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>        <span class="comment">// Take the local value from the cell</span></div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_f_complex.html">FComplex&lt;FReal&gt;</a>* FRestrict <span class="keyword">const</span> u = inLocal-&gt;getLocal();</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span> </div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>        <span class="comment">// Copying the position is faster than using cell position</span></div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>        <span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> cellPosition = getLeafCenter(inLocal-&gt;getCoordinate());</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span> </div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>        <span class="comment">// For all particles in the leaf box</span></div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>        <span class="keyword">const</span> FReal*<span class="keyword">const</span> physicalValues = inParticles-&gt;getPhysicalValues();</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>        <span class="keyword">const</span> FReal*<span class="keyword">const</span> positionsX = inParticles-&gt;getPositions()[0];</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        <span class="keyword">const</span> FReal*<span class="keyword">const</span> positionsY = inParticles-&gt;getPositions()[1];</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>        <span class="keyword">const</span> FReal*<span class="keyword">const</span> positionsZ = inParticles-&gt;getPositions()[2];</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>        FReal*<span class="keyword">const</span> forcesX = inParticles-&gt;getForcesX();</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>        FReal*<span class="keyword">const</span> forcesY = inParticles-&gt;getForcesY();</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        FReal*<span class="keyword">const</span> forcesZ = inParticles-&gt;getForcesZ();</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        FReal*<span class="keyword">const</span> potentials = inParticles-&gt;getPotentials();</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span> </div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>        <span class="keywordflow">for</span>(FSize idxPart = 0 ; idxPart &lt; inParticles-&gt;getNbParticles() ; ++ idxPart){</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>            <span class="comment">// L2P</span></div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> position(positionsX[idxPart],positionsY[idxPart],positionsZ[idxPart]);</div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>            <span class="keyword">const</span> <a class="code hl_class" href="class_f_spherical.html">FSpherical&lt;FReal&gt;</a> sph(position - cellPosition);</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span> </div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>            <span class="comment">// The distance between the SH and the particle</span></div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>            <span class="keyword">const</span> FReal r = sph.<a class="code hl_function" href="class_f_spherical.html#afe70b334deb1d5feae782bda8851056d">getR</a>();</div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span> </div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>            <span class="comment">// Compute the legendre polynomial</span></div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>            FReal legendre[SizeArray];</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>            computeLegendre(legendre, sph.<a class="code hl_function" href="class_f_spherical.html#a7f3ca3427a17cf1b9e114aa1ed7049a3">getCosTheta</a>(), sph.<a class="code hl_function" href="class_f_spherical.html#accff4b45e34fd2b215715563a68a412f">getSinTheta</a>());</div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>            {</div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>                FReal Fr = 0;</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>                FReal FO = 0;</div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>                FReal Fp = 0;</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span> </div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 1 ; l &lt;= P ; ++l){</div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>                    {</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>                        <span class="keyword">const</span> FReal coef = <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),l) * <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(r,l) * legendre[atLm(l,0)] / fact(l+0);</div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>                        <span class="keyword">const</span> FReal I_real = coef * <a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(FReal(0) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[0]);</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>                        <span class="keyword">const</span> FReal I_imag = coef * <a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(FReal(0) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[0]);</div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span> </div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>                        Fr += FReal(l) * (u[atLm(l,0)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>() * I_real - u[atLm(l,0)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>() * I_imag);</div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>                    }</div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>                    {</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>                        <span class="keyword">const</span> FReal coef = (<a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),l)/fact(l+0)) * <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(r,l) * ((FReal(l) * sph.<a class="code hl_function" href="class_f_spherical.html#a7f3ca3427a17cf1b9e114aa1ed7049a3">getCosTheta</a>()*legendre[atLm(l,0)]</div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>                                                  - FReal(l) * legendre[atLm(l-1,0)]) / sph.<a class="code hl_function" href="class_f_spherical.html#accff4b45e34fd2b215715563a68a412f">getSinTheta</a>());</div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>                        <span class="keyword">const</span> FReal dI_real = coef * <a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(FReal(0) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[0 &amp; 0x3]);</div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>                        <span class="keyword">const</span> FReal dI_imag = coef * <a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(FReal(0) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[0 &amp; 0x3]);</div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>                        <span class="comment">// F(O) += 2 * Real(L dI/dO)</span></div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>                        FO += u[atLm(l,0)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>() * dI_real - u[atLm(l,0)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>() * dI_imag;</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>                    }</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span> </div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>                    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> m = 1 ; m &lt;= l ; ++m){</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>                        {</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>                            <span class="keyword">const</span> FReal coef = <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),l) * <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(r,l) * legendre[atLm(l,m)] / fact(l+m);</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>                            <span class="keyword">const</span> FReal I_real = coef * <a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(FReal(m) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[m &amp; 0x3]);</div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>                            <span class="keyword">const</span> FReal I_imag = coef * <a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(FReal(m) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[m &amp; 0x3]);</div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>                            <span class="comment">// F(r) += 2 x l x Real(LI)</span></div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>                            Fr += 2 * FReal(l) * (u[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>() * I_real - u[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>() * I_imag);</div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>                            <span class="comment">// F(p) += -2 x m x Imag(LI)</span></div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>                            Fp -= 2 * FReal(m) * (u[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>() * I_imag + u[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>() * I_real);</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>                        }</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>                        {</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>                            <span class="keyword">const</span> FReal legendre_l_minus_1 = (m == l) ? 0 : FReal(l+m)*legendre[atLm(l-1,m)];</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>                            <span class="keyword">const</span> FReal coef = (<a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),l)/fact(l+m)) * <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(r,l) * ((FReal(l) * sph.<a class="code hl_function" href="class_f_spherical.html#a7f3ca3427a17cf1b9e114aa1ed7049a3">getCosTheta</a>()*legendre[atLm(l,m)]</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>                                                      - legendre_l_minus_1) / sph.<a class="code hl_function" href="class_f_spherical.html#accff4b45e34fd2b215715563a68a412f">getSinTheta</a>());</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>                            <span class="keyword">const</span> FReal dI_real = coef * <a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(FReal(m) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[m &amp; 0x3]);</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>                            <span class="keyword">const</span> FReal dI_imag = coef * <a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(FReal(m) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[m &amp; 0x3]);</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>                            <span class="comment">// F(O) += 2 * Real(L dI/dO)</span></div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>                            FO += FReal(2.0) * (u[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>() * dI_real - u[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>() * dI_imag);</div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>                        }</div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>                    }</div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>                }</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>                <span class="comment">// div by r</span></div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>                Fr /= sph.<a class="code hl_function" href="class_f_spherical.html#afe70b334deb1d5feae782bda8851056d">getR</a>();</div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>                FO /= sph.<a class="code hl_function" href="class_f_spherical.html#afe70b334deb1d5feae782bda8851056d">getR</a>();</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>                Fp /= sph.<a class="code hl_function" href="class_f_spherical.html#afe70b334deb1d5feae782bda8851056d">getR</a>() * sph.<a class="code hl_function" href="class_f_spherical.html#accff4b45e34fd2b215715563a68a412f">getSinTheta</a>();</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span> </div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>                <span class="comment">// copy variable from spherical position</span></div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>                <span class="keyword">const</span> FReal cosPhi     = <a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>());</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>                <span class="keyword">const</span> FReal sinPhi     = <a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>());</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>                <span class="keyword">const</span> FReal physicalValue = physicalValues[idxPart];</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span> </div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>                <span class="comment">// compute forces</span></div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>                <span class="keyword">const</span> FReal forceX = (</div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>                        cosPhi * sph.<a class="code hl_function" href="class_f_spherical.html#accff4b45e34fd2b215715563a68a412f">getSinTheta</a>() * Fr  +</div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>                        cosPhi * sph.<a class="code hl_function" href="class_f_spherical.html#a7f3ca3427a17cf1b9e114aa1ed7049a3">getCosTheta</a>() * FO +</div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>                        (-sinPhi) * Fp) * physicalValue;</div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span> </div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>                <span class="keyword">const</span> FReal forceY = (</div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>                        sinPhi * sph.<a class="code hl_function" href="class_f_spherical.html#accff4b45e34fd2b215715563a68a412f">getSinTheta</a>() * Fr  +</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>                        sinPhi * sph.<a class="code hl_function" href="class_f_spherical.html#a7f3ca3427a17cf1b9e114aa1ed7049a3">getCosTheta</a>() * FO +</div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>                        cosPhi * Fp) * physicalValue;</div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span> </div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>                <span class="keyword">const</span> FReal forceZ = (</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>                        sph.<a class="code hl_function" href="class_f_spherical.html#a7f3ca3427a17cf1b9e114aa1ed7049a3">getCosTheta</a>() * Fr +</div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>                        (-sph.<a class="code hl_function" href="class_f_spherical.html#accff4b45e34fd2b215715563a68a412f">getSinTheta</a>()) * FO) * physicalValue;</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span> </div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>                <span class="comment">// inc particles forces</span></div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>                forcesX[idxPart] += forceX;</div>
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>                forcesY[idxPart] += forceY;</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>                forcesZ[idxPart] += forceZ;</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>            }</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span> </div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>            { <span class="comment">// Result for potential</span></div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>                FReal magnitude = 0;</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>                <span class="comment">// E = sum( l = 0:P, sum(m = -l:l, u{l,m} ))</span></div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> l = 0 ; l &lt;= P ; ++l ){</div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>                    {</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>                        <span class="comment">// (l-|m|)! * P{l,0} / r^(l+1)</span></div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>                        <span class="keyword">const</span> FReal coef = <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),l) * <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(r,l) * legendre[atLm(l,0)] / fact(l+0);</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>                        <span class="keyword">const</span> FReal I_real = coef * <a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(FReal(0) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[0]);</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>                        <span class="keyword">const</span> FReal I_imag = coef * <a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(FReal(0) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[0]);</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>                        magnitude += u[atLm(l,0)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>() * I_real - u[atLm(l,0)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>() * I_imag;</div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>                    }</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>                    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> m = 1 ; m &lt;= l ; ++m ){</div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>                        <span class="keyword">const</span> FReal coef = <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(FReal(-1.0),l) * <a class="code hl_function" href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a>(r,l) * legendre[atLm(l,m)] / fact(l+m);</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>                        <span class="keyword">const</span> FReal I_real = coef * <a class="code hl_function" href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a>(FReal(m) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[m &amp; 0x3]);</div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>                        <span class="keyword">const</span> FReal I_imag = coef * <a class="code hl_function" href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a>(FReal(m) * sph.<a class="code hl_function" href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">getPhi</a>() + i_pow_m[m &amp; 0x3]);</div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>                        magnitude += FReal(2.0) * ( u[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">getReal</a>() * I_real - u[atLm(l,m)].<a class="code hl_function" href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">getImag</a>() * I_imag );</div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>                    }</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>                }</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>                <span class="comment">// inc potential</span></div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>                potentials[idxPart] += magnitude;</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>            }</div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>        }</div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>    }</div>
+</div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span> </div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span> </div>
+<div class="foldopen" id="foldopen00779" data-start="{" data-end="}">
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno"><a class="line" href="class_f_rotation_original_kernel.html#a3475974fb9b04256304f5d48c630b941">  779</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_rotation_original_kernel.html#a3475974fb9b04256304f5d48c630b941">P2P</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_f_tree_coordinate.html">FTreeCoordinate</a>&amp; inPosition,</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>             ContainerClass* <span class="keyword">const</span> FRestrict inTargets, <span class="keyword">const</span> ContainerClass* <span class="keyword">const</span> FRestrict inSources,</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>             ContainerClass* <span class="keyword">const</span> inNeighbors[], <span class="keyword">const</span> <span class="keywordtype">int</span> neighborPositions[],</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>             <span class="keyword">const</span> <span class="keywordtype">int</span> inSize)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>        <span class="keywordflow">if</span>(inTargets == inSources){</div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>            <a class="code hl_struct" href="struct_f_p2_p_r_t.html">FP2PRT&lt;FReal&gt;::template</a> Inner&lt;ContainerClass&gt;(inTargets);</div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>            P2POuter(inPosition, inTargets, inNeighbors, neighborPositions, inSize);</div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>        }</div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>        <span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>            <span class="keyword">const</span> ContainerClass* <span class="keyword">const</span> srcPtr[1] = {inSources};</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>            <a class="code hl_struct" href="struct_f_p2_p_r_t.html">FP2PRT&lt;FReal&gt;::template</a> FullRemote&lt;ContainerClass&gt;(inTargets,srcPtr,1);</div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>            <a class="code hl_struct" href="struct_f_p2_p_r_t.html">FP2PRT&lt;FReal&gt;::template</a> FullRemote&lt;ContainerClass&gt;(inTargets,inNeighbors,inSize);</div>
+<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>        }</div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>    }</div>
+</div>
+<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span> </div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>    <span class="keywordtype">void</span> P2POuter(<span class="keyword">const</span> <a class="code hl_class" href="class_f_tree_coordinate.html">FTreeCoordinate</a>&amp; <span class="comment">/*inLeafPosition*/</span>,</div>
+<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>             ContainerClass* <span class="keyword">const</span> FRestrict inTargets,</div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>             ContainerClass* <span class="keyword">const</span> inNeighbors[], <span class="keyword">const</span> <span class="keywordtype">int</span> neighborPositions[],</div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>             <span class="keyword">const</span> <span class="keywordtype">int</span> inSize)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>        <span class="keywordtype">int</span> nbNeighborsToCompute = 0;</div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>        <span class="keywordflow">while</span>(nbNeighborsToCompute &lt; inSize</div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>              &amp;&amp; neighborPositions[nbNeighborsToCompute] &lt; 14){</div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>            nbNeighborsToCompute += 1;</div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>        }</div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>        <a class="code hl_struct" href="struct_f_p2_p_r_t.html">FP2PRT&lt;FReal&gt;::template</a> FullMutual&lt;ContainerClass&gt;(inTargets,inNeighbors,nbNeighborsToCompute);</div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>    }</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span> </div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span> </div>
+<div class="foldopen" id="foldopen00808" data-start="{" data-end="}">
+<div class="line"><a id="l00808" name="l00808"></a><span class="lineno"><a class="line" href="class_f_rotation_original_kernel.html#a5c56685f988166f20ab3e05b752e2dcd">  808</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_rotation_original_kernel.html#a5c56685f988166f20ab3e05b752e2dcd">P2PRemote</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_f_tree_coordinate.html">FTreeCoordinate</a>&amp; <span class="comment">/*inPosition*/</span>,</div>
+<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span>                   ContainerClass* <span class="keyword">const</span> FRestrict inTargets, <span class="keyword">const</span> ContainerClass* <span class="keyword">const</span> FRestrict <span class="comment">/*inSources*/</span>,</div>
+<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>                   <span class="keyword">const</span> ContainerClass* <span class="keyword">const</span> inNeighbors[], <span class="keyword">const</span> <span class="keywordtype">int</span> neighborPositions[],</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>                   <span class="keyword">const</span> <span class="keywordtype">int</span> inSize)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>        <a class="code hl_struct" href="struct_f_p2_p_r_t.html">FP2PRT&lt;FReal&gt;::template</a> FullRemote&lt;ContainerClass&gt;(inTargets,inNeighbors,inSize);</div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>    }</div>
+</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>};</div>
+</div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span> </div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span> </div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span><span class="preprocessor">#endif </span><span class="comment">// FROTATIONORIGINALKERNEL_HPP</span></div>
+<div class="ttc" id="aclass_f_abstract_kernels_html"><div class="ttname"><a href="class_f_abstract_kernels.html">FAbstractKernels</a></div><div class="ttdoc">This class defines what any kernel has to implement.</div></div>
+<div class="ttc" id="aclass_f_complex_html"><div class="ttname"><a href="class_f_complex.html">FComplex</a></div><div class="ttdef"><b>Definition</b> FComplex.hpp:34</div></div>
+<div class="ttc" id="aclass_f_complex_html_a0a39bf6c1f122ffcfc8da36c13952013"><div class="ttname"><a href="class_f_complex.html#a0a39bf6c1f122ffcfc8da36c13952013">FComplex::setRealImag</a></div><div class="ttdeci">void setRealImag(const FReal inReal, const FReal inImag)</div><div class="ttdef"><b>Definition</b> FComplex.hpp:98</div></div>
+<div class="ttc" id="aclass_f_complex_html_a239af6b36a7a875cf409af96ed286bf8"><div class="ttname"><a href="class_f_complex.html#a239af6b36a7a875cf409af96ed286bf8">FComplex::incReal</a></div><div class="ttdeci">void incReal(const FReal inIncReal)</div><div class="ttdef"><b>Definition</b> FComplex.hpp:147</div></div>
+<div class="ttc" id="aclass_f_complex_html_a33ec217df0f06432eec174977e0c87ff"><div class="ttname"><a href="class_f_complex.html#a33ec217df0f06432eec174977e0c87ff">FComplex::getReal</a></div><div class="ttdeci">FReal getReal() const</div><div class="ttdef"><b>Definition</b> FComplex.hpp:83</div></div>
+<div class="ttc" id="aclass_f_complex_html_a5da751a7b9af375136091cad0bc8e1d9"><div class="ttname"><a href="class_f_complex.html#a5da751a7b9af375136091cad0bc8e1d9">FComplex::incImag</a></div><div class="ttdeci">void incImag(const FReal inIncImag)</div><div class="ttdef"><b>Definition</b> FComplex.hpp:154</div></div>
+<div class="ttc" id="aclass_f_complex_html_ab4db8e82d8c014c17b06089163a3c204"><div class="ttname"><a href="class_f_complex.html#ab4db8e82d8c014c17b06089163a3c204">FComplex::getImag</a></div><div class="ttdeci">FReal getImag() const</div><div class="ttdef"><b>Definition</b> FComplex.hpp:78</div></div>
+<div class="ttc" id="aclass_f_complex_html_ac0243f8ed4c18c1f639b62f0ecc1bf49"><div class="ttname"><a href="class_f_complex.html#ac0243f8ed4c18c1f639b62f0ecc1bf49">FComplex::equalMul</a></div><div class="ttdeci">void equalMul(const FComplex&lt; FReal &gt; &amp;other, const FComplex&lt; FReal &gt; &amp;another)</div><div class="ttdef"><b>Definition</b> FComplex.hpp:214</div></div>
+<div class="ttc" id="aclass_f_point_html"><div class="ttname"><a href="class_f_point.html">FPoint</a></div><div class="ttdef"><b>Definition</b> FPoint.hpp:26</div></div>
+<div class="ttc" id="aclass_f_point_html_a02208d4db50cbafe597adcbfb152b536"><div class="ttname"><a href="class_f_point.html#a02208d4db50cbafe597adcbfb152b536">FPoint::getZ</a></div><div class="ttdeci">FReal getZ() const</div><div class="ttdoc">Get z</div><div class="ttdef"><b>Definition</b> FPoint.hpp:146</div></div>
+<div class="ttc" id="aclass_f_point_html_a58d3859160347552d6a4a94fbdf883c3"><div class="ttname"><a href="class_f_point.html#a58d3859160347552d6a4a94fbdf883c3">FPoint::getX</a></div><div class="ttdeci">FReal getX() const</div><div class="ttdoc">Get x</div><div class="ttdef"><b>Definition</b> FPoint.hpp:130</div></div>
+<div class="ttc" id="aclass_f_point_html_ae4383512b9b8d216775b3fb92325cfc9"><div class="ttname"><a href="class_f_point.html#ae4383512b9b8d216775b3fb92325cfc9">FPoint::getY</a></div><div class="ttdeci">FReal getY() const</div><div class="ttdoc">Get y</div><div class="ttdef"><b>Definition</b> FPoint.hpp:138</div></div>
+<div class="ttc" id="aclass_f_rotation_original_kernel_html"><div class="ttname"><a href="class_f_rotation_original_kernel.html">FRotationOriginalKernel</a></div><div class="ttdoc">This kernels is a complete rotation based kernel with spherical harmonic.</div><div class="ttdef"><b>Definition</b> FRotationOriginalKernel.hpp:38</div></div>
+<div class="ttc" id="aclass_f_rotation_original_kernel_html_a213eb0a57beca6ea85fd0014b9d2f217"><div class="ttname"><a href="class_f_rotation_original_kernel.html#a213eb0a57beca6ea85fd0014b9d2f217">FRotationOriginalKernel::P2M</a></div><div class="ttdeci">void P2M(CellClass *const inPole, const ContainerClass *const inParticles) override</div><div class="ttdef"><b>Definition</b> FRotationOriginalKernel.hpp:432</div></div>
+<div class="ttc" id="aclass_f_rotation_original_kernel_html_a3475974fb9b04256304f5d48c630b941"><div class="ttname"><a href="class_f_rotation_original_kernel.html#a3475974fb9b04256304f5d48c630b941">FRotationOriginalKernel::P2P</a></div><div class="ttdeci">void P2P(const FTreeCoordinate &amp;inPosition, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict inSources, ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</div><div class="ttdef"><b>Definition</b> FRotationOriginalKernel.hpp:779</div></div>
+<div class="ttc" id="aclass_f_rotation_original_kernel_html_a4657a3435e6e2232d33f5af5c4205628"><div class="ttname"><a href="class_f_rotation_original_kernel.html#a4657a3435e6e2232d33f5af5c4205628">FRotationOriginalKernel::M2M</a></div><div class="ttdeci">void M2M(CellClass *const FRestrict inPole, const CellClass *const FRestrict *const FRestrict inChildren, const int inLevel) override</div><div class="ttdef"><b>Definition</b> FRotationOriginalKernel.hpp:485</div></div>
+<div class="ttc" id="aclass_f_rotation_original_kernel_html_a5c56685f988166f20ab3e05b752e2dcd"><div class="ttname"><a href="class_f_rotation_original_kernel.html#a5c56685f988166f20ab3e05b752e2dcd">FRotationOriginalKernel::P2PRemote</a></div><div class="ttdeci">void P2PRemote(const FTreeCoordinate &amp;, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict, const ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</div><div class="ttdef"><b>Definition</b> FRotationOriginalKernel.hpp:808</div></div>
+<div class="ttc" id="aclass_f_rotation_original_kernel_html_a735ac75069992ffd47e9c18b542a1058"><div class="ttname"><a href="class_f_rotation_original_kernel.html#a735ac75069992ffd47e9c18b542a1058">FRotationOriginalKernel::M2L</a></div><div class="ttdeci">void M2L(CellClass *const FRestrict inLocal, const CellClass *inInteractions[], const int neighborPositions[], const int inSize, const int inLevel) override</div><div class="ttdef"><b>Definition</b> FRotationOriginalKernel.hpp:536</div></div>
+<div class="ttc" id="aclass_f_rotation_original_kernel_html_a799aee24353a10ab4bef526f3faccedf"><div class="ttname"><a href="class_f_rotation_original_kernel.html#a799aee24353a10ab4bef526f3faccedf">FRotationOriginalKernel::FRotationOriginalKernel</a></div><div class="ttdeci">FRotationOriginalKernel(const int inTreeHeight, const FReal inBoxWidth, const FPoint&lt; FReal &gt; &amp;inBoxCenter)</div><div class="ttdef"><b>Definition</b> FRotationOriginalKernel.hpp:409</div></div>
+<div class="ttc" id="aclass_f_rotation_original_kernel_html_ac8285fe51680063061b68fd16e2d6e6a"><div class="ttname"><a href="class_f_rotation_original_kernel.html#ac8285fe51680063061b68fd16e2d6e6a">FRotationOriginalKernel::~FRotationOriginalKernel</a></div><div class="ttdeci">virtual ~FRotationOriginalKernel()</div><div class="ttdef"><b>Definition</b> FRotationOriginalKernel.hpp:421</div></div>
+<div class="ttc" id="aclass_f_rotation_original_kernel_html_ae303a3929d3ebf29c386241cba3b7e1d"><div class="ttname"><a href="class_f_rotation_original_kernel.html#ae303a3929d3ebf29c386241cba3b7e1d">FRotationOriginalKernel::L2P</a></div><div class="ttdeci">void L2P(const CellClass *const inLocal, ContainerClass *const inParticles) override</div><div class="ttdef"><b>Definition</b> FRotationOriginalKernel.hpp:645</div></div>
+<div class="ttc" id="aclass_f_rotation_original_kernel_html_aecb8098cddbb2facc14cb14060011a94"><div class="ttname"><a href="class_f_rotation_original_kernel.html#aecb8098cddbb2facc14cb14060011a94">FRotationOriginalKernel::L2L</a></div><div class="ttdeci">void L2L(const CellClass *const FRestrict inLocal, CellClass *FRestrict *const FRestrict inChildren, const int inLevel) override</div><div class="ttdef"><b>Definition</b> FRotationOriginalKernel.hpp:587</div></div>
+<div class="ttc" id="aclass_f_smart_pointer_html"><div class="ttname"><a href="class_f_smart_pointer.html">FSmartPointer</a></div><div class="ttdef"><b>Definition</b> FSmartPointer.hpp:26</div></div>
+<div class="ttc" id="aclass_f_spherical_html"><div class="ttname"><a href="class_f_spherical.html">FSpherical</a></div><div class="ttdoc">Spherical coordinate system</div><div class="ttdef"><b>Definition</b> FSpherical.hpp:41</div></div>
+<div class="ttc" id="aclass_f_spherical_html_a142b6af5616618a154c76983acdab34f"><div class="ttname"><a href="class_f_spherical.html#a142b6af5616618a154c76983acdab34f">FSpherical::getInclination</a></div><div class="ttdeci">FReal getInclination() const</div><div class="ttdef"><b>Definition</b> FSpherical.hpp:83</div></div>
+<div class="ttc" id="aclass_f_spherical_html_a7f3ca3427a17cf1b9e114aa1ed7049a3"><div class="ttname"><a href="class_f_spherical.html#a7f3ca3427a17cf1b9e114aa1ed7049a3">FSpherical::getCosTheta</a></div><div class="ttdeci">FReal getCosTheta() const</div><div class="ttdef"><b>Definition</b> FSpherical.hpp:92</div></div>
+<div class="ttc" id="aclass_f_spherical_html_ac47e9ee1557ed6e700cc985c9031a02b"><div class="ttname"><a href="class_f_spherical.html#ac47e9ee1557ed6e700cc985c9031a02b">FSpherical::getPhiZero2Pi</a></div><div class="ttdeci">FReal getPhiZero2Pi() const</div><div class="ttdef"><b>Definition</b> FSpherical.hpp:87</div></div>
+<div class="ttc" id="aclass_f_spherical_html_accff4b45e34fd2b215715563a68a412f"><div class="ttname"><a href="class_f_spherical.html#accff4b45e34fd2b215715563a68a412f">FSpherical::getSinTheta</a></div><div class="ttdeci">FReal getSinTheta() const</div><div class="ttdef"><b>Definition</b> FSpherical.hpp:97</div></div>
+<div class="ttc" id="aclass_f_spherical_html_adf0db5a2f069c50c9c55be96457dd41d"><div class="ttname"><a href="class_f_spherical.html#adf0db5a2f069c50c9c55be96457dd41d">FSpherical::getPhi</a></div><div class="ttdeci">FReal getPhi() const</div><div class="ttdef"><b>Definition</b> FSpherical.hpp:78</div></div>
+<div class="ttc" id="aclass_f_spherical_html_afe70b334deb1d5feae782bda8851056d"><div class="ttname"><a href="class_f_spherical.html#afe70b334deb1d5feae782bda8851056d">FSpherical::getR</a></div><div class="ttdeci">FReal getR() const</div><div class="ttdef"><b>Definition</b> FSpherical.hpp:69</div></div>
+<div class="ttc" id="aclass_f_tree_coordinate_html"><div class="ttname"><a href="class_f_tree_coordinate.html">FTreeCoordinate</a></div><div class="ttdef"><b>Definition</b> FTreeCoordinate.hpp:23</div></div>
+<div class="ttc" id="anamespace_f_mem_utils_html_a5120d91235543eec7ee0ff0fc4bccebe"><div class="ttname"><a href="namespace_f_mem_utils.html#a5120d91235543eec7ee0ff0fc4bccebe">FMemUtils::addall</a></div><div class="ttdeci">void addall(TypeClass *dest, const TypeClass *source, int nbElements)</div><div class="ttdef"><b>Definition</b> FMemUtils.hpp:67</div></div>
+<div class="ttc" id="anamespace_f_mem_utils_html_a85a4b506a3e71e70cfb0c4e38320182e"><div class="ttname"><a href="namespace_f_mem_utils.html#a85a4b506a3e71e70cfb0c4e38320182e">FMemUtils::copyall</a></div><div class="ttdeci">void copyall(TypeClass *dest, const TypeClass *source, int nbElements)</div><div class="ttdef"><b>Definition</b> FMemUtils.hpp:59</div></div>
+<div class="ttc" id="astruct_f_math_html_a2494d4d6618d79e61324a0dfa372855f"><div class="ttname"><a href="struct_f_math.html#a2494d4d6618d79e61324a0dfa372855f">FMath::Sqrt</a></div><div class="ttdeci">static float Sqrt(const float inValue)</div><div class="ttdef"><b>Definition</b> FMath.hpp:301</div></div>
+<div class="ttc" id="astruct_f_math_html_a29fd39b5d729c7e4118b4559548f5d1f"><div class="ttname"><a href="struct_f_math.html#a29fd39b5d729c7e4118b4559548f5d1f">FMath::pow</a></div><div class="ttdeci">static double pow(double x, double y)</div><div class="ttdef"><b>Definition</b> FMath.hpp:218</div></div>
+<div class="ttc" id="astruct_f_math_html_a43635af3d44bb1868015681ce994df7b"><div class="ttname"><a href="struct_f_math.html#a43635af3d44bb1868015681ce994df7b">FMath::Min</a></div><div class="ttdeci">static NumType Min(const NumType inV1, const NumType inV2)</div><div class="ttdef"><b>Definition</b> FMath.hpp:82</div></div>
+<div class="ttc" id="astruct_f_math_html_a5bdcccf9bf4d10eee66f711044904ace"><div class="ttname"><a href="struct_f_math.html#a5bdcccf9bf4d10eee66f711044904ace">FMath::Sin</a></div><div class="ttdeci">static float Sin(const float inValue)</div><div class="ttdef"><b>Definition</b> FMath.hpp:450</div></div>
+<div class="ttc" id="astruct_f_math_html_a914d36d095fd8cd600ec18e932664fe3"><div class="ttname"><a href="struct_f_math.html#a914d36d095fd8cd600ec18e932664fe3">FMath::Cos</a></div><div class="ttdeci">static float Cos(const float inValue)</div><div class="ttdef"><b>Definition</b> FMath.hpp:467</div></div>
+<div class="ttc" id="astruct_f_math_html_ac005cd270abc850853ba71d1e38a2f28"><div class="ttname"><a href="struct_f_math.html#ac005cd270abc850853ba71d1e38a2f28">FMath::Abs</a></div><div class="ttdeci">static NumType Abs(const NumType inV)</div><div class="ttdef"><b>Definition</b> FMath.hpp:40</div></div>
+<div class="ttc" id="astruct_f_math_html_ada359f2b021ce4b999c0fd7a6e9daae6"><div class="ttname"><a href="struct_f_math.html#ada359f2b021ce4b999c0fd7a6e9daae6">FMath::Max</a></div><div class="ttdeci">static NumType Max(const NumType inV1, const NumType inV2)</div><div class="ttdef"><b>Definition</b> FMath.hpp:76</div></div>
+<div class="ttc" id="astruct_f_p2_p_r_t_html"><div class="ttname"><a href="struct_f_p2_p_r_t.html">FP2PRT</a></div><div class="ttdef"><b>Definition</b> FP2PR.hpp:311</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

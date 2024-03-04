@@ -1,0 +1,523 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FMpiBufferReader类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="class_f_mpi_buffer_reader-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FMpiBufferReader类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_mpi_buffer_reader_8hpp_source.html">FMpiBufferReader.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FMpiBufferReader 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_mpi_buffer_reader.png" usemap="#FMpiBufferReader_map" alt=""/>
+  <map id="FMpiBufferReader_map" name="FMpiBufferReader_map">
+<area href="class_f_abstract_buffer_reader.html" title="The FAbstractBufferReader class defines what is an abstract buffer reader. The buffer used by the mpi..." alt="FAbstractBufferReader" shape="rect" coords="0,0,143,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a424114af7f37ab92f21bc9b3ce07c12d" id="r_a424114af7f37ab92f21bc9b3ce07c12d"><td class="memItemLeft" align="right" valign="top"><a id="a424114af7f37ab92f21bc9b3ce07c12d" name="a424114af7f37ab92f21bc9b3ce07c12d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FMpiBufferReader</b> (const FSize inDefaultCapacity=512)</td></tr>
+<tr class="separator:a424114af7f37ab92f21bc9b3ce07c12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acba450343ec567400e8d466337cb9db3" id="r_acba450343ec567400e8d466337cb9db3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acba450343ec567400e8d466337cb9db3">cleanAndResize</a> (const FSize newCapacity)</td></tr>
+<tr class="separator:acba450343ec567400e8d466337cb9db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab04131d01b5b5ff380b967b3b4068805" id="r_ab04131d01b5b5ff380b967b3b4068805"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab04131d01b5b5ff380b967b3b4068805">~FMpiBufferReader</a> ()</td></tr>
+<tr class="separator:ab04131d01b5b5ff380b967b3b4068805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafcbe5cbd8a2e8434426959b4aba2c97" id="r_aafcbe5cbd8a2e8434426959b4aba2c97"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafcbe5cbd8a2e8434426959b4aba2c97">data</a> () override</td></tr>
+<tr class="separator:aafcbe5cbd8a2e8434426959b4aba2c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85189ddcadd5e24c63b80614927f00a9" id="r_a85189ddcadd5e24c63b80614927f00a9"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85189ddcadd5e24c63b80614927f00a9">data</a> () const override</td></tr>
+<tr class="separator:a85189ddcadd5e24c63b80614927f00a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf7be319a03927f87c977d858a0e3ab4" id="r_abf7be319a03927f87c977d858a0e3ab4"><td class="memItemLeft" align="right" valign="top">FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf7be319a03927f87c977d858a0e3ab4">getSize</a> () const override</td></tr>
+<tr class="separator:abf7be319a03927f87c977d858a0e3ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96e01fc77c8c5aab78772de5d69e18ad" id="r_a96e01fc77c8c5aab78772de5d69e18ad"><td class="memItemLeft" align="right" valign="top">FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96e01fc77c8c5aab78772de5d69e18ad">getCapacity</a> () const</td></tr>
+<tr class="separator:a96e01fc77c8c5aab78772de5d69e18ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ea55066fda1b31f13c1c175b39f1f64" id="r_a9ea55066fda1b31f13c1c175b39f1f64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ea55066fda1b31f13c1c175b39f1f64">seek</a> (const FSize inIndex) override</td></tr>
+<tr class="separator:a9ea55066fda1b31f13c1c175b39f1f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a5cef9b49b77fb16da9427d608f06ee" id="r_a5a5cef9b49b77fb16da9427d608f06ee"><td class="memItemLeft" align="right" valign="top">FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a5cef9b49b77fb16da9427d608f06ee">tell</a> () const override</td></tr>
+<tr class="separator:a5a5cef9b49b77fb16da9427d608f06ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01aad3fc19caaa54f3ef538184a7a6bf" id="r_a01aad3fc19caaa54f3ef538184a7a6bf"><td class="memTemplParams" colspan="2">template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:a01aad3fc19caaa54f3ef538184a7a6bf"><td class="memTemplItemLeft" align="right" valign="top">ClassType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a01aad3fc19caaa54f3ef538184a7a6bf">getValue</a> ()</td></tr>
+<tr class="separator:a01aad3fc19caaa54f3ef538184a7a6bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4112e8b58a9d5eca875d8e16e1c1846d" id="r_a4112e8b58a9d5eca875d8e16e1c1846d"><td class="memTemplParams" colspan="2">template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:a4112e8b58a9d5eca875d8e16e1c1846d"><td class="memTemplItemLeft" align="right" valign="top">ClassType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a4112e8b58a9d5eca875d8e16e1c1846d">getValue</a> (const FSize ind)</td></tr>
+<tr class="separator:a4112e8b58a9d5eca875d8e16e1c1846d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac35e6aabde2ab5006d8e7cdf6043266f" id="r_ac35e6aabde2ab5006d8e7cdf6043266f"><td class="memTemplParams" colspan="2">template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:ac35e6aabde2ab5006d8e7cdf6043266f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ac35e6aabde2ab5006d8e7cdf6043266f">fillValue</a> (ClassType *const inValue)</td></tr>
+<tr class="separator:ac35e6aabde2ab5006d8e7cdf6043266f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a707b91dbdbb37f3e59fd014906d5905e" id="r_a707b91dbdbb37f3e59fd014906d5905e"><td class="memTemplParams" colspan="2">template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:a707b91dbdbb37f3e59fd014906d5905e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a707b91dbdbb37f3e59fd014906d5905e">fillArray</a> (ClassType *const inArray, const FSize inSize)</td></tr>
+<tr class="separator:a707b91dbdbb37f3e59fd014906d5905e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed9d711aee6e2fb015b2993f0247c7a0" id="r_aed9d711aee6e2fb015b2993f0247c7a0"><td class="memTemplParams" colspan="2">template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:aed9d711aee6e2fb015b2993f0247c7a0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_mpi_buffer_reader.html">FMpiBufferReader</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aed9d711aee6e2fb015b2993f0247c7a0">operator&gt;&gt;</a> (ClassType &amp;object)</td></tr>
+<tr class="separator:aed9d711aee6e2fb015b2993f0247c7a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_f_abstract_buffer_reader"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_f_abstract_buffer_reader')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="class_f_abstract_buffer_reader.html">FAbstractBufferReader</a></td></tr>
+<tr class="memitem:a119b7fa232273fe12afcf06e3a64a4cf inherit pub_methods_class_f_abstract_buffer_reader" id="r_a119b7fa232273fe12afcf06e3a64a4cf"><td class="memTemplParams" colspan="2">
+template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:a119b7fa232273fe12afcf06e3a64a4cf inherit pub_methods_class_f_abstract_buffer_reader"><td class="memTemplItemLeft" align="right" valign="top">ClassType&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getValue</b> ()</td></tr>
+<tr class="separator:a119b7fa232273fe12afcf06e3a64a4cf inherit pub_methods_class_f_abstract_buffer_reader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3135b3306d8307b4a416f8a5114b59f inherit pub_methods_class_f_abstract_buffer_reader" id="r_ac3135b3306d8307b4a416f8a5114b59f"><td class="memTemplParams" colspan="2">
+template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:ac3135b3306d8307b4a416f8a5114b59f inherit pub_methods_class_f_abstract_buffer_reader"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>fillValue</b> (ClassType *const)</td></tr>
+<tr class="separator:ac3135b3306d8307b4a416f8a5114b59f inherit pub_methods_class_f_abstract_buffer_reader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a703d5e6e030a85389e2b6c74e8f9c703 inherit pub_methods_class_f_abstract_buffer_reader" id="r_a703d5e6e030a85389e2b6c74e8f9c703"><td class="memTemplParams" colspan="2">
+template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:a703d5e6e030a85389e2b6c74e8f9c703 inherit pub_methods_class_f_abstract_buffer_reader"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>fillArray</b> (ClassType *const, const FSize)</td></tr>
+<tr class="separator:a703d5e6e030a85389e2b6c74e8f9c703 inherit pub_methods_class_f_abstract_buffer_reader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79ae92511f36072f2446a3757aff41a8 inherit pub_methods_class_f_abstract_buffer_reader" id="r_a79ae92511f36072f2446a3757aff41a8"><td class="memTemplParams" colspan="2">
+template&lt;class ClassType &gt; </td></tr>
+<tr class="memitem:a79ae92511f36072f2446a3757aff41a8 inherit pub_methods_class_f_abstract_buffer_reader"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_abstract_buffer_reader.html">FAbstractBufferReader</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator&gt;&gt;</b> (ClassType &amp;)</td></tr>
+<tr class="separator:a79ae92511f36072f2446a3757aff41a8 inherit pub_methods_class_f_abstract_buffer_reader"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><dl class="section author"><dt>作者</dt><dd>Cyrille Piacibello, Berenger Bramas This class provide the same features as <a class="el" href="class_f_buffer_writer.html">FBufferWriter</a></dd></dl>
+<p>Put some data then insert back if needed finally use data pointer as you like </p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="ab04131d01b5b5ff380b967b3b4068805" name="ab04131d01b5b5ff380b967b3b4068805"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab04131d01b5b5ff380b967b3b4068805">&#9670;&#160;</a></span>~FMpiBufferReader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual FMpiBufferReader::~FMpiBufferReader </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Destructor </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="acba450343ec567400e8d466337cb9db3" name="acba450343ec567400e8d466337cb9db3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acba450343ec567400e8d466337cb9db3">&#9670;&#160;</a></span>cleanAndResize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FMpiBufferReader::cleanAndResize </td>
+          <td>(</td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>newCapacity</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To change the capacity (but reset the head to 0) </p>
+
+</div>
+</div>
+<a id="a85189ddcadd5e24c63b80614927f00a9" name="a85189ddcadd5e24c63b80614927f00a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85189ddcadd5e24c63b80614927f00a9">&#9670;&#160;</a></span>data() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * FMpiBufferReader::data </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get allocated memory pointer </p>
+
+<p>实现了 <a class="el" href="class_f_abstract_buffer_reader.html">FAbstractBufferReader</a>.</p>
+
+</div>
+</div>
+<a id="aafcbe5cbd8a2e8434426959b4aba2c97" name="aafcbe5cbd8a2e8434426959b4aba2c97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafcbe5cbd8a2e8434426959b4aba2c97">&#9670;&#160;</a></span>data() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * FMpiBufferReader::data </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get allocated memory pointer </p>
+
+<p>实现了 <a class="el" href="class_f_abstract_buffer_reader.html">FAbstractBufferReader</a>.</p>
+
+</div>
+</div>
+<a id="a707b91dbdbb37f3e59fd014906d5905e" name="a707b91dbdbb37f3e59fd014906d5905e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a707b91dbdbb37f3e59fd014906d5905e">&#9670;&#160;</a></span>fillArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class ClassType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FMpiBufferReader::fillArray </td>
+          <td>(</td>
+          <td class="paramtype">ClassType *const</td>          <td class="paramname"><span class="paramname"><em>inArray</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Fill one/many value(s) with memcpy </p>
+
+</div>
+</div>
+<a id="ac35e6aabde2ab5006d8e7cdf6043266f" name="ac35e6aabde2ab5006d8e7cdf6043266f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac35e6aabde2ab5006d8e7cdf6043266f">&#9670;&#160;</a></span>fillValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class ClassType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FMpiBufferReader::fillValue </td>
+          <td>(</td>
+          <td class="paramtype">ClassType *const</td>          <td class="paramname"><span class="paramname"><em>inValue</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Fill a value with memory cast </p>
+
+</div>
+</div>
+<a id="a96e01fc77c8c5aab78772de5d69e18ad" name="a96e01fc77c8c5aab78772de5d69e18ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96e01fc77c8c5aab78772de5d69e18ad">&#9670;&#160;</a></span>getCapacity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FSize FMpiBufferReader::getCapacity </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Size of the memory initialized </p>
+
+</div>
+</div>
+<a id="abf7be319a03927f87c977d858a0e3ab4" name="abf7be319a03927f87c977d858a0e3ab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf7be319a03927f87c977d858a0e3ab4">&#9670;&#160;</a></span>getSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FSize FMpiBufferReader::getSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>get the filled space </p>
+
+<p>实现了 <a class="el" href="class_f_abstract_buffer_reader.html">FAbstractBufferReader</a>.</p>
+
+</div>
+</div>
+<a id="a01aad3fc19caaa54f3ef538184a7a6bf" name="a01aad3fc19caaa54f3ef538184a7a6bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01aad3fc19caaa54f3ef538184a7a6bf">&#9670;&#160;</a></span>getValue() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class ClassType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ClassType FMpiBufferReader::getValue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get a value with memory cast </p>
+
+</div>
+</div>
+<a id="a4112e8b58a9d5eca875d8e16e1c1846d" name="a4112e8b58a9d5eca875d8e16e1c1846d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4112e8b58a9d5eca875d8e16e1c1846d">&#9670;&#160;</a></span>getValue() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class ClassType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ClassType FMpiBufferReader::getValue </td>
+          <td>(</td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>ind</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get a value with memory cast at a specified index </p>
+
+</div>
+</div>
+<a id="aed9d711aee6e2fb015b2993f0247c7a0" name="aed9d711aee6e2fb015b2993f0247c7a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed9d711aee6e2fb015b2993f0247c7a0">&#9670;&#160;</a></span>operator&gt;&gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class ClassType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_mpi_buffer_reader.html">FMpiBufferReader</a> &amp; FMpiBufferReader::operator&gt;&gt; </td>
+          <td>(</td>
+          <td class="paramtype">ClassType &amp;</td>          <td class="paramname"><span class="paramname"><em>object</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Same as fillValue </p>
+
+</div>
+</div>
+<a id="a9ea55066fda1b31f13c1c175b39f1f64" name="a9ea55066fda1b31f13c1c175b39f1f64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ea55066fda1b31f13c1c175b39f1f64">&#9670;&#160;</a></span>seek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FMpiBufferReader::seek </td>
+          <td>(</td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>inIndex</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Move the read index to a position </p>
+
+<p>实现了 <a class="el" href="class_f_abstract_buffer_reader.html">FAbstractBufferReader</a>.</p>
+
+</div>
+</div>
+<a id="a5a5cef9b49b77fb16da9427d608f06ee" name="a5a5cef9b49b77fb16da9427d608f06ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a5cef9b49b77fb16da9427d608f06ee">&#9670;&#160;</a></span>tell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FSize FMpiBufferReader::tell </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the read position </p>
+
+<p>实现了 <a class="el" href="class_f_abstract_buffer_reader.html">FAbstractBufferReader</a>.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Containers/<a class="el" href="_f_mpi_buffer_reader_8hpp_source.html">FMpiBufferReader.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

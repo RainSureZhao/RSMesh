@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::isosurface::rmt_node类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><a class="el" href="namespacersmesh_1_1isosurface.html">isosurface</a></li><li class="navelem"><a class="el" href="classrsmesh_1_1isosurface_1_1rmt__node.html">rmt_node</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classrsmesh_1_1isosurface_1_1rmt__node-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::isosurface::rmt_node类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a901eaa3bb3958de655bc1f956c4165e9" id="r_a901eaa3bb3958de655bc1f956c4165e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a901eaa3bb3958de655bc1f956c4165e9">rmt_node</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">geometry::point3d</a> &amp;position)</td></tr>
+<tr class="separator:a901eaa3bb3958de655bc1f956c4165e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac641a89e261c0d3ba3160c0872812a77" id="r_ac641a89e261c0d3ba3160c0872812a77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac641a89e261c0d3ba3160c0872812a77">cluster</a> (std::vector&lt; <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">geometry::point3d</a> &gt; &amp;vertices, std::unordered_map&lt; vertex_index, vertex_index &gt; &amp;cluster_map) const</td></tr>
+<tr class="separator:ac641a89e261c0d3ba3160c0872812a77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6f639005899a94fe13720c213873730" id="r_ab6f639005899a94fe13720c213873730"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6f639005899a94fe13720c213873730">has_intersection</a> (edge_index edge_idx) const</td></tr>
+<tr class="separator:ab6f639005899a94fe13720c213873730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacba196ce5b5942d9b3c9a9d08183cab" id="r_aacba196ce5b5942d9b3c9a9d08183cab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aacba196ce5b5942d9b3c9a9d08183cab">has_neighbor</a> (edge_index edge) const</td></tr>
+<tr class="separator:aacba196ce5b5942d9b3c9a9d08183cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f669ef4615eeadf24b6ba68c1fcec86" id="r_a6f669ef4615eeadf24b6ba68c1fcec86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f669ef4615eeadf24b6ba68c1fcec86">insert_vertex</a> (vertex_index vi, edge_index edge_idx)</td></tr>
+<tr class="separator:a6f669ef4615eeadf24b6ba68c1fcec86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3253f0fd97ab473a3677a4c109d80709" id="r_a3253f0fd97ab473a3677a4c109d80709"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3253f0fd97ab473a3677a4c109d80709">is_free</a> () const</td></tr>
+<tr class="separator:a3253f0fd97ab473a3677a4c109d80709"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3f0d6cbb6f175ad8a6ae6cbeffae821" id="r_ae3f0d6cbb6f175ad8a6ae6cbeffae821"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrsmesh_1_1isosurface_1_1rmt__node.html">rmt_node</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3f0d6cbb6f175ad8a6ae6cbeffae821">neighbor</a> (edge_index edge)</td></tr>
+<tr class="separator:ae3f0d6cbb6f175ad8a6ae6cbeffae821"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a348db300d9d6c100ee6e6ea02e4a3ca7" id="r_a348db300d9d6c100ee6e6ea02e4a3ca7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classrsmesh_1_1isosurface_1_1rmt__node.html">rmt_node</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a348db300d9d6c100ee6e6ea02e4a3ca7">neighbor</a> (edge_index edge) const</td></tr>
+<tr class="separator:a348db300d9d6c100ee6e6ea02e4a3ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9deb66120109107f325711c9e3aa31d" id="r_ae9deb66120109107f325711c9e3aa31d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">geometry::point3d</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9deb66120109107f325711c9e3aa31d">position</a> () const</td></tr>
+<tr class="separator:ae9deb66120109107f325711c9e3aa31d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa48494d6eff173ec94a9e51d903e6bb1" id="r_aa48494d6eff173ec94a9e51d903e6bb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa48494d6eff173ec94a9e51d903e6bb1">set_intersection</a> (edge_index edge_idx)</td></tr>
+<tr class="separator:aa48494d6eff173ec94a9e51d903e6bb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e6eae8fc24400bbed1697ce0a9fe513" id="r_a9e6eae8fc24400bbed1697ce0a9fe513"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e6eae8fc24400bbed1697ce0a9fe513">set_neighbors</a> (std::unique_ptr&lt; std::array&lt; <a class="el" href="classrsmesh_1_1isosurface_1_1rmt__node.html">rmt_node</a> *, 14 &gt; &gt; neighbors)</td></tr>
+<tr class="separator:a9e6eae8fc24400bbed1697ce0a9fe513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2699dc3280e6357a2aa035a7896e19b2" id="r_a2699dc3280e6357a2aa035a7896e19b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2699dc3280e6357a2aa035a7896e19b2">set_value</a> (double value)</td></tr>
+<tr class="separator:a2699dc3280e6357a2aa035a7896e19b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa73ce7bd0e1d49b17a3e23354a252a57" id="r_aa73ce7bd0e1d49b17a3e23354a252a57"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa73ce7bd0e1d49b17a3e23354a252a57">value</a> () const</td></tr>
+<tr class="separator:aa73ce7bd0e1d49b17a3e23354a252a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad31276d704534475b42a178212f986c4" id="r_ad31276d704534475b42a178212f986c4"><td class="memItemLeft" align="right" valign="top">binary_sign&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad31276d704534475b42a178212f986c4">value_sign</a> () const</td></tr>
+<tr class="separator:ad31276d704534475b42a178212f986c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af41b51b79944241c78e1abc8b2d7fbea" id="r_af41b51b79944241c78e1abc8b2d7fbea"><td class="memItemLeft" align="right" valign="top">vertex_index&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af41b51b79944241c78e1abc8b2d7fbea">vertex_on_edge</a> (edge_index edge_idx) const</td></tr>
+<tr class="separator:af41b51b79944241c78e1abc8b2d7fbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00037">37</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a901eaa3bb3958de655bc1f956c4165e9" name="a901eaa3bb3958de655bc1f956c4165e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a901eaa3bb3958de655bc1f956c4165e9">&#9670;&#160;</a></span>rmt_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::isosurface::rmt_node::rmt_node </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">geometry::point3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00070">70</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="ac641a89e261c0d3ba3160c0872812a77" name="ac641a89e261c0d3ba3160c0872812a77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac641a89e261c0d3ba3160c0872812a77">&#9670;&#160;</a></span>cluster()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::isosurface::rmt_node::cluster </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">geometry::point3d</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>vertices</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; vertex_index, vertex_index &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>cluster_map</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00072">72</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ab6f639005899a94fe13720c213873730" name="ab6f639005899a94fe13720c213873730"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6f639005899a94fe13720c213873730">&#9670;&#160;</a></span>has_intersection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rsmesh::isosurface::rmt_node::has_intersection </td>
+          <td>(</td>
+          <td class="paramtype">edge_index</td>          <td class="paramname"><span class="paramname"><em>edge_idx</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00099">99</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aacba196ce5b5942d9b3c9a9d08183cab" name="aacba196ce5b5942d9b3c9a9d08183cab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacba196ce5b5942d9b3c9a9d08183cab">&#9670;&#160;</a></span>has_neighbor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rsmesh::isosurface::rmt_node::has_neighbor </td>
+          <td>(</td>
+          <td class="paramtype">edge_index</td>          <td class="paramname"><span class="paramname"><em>edge</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00104">104</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a6f669ef4615eeadf24b6ba68c1fcec86" name="a6f669ef4615eeadf24b6ba68c1fcec86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f669ef4615eeadf24b6ba68c1fcec86">&#9670;&#160;</a></span>insert_vertex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::isosurface::rmt_node::insert_vertex </td>
+          <td>(</td>
+          <td class="paramtype">vertex_index</td>          <td class="paramname"><span class="paramname"><em>vi</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">edge_index</td>          <td class="paramname"><span class="paramname"><em>edge_idx</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00106">106</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a3253f0fd97ab473a3677a4c109d80709" name="a3253f0fd97ab473a3677a4c109d80709"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3253f0fd97ab473a3677a4c109d80709">&#9670;&#160;</a></span>is_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rsmesh::isosurface::rmt_node::is_free </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00124">124</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ae3f0d6cbb6f175ad8a6ae6cbeffae821" name="ae3f0d6cbb6f175ad8a6ae6cbeffae821"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3f0d6cbb6f175ad8a6ae6cbeffae821">&#9670;&#160;</a></span>neighbor() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrsmesh_1_1isosurface_1_1rmt__node.html">rmt_node</a> &amp; rsmesh::isosurface::rmt_node::neighbor </td>
+          <td>(</td>
+          <td class="paramtype">edge_index</td>          <td class="paramname"><span class="paramname"><em>edge</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00126">126</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a348db300d9d6c100ee6e6ea02e4a3ca7" name="a348db300d9d6c100ee6e6ea02e4a3ca7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a348db300d9d6c100ee6e6ea02e4a3ca7">&#9670;&#160;</a></span>neighbor() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classrsmesh_1_1isosurface_1_1rmt__node.html">rmt_node</a> &amp; rsmesh::isosurface::rmt_node::neighbor </td>
+          <td>(</td>
+          <td class="paramtype">edge_index</td>          <td class="paramname"><span class="paramname"><em>edge</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00131">131</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ae9deb66120109107f325711c9e3aa31d" name="ae9deb66120109107f325711c9e3aa31d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9deb66120109107f325711c9e3aa31d">&#9670;&#160;</a></span>position()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">geometry::point3d</a> &amp; rsmesh::isosurface::rmt_node::position </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00136">136</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aa48494d6eff173ec94a9e51d903e6bb1" name="aa48494d6eff173ec94a9e51d903e6bb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa48494d6eff173ec94a9e51d903e6bb1">&#9670;&#160;</a></span>set_intersection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::isosurface::rmt_node::set_intersection </td>
+          <td>(</td>
+          <td class="paramtype">edge_index</td>          <td class="paramname"><span class="paramname"><em>edge_idx</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00138">138</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a9e6eae8fc24400bbed1697ce0a9fe513" name="a9e6eae8fc24400bbed1697ce0a9fe513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e6eae8fc24400bbed1697ce0a9fe513">&#9670;&#160;</a></span>set_neighbors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::isosurface::rmt_node::set_neighbors </td>
+          <td>(</td>
+          <td class="paramtype">std::unique_ptr&lt; std::array&lt; <a class="el" href="classrsmesh_1_1isosurface_1_1rmt__node.html">rmt_node</a> *, 14 &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>neighbors</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00144">144</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a2699dc3280e6357a2aa035a7896e19b2" name="a2699dc3280e6357a2aa035a7896e19b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2699dc3280e6357a2aa035a7896e19b2">&#9670;&#160;</a></span>set_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::isosurface::rmt_node::set_value </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00148">148</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aa73ce7bd0e1d49b17a3e23354a252a57" name="aa73ce7bd0e1d49b17a3e23354a252a57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa73ce7bd0e1d49b17a3e23354a252a57">&#9670;&#160;</a></span>value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double rsmesh::isosurface::rmt_node::value </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00153">153</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad31276d704534475b42a178212f986c4" name="ad31276d704534475b42a178212f986c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad31276d704534475b42a178212f986c4">&#9670;&#160;</a></span>value_sign()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">binary_sign rsmesh::isosurface::rmt_node::value_sign </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00158">158</a> 行定义.</p>
+
+</div>
+</div>
+<a id="af41b51b79944241c78e1abc8b2d7fbea" name="af41b51b79944241c78e1abc8b2d7fbea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af41b51b79944241c78e1abc8b2d7fbea">&#9670;&#160;</a></span>vertex_on_edge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vertex_index rsmesh::isosurface::rmt_node::vertex_on_edge </td>
+          <td>(</td>
+          <td class="paramtype">edge_index</td>          <td class="paramname"><span class="paramname"><em>edge_idx</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rmt__node_8h_source.html">rmt_node.h</a> 第 <a class="el" href="rmt__node_8h_source.html#l00160">160</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/isosurface/<a class="el" href="rmt__node_8h_source.html">rmt_node.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

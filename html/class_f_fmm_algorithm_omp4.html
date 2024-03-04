@@ -1,0 +1,489 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FFmmAlgorithmOmp4&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-methods">Protected 成员函数</a> &#124;
+<a href="class_f_fmm_algorithm_omp4-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FFmmAlgorithmOmp4&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Please read the license  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_fmm_algorithm_omp4_8hpp_source.html">FFmmAlgorithmOmp4.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FFmmAlgorithmOmp4&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_fmm_algorithm_omp4.png" usemap="#FFmmAlgorithmOmp4_3C_20OctreeClass_2C_20CellClass_2C_20ContainerClass_2C_20KernelClass_2C_20LeafClass_2C_20P2PExclusionClass_20_3E_map" alt=""/>
+  <map id="FFmmAlgorithmOmp4_3C_20OctreeClass_2C_20CellClass_2C_20ContainerClass_2C_20KernelClass_2C_20LeafClass_2C_20P2PExclusionClass_20_3E_map" name="FFmmAlgorithmOmp4_3C_20OctreeClass_2C_20CellClass_2C_20ContainerClass_2C_20KernelClass_2C_20LeafClass_2C_20P2PExclusionClass_20_3E_map">
+<area href="class_f_abstract_algorithm.html" title="Base class of algorithms" alt="FAbstractAlgorithm" shape="rect" coords="0,0,642,24"/>
+<area href="class_f_algorithm_timers.html" title="Collection of timers for FMM operators." alt="FAlgorithmTimers" shape="rect" coords="652,0,1294,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:ad33d23bf1d6066acad64b448703b9935" id="r_ad33d23bf1d6066acad64b448703b9935"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad33d23bf1d6066acad64b448703b9935">FFmmAlgorithmOmp4</a> (OctreeClass *const inTree, KernelClass *const inKernels, const int inLeafLevelSeperationCriteria=1)</td></tr>
+<tr class="separator:ad33d23bf1d6066acad64b448703b9935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa390c133e656cf85cce5d3ef807feae4" id="r_aa390c133e656cf85cce5d3ef807feae4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa390c133e656cf85cce5d3ef807feae4">~FFmmAlgorithmOmp4</a> ()</td></tr>
+<tr class="separator:aa390c133e656cf85cce5d3ef807feae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_f_abstract_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_f_abstract_algorithm')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="class_f_abstract_algorithm.html">FAbstractAlgorithm</a></td></tr>
+<tr class="memitem:ad7a63872accd27bf737746ad3dd6ce59 inherit pub_methods_class_f_abstract_algorithm" id="r_ad7a63872accd27bf737746ad3dd6ce59"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const int inUpperWorkingLevel, const int inLowerWorkingLevel) final</td></tr>
+<tr class="memdesc:ad7a63872accd27bf737746ad3dd6ce59 inherit pub_methods_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the whole fmm for given levels. <br /></td></tr>
+<tr class="separator:ad7a63872accd27bf737746ad3dd6ce59 inherit pub_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50596bdd3235bc4d2a7b8415f0b6d8d5 inherit pub_methods_class_f_abstract_algorithm" id="r_a50596bdd3235bc4d2a7b8415f0b6d8d5"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> () final</td></tr>
+<tr class="memdesc:a50596bdd3235bc4d2a7b8415f0b6d8d5 inherit pub_methods_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute the whole fmm. <br /></td></tr>
+<tr class="separator:a50596bdd3235bc4d2a7b8415f0b6d8d5 inherit pub_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fbd7069185281dd3c9ede89c2d030b6 inherit pub_methods_class_f_abstract_algorithm" id="r_a4fbd7069185281dd3c9ede89c2d030b6"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const unsigned operationsToProceed, const int inUpperWorkingLevel, const int inLowerWorkingLevel) final</td></tr>
+<tr class="memdesc:a4fbd7069185281dd3c9ede89c2d030b6 inherit pub_methods_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute only some FMM operations for given levels. <br /></td></tr>
+<tr class="separator:a4fbd7069185281dd3c9ede89c2d030b6 inherit pub_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c5dc685cb49818bb8c3ad7ca9e9bcea inherit pub_methods_class_f_abstract_algorithm" id="r_a8c5dc685cb49818bb8c3ad7ca9e9bcea"><td class="memItemLeft" align="right" valign="top">
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const unsigned operationsToProceed) final</td></tr>
+<tr class="memdesc:a8c5dc685cb49818bb8c3ad7ca9e9bcea inherit pub_methods_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute only some steps. <br /></td></tr>
+<tr class="separator:a8c5dc685cb49818bb8c3ad7ca9e9bcea inherit pub_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_f_algorithm_timers"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_f_algorithm_timers')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="class_f_algorithm_timers.html">FAlgorithmTimers</a></td></tr>
+<tr class="memitem:aa79aa17baa88ccf65ee22c59c53b193e inherit pub_methods_class_f_algorithm_timers" id="r_aa79aa17baa88ccf65ee22c59c53b193e"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>FAlgorithmTimers</b> ()=default</td></tr>
+<tr class="memdesc:aa79aa17baa88ccf65ee22c59c53b193e inherit pub_methods_class_f_algorithm_timers"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor: resets all timers <br /></td></tr>
+<tr class="separator:aa79aa17baa88ccf65ee22c59c53b193e inherit pub_methods_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18ebd5688d7360d6f4a9584b3bfbe1b1 inherit pub_methods_class_f_algorithm_timers" id="r_a18ebd5688d7360d6f4a9584b3bfbe1b1"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>FAlgorithmTimers</b> (const <a class="el" href="class_f_algorithm_timers.html">FAlgorithmTimers</a> &amp;)=default</td></tr>
+<tr class="memdesc:a18ebd5688d7360d6f4a9584b3bfbe1b1 inherit pub_methods_class_f_algorithm_timers"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy contructor <br /></td></tr>
+<tr class="separator:a18ebd5688d7360d6f4a9584b3bfbe1b1 inherit pub_methods_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55a2f21f445aa17a731013234d7642f3 inherit pub_methods_class_f_algorithm_timers" id="r_a55a2f21f445aa17a731013234d7642f3"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>FAlgorithmTimers</b> (<a class="el" href="class_f_algorithm_timers.html">FAlgorithmTimers</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a55a2f21f445aa17a731013234d7642f3 inherit pub_methods_class_f_algorithm_timers"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move contructor <br /></td></tr>
+<tr class="separator:a55a2f21f445aa17a731013234d7642f3 inherit pub_methods_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7db8d579187a15008b2d549cfa856641 inherit pub_methods_class_f_algorithm_timers" id="r_a7db8d579187a15008b2d549cfa856641"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><b>getTime</b> (std::string TimerName) const</td></tr>
+<tr class="memdesc:a7db8d579187a15008b2d549cfa856641 inherit pub_methods_class_f_algorithm_timers"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elapsed time between last <a class="el" href="class_f_tic.html#ac0e070e65af128fbe5af711e51033b0a" title="Start measuring time.">FTic::tic()</a> and <a class="el" href="class_f_tic.html#a3efff71f7c95acd38451bfab08fa4583" title="Stop measuring time and add to cumulated time.">FTic::tac()</a> for given timer. <br /></td></tr>
+<tr class="separator:a7db8d579187a15008b2d549cfa856641 inherit pub_methods_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac53ef13a910206784319d380860f58eb inherit pub_methods_class_f_algorithm_timers" id="r_ac53ef13a910206784319d380860f58eb"><td class="memItemLeft" align="right" valign="top">
+double&#160;</td><td class="memItemRight" valign="bottom"><b>getCumulatedTime</b> (std::string TimerName) const</td></tr>
+<tr class="memdesc:ac53ef13a910206784319d380860f58eb inherit pub_methods_class_f_algorithm_timers"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulated time between all <a class="el" href="class_f_tic.html#ac0e070e65af128fbe5af711e51033b0a" title="Start measuring time.">FTic::tic()</a> and <a class="el" href="class_f_tic.html#a3efff71f7c95acd38451bfab08fa4583" title="Stop measuring time and add to cumulated time.">FTic::tac()</a> for given timer. <br /></td></tr>
+<tr class="separator:ac53ef13a910206784319d380860f58eb inherit pub_methods_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected 成员函数</h2></td></tr>
+<tr class="memitem:aef0fcb647547a2e9319880ec34171368" id="r_aef0fcb647547a2e9319880ec34171368"><td class="memItemLeft" align="right" valign="top"><a id="aef0fcb647547a2e9319880ec34171368" name="aef0fcb647547a2e9319880ec34171368"></a>
+const unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><b>getCellMultipoleDepPtr</b> (const CellClass *taskCell) const</td></tr>
+<tr class="separator:aef0fcb647547a2e9319880ec34171368"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa00072126a2cf386f6b57bde57616346" id="r_aa00072126a2cf386f6b57bde57616346"><td class="memItemLeft" align="right" valign="top"><a id="aa00072126a2cf386f6b57bde57616346" name="aa00072126a2cf386f6b57bde57616346"></a>
+const unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><b>getCellLocalDepPtr</b> (const CellClass *taskCell) const</td></tr>
+<tr class="separator:aa00072126a2cf386f6b57bde57616346"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60521afc136626232a078cc7f795a522" id="r_a60521afc136626232a078cc7f795a522"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60521afc136626232a078cc7f795a522">executeCore</a> (const unsigned operationsToProceed) override</td></tr>
+<tr class="separator:a60521afc136626232a078cc7f795a522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a681c74e483b9ee8d362401f0434e81dd" id="r_a681c74e483b9ee8d362401f0434e81dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a681c74e483b9ee8d362401f0434e81dd">bottomPass</a> ()</td></tr>
+<tr class="separator:a681c74e483b9ee8d362401f0434e81dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acda1c38b2425e59c1790547784cb1ae4" id="r_acda1c38b2425e59c1790547784cb1ae4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acda1c38b2425e59c1790547784cb1ae4">upwardPass</a> ()</td></tr>
+<tr class="separator:acda1c38b2425e59c1790547784cb1ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a499ab056d6805ca807da2fcfec57d83b" id="r_a499ab056d6805ca807da2fcfec57d83b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a499ab056d6805ca807da2fcfec57d83b">transferPass</a> ()</td></tr>
+<tr class="separator:a499ab056d6805ca807da2fcfec57d83b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80b1a8242361c68d8b1b90d568988a42" id="r_a80b1a8242361c68d8b1b90d568988a42"><td class="memItemLeft" align="right" valign="top"><a id="a80b1a8242361c68d8b1b90d568988a42" name="a80b1a8242361c68d8b1b90d568988a42"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>transferPassWithOutFinalize</b> ()</td></tr>
+<tr class="separator:a80b1a8242361c68d8b1b90d568988a42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18b06ad257dc72b1ac2657fa80dade7a" id="r_a18b06ad257dc72b1ac2657fa80dade7a"><td class="memItemLeft" align="right" valign="top"><a id="a18b06ad257dc72b1ac2657fa80dade7a" name="a18b06ad257dc72b1ac2657fa80dade7a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>downardPass</b> ()</td></tr>
+<tr class="separator:a18b06ad257dc72b1ac2657fa80dade7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc2e644a4c8b2ccb751e39cb77eb9518" id="r_acc2e644a4c8b2ccb751e39cb77eb9518"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc2e644a4c8b2ccb751e39cb77eb9518">directPass</a> ()</td></tr>
+<tr class="separator:acc2e644a4c8b2ccb751e39cb77eb9518"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33581fe5ee270b94f445a03fd9e9a6ae" id="r_a33581fe5ee270b94f445a03fd9e9a6ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33581fe5ee270b94f445a03fd9e9a6ae">mergePass</a> ()</td></tr>
+<tr class="separator:a33581fe5ee270b94f445a03fd9e9a6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_f_abstract_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_f_abstract_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="class_f_abstract_algorithm.html">FAbstractAlgorithm</a></td></tr>
+<tr class="memitem:afa60bb68168233ef8a43a81070d5e242 inherit pro_methods_class_f_abstract_algorithm" id="r_afa60bb68168233ef8a43a81070d5e242"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setNbLevelsInTree</b> (const int inNbLevelsInTree)</td></tr>
+<tr class="separator:afa60bb68168233ef8a43a81070d5e242 inherit pro_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7322f6c45d77e17c8e00a7ed83c9b248 inherit pro_methods_class_f_abstract_algorithm" id="r_a7322f6c45d77e17c8e00a7ed83c9b248"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>validateLevels</b> () const</td></tr>
+<tr class="separator:a7322f6c45d77e17c8e00a7ed83c9b248 inherit pro_methods_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+额外继承的成员函数</h2></td></tr>
+<tr class="inherit_header pub_types_class_f_algorithm_timers"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_types_class_f_algorithm_timers')"><img src="closed.png" alt="-"/>&#160;Public 类型 继承自 <a class="el" href="class_f_algorithm_timers.html">FAlgorithmTimers</a></td></tr>
+<tr class="memitem:a476fc8777d5054203af69ac36b8026af inherit pub_types_class_f_algorithm_timers" id="r_a476fc8777d5054203af69ac36b8026af"><td class="memItemLeft" align="right" valign="top"><a id="a476fc8777d5054203af69ac36b8026af" name="a476fc8777d5054203af69ac36b8026af"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>nbTimers</b> = 9
+ }</td></tr>
+<tr class="separator:a476fc8777d5054203af69ac36b8026af inherit pub_types_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_class_f_algorithm_timers"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_attribs_class_f_algorithm_timers')"><img src="closed.png" alt="-"/>&#160;Public 属性 继承自 <a class="el" href="class_f_algorithm_timers.html">FAlgorithmTimers</a></td></tr>
+<tr class="memitem:a414650c8c31b68bb838166554847cd7d inherit pub_attribs_class_f_algorithm_timers" id="r_a414650c8c31b68bb838166554847cd7d"><td class="memItemLeft" align="right" valign="top">
+FTimerMap&#160;</td><td class="memItemRight" valign="bottom"><b>Timers</b></td></tr>
+<tr class="memdesc:a414650c8c31b68bb838166554847cd7d inherit pub_attribs_class_f_algorithm_timers"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timers <br /></td></tr>
+<tr class="separator:a414650c8c31b68bb838166554847cd7d inherit pub_attribs_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_class_f_algorithm_timers"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_attribs_class_f_algorithm_timers')"><img src="closed.png" alt="-"/>&#160;静态 Public 属性 继承自 <a class="el" href="class_f_algorithm_timers.html">FAlgorithmTimers</a></td></tr>
+<tr class="memitem:ae849128920a3b729416dbb9c80aebf95 inherit pub_static_attribs_class_f_algorithm_timers" id="r_ae849128920a3b729416dbb9c80aebf95"><td class="memItemLeft" align="right" valign="top">
+static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><b>P2MTimer</b> = &quot;P2M&quot;</td></tr>
+<tr class="separator:ae849128920a3b729416dbb9c80aebf95 inherit pub_static_attribs_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3942a43c925b23c7a7a319226c4ecf5 inherit pub_static_attribs_class_f_algorithm_timers" id="r_ac3942a43c925b23c7a7a319226c4ecf5"><td class="memItemLeft" align="right" valign="top">
+static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><b>M2MTimer</b> = &quot;M2M&quot;</td></tr>
+<tr class="separator:ac3942a43c925b23c7a7a319226c4ecf5 inherit pub_static_attribs_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8d254ec8846c75a88da5d50db86c13a inherit pub_static_attribs_class_f_algorithm_timers" id="r_ad8d254ec8846c75a88da5d50db86c13a"><td class="memItemLeft" align="right" valign="top">
+static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><b>M2LTimer</b> = &quot;M2L&quot;</td></tr>
+<tr class="separator:ad8d254ec8846c75a88da5d50db86c13a inherit pub_static_attribs_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a699e5b31e05b455eaee618dc1a851e54 inherit pub_static_attribs_class_f_algorithm_timers" id="r_a699e5b31e05b455eaee618dc1a851e54"><td class="memItemLeft" align="right" valign="top">
+static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><b>L2LTimer</b> = &quot;L2L&quot;</td></tr>
+<tr class="separator:a699e5b31e05b455eaee618dc1a851e54 inherit pub_static_attribs_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a525cbe17ec6f17466d4571012811497e inherit pub_static_attribs_class_f_algorithm_timers" id="r_a525cbe17ec6f17466d4571012811497e"><td class="memItemLeft" align="right" valign="top">
+static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><b>L2PTimer</b> = &quot;L2P&quot;</td></tr>
+<tr class="separator:a525cbe17ec6f17466d4571012811497e inherit pub_static_attribs_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7be7fb56eeadf27d0d9446af5c5771e2 inherit pub_static_attribs_class_f_algorithm_timers" id="r_a7be7fb56eeadf27d0d9446af5c5771e2"><td class="memItemLeft" align="right" valign="top">
+static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><b>P2PTimer</b> = &quot;P2P&quot;</td></tr>
+<tr class="separator:a7be7fb56eeadf27d0d9446af5c5771e2 inherit pub_static_attribs_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a745ef0d697f74580057fe4698d273353 inherit pub_static_attribs_class_f_algorithm_timers" id="r_a745ef0d697f74580057fe4698d273353"><td class="memItemLeft" align="right" valign="top">
+static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><b>M2PTimer</b> = &quot;M2P&quot;</td></tr>
+<tr class="separator:a745ef0d697f74580057fe4698d273353 inherit pub_static_attribs_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80d7d4d7e0a68a30fe96e7fc01e77daf inherit pub_static_attribs_class_f_algorithm_timers" id="r_a80d7d4d7e0a68a30fe96e7fc01e77daf"><td class="memItemLeft" align="right" valign="top">
+static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><b>P2LTimer</b> = &quot;P2L&quot;</td></tr>
+<tr class="separator:a80d7d4d7e0a68a30fe96e7fc01e77daf inherit pub_static_attribs_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6544d24b779e3b75a7f5c02f28702a5d inherit pub_static_attribs_class_f_algorithm_timers" id="r_a6544d24b779e3b75a7f5c02f28702a5d"><td class="memItemLeft" align="right" valign="top">
+static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><b>NearTimer</b> = &quot;Near&quot;</td></tr>
+<tr class="separator:a6544d24b779e3b75a7f5c02f28702a5d inherit pub_static_attribs_class_f_algorithm_timers"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_f_abstract_algorithm"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_f_abstract_algorithm')"><img src="closed.png" alt="-"/>&#160;Protected 属性 继承自 <a class="el" href="class_f_abstract_algorithm.html">FAbstractAlgorithm</a></td></tr>
+<tr class="memitem:ade49cb5ede82d078261e576a9d809dc2 inherit pro_attribs_class_f_abstract_algorithm" id="r_ade49cb5ede82d078261e576a9d809dc2"><td class="memItemLeft" align="right" valign="top">
+int&#160;</td><td class="memItemRight" valign="bottom"><b>upperWorkingLevel</b></td></tr>
+<tr class="memdesc:ade49cb5ede82d078261e576a9d809dc2 inherit pro_attribs_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Where to start the work <br /></td></tr>
+<tr class="separator:ade49cb5ede82d078261e576a9d809dc2 inherit pro_attribs_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a694b8888186be58e38691ce08b177d46 inherit pro_attribs_class_f_abstract_algorithm" id="r_a694b8888186be58e38691ce08b177d46"><td class="memItemLeft" align="right" valign="top">
+int&#160;</td><td class="memItemRight" valign="bottom"><b>lowerWorkingLevel</b></td></tr>
+<tr class="memdesc:a694b8888186be58e38691ce08b177d46 inherit pro_attribs_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Where to end the work (exclusive) <br /></td></tr>
+<tr class="separator:a694b8888186be58e38691ce08b177d46 inherit pro_attribs_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8f5112c47480a494a15ffddd172079a inherit pro_attribs_class_f_abstract_algorithm" id="r_af8f5112c47480a494a15ffddd172079a"><td class="memItemLeft" align="right" valign="top">
+int&#160;</td><td class="memItemRight" valign="bottom"><b>nbLevelsInTree</b></td></tr>
+<tr class="memdesc:af8f5112c47480a494a15ffddd172079a inherit pro_attribs_class_f_abstract_algorithm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Height of the tree <br /></td></tr>
+<tr class="separator:af8f5112c47480a494a15ffddd172079a inherit pro_attribs_class_f_abstract_algorithm"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class OctreeClass, class CellClass, class ContainerClass, class KernelClass, class LeafClass, class P2PExclusionClass = FP2PMiddleExclusion&gt;<br />
+class FFmmAlgorithmOmp4&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;</div><p>Please read the license </p>
+<dl class="section author"><dt>作者</dt><dd>Berenger Bramas (<a href="#" onclick="location.href='mai'+'lto:'+'ber'+'en'+'ger'+'.b'+'ram'+'as'+'@in'+'ri'+'a.f'+'r'; return false;">beren<span class="obfuscator">.nosp@m.</span>ger.<span class="obfuscator">.nosp@m.</span>brama<span class="obfuscator">.nosp@m.</span>s@in<span class="obfuscator">.nosp@m.</span>ria.f<span class="obfuscator">.nosp@m.</span>r</a>)</dd></dl>
+<p>This class is a basic FMM algorithm It just iterates on a tree and call the kernels with good arguments.</p>
+<p>Of course this class does not deallocate pointer given in arguements. </p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="ad33d23bf1d6066acad64b448703b9935" name="ad33d23bf1d6066acad64b448703b9935"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33d23bf1d6066acad64b448703b9935">&#9670;&#160;</a></span>FFmmAlgorithmOmp4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass , class P2PExclusionClass  = FP2PMiddleExclusion&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_fmm_algorithm_omp4.html">FFmmAlgorithmOmp4</a>&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;<a class="el" href="class_f_fmm_algorithm_omp4.html">::FFmmAlgorithmOmp4</a> </td>
+          <td>(</td>
+          <td class="paramtype">OctreeClass *const</td>          <td class="paramname"><span class="paramname"><em>inTree</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">KernelClass *const</td>          <td class="paramname"><span class="paramname"><em>inKernels</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inLeafLevelSeperationCriteria</em><span class="paramdefsep"> = </span><span class="paramdefval">1</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The constructor need the octree and the kernels used for computation </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inTree</td><td>the octree to work on </td></tr>
+    <tr><td class="paramname">inKernels</td><td>the kernels to call An assert is launched if one of the arguments is null </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa390c133e656cf85cce5d3ef807feae4" name="aa390c133e656cf85cce5d3ef807feae4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa390c133e656cf85cce5d3ef807feae4">&#9670;&#160;</a></span>~FFmmAlgorithmOmp4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass , class P2PExclusionClass  = FP2PMiddleExclusion&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_f_fmm_algorithm_omp4.html">FFmmAlgorithmOmp4</a>&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;::~<a class="el" href="class_f_fmm_algorithm_omp4.html">FFmmAlgorithmOmp4</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default destructor </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a681c74e483b9ee8d362401f0434e81dd" name="a681c74e483b9ee8d362401f0434e81dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a681c74e483b9ee8d362401f0434e81dd">&#9670;&#160;</a></span>bottomPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass , class P2PExclusionClass  = FP2PMiddleExclusion&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_omp4.html">FFmmAlgorithmOmp4</a>&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;::bottomPass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>P2M </p>
+
+</div>
+</div>
+<a id="acc2e644a4c8b2ccb751e39cb77eb9518" name="acc2e644a4c8b2ccb751e39cb77eb9518"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc2e644a4c8b2ccb751e39cb77eb9518">&#9670;&#160;</a></span>directPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass , class P2PExclusionClass  = FP2PMiddleExclusion&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_omp4.html">FFmmAlgorithmOmp4</a>&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;::directPass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>P2P </p>
+
+</div>
+</div>
+<a id="a60521afc136626232a078cc7f795a522" name="a60521afc136626232a078cc7f795a522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60521afc136626232a078cc7f795a522">&#9670;&#160;</a></span>executeCore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass , class P2PExclusionClass  = FP2PMiddleExclusion&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_omp4.html">FFmmAlgorithmOmp4</a>&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;::executeCore </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned</td>          <td class="paramname"><span class="paramname"><em>operationsToProceed</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To execute the fmm algorithm Call this function to run the complete algorithm </p>
+
+<p>实现了 <a class="el" href="class_f_abstract_algorithm.html">FAbstractAlgorithm</a>.</p>
+
+</div>
+</div>
+<a id="a33581fe5ee270b94f445a03fd9e9a6ae" name="a33581fe5ee270b94f445a03fd9e9a6ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33581fe5ee270b94f445a03fd9e9a6ae">&#9670;&#160;</a></span>mergePass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass , class P2PExclusionClass  = FP2PMiddleExclusion&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_omp4.html">FFmmAlgorithmOmp4</a>&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;::mergePass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>L2P </p>
+
+</div>
+</div>
+<a id="a499ab056d6805ca807da2fcfec57d83b" name="a499ab056d6805ca807da2fcfec57d83b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a499ab056d6805ca807da2fcfec57d83b">&#9670;&#160;</a></span>transferPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass , class P2PExclusionClass  = FP2PMiddleExclusion&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_omp4.html">FFmmAlgorithmOmp4</a>&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;::transferPass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>M2L <br  />
+ </p>
+
+</div>
+</div>
+<a id="acda1c38b2425e59c1790547784cb1ae4" name="acda1c38b2425e59c1790547784cb1ae4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acda1c38b2425e59c1790547784cb1ae4">&#9670;&#160;</a></span>upwardPass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class OctreeClass , class CellClass , class ContainerClass , class KernelClass , class LeafClass , class P2PExclusionClass  = FP2PMiddleExclusion&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_fmm_algorithm_omp4.html">FFmmAlgorithmOmp4</a>&lt; OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass &gt;::upwardPass </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>M2M </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Core/<a class="el" href="_f_fmm_algorithm_omp4_8hpp_source.html">FFmmAlgorithmOmp4.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

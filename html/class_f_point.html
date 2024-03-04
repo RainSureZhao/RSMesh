@@ -1,0 +1,1621 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FPoint&lt; _Real, _Dim &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-attribs">静态 Public 属性</a> &#124;
+<a href="#friends">友元</a> &#124;
+<a href="class_f_point-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FPoint&lt; _Real, _Dim &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_point_8hpp_source.html">FPoint.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FPoint&lt; _Real, _Dim &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_point.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:ad696b93b3a3dc0e5d51a8819a3ad2c7b" id="r_ad696b93b3a3dc0e5d51a8819a3ad2c7b"><td class="memItemLeft" align="right" valign="top"><a id="ad696b93b3a3dc0e5d51a8819a3ad2c7b" name="ad696b93b3a3dc0e5d51a8819a3ad2c7b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>FReal</b> = _Real</td></tr>
+<tr class="memdesc:ad696b93b3a3dc0e5d51a8819a3ad2c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Floating number type <br /></td></tr>
+<tr class="separator:ad696b93b3a3dc0e5d51a8819a3ad2c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:aa5ca88ea065f9c71e38da8ef784ca546" id="r_aa5ca88ea065f9c71e38da8ef784ca546"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5ca88ea065f9c71e38da8ef784ca546">FPoint</a> ()=default</td></tr>
+<tr class="separator:aa5ca88ea065f9c71e38da8ef784ca546"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add3eb5d72a544c2d136a3ad711a858d6" id="r_add3eb5d72a544c2d136a3ad711a858d6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#add3eb5d72a544c2d136a3ad711a858d6">FPoint</a> (const <a class="el" href="class_f_point.html">FPoint</a> &amp;)=default</td></tr>
+<tr class="separator:add3eb5d72a544c2d136a3ad711a858d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c3faef80050466f4ae1a309e461a49e" id="r_a6c3faef80050466f4ae1a309e461a49e"><td class="memTemplParams" colspan="2">template&lt;typename A , must_be_arithmetic&lt; A &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a6c3faef80050466f4ae1a309e461a49e"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a6c3faef80050466f4ae1a309e461a49e">FPoint</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; A, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;other)</td></tr>
+<tr class="separator:a6c3faef80050466f4ae1a309e461a49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9a3dd56af70c8cafd107bb351550789" id="r_af9a3dd56af70c8cafd107bb351550789"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9a3dd56af70c8cafd107bb351550789">FPoint</a> (const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> array_[<a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a>])</td></tr>
+<tr class="separator:af9a3dd56af70c8cafd107bb351550789"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01ca00aee9086b0c84c3c1f92c2979a1" id="r_a01ca00aee9086b0c84c3c1f92c2979a1"><td class="memTemplParams" colspan="2">template&lt;typename A  = FReal, typename... Args&gt; </td></tr>
+<tr class="memitem:a01ca00aee9086b0c84c3c1f92c2979a1"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a01ca00aee9086b0c84c3c1f92c2979a1">FPoint</a> (const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> &amp;arg, const Args... args)</td></tr>
+<tr class="separator:a01ca00aee9086b0c84c3c1f92c2979a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accf46adceb3166429feb4f4c2d5d2945" id="r_accf46adceb3166429feb4f4c2d5d2945"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accf46adceb3166429feb4f4c2d5d2945">FPoint</a> (const <a class="el" href="class_f_point.html">FPoint</a> &amp;other, const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> add_value)</td></tr>
+<tr class="separator:accf46adceb3166429feb4f4c2d5d2945"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ddb34b536d46703a1d85095d4c5d410" id="r_a3ddb34b536d46703a1d85095d4c5d410"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a3ddb34b536d46703a1d85095d4c5d410"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a3ddb34b536d46703a1d85095d4c5d410">copy</a> (const T &amp;other)</td></tr>
+<tr class="separator:a3ddb34b536d46703a1d85095d4c5d410"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8199bf512204ce82961124e72c220870" id="r_a8199bf512204ce82961124e72c220870"><td class="memTemplParams" colspan="2">template&lt;typename T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a8199bf512204ce82961124e72c220870"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a8199bf512204ce82961124e72c220870">operator=</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;other)</td></tr>
+<tr class="separator:a8199bf512204ce82961124e72c220870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2eec275cf9bddb1c00acff4f7873e4d" id="r_ad2eec275cf9bddb1c00acff4f7873e4d"><td class="memTemplParams" colspan="2">template&lt;typename A  = FReal, typename... Args&gt; </td></tr>
+<tr class="memitem:ad2eec275cf9bddb1c00acff4f7873e4d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ad2eec275cf9bddb1c00acff4f7873e4d">setPosition</a> (const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> &amp;X, const Args... YandZ)</td></tr>
+<tr class="separator:ad2eec275cf9bddb1c00acff4f7873e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58d3859160347552d6a4a94fbdf883c3" id="r_a58d3859160347552d6a4a94fbdf883c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58d3859160347552d6a4a94fbdf883c3">getX</a> () const</td></tr>
+<tr class="memdesc:a58d3859160347552d6a4a94fbdf883c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get x  <br /></td></tr>
+<tr class="separator:a58d3859160347552d6a4a94fbdf883c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4383512b9b8d216775b3fb92325cfc9" id="r_ae4383512b9b8d216775b3fb92325cfc9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4383512b9b8d216775b3fb92325cfc9">getY</a> () const</td></tr>
+<tr class="memdesc:ae4383512b9b8d216775b3fb92325cfc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get y  <br /></td></tr>
+<tr class="separator:ae4383512b9b8d216775b3fb92325cfc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02208d4db50cbafe597adcbfb152b536" id="r_a02208d4db50cbafe597adcbfb152b536"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02208d4db50cbafe597adcbfb152b536">getZ</a> () const</td></tr>
+<tr class="memdesc:a02208d4db50cbafe597adcbfb152b536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get z  <br /></td></tr>
+<tr class="separator:a02208d4db50cbafe597adcbfb152b536"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae08932bdb7ad1ea001db52d4cd01d195" id="r_ae08932bdb7ad1ea001db52d4cd01d195"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae08932bdb7ad1ea001db52d4cd01d195">setX</a> (const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> inX)</td></tr>
+<tr class="memdesc:ae08932bdb7ad1ea001db52d4cd01d195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set x  <br /></td></tr>
+<tr class="separator:ae08932bdb7ad1ea001db52d4cd01d195"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a622643561f2dfb77492c45d08db146d9" id="r_a622643561f2dfb77492c45d08db146d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a622643561f2dfb77492c45d08db146d9">setY</a> (const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> inY)</td></tr>
+<tr class="memdesc:a622643561f2dfb77492c45d08db146d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set y  <br /></td></tr>
+<tr class="separator:a622643561f2dfb77492c45d08db146d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e63cebc8f4f2a7d1773e606d7b70da" id="r_a20e63cebc8f4f2a7d1773e606d7b70da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20e63cebc8f4f2a7d1773e606d7b70da">setZ</a> (const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> inZ)</td></tr>
+<tr class="memdesc:a20e63cebc8f4f2a7d1773e606d7b70da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set z  <br /></td></tr>
+<tr class="separator:a20e63cebc8f4f2a7d1773e606d7b70da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7d661a769ccb78f36da734b3945b533" id="r_ad7d661a769ccb78f36da734b3945b533"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7d661a769ccb78f36da734b3945b533">incX</a> (const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> inX)</td></tr>
+<tr class="memdesc:ad7d661a769ccb78f36da734b3945b533"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add to the x-dimension the inX value  <br /></td></tr>
+<tr class="separator:ad7d661a769ccb78f36da734b3945b533"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca6c651616ef93f0920aa80e7fe6f19a" id="r_aca6c651616ef93f0920aa80e7fe6f19a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca6c651616ef93f0920aa80e7fe6f19a">incY</a> (const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> inY)</td></tr>
+<tr class="memdesc:aca6c651616ef93f0920aa80e7fe6f19a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add to the y-dimension the inY value  <br /></td></tr>
+<tr class="separator:aca6c651616ef93f0920aa80e7fe6f19a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5f37e83b43e85706b3ccc72dbb63afa" id="r_af5f37e83b43e85706b3ccc72dbb63afa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5f37e83b43e85706b3ccc72dbb63afa">incZ</a> (const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> inZ)</td></tr>
+<tr class="memdesc:af5f37e83b43e85706b3ccc72dbb63afa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add to z-dimension the inZ value  <br /></td></tr>
+<tr class="separator:af5f37e83b43e85706b3ccc72dbb63afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad05c497fe0a0acb04a783eab4c76ff36" id="r_ad05c497fe0a0acb04a783eab4c76ff36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad05c497fe0a0acb04a783eab4c76ff36">getDataValue</a> ()</td></tr>
+<tr class="memdesc:ad05c497fe0a0acb04a783eab4c76ff36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pointer on the coordinate of <a class="el" href="class_f_point.html">FPoint&lt;FReal&gt;</a>  <br /></td></tr>
+<tr class="separator:ad05c497fe0a0acb04a783eab4c76ff36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95a557604c04f32e2f54e4df553f66e6" id="r_a95a557604c04f32e2f54e4df553f66e6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95a557604c04f32e2f54e4df553f66e6">getDataValue</a> () const</td></tr>
+<tr class="memdesc:a95a557604c04f32e2f54e4df553f66e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pointer on the coordinate of <a class="el" href="class_f_point.html">FPoint&lt;FReal&gt;</a>  <br /></td></tr>
+<tr class="separator:a95a557604c04f32e2f54e4df553f66e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb4ede7b5949b0b491455ee3f3da671c" id="r_aeb4ede7b5949b0b491455ee3f3da671c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb4ede7b5949b0b491455ee3f3da671c">norm</a> () const</td></tr>
+<tr class="memdesc:aeb4ede7b5949b0b491455ee3f3da671c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the distance to the origin  <br /></td></tr>
+<tr class="separator:aeb4ede7b5949b0b491455ee3f3da671c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13f3fa46b8af935cafd8281880232c15" id="r_a13f3fa46b8af935cafd8281880232c15"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13f3fa46b8af935cafd8281880232c15">norm2</a> () const</td></tr>
+<tr class="memdesc:a13f3fa46b8af935cafd8281880232c15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the distance to the origin  <br /></td></tr>
+<tr class="separator:a13f3fa46b8af935cafd8281880232c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a730b13c57ad593ebd86ea34f831056" id="r_a1a730b13c57ad593ebd86ea34f831056"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a1a730b13c57ad593ebd86ea34f831056"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1a730b13c57ad593ebd86ea34f831056">operator+=</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;other)</td></tr>
+<tr class="separator:a1a730b13c57ad593ebd86ea34f831056"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7e57298d155e71b4abd078c218b7e1f" id="r_ac7e57298d155e71b4abd078c218b7e1f"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:ac7e57298d155e71b4abd078c218b7e1f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ac7e57298d155e71b4abd078c218b7e1f">operator+=</a> (const T &amp;val)</td></tr>
+<tr class="separator:ac7e57298d155e71b4abd078c218b7e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ff649b6e3aba75e5df8c908b98fd73a" id="r_a8ff649b6e3aba75e5df8c908b98fd73a"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a8ff649b6e3aba75e5df8c908b98fd73a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a8ff649b6e3aba75e5df8c908b98fd73a">operator-=</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;other)</td></tr>
+<tr class="separator:a8ff649b6e3aba75e5df8c908b98fd73a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c4348bcd1fa3c6394d55804e8d341e" id="r_a76c4348bcd1fa3c6394d55804e8d341e"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a76c4348bcd1fa3c6394d55804e8d341e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a76c4348bcd1fa3c6394d55804e8d341e">operator-=</a> (const T &amp;val)</td></tr>
+<tr class="separator:a76c4348bcd1fa3c6394d55804e8d341e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56a0358e96718da6c19337d55fabbd66" id="r_a56a0358e96718da6c19337d55fabbd66"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a56a0358e96718da6c19337d55fabbd66"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a56a0358e96718da6c19337d55fabbd66">operator*=</a> (const T &amp;val)</td></tr>
+<tr class="separator:a56a0358e96718da6c19337d55fabbd66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8c018fabb2821c27a12ae24adf9cdb6" id="r_ab8c018fabb2821c27a12ae24adf9cdb6"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:ab8c018fabb2821c27a12ae24adf9cdb6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab8c018fabb2821c27a12ae24adf9cdb6">operator/=</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;other)</td></tr>
+<tr class="separator:ab8c018fabb2821c27a12ae24adf9cdb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cdf044ff83b05330d22643a62d0b67b" id="r_a9cdf044ff83b05330d22643a62d0b67b"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a9cdf044ff83b05330d22643a62d0b67b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9cdf044ff83b05330d22643a62d0b67b">operator/=</a> (const T &amp;val)</td></tr>
+<tr class="separator:a9cdf044ff83b05330d22643a62d0b67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6937a56faa6b1c735c541f465e233faa" id="r_a6937a56faa6b1c735c541f465e233faa"><td class="memTemplParams" colspan="2"><a id="a6937a56faa6b1c735c541f465e233faa" name="a6937a56faa6b1c735c541f465e233faa"></a>
+template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a6937a56faa6b1c735c541f465e233faa"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>save</b> (BufferWriterClass &amp;buffer) const</td></tr>
+<tr class="memdesc:a6937a56faa6b1c735c541f465e233faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save current object <br /></td></tr>
+<tr class="separator:a6937a56faa6b1c735c541f465e233faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee1d5c3459851e223a069956511e96b2" id="r_aee1d5c3459851e223a069956511e96b2"><td class="memTemplParams" colspan="2"><a id="aee1d5c3459851e223a069956511e96b2" name="aee1d5c3459851e223a069956511e96b2"></a>
+template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:aee1d5c3459851e223a069956511e96b2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>restore</b> (BufferReaderClass &amp;buffer)</td></tr>
+<tr class="memdesc:aee1d5c3459851e223a069956511e96b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve current object <br /></td></tr>
+<tr class="separator:aee1d5c3459851e223a069956511e96b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+静态 Public 属性</h2></td></tr>
+<tr class="memitem:abe59cd35d83418f915eea5fcebab4a77" id="r_abe59cd35d83418f915eea5fcebab4a77"><td class="memItemLeft" align="right" valign="top"><a id="abe59cd35d83418f915eea5fcebab4a77" name="abe59cd35d83418f915eea5fcebab4a77"></a>
+static constexpr const std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>Dim</b> = _Dim</td></tr>
+<tr class="memdesc:abe59cd35d83418f915eea5fcebab4a77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Space dimension count <br /></td></tr>
+<tr class="separator:abe59cd35d83418f915eea5fcebab4a77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+友元</h2></td></tr>
+<tr class="memitem:ab0698799bfd5c52e5dbe8caeafa010d6" id="r_ab0698799bfd5c52e5dbe8caeafa010d6"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:ab0698799bfd5c52e5dbe8caeafa010d6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab0698799bfd5c52e5dbe8caeafa010d6">operator+</a> (<a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; lhs, const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;rhs)</td></tr>
+<tr class="separator:ab0698799bfd5c52e5dbe8caeafa010d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfab88b13a3582251799a3fa44464a9c" id="r_adfab88b13a3582251799a3fa44464a9c"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:adfab88b13a3582251799a3fa44464a9c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#adfab88b13a3582251799a3fa44464a9c">operator+</a> (<a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; lhs, const T &amp;val)</td></tr>
+<tr class="separator:adfab88b13a3582251799a3fa44464a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d01863d81ccf1de741a3e8adb99ff40" id="r_a2d01863d81ccf1de741a3e8adb99ff40"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a2d01863d81ccf1de741a3e8adb99ff40"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a2d01863d81ccf1de741a3e8adb99ff40">operator-</a> (<a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; lhs, const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;rhs)</td></tr>
+<tr class="separator:a2d01863d81ccf1de741a3e8adb99ff40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa56117a8d46a934b5f2430cc1b3d4b58" id="r_aa56117a8d46a934b5f2430cc1b3d4b58"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:aa56117a8d46a934b5f2430cc1b3d4b58"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa56117a8d46a934b5f2430cc1b3d4b58">operator-</a> (<a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; lhs, const T &amp;rhs)</td></tr>
+<tr class="separator:aa56117a8d46a934b5f2430cc1b3d4b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe23e3a42cd3fd1a691580b171123a3d" id="r_abe23e3a42cd3fd1a691580b171123a3d"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:abe23e3a42cd3fd1a691580b171123a3d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#abe23e3a42cd3fd1a691580b171123a3d">operator*</a> (<a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; lhs, const T &amp;val)</td></tr>
+<tr class="separator:abe23e3a42cd3fd1a691580b171123a3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62734c1c8e7ee9ea381712984d92eae9" id="r_a62734c1c8e7ee9ea381712984d92eae9"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a62734c1c8e7ee9ea381712984d92eae9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a62734c1c8e7ee9ea381712984d92eae9">operator*</a> (const T &amp;val, <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; rhs)</td></tr>
+<tr class="separator:a62734c1c8e7ee9ea381712984d92eae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a611040529dab484f79076ef502a849c0" id="r_a611040529dab484f79076ef502a849c0"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a611040529dab484f79076ef502a849c0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a611040529dab484f79076ef502a849c0">operator/</a> (<a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; lhs, const <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;rhs)</td></tr>
+<tr class="separator:a611040529dab484f79076ef502a849c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b6bf9cb17107d2776a01f1f2a7d323c" id="r_a1b6bf9cb17107d2776a01f1f2a7d323c"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a1b6bf9cb17107d2776a01f1f2a7d323c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1b6bf9cb17107d2776a01f1f2a7d323c">operator/</a> (<a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; lhs, const T &amp;val)</td></tr>
+<tr class="separator:a1b6bf9cb17107d2776a01f1f2a7d323c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b7b10ed7077d4b071f5d806478c8787" id="r_a4b7b10ed7077d4b071f5d806478c8787"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_integral&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a4b7b10ed7077d4b071f5d806478c8787"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a4b7b10ed7077d4b071f5d806478c8787">operator==</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;lhs, const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;rhs)</td></tr>
+<tr class="separator:a4b7b10ed7077d4b071f5d806478c8787"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b7b10ed7077d4b071f5d806478c8787" id="r_a4b7b10ed7077d4b071f5d806478c8787"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_floating&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a4b7b10ed7077d4b071f5d806478c8787"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a4b7b10ed7077d4b071f5d806478c8787">operator==</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;lhs, const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;rhs)</td></tr>
+<tr class="separator:a4b7b10ed7077d4b071f5d806478c8787"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47bda5c61b52c6810adf5a21cc343f50" id="r_a47bda5c61b52c6810adf5a21cc343f50"><td class="memTemplParams" colspan="2">template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </td></tr>
+<tr class="memitem:a47bda5c61b52c6810adf5a21cc343f50"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a47bda5c61b52c6810adf5a21cc343f50">operator!=</a> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;lhs, const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;rhs)</td></tr>
+<tr class="separator:a47bda5c61b52c6810adf5a21cc343f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac18f0ae66ee867b2ecd16f79dfd156f3" id="r_ac18f0ae66ee867b2ecd16f79dfd156f3"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac18f0ae66ee867b2ecd16f79dfd156f3">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;pos)</td></tr>
+<tr class="separator:ac18f0ae66ee867b2ecd16f79dfd156f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7928b47b7e3587847f4d4ad505fe355f" id="r_a7928b47b7e3587847f4d4ad505fe355f"><td class="memItemLeft" align="right" valign="top">std::istream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7928b47b7e3587847f4d4ad505fe355f">operator&gt;&gt;</a> (std::istream &amp;is, <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;pos)</td></tr>
+<tr class="separator:a7928b47b7e3587847f4d4ad505fe355f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename _Real, std::size_t _Dim = 3&gt;<br />
+class FPoint&lt; _Real, _Dim &gt;</div><p>N-dimentional coordinates</p>
+<dl class="section author"><dt>作者</dt><dd>Berenger Bramas <a href="#" onclick="location.href='mai'+'lto:'+'ber'+'en'+'ger'+'.b'+'ram'+'as'+'@in'+'ri'+'a.f'+'r'; return false;">beren<span class="obfuscator">.nosp@m.</span>ger.<span class="obfuscator">.nosp@m.</span>brama<span class="obfuscator">.nosp@m.</span>s@in<span class="obfuscator">.nosp@m.</span>ria.f<span class="obfuscator">.nosp@m.</span>r</a>, Quentin Khan <a href="#" onclick="location.href='mai'+'lto:'+'que'+'nt'+'in.'+'kh'+'an@'+'in'+'ria'+'.f'+'r'; return false;">quent<span class="obfuscator">.nosp@m.</span>in.k<span class="obfuscator">.nosp@m.</span>han@i<span class="obfuscator">.nosp@m.</span>nria<span class="obfuscator">.nosp@m.</span>.fr</a></dd></dl>
+<p>A fixed size array that represents coordinates in space. This class adds a few convenience operations such as addition, scalar multiplication and division and formated stream output.</p>
+<dl class="tparams"><dt>模板参数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">_Real</td><td>The floating number type </td></tr>
+    <tr><td class="paramname">Dim</td><td>The space dimension </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="aa5ca88ea065f9c71e38da8ef784ca546" name="aa5ca88ea065f9c71e38da8ef784ca546"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5ca88ea065f9c71e38da8ef784ca546">&#9670;&#160;</a></span>FPoint() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;<a class="el" href="class_f_point.html">::FPoint</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default constructor </p>
+
+</div>
+</div>
+<a id="add3eb5d72a544c2d136a3ad711a858d6" name="add3eb5d72a544c2d136a3ad711a858d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add3eb5d72a544c2d136a3ad711a858d6">&#9670;&#160;</a></span>FPoint() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;<a class="el" href="class_f_point.html">::FPoint</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt; &amp;</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copy constructor </p>
+
+</div>
+</div>
+<a id="a6c3faef80050466f4ae1a309e461a49e" name="a6c3faef80050466f4ae1a309e461a49e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c3faef80050466f4ae1a309e461a49e">&#9670;&#160;</a></span>FPoint() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;typename A , must_be_arithmetic&lt; A &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;<a class="el" href="class_f_point.html">::FPoint</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; A, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copy constructor from other point type </p>
+
+</div>
+</div>
+<a id="af9a3dd56af70c8cafd107bb351550789" name="af9a3dd56af70c8cafd107bb351550789"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9a3dd56af70c8cafd107bb351550789">&#9670;&#160;</a></span>FPoint() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;<a class="el" href="class_f_point.html">::FPoint</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a></td>          <td class="paramname"><span class="paramname"><em>array_</em>[Dim]</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constructor from array </p>
+
+</div>
+</div>
+<a id="a01ca00aee9086b0c84c3c1f92c2979a1" name="a01ca00aee9086b0c84c3c1f92c2979a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01ca00aee9086b0c84c3c1f92c2979a1">&#9670;&#160;</a></span>FPoint() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;typename A  = FReal, typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;<a class="el" href="class_f_point.html">::FPoint</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>arg</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Args...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Constructor from args </p>
+
+</div>
+</div>
+<a id="accf46adceb3166429feb4f4c2d5d2945" name="accf46adceb3166429feb4f4c2d5d2945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accf46adceb3166429feb4f4c2d5d2945">&#9670;&#160;</a></span>FPoint() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;<a class="el" href="class_f_point.html">::FPoint</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a></td>          <td class="paramname"><span class="paramname"><em>add_value</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Additive contructor, same as <a class="el" href="class_f_point.html">FPoint</a>(other + add_value) </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a3ddb34b536d46703a1d85095d4c5d410" name="a3ddb34b536d46703a1d85095d4c5d410"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ddb34b536d46703a1d85095d4c5d410">&#9670;&#160;</a></span>copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::copy </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copies <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77" title="Space dimension count">Dim</a> values from an iterable container</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Container that defines begin() and end() methods. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad05c497fe0a0acb04a783eab4c76ff36" name="ad05c497fe0a0acb04a783eab4c76ff36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad05c497fe0a0acb04a783eab4c76ff36">&#9670;&#160;</a></span>getDataValue() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> * <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::getDataValue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a pointer on the coordinate of <a class="el" href="class_f_point.html">FPoint&lt;FReal&gt;</a> </p>
+<dl class="section return"><dt>返回</dt><dd>the data value array </dd></dl>
+
+</div>
+</div>
+<a id="a95a557604c04f32e2f54e4df553f66e6" name="a95a557604c04f32e2f54e4df553f66e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95a557604c04f32e2f54e4df553f66e6">&#9670;&#160;</a></span>getDataValue() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> * <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::getDataValue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a pointer on the coordinate of <a class="el" href="class_f_point.html">FPoint&lt;FReal&gt;</a> </p>
+<dl class="section return"><dt>返回</dt><dd>the data value array </dd></dl>
+
+</div>
+</div>
+<a id="a58d3859160347552d6a4a94fbdf883c3" name="a58d3859160347552d6a4a94fbdf883c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58d3859160347552d6a4a94fbdf883c3">&#9670;&#160;</a></span>getX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::getX </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get x </p>
+<dl class="section return"><dt>返回</dt><dd>this-&gt;data()[0] </dd></dl>
+
+</div>
+</div>
+<a id="ae4383512b9b8d216775b3fb92325cfc9" name="ae4383512b9b8d216775b3fb92325cfc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4383512b9b8d216775b3fb92325cfc9">&#9670;&#160;</a></span>getY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::getY </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get y </p>
+<dl class="section return"><dt>返回</dt><dd>this-&gt;data()[1] </dd></dl>
+
+</div>
+</div>
+<a id="a02208d4db50cbafe597adcbfb152b536" name="a02208d4db50cbafe597adcbfb152b536"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02208d4db50cbafe597adcbfb152b536">&#9670;&#160;</a></span>getZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::getZ </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get z </p>
+<dl class="section return"><dt>返回</dt><dd>this-&gt;data()[2] </dd></dl>
+
+</div>
+</div>
+<a id="ad7d661a769ccb78f36da734b3945b533" name="ad7d661a769ccb78f36da734b3945b533"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7d661a769ccb78f36da734b3945b533">&#9670;&#160;</a></span>incX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::incX </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a></td>          <td class="paramname"><span class="paramname"><em>inX</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add to the x-dimension the inX value </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inXthe</td><td>increment in x </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aca6c651616ef93f0920aa80e7fe6f19a" name="aca6c651616ef93f0920aa80e7fe6f19a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca6c651616ef93f0920aa80e7fe6f19a">&#9670;&#160;</a></span>incY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::incY </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a></td>          <td class="paramname"><span class="paramname"><em>inY</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add to the y-dimension the inY value </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">in&lt;&lt;&lt;&lt;&lt;&lt;y</td><td>the increment in y </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af5f37e83b43e85706b3ccc72dbb63afa" name="af5f37e83b43e85706b3ccc72dbb63afa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5f37e83b43e85706b3ccc72dbb63afa">&#9670;&#160;</a></span>incZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::incZ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a></td>          <td class="paramname"><span class="paramname"><em>inZ</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add to z-dimension the inZ value </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inZ</td><td>the increment in z </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aeb4ede7b5949b0b491455ee3f3da671c" name="aeb4ede7b5949b0b491455ee3f3da671c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb4ede7b5949b0b491455ee3f3da671c">&#9670;&#160;</a></span>norm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::norm </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the distance to the origin </p>
+<dl class="section return"><dt>返回</dt><dd>the norm of the <a class="el" href="class_f_point.html">FPoint</a> </dd></dl>
+
+</div>
+</div>
+<a id="a13f3fa46b8af935cafd8281880232c15" name="a13f3fa46b8af935cafd8281880232c15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13f3fa46b8af935cafd8281880232c15">&#9670;&#160;</a></span>norm2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::norm2 </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the distance to the origin </p>
+<dl class="section return"><dt>返回</dt><dd>the square norm of the <a class="el" href="class_f_point.html">FPoint</a> </dd></dl>
+
+</div>
+</div>
+<a id="a56a0358e96718da6c19337d55fabbd66" name="a56a0358e96718da6c19337d55fabbd66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56a0358e96718da6c19337d55fabbd66">&#9670;&#160;</a></span>operator*=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp; <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::operator*= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Right scalar multiplication assignment operator </p>
+
+</div>
+</div>
+<a id="a1a730b13c57ad593ebd86ea34f831056" name="a1a730b13c57ad593ebd86ea34f831056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a730b13c57ad593ebd86ea34f831056">&#9670;&#160;</a></span>operator+=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a> &amp; <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::operator+= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Addition assignment operator </p>
+
+</div>
+</div>
+<a id="ac7e57298d155e71b4abd078c218b7e1f" name="ac7e57298d155e71b4abd078c218b7e1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7e57298d155e71b4abd078c218b7e1f">&#9670;&#160;</a></span>operator+=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a> &amp; <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::operator+= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Scalar assignment addition </p>
+
+</div>
+</div>
+<a id="a8ff649b6e3aba75e5df8c908b98fd73a" name="a8ff649b6e3aba75e5df8c908b98fd73a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ff649b6e3aba75e5df8c908b98fd73a">&#9670;&#160;</a></span>operator-=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a> &amp; <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::operator-= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Subtraction assignment operator </p>
+
+</div>
+</div>
+<a id="a76c4348bcd1fa3c6394d55804e8d341e" name="a76c4348bcd1fa3c6394d55804e8d341e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76c4348bcd1fa3c6394d55804e8d341e">&#9670;&#160;</a></span>operator-=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a> &amp; <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::operator-= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Scalar subtraction assignment </p>
+
+</div>
+</div>
+<a id="ab8c018fabb2821c27a12ae24adf9cdb6" name="ab8c018fabb2821c27a12ae24adf9cdb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8c018fabb2821c27a12ae24adf9cdb6">&#9670;&#160;</a></span>operator/=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp; <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::operator/= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Data to data division assignment </p>
+
+</div>
+</div>
+<a id="a9cdf044ff83b05330d22643a62d0b67b" name="a9cdf044ff83b05330d22643a62d0b67b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cdf044ff83b05330d22643a62d0b67b">&#9670;&#160;</a></span>operator/=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp; <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::operator/= </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Right scalar division assignment operator </p>
+
+</div>
+</div>
+<a id="a8199bf512204ce82961124e72c220870" name="a8199bf512204ce82961124e72c220870"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8199bf512204ce82961124e72c220870">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;typename T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp; <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Assignment operator</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>A <a class="el" href="class_f_point.html">FPoint</a> object. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad2eec275cf9bddb1c00acff4f7873e4d" name="ad2eec275cf9bddb1c00acff4f7873e4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2eec275cf9bddb1c00acff4f7873e4d">&#9670;&#160;</a></span>setPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;typename A  = FReal, typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::setPosition </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>X</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Args...</td>          <td class="paramname"><span class="paramname"><em>YandZ</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Sets the point value </p>
+
+</div>
+</div>
+<a id="ae08932bdb7ad1ea001db52d4cd01d195" name="ae08932bdb7ad1ea001db52d4cd01d195"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae08932bdb7ad1ea001db52d4cd01d195">&#9670;&#160;</a></span>setX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::setX </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a></td>          <td class="paramname"><span class="paramname"><em>inX</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set x </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">the</td><td>new x </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a622643561f2dfb77492c45d08db146d9" name="a622643561f2dfb77492c45d08db146d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a622643561f2dfb77492c45d08db146d9">&#9670;&#160;</a></span>setY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::setY </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a></td>          <td class="paramname"><span class="paramname"><em>inY</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set y </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">the</td><td>new y </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a20e63cebc8f4f2a7d1773e606d7b70da" name="a20e63cebc8f4f2a7d1773e606d7b70da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20e63cebc8f4f2a7d1773e606d7b70da">&#9670;&#160;</a></span>setZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_point.html">FPoint</a>&lt; _Real, _Dim &gt;::setZ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a></td>          <td class="paramname"><span class="paramname"><em>inZ</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set z </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">the</td><td>new z </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">友元及相关函数文档</h2>
+<a id="a47bda5c61b52c6810adf5a21cc343f50" name="a47bda5c61b52c6810adf5a21cc343f50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47bda5c61b52c6810adf5a21cc343f50">&#9670;&#160;</a></span>operator!=</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Non equality test operator </p>
+
+</div>
+</div>
+<a id="a62734c1c8e7ee9ea381712984d92eae9" name="a62734c1c8e7ee9ea381712984d92eae9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62734c1c8e7ee9ea381712984d92eae9">&#9670;&#160;</a></span>operator* <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; operator* </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>val</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Left scalar multiplication operator </p>
+
+</div>
+</div>
+<a id="abe23e3a42cd3fd1a691580b171123a3d" name="abe23e3a42cd3fd1a691580b171123a3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe23e3a42cd3fd1a691580b171123a3d">&#9670;&#160;</a></span>operator* <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; operator* </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Right scalar multiplication operator </p>
+
+</div>
+</div>
+<a id="ab0698799bfd5c52e5dbe8caeafa010d6" name="ab0698799bfd5c52e5dbe8caeafa010d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0698799bfd5c52e5dbe8caeafa010d6">&#9670;&#160;</a></span>operator+ <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; operator+ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Addition operator </p>
+
+</div>
+</div>
+<a id="adfab88b13a3582251799a3fa44464a9c" name="adfab88b13a3582251799a3fa44464a9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfab88b13a3582251799a3fa44464a9c">&#9670;&#160;</a></span>operator+ <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; operator+ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Scalar addition </p>
+
+</div>
+</div>
+<a id="a2d01863d81ccf1de741a3e8adb99ff40" name="a2d01863d81ccf1de741a3e8adb99ff40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d01863d81ccf1de741a3e8adb99ff40">&#9670;&#160;</a></span>operator- <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; operator- </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Subtraction operator </p>
+
+</div>
+</div>
+<a id="aa56117a8d46a934b5f2430cc1b3d4b58" name="aa56117a8d46a934b5f2430cc1b3d4b58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa56117a8d46a934b5f2430cc1b3d4b58">&#9670;&#160;</a></span>operator- <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; operator- </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Scalar subtraction </p>
+
+</div>
+</div>
+<a id="a611040529dab484f79076ef502a849c0" name="a611040529dab484f79076ef502a849c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a611040529dab484f79076ef502a849c0">&#9670;&#160;</a></span>operator/ <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; operator/ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Data to data division operator </p>
+
+</div>
+</div>
+<a id="a1b6bf9cb17107d2776a01f1f2a7d323c" name="a1b6bf9cb17107d2776a01f1f2a7d323c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b6bf9cb17107d2776a01f1f2a7d323c">&#9670;&#160;</a></span>operator/ <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_arithmetic&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; operator/ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Right scalar division operator </p>
+
+</div>
+</div>
+<a id="ac18f0ae66ee867b2ecd16f79dfd156f3" name="ac18f0ae66ee867b2ecd16f79dfd156f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac18f0ae66ee867b2ecd16f79dfd156f3">&#9670;&#160;</a></span>operator&lt;&lt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;</td>          <td class="paramname"><span class="paramname"><em>os</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>pos</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Formated output stream operator </p>
+
+</div>
+</div>
+<a id="a4b7b10ed7077d4b071f5d806478c8787" name="a4b7b10ed7077d4b071f5d806478c8787"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b7b10ed7077d4b071f5d806478c8787">&#9670;&#160;</a></span>operator== <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_integral&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Equality test operator </p>
+
+</div>
+</div>
+<a id="a4b7b10ed7077d4b071f5d806478c8787" name="a4b7b10ed7077d4b071f5d806478c8787"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b7b10ed7077d4b071f5d806478c8787">&#9670;&#160;</a></span>operator== <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<div class="memtemplate">
+template&lt;class T , must_be_floating&lt; T &gt;  = nullptr&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; T, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Equality test operator </p>
+
+</div>
+</div>
+<a id="a7928b47b7e3587847f4d4ad505fe355f" name="a7928b47b7e3587847f4d4ad505fe355f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7928b47b7e3587847f4d4ad505fe355f">&#9670;&#160;</a></span>operator&gt;&gt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename _Real , std::size_t _Dim = 3&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::istream &amp; operator&gt;&gt; </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;</td>          <td class="paramname"><span class="paramname"><em>is</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_f_point.html">FPoint</a>&lt; <a class="el" href="#ad696b93b3a3dc0e5d51a8819a3ad2c7b">FReal</a>, <a class="el" href="#abe59cd35d83418f915eea5fcebab4a77">Dim</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>pos</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Formated input stream operator </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Utils/<a class="el" href="_f_point_8hpp_source.html">FPoint.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

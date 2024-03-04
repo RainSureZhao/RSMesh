@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FMpiFmaDivider&lt; FReal &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-methods">Protected 成员函数</a> &#124;
+<a href="class_f_mpi_fma_divider-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FMpiFmaDivider&lt; FReal &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Loads an FMA particle file and splits it for MPI processing.  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_mpi_fma_divider_8hpp_source.html">FMpiFmaDivider.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a4c5c26bc833cb779f1f684c4456b0bb9" id="r_a4c5c26bc833cb779f1f684c4456b0bb9"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c5c26bc833cb779f1f684c4456b0bb9">DispatchPolicy</a> { <b>PARTICLES</b> = 0
+, <b>BOXES</b> = 1
+ }</td></tr>
+<tr class="memdesc:a4c5c26bc833cb779f1f684c4456b0bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Policy for entites that are dispatched.  <a href="#a4c5c26bc833cb779f1f684c4456b0bb9">更多...</a><br /></td></tr>
+<tr class="separator:a4c5c26bc833cb779f1f684c4456b0bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a1934560ea602b402d1b61f8052201adf" id="r_a1934560ea602b402d1b61f8052201adf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1934560ea602b402d1b61f8052201adf">FMpiFmaDivider</a> (const std::string filename, int splitCount, int divisionLevel, <a class="el" href="#a4c5c26bc833cb779f1f684c4456b0bb9">DispatchPolicy</a> dispatchPolicy=PARTICLES)</td></tr>
+<tr class="memdesc:a1934560ea602b402d1b61f8052201adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor  <br /></td></tr>
+<tr class="separator:a1934560ea602b402d1b61f8052201adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a484f5736cb5b5fa224bf61983b4c2091" id="r_a484f5736cb5b5fa224bf61983b4c2091"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a484f5736cb5b5fa224bf61983b4c2091">FMpiFmaDivider</a> (const std::string filename, const std::string basename, const std::string ext, int splitCount, int divisionLevel, <a class="el" href="#a4c5c26bc833cb779f1f684c4456b0bb9">DispatchPolicy</a> dispatchPolicy)</td></tr>
+<tr class="memdesc:a484f5736cb5b5fa224bf61983b4c2091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor  <br /></td></tr>
+<tr class="separator:a484f5736cb5b5fa224bf61983b4c2091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a385e93c52060e0b280111b43e0b33232" id="r_a385e93c52060e0b280111b43e0b33232"><td class="memItemLeft" align="right" valign="top"><a id="a385e93c52060e0b280111b43e0b33232" name="a385e93c52060e0b280111b43e0b33232"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FMpiFmaDivider</b> (const <a class="el" href="class_f_mpi_fma_divider.html">FMpiFmaDivider</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a385e93c52060e0b280111b43e0b33232"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy constructor because of loader <br /></td></tr>
+<tr class="separator:a385e93c52060e0b280111b43e0b33232"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2475366d00bdfb3c72629f234c12cbd0" id="r_a2475366d00bdfb3c72629f234c12cbd0"><td class="memItemLeft" align="right" valign="top"><a id="a2475366d00bdfb3c72629f234c12cbd0" name="a2475366d00bdfb3c72629f234c12cbd0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FMpiFmaDivider</b> (const <a class="el" href="class_f_mpi_fma_divider.html">FMpiFmaDivider</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:a2475366d00bdfb3c72629f234c12cbd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted move constructor because of loader <br /></td></tr>
+<tr class="separator:a2475366d00bdfb3c72629f234c12cbd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected 成员函数</h2></td></tr>
+<tr class="memitem:ade98663469071f6b042b25179f470c97" id="r_ade98663469071f6b042b25179f470c97"><td class="memItemLeft" align="right" valign="top"><a id="ade98663469071f6b042b25179f470c97" name="ade98663469071f6b042b25179f470c97"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>readFile</b> ()</td></tr>
+<tr class="memdesc:ade98663469071f6b042b25179f470c97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the particles from the loader and stores them sorted by Morton index. <br /></td></tr>
+<tr class="separator:ade98663469071f6b042b25179f470c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a821792f24a2166523fc661348691db89" id="r_a821792f24a2166523fc661348691db89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a821792f24a2166523fc661348691db89">writeFiles</a> ()</td></tr>
+<tr class="memdesc:a821792f24a2166523fc661348691db89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the output file based on _outputBasename.  <br /></td></tr>
+<tr class="separator:a821792f24a2166523fc661348691db89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename FReal&gt;<br />
+class FMpiFmaDivider&lt; FReal &gt;</div><p>Loads an FMA particle file and splits it for MPI processing. </p>
+<p>This is meant to be used to split an FMA particle file and save each part in a different file for MPI processes to pick up later. The aim is to distribute the particles in a way that will balance the computing load of all processes during the FMM.</p>
+<p>The tree is not actually built. The user chooses the tree-level at which he wants to split the file. The generated files can then be loaded with an <a class="el" href="class_f_fma_generic_loader.html" title="Reads an FMA formated particle file.">FFmaGenericLoader</a>.</p>
+<p>Each process posseses the fraction of the tree that goes from its root to the particles that it loaded.</p>
+<p><b>2D example for a division level of 2, a tree of height 4 and 3 processes</b></p>
+<p>The space is divided according to the division level. </p><pre class="fragment">     2D space                  level 1                  level 2
+ |* * * * *   * *|   -&gt;   |* * * *|*   * *|   -&gt;   |* *|* *|*  |* *|
+</pre><p> Then the divisions are associated with processors according to particle count and written to the file system. </p><pre class="fragment"> |* *|* *|*  |* *|   -&gt;   |* *|* *|*   * *|
+   0   1   2   2            0   1     2
+</pre><p> The files are subsequently loaded into a tree. </p><pre class="fragment">           Full tree                                        Proc 0 tree
+                                                                  _
+             *                                                  *  |
+          /     \                                            /     | nodes duplicated
+       *           *                                      *        | between processes
+ ____/___\_______/___\____ &lt;-- division level       ____/__       _|
+ |  *  |  *  |  *     *  |                     =&gt;   |  *  |        |
+ | / \ | / \ | /     / \ | &lt;-- sub-trees            | / \ |        | nodes exclusive to proc 0
+ |*   *|*   *|*     *   *| &lt;-- particles            |*   *|       _|
+    0     1        2                                   0
+</pre> <dl class="tparams"><dt>模板参数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">FReal</td><td>The floating point representation (usually double). </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><h2 class="groupheader">成员枚举类型说明</h2>
+<a id="a4c5c26bc833cb779f1f684c4456b0bb9" name="a4c5c26bc833cb779f1f684c4456b0bb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c5c26bc833cb779f1f684c4456b0bb9">&#9670;&#160;</a></span>DispatchPolicy</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FReal &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a4c5c26bc833cb779f1f684c4456b0bb9">FMpiFmaDivider::DispatchPolicy</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Policy for entites that are dispatched. </p>
+<ul>
+<li>PARTICLES to dispatch by counting particles.</li>
+<li>BOXES to dispatch by counting Morton index boxes. </li>
+</ul>
+
+</div>
+</div>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a1934560ea602b402d1b61f8052201adf" name="a1934560ea602b402d1b61f8052201adf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1934560ea602b402d1b61f8052201adf">&#9670;&#160;</a></span>FMpiFmaDivider() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FReal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_mpi_fma_divider.html">FMpiFmaDivider</a>&lt; FReal &gt;<a class="el" href="class_f_mpi_fma_divider.html">::FMpiFmaDivider</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string</td>          <td class="paramname"><span class="paramname"><em>filename</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>splitCount</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>divisionLevel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a4c5c26bc833cb779f1f684c4456b0bb9">DispatchPolicy</a></td>          <td class="paramname"><span class="paramname"><em>dispatchPolicy</em><span class="paramdefsep"> = </span><span class="paramdefval">PARTICLES</span></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor </p>
+<p>Builds the particle divider and opens the loader. The output files basename and extension are extracted from the input file name.</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename[in]</td><td>The particle input file. </td></tr>
+    <tr><td class="paramname">splitcount[in]</td><td>The number of parts to split the input file into. </td></tr>
+    <tr><td class="paramname">divisionLevel[in]</td><td>The level in the to-be tree at which to do the division. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a484f5736cb5b5fa224bf61983b4c2091" name="a484f5736cb5b5fa224bf61983b4c2091"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a484f5736cb5b5fa224bf61983b4c2091">&#9670;&#160;</a></span>FMpiFmaDivider() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FReal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_mpi_fma_divider.html">FMpiFmaDivider</a>&lt; FReal &gt;<a class="el" href="class_f_mpi_fma_divider.html">::FMpiFmaDivider</a> </td>
+          <td>(</td>
+          <td class="paramtype">const std::string</td>          <td class="paramname"><span class="paramname"><em>filename</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string</td>          <td class="paramname"><span class="paramname"><em>basename</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string</td>          <td class="paramname"><span class="paramname"><em>ext</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>splitCount</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>divisionLevel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a4c5c26bc833cb779f1f684c4456b0bb9">DispatchPolicy</a></td>          <td class="paramname"><span class="paramname"><em>dispatchPolicy</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor </p>
+<p>Builds the particle divider and opens the loader.</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename[in]</td><td>The particle input file. </td></tr>
+    <tr><td class="paramname">outputBasename[in]</td><td>The basename for the output files. </td></tr>
+    <tr><td class="paramname">splitcount[in]</td><td>The number of parts to split the input file into. </td></tr>
+    <tr><td class="paramname">divisionLevel[in]</td><td>The level in the to-be tree at which to do the division. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a821792f24a2166523fc661348691db89" name="a821792f24a2166523fc661348691db89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a821792f24a2166523fc661348691db89">&#9670;&#160;</a></span>writeFiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename FReal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_mpi_fma_divider.html">FMpiFmaDivider</a>&lt; FReal &gt;::writeFiles </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes the output file based on _outputBasename. </p>
+<p>Write files progress log</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Files/<a class="el" href="_f_mpi_fma_divider_8hpp_source.html">FMpiFmaDivider.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

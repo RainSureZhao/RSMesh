@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::fmm::fmm_evaluator&lt; Order &gt;::impl类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><b>fmm</b></li><li class="navelem"><a class="el" href="classrsmesh_1_1fmm_1_1fmm__evaluator.html">fmm_evaluator</a></li><li class="navelem"><a class="el" href="classrsmesh_1_1fmm_1_1fmm__evaluator_1_1impl.html">impl</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classrsmesh_1_1fmm_1_1fmm__evaluator_1_1impl-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::fmm::fmm_evaluator&lt; Order &gt;::impl类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:ac668b2bddf10bddc4cced431b136294e" id="r_ac668b2bddf10bddc4cced431b136294e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac668b2bddf10bddc4cced431b136294e">impl</a> (const <a class="el" href="classrsmesh_1_1model.html">model</a> &amp;<a class="el" href="classrsmesh_1_1model.html">model</a>, int tree_height, const <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">geometry::bbox3d</a> &amp;bbox)</td></tr>
+<tr class="separator:ac668b2bddf10bddc4cced431b136294e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa38861078c165ee6215975f3de356d52" id="r_aa38861078c165ee6215975f3de356d52"><td class="memItemLeft" align="right" valign="top">valuesd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa38861078c165ee6215975f3de356d52">evaluate</a> () const</td></tr>
+<tr class="separator:aa38861078c165ee6215975f3de356d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a176b22b40fdd2ee68ce460a65f967640" id="r_a176b22b40fdd2ee68ce460a65f967640"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a176b22b40fdd2ee68ce460a65f967640">set_field_points</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;points)</td></tr>
+<tr class="separator:a176b22b40fdd2ee68ce460a65f967640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acceccb62c4d2d5f4f094d8d36137e7e0" id="r_acceccb62c4d2d5f4f094d8d36137e7e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acceccb62c4d2d5f4f094d8d36137e7e0">set_source_points</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;points)</td></tr>
+<tr class="separator:acceccb62c4d2d5f4f094d8d36137e7e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab02a24a096fba9776474c4b7e640dd25" id="r_ab02a24a096fba9776474c4b7e640dd25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab02a24a096fba9776474c4b7e640dd25">set_source_points_and_weights</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;points, const Eigen::Ref&lt; const valuesd &gt; &amp;weights)</td></tr>
+<tr class="separator:ab02a24a096fba9776474c4b7e640dd25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83e88804aca9cc189eef530e191a156b" id="r_a83e88804aca9cc189eef530e191a156b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83e88804aca9cc189eef530e191a156b">set_weights</a> (const Eigen::Ref&lt; const valuesd &gt; &amp;weights)</td></tr>
+<tr class="separator:a83e88804aca9cc189eef530e191a156b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;int Order&gt;<br />
+class rsmesh::fmm::fmm_evaluator&lt; Order &gt;::impl</div>
+<p class="definition">在文件 <a class="el" href="fmm__evaluator_8cpp_source.html">fmm_evaluator.cpp</a> 第 <a class="el" href="fmm__evaluator_8cpp_source.html#l00019">19</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="ac668b2bddf10bddc4cced431b136294e" name="ac668b2bddf10bddc4cced431b136294e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac668b2bddf10bddc4cced431b136294e">&#9670;&#160;</a></span>impl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int Order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrsmesh_1_1fmm_1_1fmm__evaluator.html">rsmesh::fmm::fmm_evaluator</a>&lt; Order &gt;::impl::impl </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1model.html">model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>tree_height</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1geometry_1_1bbox3d.html">geometry::bbox3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>bbox</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="fmm__evaluator_8cpp_source.html">fmm_evaluator.cpp</a> 第 <a class="el" href="fmm__evaluator_8cpp_source.html#l00029">29</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="aa38861078c165ee6215975f3de356d52" name="aa38861078c165ee6215975f3de356d52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa38861078c165ee6215975f3de356d52">&#9670;&#160;</a></span>evaluate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int Order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">valuesd <a class="el" href="classrsmesh_1_1fmm_1_1fmm__evaluator.html">rsmesh::fmm::fmm_evaluator</a>&lt; Order &gt;::impl::evaluate </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="fmm__evaluator_8cpp_source.html">fmm_evaluator.cpp</a> 第 <a class="el" href="fmm__evaluator_8cpp_source.html#l00048">48</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a176b22b40fdd2ee68ce460a65f967640" name="a176b22b40fdd2ee68ce460a65f967640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a176b22b40fdd2ee68ce460a65f967640">&#9670;&#160;</a></span>set_field_points()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int Order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classrsmesh_1_1fmm_1_1fmm__evaluator.html">rsmesh::fmm::fmm_evaluator</a>&lt; Order &gt;::impl::set_field_points </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>points</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="fmm__evaluator_8cpp_source.html">fmm_evaluator.cpp</a> 第 <a class="el" href="fmm__evaluator_8cpp_source.html#l00059">59</a> 行定义.</p>
+
+</div>
+</div>
+<a id="acceccb62c4d2d5f4f094d8d36137e7e0" name="acceccb62c4d2d5f4f094d8d36137e7e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acceccb62c4d2d5f4f094d8d36137e7e0">&#9670;&#160;</a></span>set_source_points()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int Order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classrsmesh_1_1fmm_1_1fmm__evaluator.html">rsmesh::fmm::fmm_evaluator</a>&lt; Order &gt;::impl::set_source_points </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>points</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="fmm__evaluator_8cpp_source.html">fmm_evaluator.cpp</a> 第 <a class="el" href="fmm__evaluator_8cpp_source.html#l00080">80</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ab02a24a096fba9776474c4b7e640dd25" name="ab02a24a096fba9776474c4b7e640dd25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab02a24a096fba9776474c4b7e640dd25">&#9670;&#160;</a></span>set_source_points_and_weights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int Order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classrsmesh_1_1fmm_1_1fmm__evaluator.html">rsmesh::fmm::fmm_evaluator</a>&lt; Order &gt;::impl::set_source_points_and_weights </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>points</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const valuesd &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="fmm__evaluator_8cpp_source.html">fmm_evaluator.cpp</a> 第 <a class="el" href="fmm__evaluator_8cpp_source.html#l00099">99</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a83e88804aca9cc189eef530e191a156b" name="a83e88804aca9cc189eef530e191a156b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83e88804aca9cc189eef530e191a156b">&#9670;&#160;</a></span>set_weights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int Order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classrsmesh_1_1fmm_1_1fmm__evaluator.html">rsmesh::fmm::fmm_evaluator</a>&lt; Order &gt;::impl::set_weights </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Ref&lt; const valuesd &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>weights</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="fmm__evaluator_8cpp_source.html">fmm_evaluator.cpp</a> 第 <a class="el" href="fmm__evaluator_8cpp_source.html#l00126">126</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>src/fmm/<a class="el" href="fmm__evaluator_8cpp_source.html">fmm_evaluator.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

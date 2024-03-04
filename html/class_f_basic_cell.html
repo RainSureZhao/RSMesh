@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FBasicCell类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="class_f_basic_cell-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FBasicCell类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This class is used in the <a class="el" href="class_f_test_kernels.html">FTestKernels</a>, please look at this class to know how to customize a cell.  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_basic_cell_8hpp_source.html">FBasicCell.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FBasicCell 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_basic_cell.png" usemap="#FBasicCell_map" alt=""/>
+  <map id="FBasicCell_map" name="FBasicCell_map">
+<area href="class_f_abstract_serializable.html" alt="FAbstractSerializable" shape="rect" coords="0,0,319,24"/>
+<area href="class_f_cheb_cell.html" alt="FChebCell&lt; FReal, ORDER, 1, 1, 1 &gt;" shape="rect" coords="329,112,648,136"/>
+<area href="class_f_interp_cell.html" alt="FInterpCell&lt; FReal, ORDER, 1, 1, 1 &gt;" shape="rect" coords="329,168,648,192"/>
+<area href="class_f_unif_cell.html" alt="FUnifCell&lt; FReal, ORDER, 1, 1, 1 &gt;" shape="rect" coords="329,224,648,248"/>
+<area href="class_f_cheb_cell.html" alt="FChebCell&lt; FReal, ORDER, NRHS, NLHS, NVALS &gt;" shape="rect" coords="329,280,648,304"/>
+<area href="class_f_interp_cell.html" alt="FInterpCell&lt; FReal, ORDER, NRHS, NLHS, NVALS &gt;" shape="rect" coords="329,336,648,360"/>
+<area href="class_f_rotation_cell.html" alt="FRotationCell&lt; FReal, P &gt;" shape="rect" coords="329,392,648,416"/>
+<area href="class_f_spherical_cell.html" alt="FSphericalCell&lt; FReal &gt;" shape="rect" coords="329,448,648,472"/>
+<area href="class_f_taylor_cell.html" alt="FTaylorCell&lt; FReal, P, order &gt;" shape="rect" coords="329,504,648,528"/>
+<area href="class_f_test_cell.html" alt="FTestCell" shape="rect" coords="329,560,648,584"/>
+<area href="class_f_unif_cell.html" alt="FUnifCell&lt; FReal, ORDER, NRHS, NLHS, NVALS &gt;" shape="rect" coords="329,616,648,640"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:aa480833943dc33766ae8a6b2f51bfbff" id="r_aa480833943dc33766ae8a6b2f51bfbff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa480833943dc33766ae8a6b2f51bfbff">FBasicCell</a> ()</td></tr>
+<tr class="separator:aa480833943dc33766ae8a6b2f51bfbff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd4e5209baf262deef7daeaf2e1ec014" id="r_afd4e5209baf262deef7daeaf2e1ec014"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd4e5209baf262deef7daeaf2e1ec014">~FBasicCell</a> ()</td></tr>
+<tr class="separator:afd4e5209baf262deef7daeaf2e1ec014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add52d8afe3a023aef782530f10aba498" id="r_add52d8afe3a023aef782530f10aba498"><td class="memItemLeft" align="right" valign="top"><a id="add52d8afe3a023aef782530f10aba498" name="add52d8afe3a023aef782530f10aba498"></a>
+std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getLevel</b> () const</td></tr>
+<tr class="separator:add52d8afe3a023aef782530f10aba498"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67200d21ab32d5ae0b466bd86666dc5b" id="r_a67200d21ab32d5ae0b466bd86666dc5b"><td class="memItemLeft" align="right" valign="top"><a id="a67200d21ab32d5ae0b466bd86666dc5b" name="a67200d21ab32d5ae0b466bd86666dc5b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setLevel</b> (std::size_t inLevel)</td></tr>
+<tr class="separator:a67200d21ab32d5ae0b466bd86666dc5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5c9343c2c978ef93cbca34cadf999cb" id="r_ae5c9343c2c978ef93cbca34cadf999cb"><td class="memItemLeft" align="right" valign="top">MortonIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5c9343c2c978ef93cbca34cadf999cb">getMortonIndex</a> () const</td></tr>
+<tr class="separator:ae5c9343c2c978ef93cbca34cadf999cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa77a0f5eb1217c62698b729a0c08baff" id="r_aa77a0f5eb1217c62698b729a0c08baff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa77a0f5eb1217c62698b729a0c08baff">setMortonIndex</a> (const MortonIndex inMortonIndex)</td></tr>
+<tr class="separator:aa77a0f5eb1217c62698b729a0c08baff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfe4b59f7e7131dd40853169ab7d02f2" id="r_abfe4b59f7e7131dd40853169ab7d02f2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfe4b59f7e7131dd40853169ab7d02f2">getCoordinate</a> () const</td></tr>
+<tr class="separator:abfe4b59f7e7131dd40853169ab7d02f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af5f33aba8ab0877e0edcc83ea3f63b" id="r_a4af5f33aba8ab0877e0edcc83ea3f63b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4af5f33aba8ab0877e0edcc83ea3f63b">setCoordinate</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;inCoordinate)</td></tr>
+<tr class="separator:a4af5f33aba8ab0877e0edcc83ea3f63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac64d9215bdaa1d64cd4b9231ecc71e00" id="r_ac64d9215bdaa1d64cd4b9231ecc71e00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac64d9215bdaa1d64cd4b9231ecc71e00">setCoordinate</a> (const int inX, const int inY, const int inZ)</td></tr>
+<tr class="separator:ac64d9215bdaa1d64cd4b9231ecc71e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dc6668a1c58e990a97361fcbe11253a" id="r_a3dc6668a1c58e990a97361fcbe11253a"><td class="memTemplParams" colspan="2">template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a3dc6668a1c58e990a97361fcbe11253a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a3dc6668a1c58e990a97361fcbe11253a">save</a> (BufferWriterClass &amp;buffer) const</td></tr>
+<tr class="separator:a3dc6668a1c58e990a97361fcbe11253a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace2456e7d5cb4d0888e19e14e565597b" id="r_ace2456e7d5cb4d0888e19e14e565597b"><td class="memTemplParams" colspan="2">template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:ace2456e7d5cb4d0888e19e14e565597b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ace2456e7d5cb4d0888e19e14e565597b">restore</a> (BufferReaderClass &amp;buffer)</td></tr>
+<tr class="separator:ace2456e7d5cb4d0888e19e14e565597b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada0f542e80e2c3de809a46eb56becb0f" id="r_ada0f542e80e2c3de809a46eb56becb0f"><td class="memItemLeft" align="right" valign="top">FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada0f542e80e2c3de809a46eb56becb0f">getSavedSize</a> () const</td></tr>
+<tr class="separator:ada0f542e80e2c3de809a46eb56becb0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0da529ab6c72f185b7889b6f816cb8a0" id="r_a0da529ab6c72f185b7889b6f816cb8a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0da529ab6c72f185b7889b6f816cb8a0">resetToInitialState</a> ()</td></tr>
+<tr class="separator:a0da529ab6c72f185b7889b6f816cb8a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+额外继承的成员函数</h2></td></tr>
+<tr class="inherit_header pro_methods_class_f_abstract_serializable"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_f_abstract_serializable')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="class_f_abstract_serializable.html">FAbstractSerializable</a></td></tr>
+<tr class="memitem:a45fdedf0656ebbfbe53b0d17b6ccece5 inherit pro_methods_class_f_abstract_serializable" id="r_a45fdedf0656ebbfbe53b0d17b6ccece5"><td class="memTemplParams" colspan="2">template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a45fdedf0656ebbfbe53b0d17b6ccece5 inherit pro_methods_class_f_abstract_serializable"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_abstract_serializable.html#a45fdedf0656ebbfbe53b0d17b6ccece5">save</a> (BufferWriterClass &amp;) const</td></tr>
+<tr class="separator:a45fdedf0656ebbfbe53b0d17b6ccece5 inherit pro_methods_class_f_abstract_serializable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab11ebf8e05ea24fd43723cb6f14a39c9 inherit pro_methods_class_f_abstract_serializable" id="r_ab11ebf8e05ea24fd43723cb6f14a39c9"><td class="memTemplParams" colspan="2">template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:ab11ebf8e05ea24fd43723cb6f14a39c9 inherit pro_methods_class_f_abstract_serializable"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_abstract_serializable.html#ab11ebf8e05ea24fd43723cb6f14a39c9">restore</a> (BufferReaderClass &amp;)</td></tr>
+<tr class="separator:ab11ebf8e05ea24fd43723cb6f14a39c9 inherit pro_methods_class_f_abstract_serializable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>This class is used in the <a class="el" href="class_f_test_kernels.html">FTestKernels</a>, please look at this class to know how to customize a cell. </p>
+<dl class="section author"><dt>作者</dt><dd>Berenger Bramas (<a href="#" onclick="location.href='mai'+'lto:'+'ber'+'en'+'ger'+'.b'+'ram'+'as'+'@in'+'ri'+'a.f'+'r'; return false;">beren<span class="obfuscator">.nosp@m.</span>ger.<span class="obfuscator">.nosp@m.</span>brama<span class="obfuscator">.nosp@m.</span>s@in<span class="obfuscator">.nosp@m.</span>ria.f<span class="obfuscator">.nosp@m.</span>r</a>)</dd></dl>
+<p>This class defines a basic cell used for examples. It extends the mininum, only what is needed by <a class="el" href="class_f_octree.html">FOctree</a> and <a class="el" href="class_f_fmm_algorithm.html" title="Implements a basic FMM algorithm.">FFmmAlgorithm</a> to make the things working. By using this extension it will implement the <a class="el" href="class_f_abstract_cell.html" title="This class define the methods that every cell class has to implement to be insertable in the tree.">FAbstractCell</a> without inheriting from it.</p>
+<dl class="section author"><dt>作者</dt><dd>Berenger Bramas (<a href="#" onclick="location.href='mai'+'lto:'+'ber'+'en'+'ger'+'.b'+'ram'+'as'+'@in'+'ri'+'a.f'+'r'; return false;">beren<span class="obfuscator">.nosp@m.</span>ger.<span class="obfuscator">.nosp@m.</span>brama<span class="obfuscator">.nosp@m.</span>s@in<span class="obfuscator">.nosp@m.</span>ria.f<span class="obfuscator">.nosp@m.</span>r</a>)</dd></dl>
+<p>This cell simply store the data when up/down. It also shows how to be restored and saved, etc. </p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="aa480833943dc33766ae8a6b2f51bfbff" name="aa480833943dc33766ae8a6b2f51bfbff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa480833943dc33766ae8a6b2f51bfbff">&#9670;&#160;</a></span>FBasicCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FBasicCell::FBasicCell </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default constructor </p>
+
+</div>
+</div>
+<a id="afd4e5209baf262deef7daeaf2e1ec014" name="afd4e5209baf262deef7daeaf2e1ec014"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd4e5209baf262deef7daeaf2e1ec014">&#9670;&#160;</a></span>~FBasicCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual FBasicCell::~FBasicCell </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default destructor </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="abfe4b59f7e7131dd40853169ab7d02f2" name="abfe4b59f7e7131dd40853169ab7d02f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfe4b59f7e7131dd40853169ab7d02f2">&#9670;&#160;</a></span>getCoordinate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp; FBasicCell::getCoordinate </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get the position </p>
+
+</div>
+</div>
+<a id="ae5c9343c2c978ef93cbca34cadf999cb" name="ae5c9343c2c978ef93cbca34cadf999cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5c9343c2c978ef93cbca34cadf999cb">&#9670;&#160;</a></span>getMortonIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MortonIndex FBasicCell::getMortonIndex </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get the morton index </p>
+
+</div>
+</div>
+<a id="ada0f542e80e2c3de809a46eb56becb0f" name="ada0f542e80e2c3de809a46eb56becb0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada0f542e80e2c3de809a46eb56becb0f">&#9670;&#160;</a></span>getSavedSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FSize FBasicCell::getSavedSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="class_f_abstract_serializable.html">FAbstractSerializable</a>.</p>
+
+</div>
+</div>
+<a id="a0da529ab6c72f185b7889b6f816cb8a0" name="a0da529ab6c72f185b7889b6f816cb8a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0da529ab6c72f185b7889b6f816cb8a0">&#9670;&#160;</a></span>resetToInitialState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FBasicCell::resetToInitialState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Do nothing </p>
+
+</div>
+</div>
+<a id="ace2456e7d5cb4d0888e19e14e565597b" name="ace2456e7d5cb4d0888e19e14e565597b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace2456e7d5cb4d0888e19e14e565597b">&#9670;&#160;</a></span>restore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class BufferReaderClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FBasicCell::restore </td>
+          <td>(</td>
+          <td class="paramtype">BufferReaderClass &amp;</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Restore the current cell from a buffer </p>
+
+</div>
+</div>
+<a id="a3dc6668a1c58e990a97361fcbe11253a" name="a3dc6668a1c58e990a97361fcbe11253a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dc6668a1c58e990a97361fcbe11253a">&#9670;&#160;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class BufferWriterClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FBasicCell::save </td>
+          <td>(</td>
+          <td class="paramtype">BufferWriterClass &amp;</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Save the current cell in a buffer </p>
+
+</div>
+</div>
+<a id="a4af5f33aba8ab0877e0edcc83ea3f63b" name="a4af5f33aba8ab0877e0edcc83ea3f63b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4af5f33aba8ab0877e0edcc83ea3f63b">&#9670;&#160;</a></span>setCoordinate() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FBasicCell::setCoordinate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>inCoordinate</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To set the position </p>
+
+</div>
+</div>
+<a id="ac64d9215bdaa1d64cd4b9231ecc71e00" name="ac64d9215bdaa1d64cd4b9231ecc71e00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac64d9215bdaa1d64cd4b9231ecc71e00">&#9670;&#160;</a></span>setCoordinate() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FBasicCell::setCoordinate </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inX</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inY</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inZ</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To set the position from 3 FReals </p>
+
+</div>
+</div>
+<a id="aa77a0f5eb1217c62698b729a0c08baff" name="aa77a0f5eb1217c62698b729a0c08baff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa77a0f5eb1217c62698b729a0c08baff">&#9670;&#160;</a></span>setMortonIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FBasicCell::setMortonIndex </td>
+          <td>(</td>
+          <td class="paramtype">const MortonIndex</td>          <td class="paramname"><span class="paramname"><em>inMortonIndex</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To set the morton index </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Components/<a class="el" href="_f_basic_cell_8hpp_source.html">FBasicCell.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

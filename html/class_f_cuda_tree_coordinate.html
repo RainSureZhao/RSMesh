@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FCudaTreeCoordinate类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="class_f_cuda_tree_coordinate-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FCudaTreeCoordinate类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:a787cdf6063a9a9d328d3a39d0a7f95ae" id="r_a787cdf6063a9a9d328d3a39d0a7f95ae"><td class="memItemLeft" align="right" valign="top"><a id="a787cdf6063a9a9d328d3a39d0a7f95ae" name="a787cdf6063a9a9d328d3a39d0a7f95ae"></a>
+static __device__ int3&#160;</td><td class="memItemRight" valign="bottom"><b>ConvertCoordinate</b> (const int coordinate[3])</td></tr>
+<tr class="separator:a787cdf6063a9a9d328d3a39d0a7f95ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a050c601baa427552aca4537c011b232e" id="r_a050c601baa427552aca4537c011b232e"><td class="memItemLeft" align="right" valign="top"><a id="a050c601baa427552aca4537c011b232e" name="a050c601baa427552aca4537c011b232e"></a>
+static __device__ int3&#160;</td><td class="memItemRight" valign="bottom"><b>GetPositionFromMorton</b> (MortonIndex inIndex, const int inLevel)</td></tr>
+<tr class="separator:a050c601baa427552aca4537c011b232e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6423e27b3584a7e5960afaa1dbfc11e6" id="r_a6423e27b3584a7e5960afaa1dbfc11e6"><td class="memItemLeft" align="right" valign="top">static __device__ MortonIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6423e27b3584a7e5960afaa1dbfc11e6">GetMortonIndex</a> (const int3 coord, const int inLevel)</td></tr>
+<tr class="separator:a6423e27b3584a7e5960afaa1dbfc11e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4d52262423f820c60fadad1ad58528b" id="r_ac4d52262423f820c60fadad1ad58528b"><td class="memItemLeft" align="right" valign="top"><a id="ac4d52262423f820c60fadad1ad58528b" name="ac4d52262423f820c60fadad1ad58528b"></a>
+static __device__ int&#160;</td><td class="memItemRight" valign="bottom"><b>GetNeighborsIndexes</b> (const int3 coord, const int OctreeHeight, MortonIndex indexes[26], int indexInArray[26])</td></tr>
+<tr class="separator:ac4d52262423f820c60fadad1ad58528b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a865a4b3329def94f32aa030e97997dc1" id="r_a865a4b3329def94f32aa030e97997dc1"><td class="memItemLeft" align="right" valign="top"><a id="a865a4b3329def94f32aa030e97997dc1" name="a865a4b3329def94f32aa030e97997dc1"></a>
+static __device__ int&#160;</td><td class="memItemRight" valign="bottom"><b>GetInteractionNeighbors</b> (const int3 coord, const int inLevel, MortonIndex inNeighbors[189], int inNeighborsPosition[189])</td></tr>
+<tr class="separator:a865a4b3329def94f32aa030e97997dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92ae2d44ab758cd46c509bde040cda39" id="r_a92ae2d44ab758cd46c509bde040cda39"><td class="memTemplParams" colspan="2"><a id="a92ae2d44ab758cd46c509bde040cda39" name="a92ae2d44ab758cd46c509bde040cda39"></a>
+template&lt;class NumType &gt; </td></tr>
+<tr class="memitem:a92ae2d44ab758cd46c509bde040cda39"><td class="memTemplItemLeft" align="right" valign="top">static __device__ bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Between</b> (const NumType inValue, const NumType inMin, const NumType inMax)</td></tr>
+<tr class="separator:a92ae2d44ab758cd46c509bde040cda39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3973523420f7076b56a104066896cd8" id="r_ac3973523420f7076b56a104066896cd8"><td class="memItemLeft" align="right" valign="top"><a id="ac3973523420f7076b56a104066896cd8" name="ac3973523420f7076b56a104066896cd8"></a>
+static __device__ int&#160;</td><td class="memItemRight" valign="bottom"><b>pow2</b> (const int power)</td></tr>
+<tr class="separator:ac3973523420f7076b56a104066896cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa80c5eac1b18c2b00985115b822edfb" id="r_afa80c5eac1b18c2b00985115b822edfb"><td class="memTemplParams" colspan="2"><a id="afa80c5eac1b18c2b00985115b822edfb" name="afa80c5eac1b18c2b00985115b822edfb"></a>
+template&lt;class NumType &gt; </td></tr>
+<tr class="memitem:afa80c5eac1b18c2b00985115b822edfb"><td class="memTemplItemLeft" align="right" valign="top">static __device__ NumType&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Abs</b> (const NumType inV)</td></tr>
+<tr class="separator:afa80c5eac1b18c2b00985115b822edfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a6423e27b3584a7e5960afaa1dbfc11e6" name="a6423e27b3584a7e5960afaa1dbfc11e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6423e27b3584a7e5960afaa1dbfc11e6">&#9670;&#160;</a></span>GetMortonIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static __device__ MortonIndex FCudaTreeCoordinate::GetMortonIndex </td>
+          <td>(</td>
+          <td class="paramtype">const int3</td>          <td class="paramname"><span class="paramname"><em>coord</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To get the morton index of the current position @complexity inLevel </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inLevel</td><td>the level of the component </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>morton index </dd></dl>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/GroupTree/Cuda/<a class="el" href="_f_cuda_tree_coordinate_8hpp_source.html">FCudaTreeCoordinate.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

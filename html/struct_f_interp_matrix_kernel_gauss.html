@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FInterpMatrixKernelGauss&lt; FReal &gt; 模板结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="#pub-attribs">Public 属性</a> &#124;
+<a href="#pub-static-attribs">静态 Public 属性</a> &#124;
+<a href="struct_f_interp_matrix_kernel_gauss-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FInterpMatrixKernelGauss&lt; FReal &gt; 模板结构体 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_interp_matrix_kernel___covariance_8hpp_source.html">FInterpMatrixKernel_Covariance.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FInterpMatrixKernelGauss&lt; FReal &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="struct_f_interp_matrix_kernel_gauss.png" usemap="#FInterpMatrixKernelGauss_3C_20FReal_20_3E_map" alt=""/>
+  <map id="FInterpMatrixKernelGauss_3C_20FReal_20_3E_map" name="FInterpMatrixKernelGauss_3C_20FReal_20_3E_map">
+<area href="struct_f_abstract_correlation_kernel.html" alt="FAbstractCorrelationKernel&lt; FReal &gt;" shape="rect" coords="0,56,224,80"/>
+<area href="class_f_no_copyable.html" alt="FNoCopyable" shape="rect" coords="0,0,224,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:ade077a62c8297d06ade91142129db887" id="r_ade077a62c8297d06ade91142129db887"><td class="memItemLeft" align="right" valign="top"><a id="ade077a62c8297d06ade91142129db887" name="ade077a62c8297d06ade91142129db887"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FInterpMatrixKernelGauss</b> (const FReal lengthScale=FReal(1.))</td></tr>
+<tr class="separator:ade077a62c8297d06ade91142129db887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c7d94802addf46534f2a0dab3d91687" id="r_a8c7d94802addf46534f2a0dab3d91687"><td class="memItemLeft" align="right" valign="top"><a id="a8c7d94802addf46534f2a0dab3d91687" name="a8c7d94802addf46534f2a0dab3d91687"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FInterpMatrixKernelGauss</b> (const <a class="el" href="struct_f_interp_matrix_kernel_gauss.html">FInterpMatrixKernelGauss</a> &amp;other)</td></tr>
+<tr class="separator:a8c7d94802addf46534f2a0dab3d91687"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38f1423349678509538408d789c455d4" id="r_a38f1423349678509538408d789c455d4"><td class="memItemLeft" align="right" valign="top"><a id="a38f1423349678509538408d789c455d4" name="a38f1423349678509538408d789c455d4"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getPosition</b> (const unsigned int) const</td></tr>
+<tr class="separator:a38f1423349678509538408d789c455d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacadc00813829c84dc43963dac202397" id="r_aacadc00813829c84dc43963dac202397"><td class="memItemLeft" align="right" valign="top"><a id="aacadc00813829c84dc43963dac202397" name="aacadc00813829c84dc43963dac202397"></a>
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>getMutualCoefficient</b> () const</td></tr>
+<tr class="separator:aacadc00813829c84dc43963dac202397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4aa8a1ebe1d9762ddc5e04a9e554b0e" id="r_ac4aa8a1ebe1d9762ddc5e04a9e554b0e"><td class="memItemLeft" align="right" valign="top">FReal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4aa8a1ebe1d9762ddc5e04a9e554b0e">evaluate</a> (const FReal *x, const FReal *y) const</td></tr>
+<tr class="separator:ac4aa8a1ebe1d9762ddc5e04a9e554b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acde9488273626246320d6016440a3aaa" id="r_acde9488273626246320d6016440a3aaa"><td class="memTemplParams" colspan="2"><a id="acde9488273626246320d6016440a3aaa" name="acde9488273626246320d6016440a3aaa"></a>
+template&lt;class ValueClass &gt; </td></tr>
+<tr class="memitem:acde9488273626246320d6016440a3aaa"><td class="memTemplItemLeft" align="right" valign="top">ValueClass&#160;</td><td class="memTemplItemRight" valign="bottom"><b>evaluate</b> (const ValueClass &amp;x1, const ValueClass &amp;y1, const ValueClass &amp;z1, const ValueClass &amp;x2, const ValueClass &amp;y2, const ValueClass &amp;z2) const</td></tr>
+<tr class="separator:acde9488273626246320d6016440a3aaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa46a6a53df5a258eb6eada28f54e0fdb" id="r_aa46a6a53df5a258eb6eada28f54e0fdb"><td class="memTemplParams" colspan="2"><a id="aa46a6a53df5a258eb6eada28f54e0fdb" name="aa46a6a53df5a258eb6eada28f54e0fdb"></a>
+template&lt;class ValueClass &gt; </td></tr>
+<tr class="memitem:aa46a6a53df5a258eb6eada28f54e0fdb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>evaluateBlock</b> (const ValueClass &amp;x1, const ValueClass &amp;y1, const ValueClass &amp;z1, const ValueClass &amp;x2, const ValueClass &amp;y2, const ValueClass &amp;z2, ValueClass *block) const</td></tr>
+<tr class="separator:aa46a6a53df5a258eb6eada28f54e0fdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d8749333ad320a09abb7b2bac50caed" id="r_a1d8749333ad320a09abb7b2bac50caed"><td class="memTemplParams" colspan="2"><a id="a1d8749333ad320a09abb7b2bac50caed" name="a1d8749333ad320a09abb7b2bac50caed"></a>
+template&lt;class ValueClass &gt; </td></tr>
+<tr class="memitem:a1d8749333ad320a09abb7b2bac50caed"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>evaluateBlockAndDerivative</b> (const ValueClass &amp;x1, const ValueClass &amp;y1, const ValueClass &amp;z1, const ValueClass &amp;x2, const ValueClass &amp;y2, const ValueClass &amp;z2, ValueClass block[1], ValueClass blockDerivative[3]) const</td></tr>
+<tr class="separator:a1d8749333ad320a09abb7b2bac50caed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40f02ce1a6b374249779dc5b43dd2ceb" id="r_a40f02ce1a6b374249779dc5b43dd2ceb"><td class="memItemLeft" align="right" valign="top"><a id="a40f02ce1a6b374249779dc5b43dd2ceb" name="a40f02ce1a6b374249779dc5b43dd2ceb"></a>
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>getScaleFactor</b> (const FReal, const int) const</td></tr>
+<tr class="separator:a40f02ce1a6b374249779dc5b43dd2ceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab10e08b277e7554664a1e28f1343f837" id="r_ab10e08b277e7554664a1e28f1343f837"><td class="memItemLeft" align="right" valign="top"><a id="ab10e08b277e7554664a1e28f1343f837" name="ab10e08b277e7554664a1e28f1343f837"></a>
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>getScaleFactor</b> (const FReal) const</td></tr>
+<tr class="separator:ab10e08b277e7554664a1e28f1343f837"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f7eed54f6f4b44fef4df08bc5a77700" id="r_a2f7eed54f6f4b44fef4df08bc5a77700"><td class="memItemLeft" align="right" valign="top"><a id="a2f7eed54f6f4b44fef4df08bc5a77700" name="a2f7eed54f6f4b44fef4df08bc5a77700"></a>
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>evaluate</b> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;p1, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;p2) const</td></tr>
+<tr class="separator:a2f7eed54f6f4b44fef4df08bc5a77700"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c351bae3505ea506d9f101bd49be27b" id="r_a2c351bae3505ea506d9f101bd49be27b"><td class="memItemLeft" align="right" valign="top"><a id="a2c351bae3505ea506d9f101bd49be27b" name="a2c351bae3505ea506d9f101bd49be27b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>evaluateBlock</b> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;p1, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;p2, FReal *block) const</td></tr>
+<tr class="separator:a2c351bae3505ea506d9f101bd49be27b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a36efefad46ca01c67aad31f2cdfed1" id="r_a1a36efefad46ca01c67aad31f2cdfed1"><td class="memItemLeft" align="right" valign="top"><a id="a1a36efefad46ca01c67aad31f2cdfed1" name="a1a36efefad46ca01c67aad31f2cdfed1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>evaluateBlockAndDerivative</b> (const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;p1, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;p2, FReal block[1], FReal blockDerivative[3]) const</td></tr>
+<tr class="separator:a1a36efefad46ca01c67aad31f2cdfed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:abf76a9de37904ec2b6f6648fb88f8b94" id="r_abf76a9de37904ec2b6f6648fb88f8b94"><td class="memItemLeft" align="right" valign="top"><a id="abf76a9de37904ec2b6f6648fb88f8b94" name="abf76a9de37904ec2b6f6648fb88f8b94"></a>
+static const char *&#160;</td><td class="memItemRight" valign="bottom"><b>getID</b> ()</td></tr>
+<tr class="separator:abf76a9de37904ec2b6f6648fb88f8b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e2d43d3db1e69e1e42842f735847fbe" id="r_a1e2d43d3db1e69e1e42842f735847fbe"><td class="memItemLeft" align="right" valign="top"><a id="a1e2d43d3db1e69e1e42842f735847fbe" name="a1e2d43d3db1e69e1e42842f735847fbe"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>printInfo</b> ()</td></tr>
+<tr class="separator:a1e2d43d3db1e69e1e42842f735847fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public 属性</h2></td></tr>
+<tr class="memitem:a1874e74735a8fa75446fddd0444188ab" id="r_a1874e74735a8fa75446fddd0444188ab"><td class="memItemLeft" align="right" valign="top"><a id="a1874e74735a8fa75446fddd0444188ab" name="a1874e74735a8fa75446fddd0444188ab"></a>
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>lengthScale_</b></td></tr>
+<tr class="separator:a1874e74735a8fa75446fddd0444188ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+静态 Public 属性</h2></td></tr>
+<tr class="memitem:aeff574b3c33b197d0282c846cc35f268" id="r_aeff574b3c33b197d0282c846cc35f268"><td class="memItemLeft" align="right" valign="top"><a id="aeff574b3c33b197d0282c846cc35f268" name="aeff574b3c33b197d0282c846cc35f268"></a>
+static const KERNEL_FUNCTION_TYPE&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b> = NON_HOMOGENEOUS</td></tr>
+<tr class="separator:aeff574b3c33b197d0282c846cc35f268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af61eb466c45d6786f507c36959d67f15" id="r_af61eb466c45d6786f507c36959d67f15"><td class="memItemLeft" align="right" valign="top"><a id="af61eb466c45d6786f507c36959d67f15" name="af61eb466c45d6786f507c36959d67f15"></a>
+static const CORRELATION_SUPPORT_EXTENSION&#160;</td><td class="memItemRight" valign="bottom"><b>Extension</b> = INFINITE</td></tr>
+<tr class="separator:af61eb466c45d6786f507c36959d67f15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedaeb5c677ddeda896abacca2f63741e" id="r_aedaeb5c677ddeda896abacca2f63741e"><td class="memItemLeft" align="right" valign="top"><a id="aedaeb5c677ddeda896abacca2f63741e" name="aedaeb5c677ddeda896abacca2f63741e"></a>
+static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>NCMP</b> = 1</td></tr>
+<tr class="separator:aedaeb5c677ddeda896abacca2f63741e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae847230d02f01c729df16cac505e1f1b" id="r_ae847230d02f01c729df16cac505e1f1b"><td class="memItemLeft" align="right" valign="top"><a id="ae847230d02f01c729df16cac505e1f1b" name="ae847230d02f01c729df16cac505e1f1b"></a>
+static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>NPV</b> = 1</td></tr>
+<tr class="separator:ae847230d02f01c729df16cac505e1f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab34227f39e16fae41d0220fa3c7994f1" id="r_ab34227f39e16fae41d0220fa3c7994f1"><td class="memItemLeft" align="right" valign="top"><a id="ab34227f39e16fae41d0220fa3c7994f1" name="ab34227f39e16fae41d0220fa3c7994f1"></a>
+static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>NPOT</b> = 1</td></tr>
+<tr class="separator:ab34227f39e16fae41d0220fa3c7994f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0edb3b81a91a20771a9310c5fd65ad51" id="r_a0edb3b81a91a20771a9310c5fd65ad51"><td class="memItemLeft" align="right" valign="top"><a id="a0edb3b81a91a20771a9310c5fd65ad51" name="a0edb3b81a91a20771a9310c5fd65ad51"></a>
+static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>NRHS</b> = 1</td></tr>
+<tr class="separator:a0edb3b81a91a20771a9310c5fd65ad51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33d8ab581617e108cd76842e5b461c80" id="r_a33d8ab581617e108cd76842e5b461c80"><td class="memItemLeft" align="right" valign="top"><a id="a33d8ab581617e108cd76842e5b461c80" name="a33d8ab581617e108cd76842e5b461c80"></a>
+static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>NLHS</b> = 1</td></tr>
+<tr class="separator:a33d8ab581617e108cd76842e5b461c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+额外继承的成员函数</h2></td></tr>
+<tr class="inherit_header pro_methods_class_f_no_copyable"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_f_no_copyable')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="class_f_no_copyable.html">FNoCopyable</a></td></tr>
+<tr class="memitem:af6c8508f3d9c89baf58d70f6b2fb0a9d inherit pro_methods_class_f_no_copyable" id="r_af6c8508f3d9c89baf58d70f6b2fb0a9d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_no_copyable.html#af6c8508f3d9c89baf58d70f6b2fb0a9d">FNoCopyable</a> ()</td></tr>
+<tr class="separator:af6c8508f3d9c89baf58d70f6b2fb0a9d inherit pro_methods_class_f_no_copyable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal&gt;<br />
+struct FInterpMatrixKernelGauss&lt; FReal &gt;</div><p>Generic Gaussian correlation function Special case of Matern function with $\nu \rightarrow \infty$ <br  />
+ </p>
+</div><h2 class="groupheader">成员函数说明</h2>
+<a id="ac4aa8a1ebe1d9762ddc5e04a9e554b0e" name="ac4aa8a1ebe1d9762ddc5e04a9e554b0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4aa8a1ebe1d9762ddc5e04a9e554b0e">&#9670;&#160;</a></span>evaluate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FReal <a class="el" href="struct_f_interp_matrix_kernel_gauss.html">FInterpMatrixKernelGauss</a>&lt; FReal &gt;::evaluate </td>
+          <td>(</td>
+          <td class="paramtype">const FReal *</td>          <td class="paramname"><span class="paramname"><em>x</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal *</td>          <td class="paramname"><span class="paramname"><em>y</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="struct_f_abstract_correlation_kernel.html">FAbstractCorrelationKernel&lt; FReal &gt;</a>.</p>
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Interpolation/<a class="el" href="_f_interp_matrix_kernel___covariance_8hpp_source.html">FInterpMatrixKernel_Covariance.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

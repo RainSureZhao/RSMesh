@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FTypedTaylorCell&lt; FReal, P, order &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="class_f_typed_taylor_cell-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FTypedTaylorCell&lt; FReal, P, order &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+类 FTypedTaylorCell&lt; FReal, P, order &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_typed_taylor_cell.png" usemap="#FTypedTaylorCell_3C_20FReal_2C_20P_2C_20order_20_3E_map" alt=""/>
+  <map id="FTypedTaylorCell_3C_20FReal_2C_20P_2C_20order_20_3E_map" name="FTypedTaylorCell_3C_20FReal_2C_20P_2C_20order_20_3E_map">
+<area href="class_f_taylor_cell.html" alt="FTaylorCell&lt; FReal, P, order &gt;" shape="rect" coords="118,112,345,136"/>
+<area href="class_f_extend_cell_type.html" alt="FExtendCellType" shape="rect" coords="355,112,582,136"/>
+<area href="class_f_basic_cell.html" title="This class is used in the FTestKernels, please look at this class to know how to customize a cell." alt="FBasicCell" shape="rect" coords="0,56,227,80"/>
+<area href="class_f_abstract_sendable.html" alt="FAbstractSendable" shape="rect" coords="237,56,464,80"/>
+<area href="class_f_abstract_serializable.html" alt="FAbstractSerializable" shape="rect" coords="0,0,227,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a2520dee85a0b18d3979253d8984fb4ba" id="r_a2520dee85a0b18d3979253d8984fb4ba"><td class="memTemplParams" colspan="2"><a id="a2520dee85a0b18d3979253d8984fb4ba" name="a2520dee85a0b18d3979253d8984fb4ba"></a>
+template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a2520dee85a0b18d3979253d8984fb4ba"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>save</b> (BufferWriterClass &amp;buffer) const</td></tr>
+<tr class="separator:a2520dee85a0b18d3979253d8984fb4ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f4df8c6287378e4fe5505aaacf2fe75" id="r_a8f4df8c6287378e4fe5505aaacf2fe75"><td class="memTemplParams" colspan="2"><a id="a8f4df8c6287378e4fe5505aaacf2fe75" name="a8f4df8c6287378e4fe5505aaacf2fe75"></a>
+template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:a8f4df8c6287378e4fe5505aaacf2fe75"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>restore</b> (BufferReaderClass &amp;buffer)</td></tr>
+<tr class="separator:a8f4df8c6287378e4fe5505aaacf2fe75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f8d18aef7c60bf014fe4dc60c0458e2" id="r_a1f8d18aef7c60bf014fe4dc60c0458e2"><td class="memItemLeft" align="right" valign="top"><a id="a1f8d18aef7c60bf014fe4dc60c0458e2" name="a1f8d18aef7c60bf014fe4dc60c0458e2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>resetToInitialState</b> ()</td></tr>
+<tr class="separator:a1f8d18aef7c60bf014fe4dc60c0458e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26e2d51e86e8c0aeb3f4c1e3ef0f964" id="r_ae26e2d51e86e8c0aeb3f4c1e3ef0f964"><td class="memItemLeft" align="right" valign="top">FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae26e2d51e86e8c0aeb3f4c1e3ef0f964">getSavedSize</a> () const</td></tr>
+<tr class="separator:ae26e2d51e86e8c0aeb3f4c1e3ef0f964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_f_taylor_cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_f_taylor_cell')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="class_f_taylor_cell.html">FTaylorCell&lt; FReal, P, order &gt;</a></td></tr>
+<tr class="memitem:afdb0b6afd2309139bc32e761b78031cc inherit pub_methods_class_f_taylor_cell" id="r_afdb0b6afd2309139bc32e761b78031cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_taylor_cell.html#afdb0b6afd2309139bc32e761b78031cc">FTaylorCell</a> ()</td></tr>
+<tr class="separator:afdb0b6afd2309139bc32e761b78031cc inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfb2cfa6d64bc44ac5b75bc1a06f7dcc inherit pub_methods_class_f_taylor_cell" id="r_adfb2cfa6d64bc44ac5b75bc1a06f7dcc"><td class="memItemLeft" align="right" valign="top">
+FReal *&#160;</td><td class="memItemRight" valign="bottom"><b>getMultipole</b> (void)</td></tr>
+<tr class="separator:adfb2cfa6d64bc44ac5b75bc1a06f7dcc inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07967cf51675e10c679dcfeb7feb3377 inherit pub_methods_class_f_taylor_cell" id="r_a07967cf51675e10c679dcfeb7feb3377"><td class="memItemLeft" align="right" valign="top">
+const FReal *&#160;</td><td class="memItemRight" valign="bottom"><b>getMultipole</b> (void) const</td></tr>
+<tr class="separator:a07967cf51675e10c679dcfeb7feb3377 inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c7236b7208796767f92c3cbd32f3d73 inherit pub_methods_class_f_taylor_cell" id="r_a8c7236b7208796767f92c3cbd32f3d73"><td class="memItemLeft" align="right" valign="top">
+FReal *&#160;</td><td class="memItemRight" valign="bottom"><b>getLocal</b> (void)</td></tr>
+<tr class="separator:a8c7236b7208796767f92c3cbd32f3d73 inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0536c0ce1b42fea47aab75e2ad977b81 inherit pub_methods_class_f_taylor_cell" id="r_a0536c0ce1b42fea47aab75e2ad977b81"><td class="memItemLeft" align="right" valign="top">
+const FReal *&#160;</td><td class="memItemRight" valign="bottom"><b>getLocal</b> (void) const</td></tr>
+<tr class="separator:a0536c0ce1b42fea47aab75e2ad977b81 inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a4b51e72c85edf96eebb6d1ec150a90 inherit pub_methods_class_f_taylor_cell" id="r_a7a4b51e72c85edf96eebb6d1ec150a90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_taylor_cell.html#a7a4b51e72c85edf96eebb6d1ec150a90">resetToInitialState</a> ()</td></tr>
+<tr class="separator:a7a4b51e72c85edf96eebb6d1ec150a90 inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb310b890b423739a4f1553c8e818347 inherit pub_methods_class_f_taylor_cell" id="r_abb310b890b423739a4f1553c8e818347"><td class="memTemplParams" colspan="2">
+template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:abb310b890b423739a4f1553c8e818347 inherit pub_methods_class_f_taylor_cell"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>serializeUp</b> (BufferWriterClass &amp;buffer) const</td></tr>
+<tr class="separator:abb310b890b423739a4f1553c8e818347 inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbe57bb006206e1b73d7f312e29404fe inherit pub_methods_class_f_taylor_cell" id="r_adbe57bb006206e1b73d7f312e29404fe"><td class="memTemplParams" colspan="2">
+template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:adbe57bb006206e1b73d7f312e29404fe inherit pub_methods_class_f_taylor_cell"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>deserializeUp</b> (BufferReaderClass &amp;buffer)</td></tr>
+<tr class="separator:adbe57bb006206e1b73d7f312e29404fe inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6979fa0912f6225a98dbb44bd6767e04 inherit pub_methods_class_f_taylor_cell" id="r_a6979fa0912f6225a98dbb44bd6767e04"><td class="memTemplParams" colspan="2">
+template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a6979fa0912f6225a98dbb44bd6767e04 inherit pub_methods_class_f_taylor_cell"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>serializeDown</b> (BufferWriterClass &amp;buffer) const</td></tr>
+<tr class="separator:a6979fa0912f6225a98dbb44bd6767e04 inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3a1ecc177ec06dcf6d7c25f05ba1562 inherit pub_methods_class_f_taylor_cell" id="r_ae3a1ecc177ec06dcf6d7c25f05ba1562"><td class="memTemplParams" colspan="2">
+template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:ae3a1ecc177ec06dcf6d7c25f05ba1562 inherit pub_methods_class_f_taylor_cell"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>deserializeDown</b> (BufferReaderClass &amp;buffer)</td></tr>
+<tr class="separator:ae3a1ecc177ec06dcf6d7c25f05ba1562 inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a731389e853ba7fd1aa65596445b5b256 inherit pub_methods_class_f_taylor_cell" id="r_a731389e853ba7fd1aa65596445b5b256"><td class="memItemLeft" align="right" valign="top">FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_taylor_cell.html#a731389e853ba7fd1aa65596445b5b256">getSavedSizeUp</a> () const</td></tr>
+<tr class="separator:a731389e853ba7fd1aa65596445b5b256 inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab01c3332dec88fbe8575a96b41149337 inherit pub_methods_class_f_taylor_cell" id="r_ab01c3332dec88fbe8575a96b41149337"><td class="memItemLeft" align="right" valign="top">FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_taylor_cell.html#ab01c3332dec88fbe8575a96b41149337">getSavedSizeDown</a> () const</td></tr>
+<tr class="separator:ab01c3332dec88fbe8575a96b41149337 inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06ccd017a22693a936354ba65e9e76ed inherit pub_methods_class_f_taylor_cell" id="r_a06ccd017a22693a936354ba65e9e76ed"><td class="memTemplParams" colspan="2">
+template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a06ccd017a22693a936354ba65e9e76ed inherit pub_methods_class_f_taylor_cell"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>save</b> (BufferWriterClass &amp;buffer) const</td></tr>
+<tr class="separator:a06ccd017a22693a936354ba65e9e76ed inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc77dac69434f4adac92f1032a05acd4 inherit pub_methods_class_f_taylor_cell" id="r_afc77dac69434f4adac92f1032a05acd4"><td class="memTemplParams" colspan="2">
+template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:afc77dac69434f4adac92f1032a05acd4 inherit pub_methods_class_f_taylor_cell"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>restore</b> (BufferReaderClass &amp;buffer)</td></tr>
+<tr class="separator:afc77dac69434f4adac92f1032a05acd4 inherit pub_methods_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_f_basic_cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_f_basic_cell')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="class_f_basic_cell.html">FBasicCell</a></td></tr>
+<tr class="memitem:aa480833943dc33766ae8a6b2f51bfbff inherit pub_methods_class_f_basic_cell" id="r_aa480833943dc33766ae8a6b2f51bfbff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_basic_cell.html#aa480833943dc33766ae8a6b2f51bfbff">FBasicCell</a> ()</td></tr>
+<tr class="separator:aa480833943dc33766ae8a6b2f51bfbff inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd4e5209baf262deef7daeaf2e1ec014 inherit pub_methods_class_f_basic_cell" id="r_afd4e5209baf262deef7daeaf2e1ec014"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_basic_cell.html#afd4e5209baf262deef7daeaf2e1ec014">~FBasicCell</a> ()</td></tr>
+<tr class="separator:afd4e5209baf262deef7daeaf2e1ec014 inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add52d8afe3a023aef782530f10aba498 inherit pub_methods_class_f_basic_cell" id="r_add52d8afe3a023aef782530f10aba498"><td class="memItemLeft" align="right" valign="top">
+std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>getLevel</b> () const</td></tr>
+<tr class="separator:add52d8afe3a023aef782530f10aba498 inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67200d21ab32d5ae0b466bd86666dc5b inherit pub_methods_class_f_basic_cell" id="r_a67200d21ab32d5ae0b466bd86666dc5b"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setLevel</b> (std::size_t inLevel)</td></tr>
+<tr class="separator:a67200d21ab32d5ae0b466bd86666dc5b inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5c9343c2c978ef93cbca34cadf999cb inherit pub_methods_class_f_basic_cell" id="r_ae5c9343c2c978ef93cbca34cadf999cb"><td class="memItemLeft" align="right" valign="top">MortonIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_basic_cell.html#ae5c9343c2c978ef93cbca34cadf999cb">getMortonIndex</a> () const</td></tr>
+<tr class="separator:ae5c9343c2c978ef93cbca34cadf999cb inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa77a0f5eb1217c62698b729a0c08baff inherit pub_methods_class_f_basic_cell" id="r_aa77a0f5eb1217c62698b729a0c08baff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_basic_cell.html#aa77a0f5eb1217c62698b729a0c08baff">setMortonIndex</a> (const MortonIndex inMortonIndex)</td></tr>
+<tr class="separator:aa77a0f5eb1217c62698b729a0c08baff inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfe4b59f7e7131dd40853169ab7d02f2 inherit pub_methods_class_f_basic_cell" id="r_abfe4b59f7e7131dd40853169ab7d02f2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_basic_cell.html#abfe4b59f7e7131dd40853169ab7d02f2">getCoordinate</a> () const</td></tr>
+<tr class="separator:abfe4b59f7e7131dd40853169ab7d02f2 inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af5f33aba8ab0877e0edcc83ea3f63b inherit pub_methods_class_f_basic_cell" id="r_a4af5f33aba8ab0877e0edcc83ea3f63b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_basic_cell.html#a4af5f33aba8ab0877e0edcc83ea3f63b">setCoordinate</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;inCoordinate)</td></tr>
+<tr class="separator:a4af5f33aba8ab0877e0edcc83ea3f63b inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac64d9215bdaa1d64cd4b9231ecc71e00 inherit pub_methods_class_f_basic_cell" id="r_ac64d9215bdaa1d64cd4b9231ecc71e00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_basic_cell.html#ac64d9215bdaa1d64cd4b9231ecc71e00">setCoordinate</a> (const int inX, const int inY, const int inZ)</td></tr>
+<tr class="separator:ac64d9215bdaa1d64cd4b9231ecc71e00 inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dc6668a1c58e990a97361fcbe11253a inherit pub_methods_class_f_basic_cell" id="r_a3dc6668a1c58e990a97361fcbe11253a"><td class="memTemplParams" colspan="2">template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a3dc6668a1c58e990a97361fcbe11253a inherit pub_methods_class_f_basic_cell"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_basic_cell.html#a3dc6668a1c58e990a97361fcbe11253a">save</a> (BufferWriterClass &amp;buffer) const</td></tr>
+<tr class="separator:a3dc6668a1c58e990a97361fcbe11253a inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace2456e7d5cb4d0888e19e14e565597b inherit pub_methods_class_f_basic_cell" id="r_ace2456e7d5cb4d0888e19e14e565597b"><td class="memTemplParams" colspan="2">template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:ace2456e7d5cb4d0888e19e14e565597b inherit pub_methods_class_f_basic_cell"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_basic_cell.html#ace2456e7d5cb4d0888e19e14e565597b">restore</a> (BufferReaderClass &amp;buffer)</td></tr>
+<tr class="separator:ace2456e7d5cb4d0888e19e14e565597b inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0da529ab6c72f185b7889b6f816cb8a0 inherit pub_methods_class_f_basic_cell" id="r_a0da529ab6c72f185b7889b6f816cb8a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_basic_cell.html#a0da529ab6c72f185b7889b6f816cb8a0">resetToInitialState</a> ()</td></tr>
+<tr class="separator:a0da529ab6c72f185b7889b6f816cb8a0 inherit pub_methods_class_f_basic_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_f_extend_cell_type"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_f_extend_cell_type')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a></td></tr>
+<tr class="memitem:acf7bed2c823c6c8d5ec2820ebff1dd8e inherit pub_methods_class_f_extend_cell_type" id="r_acf7bed2c823c6c8d5ec2820ebff1dd8e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#acf7bed2c823c6c8d5ec2820ebff1dd8e">FExtendCellType</a> ()</td></tr>
+<tr class="separator:acf7bed2c823c6c8d5ec2820ebff1dd8e inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bb7edb69bc7d1a324ee6f68f8a88ca1 inherit pub_methods_class_f_extend_cell_type" id="r_a5bb7edb69bc7d1a324ee6f68f8a88ca1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#a5bb7edb69bc7d1a324ee6f68f8a88ca1">FExtendCellType</a> (const <a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a> &amp;other)</td></tr>
+<tr class="separator:a5bb7edb69bc7d1a324ee6f68f8a88ca1 inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ddb753874d785168f9343642760ff22 inherit pub_methods_class_f_extend_cell_type" id="r_a0ddb753874d785168f9343642760ff22"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#a0ddb753874d785168f9343642760ff22">operator=</a> (const <a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a> &amp;other)</td></tr>
+<tr class="separator:a0ddb753874d785168f9343642760ff22 inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace5e194dcf40ca648409c80db2a5a448 inherit pub_methods_class_f_extend_cell_type" id="r_ace5e194dcf40ca648409c80db2a5a448"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#ace5e194dcf40ca648409c80db2a5a448">hasSrcChild</a> () const</td></tr>
+<tr class="separator:ace5e194dcf40ca648409c80db2a5a448 inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef5eafbd37ecab5fc75f71b96aefd8da inherit pub_methods_class_f_extend_cell_type" id="r_aef5eafbd37ecab5fc75f71b96aefd8da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#aef5eafbd37ecab5fc75f71b96aefd8da">hasTargetsChild</a> () const</td></tr>
+<tr class="separator:aef5eafbd37ecab5fc75f71b96aefd8da inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7d8e37bbb508a64ae16b6bad111a5a inherit pub_methods_class_f_extend_cell_type" id="r_a5b7d8e37bbb508a64ae16b6bad111a5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#a5b7d8e37bbb508a64ae16b6bad111a5a">setSrcChildTrue</a> ()</td></tr>
+<tr class="separator:a5b7d8e37bbb508a64ae16b6bad111a5a inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae52202f30d56aa566c7e6fc190f69b24 inherit pub_methods_class_f_extend_cell_type" id="r_ae52202f30d56aa566c7e6fc190f69b24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#ae52202f30d56aa566c7e6fc190f69b24">setTargetsChildTrue</a> ()</td></tr>
+<tr class="separator:ae52202f30d56aa566c7e6fc190f69b24 inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28edf5d910068a03de22d21da77797ce inherit pub_methods_class_f_extend_cell_type" id="r_a28edf5d910068a03de22d21da77797ce"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setTargetsChildFalse</b> ()</td></tr>
+<tr class="separator:a28edf5d910068a03de22d21da77797ce inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c89165507eac2b7f803e82d6f3d95af inherit pub_methods_class_f_extend_cell_type" id="r_a9c89165507eac2b7f803e82d6f3d95af"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isM2LDone</b> () const</td></tr>
+<tr class="separator:a9c89165507eac2b7f803e82d6f3d95af inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29bbebad24d361026de2590775618662 inherit pub_methods_class_f_extend_cell_type" id="r_a29bbebad24d361026de2590775618662"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isL2LDone</b> () const</td></tr>
+<tr class="separator:a29bbebad24d361026de2590775618662 inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99c2c7fd7453c46a5825a97f0f0ff6e6 inherit pub_methods_class_f_extend_cell_type" id="r_a99c2c7fd7453c46a5825a97f0f0ff6e6"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setM2LDoneTrue</b> ()</td></tr>
+<tr class="separator:a99c2c7fd7453c46a5825a97f0f0ff6e6 inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f9edf28e9c201f73d8639561fcf80f4 inherit pub_methods_class_f_extend_cell_type" id="r_a6f9edf28e9c201f73d8639561fcf80f4"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setL2LDoneTrue</b> ()</td></tr>
+<tr class="separator:a6f9edf28e9c201f73d8639561fcf80f4 inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e26d5bd235506ca2dcc325bf9acb462 inherit pub_methods_class_f_extend_cell_type" id="r_a5e26d5bd235506ca2dcc325bf9acb462"><td class="memTemplParams" colspan="2">template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a5e26d5bd235506ca2dcc325bf9acb462 inherit pub_methods_class_f_extend_cell_type"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#a5e26d5bd235506ca2dcc325bf9acb462">save</a> (BufferWriterClass &amp;buffer) const</td></tr>
+<tr class="separator:a5e26d5bd235506ca2dcc325bf9acb462 inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a9c26cb5487da3fbd9501d4110ae1f0 inherit pub_methods_class_f_extend_cell_type" id="r_a7a9c26cb5487da3fbd9501d4110ae1f0"><td class="memTemplParams" colspan="2">template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:a7a9c26cb5487da3fbd9501d4110ae1f0 inherit pub_methods_class_f_extend_cell_type"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#a7a9c26cb5487da3fbd9501d4110ae1f0">restore</a> (BufferReaderClass &amp;buffer)</td></tr>
+<tr class="separator:a7a9c26cb5487da3fbd9501d4110ae1f0 inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b892b60715a4437c54db8e234a5b55b inherit pub_methods_class_f_extend_cell_type" id="r_a1b892b60715a4437c54db8e234a5b55b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#a1b892b60715a4437c54db8e234a5b55b">resetToInitialState</a> ()</td></tr>
+<tr class="separator:a1b892b60715a4437c54db8e234a5b55b inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acadcf1f38588c588d3b782f3cfa70ccb inherit pub_methods_class_f_extend_cell_type" id="r_acadcf1f38588c588d3b782f3cfa70ccb"><td class="memItemLeft" align="right" valign="top">
+FSize&#160;</td><td class="memItemRight" valign="bottom"><b>getSavedSize</b> () const</td></tr>
+<tr class="separator:acadcf1f38588c588d3b782f3cfa70ccb inherit pub_methods_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+额外继承的成员函数</h2></td></tr>
+<tr class="inherit_header pro_methods_class_f_abstract_serializable"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_f_abstract_serializable')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="class_f_abstract_serializable.html">FAbstractSerializable</a></td></tr>
+<tr class="memitem:a45fdedf0656ebbfbe53b0d17b6ccece5 inherit pro_methods_class_f_abstract_serializable" id="r_a45fdedf0656ebbfbe53b0d17b6ccece5"><td class="memTemplParams" colspan="2">template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a45fdedf0656ebbfbe53b0d17b6ccece5 inherit pro_methods_class_f_abstract_serializable"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_abstract_serializable.html#a45fdedf0656ebbfbe53b0d17b6ccece5">save</a> (BufferWriterClass &amp;) const</td></tr>
+<tr class="separator:a45fdedf0656ebbfbe53b0d17b6ccece5 inherit pro_methods_class_f_abstract_serializable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab11ebf8e05ea24fd43723cb6f14a39c9 inherit pro_methods_class_f_abstract_serializable" id="r_ab11ebf8e05ea24fd43723cb6f14a39c9"><td class="memTemplParams" colspan="2">template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:ab11ebf8e05ea24fd43723cb6f14a39c9 inherit pro_methods_class_f_abstract_serializable"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_abstract_serializable.html#ab11ebf8e05ea24fd43723cb6f14a39c9">restore</a> (BufferReaderClass &amp;)</td></tr>
+<tr class="separator:ab11ebf8e05ea24fd43723cb6f14a39c9 inherit pro_methods_class_f_abstract_serializable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_f_abstract_sendable"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_class_f_abstract_sendable')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="class_f_abstract_sendable.html">FAbstractSendable</a></td></tr>
+<tr class="memitem:a57d6a7053c1146969afcb8fa45db891d inherit pro_methods_class_f_abstract_sendable" id="r_a57d6a7053c1146969afcb8fa45db891d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_abstract_sendable.html#a57d6a7053c1146969afcb8fa45db891d">~FAbstractSendable</a> ()</td></tr>
+<tr class="separator:a57d6a7053c1146969afcb8fa45db891d inherit pro_methods_class_f_abstract_sendable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08d5e9df7d4c7d3c8fe7233451ea395e inherit pro_methods_class_f_abstract_sendable" id="r_a08d5e9df7d4c7d3c8fe7233451ea395e"><td class="memTemplParams" colspan="2">template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a08d5e9df7d4c7d3c8fe7233451ea395e inherit pro_methods_class_f_abstract_sendable"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_abstract_sendable.html#a08d5e9df7d4c7d3c8fe7233451ea395e">serializeUp</a> (BufferWriterClass &amp;) const</td></tr>
+<tr class="separator:a08d5e9df7d4c7d3c8fe7233451ea395e inherit pro_methods_class_f_abstract_sendable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a5d0b4043cba21936fa55c36ac5aa5c inherit pro_methods_class_f_abstract_sendable" id="r_a2a5d0b4043cba21936fa55c36ac5aa5c"><td class="memTemplParams" colspan="2">template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:a2a5d0b4043cba21936fa55c36ac5aa5c inherit pro_methods_class_f_abstract_sendable"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_abstract_sendable.html#a2a5d0b4043cba21936fa55c36ac5aa5c">deserializeUp</a> (BufferReaderClass &amp;)</td></tr>
+<tr class="separator:a2a5d0b4043cba21936fa55c36ac5aa5c inherit pro_methods_class_f_abstract_sendable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a981256f4922ba5c0bf0dbbdf81b26c14 inherit pro_methods_class_f_abstract_sendable" id="r_a981256f4922ba5c0bf0dbbdf81b26c14"><td class="memTemplParams" colspan="2">template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a981256f4922ba5c0bf0dbbdf81b26c14 inherit pro_methods_class_f_abstract_sendable"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_abstract_sendable.html#a981256f4922ba5c0bf0dbbdf81b26c14">serializeDown</a> (BufferWriterClass &amp;) const</td></tr>
+<tr class="separator:a981256f4922ba5c0bf0dbbdf81b26c14 inherit pro_methods_class_f_abstract_sendable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdef314dc24eff8bc056b65f4e6a3508 inherit pro_methods_class_f_abstract_sendable" id="r_afdef314dc24eff8bc056b65f4e6a3508"><td class="memTemplParams" colspan="2">template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:afdef314dc24eff8bc056b65f4e6a3508 inherit pro_methods_class_f_abstract_sendable"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_f_abstract_sendable.html#afdef314dc24eff8bc056b65f4e6a3508">deserializeDown</a> (BufferReaderClass &amp;)</td></tr>
+<tr class="separator:afdef314dc24eff8bc056b65f4e6a3508 inherit pro_methods_class_f_abstract_sendable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_f_taylor_cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_f_taylor_cell')"><img src="closed.png" alt="-"/>&#160;Protected 属性 继承自 <a class="el" href="class_f_taylor_cell.html">FTaylorCell&lt; FReal, P, order &gt;</a></td></tr>
+<tr class="memitem:ac7c86ae38725d5eb44740fcd62b3739b inherit pro_attribs_class_f_taylor_cell" id="r_ac7c86ae38725d5eb44740fcd62b3739b"><td class="memItemLeft" align="right" valign="top">
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>multipole_exp</b> [MultipoleSize]</td></tr>
+<tr class="separator:ac7c86ae38725d5eb44740fcd62b3739b inherit pro_attribs_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a504fa88979b6a7b5fe5afc9edb544f0c inherit pro_attribs_class_f_taylor_cell" id="r_a504fa88979b6a7b5fe5afc9edb544f0c"><td class="memItemLeft" align="right" valign="top">
+FReal&#160;</td><td class="memItemRight" valign="bottom"><b>local_exp</b> [LocalSize]</td></tr>
+<tr class="separator:a504fa88979b6a7b5fe5afc9edb544f0c inherit pro_attribs_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_f_extend_cell_type"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_f_extend_cell_type')"><img src="closed.png" alt="-"/>&#160;Protected 属性 继承自 <a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a></td></tr>
+<tr class="memitem:ad89a4f4cdf300a19055715b489da4b2a inherit pro_attribs_class_f_extend_cell_type" id="r_ad89a4f4cdf300a19055715b489da4b2a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_extend_cell_type.html#ad89a4f4cdf300a19055715b489da4b2a">containsTargets</a></td></tr>
+<tr class="separator:ad89a4f4cdf300a19055715b489da4b2a inherit pro_attribs_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36e8952a8adf4be433492417125dc47d inherit pro_attribs_class_f_extend_cell_type" id="r_a36e8952a8adf4be433492417125dc47d"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>containsSources</b></td></tr>
+<tr class="separator:a36e8952a8adf4be433492417125dc47d inherit pro_attribs_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac23c582bdddbf1a11bb70f8746776236 inherit pro_attribs_class_f_extend_cell_type" id="r_ac23c582bdddbf1a11bb70f8746776236"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m2lDone</b></td></tr>
+<tr class="separator:ac23c582bdddbf1a11bb70f8746776236 inherit pro_attribs_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a437ffccc8c22f6413b1c9022273c1a7c inherit pro_attribs_class_f_extend_cell_type" id="r_a437ffccc8c22f6413b1c9022273c1a7c"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>l2lDone</b></td></tr>
+<tr class="separator:a437ffccc8c22f6413b1c9022273c1a7c inherit pro_attribs_class_f_extend_cell_type"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_static_attribs_class_f_taylor_cell"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_static_attribs_class_f_taylor_cell')"><img src="closed.png" alt="-"/>&#160;静态 Protected 属性 继承自 <a class="el" href="class_f_taylor_cell.html">FTaylorCell&lt; FReal, P, order &gt;</a></td></tr>
+<tr class="memitem:a8e873f6f5efe18b9455e44fcb24ad847 inherit pro_static_attribs_class_f_taylor_cell" id="r_a8e873f6f5efe18b9455e44fcb24ad847"><td class="memItemLeft" align="right" valign="top">
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>MultipoleSize</b> = ((P+1)*(P+2)*(P+3))*order/6</td></tr>
+<tr class="separator:a8e873f6f5efe18b9455e44fcb24ad847 inherit pro_static_attribs_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cded7dba7a943c0842b4e5b2bd3c050 inherit pro_static_attribs_class_f_taylor_cell" id="r_a9cded7dba7a943c0842b4e5b2bd3c050"><td class="memItemLeft" align="right" valign="top">
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>LocalSize</b> = ((P+1)*(P+2)*(P+3))*order/6</td></tr>
+<tr class="separator:a9cded7dba7a943c0842b4e5b2bd3c050 inherit pro_static_attribs_class_f_taylor_cell"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="ae26e2d51e86e8c0aeb3f4c1e3ef0f964" name="ae26e2d51e86e8c0aeb3f4c1e3ef0f964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae26e2d51e86e8c0aeb3f4c1e3ef0f964">&#9670;&#160;</a></span>getSavedSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , int P, int order&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FSize <a class="el" href="class_f_typed_taylor_cell.html">FTypedTaylorCell</a>&lt; FReal, P, order &gt;::getSavedSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>重载 <a class="el" href="class_f_taylor_cell.html">FTaylorCell&lt; FReal, P, order &gt;</a> .</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Taylor/<a class="el" href="_f_taylor_cell_8hpp_source.html">FTaylorCell.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FAbstractSphericalKernel&lt; FReal, CellClass, ContainerClass &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-methods">Protected 成员函数</a> &#124;
+<a href="#pro-attribs">Protected 属性</a> &#124;
+<a href="class_f_abstract_spherical_kernel-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FAbstractSphericalKernel&lt; FReal, CellClass, ContainerClass &gt; 模板类 参考<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_abstract_spherical_kernel_8hpp_source.html">FAbstractSphericalKernel.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FAbstractSphericalKernel&lt; FReal, CellClass, ContainerClass &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_abstract_spherical_kernel.png" usemap="#FAbstractSphericalKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_20_3E_map" alt=""/>
+  <map id="FAbstractSphericalKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_20_3E_map" name="FAbstractSphericalKernel_3C_20FReal_2C_20CellClass_2C_20ContainerClass_20_3E_map">
+<area href="class_f_abstract_kernels.html" alt="FAbstractKernels&lt; CellClass, ContainerClass &gt;" shape="rect" coords="585,0,965,24"/>
+<area href="class_f_spherical_blas_kernel.html" alt="FSphericalBlasKernel&lt; FReal, CellClass, ContainerClass &gt;" shape="rect" coords="0,112,380,136"/>
+<area href="class_f_spherical_block_blas_kernel.html" alt="FSphericalBlockBlasKernel&lt; FReal, CellClass, ContainerClass &gt;" shape="rect" coords="390,112,770,136"/>
+<area href="class_f_spherical_kernel.html" alt="FSphericalKernel&lt; FReal, CellClass, ContainerClass &gt;" shape="rect" coords="780,112,1160,136"/>
+<area href="class_f_spherical_rotation_kernel.html" alt="FSphericalRotationKernel&lt; FReal, CellClass, ContainerClass &gt;" shape="rect" coords="1170,112,1550,136"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a0b54228b0c735ce7b144b3d8343a73e8" id="r_a0b54228b0c735ce7b144b3d8343a73e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b54228b0c735ce7b144b3d8343a73e8">FAbstractSphericalKernel</a> (const int inDevP, const int inTreeHeight, const FReal inBoxWidth, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;inBoxCenter)</td></tr>
+<tr class="separator:a0b54228b0c735ce7b144b3d8343a73e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6870ad19bc54634e737844f347874e7" id="r_ad6870ad19bc54634e737844f347874e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6870ad19bc54634e737844f347874e7">FAbstractSphericalKernel</a> (const <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a> &amp;other)</td></tr>
+<tr class="separator:ad6870ad19bc54634e737844f347874e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59d56b6e29c28deda9a3e3ac11095ef4" id="r_a59d56b6e29c28deda9a3e3ac11095ef4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59d56b6e29c28deda9a3e3ac11095ef4">~FAbstractSphericalKernel</a> ()</td></tr>
+<tr class="separator:a59d56b6e29c28deda9a3e3ac11095ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99ff8bc846395c53344439b108bda0b8" id="r_a99ff8bc846395c53344439b108bda0b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99ff8bc846395c53344439b108bda0b8">P2M</a> (CellClass *const inPole, const ContainerClass *const inParticles) override</td></tr>
+<tr class="separator:a99ff8bc846395c53344439b108bda0b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcaf811c616b31076b38480c34b90cd3" id="r_afcaf811c616b31076b38480c34b90cd3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afcaf811c616b31076b38480c34b90cd3">M2M</a> (CellClass *const FRestrict inPole, const CellClass *const FRestrict *const FRestrict inChild, const int inLevel) override</td></tr>
+<tr class="separator:afcaf811c616b31076b38480c34b90cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbfc38a891e83599b912aa1b5ce6e537" id="r_afbfc38a891e83599b912aa1b5ce6e537"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbfc38a891e83599b912aa1b5ce6e537">M2L</a> (CellClass *const FRestrict inLocal, const CellClass *inInteractions[], const int neighborPositions[], const int inSize, const int inLevel)=0</td></tr>
+<tr class="separator:afbfc38a891e83599b912aa1b5ce6e537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60db61f9f00f287c917ead0de7436aed" id="r_a60db61f9f00f287c917ead0de7436aed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60db61f9f00f287c917ead0de7436aed">L2L</a> (const CellClass *const FRestrict pole, CellClass *FRestrict *const FRestrict child, const int inLevel) override</td></tr>
+<tr class="separator:a60db61f9f00f287c917ead0de7436aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac57a738ac23aa6c99839187d702ad3cc" id="r_ac57a738ac23aa6c99839187d702ad3cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac57a738ac23aa6c99839187d702ad3cc">L2P</a> (const CellClass *const local, ContainerClass *const inParticles) override</td></tr>
+<tr class="separator:ac57a738ac23aa6c99839187d702ad3cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81799db940bb9bb063793b5fb3707f51" id="r_a81799db940bb9bb063793b5fb3707f51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81799db940bb9bb063793b5fb3707f51">P2P</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;inPosition, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict inSources, ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:a81799db940bb9bb063793b5fb3707f51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f419a5091351b4f1d1a409948d0c3bc" id="r_a1f419a5091351b4f1d1a409948d0c3bc"><td class="memItemLeft" align="right" valign="top"><a id="a1f419a5091351b4f1d1a409948d0c3bc" name="a1f419a5091351b4f1d1a409948d0c3bc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>P2POuter</b> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;, ContainerClass *const FRestrict inTargets, ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:a1f419a5091351b4f1d1a409948d0c3bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2840367a75950077714ea2928829251b" id="r_a2840367a75950077714ea2928829251b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2840367a75950077714ea2928829251b">P2PRemote</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;, ContainerClass *const FRestrict inTargets, const ContainerClass *const FRestrict, const ContainerClass *const inNeighbors[], const int neighborPositions[], const int inSize) override</td></tr>
+<tr class="separator:a2840367a75950077714ea2928829251b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a371eaa267f66a73a47c83a5b535ca7f4" id="r_a371eaa267f66a73a47c83a5b535ca7f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a371eaa267f66a73a47c83a5b535ca7f4">computeVelocity</a> (ContainerClass *const FRestrict inParticles, const FReal DT)</td></tr>
+<tr class="separator:a371eaa267f66a73a47c83a5b535ca7f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e142f8d879c1bdde196f87c400adbf2" id="r_a0e142f8d879c1bdde196f87c400adbf2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e142f8d879c1bdde196f87c400adbf2">updatePosition</a> (ContainerClass *const FRestrict inParticles, const FReal DT)</td></tr>
+<tr class="separator:a0e142f8d879c1bdde196f87c400adbf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected 成员函数</h2></td></tr>
+<tr class="memitem:ac91e7268ab96b0f9d1c0028a732ef0b0" id="r_ac91e7268ab96b0f9d1c0028a732ef0b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac91e7268ab96b0f9d1c0028a732ef0b0">allocAndInit</a> ()</td></tr>
+<tr class="separator:ac91e7268ab96b0f9d1c0028a732ef0b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e2097d3422b40de21f069da98ba2b6b" id="r_a8e2097d3422b40de21f069da98ba2b6b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e2097d3422b40de21f069da98ba2b6b">getLeafCenter</a> (const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> coordinate) const</td></tr>
+<tr class="separator:a8e2097d3422b40de21f069da98ba2b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected 属性</h2></td></tr>
+<tr class="memitem:a1aa8a1e46d23a6c1b74a682964b854f6" id="r_a1aa8a1e46d23a6c1b74a682964b854f6"><td class="memItemLeft" align="right" valign="top"><a id="a1aa8a1e46d23a6c1b74a682964b854f6" name="a1aa8a1e46d23a6c1b74a682964b854f6"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>devP</b></td></tr>
+<tr class="separator:a1aa8a1e46d23a6c1b74a682964b854f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43adeae6a4e67a125d7a07b63d94a01f" id="r_a43adeae6a4e67a125d7a07b63d94a01f"><td class="memItemLeft" align="right" valign="top"><a id="a43adeae6a4e67a125d7a07b63d94a01f" name="a43adeae6a4e67a125d7a07b63d94a01f"></a>
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>boxWidth</b></td></tr>
+<tr class="separator:a43adeae6a4e67a125d7a07b63d94a01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54cb3ae8e37951fbab5db6c89b89e154" id="r_a54cb3ae8e37951fbab5db6c89b89e154"><td class="memItemLeft" align="right" valign="top"><a id="a54cb3ae8e37951fbab5db6c89b89e154" name="a54cb3ae8e37951fbab5db6c89b89e154"></a>
+const int&#160;</td><td class="memItemRight" valign="bottom"><b>treeHeight</b></td></tr>
+<tr class="separator:a54cb3ae8e37951fbab5db6c89b89e154"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fef89a675dd53a765d15919eb2b6828" id="r_a3fef89a675dd53a765d15919eb2b6828"><td class="memItemLeft" align="right" valign="top"><a id="a3fef89a675dd53a765d15919eb2b6828" name="a3fef89a675dd53a765d15919eb2b6828"></a>
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>widthAtLeafLevel</b></td></tr>
+<tr class="separator:a3fef89a675dd53a765d15919eb2b6828"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47e5dd0292511299a199fb3a8cc3f16f" id="r_a47e5dd0292511299a199fb3a8cc3f16f"><td class="memItemLeft" align="right" valign="top"><a id="a47e5dd0292511299a199fb3a8cc3f16f" name="a47e5dd0292511299a199fb3a8cc3f16f"></a>
+const FReal&#160;</td><td class="memItemRight" valign="bottom"><b>widthAtLeafLevelDiv2</b></td></tr>
+<tr class="separator:a47e5dd0292511299a199fb3a8cc3f16f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58c311d1676133571aaec65945f0a84a" id="r_a58c311d1676133571aaec65945f0a84a"><td class="memItemLeft" align="right" valign="top"><a id="a58c311d1676133571aaec65945f0a84a" name="a58c311d1676133571aaec65945f0a84a"></a>
+const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>boxCorner</b></td></tr>
+<tr class="separator:a58c311d1676133571aaec65945f0a84a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e2427cfb42cebcbf4d6225892d4539b" id="r_a7e2427cfb42cebcbf4d6225892d4539b"><td class="memItemLeft" align="right" valign="top"><a id="a7e2427cfb42cebcbf4d6225892d4539b" name="a7e2427cfb42cebcbf4d6225892d4539b"></a>
+<a class="el" href="class_f_harmonic.html">FHarmonic</a>&lt; FReal &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>harmonic</b></td></tr>
+<tr class="separator:a7e2427cfb42cebcbf4d6225892d4539b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49a0298473c17a70f0ca8cce294df11d" id="r_a49a0298473c17a70f0ca8cce294df11d"><td class="memItemLeft" align="right" valign="top"><a id="a49a0298473c17a70f0ca8cce294df11d" name="a49a0298473c17a70f0ca8cce294df11d"></a>
+<a class="el" href="class_f_smart_pointer.html">FSmartPointer</a>&lt; <a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>preL2LTransitions</b></td></tr>
+<tr class="separator:a49a0298473c17a70f0ca8cce294df11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b71b60e9a435603a346347c8aa27b30" id="r_a3b71b60e9a435603a346347c8aa27b30"><td class="memItemLeft" align="right" valign="top"><a id="a3b71b60e9a435603a346347c8aa27b30" name="a3b71b60e9a435603a346347c8aa27b30"></a>
+<a class="el" href="class_f_smart_pointer.html">FSmartPointer</a>&lt; <a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>preM2MTransitions</b></td></tr>
+<tr class="separator:a3b71b60e9a435603a346347c8aa27b30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, class CellClass, class ContainerClass&gt;<br />
+class FAbstractSphericalKernel&lt; FReal, CellClass, ContainerClass &gt;</div><dl class="section author"><dt>作者</dt><dd>Berenger Bramas (<a href="#" onclick="location.href='mai'+'lto:'+'ber'+'en'+'ger'+'.b'+'ram'+'as'+'@in'+'ri'+'a.f'+'r'; return false;">beren<span class="obfuscator">.nosp@m.</span>ger.<span class="obfuscator">.nosp@m.</span>brama<span class="obfuscator">.nosp@m.</span>s@in<span class="obfuscator">.nosp@m.</span>ria.f<span class="obfuscator">.nosp@m.</span>r</a>) This is the abstract spherical harmonic kernel </dd></dl>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a0b54228b0c735ce7b144b3d8343a73e8" name="a0b54228b0c735ce7b144b3d8343a73e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b54228b0c735ce7b144b3d8343a73e8">&#9670;&#160;</a></span>FAbstractSphericalKernel() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;<a class="el" href="class_f_abstract_spherical_kernel.html">::FAbstractSphericalKernel</a> </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inDevP</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inTreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>inBoxWidth</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>inBoxCenter</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Kernel constructor </p>
+
+</div>
+</div>
+<a id="ad6870ad19bc54634e737844f347874e7" name="ad6870ad19bc54634e737844f347874e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6870ad19bc54634e737844f347874e7">&#9670;&#160;</a></span>FAbstractSphericalKernel() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;<a class="el" href="class_f_abstract_spherical_kernel.html">::FAbstractSphericalKernel</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copy constructor </p>
+
+</div>
+</div>
+<a id="a59d56b6e29c28deda9a3e3ac11095ef4" name="a59d56b6e29c28deda9a3e3ac11095ef4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59d56b6e29c28deda9a3e3ac11095ef4">&#9670;&#160;</a></span>~FAbstractSphericalKernel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::~<a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default destructor </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="ac91e7268ab96b0f9d1c0028a732ef0b0" name="ac91e7268ab96b0f9d1c0028a732ef0b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac91e7268ab96b0f9d1c0028a732ef0b0">&#9670;&#160;</a></span>allocAndInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::allocAndInit </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Alloc and init pre-vectors </p>
+
+</div>
+</div>
+<a id="a371eaa267f66a73a47c83a5b535ca7f4" name="a371eaa267f66a73a47c83a5b535ca7f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a371eaa267f66a73a47c83a5b535ca7f4">&#9670;&#160;</a></span>computeVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::computeVelocity </td>
+          <td>(</td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inParticles</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>DT</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Update a velocity of a particle </p>
+
+</div>
+</div>
+<a id="a8e2097d3422b40de21f069da98ba2b6b" name="a8e2097d3422b40de21f069da98ba2b6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e2097d3422b40de21f069da98ba2b6b">&#9670;&#160;</a></span>getLeafCenter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::getLeafCenter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a></td>          <td class="paramname"><span class="paramname"><em>coordinate</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get a leaf real position from its tree coordinate </p>
+
+</div>
+</div>
+<a id="a60db61f9f00f287c917ead0de7436aed" name="a60db61f9f00f287c917ead0de7436aed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60db61f9f00f287c917ead0de7436aed">&#9670;&#160;</a></span>L2L()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::L2L </td>
+          <td>(</td>
+          <td class="paramtype">const CellClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>pole</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CellClass *FRestrict *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>child</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>L2L with a cell and all its child </p>
+
+</div>
+</div>
+<a id="ac57a738ac23aa6c99839187d702ad3cc" name="ac57a738ac23aa6c99839187d702ad3cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac57a738ac23aa6c99839187d702ad3cc">&#9670;&#160;</a></span>L2P()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::L2P </td>
+          <td>(</td>
+          <td class="paramtype">const CellClass *const</td>          <td class="paramname"><span class="paramname"><em>local</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inParticles</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>L2P with a cell and all its particles </p>
+
+</div>
+</div>
+<a id="afbfc38a891e83599b912aa1b5ce6e537" name="afbfc38a891e83599b912aa1b5ce6e537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbfc38a891e83599b912aa1b5ce6e537">&#9670;&#160;</a></span>M2L()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::M2L </td>
+          <td>(</td>
+          <td class="paramtype">CellClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inLocal</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const CellClass *</td>          <td class="paramname"><span class="paramname"><em>inInteractions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>M2L with a cell and all the existing neighbors </p>
+
+<p>在 <a class="el" href="class_f_spherical_blas_kernel.html#a6fe10e2779e554cfac300466f0aacc60">FSphericalBlasKernel&lt; FReal, CellClass, ContainerClass &gt;</a>, <a class="el" href="class_f_spherical_block_blas_kernel.html#a3b5ccf192974396f66af9c0a0dddca1c">FSphericalBlockBlasKernel&lt; FReal, CellClass, ContainerClass &gt;</a>, <a class="el" href="class_f_spherical_kernel.html#a9e29490bc444004ad93de06dbae9ab98">FSphericalKernel&lt; FReal, CellClass, ContainerClass &gt;</a> , 以及 <a class="el" href="class_f_spherical_rotation_kernel.html#a36ec17c71f62998c4e062ca71ed59ae9">FSphericalRotationKernel&lt; FReal, CellClass, ContainerClass &gt;</a> 内被实现.</p>
+
+</div>
+</div>
+<a id="afcaf811c616b31076b38480c34b90cd3" name="afcaf811c616b31076b38480c34b90cd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcaf811c616b31076b38480c34b90cd3">&#9670;&#160;</a></span>M2M()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::M2M </td>
+          <td>(</td>
+          <td class="paramtype">CellClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inPole</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const CellClass *const FRestrict *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inChild</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>M2M with a cell and all its child </p>
+
+</div>
+</div>
+<a id="a99ff8bc846395c53344439b108bda0b8" name="a99ff8bc846395c53344439b108bda0b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99ff8bc846395c53344439b108bda0b8">&#9670;&#160;</a></span>P2M()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::P2M </td>
+          <td>(</td>
+          <td class="paramtype">CellClass *const</td>          <td class="paramname"><span class="paramname"><em>inPole</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inParticles</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>P2M with a cell and all its particles </p>
+
+</div>
+</div>
+<a id="a81799db940bb9bb063793b5fb3707f51" name="a81799db940bb9bb063793b5fb3707f51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81799db940bb9bb063793b5fb3707f51">&#9670;&#160;</a></span>P2P()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::P2P </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>inPosition</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inTargets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inSources</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>P2P This function proceed the P2P using particlesMutualInteraction The computation is done for interactions with an index &lt;= 13. (13 means current leaf (x;y;z) = (0;0;0)). Calling this method in multi thread should be done carrefully. </p>
+
+</div>
+</div>
+<a id="a2840367a75950077714ea2928829251b" name="a2840367a75950077714ea2928829251b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2840367a75950077714ea2928829251b">&#9670;&#160;</a></span>P2PRemote()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::P2PRemote </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_tree_coordinate.html">FTreeCoordinate</a> &amp;</td>          <td class="paramname"><span class="paramname">, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inTargets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>FRestrict</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ContainerClass *const</td>          <td class="paramname"><span class="paramname"><em>inNeighbors</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>neighborPositions</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Use mutual even if it not useful and call particlesMutualInteraction </p>
+
+</div>
+</div>
+<a id="a0e142f8d879c1bdde196f87c400adbf2" name="a0e142f8d879c1bdde196f87c400adbf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e142f8d879c1bdde196f87c400adbf2">&#9670;&#160;</a></span>updatePosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class CellClass , class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_abstract_spherical_kernel.html">FAbstractSphericalKernel</a>&lt; FReal, CellClass, ContainerClass &gt;::updatePosition </td>
+          <td>(</td>
+          <td class="paramtype">ContainerClass *const FRestrict</td>          <td class="paramname"><span class="paramname"><em>inParticles</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>DT</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Update a position of a particle </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Kernels/Spherical/<a class="el" href="_f_abstract_spherical_kernel_8hpp_source.html">FAbstractSphericalKernel.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

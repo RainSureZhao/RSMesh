@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FMpi类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="#pub-static-attribs">静态 Public 属性</a> &#124;
+<a href="class_f_mpi-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FMpi类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>MPI context management  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_mpi_8hpp_source.html">FMpi.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_mpi_1_1_f_comm.html">FComm</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">MPI comunicator abstraction  <a href="class_f_mpi_1_1_f_comm.html#details">更多...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a8728c45bf29e276cc97ee8b991d96a6b" id="r_a8728c45bf29e276cc97ee8b991d96a6b"><td class="memItemLeft" align="right" valign="top"><a id="a8728c45bf29e276cc97ee8b991d96a6b" name="a8728c45bf29e276cc97ee8b991d96a6b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>FMpiTag</b> { <br />
+&#160;&#160;<b>TagExchangeIndexs</b> = 100
+, <b>TagSplittedLeaf</b> = 200
+, <b>TagExchangeNbLeafs</b> = 300
+, <b>TagSandSettling</b> = 400
+, <br />
+&#160;&#160;<b>TagQuickSort</b> = 500
+, <b>TagFmmM2M</b> = 1000
+, <b>TagFmmM2MSize</b> = 1500
+, <b>TagFmmL2L</b> = 2000
+, <br />
+&#160;&#160;<b>TagFmmL2LSize</b> = 2500
+, <b>TagFmmP2P</b> = 3000
+, <b>TagBitonicMin</b> = 4000
+, <b>TagBitonicMax</b> = 5000
+, <br />
+&#160;&#160;<b>TagBitonicMinMess</b> = 6000
+, <b>TagBitonicMaxMess</b> = 7000
+, <b>TagLast</b> = 8000
+<br />
+ }</td></tr>
+<tr class="separator:a8728c45bf29e276cc97ee8b991d96a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:af3698f4f9b0b230c8e2309e2460c2cca" id="r_af3698f4f9b0b230c8e2309e2460c2cca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3698f4f9b0b230c8e2309e2460c2cca">FMpi</a> ()</td></tr>
+<tr class="memdesc:af3698f4f9b0b230c8e2309e2460c2cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor  <br /></td></tr>
+<tr class="separator:af3698f4f9b0b230c8e2309e2460c2cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac241c993b989a087e4201bd882215b7e" id="r_ac241c993b989a087e4201bd882215b7e"><td class="memItemLeft" align="right" valign="top"><a id="ac241c993b989a087e4201bd882215b7e" name="ac241c993b989a087e4201bd882215b7e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FMpi</b> (int inArgc, char **inArgv)</td></tr>
+<tr class="memdesc:ac241c993b989a087e4201bd882215b7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor <br /></td></tr>
+<tr class="separator:ac241c993b989a087e4201bd882215b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a831ecaab7d42c7bc5339c339990cef5b" id="r_a831ecaab7d42c7bc5339c339990cef5b"><td class="memItemLeft" align="right" valign="top"><a id="a831ecaab7d42c7bc5339c339990cef5b" name="a831ecaab7d42c7bc5339c339990cef5b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~FMpi</b> ()</td></tr>
+<tr class="memdesc:a831ecaab7d42c7bc5339c339990cef5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete the communicator and call <code>MPI_Finalize</code> <br /></td></tr>
+<tr class="separator:a831ecaab7d42c7bc5339c339990cef5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73d7961c53d98f2eef58f5c2ac39e528" id="r_a73d7961c53d98f2eef58f5c2ac39e528"><td class="memItemLeft" align="right" valign="top"><a id="a73d7961c53d98f2eef58f5c2ac39e528" name="a73d7961c53d98f2eef58f5c2ac39e528"></a>
+const <a class="el" href="class_f_mpi_1_1_f_comm.html">FComm</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>global</b> ()</td></tr>
+<tr class="memdesc:a73d7961c53d98f2eef58f5c2ac39e528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the global communicator <br /></td></tr>
+<tr class="separator:a73d7961c53d98f2eef58f5c2ac39e528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:a48a971c22b91bf6b4b5f827c9d9fdbee" id="r_a48a971c22b91bf6b4b5f827c9d9fdbee"><td class="memItemLeft" align="right" valign="top"><a id="a48a971c22b91bf6b4b5f827c9d9fdbee" name="a48a971c22b91bf6b4b5f827c9d9fdbee"></a>
+static MPI_Datatype&#160;</td><td class="memItemRight" valign="bottom"><b>GetType</b> (const long long &amp;)</td></tr>
+<tr class="memdesc:a48a971c22b91bf6b4b5f827c9d9fdbee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the MPI datatype corresponding to a variable. <br /></td></tr>
+<tr class="separator:a48a971c22b91bf6b4b5f827c9d9fdbee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8b4b66e5a7cd71a640a75719b4c54db" id="r_ae8b4b66e5a7cd71a640a75719b4c54db"><td class="memItemLeft" align="right" valign="top"><a id="ae8b4b66e5a7cd71a640a75719b4c54db" name="ae8b4b66e5a7cd71a640a75719b4c54db"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeCount</b> (const long long &amp;)</td></tr>
+<tr class="separator:ae8b4b66e5a7cd71a640a75719b4c54db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57e0551efb1157245b2f3c5c0525a70e" id="r_a57e0551efb1157245b2f3c5c0525a70e"><td class="memItemLeft" align="right" valign="top"><a id="a57e0551efb1157245b2f3c5c0525a70e" name="a57e0551efb1157245b2f3c5c0525a70e"></a>
+static MPI_Datatype&#160;</td><td class="memItemRight" valign="bottom"><b>GetType</b> (const long int &amp;)</td></tr>
+<tr class="memdesc:a57e0551efb1157245b2f3c5c0525a70e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the MPI datatype corresponding to a variable. <br /></td></tr>
+<tr class="separator:a57e0551efb1157245b2f3c5c0525a70e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75d0580fce8b3c8eb56237ff94c9cb3c" id="r_a75d0580fce8b3c8eb56237ff94c9cb3c"><td class="memItemLeft" align="right" valign="top"><a id="a75d0580fce8b3c8eb56237ff94c9cb3c" name="a75d0580fce8b3c8eb56237ff94c9cb3c"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeCount</b> (const long int &amp;)</td></tr>
+<tr class="separator:a75d0580fce8b3c8eb56237ff94c9cb3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd49726f52eed709ce1bec8c2ac5b63a" id="r_abd49726f52eed709ce1bec8c2ac5b63a"><td class="memItemLeft" align="right" valign="top"><a id="abd49726f52eed709ce1bec8c2ac5b63a" name="abd49726f52eed709ce1bec8c2ac5b63a"></a>
+static MPI_Datatype&#160;</td><td class="memItemRight" valign="bottom"><b>GetType</b> (const double &amp;)</td></tr>
+<tr class="memdesc:abd49726f52eed709ce1bec8c2ac5b63a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the MPI datatype corresponding to a variable. <br /></td></tr>
+<tr class="separator:abd49726f52eed709ce1bec8c2ac5b63a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10afbdfa5fa86a86ef2e640dd6b94d96" id="r_a10afbdfa5fa86a86ef2e640dd6b94d96"><td class="memItemLeft" align="right" valign="top"><a id="a10afbdfa5fa86a86ef2e640dd6b94d96" name="a10afbdfa5fa86a86ef2e640dd6b94d96"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeCount</b> (const double &amp;)</td></tr>
+<tr class="separator:a10afbdfa5fa86a86ef2e640dd6b94d96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00224d47b7157b00c16261ea28e84b71" id="r_a00224d47b7157b00c16261ea28e84b71"><td class="memItemLeft" align="right" valign="top"><a id="a00224d47b7157b00c16261ea28e84b71" name="a00224d47b7157b00c16261ea28e84b71"></a>
+static MPI_Datatype&#160;</td><td class="memItemRight" valign="bottom"><b>GetType</b> (const float &amp;)</td></tr>
+<tr class="memdesc:a00224d47b7157b00c16261ea28e84b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the MPI datatype corresponding to a variable. <br /></td></tr>
+<tr class="separator:a00224d47b7157b00c16261ea28e84b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb3d1c803094a161317dcd80eb12dfa4" id="r_adb3d1c803094a161317dcd80eb12dfa4"><td class="memItemLeft" align="right" valign="top"><a id="adb3d1c803094a161317dcd80eb12dfa4" name="adb3d1c803094a161317dcd80eb12dfa4"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeCount</b> (const float &amp;)</td></tr>
+<tr class="separator:adb3d1c803094a161317dcd80eb12dfa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a931a33de11251940fc50647de8adf615" id="r_a931a33de11251940fc50647de8adf615"><td class="memItemLeft" align="right" valign="top"><a id="a931a33de11251940fc50647de8adf615" name="a931a33de11251940fc50647de8adf615"></a>
+static MPI_Datatype&#160;</td><td class="memItemRight" valign="bottom"><b>GetType</b> (const int &amp;)</td></tr>
+<tr class="memdesc:a931a33de11251940fc50647de8adf615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the MPI datatype corresponding to a variable. <br /></td></tr>
+<tr class="separator:a931a33de11251940fc50647de8adf615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a279517871d1c850f71a536329fa9d672" id="r_a279517871d1c850f71a536329fa9d672"><td class="memItemLeft" align="right" valign="top"><a id="a279517871d1c850f71a536329fa9d672" name="a279517871d1c850f71a536329fa9d672"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeCount</b> (const int &amp;)</td></tr>
+<tr class="separator:a279517871d1c850f71a536329fa9d672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a167c459227373079d95a1cf45e517ea4" id="r_a167c459227373079d95a1cf45e517ea4"><td class="memItemLeft" align="right" valign="top"><a id="a167c459227373079d95a1cf45e517ea4" name="a167c459227373079d95a1cf45e517ea4"></a>
+static MPI_Datatype&#160;</td><td class="memItemRight" valign="bottom"><b>GetType</b> (const char &amp;)</td></tr>
+<tr class="memdesc:a167c459227373079d95a1cf45e517ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the MPI datatype corresponding to a variable. <br /></td></tr>
+<tr class="separator:a167c459227373079d95a1cf45e517ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a420ccf0f55522a78a41d1ac922325ba8" id="r_a420ccf0f55522a78a41d1ac922325ba8"><td class="memItemLeft" align="right" valign="top"><a id="a420ccf0f55522a78a41d1ac922325ba8" name="a420ccf0f55522a78a41d1ac922325ba8"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeCount</b> (const char &amp;)</td></tr>
+<tr class="separator:a420ccf0f55522a78a41d1ac922325ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac516021e64ef64488fd461b361f3f11d" id="r_ac516021e64ef64488fd461b361f3f11d"><td class="memItemLeft" align="right" valign="top"><a id="ac516021e64ef64488fd461b361f3f11d" name="ac516021e64ef64488fd461b361f3f11d"></a>
+static MPI_Datatype&#160;</td><td class="memItemRight" valign="bottom"><b>GetType</b> (const unsigned char &amp;)</td></tr>
+<tr class="memdesc:ac516021e64ef64488fd461b361f3f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the MPI datatype corresponding to a variable. <br /></td></tr>
+<tr class="separator:ac516021e64ef64488fd461b361f3f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52af3e3c3706f6ee436ad0f07519e7b8" id="r_a52af3e3c3706f6ee436ad0f07519e7b8"><td class="memItemLeft" align="right" valign="top"><a id="a52af3e3c3706f6ee436ad0f07519e7b8" name="a52af3e3c3706f6ee436ad0f07519e7b8"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeCount</b> (const unsigned char &amp;)</td></tr>
+<tr class="separator:a52af3e3c3706f6ee436ad0f07519e7b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add6d667bb33c39cc18f9029b9bd327d6" id="r_add6d667bb33c39cc18f9029b9bd327d6"><td class="memTemplParams" colspan="2"><a id="add6d667bb33c39cc18f9029b9bd327d6" name="add6d667bb33c39cc18f9029b9bd327d6"></a>
+template&lt;class FReal &gt; </td></tr>
+<tr class="memitem:add6d667bb33c39cc18f9029b9bd327d6"><td class="memTemplItemLeft" align="right" valign="top">static MPI_Datatype&#160;</td><td class="memTemplItemRight" valign="bottom"><b>GetType</b> (const <a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; &amp;a)</td></tr>
+<tr class="memdesc:add6d667bb33c39cc18f9029b9bd327d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the MPI datatype corresponding to a variable. <br /></td></tr>
+<tr class="separator:add6d667bb33c39cc18f9029b9bd327d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88077af66567e8637d96f7af47cc600c" id="r_a88077af66567e8637d96f7af47cc600c"><td class="memTemplParams" colspan="2"><a id="a88077af66567e8637d96f7af47cc600c" name="a88077af66567e8637d96f7af47cc600c"></a>
+template&lt;class FReal &gt; </td></tr>
+<tr class="memitem:a88077af66567e8637d96f7af47cc600c"><td class="memTemplItemLeft" align="right" valign="top">static int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>GetTypeCount</b> (const <a class="el" href="class_f_complex.html">FComplex</a>&lt; FReal &gt; &amp;a)</td></tr>
+<tr class="separator:a88077af66567e8637d96f7af47cc600c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a6f670ec0771204ba8bd5e8bc1637ba" id="r_a9a6f670ec0771204ba8bd5e8bc1637ba"><td class="memItemLeft" align="right" valign="top"><a id="a9a6f670ec0771204ba8bd5e8bc1637ba" name="a9a6f670ec0771204ba8bd5e8bc1637ba"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>Assert</b> (const int test, const unsigned line, const char *const message=nullptr)</td></tr>
+<tr class="memdesc:a9a6f670ec0771204ba8bd5e8bc1637ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic mpi assert function <br /></td></tr>
+<tr class="separator:a9a6f670ec0771204ba8bd5e8bc1637ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa76168b1eaab4e13e07e27c4dc854b18" id="r_aa76168b1eaab4e13e07e27c4dc854b18"><td class="memTemplParams" colspan="2"><a id="aa76168b1eaab4e13e07e27c4dc854b18" name="aa76168b1eaab4e13e07e27c4dc854b18"></a>
+template&lt;class T &gt; </td></tr>
+<tr class="memitem:aa76168b1eaab4e13e07e27c4dc854b18"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>GetLeft</b> (const T inSize, const int inIdProc, const int inNbProc)</td></tr>
+<tr class="memdesc:aa76168b1eaab4e13e07e27c4dc854b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute a left index from data <br /></td></tr>
+<tr class="separator:aa76168b1eaab4e13e07e27c4dc854b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a4b75fdac85d6309e38b3e10c1cb538" id="r_a7a4b75fdac85d6309e38b3e10c1cb538"><td class="memTemplParams" colspan="2"><a id="a7a4b75fdac85d6309e38b3e10c1cb538" name="a7a4b75fdac85d6309e38b3e10c1cb538"></a>
+template&lt;class T &gt; </td></tr>
+<tr class="memitem:a7a4b75fdac85d6309e38b3e10c1cb538"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>GetRight</b> (const T inSize, const int inIdProc, const int inNbProc)</td></tr>
+<tr class="memdesc:a7a4b75fdac85d6309e38b3e10c1cb538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute a right index from data <br /></td></tr>
+<tr class="separator:a7a4b75fdac85d6309e38b3e10c1cb538"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab98ea114cd15e711b1d676c4a2d7b27c" id="r_ab98ea114cd15e711b1d676c4a2d7b27c"><td class="memTemplParams" colspan="2"><a id="ab98ea114cd15e711b1d676c4a2d7b27c" name="ab98ea114cd15e711b1d676c4a2d7b27c"></a>
+template&lt;class T &gt; </td></tr>
+<tr class="memitem:ab98ea114cd15e711b1d676c4a2d7b27c"><td class="memTemplItemLeft" align="right" valign="top">static int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>GetProc</b> (const T position, const T inSize, const int inNbProc)</td></tr>
+<tr class="memdesc:ab98ea114cd15e711b1d676c4a2d7b27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute a proc id from index &amp; data *&zwj;/ <br /></td></tr>
+<tr class="separator:ab98ea114cd15e711b1d676c4a2d7b27c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19638e5c5eb8a18b69a017e0df10cf33" id="r_a19638e5c5eb8a18b69a017e0df10cf33"><td class="memItemLeft" align="right" valign="top"><a id="a19638e5c5eb8a18b69a017e0df10cf33" name="a19638e5c5eb8a18b69a017e0df10cf33"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>MpiAssert</b> (const int test, const unsigned line, const char *const message=nullptr)</td></tr>
+<tr class="memdesc:a19638e5c5eb8a18b69a017e0df10cf33"><td class="mdescLeft">&#160;</td><td class="mdescRight">assert if mpi error *&zwj;/ <br /></td></tr>
+<tr class="separator:a19638e5c5eb8a18b69a017e0df10cf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad21b879bcbfc7c5bcd66a32bbd604fe6" id="r_ad21b879bcbfc7c5bcd66a32bbd604fe6"><td class="memTemplParams" colspan="2"><a id="ad21b879bcbfc7c5bcd66a32bbd604fe6" name="ad21b879bcbfc7c5bcd66a32bbd604fe6"></a>
+template&lt;class ObjectType , class VectorType &gt; </td></tr>
+<tr class="memitem:ad21b879bcbfc7c5bcd66a32bbd604fe6"><td class="memTemplItemLeft" align="right" valign="top">static int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ISendSplit</b> (const ObjectType toSend[], const size_t nbItems, const int dest, const int tagBase, const <a class="el" href="class_f_mpi_1_1_f_comm.html">FMpi::FComm</a> &amp;communicator, VectorType *requestVector)</td></tr>
+<tr class="separator:ad21b879bcbfc7c5bcd66a32bbd604fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae93dc4bcb521373bcb695423358ebadb" id="r_ae93dc4bcb521373bcb695423358ebadb"><td class="memTemplParams" colspan="2"><a id="ae93dc4bcb521373bcb695423358ebadb" name="ae93dc4bcb521373bcb695423358ebadb"></a>
+template&lt;class ObjectType , class VectorType &gt; </td></tr>
+<tr class="memitem:ae93dc4bcb521373bcb695423358ebadb"><td class="memTemplItemLeft" align="right" valign="top">static int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>IRecvSplit</b> (ObjectType toRecv[], const size_t nbItems, const int source, const int tagBase, const <a class="el" href="class_f_mpi_1_1_f_comm.html">FMpi::FComm</a> &amp;communicator, VectorType *requestVector)</td></tr>
+<tr class="separator:ae93dc4bcb521373bcb695423358ebadb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+静态 Public 属性</h2></td></tr>
+<tr class="memitem:a9f0567d369d5cb5ddb8eee1eecab267a" id="r_a9f0567d369d5cb5ddb8eee1eecab267a"><td class="memItemLeft" align="right" valign="top"><a id="a9f0567d369d5cb5ddb8eee1eecab267a" name="a9f0567d369d5cb5ddb8eee1eecab267a"></a>
+static const size_t&#160;</td><td class="memItemRight" valign="bottom"><b>MaxBytesPerDivMess</b> = 20000000</td></tr>
+<tr class="separator:a9f0567d369d5cb5ddb8eee1eecab267a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>MPI context management </p>
+<dl class="section author"><dt>作者</dt><dd>Berenger Bramas (<a href="#" onclick="location.href='mai'+'lto:'+'ber'+'en'+'ger'+'.b'+'ram'+'as'+'@in'+'ri'+'a.f'+'r'; return false;">beren<span class="obfuscator">.nosp@m.</span>ger.<span class="obfuscator">.nosp@m.</span>brama<span class="obfuscator">.nosp@m.</span>s@in<span class="obfuscator">.nosp@m.</span>ria.f<span class="obfuscator">.nosp@m.</span>r</a>)</dd></dl>
+<p>This class manages the initialization and destruction of the MPI context. It also gives access to the main communicator via its <code>const <a class="el" href="class_f_mpi_1_1_f_comm.html" title="MPI comunicator abstraction">FComm</a>&amp; <a class="el" href="#a73d7961c53d98f2eef58f5c2ac39e528" title="Get the global communicator">global()</a></code> member.</p>
+<dl class="section warning"><dt>警告</dt><dd>Do not create more that one instance of this class for the whole program lifetime. MPI does not support multiple initializations.</dd></dl>
+<p>Please read the license. </p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="af3698f4f9b0b230c8e2309e2460c2cca" name="af3698f4f9b0b230c8e2309e2460c2cca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3698f4f9b0b230c8e2309e2460c2cca">&#9670;&#160;</a></span>FMpi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FMpi::FMpi </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor </p>
+<p>We use <code>MPI_Init_thread</code> because of an openmpi error: </p><pre class="fragment">[fourmi062:15896] [[13237,0],1]-[[13237,1],1] mca_oob_tcp_msg_recv: readv failed: Connection reset by peer (104)
+[fourmi056:04597] [[13237,0],3]-[[13237,1],3] mca_oob_tcp_msg_recv: readv failed: Connection reset by peer (104)
+[fourmi053:08571] [[13237,0],5]-[[13237,1],5] mca_oob_tcp_msg_recv: readv failed: Connection reset by peer (104)
+</pre><p> Error for process 1: </p><pre class="fragment">[[13237,1],1][btl_openib_component.c:3227:handle_wc] from fourmi062 to: fourmi056 error polling LP CQ with status LOCAL LENGTH ERROR status number 1 for wr_id 7134664 opcode 0  vendor error 105 qp_idx 3
+           ^
+</pre><p> All processes raise the same error, the second 1 (see caret) is replaced by the rank. </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Utils/<a class="el" href="_f_mpi_8hpp_source.html">FMpi.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

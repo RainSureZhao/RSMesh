@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: third_party/ScalFMM/include/ScalFMM/Utils/FRepeatAction.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_44f42edf5dd23d4deca0321224e9ce90.html">third_party</a></li><li class="navelem"><a class="el" href="dir_61e2dd9f1d9796d3cea0fd381fea5190.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_0546f01e16a5efd4e4f6e4ca02f395da.html">include</a></li><li class="navelem"><a class="el" href="dir_97d8df139c79c55828f3d66e7d34077f.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_7cd570d20c4ff43f3830ea186d9b5515.html">Utils</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">FRepeatAction.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef _FPROGRESSBAR_HPP_</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define _FPROGRESSBAR_HPP_</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;../Utils/FTic.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="class_f_repeat_action.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="class_f_repeat_action.html">FRepeatAction</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_f_tic.html">FTic</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">using </span>function = std::function&lt;bool()&gt;;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">using </span>time_type = std::chrono::milliseconds;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">bool</span> _continue = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">bool</span> _running = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    function _f;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    time_type _sleepTime;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    std::thread _thread;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> run( function f, <span class="keywordtype">bool</span>&amp; cont, time_type&amp; sleepTime) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">while</span>( f() &amp;&amp; cont ) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordflow">if</span>(sleepTime == time_type{0}) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                std::cerr &lt;&lt; <span class="stringliteral">&quot;Cannot have a null sleep time.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            std::this_thread::sleep_for(sleepTime);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="class_f_repeat_action.html#a2c548f2e2ee92e1231ca87b1529243e4">   51</a></span>    <a class="code hl_function" href="class_f_repeat_action.html#a2c548f2e2ee92e1231ca87b1529243e4">FRepeatAction</a>() = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="class_f_repeat_action.html#a0a5bda039918af5a3364ab961b2b52dc">   55</a></span>    <a class="code hl_function" href="class_f_repeat_action.html#a0a5bda039918af5a3364ab961b2b52dc">FRepeatAction</a>( <span class="keyword">const</span> <a class="code hl_class" href="class_f_repeat_action.html">FRepeatAction</a>&amp; other ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="class_f_repeat_action.html#a015a31b72c44d5f97d1e7fb5b12f6ae7">   59</a></span>    <a class="code hl_function" href="class_f_repeat_action.html#a015a31b72c44d5f97d1e7fb5b12f6ae7">FRepeatAction</a>( <a class="code hl_class" href="class_f_repeat_action.html">FRepeatAction</a>&amp;&amp; other ) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_f_repeat_action.html#a1eb32e2be49f6cf2dda289ad71d2daf3">   67</a></span>    <a class="code hl_function" href="class_f_repeat_action.html#a1eb32e2be49f6cf2dda289ad71d2daf3">FRepeatAction</a>( function f, <span class="keywordtype">int</span> sleepTime, <span class="keywordtype">bool</span> start_now = <span class="keyword">true</span> ) : </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        _f(f),</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        _sleepTime(sleepTime) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">if</span>(start_now)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <a class="code hl_function" href="class_f_repeat_action.html#ac4695fc9eb47395f30292a48b366fe13">start</a>();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="class_f_repeat_action.html#ae9c05cad249963358da7ec85f3c5826b">   75</a></span>    <a class="code hl_function" href="class_f_repeat_action.html#ae9c05cad249963358da7ec85f3c5826b">~FRepeatAction</a>() {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_function" href="class_f_repeat_action.html#a2bc742e7c091a5948ca03ca6d453aa72">stop</a>();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
+</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="class_f_repeat_action.html#a2bc742e7c091a5948ca03ca6d453aa72">   80</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_repeat_action.html#a2bc742e7c091a5948ca03ca6d453aa72">stop</a>() {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        _continue = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <a class="code hl_function" href="class_f_tic.html#a3efff71f7c95acd38451bfab08fa4583">FTic::tac</a>();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">if</span>(_thread.joinable())</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            _thread.join();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        _running = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="foldopen" id="foldopen00089" data-start="{" data-end="}">
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="class_f_repeat_action.html#ac4695fc9eb47395f30292a48b366fe13">   89</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_repeat_action.html#ac4695fc9eb47395f30292a48b366fe13">start</a>() {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">if</span>( _running ) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            std::cerr &lt;&lt; __FUNCTION__ &lt;&lt; <span class="stringliteral">&quot;A thread is already running.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>( _sleepTime == time_type{0} ) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            std::cerr &lt;&lt; <span class="stringliteral">&quot;Cannot have a null sleep time.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            _running = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            _continue = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            <a class="code hl_function" href="class_f_tic.html#ac0e070e65af128fbe5af711e51033b0a">FTic::tic</a>();</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            _thread = std::thread(run, _f, std::ref(_continue), std::ref(_sleepTime));</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        }        </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
+</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="class_f_repeat_action.html#aeb8d17d76a91e1bb5a1326f1f0a8fbcc">  104</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_repeat_action.html#aeb8d17d76a91e1bb5a1326f1f0a8fbcc">setFunction</a>( function f ) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">if</span>( _running ) {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            std::cerr &lt;&lt; __FUNCTION__ &lt;&lt; <span class="stringliteral">&quot;A thread is already running.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <a class="code hl_function" href="class_f_tic.html#add8f7cf5d655cb3858f1b93ee6d715a5">FTic::reset</a>();</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            _f = f;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="class_f_repeat_action.html#a1346776d2be00f94d302920c8719454e">  115</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_repeat_action.html#a1346776d2be00f94d302920c8719454e">setSleepTime</a>(<span class="keywordtype">int</span> sleepTime) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">if</span>( _running ) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            std::cerr &lt;&lt; __FUNCTION__ &lt;&lt; <span class="stringliteral">&quot;A thread is already running.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            _sleepTime = time_type{sleepTime};</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>};</div>
+</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclass_f_repeat_action_html"><div class="ttname"><a href="class_f_repeat_action.html">FRepeatAction</a></div><div class="ttdoc">Calls a function at time interval until stopped.</div><div class="ttdef"><b>Definition</b> FRepeatAction.hpp:16</div></div>
+<div class="ttc" id="aclass_f_repeat_action_html_a015a31b72c44d5f97d1e7fb5b12f6ae7"><div class="ttname"><a href="class_f_repeat_action.html#a015a31b72c44d5f97d1e7fb5b12f6ae7">FRepeatAction::FRepeatAction</a></div><div class="ttdeci">FRepeatAction(FRepeatAction &amp;&amp;other)=default</div><div class="ttdoc">Deleted move constructor.</div></div>
+<div class="ttc" id="aclass_f_repeat_action_html_a0a5bda039918af5a3364ab961b2b52dc"><div class="ttname"><a href="class_f_repeat_action.html#a0a5bda039918af5a3364ab961b2b52dc">FRepeatAction::FRepeatAction</a></div><div class="ttdeci">FRepeatAction(const FRepeatAction &amp;other)=delete</div><div class="ttdoc">Deleted copy constructor.</div></div>
+<div class="ttc" id="aclass_f_repeat_action_html_a1346776d2be00f94d302920c8719454e"><div class="ttname"><a href="class_f_repeat_action.html#a1346776d2be00f94d302920c8719454e">FRepeatAction::setSleepTime</a></div><div class="ttdeci">void setSleepTime(int sleepTime)</div><div class="ttdoc">Sets the time interval between calls to _f.</div><div class="ttdef"><b>Definition</b> FRepeatAction.hpp:115</div></div>
+<div class="ttc" id="aclass_f_repeat_action_html_a1eb32e2be49f6cf2dda289ad71d2daf3"><div class="ttname"><a href="class_f_repeat_action.html#a1eb32e2be49f6cf2dda289ad71d2daf3">FRepeatAction::FRepeatAction</a></div><div class="ttdeci">FRepeatAction(function f, int sleepTime, bool start_now=true)</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition</b> FRepeatAction.hpp:67</div></div>
+<div class="ttc" id="aclass_f_repeat_action_html_a2bc742e7c091a5948ca03ca6d453aa72"><div class="ttname"><a href="class_f_repeat_action.html#a2bc742e7c091a5948ca03ca6d453aa72">FRepeatAction::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Stops the repeated action and joins with _thread.</div><div class="ttdef"><b>Definition</b> FRepeatAction.hpp:80</div></div>
+<div class="ttc" id="aclass_f_repeat_action_html_a2c548f2e2ee92e1231ca87b1529243e4"><div class="ttname"><a href="class_f_repeat_action.html#a2c548f2e2ee92e1231ca87b1529243e4">FRepeatAction::FRepeatAction</a></div><div class="ttdeci">FRepeatAction()=delete</div><div class="ttdoc">Deleted default constructor.</div></div>
+<div class="ttc" id="aclass_f_repeat_action_html_ac4695fc9eb47395f30292a48b366fe13"><div class="ttname"><a href="class_f_repeat_action.html#ac4695fc9eb47395f30292a48b366fe13">FRepeatAction::start</a></div><div class="ttdeci">void start()</div><div class="ttdoc">Starts the repeated action thread.</div><div class="ttdef"><b>Definition</b> FRepeatAction.hpp:89</div></div>
+<div class="ttc" id="aclass_f_repeat_action_html_ae9c05cad249963358da7ec85f3c5826b"><div class="ttname"><a href="class_f_repeat_action.html#ae9c05cad249963358da7ec85f3c5826b">FRepeatAction::~FRepeatAction</a></div><div class="ttdeci">~FRepeatAction()</div><div class="ttdoc">Destructor makes a call to stop.</div><div class="ttdef"><b>Definition</b> FRepeatAction.hpp:75</div></div>
+<div class="ttc" id="aclass_f_repeat_action_html_aeb8d17d76a91e1bb5a1326f1f0a8fbcc"><div class="ttname"><a href="class_f_repeat_action.html#aeb8d17d76a91e1bb5a1326f1f0a8fbcc">FRepeatAction::setFunction</a></div><div class="ttdeci">void setFunction(function f)</div><div class="ttdoc">Sets the function that is repeatedly called.</div><div class="ttdef"><b>Definition</b> FRepeatAction.hpp:104</div></div>
+<div class="ttc" id="aclass_f_tic_html"><div class="ttname"><a href="class_f_tic.html">FTic</a></div><div class="ttdoc">Time counter class.</div><div class="ttdef"><b>Definition</b> FTic.hpp:54</div></div>
+<div class="ttc" id="aclass_f_tic_html_a3efff71f7c95acd38451bfab08fa4583"><div class="ttname"><a href="class_f_tic.html#a3efff71f7c95acd38451bfab08fa4583">FTic::tac</a></div><div class="ttdeci">double tac()</div><div class="ttdoc">Stop measuring time and add to cumulated time.</div><div class="ttdef"><b>Definition</b> FTic.hpp:113</div></div>
+<div class="ttc" id="aclass_f_tic_html_ac0e070e65af128fbe5af711e51033b0a"><div class="ttname"><a href="class_f_tic.html#ac0e070e65af128fbe5af711e51033b0a">FTic::tic</a></div><div class="ttdeci">void tic()</div><div class="ttdoc">Start measuring time.</div><div class="ttdef"><b>Definition</b> FTic.hpp:103</div></div>
+<div class="ttc" id="aclass_f_tic_html_add8f7cf5d655cb3858f1b93ee6d715a5"><div class="ttname"><a href="class_f_tic.html#add8f7cf5d655cb3858f1b93ee6d715a5">FTic::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the timer</div><div class="ttdef"><b>Definition</b> FTic.hpp:96</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FMpiTreeBuilder&lt; FReal, ParticleClass &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="class_f_mpi_tree_builder-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FMpiTreeBuilder&lt; FReal, ParticleClass &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_mpi_tree_builder_8hpp_source.html">FMpiTreeBuilder.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_mpi_tree_builder_1_1_indexed_particle.html">IndexedParticle</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a0b32592a0b936d3dde76557cb37d3b2b" id="r_a0b32592a0b936d3dde76557cb37d3b2b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b32592a0b936d3dde76557cb37d3b2b">SortingType</a> { <b>QuickSort</b>
+, <b>BitonicSort</b>
+ }</td></tr>
+<tr class="separator:a0b32592a0b936d3dde76557cb37d3b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:aa63afe2b99f0a7ff242134bef377758b" id="r_aa63afe2b99f0a7ff242134bef377758b"><td class="memTemplParams" colspan="2">template&lt;class LoaderClass &gt; </td></tr>
+<tr class="memitem:aa63afe2b99f0a7ff242134bef377758b"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa63afe2b99f0a7ff242134bef377758b">GetSortedParticlesFromLoader</a> (const <a class="el" href="class_f_mpi_1_1_f_comm.html">FMpi::FComm</a> &amp;communicator, LoaderClass &amp;loader, const <a class="el" href="#a0b32592a0b936d3dde76557cb37d3b2b">SortingType</a> sortingType, const int TreeHeight, <a class="el" href="struct_f_mpi_tree_builder_1_1_indexed_particle.html">IndexedParticle</a> **const outputSortedParticles, FSize *const outputNbParticlesSorted)</td></tr>
+<tr class="separator:aa63afe2b99f0a7ff242134bef377758b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51782f17a0080f1e9bb6eb897e1202c3" id="r_a51782f17a0080f1e9bb6eb897e1202c3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51782f17a0080f1e9bb6eb897e1202c3">GetSortedParticlesFromArray</a> (const <a class="el" href="class_f_mpi_1_1_f_comm.html">FMpi::FComm</a> &amp;communicator, const ParticleClass inOriginalParticles[], const FSize originalNbParticles, const <a class="el" href="#a0b32592a0b936d3dde76557cb37d3b2b">SortingType</a> sortingType, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;centerOfBox, const FReal boxWidth, const int TreeHeight, <a class="el" href="struct_f_mpi_tree_builder_1_1_indexed_particle.html">IndexedParticle</a> **const outputSortedParticles, FSize *const outputNbParticlesSorted)</td></tr>
+<tr class="separator:a51782f17a0080f1e9bb6eb897e1202c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e2e2b5f597d7739eea3c46c4b83f80e" id="r_a2e2e2b5f597d7739eea3c46c4b83f80e"><td class="memItemLeft" align="right" valign="top"><a id="a2e2e2b5f597d7739eea3c46c4b83f80e" name="a2e2e2b5f597d7739eea3c46c4b83f80e"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>MergeSplitedLeaves</b> (const <a class="el" href="class_f_mpi_1_1_f_comm.html">FMpi::FComm</a> &amp;communicator, <a class="el" href="struct_f_mpi_tree_builder_1_1_indexed_particle.html">IndexedParticle</a> **workingArray, FSize *workingSize, FSize **leavesOffsetInParticles, ParticleClass **particlesArrayInLeafOrder, FSize *const leavesSize)</td></tr>
+<tr class="separator:a2e2e2b5f597d7739eea3c46c4b83f80e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a422db64af66cb5a3573c3b91f4d31446" id="r_a422db64af66cb5a3573c3b91f4d31446"><td class="memTemplParams" colspan="2">template&lt;class ContainerClass &gt; </td></tr>
+<tr class="memitem:a422db64af66cb5a3573c3b91f4d31446"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a422db64af66cb5a3573c3b91f4d31446">EqualizeAndFillContainer</a> (const <a class="el" href="class_f_mpi_1_1_f_comm.html">FMpi::FComm</a> &amp;communicator, ContainerClass *particlesSaver, const FSize leavesOffsetInParticles[], const ParticleClass particlesArrayInLeafOrder[], const FSize currentNbLeaves, const FSize currentNbParts, <a class="el" href="class_f_abstract_balance_algorithm.html">FAbstractBalanceAlgorithm</a> *balancer)</td></tr>
+<tr class="separator:a422db64af66cb5a3573c3b91f4d31446"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4423c1f15b47bee5d4ca3cd10ff3de4f" id="r_a4423c1f15b47bee5d4ca3cd10ff3de4f"><td class="memTemplParams" colspan="2"><a id="a4423c1f15b47bee5d4ca3cd10ff3de4f" name="a4423c1f15b47bee5d4ca3cd10ff3de4f"></a>
+template&lt;class ContainerClass &gt; </td></tr>
+<tr class="memitem:a4423c1f15b47bee5d4ca3cd10ff3de4f"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>DistributeArrayToContainer</b> (const <a class="el" href="class_f_mpi_1_1_f_comm.html">FMpi::FComm</a> &amp;communicator, const ParticleClass originalParticlesArray[], const FSize originalNbParticles, const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;boxCenter, const FReal boxWidth, const int treeHeight, ContainerClass *particleSaver, <a class="el" href="class_f_abstract_balance_algorithm.html">FAbstractBalanceAlgorithm</a> *balancer, const <a class="el" href="#a0b32592a0b936d3dde76557cb37d3b2b">SortingType</a> sortingType=QuickSort)</td></tr>
+<tr class="separator:a4423c1f15b47bee5d4ca3cd10ff3de4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, class ParticleClass&gt;<br />
+class FMpiTreeBuilder&lt; FReal, ParticleClass &gt;</div><p>This class manage the loading of particles for the mpi version. It work in several steps. First it load the data from a file or an array and sort them amon the MPI processes. Then, it carrefully manage if a leaf is shared by multiple processes. Finally it balances the data using an external interval builder. </p>
+</div><h2 class="groupheader">成员枚举类型说明</h2>
+<a id="a0b32592a0b936d3dde76557cb37d3b2b" name="a0b32592a0b936d3dde76557cb37d3b2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b32592a0b936d3dde76557cb37d3b2b">&#9670;&#160;</a></span>SortingType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class ParticleClass &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a0b32592a0b936d3dde76557cb37d3b2b">FMpiTreeBuilder::SortingType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>What sorting algorithm to use </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a422db64af66cb5a3573c3b91f4d31446" name="a422db64af66cb5a3573c3b91f4d31446"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a422db64af66cb5a3573c3b91f4d31446">&#9670;&#160;</a></span>EqualizeAndFillContainer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class ParticleClass &gt; </div>
+<div class="memtemplate">
+template&lt;class ContainerClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_f_mpi_tree_builder.html">FMpiTreeBuilder</a>&lt; FReal, ParticleClass &gt;::EqualizeAndFillContainer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_mpi_1_1_f_comm.html">FMpi::FComm</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>communicator</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerClass *</td>          <td class="paramname"><span class="paramname"><em>particlesSaver</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>leavesOffsetInParticles</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ParticleClass</td>          <td class="paramname"><span class="paramname"><em>particlesArrayInLeafOrder</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>currentNbLeaves</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>currentNbParts</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_f_abstract_balance_algorithm.html">FAbstractBalanceAlgorithm</a> *</td>          <td class="paramname"><span class="paramname"><em>balancer</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Put the interval into a tree </p>
+
+</div>
+</div>
+<a id="a51782f17a0080f1e9bb6eb897e1202c3" name="a51782f17a0080f1e9bb6eb897e1202c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51782f17a0080f1e9bb6eb897e1202c3">&#9670;&#160;</a></span>GetSortedParticlesFromArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class ParticleClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_f_mpi_tree_builder.html">FMpiTreeBuilder</a>&lt; FReal, ParticleClass &gt;::GetSortedParticlesFromArray </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_mpi_1_1_f_comm.html">FMpi::FComm</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>communicator</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ParticleClass</td>          <td class="paramname"><span class="paramname"><em>inOriginalParticles</em>[], </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>originalNbParticles</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#a0b32592a0b936d3dde76557cb37d3b2b">SortingType</a></td>          <td class="paramname"><span class="paramname"><em>sortingType</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_f_point.html">FPoint</a>&lt; FReal &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>centerOfBox</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FReal</td>          <td class="paramname"><span class="paramname"><em>boxWidth</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>TreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_f_mpi_tree_builder_1_1_indexed_particle.html">IndexedParticle</a> **const</td>          <td class="paramname"><span class="paramname"><em>outputSortedParticles</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FSize *const</td>          <td class="paramname"><span class="paramname"><em>outputNbParticlesSorted</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get an array of particles sorted from their morton indexes </p>
+
+</div>
+</div>
+<a id="aa63afe2b99f0a7ff242134bef377758b" name="aa63afe2b99f0a7ff242134bef377758b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa63afe2b99f0a7ff242134bef377758b">&#9670;&#160;</a></span>GetSortedParticlesFromLoader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , class ParticleClass &gt; </div>
+<div class="memtemplate">
+template&lt;class LoaderClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="class_f_mpi_tree_builder.html">FMpiTreeBuilder</a>&lt; FReal, ParticleClass &gt;::GetSortedParticlesFromLoader </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_mpi_1_1_f_comm.html">FMpi::FComm</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>communicator</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LoaderClass &amp;</td>          <td class="paramname"><span class="paramname"><em>loader</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#a0b32592a0b936d3dde76557cb37d3b2b">SortingType</a></td>          <td class="paramname"><span class="paramname"><em>sortingType</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>TreeHeight</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_f_mpi_tree_builder_1_1_indexed_particle.html">IndexedParticle</a> **const</td>          <td class="paramname"><span class="paramname"><em>outputSortedParticles</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FSize *const</td>          <td class="paramname"><span class="paramname"><em>outputNbParticlesSorted</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get an array of particles sorted from their morton indexes </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Files/<a class="el" href="_f_mpi_tree_builder_8hpp_source.html">FMpiTreeBuilder.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

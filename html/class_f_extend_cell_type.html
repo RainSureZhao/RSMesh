@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FExtendCellType类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-attribs">Protected 属性</a> &#124;
+<a href="class_f_extend_cell_type-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FExtendCellType类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_extend_cell_type_8hpp_source.html">FExtendCellType.hpp</a>&gt;</code></p>
+<div class="dynheader">
+类 FExtendCellType 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_f_extend_cell_type.png" usemap="#FExtendCellType_map" alt=""/>
+  <map id="FExtendCellType_map" name="FExtendCellType_map">
+<area href="class_f_typed_cheb_cell.html" alt="FTypedChebCell&lt; FReal, ORDER, NRHS, NLHS, NVALS &gt;" shape="rect" coords="0,56,354,80"/>
+<area href="class_f_typed_interp_cell.html" alt="FTypedInterpCell&lt; FReal, ORDER, NRHS, NLHS, NVALS &gt;" shape="rect" coords="364,56,718,80"/>
+<area href="class_f_typed_rotation_cell.html" alt="FTypedRotationCell&lt; FReal, P &gt;" shape="rect" coords="728,56,1082,80"/>
+<area href="class_f_typed_spherical_cell.html" alt="FTypedSphericalCell&lt; FReal &gt;" shape="rect" coords="1092,56,1446,80"/>
+<area href="class_f_typed_taylor_cell.html" alt="FTypedTaylorCell&lt; FReal, P, order &gt;" shape="rect" coords="1456,56,1810,80"/>
+<area href="class_f_typed_unif_cell.html" alt="FTypedUnifCell&lt; FReal, ORDER, NRHS, NLHS, NVALS &gt;" shape="rect" coords="1820,56,2174,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:acf7bed2c823c6c8d5ec2820ebff1dd8e" id="r_acf7bed2c823c6c8d5ec2820ebff1dd8e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf7bed2c823c6c8d5ec2820ebff1dd8e">FExtendCellType</a> ()</td></tr>
+<tr class="separator:acf7bed2c823c6c8d5ec2820ebff1dd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bb7edb69bc7d1a324ee6f68f8a88ca1" id="r_a5bb7edb69bc7d1a324ee6f68f8a88ca1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5bb7edb69bc7d1a324ee6f68f8a88ca1">FExtendCellType</a> (const <a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a> &amp;other)</td></tr>
+<tr class="separator:a5bb7edb69bc7d1a324ee6f68f8a88ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ddb753874d785168f9343642760ff22" id="r_a0ddb753874d785168f9343642760ff22"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ddb753874d785168f9343642760ff22">operator=</a> (const <a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a> &amp;other)</td></tr>
+<tr class="separator:a0ddb753874d785168f9343642760ff22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace5e194dcf40ca648409c80db2a5a448" id="r_ace5e194dcf40ca648409c80db2a5a448"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace5e194dcf40ca648409c80db2a5a448">hasSrcChild</a> () const</td></tr>
+<tr class="separator:ace5e194dcf40ca648409c80db2a5a448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef5eafbd37ecab5fc75f71b96aefd8da" id="r_aef5eafbd37ecab5fc75f71b96aefd8da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef5eafbd37ecab5fc75f71b96aefd8da">hasTargetsChild</a> () const</td></tr>
+<tr class="separator:aef5eafbd37ecab5fc75f71b96aefd8da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7d8e37bbb508a64ae16b6bad111a5a" id="r_a5b7d8e37bbb508a64ae16b6bad111a5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b7d8e37bbb508a64ae16b6bad111a5a">setSrcChildTrue</a> ()</td></tr>
+<tr class="separator:a5b7d8e37bbb508a64ae16b6bad111a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae52202f30d56aa566c7e6fc190f69b24" id="r_ae52202f30d56aa566c7e6fc190f69b24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae52202f30d56aa566c7e6fc190f69b24">setTargetsChildTrue</a> ()</td></tr>
+<tr class="separator:ae52202f30d56aa566c7e6fc190f69b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28edf5d910068a03de22d21da77797ce" id="r_a28edf5d910068a03de22d21da77797ce"><td class="memItemLeft" align="right" valign="top"><a id="a28edf5d910068a03de22d21da77797ce" name="a28edf5d910068a03de22d21da77797ce"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setTargetsChildFalse</b> ()</td></tr>
+<tr class="separator:a28edf5d910068a03de22d21da77797ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c89165507eac2b7f803e82d6f3d95af" id="r_a9c89165507eac2b7f803e82d6f3d95af"><td class="memItemLeft" align="right" valign="top"><a id="a9c89165507eac2b7f803e82d6f3d95af" name="a9c89165507eac2b7f803e82d6f3d95af"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isM2LDone</b> () const</td></tr>
+<tr class="separator:a9c89165507eac2b7f803e82d6f3d95af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29bbebad24d361026de2590775618662" id="r_a29bbebad24d361026de2590775618662"><td class="memItemLeft" align="right" valign="top"><a id="a29bbebad24d361026de2590775618662" name="a29bbebad24d361026de2590775618662"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isL2LDone</b> () const</td></tr>
+<tr class="separator:a29bbebad24d361026de2590775618662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99c2c7fd7453c46a5825a97f0f0ff6e6" id="r_a99c2c7fd7453c46a5825a97f0f0ff6e6"><td class="memItemLeft" align="right" valign="top"><a id="a99c2c7fd7453c46a5825a97f0f0ff6e6" name="a99c2c7fd7453c46a5825a97f0f0ff6e6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setM2LDoneTrue</b> ()</td></tr>
+<tr class="separator:a99c2c7fd7453c46a5825a97f0f0ff6e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f9edf28e9c201f73d8639561fcf80f4" id="r_a6f9edf28e9c201f73d8639561fcf80f4"><td class="memItemLeft" align="right" valign="top"><a id="a6f9edf28e9c201f73d8639561fcf80f4" name="a6f9edf28e9c201f73d8639561fcf80f4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setL2LDoneTrue</b> ()</td></tr>
+<tr class="separator:a6f9edf28e9c201f73d8639561fcf80f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e26d5bd235506ca2dcc325bf9acb462" id="r_a5e26d5bd235506ca2dcc325bf9acb462"><td class="memTemplParams" colspan="2">template&lt;class BufferWriterClass &gt; </td></tr>
+<tr class="memitem:a5e26d5bd235506ca2dcc325bf9acb462"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a5e26d5bd235506ca2dcc325bf9acb462">save</a> (BufferWriterClass &amp;buffer) const</td></tr>
+<tr class="separator:a5e26d5bd235506ca2dcc325bf9acb462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a9c26cb5487da3fbd9501d4110ae1f0" id="r_a7a9c26cb5487da3fbd9501d4110ae1f0"><td class="memTemplParams" colspan="2">template&lt;class BufferReaderClass &gt; </td></tr>
+<tr class="memitem:a7a9c26cb5487da3fbd9501d4110ae1f0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a7a9c26cb5487da3fbd9501d4110ae1f0">restore</a> (BufferReaderClass &amp;buffer)</td></tr>
+<tr class="separator:a7a9c26cb5487da3fbd9501d4110ae1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b892b60715a4437c54db8e234a5b55b" id="r_a1b892b60715a4437c54db8e234a5b55b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b892b60715a4437c54db8e234a5b55b">resetToInitialState</a> ()</td></tr>
+<tr class="separator:a1b892b60715a4437c54db8e234a5b55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acadcf1f38588c588d3b782f3cfa70ccb" id="r_acadcf1f38588c588d3b782f3cfa70ccb"><td class="memItemLeft" align="right" valign="top"><a id="acadcf1f38588c588d3b782f3cfa70ccb" name="acadcf1f38588c588d3b782f3cfa70ccb"></a>
+FSize&#160;</td><td class="memItemRight" valign="bottom"><b>getSavedSize</b> () const</td></tr>
+<tr class="separator:acadcf1f38588c588d3b782f3cfa70ccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected 属性</h2></td></tr>
+<tr class="memitem:ad89a4f4cdf300a19055715b489da4b2a" id="r_ad89a4f4cdf300a19055715b489da4b2a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad89a4f4cdf300a19055715b489da4b2a">containsTargets</a></td></tr>
+<tr class="separator:ad89a4f4cdf300a19055715b489da4b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36e8952a8adf4be433492417125dc47d" id="r_a36e8952a8adf4be433492417125dc47d"><td class="memItemLeft" align="right" valign="top"><a id="a36e8952a8adf4be433492417125dc47d" name="a36e8952a8adf4be433492417125dc47d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>containsSources</b></td></tr>
+<tr class="separator:a36e8952a8adf4be433492417125dc47d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac23c582bdddbf1a11bb70f8746776236" id="r_ac23c582bdddbf1a11bb70f8746776236"><td class="memItemLeft" align="right" valign="top"><a id="ac23c582bdddbf1a11bb70f8746776236" name="ac23c582bdddbf1a11bb70f8746776236"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m2lDone</b></td></tr>
+<tr class="separator:ac23c582bdddbf1a11bb70f8746776236"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a437ffccc8c22f6413b1c9022273c1a7c" id="r_a437ffccc8c22f6413b1c9022273c1a7c"><td class="memItemLeft" align="right" valign="top"><a id="a437ffccc8c22f6413b1c9022273c1a7c" name="a437ffccc8c22f6413b1c9022273c1a7c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>l2lDone</b></td></tr>
+<tr class="separator:a437ffccc8c22f6413b1c9022273c1a7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><dl class="section author"><dt>作者</dt><dd>Berenger Bramas (<a href="#" onclick="location.href='mai'+'lto:'+'ber'+'en'+'ger'+'.b'+'ram'+'as'+'@in'+'ri'+'a.f'+'r'; return false;">beren<span class="obfuscator">.nosp@m.</span>ger.<span class="obfuscator">.nosp@m.</span>brama<span class="obfuscator">.nosp@m.</span>s@in<span class="obfuscator">.nosp@m.</span>ria.f<span class="obfuscator">.nosp@m.</span>r</a>)</dd></dl>
+<p>This class is an extenssion. It proposes a target/source extenssion for cell. Because cells may have child that contains only sources or targets (in Tsm system) then it is important to not compute for nothing. </p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="acf7bed2c823c6c8d5ec2820ebff1dd8e" name="acf7bed2c823c6c8d5ec2820ebff1dd8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf7bed2c823c6c8d5ec2820ebff1dd8e">&#9670;&#160;</a></span>FExtendCellType() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FExtendCellType::FExtendCellType </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default constructor </p>
+
+</div>
+</div>
+<a id="a5bb7edb69bc7d1a324ee6f68f8a88ca1" name="a5bb7edb69bc7d1a324ee6f68f8a88ca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bb7edb69bc7d1a324ee6f68f8a88ca1">&#9670;&#160;</a></span>FExtendCellType() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FExtendCellType::FExtendCellType </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copy constructor </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="ace5e194dcf40ca648409c80db2a5a448" name="ace5e194dcf40ca648409c80db2a5a448"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace5e194dcf40ca648409c80db2a5a448">&#9670;&#160;</a></span>hasSrcChild()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FExtendCellType::hasSrcChild </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To know if a cell has sources </p>
+
+</div>
+</div>
+<a id="aef5eafbd37ecab5fc75f71b96aefd8da" name="aef5eafbd37ecab5fc75f71b96aefd8da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef5eafbd37ecab5fc75f71b96aefd8da">&#9670;&#160;</a></span>hasTargetsChild()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FExtendCellType::hasTargetsChild </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To know if a cell has targets </p>
+
+</div>
+</div>
+<a id="a0ddb753874d785168f9343642760ff22" name="a0ddb753874d785168f9343642760ff22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ddb753874d785168f9343642760ff22">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a> &amp; FExtendCellType::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_f_extend_cell_type.html">FExtendCellType</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Copy operator </p>
+
+</div>
+</div>
+<a id="a1b892b60715a4437c54db8e234a5b55b" name="a1b892b60715a4437c54db8e234a5b55b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b892b60715a4437c54db8e234a5b55b">&#9670;&#160;</a></span>resetToInitialState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FExtendCellType::resetToInitialState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>reset to unknown type </p>
+
+</div>
+</div>
+<a id="a7a9c26cb5487da3fbd9501d4110ae1f0" name="a7a9c26cb5487da3fbd9501d4110ae1f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a9c26cb5487da3fbd9501d4110ae1f0">&#9670;&#160;</a></span>restore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class BufferReaderClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FExtendCellType::restore </td>
+          <td>(</td>
+          <td class="paramtype">BufferReaderClass &amp;</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Retrieve current object </p>
+
+</div>
+</div>
+<a id="a5e26d5bd235506ca2dcc325bf9acb462" name="a5e26d5bd235506ca2dcc325bf9acb462"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e26d5bd235506ca2dcc325bf9acb462">&#9670;&#160;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class BufferWriterClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FExtendCellType::save </td>
+          <td>(</td>
+          <td class="paramtype">BufferWriterClass &amp;</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Save current object </p>
+
+</div>
+</div>
+<a id="a5b7d8e37bbb508a64ae16b6bad111a5a" name="a5b7d8e37bbb508a64ae16b6bad111a5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b7d8e37bbb508a64ae16b6bad111a5a">&#9670;&#160;</a></span>setSrcChildTrue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FExtendCellType::setSrcChildTrue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To set cell as sources container </p>
+
+</div>
+</div>
+<a id="ae52202f30d56aa566c7e6fc190f69b24" name="ae52202f30d56aa566c7e6fc190f69b24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae52202f30d56aa566c7e6fc190f69b24">&#9670;&#160;</a></span>setTargetsChildTrue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FExtendCellType::setTargetsChildTrue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To set cell as targets container </p>
+
+</div>
+</div>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="ad89a4f4cdf300a19055715b489da4b2a" name="ad89a4f4cdf300a19055715b489da4b2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad89a4f4cdf300a19055715b489da4b2a">&#9670;&#160;</a></span>containsTargets</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FExtendCellType::containsTargets</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Current type </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/Extensions/<a class="el" href="_f_extend_cell_type_8hpp_source.html">FExtendCellType.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

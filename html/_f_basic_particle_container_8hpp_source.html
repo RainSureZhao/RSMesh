@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: third_party/ScalFMM/include/ScalFMM/Components/FBasicParticleContainer.hpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_44f42edf5dd23d4deca0321224e9ce90.html">third_party</a></li><li class="navelem"><a class="el" href="dir_61e2dd9f1d9796d3cea0fd381fea5190.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_0546f01e16a5efd4e4f6e4ca02f395da.html">include</a></li><li class="navelem"><a class="el" href="dir_97d8df139c79c55828f3d66e7d34077f.html">ScalFMM</a></li><li class="navelem"><a class="el" href="dir_92188ee20c8bbddb17bf3018f0d6faca.html">Components</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">FBasicParticleContainer.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// See LICENCE file at project root</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef FBASIC_PARTICLE_CONTAINER_HPP_</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#define FBASIC_PARTICLE_CONTAINER_HPP_</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;FAbstractParticleContainer.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;FAbstractSerializable.hpp&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;../Utils/FGlobal.hpp&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;../Utils/FAlignedMemory.hpp&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;../Utils/FMath.hpp&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;../Utils/FPoint.hpp&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;FParticleType.hpp&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> FReal, <span class="keywordtype">unsigned</span> NbAttributesPerParticle, <span class="keyword">class</span> AttributeClass &gt;</div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="};">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html">   46</a></span><span class="keyword">class </span><a class="code hl_class" href="class_f_basic_particle_container.html">FBasicParticleContainer</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_f_abstract_particle_container.html">FAbstractParticleContainer</a>&lt;FReal&gt;, <span class="keyword">public</span> <a class="code hl_class" href="class_f_abstract_serializable.html">FAbstractSerializable</a> {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">static</span> <span class="keyword">const</span> FSize MemoryAlignement   = FP2PDefaultAlignement;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">static</span> <span class="keyword">const</span> FSize DefaultNbParticles = FSize(MemoryAlignement/<span class="keyword">sizeof</span>(FReal));</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">   52</a></span>    FSize <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">   54</a></span>    FReal* <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[3];</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">   56</a></span>    AttributeClass* <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[NbAttributesPerParticle];</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">   59</a></span>    FSize <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">template</span>&lt;<span class="keywordtype">int</span> index&gt;</div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a31d1f879bb4df03a034bc2b272ec0251">   66</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#a31d1f879bb4df03a034bc2b272ec0251">addParticleValue</a>(<span class="keyword">const</span> FSize <span class="comment">/*insertPosition*/</span>){</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">template</span>&lt;<span class="keywordtype">int</span> index&gt;</div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#ae91da8898c8f294f0a36dd9d878552c1">   71</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#ae91da8898c8f294f0a36dd9d878552c1">addParticleValueS</a>(<span class="keyword">const</span> FSize <span class="comment">/*insertPosition*/</span>,<span class="keyword">const</span> FSize <span class="comment">/*nbParticles*/</span>){</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">template</span>&lt;<span class="keywordtype">int</span> index, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a6f342d4853d9fd4c3720805a4073f5ab">   77</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#a6f342d4853d9fd4c3720805a4073f5ab">addParticleValue</a>(<span class="keyword">const</span> FSize insertPosition, <span class="keyword">const</span> AttributeClass value, Args... args){</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="comment">// Compile test to ensure indexing</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">static_assert</span>(index &lt; NbAttributesPerParticle, <span class="stringliteral">&quot;Index to get attributes is out of scope.&quot;</span>);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="comment">// insert the value</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[index][insertPosition] = value;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="comment">// Continue for reamining values</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        addParticleValue&lt;index+1&gt;( insertPosition, args...);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    }</div>
+</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">template</span>&lt;<span class="keywordtype">int</span> index, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a5c3d5e9c3b70ece926917e8c5e7cc43a">   90</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#a5c3d5e9c3b70ece926917e8c5e7cc43a">addParticleValueS</a>(<span class="keyword">const</span> FSize insertPosition, <span class="keyword">const</span> FSize nbParts, <span class="keyword">const</span> AttributeClass* value, Args... args){</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="comment">// Compile test to ensure indexing</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keyword">static_assert</span>(index &lt; NbAttributesPerParticle, <span class="stringliteral">&quot;Index to get attributes is out of scope.&quot;</span>);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">for</span>(FSize idxPart = 0; idxPart&lt;nbParts ; ++idxPart){</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            <span class="comment">// insert the value</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[index][insertPosition+idxPart] = value[idxPart];</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="comment">// Continue for reamining values</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        addParticleValueS&lt;index+1&gt;( insertPosition, nbParts, args...);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
+</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">void</span> increaseSizeIfNeeded(FSize sizeInput = 1){</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">if</span>( <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>+(sizeInput-1) &gt;= <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> ){</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="comment">// allocate memory</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            <span class="keyword">const</span> FSize moduloParticlesNumber = (MemoryAlignement/<span class="keyword">sizeof</span>(FReal));</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> = (<a class="code hl_function" href="struct_f_math.html#ada359f2b021ce4b999c0fd7a6e9daae6">FMath::Max</a>(DefaultNbParticles,FSize(FReal(<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>+sizeInput)*1.5)) + moduloParticlesNumber - 1) &amp; ~(moduloParticlesNumber-1);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="comment">// init with 0</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <span class="keyword">const</span> <span class="keywordtype">size_t</span> allocatedBytes = (<span class="keyword">sizeof</span>(FReal)*3 + <span class="keyword">sizeof</span>(AttributeClass)*NbAttributesPerParticle)*<a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            FReal* newData  = <span class="keyword">reinterpret_cast&lt;</span>FReal*<span class="keyword">&gt;</span>(FAlignedMemory::AllocateBytes&lt;MemoryAlignement&gt;(allocatedBytes));</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            memset( newData, 0, allocatedBytes);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="comment">// copy memory</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="keyword">const</span> <span class="keywordtype">char</span>*<span class="keyword">const</span> toDelete  = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[0]);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idx = 0 ; idx &lt; 3 ; ++idx){</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                memcpy(newData + (<a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> * idx), <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx], <span class="keyword">sizeof</span>(FReal) * <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx] = newData + (<a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> * idx);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                <span class="keywordflow">for</span>(FSize idxEmpty = <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> ; idxEmpty &lt; <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> ; ++idxEmpty){</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                    <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx][idxEmpty] = std::numeric_limits&lt;FReal&gt;::max()/2;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            }</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            <span class="comment">// copy attributes</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            AttributeClass* startAddress = <span class="keyword">reinterpret_cast&lt;</span>AttributeClass*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[2] + <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idx = 0 ; idx &lt; NbAttributesPerParticle ; ++idx){</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                <a class="code hl_function" href="namespace_f_mem_utils.html#afba06a533855d38cf96cddbec48f155a">memcpy</a>(startAddress + (<a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> * idx), <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx], <span class="keyword">sizeof</span>(AttributeClass) * <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx] = startAddress + (idx * <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <span class="comment">// delete old</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            FAlignedMemory::DeallocBytes(toDelete);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  <a class="code hl_function" href="class_f_basic_particle_container.html#acf3a25ec18029025a0d1b94b49e5db9d">FBasicParticleContainer</a>( <a class="code hl_class" href="class_f_basic_particle_container.html">FBasicParticleContainer</a>&amp; leaf) : <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>(leaf.<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>),<a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>(leaf.<a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>) </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>  {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="comment">// allocate memory</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keyword">const</span> FSize moduloParticlesNumber = (MemoryAlignement/<span class="keyword">sizeof</span>(FReal));</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> = (<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> + moduloParticlesNumber - 1) &amp; ~(moduloParticlesNumber-1);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="comment">// init with 0</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keyword">const</span> <span class="keywordtype">size_t</span> allocatedBytes = (<span class="keyword">sizeof</span>(FReal)*3 + <span class="keyword">sizeof</span>(AttributeClass)*NbAttributesPerParticle)*<a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    FReal* newData  = <span class="keyword">reinterpret_cast&lt;</span>FReal*<span class="keyword">&gt;</span>(FAlignedMemory::AllocateBytes&lt;MemoryAlignement&gt;(allocatedBytes));</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    FReal * <span class="keyword">const</span> oldData = (leaf.<a class="code hl_function" href="class_f_basic_particle_container.html#ae2b744d1d641d8ddabb45e14da47f77c">getWPositions</a>()[0]);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    std::copy(oldData,oldData+allocatedBytes,newData) ;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="comment">// Fill the structure</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idx = 0 ; idx &lt; 3 ; ++idx){</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>      <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx] = newData + (<a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> * idx);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    AttributeClass* startAddress = <span class="keyword">reinterpret_cast&lt;</span>AttributeClass*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[2] + <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idx = 0 ; idx &lt; NbAttributesPerParticle ; ++idx){</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>      <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx] = startAddress + (idx * <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    }</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>  }</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>  </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <a class="code hl_class" href="class_f_basic_particle_container.html">FBasicParticleContainer</a>&amp; operator=(<span class="keyword">const</span> <a class="code hl_class" href="class_f_basic_particle_container.html">FBasicParticleContainer</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="foldopen" id="foldopen00169" data-start="{" data-end="}">
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#acf3a25ec18029025a0d1b94b49e5db9d">  169</a></span>    <a class="code hl_function" href="class_f_basic_particle_container.html#acf3a25ec18029025a0d1b94b49e5db9d">FBasicParticleContainer</a>() : <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>(0), <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>(0){</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        memset(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[0]) * 3);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        memset(<a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>, 0, <span class="keyword">sizeof</span>(<a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[0]) * NbAttributesPerParticle);</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    }</div>
+</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="foldopen" id="foldopen00176" data-start="{" data-end="}">
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a661d1f895b6a65337b84b3586e7bce1a">  176</a></span>    <a class="code hl_function" href="class_f_basic_particle_container.html#a661d1f895b6a65337b84b3586e7bce1a">~FBasicParticleContainer</a>(){</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        FAlignedMemory::DeallocBytes(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[0]);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
+</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="foldopen" id="foldopen00184" data-start="{" data-end="}">
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#aef8110f5835414ab05368df5a05aabbf">  184</a></span>    FSize <a class="code hl_function" href="class_f_basic_particle_container.html#aef8110f5835414ab05368df5a05aabbf">getNbParticles</a>()<span class="keyword"> const</span>{</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00191" data-start="{" data-end="}">
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a73f1f88083db00b0fa58c4723b628c47">  191</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#a73f1f88083db00b0fa58c4723b628c47">resetNumberOfParticles</a>()</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    {</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> = 0 ;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00199" data-start="{" data-end="}">
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#ac505b111866e49f62b068cf3e30f8d1a">  199</a></span>    <span class="keyword">const</span> FReal*<span class="keyword">const</span>* <a class="code hl_function" href="class_f_basic_particle_container.html#ac505b111866e49f62b068cf3e30f8d1a">getPositions</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    }</div>
+</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="foldopen" id="foldopen00207" data-start="{" data-end="}">
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a4be8a42288091f12f38cd46ff9ef9fdf">  207</a></span>    FReal* <span class="keyword">const</span>* <a class="code hl_function" href="class_f_basic_particle_container.html#a4be8a42288091f12f38cd46ff9ef9fdf">getPositions</a>() {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00214" data-start="{" data-end="}">
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#ae2b744d1d641d8ddabb45e14da47f77c">  214</a></span>    FReal* <span class="keyword">const</span>* <a class="code hl_function" href="class_f_basic_particle_container.html#ae2b744d1d641d8ddabb45e14da47f77c">getWPositions</a>() {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    }</div>
+</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
+<div class="foldopen" id="foldopen00223" data-start="{" data-end="}">
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a5bb3011726842cabb190bf00dabb3aba">  223</a></span>    AttributeClass* <a class="code hl_function" href="class_f_basic_particle_container.html#a5bb3011726842cabb190bf00dabb3aba">getAttribute</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> index) {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[index];</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    }</div>
+</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="foldopen" id="foldopen00232" data-start="{" data-end="}">
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#afde1a049f4766a36f9efc35e67793d17">  232</a></span>    <span class="keyword">const</span> AttributeClass* <a class="code hl_function" href="class_f_basic_particle_container.html#afde1a049f4766a36f9efc35e67793d17">getAttribute</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[index];</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    }</div>
+</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> index&gt;</div>
+<div class="foldopen" id="foldopen00240" data-start="{" data-end="}">
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a48428ae7db96aad034984cdd0c25f861">  240</a></span>    AttributeClass* <a class="code hl_function" href="class_f_basic_particle_container.html#a48428ae7db96aad034984cdd0c25f861">getAttribute</a>() {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keyword">static_assert</span>(index &lt; NbAttributesPerParticle, <span class="stringliteral">&quot;Index to get attributes is out of scope.&quot;</span>);</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[index];</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    }</div>
+</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> index&gt;</div>
+<div class="foldopen" id="foldopen00249" data-start="{" data-end="}">
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#ada2a6ccfdc15c2d59ed14bb31e37faa8">  249</a></span>    <span class="keyword">const</span> AttributeClass* <a class="code hl_function" href="class_f_basic_particle_container.html#ada2a6ccfdc15c2d59ed14bb31e37faa8">getAttribute</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="keyword">static_assert</span>(index &lt; NbAttributesPerParticle, <span class="stringliteral">&quot;Index to get attributes is out of scope.&quot;</span>);</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[index];</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    }</div>
+</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="foldopen" id="foldopen00264" data-start="{" data-end="}">
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a505d04d96d24a5362744ac5d4cc69849">  264</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#a505d04d96d24a5362744ac5d4cc69849">pushArray</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a> * inParticlePosition, FSize numberOfParts, Args... args){</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        <span class="keyword">const</span> FSize positionToInsert = <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="comment">//Tests if enough space</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        increaseSizeIfNeeded(numberOfParts);</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <span class="keywordflow">for</span>(FSize idxPart = 0; idxPart&lt;numberOfParts ; ++idxPart){</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            <span class="comment">// insert particle data</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>            <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[0][positionToInsert + idxPart] = inParticlePosition[idxPart].<a class="code hl_function" href="class_f_point.html#a58d3859160347552d6a4a94fbdf883c3">getX</a>();</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[1][positionToInsert + idxPart] = inParticlePosition[idxPart].<a class="code hl_function" href="class_f_point.html#ae4383512b9b8d216775b3fb92325cfc9">getY</a>();</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[2][positionToInsert + idxPart] = inParticlePosition[idxPart].<a class="code hl_function" href="class_f_point.html#a02208d4db50cbafe597adcbfb152b536">getZ</a>();</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        }</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        <span class="comment">// insert attribute data</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        addParticleValueS&lt;0&gt;( <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>, numberOfParts ,args...);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> += numberOfParts;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    }</div>
+</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="foldopen" id="foldopen00284" data-start="{" data-end="}">
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a94e4570bd00fbc9444b4e7c605e34251">  284</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#a94e4570bd00fbc9444b4e7c605e34251">reserve</a>(<span class="keyword">const</span> FSize requiereNbParticles){</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        increaseSizeIfNeeded(requiereNbParticles - <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>);</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    }</div>
+</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="foldopen" id="foldopen00294" data-start="{" data-end="}">
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a7ffb6fbc1e796feeecc879796f3661e1">  294</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#a7ffb6fbc1e796feeecc879796f3661e1">push</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a>&amp; inParticlePosition, Args... args){</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        <span class="comment">// enought space?</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        increaseSizeIfNeeded();</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        <span class="comment">// insert particle data</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[0][<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>] = inParticlePosition.<a class="code hl_function" href="class_f_point.html#a58d3859160347552d6a4a94fbdf883c3">getX</a>();</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[1][<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>] = inParticlePosition.<a class="code hl_function" href="class_f_point.html#ae4383512b9b8d216775b3fb92325cfc9">getY</a>();</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[2][<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>] = inParticlePosition.<a class="code hl_function" href="class_f_point.html#a02208d4db50cbafe597adcbfb152b536">getZ</a>();</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        <span class="comment">// insert attribute data</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        addParticleValue&lt;0&gt;( <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>, args...);</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> += 1;</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    }</div>
+</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="foldopen" id="foldopen00313" data-start="{" data-end="}">
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#af1c613730e946580ce0379d427860360">  313</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#af1c613730e946580ce0379d427860360">push</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a>&amp; inParticlePosition, <span class="keyword">const</span> std::array&lt;AttributeClass , NbAttributesPerParticle&gt;&amp; values){</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        <span class="comment">// enought space?</span></div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        increaseSizeIfNeeded();</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        <span class="comment">// insert particle data</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[0][<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>] = inParticlePosition.<a class="code hl_function" href="class_f_point.html#a58d3859160347552d6a4a94fbdf883c3">getX</a>();</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[1][<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>] = inParticlePosition.<a class="code hl_function" href="class_f_point.html#ae4383512b9b8d216775b3fb92325cfc9">getY</a>();</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[2][<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>] = inParticlePosition.<a class="code hl_function" href="class_f_point.html#a02208d4db50cbafe597adcbfb152b536">getZ</a>();</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        <span class="comment">// insert attribute data</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idxVal = 0 ; idxVal &lt; NbAttributesPerParticle ; ++idxVal){</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>            <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idxVal][<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>] = values[idxVal];</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        }</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> += 1;</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    }</div>
+</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="foldopen" id="foldopen00333" data-start="{" data-end="}">
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#ae4e4576116f44dfc0b79611486a81699">  333</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#ae4e4576116f44dfc0b79611486a81699">push</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a>&amp; inParticlePosition, <span class="keyword">const</span> FParticleType type,</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>              <span class="keyword">const</span> std::array&lt;AttributeClass , NbAttributesPerParticle&gt;&amp; values){</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        <a class="code hl_function" href="class_f_basic_particle_container.html#a7ffb6fbc1e796feeecc879796f3661e1">push</a>(inParticlePosition,values);</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    }</div>
+</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
+<div class="foldopen" id="foldopen00342" data-start="{" data-end="}">
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a25914dc11edba67b32c1f25943317af9">  342</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#a25914dc11edba67b32c1f25943317af9">push</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_f_point.html">FPoint&lt;FReal&gt;</a>&amp; inParticlePosition, <span class="keyword">const</span> FParticleType <span class="comment">/*particleType*/</span>, Args... args){</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        <a class="code hl_function" href="class_f_basic_particle_container.html#a7ffb6fbc1e796feeecc879796f3661e1">push</a>(inParticlePosition, args...);</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    }</div>
+</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
+<div class="foldopen" id="foldopen00347" data-start="{" data-end="}">
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a12538d1050434a60a507c82e9f140ec0">  347</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#a12538d1050434a60a507c82e9f140ec0">clear</a>(){</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> = 0;</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    }</div>
+</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
+<div class="foldopen" id="foldopen00355" data-start="{" data-end="}">
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#af4c9c6b684ab11f582a588f5c5101cb7">  355</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#af4c9c6b684ab11f582a588f5c5101cb7">removeParticles</a>(<span class="keyword">const</span> FSize indexesToRemove[], <span class="keyword">const</span> FSize nbParticlesToRemove){</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>        FSize offset = 1;</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        FSize idxIndexes = 1;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        FSize idxIns = indexesToRemove[0] + 1;</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>        <span class="keywordflow">for</span>( ; idxIns &lt; <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> &amp;&amp; idxIndexes &lt; nbParticlesToRemove ; ++idxIns){</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>            <span class="keywordflow">if</span>( idxIns == indexesToRemove[idxIndexes] ){</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>                idxIndexes += 1;</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>                offset += 1;</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>            }</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>            <span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>                <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idx = 0 ; idx &lt; 3 ; ++idx){</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>                    <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx][idxIns-offset] = <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx][idxIns];</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>                }</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>                <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idx = 0 ; idx &lt; NbAttributesPerParticle ; ++idx){</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>                    <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx][idxIns-offset] = <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx][idxIns];</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>                }</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>            }</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        }</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>        <span class="keywordflow">for</span>( ; idxIns &lt; <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> ; ++idxIns){</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idx = 0 ; idx &lt; 3 ; ++idx){</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>                <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx][idxIns-offset] = <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx][idxIns];</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>            }</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>            <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idx = 0 ; idx &lt; NbAttributesPerParticle ; ++idx){</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>                <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx][idxIns-offset] = <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx][idxIns];</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>            }</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>        }</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>        <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> -= nbParticlesToRemove;</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    }</div>
+</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span> </div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span> </div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    AttributeClass* getRawData(){</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>        <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>AttributeClass*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[2] + <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>);</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    }</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span> </div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    <span class="keyword">const</span> AttributeClass* getRawData()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>        <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span>AttributeClass*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[2] + <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>);</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    }</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span> </div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    FSize getLeadingRawData()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>;</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    }</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span> </div>
+<div class="foldopen" id="foldopen00403" data-start="{" data-end="}">
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#ac424fa275c906b82878c2a4f9cd78426">  403</a></span>    FSize <a class="code hl_function" href="class_f_basic_particle_container.html#ac424fa275c906b82878c2a4f9cd78426">getSavedSize</a>()<span class="keyword"> const</span>{</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>        <span class="keywordflow">return</span> FSize(<span class="keyword">sizeof</span>(<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>) + <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> * (3 * <span class="keyword">sizeof</span>(FReal) + NbAttributesPerParticle * <span class="keyword">sizeof</span>(AttributeClass)));</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>    }</div>
+</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span> </div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> BufferWriterClass&gt;</div>
+<div class="foldopen" id="foldopen00409" data-start="{" data-end="}">
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#a252210aa71eda7b8a8cf6462d50f5910">  409</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#a252210aa71eda7b8a8cf6462d50f5910">save</a>(BufferWriterClass&amp; buffer)<span class="keyword"> const</span>{</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        buffer &lt;&lt; <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>;</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idx = 0 ; idx &lt; 3 ; ++idx){</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>            buffer.write(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx], <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>);</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        }</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idx = 0 ; idx &lt; NbAttributesPerParticle ; ++idx){</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>            buffer.write(<a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx], <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>);</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>        }</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    }</div>
+</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>    <span class="keyword">template</span> &lt;<span class="keyword">class</span> BufferReaderClass&gt;</div>
+<div class="foldopen" id="foldopen00420" data-start="{" data-end="}">
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#ad481dc503bd4d00b8bd0144e70a9b345">  420</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#ad481dc503bd4d00b8bd0144e70a9b345">restore</a>(BufferReaderClass&amp; buffer){</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>        buffer &gt;&gt; <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>;</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>        <span class="keywordflow">if</span>( <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> &gt;= <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> ){</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>            <span class="comment">// allocate memory</span></div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>            <span class="keyword">const</span> FSize moduloParticlesNumber = (MemoryAlignement/<span class="keyword">sizeof</span>(FReal));</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>            <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> = (<a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a> + moduloParticlesNumber - 1) &amp; ~(moduloParticlesNumber-1);</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>            <span class="comment">// init with 0</span></div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>            <span class="keyword">const</span> <span class="keywordtype">size_t</span> allocatedBytes = (<span class="keyword">sizeof</span>(FReal)*3 + <span class="keyword">sizeof</span>(AttributeClass)*NbAttributesPerParticle)*<a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>;</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>            FReal* newData  = <span class="keyword">reinterpret_cast&lt;</span>FReal*<span class="keyword">&gt;</span>(FAlignedMemory::AllocateBytes&lt;MemoryAlignement&gt;(allocatedBytes));</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>            memset( newData, 0, allocatedBytes);</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span> </div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>            FAlignedMemory::DeallocBytes(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[0]);</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>            <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idx = 0 ; idx &lt; 3 ; ++idx){</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>                <a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx] = newData + (<a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a> * idx);</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>            }</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>            AttributeClass* startAddress = <span class="keyword">reinterpret_cast&lt;</span>AttributeClass*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[2] + <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>);</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>            <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idx = 0 ; idx &lt; NbAttributesPerParticle ; ++idx){</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>                <a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx] = startAddress + (idx * <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>);</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>            }</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>        }</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> idx = 0 ; idx &lt; 3 ; ++idx){</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>            buffer.fillArray(<a class="code hl_variable" href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">positions</a>[idx], <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>);</div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span>        }</div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idx = 0 ; idx &lt; NbAttributesPerParticle ; ++idx){</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>            buffer.fillArray(<a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx], <a class="code hl_variable" href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">nbParticles</a>);</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>        }</div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>    }</div>
+</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span> </div>
+<div class="foldopen" id="foldopen00449" data-start="{" data-end="}">
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#af2151ca86f8a68e4d5492b99fe2a0d91">  449</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#af2151ca86f8a68e4d5492b99fe2a0d91">resetToInitialState</a>(){</div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>        <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> idx = 0 ; idx &lt; NbAttributesPerParticle ; ++idx){</div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>            memset(<a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idx], 0, <span class="keyword">sizeof</span>(AttributeClass) * <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>);</div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>        }</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>    }</div>
+</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span> </div>
+<div class="foldopen" id="foldopen00456" data-start="{" data-end="}">
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno"><a class="line" href="class_f_basic_particle_container.html#aa6b14c509675d05f4293f155c93cef5d">  456</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_f_basic_particle_container.html#aa6b14c509675d05f4293f155c93cef5d">resetToInitialState</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> idxAttribute){</div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>        memset(<a class="code hl_variable" href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">attributes</a>[idxAttribute], 0, <span class="keyword">sizeof</span>(AttributeClass) * <a class="code hl_variable" href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">allocatedParticles</a>);</div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    }</div>
+</div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>};</div>
+</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span> </div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span> </div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span><span class="preprocessor">#endif </span><span class="comment">//FBASICPARTICLECONTAINER_HPP</span></div>
+<div class="ttc" id="aclass_f_abstract_particle_container_html"><div class="ttname"><a href="class_f_abstract_particle_container.html">FAbstractParticleContainer</a></div><div class="ttdoc">Please read the license</div><div class="ttdef"><b>Definition</b> FAbstractParticleContainer.hpp:20</div></div>
+<div class="ttc" id="aclass_f_abstract_serializable_html"><div class="ttname"><a href="class_f_abstract_serializable.html">FAbstractSerializable</a></div><div class="ttdef"><b>Definition</b> FAbstractSerializable.hpp:15</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html"><div class="ttname"><a href="class_f_basic_particle_container.html">FBasicParticleContainer</a></div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:46</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a12538d1050434a60a507c82e9f140ec0"><div class="ttname"><a href="class_f_basic_particle_container.html#a12538d1050434a60a507c82e9f140ec0">FBasicParticleContainer::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:347</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a1697b5ae9794031c25df3a46332bf33e"><div class="ttname"><a href="class_f_basic_particle_container.html#a1697b5ae9794031c25df3a46332bf33e">FBasicParticleContainer::positions</a></div><div class="ttdeci">FReal * positions[3]</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:54</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a252210aa71eda7b8a8cf6462d50f5910"><div class="ttname"><a href="class_f_basic_particle_container.html#a252210aa71eda7b8a8cf6462d50f5910">FBasicParticleContainer::save</a></div><div class="ttdeci">void save(BufferWriterClass &amp;buffer) const</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:409</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a25914dc11edba67b32c1f25943317af9"><div class="ttname"><a href="class_f_basic_particle_container.html#a25914dc11edba67b32c1f25943317af9">FBasicParticleContainer::push</a></div><div class="ttdeci">void push(const FPoint&lt; FReal &gt; &amp;inParticlePosition, const FParticleType, Args... args)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:342</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a31d1f879bb4df03a034bc2b272ec0251"><div class="ttname"><a href="class_f_basic_particle_container.html#a31d1f879bb4df03a034bc2b272ec0251">FBasicParticleContainer::addParticleValue</a></div><div class="ttdeci">void addParticleValue(const FSize)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:66</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a35d823b017b57214c70a950099aa9f2f"><div class="ttname"><a href="class_f_basic_particle_container.html#a35d823b017b57214c70a950099aa9f2f">FBasicParticleContainer::attributes</a></div><div class="ttdeci">AttributeClass * attributes[NbAttributesPerParticle]</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:56</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a48428ae7db96aad034984cdd0c25f861"><div class="ttname"><a href="class_f_basic_particle_container.html#a48428ae7db96aad034984cdd0c25f861">FBasicParticleContainer::getAttribute</a></div><div class="ttdeci">AttributeClass * getAttribute()</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:240</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a4be8a42288091f12f38cd46ff9ef9fdf"><div class="ttname"><a href="class_f_basic_particle_container.html#a4be8a42288091f12f38cd46ff9ef9fdf">FBasicParticleContainer::getPositions</a></div><div class="ttdeci">FReal *const * getPositions()</div><div class="ttdoc">getPositions</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:207</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a505d04d96d24a5362744ac5d4cc69849"><div class="ttname"><a href="class_f_basic_particle_container.html#a505d04d96d24a5362744ac5d4cc69849">FBasicParticleContainer::pushArray</a></div><div class="ttdeci">void pushArray(const FPoint&lt; FReal &gt; *inParticlePosition, FSize numberOfParts, Args... args)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:264</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a5a78a9cd182f8140ac380571576c62ed"><div class="ttname"><a href="class_f_basic_particle_container.html#a5a78a9cd182f8140ac380571576c62ed">FBasicParticleContainer::allocatedParticles</a></div><div class="ttdeci">FSize allocatedParticles</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:59</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a5bb3011726842cabb190bf00dabb3aba"><div class="ttname"><a href="class_f_basic_particle_container.html#a5bb3011726842cabb190bf00dabb3aba">FBasicParticleContainer::getAttribute</a></div><div class="ttdeci">AttributeClass * getAttribute(const int index)</div><div class="ttdoc">getAttribute</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:223</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a5c3d5e9c3b70ece926917e8c5e7cc43a"><div class="ttname"><a href="class_f_basic_particle_container.html#a5c3d5e9c3b70ece926917e8c5e7cc43a">FBasicParticleContainer::addParticleValueS</a></div><div class="ttdeci">void addParticleValueS(const FSize insertPosition, const FSize nbParts, const AttributeClass *value, Args... args)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:90</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a661d1f895b6a65337b84b3586e7bce1a"><div class="ttname"><a href="class_f_basic_particle_container.html#a661d1f895b6a65337b84b3586e7bce1a">FBasicParticleContainer::~FBasicParticleContainer</a></div><div class="ttdeci">~FBasicParticleContainer()</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:176</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a6f342d4853d9fd4c3720805a4073f5ab"><div class="ttname"><a href="class_f_basic_particle_container.html#a6f342d4853d9fd4c3720805a4073f5ab">FBasicParticleContainer::addParticleValue</a></div><div class="ttdeci">void addParticleValue(const FSize insertPosition, const AttributeClass value, Args... args)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:77</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a73f1f88083db00b0fa58c4723b628c47"><div class="ttname"><a href="class_f_basic_particle_container.html#a73f1f88083db00b0fa58c4723b628c47">FBasicParticleContainer::resetNumberOfParticles</a></div><div class="ttdeci">void resetNumberOfParticles()</div><div class="ttdoc">reset the number of particles</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:191</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a7ffb6fbc1e796feeecc879796f3661e1"><div class="ttname"><a href="class_f_basic_particle_container.html#a7ffb6fbc1e796feeecc879796f3661e1">FBasicParticleContainer::push</a></div><div class="ttdeci">void push(const FPoint&lt; FReal &gt; &amp;inParticlePosition, Args... args)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:294</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_a94e4570bd00fbc9444b4e7c605e34251"><div class="ttname"><a href="class_f_basic_particle_container.html#a94e4570bd00fbc9444b4e7c605e34251">FBasicParticleContainer::reserve</a></div><div class="ttdeci">void reserve(const FSize requiereNbParticles)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:284</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_aa6b14c509675d05f4293f155c93cef5d"><div class="ttname"><a href="class_f_basic_particle_container.html#aa6b14c509675d05f4293f155c93cef5d">FBasicParticleContainer::resetToInitialState</a></div><div class="ttdeci">void resetToInitialState(const int idxAttribute)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:456</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_ac424fa275c906b82878c2a4f9cd78426"><div class="ttname"><a href="class_f_basic_particle_container.html#ac424fa275c906b82878c2a4f9cd78426">FBasicParticleContainer::getSavedSize</a></div><div class="ttdeci">FSize getSavedSize() const</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:403</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_ac505b111866e49f62b068cf3e30f8d1a"><div class="ttname"><a href="class_f_basic_particle_container.html#ac505b111866e49f62b068cf3e30f8d1a">FBasicParticleContainer::getPositions</a></div><div class="ttdeci">const FReal *const * getPositions() const</div><div class="ttdoc">getPositions</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:199</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_acf3a25ec18029025a0d1b94b49e5db9d"><div class="ttname"><a href="class_f_basic_particle_container.html#acf3a25ec18029025a0d1b94b49e5db9d">FBasicParticleContainer::FBasicParticleContainer</a></div><div class="ttdeci">FBasicParticleContainer()</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:169</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_ad481dc503bd4d00b8bd0144e70a9b345"><div class="ttname"><a href="class_f_basic_particle_container.html#ad481dc503bd4d00b8bd0144e70a9b345">FBasicParticleContainer::restore</a></div><div class="ttdeci">void restore(BufferReaderClass &amp;buffer)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:420</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_ada2a6ccfdc15c2d59ed14bb31e37faa8"><div class="ttname"><a href="class_f_basic_particle_container.html#ada2a6ccfdc15c2d59ed14bb31e37faa8">FBasicParticleContainer::getAttribute</a></div><div class="ttdeci">const AttributeClass * getAttribute() const</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:249</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_adf70ec49a86a87f8425f6c3d3e1659f0"><div class="ttname"><a href="class_f_basic_particle_container.html#adf70ec49a86a87f8425f6c3d3e1659f0">FBasicParticleContainer::nbParticles</a></div><div class="ttdeci">FSize nbParticles</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:52</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_ae2b744d1d641d8ddabb45e14da47f77c"><div class="ttname"><a href="class_f_basic_particle_container.html#ae2b744d1d641d8ddabb45e14da47f77c">FBasicParticleContainer::getWPositions</a></div><div class="ttdeci">FReal *const * getWPositions()</div><div class="ttdoc">getWPositions</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:214</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_ae4e4576116f44dfc0b79611486a81699"><div class="ttname"><a href="class_f_basic_particle_container.html#ae4e4576116f44dfc0b79611486a81699">FBasicParticleContainer::push</a></div><div class="ttdeci">void push(const FPoint&lt; FReal &gt; &amp;inParticlePosition, const FParticleType type, const std::array&lt; AttributeClass, NbAttributesPerParticle &gt; &amp;values)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:333</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_ae91da8898c8f294f0a36dd9d878552c1"><div class="ttname"><a href="class_f_basic_particle_container.html#ae91da8898c8f294f0a36dd9d878552c1">FBasicParticleContainer::addParticleValueS</a></div><div class="ttdeci">void addParticleValueS(const FSize, const FSize)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:71</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_aef8110f5835414ab05368df5a05aabbf"><div class="ttname"><a href="class_f_basic_particle_container.html#aef8110f5835414ab05368df5a05aabbf">FBasicParticleContainer::getNbParticles</a></div><div class="ttdeci">FSize getNbParticles() const</div><div class="ttdoc">getNbParticles</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:184</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_af1c613730e946580ce0379d427860360"><div class="ttname"><a href="class_f_basic_particle_container.html#af1c613730e946580ce0379d427860360">FBasicParticleContainer::push</a></div><div class="ttdeci">void push(const FPoint&lt; FReal &gt; &amp;inParticlePosition, const std::array&lt; AttributeClass, NbAttributesPerParticle &gt; &amp;values)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:313</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_af2151ca86f8a68e4d5492b99fe2a0d91"><div class="ttname"><a href="class_f_basic_particle_container.html#af2151ca86f8a68e4d5492b99fe2a0d91">FBasicParticleContainer::resetToInitialState</a></div><div class="ttdeci">void resetToInitialState()</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:449</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_af4c9c6b684ab11f582a588f5c5101cb7"><div class="ttname"><a href="class_f_basic_particle_container.html#af4c9c6b684ab11f582a588f5c5101cb7">FBasicParticleContainer::removeParticles</a></div><div class="ttdeci">void removeParticles(const FSize indexesToRemove[], const FSize nbParticlesToRemove)</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:355</div></div>
+<div class="ttc" id="aclass_f_basic_particle_container_html_afde1a049f4766a36f9efc35e67793d17"><div class="ttname"><a href="class_f_basic_particle_container.html#afde1a049f4766a36f9efc35e67793d17">FBasicParticleContainer::getAttribute</a></div><div class="ttdeci">const AttributeClass * getAttribute(const int index) const</div><div class="ttdoc">getAttribute</div><div class="ttdef"><b>Definition</b> FBasicParticleContainer.hpp:232</div></div>
+<div class="ttc" id="aclass_f_point_html"><div class="ttname"><a href="class_f_point.html">FPoint</a></div><div class="ttdef"><b>Definition</b> FPoint.hpp:26</div></div>
+<div class="ttc" id="aclass_f_point_html_a02208d4db50cbafe597adcbfb152b536"><div class="ttname"><a href="class_f_point.html#a02208d4db50cbafe597adcbfb152b536">FPoint::getZ</a></div><div class="ttdeci">FReal getZ() const</div><div class="ttdoc">Get z</div><div class="ttdef"><b>Definition</b> FPoint.hpp:146</div></div>
+<div class="ttc" id="aclass_f_point_html_a58d3859160347552d6a4a94fbdf883c3"><div class="ttname"><a href="class_f_point.html#a58d3859160347552d6a4a94fbdf883c3">FPoint::getX</a></div><div class="ttdeci">FReal getX() const</div><div class="ttdoc">Get x</div><div class="ttdef"><b>Definition</b> FPoint.hpp:130</div></div>
+<div class="ttc" id="aclass_f_point_html_ae4383512b9b8d216775b3fb92325cfc9"><div class="ttname"><a href="class_f_point.html#ae4383512b9b8d216775b3fb92325cfc9">FPoint::getY</a></div><div class="ttdeci">FReal getY() const</div><div class="ttdoc">Get y</div><div class="ttdef"><b>Definition</b> FPoint.hpp:138</div></div>
+<div class="ttc" id="anamespace_f_mem_utils_html_afba06a533855d38cf96cddbec48f155a"><div class="ttname"><a href="namespace_f_mem_utils.html#afba06a533855d38cf96cddbec48f155a">FMemUtils::memcpy</a></div><div class="ttdeci">void * memcpy(void *const dest, const void *const source, const FSize nbBytes)</div><div class="ttdef"><b>Definition</b> FMemUtils.hpp:20</div></div>
+<div class="ttc" id="astruct_f_math_html_ada359f2b021ce4b999c0fd7a6e9daae6"><div class="ttname"><a href="struct_f_math.html#ada359f2b021ce4b999c0fd7a6e9daae6">FMath::Max</a></div><div class="ttdeci">static NumType Max(const NumType inV1, const NumType inV2)</div><div class="ttdef"><b>Definition</b> FMath.hpp:76</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

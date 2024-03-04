@@ -1,0 +1,936 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: FGroupOfParticles&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt; 模板类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pro-static-methods">静态 Protected 成员函数</a> &#124;
+<a href="#pro-attribs">Protected 属性</a> &#124;
+<a href="#pro-static-attribs">静态 Protected 属性</a> &#124;
+<a href="class_f_group_of_particles-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">FGroupOfParticles&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>The <a class="el" href="class_f_group_of_particles.html" title="The FGroupOfParticles class manages the leaves in block allocation.">FGroupOfParticles</a> class manages the leaves in block allocation.  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_f_group_of_particles_8hpp_source.html">FGroupOfParticles.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a2bd96f1bba58cc525444482d12dc45b2" id="r_a2bd96f1bba58cc525444482d12dc45b2"><td class="memItemLeft" align="right" valign="top"><a id="a2bd96f1bba58cc525444482d12dc45b2" name="a2bd96f1bba58cc525444482d12dc45b2"></a>
+typedef AttributeClass&#160;</td><td class="memItemRight" valign="bottom"><b>ParticleDataType</b></td></tr>
+<tr class="separator:a2bd96f1bba58cc525444482d12dc45b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:ab582ce7fdec5c67761e5b531cb1e4372" id="r_ab582ce7fdec5c67761e5b531cb1e4372"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab582ce7fdec5c67761e5b531cb1e4372">FGroupOfParticles</a> (unsigned char *inBuffer, const size_t inAllocatedMemoryInByte, unsigned char *inAttributes)</td></tr>
+<tr class="separator:ab582ce7fdec5c67761e5b531cb1e4372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57170d37a48ce78d2b293a5fe4eccacb" id="r_a57170d37a48ce78d2b293a5fe4eccacb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57170d37a48ce78d2b293a5fe4eccacb">FGroupOfParticles</a> (const MortonIndex inStartingIndex, const MortonIndex inEndingIndex, const int inNumberOfLeaves, const FSize inNbParticles)</td></tr>
+<tr class="memdesc:a57170d37a48ce78d2b293a5fe4eccacb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_f_group_of_particles.html" title="The FGroupOfParticles class manages the leaves in block allocation.">FGroupOfParticles</a>  <br /></td></tr>
+<tr class="separator:a57170d37a48ce78d2b293a5fe4eccacb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa929deecc9a6629a2e2be9dd86775c36" id="r_aa929deecc9a6629a2e2be9dd86775c36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa929deecc9a6629a2e2be9dd86775c36">~FGroupOfParticles</a> ()</td></tr>
+<tr class="separator:aa929deecc9a6629a2e2be9dd86775c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d7f859b6e51503beb897828e43668b5" id="r_a3d7f859b6e51503beb897828e43668b5"><td class="memItemLeft" align="right" valign="top">const unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d7f859b6e51503beb897828e43668b5">getRawBuffer</a> () const</td></tr>
+<tr class="separator:a3d7f859b6e51503beb897828e43668b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ac8f4799b83c24f14276e1f36b0088c" id="r_a9ac8f4799b83c24f14276e1f36b0088c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ac8f4799b83c24f14276e1f36b0088c">getBufferSizeInByte</a> () const</td></tr>
+<tr class="separator:a9ac8f4799b83c24f14276e1f36b0088c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6379aaf0e7c9047c6f79e0ab36411a36" id="r_a6379aaf0e7c9047c6f79e0ab36411a36"><td class="memItemLeft" align="right" valign="top">const unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6379aaf0e7c9047c6f79e0ab36411a36">getRawAttributesBuffer</a> () const</td></tr>
+<tr class="separator:a6379aaf0e7c9047c6f79e0ab36411a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f38dbf5b86fd966d2d15be02c67faba" id="r_a7f38dbf5b86fd966d2d15be02c67faba"><td class="memItemLeft" align="right" valign="top">unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f38dbf5b86fd966d2d15be02c67faba">getRawAttributesBuffer</a> ()</td></tr>
+<tr class="separator:a7f38dbf5b86fd966d2d15be02c67faba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa94840472204484c80cbf4e5c0b563f" id="r_aaa94840472204484c80cbf4e5c0b563f"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa94840472204484c80cbf4e5c0b563f">getAttributesBufferSizeInByte</a> () const</td></tr>
+<tr class="separator:aaa94840472204484c80cbf4e5c0b563f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a377795ec81b06a5facec2ade5b151007" id="r_a377795ec81b06a5facec2ade5b151007"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a377795ec81b06a5facec2ade5b151007">getDeleteMemory</a> () const</td></tr>
+<tr class="separator:a377795ec81b06a5facec2ade5b151007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0a7d7c851d3593aef91b9bee109ac11" id="r_ae0a7d7c851d3593aef91b9bee109ac11"><td class="memItemLeft" align="right" valign="top">MortonIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0a7d7c851d3593aef91b9bee109ac11">getStartingIndex</a> () const</td></tr>
+<tr class="separator:ae0a7d7c851d3593aef91b9bee109ac11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec6cc44a96cc77e6f338724e27173a0c" id="r_aec6cc44a96cc77e6f338724e27173a0c"><td class="memItemLeft" align="right" valign="top">MortonIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec6cc44a96cc77e6f338724e27173a0c">getEndingIndex</a> () const</td></tr>
+<tr class="separator:aec6cc44a96cc77e6f338724e27173a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7a8e8ab8558b0934c4f70d2a26dbcac" id="r_af7a8e8ab8558b0934c4f70d2a26dbcac"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7a8e8ab8558b0934c4f70d2a26dbcac">getNumberOfLeavesInBlock</a> () const</td></tr>
+<tr class="separator:af7a8e8ab8558b0934c4f70d2a26dbcac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bf1edb380c2ccf552d63684b48c187b" id="r_a5bf1edb380c2ccf552d63684b48c187b"><td class="memItemLeft" align="right" valign="top">FSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5bf1edb380c2ccf552d63684b48c187b">getNbParticlesInGroup</a> () const</td></tr>
+<tr class="separator:a5bf1edb380c2ccf552d63684b48c187b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d290305aefe81fbcbb8f52b0e88ebcc" id="r_a7d290305aefe81fbcbb8f52b0e88ebcc"><td class="memItemLeft" align="right" valign="top">MortonIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d290305aefe81fbcbb8f52b0e88ebcc">getSizeOfInterval</a> () const</td></tr>
+<tr class="separator:a7d290305aefe81fbcbb8f52b0e88ebcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2952964e0b83f8cd66d130edd70d84e" id="r_af2952964e0b83f8cd66d130edd70d84e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2952964e0b83f8cd66d130edd70d84e">isInside</a> (const MortonIndex inIndex) const</td></tr>
+<tr class="separator:af2952964e0b83f8cd66d130edd70d84e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1782ce131901bba2d3121472a1ef86ec" id="r_a1782ce131901bba2d3121472a1ef86ec"><td class="memItemLeft" align="right" valign="top">MortonIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1782ce131901bba2d3121472a1ef86ec">getLeafMortonIndex</a> (const int id) const</td></tr>
+<tr class="separator:a1782ce131901bba2d3121472a1ef86ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a7d179ce8ad3102f99a220108750c30" id="r_a6a7d179ce8ad3102f99a220108750c30"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a7d179ce8ad3102f99a220108750c30">getLeafIndex</a> (const MortonIndex leafIdx) const</td></tr>
+<tr class="separator:a6a7d179ce8ad3102f99a220108750c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87a325b03a1cbf59be7cf9fbe13085da" id="r_a87a325b03a1cbf59be7cf9fbe13085da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87a325b03a1cbf59be7cf9fbe13085da">exists</a> (const MortonIndex inIndex) const</td></tr>
+<tr class="separator:a87a325b03a1cbf59be7cf9fbe13085da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d34d6e981b5a0084028490c9db0157c" id="r_a2d34d6e981b5a0084028490c9db0157c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d34d6e981b5a0084028490c9db0157c">newLeaf</a> (const MortonIndex inIndex, const int id, const FSize nbParticles, const size_t offsetInGroup)</td></tr>
+<tr class="separator:a2d34d6e981b5a0084028490c9db0157c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab401cbec8c5cf097545509ba21a05500" id="r_ab401cbec8c5cf097545509ba21a05500"><td class="memTemplParams" colspan="2">template&lt;class ParticlesAttachedClass &gt; </td></tr>
+<tr class="memitem:ab401cbec8c5cf097545509ba21a05500"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab401cbec8c5cf097545509ba21a05500">forEachLeaf</a> (std::function&lt; void(ParticlesAttachedClass *)&gt; function)</td></tr>
+<tr class="separator:ab401cbec8c5cf097545509ba21a05500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0bfcd7c9ca71686c269e0f6358c02f7" id="r_ae0bfcd7c9ca71686c269e0f6358c02f7"><td class="memTemplParams" colspan="2">template&lt;class ParticlesAttachedClass &gt; </td></tr>
+<tr class="memitem:ae0bfcd7c9ca71686c269e0f6358c02f7"><td class="memTemplItemLeft" align="right" valign="top">ParticlesAttachedClass&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae0bfcd7c9ca71686c269e0f6358c02f7">getLeaf</a> (const int id)</td></tr>
+<tr class="separator:ae0bfcd7c9ca71686c269e0f6358c02f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18a9005d9759f3adb96aa074e1f2b3bc" id="r_a18a9005d9759f3adb96aa074e1f2b3bc"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18a9005d9759f3adb96aa074e1f2b3bc">getExtractBufferSize</a> (const std::vector&lt; int &gt; &amp;inLeavesIdxToExtract) const</td></tr>
+<tr class="separator:a18a9005d9759f3adb96aa074e1f2b3bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a757b79d8900d577bd6b7758927f5d4f3" id="r_a757b79d8900d577bd6b7758927f5d4f3"><td class="memItemLeft" align="right" valign="top"><a id="a757b79d8900d577bd6b7758927f5d4f3" name="a757b79d8900d577bd6b7758927f5d4f3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>extractData</b> (const std::vector&lt; int &gt; &amp;inLeavesIdxToExtract, unsigned char *outputBuffer, const size_t outputBufferSize) const</td></tr>
+<tr class="separator:a757b79d8900d577bd6b7758927f5d4f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdefc923d2c12e800fef87bc78e85d6a" id="r_afdefc923d2c12e800fef87bc78e85d6a"><td class="memItemLeft" align="right" valign="top"><a id="afdefc923d2c12e800fef87bc78e85d6a" name="afdefc923d2c12e800fef87bc78e85d6a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>restoreData</b> (const std::vector&lt; int &gt; &amp;inLeavesIdxToExtract, const unsigned char *intputBuffer, const size_t inputBufferSize)</td></tr>
+<tr class="separator:afdefc923d2c12e800fef87bc78e85d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
+静态 Protected 成员函数</h2></td></tr>
+<tr class="memitem:a46751c12dc35e9c3d0aa5867b9829f98" id="r_a46751c12dc35e9c3d0aa5867b9829f98"><td class="memTemplParams" colspan="2">template&lt;class NumClass &gt; </td></tr>
+<tr class="memitem:a46751c12dc35e9c3d0aa5867b9829f98"><td class="memTemplItemLeft" align="right" valign="top">static NumClass&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a46751c12dc35e9c3d0aa5867b9829f98">RoundToUpperParticles</a> (const NumClass &amp;nbParticles)</td></tr>
+<tr class="separator:a46751c12dc35e9c3d0aa5867b9829f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected 属性</h2></td></tr>
+<tr class="memitem:aab15af8d76f7f3e08c66dcf450a8a05b" id="r_aab15af8d76f7f3e08c66dcf450a8a05b"><td class="memItemLeft" align="right" valign="top"><a id="aab15af8d76f7f3e08c66dcf450a8a05b" name="aab15af8d76f7f3e08c66dcf450a8a05b"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>allocatedMemoryInByte</b></td></tr>
+<tr class="separator:aab15af8d76f7f3e08c66dcf450a8a05b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e693a105c47cfb48af40e4a7a29b412" id="r_a1e693a105c47cfb48af40e4a7a29b412"><td class="memItemLeft" align="right" valign="top"><a id="a1e693a105c47cfb48af40e4a7a29b412" name="a1e693a105c47cfb48af40e4a7a29b412"></a>
+unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><b>memoryBuffer</b></td></tr>
+<tr class="separator:a1e693a105c47cfb48af40e4a7a29b412"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ef3c315bb0e074e2446b7d0fc260f2d" id="r_a7ef3c315bb0e074e2446b7d0fc260f2d"><td class="memItemLeft" align="right" valign="top"><a id="a7ef3c315bb0e074e2446b7d0fc260f2d" name="a7ef3c315bb0e074e2446b7d0fc260f2d"></a>
+BlockHeader *&#160;</td><td class="memItemRight" valign="bottom"><b>blockHeader</b></td></tr>
+<tr class="separator:a7ef3c315bb0e074e2446b7d0fc260f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae32957f9158f4e3d8f1ee2b56dca3d0b" id="r_ae32957f9158f4e3d8f1ee2b56dca3d0b"><td class="memItemLeft" align="right" valign="top"><a id="ae32957f9158f4e3d8f1ee2b56dca3d0b" name="ae32957f9158f4e3d8f1ee2b56dca3d0b"></a>
+LeafHeader *&#160;</td><td class="memItemRight" valign="bottom"><b>leafHeader</b></td></tr>
+<tr class="separator:ae32957f9158f4e3d8f1ee2b56dca3d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1143a9e59a3c76e140175740eb46f5be" id="r_a1143a9e59a3c76e140175740eb46f5be"><td class="memItemLeft" align="right" valign="top"><a id="a1143a9e59a3c76e140175740eb46f5be" name="a1143a9e59a3c76e140175740eb46f5be"></a>
+FReal *&#160;</td><td class="memItemRight" valign="bottom"><b>particlePosition</b> [3]</td></tr>
+<tr class="separator:a1143a9e59a3c76e140175740eb46f5be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacad183eb2d0fa5e9ff3f161f708788f" id="r_aacad183eb2d0fa5e9ff3f161f708788f"><td class="memItemLeft" align="right" valign="top"><a id="aacad183eb2d0fa5e9ff3f161f708788f" name="aacad183eb2d0fa5e9ff3f161f708788f"></a>
+AttributeClass *&#160;</td><td class="memItemRight" valign="bottom"><b>attributesBuffer</b></td></tr>
+<tr class="separator:aacad183eb2d0fa5e9ff3f161f708788f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a444069bdeeb6b08795b46e4f64f0ee88" id="r_a444069bdeeb6b08795b46e4f64f0ee88"><td class="memItemLeft" align="right" valign="top"><a id="a444069bdeeb6b08795b46e4f64f0ee88" name="a444069bdeeb6b08795b46e4f64f0ee88"></a>
+AttributeClass *&#160;</td><td class="memItemRight" valign="bottom"><b>particleAttributes</b> [NbSymbAttributes+NbAttributesPerParticle]</td></tr>
+<tr class="separator:a444069bdeeb6b08795b46e4f64f0ee88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adadb403c2a16c4292d88d4a633f0ee4d" id="r_adadb403c2a16c4292d88d4a633f0ee4d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adadb403c2a16c4292d88d4a633f0ee4d">deleteBuffer</a></td></tr>
+<tr class="separator:adadb403c2a16c4292d88d4a633f0ee4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-attribs" name="pro-static-attribs"></a>
+静态 Protected 属性</h2></td></tr>
+<tr class="memitem:af2fb054f0b6a09611eb5c6813f6fa564" id="r_af2fb054f0b6a09611eb5c6813f6fa564"><td class="memItemLeft" align="right" valign="top"><a id="af2fb054f0b6a09611eb5c6813f6fa564" name="af2fb054f0b6a09611eb5c6813f6fa564"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>MemoryAlignementBytes</b> = FP2PDefaultAlignement</td></tr>
+<tr class="separator:af2fb054f0b6a09611eb5c6813f6fa564"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52efa30e2c0400b1aa49a7c5cbea61d2" id="r_a52efa30e2c0400b1aa49a7c5cbea61d2"><td class="memItemLeft" align="right" valign="top"><a id="a52efa30e2c0400b1aa49a7c5cbea61d2" name="a52efa30e2c0400b1aa49a7c5cbea61d2"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>MemoryAlignementParticles</b> = MemoryAlignementBytes/sizeof(FReal)</td></tr>
+<tr class="separator:a52efa30e2c0400b1aa49a7c5cbea61d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class FReal, unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass = FReal&gt;<br />
+class FGroupOfParticles&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;</div><p>The <a class="el" href="class_f_group_of_particles.html" title="The FGroupOfParticles class manages the leaves in block allocation.">FGroupOfParticles</a> class manages the leaves in block allocation. </p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="ab582ce7fdec5c67761e5b531cb1e4372" name="ab582ce7fdec5c67761e5b531cb1e4372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab582ce7fdec5c67761e5b531cb1e4372">&#9670;&#160;</a></span>FGroupOfParticles() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;<a class="el" href="class_f_group_of_particles.html">::FGroupOfParticles</a> </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>inBuffer</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t</td>          <td class="paramname"><span class="paramname"><em>inAllocatedMemoryInByte</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>inAttributes</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Init from a given buffer </p><dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inBuffer</td><td></td></tr>
+    <tr><td class="paramname">inAllocatedMemoryInByte</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a57170d37a48ce78d2b293a5fe4eccacb" name="a57170d37a48ce78d2b293a5fe4eccacb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57170d37a48ce78d2b293a5fe4eccacb">&#9670;&#160;</a></span>FGroupOfParticles() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;<a class="el" href="class_f_group_of_particles.html">::FGroupOfParticles</a> </td>
+          <td>(</td>
+          <td class="paramtype">const MortonIndex</td>          <td class="paramname"><span class="paramname"><em>inStartingIndex</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const MortonIndex</td>          <td class="paramname"><span class="paramname"><em>inEndingIndex</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>inNumberOfLeaves</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>inNbParticles</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_f_group_of_particles.html" title="The FGroupOfParticles class manages the leaves in block allocation.">FGroupOfParticles</a> </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inStartingIndex</td><td>first leaf morton index </td></tr>
+    <tr><td class="paramname">inEndingIndex</td><td>last leaf morton index + 1 </td></tr>
+    <tr><td class="paramname">inNumberOfLeaves</td><td>total number of leaves in the interval (should be &lt;= inEndingIndex-inEndingIndex) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa929deecc9a6629a2e2be9dd86775c36" name="aa929deecc9a6629a2e2be9dd86775c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa929deecc9a6629a2e2be9dd86775c36">&#9670;&#160;</a></span>~FGroupOfParticles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::~<a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a> </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Call the destructor of leaves and dealloc block memory </p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a87a325b03a1cbf59be7cf9fbe13085da" name="a87a325b03a1cbf59be7cf9fbe13085da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87a325b03a1cbf59be7cf9fbe13085da">&#9670;&#160;</a></span>exists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::exists </td>
+          <td>(</td>
+          <td class="paramtype">const MortonIndex</td>          <td class="paramname"><span class="paramname"><em>inIndex</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return true if inIndex is located in the current block and is not empty </p>
+
+</div>
+</div>
+<a id="ab401cbec8c5cf097545509ba21a05500" name="ab401cbec8c5cf097545509ba21a05500"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab401cbec8c5cf097545509ba21a05500">&#9670;&#160;</a></span>forEachLeaf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<div class="memtemplate">
+template&lt;class ParticlesAttachedClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::forEachLeaf </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(ParticlesAttachedClass *)&gt;</td>          <td class="paramname"><span class="paramname"><em>function</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Iterate on each allocated leaves </p>
+
+</div>
+</div>
+<a id="aaa94840472204484c80cbf4e5c0b563f" name="aaa94840472204484c80cbf4e5c0b563f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa94840472204484c80cbf4e5c0b563f">&#9670;&#160;</a></span>getAttributesBufferSizeInByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getAttributesBufferSizeInByte </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The the size of the allocated buffer </p>
+
+</div>
+</div>
+<a id="a9ac8f4799b83c24f14276e1f36b0088c" name="a9ac8f4799b83c24f14276e1f36b0088c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ac8f4799b83c24f14276e1f36b0088c">&#9670;&#160;</a></span>getBufferSizeInByte()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getBufferSizeInByte </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The the size of the allocated buffer </p>
+
+</div>
+</div>
+<a id="a377795ec81b06a5facec2ade5b151007" name="a377795ec81b06a5facec2ade5b151007"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a377795ec81b06a5facec2ade5b151007">&#9670;&#160;</a></span>getDeleteMemory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getDeleteMemory </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To know if the object will delete the memory block </p>
+
+</div>
+</div>
+<a id="aec6cc44a96cc77e6f338724e27173a0c" name="aec6cc44a96cc77e6f338724e27173a0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec6cc44a96cc77e6f338724e27173a0c">&#9670;&#160;</a></span>getEndingIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MortonIndex <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getEndingIndex </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The index of the last leaf + 1 (set from the constructor) </p>
+
+</div>
+</div>
+<a id="a18a9005d9759f3adb96aa074e1f2b3bc" name="a18a9005d9759f3adb96aa074e1f2b3bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18a9005d9759f3adb96aa074e1f2b3bc">&#9670;&#160;</a></span>getExtractBufferSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getExtractBufferSize </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; int &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>inLeavesIdxToExtract</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Extract methods </p>
+
+</div>
+</div>
+<a id="ae0bfcd7c9ca71686c269e0f6358c02f7" name="ae0bfcd7c9ca71686c269e0f6358c02f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0bfcd7c9ca71686c269e0f6358c02f7">&#9670;&#160;</a></span>getLeaf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<div class="memtemplate">
+template&lt;class ParticlesAttachedClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ParticlesAttachedClass <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getLeaf </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return the address of the leaf if it exists (or NULL) </p>
+
+</div>
+</div>
+<a id="a6a7d179ce8ad3102f99a220108750c30" name="a6a7d179ce8ad3102f99a220108750c30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a7d179ce8ad3102f99a220108750c30">&#9670;&#160;</a></span>getLeafIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getLeafIndex </td>
+          <td>(</td>
+          <td class="paramtype">const MortonIndex</td>          <td class="paramname"><span class="paramname"><em>leafIdx</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Check if a cell exist (by binary search) and return it index </p>
+
+</div>
+</div>
+<a id="a1782ce131901bba2d3121472a1ef86ec" name="a1782ce131901bba2d3121472a1ef86ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1782ce131901bba2d3121472a1ef86ec">&#9670;&#160;</a></span>getLeafMortonIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MortonIndex <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getLeafMortonIndex </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return the idx in array of the cell </p>
+
+</div>
+</div>
+<a id="a5bf1edb380c2ccf552d63684b48c187b" name="a5bf1edb380c2ccf552d63684b48c187b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bf1edb380c2ccf552d63684b48c187b">&#9670;&#160;</a></span>getNbParticlesInGroup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">FSize <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getNbParticlesInGroup </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the total number of particles in the group </p>
+
+</div>
+</div>
+<a id="af7a8e8ab8558b0934c4f70d2a26dbcac" name="af7a8e8ab8558b0934c4f70d2a26dbcac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7a8e8ab8558b0934c4f70d2a26dbcac">&#9670;&#160;</a></span>getNumberOfLeavesInBlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getNumberOfLeavesInBlock </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The number of leaf (set from the constructor) </p>
+
+</div>
+</div>
+<a id="a7f38dbf5b86fd966d2d15be02c67faba" name="a7f38dbf5b86fd966d2d15be02c67faba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f38dbf5b86fd966d2d15be02c67faba">&#9670;&#160;</a></span>getRawAttributesBuffer() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char * <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getRawAttributesBuffer </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Give access to the buffer to send the data </p>
+
+</div>
+</div>
+<a id="a6379aaf0e7c9047c6f79e0ab36411a36" name="a6379aaf0e7c9047c6f79e0ab36411a36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6379aaf0e7c9047c6f79e0ab36411a36">&#9670;&#160;</a></span>getRawAttributesBuffer() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned char * <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getRawAttributesBuffer </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Give access to the buffer to send the data </p>
+
+</div>
+</div>
+<a id="a3d7f859b6e51503beb897828e43668b5" name="a3d7f859b6e51503beb897828e43668b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d7f859b6e51503beb897828e43668b5">&#9670;&#160;</a></span>getRawBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned char * <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getRawBuffer </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Give access to the buffer to send the data </p>
+
+</div>
+</div>
+<a id="a7d290305aefe81fbcbb8f52b0e88ebcc" name="a7d290305aefe81fbcbb8f52b0e88ebcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d290305aefe81fbcbb8f52b0e88ebcc">&#9670;&#160;</a></span>getSizeOfInterval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MortonIndex <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getSizeOfInterval </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The size of the interval endingIndex-startingIndex (set from the constructor) </p>
+
+</div>
+</div>
+<a id="ae0a7d7c851d3593aef91b9bee109ac11" name="ae0a7d7c851d3593aef91b9bee109ac11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0a7d7c851d3593aef91b9bee109ac11">&#9670;&#160;</a></span>getStartingIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MortonIndex <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::getStartingIndex </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The index of the fist leaf (set from the constructor) </p>
+
+</div>
+</div>
+<a id="af2952964e0b83f8cd66d130edd70d84e" name="af2952964e0b83f8cd66d130edd70d84e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2952964e0b83f8cd66d130edd70d84e">&#9670;&#160;</a></span>isInside()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::isInside </td>
+          <td>(</td>
+          <td class="paramtype">const MortonIndex</td>          <td class="paramname"><span class="paramname"><em>inIndex</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return true if inIndex should be located in the current block </p>
+
+</div>
+</div>
+<a id="a2d34d6e981b5a0084028490c9db0157c" name="a2d34d6e981b5a0084028490c9db0157c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d34d6e981b5a0084028490c9db0157c">&#9670;&#160;</a></span>newLeaf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::newLeaf </td>
+          <td>(</td>
+          <td class="paramtype">const MortonIndex</td>          <td class="paramname"><span class="paramname"><em>inIndex</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>id</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FSize</td>          <td class="paramname"><span class="paramname"><em>nbParticles</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t</td>          <td class="paramname"><span class="paramname"><em>offsetInGroup</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Allocate a new leaf by calling its constructor </p>
+
+</div>
+</div>
+<a id="a46751c12dc35e9c3d0aa5867b9829f98" name="a46751c12dc35e9c3d0aa5867b9829f98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46751c12dc35e9c3d0aa5867b9829f98">&#9670;&#160;</a></span>RoundToUpperParticles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<div class="memtemplate">
+template&lt;class NumClass &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static NumClass <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::RoundToUpperParticles </td>
+          <td>(</td>
+          <td class="paramtype">const NumClass &amp;</td>          <td class="paramname"><span class="paramname"><em>nbParticles</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This function return the correct number of particles that should be used to have a correct pack. If alignement is 32 and use double (so 4 particles in pack), then this function returns: RoundToUpperParticles(1) = 1 + 3 = 4 RoundToUpperParticles(63) = 63 + 1 = 64 </p>
+
+</div>
+</div>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="adadb403c2a16c4292d88d4a633f0ee4d" name="adadb403c2a16c4292d88d4a633f0ee4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adadb403c2a16c4292d88d4a633f0ee4d">&#9670;&#160;</a></span>deleteBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class FReal , unsigned NbSymbAttributes, unsigned NbAttributesPerParticle, class AttributeClass  = FReal&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_f_group_of_particles.html">FGroupOfParticles</a>&lt; FReal, NbSymbAttributes, NbAttributesPerParticle, AttributeClass &gt;::deleteBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To know if we have to delete the buffer </p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>third_party/ScalFMM/include/ScalFMM/GroupTree/Core/<a class="el" href="_f_group_of_particles_8hpp_source.html">FGroupOfParticles.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>
