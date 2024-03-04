@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::isosurface::surface类 参考</title>
+<link rel="icon" href="project_logo.png" type="image/x-icon" />
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="project_logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><a class="el" href="namespacersmesh_1_1isosurface.html">isosurface</a></li><li class="navelem"><a class="el" href="classrsmesh_1_1isosurface_1_1surface.html">surface</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classrsmesh_1_1isosurface_1_1surface-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::isosurface::surface类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:ac457cfbb915cb019b17aef675da555e1" id="r_ac457cfbb915cb019b17aef675da555e1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac457cfbb915cb019b17aef675da555e1">vertices_type</a> = <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a></td></tr>
+<tr class="separator:ac457cfbb915cb019b17aef675da555e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6e959858b0bb725e6e6d85b746f781d" id="r_ac6e959858b0bb725e6e6d85b746f781d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6e959858b0bb725e6e6d85b746f781d">face_type</a> = Eigen::Matrix&lt;index_t, 1, 3&gt;</td></tr>
+<tr class="separator:ac6e959858b0bb725e6e6d85b746f781d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb6c965469104d5cfe49fc2912ba0459" id="r_acb6c965469104d5cfe49fc2912ba0459"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb6c965469104d5cfe49fc2912ba0459">faces_type</a> = Eigen::Matrix&lt;index_t, Eigen::Dynamic, 3, Eigen::RowMajor&gt;</td></tr>
+<tr class="separator:acb6c965469104d5cfe49fc2912ba0459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:afe233adfbcc9b48e45e9d3904bf90d45" id="r_afe233adfbcc9b48e45e9d3904bf90d45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe233adfbcc9b48e45e9d3904bf90d45">surface</a> (const vertices_type &amp;vertices, const faces_type &amp;faces)</td></tr>
+<tr class="separator:afe233adfbcc9b48e45e9d3904bf90d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4eb86af338694aca43bac6746bf96bd" id="r_ae4eb86af338694aca43bac6746bf96bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4eb86af338694aca43bac6746bf96bd">export_obj</a> (const std::string &amp;filename) const</td></tr>
+<tr class="separator:ae4eb86af338694aca43bac6746bf96bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a341844cdaaae30adb190f095c68be277" id="r_a341844cdaaae30adb190f095c68be277"><td class="memItemLeft" align="right" valign="top">const faces_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a341844cdaaae30adb190f095c68be277">faces</a> () const</td></tr>
+<tr class="separator:a341844cdaaae30adb190f095c68be277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e1b54e98612877f756a6d5cd8125e05" id="r_a9e1b54e98612877f756a6d5cd8125e05"><td class="memItemLeft" align="right" valign="top">const vertices_type &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e1b54e98612877f756a6d5cd8125e05">vertices</a> () const</td></tr>
+<tr class="separator:a9e1b54e98612877f756a6d5cd8125e05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="surface_8h_source.html">surface.h</a> 第 <a class="el" href="surface_8h_source.html#l00017">17</a> 行定义.</p>
+</div><h2 class="groupheader">成员类型定义说明</h2>
+<a id="ac6e959858b0bb725e6e6d85b746f781d" name="ac6e959858b0bb725e6e6d85b746f781d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6e959858b0bb725e6e6d85b746f781d">&#9670;&#160;</a></span>face_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using rsmesh::isosurface::surface::face_type = Eigen::Matrix&lt;index_t, 1, 3&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="surface_8h_source.html">surface.h</a> 第 <a class="el" href="surface_8h_source.html#l00020">20</a> 行定义.</p>
+
+</div>
+</div>
+<a id="acb6c965469104d5cfe49fc2912ba0459" name="acb6c965469104d5cfe49fc2912ba0459"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb6c965469104d5cfe49fc2912ba0459">&#9670;&#160;</a></span>faces_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using rsmesh::isosurface::surface::faces_type = Eigen::Matrix&lt;index_t, Eigen::Dynamic, 3, Eigen::RowMajor&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="surface_8h_source.html">surface.h</a> 第 <a class="el" href="surface_8h_source.html#l00021">21</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ac457cfbb915cb019b17aef675da555e1" name="ac457cfbb915cb019b17aef675da555e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac457cfbb915cb019b17aef675da555e1">&#9670;&#160;</a></span>vertices_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using rsmesh::isosurface::surface::vertices_type = <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="surface_8h_source.html">surface.h</a> 第 <a class="el" href="surface_8h_source.html#l00019">19</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="afe233adfbcc9b48e45e9d3904bf90d45" name="afe233adfbcc9b48e45e9d3904bf90d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe233adfbcc9b48e45e9d3904bf90d45">&#9670;&#160;</a></span>surface()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::isosurface::surface::surface </td>
+          <td>(</td>
+          <td class="paramtype">const vertices_type &amp;</td>          <td class="paramname"><span class="paramname"><em>vertices</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const faces_type &amp;</td>          <td class="paramname"><span class="paramname"><em>faces</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="surface_8h_source.html">surface.h</a> 第 <a class="el" href="surface_8h_source.html#l00023">23</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="ae4eb86af338694aca43bac6746bf96bd" name="ae4eb86af338694aca43bac6746bf96bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4eb86af338694aca43bac6746bf96bd">&#9670;&#160;</a></span>export_obj()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rsmesh::isosurface::surface::export_obj </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="surface_8h_source.html">surface.h</a> 第 <a class="el" href="surface_8h_source.html#l00051">51</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a341844cdaaae30adb190f095c68be277" name="a341844cdaaae30adb190f095c68be277"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a341844cdaaae30adb190f095c68be277">&#9670;&#160;</a></span>faces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const faces_type &amp; rsmesh::isosurface::surface::faces </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="surface_8h_source.html">surface.h</a> 第 <a class="el" href="surface_8h_source.html#l00067">67</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a9e1b54e98612877f756a6d5cd8125e05" name="a9e1b54e98612877f756a6d5cd8125e05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e1b54e98612877f756a6d5cd8125e05">&#9670;&#160;</a></span>vertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const vertices_type &amp; rsmesh::isosurface::surface::vertices </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="surface_8h_source.html">surface.h</a> 第 <a class="el" href="surface_8h_source.html#l00069">69</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/isosurface/<a class="el" href="surface_8h_source.html">surface.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

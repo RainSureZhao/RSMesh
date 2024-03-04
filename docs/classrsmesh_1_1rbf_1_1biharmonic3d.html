@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::rbf::biharmonic3d类 参考</title>
+<link rel="icon" href="project_logo.png" type="image/x-icon" />
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="project_logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><a class="el" href="namespacersmesh_1_1rbf.html">rbf</a></li><li class="navelem"><a class="el" href="classrsmesh_1_1rbf_1_1biharmonic3d.html">biharmonic3d</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classrsmesh_1_1rbf_1_1biharmonic3d-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::rbf::biharmonic3d类 参考<span class="mlabels"><span class="mlabel">final</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+类 rsmesh::rbf::biharmonic3d 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classrsmesh_1_1rbf_1_1biharmonic3d.png" usemap="#rsmesh::rbf::biharmonic3d_map" alt=""/>
+  <map id="rsmesh::rbf::biharmonic3d_map" name="rsmesh::rbf::biharmonic3d_map">
+<area href="classrsmesh_1_1rbf_1_1rbf__base.html" alt="rsmesh::rbf::rbf_base" shape="rect" coords="0,0,156,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:ad2d0d8639adc08ff1bf139fd5356f57c" id="r_ad2d0d8639adc08ff1bf139fd5356f57c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2d0d8639adc08ff1bf139fd5356f57c">biharmonic3d</a> (const std::vector&lt; double &gt; &amp;params)</td></tr>
+<tr class="separator:ad2d0d8639adc08ff1bf139fd5356f57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0f6a8472df0f18fb702372ac08f9801" id="r_aa0f6a8472df0f18fb702372ac08f9801"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rbf_base</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0f6a8472df0f18fb702372ac08f9801">clone</a> () const override</td></tr>
+<tr class="separator:aa0f6a8472df0f18fb702372ac08f9801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60efc3e88cc774e7de3f818f154ce65c" id="r_a60efc3e88cc774e7de3f818f154ce65c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60efc3e88cc774e7de3f818f154ce65c">cpd_order</a> () const override</td></tr>
+<tr class="separator:a60efc3e88cc774e7de3f818f154ce65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af92acf6d4ffc1d6fcd287aebc87726c4" id="r_af92acf6d4ffc1d6fcd287aebc87726c4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af92acf6d4ffc1d6fcd287aebc87726c4">evaluate_isotropic</a> (const vector3d &amp;diff) const override</td></tr>
+<tr class="separator:af92acf6d4ffc1d6fcd287aebc87726c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a022ba40fa61cec579fec10e24b44391d" id="r_a022ba40fa61cec579fec10e24b44391d"><td class="memItemLeft" align="right" valign="top">vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a022ba40fa61cec579fec10e24b44391d">evaluate_gradient_isotropic</a> (const vector3d &amp;) const override</td></tr>
+<tr class="separator:a022ba40fa61cec579fec10e24b44391d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1815a816812655fcdf91b819dffe2e6a" id="r_a1815a816812655fcdf91b819dffe2e6a"><td class="memItemLeft" align="right" valign="top">matrix3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1815a816812655fcdf91b819dffe2e6a">evaluate_hessian_isotropic</a> (const vector3d &amp;) const override</td></tr>
+<tr class="separator:a1815a816812655fcdf91b819dffe2e6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04ffb7086376ba16236712e847467452" id="r_a04ffb7086376ba16236712e847467452"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04ffb7086376ba16236712e847467452">num_parameters</a> () const override</td></tr>
+<tr class="separator:a04ffb7086376ba16236712e847467452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac664ae38b46739209600aaf30b66150" id="r_aac664ae38b46739209600aaf30b66150"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac664ae38b46739209600aaf30b66150">parameter_lower_bounds</a> () const override</td></tr>
+<tr class="separator:aac664ae38b46739209600aaf30b66150"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfe27969a565123e44c4f7939206906a" id="r_abfe27969a565123e44c4f7939206906a"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfe27969a565123e44c4f7939206906a">parameter_upper_bounds</a> () const override</td></tr>
+<tr class="separator:abfe27969a565123e44c4f7939206906a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7817c4d5796730cf18277dc4e22f4fe" id="r_af7817c4d5796730cf18277dc4e22f4fe"><td class="memItemLeft" align="right" valign="top"><a id="af7817c4d5796730cf18277dc4e22f4fe" name="af7817c4d5796730cf18277dc4e22f4fe"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>rbf_base</b> (<a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rbf_base</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:af7817c4d5796730cf18277dc4e22f4fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc060baae189e567e71bcb2867b17c96" id="r_afc060baae189e567e71bcb2867b17c96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc060baae189e567e71bcb2867b17c96">rbf_base</a> ()</td></tr>
+<tr class="separator:afc060baae189e567e71bcb2867b17c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c337b41a0f664dc3066b44d9c64c22c" id="r_a4c337b41a0f664dc3066b44d9c64c22c"><td class="memItemLeft" align="right" valign="top"><a id="a4c337b41a0f664dc3066b44d9c64c22c" name="a4c337b41a0f664dc3066b44d9c64c22c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>rbf_base</b> (const <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rbf_base</a> &amp;)=default</td></tr>
+<tr class="separator:a4c337b41a0f664dc3066b44d9c64c22c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classrsmesh_1_1rbf_1_1rbf__base')"><img src="closed.png" alt="-"/>&#160;Public 成员函数 继承自 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a></td></tr>
+<tr class="memitem:af7817c4d5796730cf18277dc4e22f4fe inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_af7817c4d5796730cf18277dc4e22f4fe"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>rbf_base</b> (<a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rbf_base</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:af7817c4d5796730cf18277dc4e22f4fe inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ccedde8eb8d7da8449d2cd40a1df907 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_a2ccedde8eb8d7da8449d2cd40a1df907"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rbf_base</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rbf_base</a> &amp;)=delete</td></tr>
+<tr class="separator:a2ccedde8eb8d7da8449d2cd40a1df907 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9514d59f05d3eb72041324f5c12ec3d2 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_a9514d59f05d3eb72041324f5c12ec3d2"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rbf_base</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rbf_base</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:a9514d59f05d3eb72041324f5c12ec3d2 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae43c785c285b7865a91062203115e716 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_ae43c785c285b7865a91062203115e716"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacersmesh_1_1geometry.html#a72e45be83081efde821fab26fdbdaae3">geometry::linear_transformation3d</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html#ae43c785c285b7865a91062203115e716">anisotropy</a> () const</td></tr>
+<tr class="separator:ae43c785c285b7865a91062203115e716 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a406cd34b0e75ad5e01a9e6395891dacb inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_a406cd34b0e75ad5e01a9e6395891dacb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html#a406cd34b0e75ad5e01a9e6395891dacb">evaluate</a> (const vector3d &amp;diff) const</td></tr>
+<tr class="separator:a406cd34b0e75ad5e01a9e6395891dacb inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4470ec75867170b348ebc90b8e2147a3 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_a4470ec75867170b348ebc90b8e2147a3"><td class="memItemLeft" align="right" valign="top">vector3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html#a4470ec75867170b348ebc90b8e2147a3">evaluate_gradient</a> (const vector3d &amp;diff) const</td></tr>
+<tr class="separator:a4470ec75867170b348ebc90b8e2147a3 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42a085fecb9a9bd13745ab1d2c4e120f inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_a42a085fecb9a9bd13745ab1d2c4e120f"><td class="memItemLeft" align="right" valign="top">matrix3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html#a42a085fecb9a9bd13745ab1d2c4e120f">evaluate_hessian</a> (const vector3d &amp;diff) const</td></tr>
+<tr class="separator:a42a085fecb9a9bd13745ab1d2c4e120f inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52c3c9ca7284969fb31413408d03f066 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_a52c3c9ca7284969fb31413408d03f066"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; double &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html#a52c3c9ca7284969fb31413408d03f066">parameters</a> () const</td></tr>
+<tr class="separator:a52c3c9ca7284969fb31413408d03f066 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab882651fb0dc4604ffd296bb5c545081 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_ab882651fb0dc4604ffd296bb5c545081"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html#ab882651fb0dc4604ffd296bb5c545081">set_anisotropy</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a72e45be83081efde821fab26fdbdaae3">geometry::linear_transformation3d</a> &amp;aniso)</td></tr>
+<tr class="separator:ab882651fb0dc4604ffd296bb5c545081 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89f3a7ee85308690cba0b77cfcb8d201 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_a89f3a7ee85308690cba0b77cfcb8d201"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html#a89f3a7ee85308690cba0b77cfcb8d201">set_parameters</a> (const std::vector&lt; double &gt; &amp;params)</td></tr>
+<tr class="separator:a89f3a7ee85308690cba0b77cfcb8d201 inherit pub_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+额外继承的成员函数</h2></td></tr>
+<tr class="inherit_header pro_types_classrsmesh_1_1rbf_1_1rbf__base"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_types_classrsmesh_1_1rbf_1_1rbf__base')"><img src="closed.png" alt="-"/>&#160;Protected 类型 继承自 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a></td></tr>
+<tr class="memitem:ad3bba672d397daa39f87871d1685ab58 inherit pro_types_classrsmesh_1_1rbf_1_1rbf__base" id="r_ad3bba672d397daa39f87871d1685ab58"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html#ad3bba672d397daa39f87871d1685ab58">matrix3d</a> = <a class="el" href="namespacersmesh_1_1geometry.html#ab2282312283d04b4a391a1c6523b13b3">geometry::matrix3d</a></td></tr>
+<tr class="separator:ad3bba672d397daa39f87871d1685ab58 inherit pro_types_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e3e22773954391659010cf5f5f13567 inherit pro_types_classrsmesh_1_1rbf_1_1rbf__base" id="r_a4e3e22773954391659010cf5f5f13567"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html#a4e3e22773954391659010cf5f5f13567">vector3d</a> = <a class="el" href="namespacersmesh_1_1geometry.html#a9076acee1b46c372f8242499125dc608">geometry::vector3d</a></td></tr>
+<tr class="separator:a4e3e22773954391659010cf5f5f13567 inherit pro_types_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classrsmesh_1_1rbf_1_1rbf__base"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classrsmesh_1_1rbf_1_1rbf__base')"><img src="closed.png" alt="-"/>&#160;Protected 成员函数 继承自 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a></td></tr>
+<tr class="memitem:a4c337b41a0f664dc3066b44d9c64c22c inherit pro_methods_classrsmesh_1_1rbf_1_1rbf__base" id="r_a4c337b41a0f664dc3066b44d9c64c22c"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>rbf_base</b> (const <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rbf_base</a> &amp;)=default</td></tr>
+<tr class="separator:a4c337b41a0f664dc3066b44d9c64c22c inherit pro_methods_classrsmesh_1_1rbf_1_1rbf__base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a> 第 <a class="el" href="biharmonic3d_8h_source.html#l00011">11</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="ad2d0d8639adc08ff1bf139fd5356f57c" name="ad2d0d8639adc08ff1bf139fd5356f57c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d0d8639adc08ff1bf139fd5356f57c">&#9670;&#160;</a></span>biharmonic3d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::rbf::biharmonic3d::biharmonic3d </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>params</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a> 第 <a class="el" href="biharmonic3d_8h_source.html#l00015">15</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="aa0f6a8472df0f18fb702372ac08f9801" name="aa0f6a8472df0f18fb702372ac08f9801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0f6a8472df0f18fb702372ac08f9801">&#9670;&#160;</a></span>clone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rbf_base</a> &gt; rsmesh::rbf::biharmonic3d::clone </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a>.</p>
+
+<p class="definition">在文件 <a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a> 第 <a class="el" href="biharmonic3d_8h_source.html#l00017">17</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a60efc3e88cc774e7de3f818f154ce65c" name="a60efc3e88cc774e7de3f818f154ce65c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60efc3e88cc774e7de3f818f154ce65c">&#9670;&#160;</a></span>cpd_order()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rsmesh::rbf::biharmonic3d::cpd_order </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a>.</p>
+
+<p class="definition">在文件 <a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a> 第 <a class="el" href="biharmonic3d_8h_source.html#l00019">19</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a022ba40fa61cec579fec10e24b44391d" name="a022ba40fa61cec579fec10e24b44391d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a022ba40fa61cec579fec10e24b44391d">&#9670;&#160;</a></span>evaluate_gradient_isotropic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector3d rsmesh::rbf::biharmonic3d::evaluate_gradient_isotropic </td>
+          <td>(</td>
+          <td class="paramtype">const vector3d &amp;</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a>.</p>
+
+<p class="definition">在文件 <a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a> 第 <a class="el" href="biharmonic3d_8h_source.html#l00028">28</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a1815a816812655fcdf91b819dffe2e6a" name="a1815a816812655fcdf91b819dffe2e6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1815a816812655fcdf91b819dffe2e6a">&#9670;&#160;</a></span>evaluate_hessian_isotropic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">matrix3d rsmesh::rbf::biharmonic3d::evaluate_hessian_isotropic </td>
+          <td>(</td>
+          <td class="paramtype">const vector3d &amp;</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a>.</p>
+
+<p class="definition">在文件 <a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a> 第 <a class="el" href="biharmonic3d_8h_source.html#l00032">32</a> 行定义.</p>
+
+</div>
+</div>
+<a id="af92acf6d4ffc1d6fcd287aebc87726c4" name="af92acf6d4ffc1d6fcd287aebc87726c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af92acf6d4ffc1d6fcd287aebc87726c4">&#9670;&#160;</a></span>evaluate_isotropic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double rsmesh::rbf::biharmonic3d::evaluate_isotropic </td>
+          <td>(</td>
+          <td class="paramtype">const vector3d &amp;</td>          <td class="paramname"><span class="paramname"><em>diff</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a>.</p>
+
+<p class="definition">在文件 <a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a> 第 <a class="el" href="biharmonic3d_8h_source.html#l00021">21</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a04ffb7086376ba16236712e847467452" name="a04ffb7086376ba16236712e847467452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04ffb7086376ba16236712e847467452">&#9670;&#160;</a></span>num_parameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rsmesh::rbf::biharmonic3d::num_parameters </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a>.</p>
+
+<p class="definition">在文件 <a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a> 第 <a class="el" href="biharmonic3d_8h_source.html#l00036">36</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aac664ae38b46739209600aaf30b66150" name="aac664ae38b46739209600aaf30b66150"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac664ae38b46739209600aaf30b66150">&#9670;&#160;</a></span>parameter_lower_bounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; double &gt; &amp; rsmesh::rbf::biharmonic3d::parameter_lower_bounds </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a>.</p>
+
+<p class="definition">在文件 <a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a> 第 <a class="el" href="biharmonic3d_8h_source.html#l00038">38</a> 行定义.</p>
+
+</div>
+</div>
+<a id="abfe27969a565123e44c4f7939206906a" name="abfe27969a565123e44c4f7939206906a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfe27969a565123e44c4f7939206906a">&#9670;&#160;</a></span>parameter_upper_bounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; double &gt; &amp; rsmesh::rbf::biharmonic3d::parameter_upper_bounds </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>实现了 <a class="el" href="classrsmesh_1_1rbf_1_1rbf__base.html">rsmesh::rbf::rbf_base</a>.</p>
+
+<p class="definition">在文件 <a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a> 第 <a class="el" href="biharmonic3d_8h_source.html#l00043">43</a> 行定义.</p>
+
+</div>
+</div>
+<a id="afc060baae189e567e71bcb2867b17c96" name="afc060baae189e567e71bcb2867b17c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc060baae189e567e71bcb2867b17c96">&#9670;&#160;</a></span>rbf_base()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::rbf::rbf_base::rbf_base </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="rbf__base_8h_source.html">rbf_base.h</a> 第 <a class="el" href="rbf__base_8h_source.html#l00079">79</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/rbf/<a class="el" href="biharmonic3d_8h_source.html">biharmonic3d.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

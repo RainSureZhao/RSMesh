@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::point_cloud::kdtree类 参考</title>
+<link rel="icon" href="project_logo.png" type="image/x-icon" />
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="project_logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><a class="el" href="namespacersmesh_1_1point__cloud.html">point_cloud</a></li><li class="navelem"><a class="el" href="classrsmesh_1_1point__cloud_1_1kdtree.html">kdtree</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classrsmesh_1_1point__cloud_1_1kdtree-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::point_cloud::kdtree类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>用于在点云中搜索最近邻点的kdtree，利用flann库来进行实现  
+ <a href="#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="kdtree_8h_source.html">kdtree.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrsmesh_1_1point__cloud_1_1kdtree_1_1impl.html">impl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a0b26a00faea8afb650d2c5e60cda27b9" id="r_a0b26a00faea8afb650d2c5e60cda27b9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b26a00faea8afb650d2c5e60cda27b9">indices_and_distaces</a> = std::pair&lt;std::vector&lt;index_t&gt;, std::vector&lt;double&gt;&gt;</td></tr>
+<tr class="separator:a0b26a00faea8afb650d2c5e60cda27b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a71cbe1a1f8f85ecec2c3aaf2a6a5e380" id="r_a71cbe1a1f8f85ecec2c3aaf2a6a5e380"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71cbe1a1f8f85ecec2c3aaf2a6a5e380">kdtree</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;points, bool use_exact_search)</td></tr>
+<tr class="memdesc:a71cbe1a1f8f85ecec2c3aaf2a6a5e380"><td class="mdescLeft">&#160;</td><td class="mdescRight">构造函数  <br /></td></tr>
+<tr class="separator:a71cbe1a1f8f85ecec2c3aaf2a6a5e380"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6045934fd09e3fef85eaf7c792e2a184" id="r_a6045934fd09e3fef85eaf7c792e2a184"><td class="memItemLeft" align="right" valign="top"><a id="a6045934fd09e3fef85eaf7c792e2a184" name="a6045934fd09e3fef85eaf7c792e2a184"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>~kdtree</b> ()</td></tr>
+<tr class="memdesc:a6045934fd09e3fef85eaf7c792e2a184"><td class="mdescLeft">&#160;</td><td class="mdescRight">析构函数 <br /></td></tr>
+<tr class="separator:a6045934fd09e3fef85eaf7c792e2a184"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a998736c78f72ff0c6f52fb9860696b80" id="r_a998736c78f72ff0c6f52fb9860696b80"><td class="memItemLeft" align="right" valign="top"><a id="a998736c78f72ff0c6f52fb9860696b80" name="a998736c78f72ff0c6f52fb9860696b80"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>kdtree</b> (const <a class="el" href="classrsmesh_1_1point__cloud_1_1kdtree.html">kdtree</a> &amp;)=delete</td></tr>
+<tr class="separator:a998736c78f72ff0c6f52fb9860696b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e5e2206af577bceb014f3390be3e7e1" id="r_a2e5e2206af577bceb014f3390be3e7e1"><td class="memItemLeft" align="right" valign="top"><a id="a2e5e2206af577bceb014f3390be3e7e1" name="a2e5e2206af577bceb014f3390be3e7e1"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>kdtree</b> (<a class="el" href="classrsmesh_1_1point__cloud_1_1kdtree.html">kdtree</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:a2e5e2206af577bceb014f3390be3e7e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade7013475b78361ac1770db94db9d1d4" id="r_ade7013475b78361ac1770db94db9d1d4"><td class="memItemLeft" align="right" valign="top"><a id="ade7013475b78361ac1770db94db9d1d4" name="ade7013475b78361ac1770db94db9d1d4"></a>
+<a class="el" href="classrsmesh_1_1point__cloud_1_1kdtree.html">kdtree</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classrsmesh_1_1point__cloud_1_1kdtree.html">kdtree</a> &amp;)=delete</td></tr>
+<tr class="separator:ade7013475b78361ac1770db94db9d1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d88211e509adebf9cc53d2ea91ca208" id="r_a4d88211e509adebf9cc53d2ea91ca208"><td class="memItemLeft" align="right" valign="top"><a id="a4d88211e509adebf9cc53d2ea91ca208" name="a4d88211e509adebf9cc53d2ea91ca208"></a>
+<a class="el" href="classrsmesh_1_1point__cloud_1_1kdtree.html">kdtree</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classrsmesh_1_1point__cloud_1_1kdtree.html">kdtree</a> &amp;&amp;)=delete</td></tr>
+<tr class="separator:a4d88211e509adebf9cc53d2ea91ca208"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e81619650b07d2d89b709cc8c236d5a" id="r_a1e81619650b07d2d89b709cc8c236d5a"><td class="memItemLeft" align="right" valign="top">indices_and_distaces&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e81619650b07d2d89b709cc8c236d5a">knn_search</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">geometry::point3d</a> &amp;point, index_t k) const</td></tr>
+<tr class="memdesc:a1e81619650b07d2d89b709cc8c236d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">搜索距离某个点最近的k个点  <br /></td></tr>
+<tr class="separator:a1e81619650b07d2d89b709cc8c236d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c54d6eba711ea22e65a6d54c937cf8a" id="r_a2c54d6eba711ea22e65a6d54c937cf8a"><td class="memItemLeft" align="right" valign="top">indices_and_distaces&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c54d6eba711ea22e65a6d54c937cf8a">radius_search</a> (const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">geometry::point3d</a> &amp;point, double radius) const</td></tr>
+<tr class="memdesc:a2c54d6eba711ea22e65a6d54c937cf8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">搜索出距离某个点距离小于等于radius的全部点  <br /></td></tr>
+<tr class="separator:a2c54d6eba711ea22e65a6d54c937cf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>用于在点云中搜索最近邻点的kdtree，利用flann库来进行实现 </p>
+<p>该类主要支持两种操作，第一种是k近邻搜索，第二种是半径搜索。 </p>
+
+<p class="definition">在文件 <a class="el" href="kdtree_8h_source.html">kdtree.h</a> 第 <a class="el" href="kdtree_8h_source.html#l00022">22</a> 行定义.</p>
+</div><h2 class="groupheader">成员类型定义说明</h2>
+<a id="a0b26a00faea8afb650d2c5e60cda27b9" name="a0b26a00faea8afb650d2c5e60cda27b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b26a00faea8afb650d2c5e60cda27b9">&#9670;&#160;</a></span>indices_and_distaces</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using rsmesh::point_cloud::kdtree::indices_and_distaces = std::pair&lt;std::vector&lt;index_t&gt;, std::vector&lt;double&gt;&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="kdtree_8h_source.html">kdtree.h</a> 第 <a class="el" href="kdtree_8h_source.html#l00024">24</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a71cbe1a1f8f85ecec2c3aaf2a6a5e380" name="a71cbe1a1f8f85ecec2c3aaf2a6a5e380"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71cbe1a1f8f85ecec2c3aaf2a6a5e380">&#9670;&#160;</a></span>kdtree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::point_cloud::kdtree::kdtree </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a2b737a5439a8e112e2371509dac6ea44">geometry::points3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>points</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>use_exact_search</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>构造函数 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">points</td><td>点云 </td></tr>
+    <tr><td class="paramname">use_exact_search</td><td>是否使用精确搜索 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a> 第 <a class="el" href="kdtree_8cpp_source.html#l00082">82</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a1e81619650b07d2d89b709cc8c236d5a" name="a1e81619650b07d2d89b709cc8c236d5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e81619650b07d2d89b709cc8c236d5a">&#9670;&#160;</a></span>knn_search()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">kdtree::indices_and_distaces rsmesh::point_cloud::kdtree::knn_search </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">geometry::point3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">rsmesh::index_t</td>          <td class="paramname"><span class="paramname"><em>k</em></span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>搜索距离某个点最近的k个点 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>输入的点 </td></tr>
+    <tr><td class="paramname">k</td><td>k值 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a> 第 <a class="el" href="kdtree_8cpp_source.html#l00087">87</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a2c54d6eba711ea22e65a6d54c937cf8a" name="a2c54d6eba711ea22e65a6d54c937cf8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c54d6eba711ea22e65a6d54c937cf8a">&#9670;&#160;</a></span>radius_search()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">kdtree::indices_and_distaces rsmesh::point_cloud::kdtree::radius_search </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacersmesh_1_1geometry.html#a5a8298c925fa95dd2345ab74c96efaf8">geometry::point3d</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>radius</em></span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>搜索出距离某个点距离小于等于radius的全部点 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>输入的点 </td></tr>
+    <tr><td class="paramname">radius</td><td>半径 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a> 第 <a class="el" href="kdtree_8cpp_source.html#l00098">98</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/point_cloud/<a class="el" href="kdtree_8h_source.html">kdtree.h</a></li>
+<li>src/point_cloud/<a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

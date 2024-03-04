@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::common::detail::const_row_iterator&lt; Derived &gt; 模板类 参考</title>
+<link rel="icon" href="project_logo.png" type="image/x-icon" />
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="project_logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><a class="el" href="namespacersmesh_1_1common.html">common</a></li><li class="navelem"><b>detail</b></li><li class="navelem"><a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">const_row_iterator</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#friends">友元</a> &#124;
+<a href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::common::detail::const_row_iterator&lt; Derived &gt; 模板类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+类 rsmesh::common::detail::const_row_iterator&lt; Derived &gt; 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a8aa4d4de7eaa51c4816b41535ecac64b" id="r_a8aa4d4de7eaa51c4816b41535ecac64b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8aa4d4de7eaa51c4816b41535ecac64b">iterator_category</a> = std::input_iterator_tag</td></tr>
+<tr class="separator:a8aa4d4de7eaa51c4816b41535ecac64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:aacc2fbb300361e3569e35a5af2f6970f" id="r_aacc2fbb300361e3569e35a5af2f6970f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aacc2fbb300361e3569e35a5af2f6970f">const_row_iterator</a> (const Eigen::MatrixBase&lt; Derived &gt; &amp;m, Eigen::Index index)</td></tr>
+<tr class="separator:aacc2fbb300361e3569e35a5af2f6970f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1bdcb58609b5fd147396988f3812bb6" id="r_ad1bdcb58609b5fd147396988f3812bb6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1bdcb58609b5fd147396988f3812bb6">operator==</a> (const <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;rhs) const</td></tr>
+<tr class="separator:ad1bdcb58609b5fd147396988f3812bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9d5f161965669c3419bde6bab0d7a80" id="r_af9d5f161965669c3419bde6bab0d7a80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9d5f161965669c3419bde6bab0d7a80">operator++</a> ()</td></tr>
+<tr class="separator:af9d5f161965669c3419bde6bab0d7a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a559dc703870a3cab324cff0e3d76362d" id="r_a559dc703870a3cab324cff0e3d76362d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a559dc703870a3cab324cff0e3d76362d">operator--</a> ()</td></tr>
+<tr class="separator:a559dc703870a3cab324cff0e3d76362d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9587a2f501f63e15f6d4a106a3a1d2e" id="r_aa9587a2f501f63e15f6d4a106a3a1d2e"><td class="memItemLeft" align="right" valign="top">self_type::reference&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9587a2f501f63e15f6d4a106a3a1d2e">operator*</a> () const</td></tr>
+<tr class="separator:aa9587a2f501f63e15f6d4a106a3a1d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeae39f7b00138bff450447d2cdc3748c" id="r_aeae39f7b00138bff450447d2cdc3748c"><td class="memItemLeft" align="right" valign="top"><a id="aeae39f7b00138bff450447d2cdc3748c" name="aeae39f7b00138bff450447d2cdc3748c"></a>
+self_type::pointer&#160;</td><td class="memItemRight" valign="bottom"><b>operator-&gt;</b> () const =delete</td></tr>
+<tr class="separator:aeae39f7b00138bff450447d2cdc3748c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1308b12e89029a203fc95122ced8d4ba" id="r_a1308b12e89029a203fc95122ced8d4ba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1308b12e89029a203fc95122ced8d4ba">operator&lt;</a> (const <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;rhs) const</td></tr>
+<tr class="separator:a1308b12e89029a203fc95122ced8d4ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2968d8b621c75a92e267817d18688f6d" id="r_a2968d8b621c75a92e267817d18688f6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2968d8b621c75a92e267817d18688f6d">operator+=</a> (typename self_type::difference_type n)</td></tr>
+<tr class="separator:a2968d8b621c75a92e267817d18688f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa75e4fcdb33633d00895913257d5ed93" id="r_aa75e4fcdb33633d00895913257d5ed93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa75e4fcdb33633d00895913257d5ed93">operator-=</a> (typename self_type::difference_type n)</td></tr>
+<tr class="separator:aa75e4fcdb33633d00895913257d5ed93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+友元</h2></td></tr>
+<tr class="memitem:a93adbef45be67d5e13974eee98a5629f" id="r_a93adbef45be67d5e13974eee98a5629f"><td class="memItemLeft" align="right" valign="top">self_type::difference_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93adbef45be67d5e13974eee98a5629f">operator-</a> (const <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;lhs, const <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;rhs)</td></tr>
+<tr class="separator:a93adbef45be67d5e13974eee98a5629f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class Derived&gt;<br />
+class rsmesh::common::detail::const_row_iterator&lt; Derived &gt;</div>
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00213">213</a> 行定义.</p>
+</div><h2 class="groupheader">成员类型定义说明</h2>
+<a id="a8aa4d4de7eaa51c4816b41535ecac64b" name="a8aa4d4de7eaa51c4816b41535ecac64b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aa4d4de7eaa51c4816b41535ecac64b">&#9670;&#160;</a></span>iterator_category</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">rsmesh::common::detail::const_row_iterator</a>&lt; Derived &gt;::iterator_category = std::input_iterator_tag</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00218">218</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="aacc2fbb300361e3569e35a5af2f6970f" name="aacc2fbb300361e3569e35a5af2f6970f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacc2fbb300361e3569e35a5af2f6970f">&#9670;&#160;</a></span>const_row_iterator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">rsmesh::common::detail::const_row_iterator</a>&lt; Derived &gt;::const_row_iterator </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::MatrixBase&lt; Derived &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>m</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::Index</td>          <td class="paramname"><span class="paramname"><em>index</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00220">220</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="aa9587a2f501f63e15f6d4a106a3a1d2e" name="aa9587a2f501f63e15f6d4a106a3a1d2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9587a2f501f63e15f6d4a106a3a1d2e">&#9670;&#160;</a></span>operator*()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">self_type::reference <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">rsmesh::common::detail::const_row_iterator</a>&lt; Derived &gt;::operator* </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00239">239</a> 行定义.</p>
+
+</div>
+</div>
+<a id="af9d5f161965669c3419bde6bab0d7a80" name="af9d5f161965669c3419bde6bab0d7a80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9d5f161965669c3419bde6bab0d7a80">&#9670;&#160;</a></span>operator++()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp; <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">rsmesh::common::detail::const_row_iterator</a>&lt; Derived &gt;::operator++ </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00227">227</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a2968d8b621c75a92e267817d18688f6d" name="a2968d8b621c75a92e267817d18688f6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2968d8b621c75a92e267817d18688f6d">&#9670;&#160;</a></span>operator+=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp; <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">rsmesh::common::detail::const_row_iterator</a>&lt; Derived &gt;::operator+= </td>
+          <td>(</td>
+          <td class="paramtype">typename self_type::difference_type</td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00251">251</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a559dc703870a3cab324cff0e3d76362d" name="a559dc703870a3cab324cff0e3d76362d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a559dc703870a3cab324cff0e3d76362d">&#9670;&#160;</a></span>operator--()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">rsmesh::common::detail::const_row_iterator</a>&lt; Derived &gt;::operator-- </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00233">233</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aa75e4fcdb33633d00895913257d5ed93" name="aa75e4fcdb33633d00895913257d5ed93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa75e4fcdb33633d00895913257d5ed93">&#9670;&#160;</a></span>operator-=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp; <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">rsmesh::common::detail::const_row_iterator</a>&lt; Derived &gt;::operator-= </td>
+          <td>(</td>
+          <td class="paramtype">typename self_type::difference_type</td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00257">257</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a1308b12e89029a203fc95122ced8d4ba" name="a1308b12e89029a203fc95122ced8d4ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1308b12e89029a203fc95122ced8d4ba">&#9670;&#160;</a></span>operator&lt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">rsmesh::common::detail::const_row_iterator</a>&lt; Derived &gt;::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00246">246</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad1bdcb58609b5fd147396988f3812bb6" name="ad1bdcb58609b5fd147396988f3812bb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1bdcb58609b5fd147396988f3812bb6">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">rsmesh::common::detail::const_row_iterator</a>&lt; Derived &gt;::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00222">222</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">友元及相关函数文档</h2>
+<a id="a93adbef45be67d5e13974eee98a5629f" name="a93adbef45be67d5e13974eee98a5629f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93adbef45be67d5e13974eee98a5629f">&#9670;&#160;</a></span>operator-</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Derived &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">self_type::difference_type operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classrsmesh_1_1common_1_1detail_1_1const__row__iterator.html">self_type</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a> 第 <a class="el" href="eigen__utility_8h_source.html#l00263">263</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/common/<a class="el" href="eigen__utility_8h_source.html">eigen_utility.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RSMesh: rsmesh::isosurface::mesh_defects_finder类 参考</title>
+<link rel="icon" href="project_logo.png" type="image/x-icon" />
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="project_logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">RSMesh<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+   <div id="projectbrief">一个曲面重构的系统，输入为点云，输出为obj,stl等主流格式的网格文件，使用的方法为径向基函数插值，采取了并行优化、Intel-MKL等优化措施，支持百万级别的点云</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacersmesh.html">rsmesh</a></li><li class="navelem"><a class="el" href="namespacersmesh_1_1isosurface.html">isosurface</a></li><li class="navelem"><a class="el" href="classrsmesh_1_1isosurface_1_1mesh__defects__finder.html">mesh_defects_finder</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classrsmesh_1_1isosurface_1_1mesh__defects__finder-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">rsmesh::isosurface::mesh_defects_finder类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a922aaa7c1f675ef4d06b4d033e96f702" id="r_a922aaa7c1f675ef4d06b4d033e96f702"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a922aaa7c1f675ef4d06b4d033e96f702">mesh_defects_finder</a> (const vertices_type &amp;vertices, const faces_type &amp;faces)</td></tr>
+<tr class="separator:a922aaa7c1f675ef4d06b4d033e96f702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a528634c23e76401444f7d64f4533a1e1" id="r_a528634c23e76401444f7d64f4533a1e1"><td class="memItemLeft" align="right" valign="top">std::unordered_set&lt; index_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a528634c23e76401444f7d64f4533a1e1">intersecting_faces</a> () const</td></tr>
+<tr class="separator:a528634c23e76401444f7d64f4533a1e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e3b9525602c46b613d20ec26b2d086b" id="r_a4e3b9525602c46b613d20ec26b2d086b"><td class="memItemLeft" align="right" valign="top">std::unordered_set&lt; index_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e3b9525602c46b613d20ec26b2d086b">singular_vertices</a> () const</td></tr>
+<tr class="separator:a4e3b9525602c46b613d20ec26b2d086b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="mesh__defects__finder_8h_source.html">mesh_defects_finder.h</a> 第 <a class="el" href="mesh__defects__finder_8h_source.html#l00014">14</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a922aaa7c1f675ef4d06b4d033e96f702" name="a922aaa7c1f675ef4d06b4d033e96f702"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a922aaa7c1f675ef4d06b4d033e96f702">&#9670;&#160;</a></span>mesh_defects_finder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rsmesh::isosurface::mesh_defects_finder::mesh_defects_finder </td>
+          <td>(</td>
+          <td class="paramtype">const vertices_type &amp;</td>          <td class="paramname"><span class="paramname"><em>vertices</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const faces_type &amp;</td>          <td class="paramname"><span class="paramname"><em>faces</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="mesh__defect__finder_8cpp_source.html">mesh_defect_finder.cpp</a> 第 <a class="el" href="mesh__defect__finder_8cpp_source.html#l00010">10</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a528634c23e76401444f7d64f4533a1e1" name="a528634c23e76401444f7d64f4533a1e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a528634c23e76401444f7d64f4533a1e1">&#9670;&#160;</a></span>intersecting_faces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_set&lt; index_t &gt; rsmesh::isosurface::mesh_defects_finder::intersecting_faces </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="mesh__defect__finder_8cpp_source.html">mesh_defect_finder.cpp</a> 第 <a class="el" href="mesh__defect__finder_8cpp_source.html#l00022">22</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a4e3b9525602c46b613d20ec26b2d086b" name="a4e3b9525602c46b613d20ec26b2d086b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e3b9525602c46b613d20ec26b2d086b">&#9670;&#160;</a></span>singular_vertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_set&lt; index_t &gt; rsmesh::isosurface::mesh_defects_finder::singular_vertices </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="mesh__defect__finder_8cpp_source.html">mesh_defect_finder.cpp</a> 第 <a class="el" href="mesh__defect__finder_8cpp_source.html#l00060">60</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>include/isosurface/<a class="el" href="mesh__defects__finder_8h_source.html">mesh_defects_finder.h</a></li>
+<li>src/isosurface/<a class="el" href="mesh__defect__finder_8cpp_source.html">mesh_defect_finder.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>
