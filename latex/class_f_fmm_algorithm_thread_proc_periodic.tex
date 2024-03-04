@@ -1,0 +1,353 @@
+\doxysection{FFmm\+Algorithm\+Thread\+Proc\+Periodic\texorpdfstring{$<$}{<} FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_fmm_algorithm_thread_proc_periodic}{}\label{class_f_fmm_algorithm_thread_proc_periodic}\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+
+
+Please read the license  
+
+
+
+
+{\ttfamily \#include $<$FFmm\+Algorithm\+Thread\+Proc\+Periodic.\+hpp$>$}
+
+类 FFmm\+Algorithm\+Thread\+Proc\+Periodic\texorpdfstring{$<$}{<} FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.724450cm]{class_f_fmm_algorithm_thread_proc_periodic}
+\end{center}
+\end{figure}
+\doxysubsubsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_f_fmm_algorithm_thread_proc_periodic_1_1_interval}{Interval}}
+\item 
+struct \mbox{\hyperlink{struct_f_fmm_algorithm_thread_proc_periodic_1_1_leaf_data}{Leaf\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a189aa3b1084194d01b0acd5930ff6940}\label{class_f_fmm_algorithm_thread_proc_periodic_a189aa3b1084194d01b0acd5930ff6940} 
+\mbox{\hyperlink{struct_f_fmm_algorithm_thread_proc_periodic_1_1_interval}{Interval}} \& {\bfseries get\+Working\+Interval} (int level, int proc)
+\begin{DoxyCompactList}\small\item\em Get an interval from a process id and tree level \end{DoxyCompactList}\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_acdaa827fd7bb88e03fdebadcfaae0463}\label{class_f_fmm_algorithm_thread_proc_periodic_acdaa827fd7bb88e03fdebadcfaae0463} 
+const \mbox{\hyperlink{struct_f_fmm_algorithm_thread_proc_periodic_1_1_interval}{Interval}} \& {\bfseries get\+Working\+Interval} (int level, int proc) const
+\begin{DoxyCompactList}\small\item\em Get an interval from a process id and tree level \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a28ed76fb7492ad3c9df13a3c90c2e84f}{proc\+Has\+Work\+At\+Level}} (const int idx\+Level, const int idx\+Proc) const
+\begin{DoxyCompactList}\small\item\em Does {\itshape proc\+Idx} have work at given {\itshape idx\+Level} \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a89bc577cb52f95a7d705d1f82efa38cd}{proc\+Covers\+My\+Right\+Border\+Cell}} (const int idx\+Level, const int idx\+Proc) const
+\item 
+bool \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a5c43fa25b8738ca5ce9684eccc1308eb}{proc\+Covers\+My\+Left\+Border\+Cell}} (const int idx\+Level, const int idx\+Proc) const
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a83b59617e94b9b5abab25d5fef3714b2}\label{class_f_fmm_algorithm_thread_proc_periodic_a83b59617e94b9b5abab25d5fef3714b2} 
+void {\bfseries set\+Kernel} (Kernel\+Class \texorpdfstring{$\ast$}{*}const in\+Kernels)
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_ad33dd1b5f43a2658041b3fa31740ac7c}\label{class_f_fmm_algorithm_thread_proc_periodic_ad33dd1b5f43a2658041b3fa31740ac7c} 
+\mbox{\hyperlink{struct_f_fmm_algorithm_thread_proc_periodic_1_1_interval}{Interval}} \& {\bfseries get\+Working\+Interval} (const int level)
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a1a54c715e72598b9a3ceccb1d31b4f87}\label{class_f_fmm_algorithm_thread_proc_periodic_a1a54c715e72598b9a3ceccb1d31b4f87} 
+bool {\bfseries has\+Work\+At\+Level} (int level)
+\begin{DoxyCompactList}\small\item\em Does the current process has some work at this level ? \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a355dcfbd985148ef73d366aeec19e4d1}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}} (const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} \&in\+Comm, Octree\+Class \texorpdfstring{$\ast$}{*}const in\+Tree, const int in\+Upper\+Level=2, const int in\+User\+Chunk\+Size=10, const int in\+Leaf\+Level\+Seperation\+Criteria=1)
+\item 
+virtual \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a5c06b480ee9f3c47724988f50d8c4c14}{\texorpdfstring{$\sim$}{\string~}\+FFmm\+Algorithm\+Thread\+Proc\+Periodic}} ()
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_ae4fe1de7a0437f064c7cae9ae090c4bf}\label{class_f_fmm_algorithm_thread_proc_periodic_ae4fe1de7a0437f064c7cae9ae090c4bf} 
+long long int {\bfseries theorical\+Repetition} () const
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a54d80603e74a658e667e9eab46118770}\label{class_f_fmm_algorithm_thread_proc_periodic_a54d80603e74a658e667e9eab46118770} 
+void {\bfseries repetitions\+Intervals} (\mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \texorpdfstring{$\ast$}{*}const min, \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \texorpdfstring{$\ast$}{*}const max) const
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a28a10dd11e2b2445c1f74440687d1ebf}\label{class_f_fmm_algorithm_thread_proc_periodic_a28a10dd11e2b2445c1f74440687d1ebf} 
+FReal {\bfseries extended\+Box\+Width} () const
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_af7b07108a3373719e2bc0c76d522ad8f}\label{class_f_fmm_algorithm_thread_proc_periodic_af7b07108a3373719e2bc0c76d522ad8f} 
+FReal {\bfseries extended\+Box\+Width\+Boundary} () const
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a6d9e0f3cbe7565378c443999a3330bf1}{extended\+Box\+Center}} () const
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a0b63634d2db0d99799aa8fcfba12452f}\label{class_f_fmm_algorithm_thread_proc_periodic_a0b63634d2db0d99799aa8fcfba12452f} 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries extended\+Box\+Center\+Boundary} () const
+\item 
+int \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a5938cd87fccbadb63e9fa4f8c458eab8}{extended\+Tree\+Height}} () const
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_aefbd16727ea96c4d2f2a621d58033aa8}\label{class_f_fmm_algorithm_thread_proc_periodic_aefbd16727ea96c4d2f2a621d58033aa8} 
+int {\bfseries extended\+Tree\+Height\+Boundary} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries execute} (const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm for given levels. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} () final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed, const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute only some FMM operations for given levels. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed) final
+\begin{DoxyCompactList}\small\item\em Execute only some steps. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries FAlgorithm\+Timers} ()=default
+\begin{DoxyCompactList}\small\item\em Constructor\+: resets all timers \end{DoxyCompactList}\item 
+{\bfseries FAlgorithm\+Timers} (const \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}} \&)=default
+\begin{DoxyCompactList}\small\item\em Default copy contructor \end{DoxyCompactList}\item 
+{\bfseries FAlgorithm\+Timers} (\mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}} \&\&)=default
+\begin{DoxyCompactList}\small\item\em Default move contructor \end{DoxyCompactList}\item 
+double {\bfseries get\+Time} (std\+::string Timer\+Name) const
+\begin{DoxyCompactList}\small\item\em Elapsed time between last \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{FTic\+::tic()} and \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{FTic\+::tac()} for given timer. \end{DoxyCompactList}\item 
+double {\bfseries get\+Cumulated\+Time} (std\+::string Timer\+Name) const
+\begin{DoxyCompactList}\small\item\em Cumulated time between all \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{FTic\+::tic()} and \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{FTic\+::tac()} for given timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_af2f3968f5789f95490a1aea5a0a91a81}\label{class_f_fmm_algorithm_thread_proc_periodic_af2f3968f5789f95490a1aea5a0a91a81} 
+\mbox{\hyperlink{struct_f_fmm_algorithm_thread_proc_periodic_1_1_interval}{Interval}} \texorpdfstring{$\ast$}{*}const {\bfseries intervals}
+\begin{DoxyCompactList}\small\item\em Current process interval \end{DoxyCompactList}\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a75c3a2762a90be463a573874c7e4efbb}\label{class_f_fmm_algorithm_thread_proc_periodic_a75c3a2762a90be463a573874c7e4efbb} 
+\mbox{\hyperlink{struct_f_fmm_algorithm_thread_proc_periodic_1_1_interval}{Interval}} \texorpdfstring{$\ast$}{*}const {\bfseries working\+Intervals\+Per\+Level}
+\begin{DoxyCompactList}\small\item\em All processes intervals \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public 属性 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+FTimer\+Map {\bfseries Timers}
+\begin{DoxyCompactList}\small\item\em Timers \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_aba55ca07931868790ca33ea7d084b4b6}{execute\+Core}} (const unsigned operations\+To\+Proceed) override
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_ace0612ec004670889f16c9d7780c4c45}{bottom\+Pass}} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a5bb8e03a9de36b695fad6e66c74665bb}{upward\+Pass}} ()
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_ac5ae9a56420b6be2eec09d22c948bec1}\label{class_f_fmm_algorithm_thread_proc_periodic_ac5ae9a56420b6be2eec09d22c948bec1} 
+void {\bfseries transfer\+Pass} ()
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_adcb0ebcd488d02a709ccace22e47836c}\label{class_f_fmm_algorithm_thread_proc_periodic_adcb0ebcd488d02a709ccace22e47836c} 
+void {\bfseries downard\+Pass} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a7a98936159047398cf90d198588958cc}{direct\+Pass}} (const bool p2p\+Enabled, const bool l2p\+Enabled)
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_ae4ccfca2e4fe131ab58dab5e232d3cca}\label{class_f_fmm_algorithm_thread_proc_periodic_ae4ccfca2e4fe131ab58dab5e232d3cca} 
+int {\bfseries get\+Neighbors\+Indexes\+Periodic} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&center, const int box\+Limite, Morton\+Index indexes\mbox{[}26\mbox{]}, int index\+In\+Array\mbox{[}26\mbox{]}, const int in\+Direction) const
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a061acbf92dae8316bc9e2a3fe3dee80e}\label{class_f_fmm_algorithm_thread_proc_periodic_a061acbf92dae8316bc9e2a3fe3dee80e} 
+int {\bfseries get\+Neighbors\+Indexes} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&center, Morton\+Index indexes\mbox{[}26\mbox{]}, int index\+In\+Array\mbox{[}26\mbox{]}) const
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_ae511b5de064ff5172327f6021d03d199}\label{class_f_fmm_algorithm_thread_proc_periodic_ae511b5de064ff5172327f6021d03d199} 
+int {\bfseries get\+Periodic\+Interaction\+Neighbors} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&working\+Cell, const int in\+Level, Morton\+Index in\+Neighbors\mbox{[}216\mbox{]}, int in\+Neighbors\+Position\mbox{[}216\mbox{]}, const int in\+Direction, const int neigh\+Separation) const
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_ac748a3b1c6d1dcf0d3308d4a06bc0639}\label{class_f_fmm_algorithm_thread_proc_periodic_ac748a3b1c6d1dcf0d3308d4a06bc0639} 
+int {\bfseries get\+Interaction\+Neighbors} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&working\+Cell, const int in\+Level, Morton\+Index in\+Neighbors\mbox{[}216\mbox{]}, int in\+Neighbors\+Position\mbox{[}216\mbox{]}, const int neigh\+Separation) const
+\item 
+int \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a6b69b7dbc69c97122306d80df5627668}{neigh\+Index}} (const int x, const int y, const int z) const
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_a6513b1c31411732e14f10b30f918d9d1}{process\+Periodic\+Levels}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries set\+Nb\+Levels\+In\+Tree} (const int in\+Nb\+Levels\+In\+Tree)
+\item 
+void {\bfseries validate\+Levels} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{Public 类型 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_algorithm_timers_a476fc8777d5054203af69ac36b8026af}\label{class_f_algorithm_timers_a476fc8777d5054203af69ac36b8026af} 
+enum \{ {\bfseries nb\+Timers} = 9
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries P2\+MTimer} = "{}P2\+M"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries M2\+MTimer} = "{}M2\+M"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries M2\+LTimer} = "{}M2\+L"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries L2\+LTimer} = "{}L2\+L"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries L2\+PTimer} = "{}L2\+P"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries P2\+PTimer} = "{}P2\+P"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries M2\+PTimer} = "{}M2\+P"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries P2\+LTimer} = "{}P2\+L"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries Near\+Timer} = "{}Near"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries upper\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to start the work \end{DoxyCompactList}\item 
+int {\bfseries lower\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to end the work (exclusive) \end{DoxyCompactList}\item 
+int {\bfseries nb\+Levels\+In\+Tree}
+\begin{DoxyCompactList}\small\item\em Height of the tree \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Octree\+Class, class Cell\+Class, class Container\+Class, class Kernel\+Class, class Leaf\+Class, class P2\+PExclusion\+Class = FP2\+PMiddle\+Exclusion$>$\newline
+class FFmm\+Algorithm\+Thread\+Proc\+Periodic$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}
+Please read the license 
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+
+
+This class is a threaded FMM algorithm with mpi. It just iterates on a tree and call the kernels with good arguments. It used the inspector-\/executor model \+: iterates on the tree and builds an array to work in parallel on this array
+
+Of course this class does not deallocate pointer given in arguements.
+
+Threaded \& based on the inspector-\/executor model schedule(runtime) export OMP\+\_\+\+NUM\+\_\+\+THREADS=2 export OMPI\+\_\+\+CXX={\ttfamily which g++-\/4.4} mpirun -\/np 2 valgrind --suppressions=/usr/share/openmpi/openmpi-\/valgrind.supp --tool=memcheck --leak-\/check=yes --show-\/reachable=yes --num-\/callers=20 --track-\/fds=yes ./\+Tests/test\+Fmm\+Algorithm\+Proc ../\+Data/test\+Loader\+Small.fma.\+tmp 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a355dcfbd985148ef73d366aeec19e4d1}\label{class_f_fmm_algorithm_thread_proc_periodic_a355dcfbd985148ef73d366aeec19e4d1} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!FFmmAlgorithmThreadProcPeriodic@{FFmmAlgorithmThreadProcPeriodic}}
+\index{FFmmAlgorithmThreadProcPeriodic@{FFmmAlgorithmThreadProcPeriodic}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{FFmmAlgorithmThreadProcPeriodic()}{FFmmAlgorithmThreadProcPeriodic()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+\mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{\+::\+FFmm\+Algorithm\+Thread\+Proc\+Periodic}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} \&}]{in\+Comm,  }\item[{Octree\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Tree,  }\item[{const int}]{in\+Upper\+Level = {\ttfamily 2},  }\item[{const int}]{in\+User\+Chunk\+Size = {\ttfamily 10},  }\item[{const int}]{in\+Leaf\+Level\+Seperation\+Criteria = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+The constructor need the octree and the kernels used for computation 
+\begin{DoxyParams}{参数}
+{\em in\+Tree} & the octree to work on \\
+\hline
+{\em in\+Kernels} & the kernels to call\\
+\hline
+\end{DoxyParams}
+An assert is launched if one of the arguments is null \Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a5c06b480ee9f3c47724988f50d8c4c14}\label{class_f_fmm_algorithm_thread_proc_periodic_a5c06b480ee9f3c47724988f50d8c4c14} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!````~FFmmAlgorithmThreadProcPeriodic@{\texorpdfstring{$\sim$}{\string~}FFmmAlgorithmThreadProcPeriodic}}
+\index{````~FFmmAlgorithmThreadProcPeriodic@{\texorpdfstring{$\sim$}{\string~}FFmmAlgorithmThreadProcPeriodic}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FFmmAlgorithmThreadProcPeriodic()}{\string~FFmmAlgorithmThreadProcPeriodic()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+virtual \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Default destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_ace0612ec004670889f16c9d7780c4c45}\label{class_f_fmm_algorithm_thread_proc_periodic_ace0612ec004670889f16c9d7780c4c45} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!bottomPass@{bottomPass}}
+\index{bottomPass@{bottomPass}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{bottomPass()}{bottomPass()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::bottom\+Pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+P2M Bottom Pass No communication are involved in the P2M. It is similar to multi threaded version. \Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a7a98936159047398cf90d198588958cc}\label{class_f_fmm_algorithm_thread_proc_periodic_a7a98936159047398cf90d198588958cc} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!directPass@{directPass}}
+\index{directPass@{directPass}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{directPass()}{directPass()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::direct\+Pass (\begin{DoxyParamCaption}\item[{const bool}]{p2p\+Enabled,  }\item[{const bool}]{l2p\+Enabled }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+P2P \Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_aba55ca07931868790ca33ea7d084b4b6}\label{class_f_fmm_algorithm_thread_proc_periodic_aba55ca07931868790ca33ea7d084b4b6} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!executeCore@{executeCore}}
+\index{executeCore@{executeCore}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{executeCore()}{executeCore()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::execute\+Core (\begin{DoxyParamCaption}\item[{const unsigned}]{operations\+To\+Proceed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+To execute the fmm algorithm Call this function to run the complete algorithm 
+
+实现了 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}.
+
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a6d9e0f3cbe7565378c443999a3330bf1}\label{class_f_fmm_algorithm_thread_proc_periodic_a6d9e0f3cbe7565378c443999a3330bf1} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!extendedBoxCenter@{extendedBoxCenter}}
+\index{extendedBoxCenter@{extendedBoxCenter}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{extendedBoxCenter()}{extendedBoxCenter()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::extended\+Box\+Center (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function has to be used to init the kernel with correct args it return the box cneter seen from a kernel point of view from the periodicity the user ask for this is computed using the original\+Box\+Width and original\+Box\+Center given in parameter 
+\begin{DoxyParams}{参数}
+{\em original\+Box\+Center} & the real system center \\
+\hline
+{\em original\+Box\+Width} & the real system size \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the center the kernel should use 
+\end{DoxyReturn}
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a5938cd87fccbadb63e9fa4f8c458eab8}\label{class_f_fmm_algorithm_thread_proc_periodic_a5938cd87fccbadb63e9fa4f8c458eab8} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!extendedTreeHeight@{extendedTreeHeight}}
+\index{extendedTreeHeight@{extendedTreeHeight}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{extendedTreeHeight()}{extendedTreeHeight()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+int \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::extended\+Tree\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function has to be used to init the kernel with correct args it return the tree heigh seen from a kernel point of view from the periodicity the user ask for this is computed using the original\+Tree\+Height given in parameter 
+\begin{DoxyParams}{参数}
+{\em original\+Tree\+Height} & the real tree heigh \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the heigh the kernel should use 
+\end{DoxyReturn}
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a6b69b7dbc69c97122306d80df5627668}\label{class_f_fmm_algorithm_thread_proc_periodic_a6b69b7dbc69c97122306d80df5627668} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!neighIndex@{neighIndex}}
+\index{neighIndex@{neighIndex}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{neighIndex()}{neighIndex()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+int \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::neigh\+Index (\begin{DoxyParamCaption}\item[{const int}]{x,  }\item[{const int}]{y,  }\item[{const int}]{z }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Get the index of a interaction neighbors (for M2L) 
+\begin{DoxyParams}{参数}
+{\em x} & the x position in the interactions (from -\/3 to +3) \\
+\hline
+{\em y} & the y position in the interactions (from -\/3 to +3) \\
+\hline
+{\em z} & the z position in the interactions (from -\/3 to +3) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the index (from 0 to 342) 
+\end{DoxyReturn}
+\Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a5c43fa25b8738ca5ce9684eccc1308eb}\label{class_f_fmm_algorithm_thread_proc_periodic_a5c43fa25b8738ca5ce9684eccc1308eb} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!procCoversMyLeftBorderCell@{procCoversMyLeftBorderCell}}
+\index{procCoversMyLeftBorderCell@{procCoversMyLeftBorderCell}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{procCoversMyLeftBorderCell()}{procCoversMyLeftBorderCell()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+bool \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::proc\+Covers\+My\+Left\+Border\+Cell (\begin{DoxyParamCaption}\item[{const int}]{idx\+Level,  }\item[{const int}]{idx\+Proc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+True if the idx\+Proc right cell at idx\+Level+1 has the same parent as us for our left cell \Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a89bc577cb52f95a7d705d1f82efa38cd}\label{class_f_fmm_algorithm_thread_proc_periodic_a89bc577cb52f95a7d705d1f82efa38cd} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!procCoversMyRightBorderCell@{procCoversMyRightBorderCell}}
+\index{procCoversMyRightBorderCell@{procCoversMyRightBorderCell}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{procCoversMyRightBorderCell()}{procCoversMyRightBorderCell()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+bool \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::proc\+Covers\+My\+Right\+Border\+Cell (\begin{DoxyParamCaption}\item[{const int}]{idx\+Level,  }\item[{const int}]{idx\+Proc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+True if the {\itshape idx\+Proc} left cell at {\itshape idx\+Level+1} has the same parent as us for our right cell \Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a6513b1c31411732e14f10b30f918d9d1}\label{class_f_fmm_algorithm_thread_proc_periodic_a6513b1c31411732e14f10b30f918d9d1} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!processPeriodicLevels@{processPeriodicLevels}}
+\index{processPeriodicLevels@{processPeriodicLevels}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{processPeriodicLevels()}{processPeriodicLevels()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::process\+Periodic\+Levels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Periodicity Core This function is split in several part\+: 1 -\/ special case managment There is nothing to do if nb\+Levels\+Above\+Root == -\/1 and only a M2L if nb\+Levels\+Above\+Root == 0 2 -\/ if nb\+Levels\+Above\+Root \texorpdfstring{$>$}{>} 0 First we compute M2M and special M2M if needed for the border Then the M2L by taking into account the periodicity directions Then the border by using the precomputed M2M Finally the L2L \Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a28ed76fb7492ad3c9df13a3c90c2e84f}\label{class_f_fmm_algorithm_thread_proc_periodic_a28ed76fb7492ad3c9df13a3c90c2e84f} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!procHasWorkAtLevel@{procHasWorkAtLevel}}
+\index{procHasWorkAtLevel@{procHasWorkAtLevel}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{procHasWorkAtLevel()}{procHasWorkAtLevel()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+bool \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::proc\+Has\+Work\+At\+Level (\begin{DoxyParamCaption}\item[{const int}]{idx\+Level,  }\item[{const int}]{idx\+Proc }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Does {\itshape proc\+Idx} have work at given {\itshape idx\+Level} 
+
+i.\+e. does it hold cells and is responsible of them ? \Hypertarget{class_f_fmm_algorithm_thread_proc_periodic_a5bb8e03a9de36b695fad6e66c74665bb}\label{class_f_fmm_algorithm_thread_proc_periodic_a5bb8e03a9de36b695fad6e66c74665bb} 
+\index{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!upwardPass@{upwardPass}}
+\index{upwardPass@{upwardPass}!FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadProcPeriodic$<$ FReal, OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{upwardPass()}{upwardPass()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic}{FFmm\+Algorithm\+Thread\+Proc\+Periodic}}$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::upward\+Pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+M2M 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Core/FFmm\+Algorithm\+Thread\+Proc\+Periodic.\+hpp\end{DoxyCompactItemize}

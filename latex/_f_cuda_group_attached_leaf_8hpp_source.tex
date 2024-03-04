@@ -1,0 +1,128 @@
+\doxysection{FCuda\+Group\+Attached\+Leaf.\+hpp}
+\hypertarget{_f_cuda_group_attached_leaf_8hpp_source}{}\label{_f_cuda_group_attached_leaf_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/Cuda/FCudaGroupAttachedLeaf.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/Cuda/FCudaGroupAttachedLeaf.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FCUDAGROUPATTACHEDLEAF\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FCUDAGROUPATTACHEDLEAF\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}FCudaGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{unsigned}\ NbSymbAttributes,\ \textcolor{keywordtype}{unsigned}\ NbAttributesPerParticle,\ \textcolor{keyword}{class}\ AttributeClass\ =\ FReal>}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_cuda_group_attached_leaf}{FCudaGroupAttachedLeaf}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//<\ Nb\ of\ particles\ in\ the\ current\ leaf}}
+\DoxyCodeLine{00010\ \ \ \ \ FSize\ nbParticles;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//<\ Pointers\ to\ the\ positions\ of\ the\ particles}}
+\DoxyCodeLine{00012\ \ \ \ \ FReal*\ positionsPointers[3];}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//<\ Pointers\ to\ the\ attributes\ of\ the\ particles}}
+\DoxyCodeLine{00014\ \ \ \ \ AttributeClass*\ attributes[NbSymbAttributes+NbAttributesPerParticle];}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \_\_device\_\_\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_ad585c1940575dd1e49dd9043dba65f01}{FCudaGroupAttachedLeaf}}()\ :\ nbParticles(-\/1)\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ memset(positionsPointers,\ 0,\ \textcolor{keyword}{sizeof}(FReal*)\ *\ 3);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ memset(attributes,\ 0,\ \textcolor{keyword}{sizeof}(AttributeClass*)\ *\ (NbSymbAttributes+NbAttributesPerParticle));}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00031\ \ \ \ \ \_\_device\_\_\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_afaa0d1ccf8b85e460457d8172b591c43}{FCudaGroupAttachedLeaf}}(\textcolor{keyword}{const}\ FSize\ inNbParticles,\ FReal*\ inPositionBuffer,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ inLeadingPosition,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AttributeClass*\ inAttributesBuffer,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ inLeadingAttributes)}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ :\ nbParticles(inNbParticles)\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirect\ pointers\ to\ position}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ positionsPointers[0]\ =\ inPositionBuffer;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ positionsPointers[1]\ =\ \textcolor{keyword}{reinterpret\_cast<}FReal*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(inPositionBuffer)\ +\ inLeadingPosition);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ positionsPointers[2]\ =\ \textcolor{keyword}{reinterpret\_cast<}FReal*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(inPositionBuffer)\ +\ inLeadingPosition*2);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbSymbAttributes\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ attributes[idxAttribute]\ =\ \textcolor{keyword}{reinterpret\_cast<}AttributeClass*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(inPositionBuffer)\ +\ inLeadingPosition*3\ +\ inLeadingAttributes*idxAttribute);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirect\ pointers\ to\ data}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inAttributesBuffer)\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbAttributesPerParticle\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attributes[idxAttribute+NbSymbAttributes]\ =\ \textcolor{keyword}{reinterpret\_cast<}AttributeClass*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(inAttributesBuffer)\ +\ idxAttribute*inLeadingAttributes);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ memset(\&attributes[NbSymbAttributes],\ 0,\ \textcolor{keyword}{sizeof}(AttributeClass*)*NbAttributesPerParticle);}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00055\ \ \ \ \ \_\_device\_\_\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_a961374e93434771cb628388670713d02}{FCudaGroupAttachedLeaf}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{FCudaGroupAttachedLeaf}}\&\ other)\ :\ nbParticles(other.nbParticles)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ positionsPointers[0]\ =\ other.positionsPointers[0];}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ positionsPointers[1]\ =\ other.positionsPointers[1];}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ positionsPointers[2]\ =\ other.positionsPointers[2];}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirect\ pointers\ to\ data}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbAttributesPerParticle\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ attributes[idxAttribute]\ =\ other.attributes[idxAttribute];}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00067\ \ \ \ \ \_\_device\_\_\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{FCudaGroupAttachedLeaf}}\&\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_a05b0ff6ba363959a3fdf29ec2d00f8f7}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{FCudaGroupAttachedLeaf}}\&\ other)\{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ nbParticles\ =\ (other.nbParticles);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ positionsPointers[0]\ =\ other.positionsPointers[0];}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ positionsPointers[1]\ =\ other.positionsPointers[1];}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ positionsPointers[2]\ =\ other.positionsPointers[2];}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirect\ pointers\ to\ data}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbAttributesPerParticle\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ attributes[idxAttribute]\ =\ other.attributes[idxAttribute];}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00086\ \ \ \ \ \_\_device\_\_\ FSize\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nbParticles;}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00094\ \ \ \ \ \_\_device\_\_\ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}*\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ positionsPointers;}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00102\ \ \ \ \ \_\_device\_\_\ FReal*\ \textcolor{keyword}{const}*\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_ab1572a8ef56ed4c739d9cf081dac7dfb}{getWPositions}}()\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ positionsPointers;}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00111\ \ \ \ \ \_\_device\_\_\ AttributeClass*\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index)\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ attributes[index];}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00120\ \ \ \ \ \_\_device\_\_\ \textcolor{keyword}{const}\ AttributeClass*\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_a2078ac9a44ff92c3b84cff5b7fb736e5}{getAttribute}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ attributes[index];}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ index>}
+\DoxyCodeLine{00128\ \ \ \ \ \_\_device\_\_\ AttributeClass*\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_acb3e776230c48b774453f26a43cd1996}{getAttribute}}()\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(index\ <\ NbAttributesPerParticle,\ \textcolor{stringliteral}{"{}Index\ to\ get\ attributes\ is\ out\ of\ scope."{}});}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ attributes[index];}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ index>}
+\DoxyCodeLine{00137\ \ \ \ \ \_\_device\_\_\ \textcolor{keyword}{const}\ AttributeClass*\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_aa286c2d2ac452006af84ca9c04edc065}{getAttribute}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(index\ <\ NbAttributesPerParticle,\ \textcolor{stringliteral}{"{}Index\ to\ get\ attributes\ is\ out\ of\ scope."{}});}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ attributes[index];}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00143\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_a02023f3a360dbd8ee9e393621e7dbfe2}{isAttachedToSomething}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nbParticles\ !=\ -\/1;}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ ParticleClassContainer>}
+\DoxyCodeLine{00149\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf_a70178a2540b4b8cf679f94198c7ae76d}{setParticle}}(\textcolor{keyword}{const}\ FSize\ destPartIdx,\ \textcolor{keyword}{const}\ FSize\ srcPartIdx,\ \textcolor{keyword}{const}\ ParticleClassContainer*\ particles)\{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ position}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ positionsPointers[0][destPartIdx]\ =\ particles-\/>getPositions()[0][srcPartIdx];}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ positionsPointers[1][destPartIdx]\ =\ particles-\/>getPositions()[1][srcPartIdx];}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ positionsPointers[2][destPartIdx]\ =\ particles-\/>getPositions()[2][srcPartIdx];}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ data}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbAttributesPerParticle\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ attributes[idxAttribute][destPartIdx]\ =\ particles-\/>getAttribute(idxAttribute)[srcPartIdx];}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \};}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FCUDAGROUPATTACHEDLEAF\_HPP}}
+\DoxyCodeLine{00163\ }
+
+\end{DoxyCode}

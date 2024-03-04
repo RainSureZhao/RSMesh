@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2023/11/11.
+// Created by RainSure on 2023/11/11.
 //
 
 #ifndef RSMESH_ROUNDTRIP_STRING_H
@@ -12,7 +12,10 @@
 #include <string>
 #include <type_traits>
 
-
+/**
+ * \namespace rsmesh::numeric
+ * \brief 该命名空间下主要定义了数值计算相关的类和函数
+ */
 namespace rsmesh::numeric {
     namespace detail {
         template <class Floating>

@@ -1,0 +1,103 @@
+\doxysection{dense\+\_\+undirected\+\_\+graph.\+h}
+\hypertarget{dense__undirected__graph_8h_source}{}\label{dense__undirected__graph_8h_source}\index{include/isosurface/dense\_undirected\_graph.h@{include/isosurface/dense\_undirected\_graph.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/23.}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_DENSE\_UNDIRECTED\_GRAPH\_H}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_DENSE\_UNDIRECTED\_GRAPH\_H}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}Eigen/Core"{}}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stack>}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00016}00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1isosurface}{rsmesh::isosurface}}\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00017}\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1dense__undirected__graph}{00017}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1dense__undirected__graph}{dense\_undirected\_graph}}\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrsmesh_1_1isosurface_1_1dense__undirected__graph}{dense\_undirected\_graph}}(index\_t\ order)\ :\ m\_(Eigen::MatrixXi::Zero(order,\ order))\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (order\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}order\ must\ be\ greater\ than\ 0."{}});}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ add\_edge(index\_t\ i,\ index\_t\ j)\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ >\ j)\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::swap(i,\ j);}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ m\_(i,\ j)++;}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ index\_t\ degree(index\_t\ i)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_.col(i).cast<index\_t>().sum()\ +\ m\_.row(i).cast<index\_t>().sum()\ -\/\ m\_(i,\ i);}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ has\_edge(index\_t\ i,\ index\_t\ j)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ >\ j)\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::swap(i,\ j);}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m\_(i,\ j)\ !=\ 0;}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_connected()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<bool>\ visited(order());}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ std::stack<index\_t>\ to\_visit;}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DFS}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ to\_visit.push(0);}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!to\_visit.empty())\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\ =\ to\_visit.top();}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to\_visit.pop();}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ visited.at(i)\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ j\ =\ 0;\ j\ <\ order();\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (has\_edge(i,\ j)\ \&\&\ !visited.at(j))\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to\_visit.push(j);}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::find(visited.begin(),\ visited.end(),\ \textcolor{keyword}{false})\ ==\ visited.end();}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_simple()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ order();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_(i,\ i)\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ j\ =\ i\ +\ 1;\ j\ <\ order();\ j++)\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\_(i,\ j)\ >\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00081}00081\ \ \ \ \ \ \ \ \ index\_t\ max\_degree()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ index\_t\ max\_degree\{\};}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ order();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_degree\ =\ std::max(max\_degree,\ degree(i));}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ max\_degree;}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00087}00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ index\_t\ order()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_.rows();\ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00091}00091\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00092}00092\ \ \ \ \ \ \ \ \ Eigen::MatrixXi\ m\_;}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00093}00093\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00094}00094\ \}}
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{dense__undirected__graph_8h_source_l00097}00097\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_DENSE\_UNDIRECTED\_GRAPH\_H}}
+
+\end{DoxyCode}

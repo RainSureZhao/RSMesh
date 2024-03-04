@@ -1,0 +1,502 @@
+\doxysection{FFmm\+Algorithm\+Periodic.\+hpp}
+\hypertarget{_f_fmm_algorithm_periodic_8hpp_source}{}\label{_f_fmm_algorithm_periodic_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Core/FFmmAlgorithmPeriodic.hpp@{third\_party/ScalFMM/include/ScalFMM/Core/FFmmAlgorithmPeriodic.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FFMMALGORITHMPERIODIC\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FFMMALGORITHMPERIODIC\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobalPeriodic.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Utils/FAssert.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Utils/FLog.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../Utils/FTic.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../Utils/FMemUtils.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}../Containers/FOctree.hpp"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}../Containers/FVector.hpp"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}FCoreCommon.hpp"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ OctreeClass,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{class}\ KernelClass,\ \textcolor{keyword}{class}\ LeafClass>}
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_fmm_algorithm_periodic}{FFmmAlgorithmPeriodic}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstractAlgorithm}}\{}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ OctreeClass*\ \textcolor{keyword}{const}\ tree;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ octree\ to\ work\ on}}
+\DoxyCodeLine{00034\ \ \ \ \ KernelClass*\ kernels;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ kernels}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ OctreeHeight;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ height\ of\ the\ octree\ (real\ height)}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbLevelsAboveRoot;\ \ \ \ \textcolor{comment}{//<\ The\ nb\ of\ level\ the\ user\ ask\ to\ go\ above\ the\ tree\ (>=\ -\/1)}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ offsetRealTree;\ \ \ \ \ \ \ \textcolor{comment}{//<\ nbLevelsAboveRoot\ GetFackLevel}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ leafLevelSeperationCriteria;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a1148ee1202cc888b8ca505380a6c56d4}{FFmmAlgorithmPeriodic}}(OctreeClass*\ \textcolor{keyword}{const}\ inTree,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inUpperLevel\ =\ 0,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLeafLevelSeperationCriteria\ =\ 1)}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ :\ tree(inTree)\ ,\ kernels(nullptr),\ OctreeHeight(tree-\/>getHeight()),}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ nbLevelsAboveRoot(inUpperLevel),\ offsetRealTree(inUpperLevel\ +\ 2),\ leafLevelSeperationCriteria(inLeafLevelSeperationCriteria)\ \{}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ FAssertLF(tree,\ \textcolor{stringliteral}{"{}tree\ cannot\ be\ null"{}});}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ FAssertLF(-\/1\ <=\ inUpperLevel,\ \textcolor{stringliteral}{"{}inUpperLevel\ cannot\ be\ <\ -\/1"{}});}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ FAssertLF(leafLevelSeperationCriteria\ <\ 3,\ \textcolor{stringliteral}{"{}Separation\ criteria\ should\ be\ <\ 3"{}});}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ FAbstractAlgorithm::setNbLevelsInTree(\mbox{\hyperlink{class_f_fmm_algorithm_periodic_ae0764d8ad4f7eef353454baa458e2b70}{extendedTreeHeight}}());}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ FLOG(FLog::Controller\ <<\ \textcolor{stringliteral}{"{}FFmmAlgorithmPeriodic\(\backslash\)n"{}});}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a8000050b9ac97721cceeaf8a1366bfd5}{\string~FFmmAlgorithmPeriodic}}()\{}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ setKernel(KernelClass*\textcolor{keyword}{const}\ inKernel)\{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ kernels\ =\ inKernel;}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ theoricalRepetition()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ nbLevelsAboveRoot\ ==\ -\/1\ )\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ we\ know\ it\ is\ 3\ (-\/1;+1)}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 6\ *\ (1\ <<\ nbLevelsAboveRoot);}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ repetitionsIntervals(\mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}*\textcolor{keyword}{const}\ min,\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}*\textcolor{keyword}{const}\ max)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ nbLevelsAboveRoot\ ==\ -\/1\ )\{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ know\ it\ is\ (-\/1;1)}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ min-\/>\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(-\/1,-\/1,-\/1);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ max-\/>\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(1,1,1);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ halfRepeated\ =\ int(theoricalRepetition()/2);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ min-\/>\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(-\/halfRepeated,-\/halfRepeated,-\/halfRepeated);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ repeat\ the\ box\ 8\ times,\ we\ go\ from\ [-\/4\ to\ 3]}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ max-\/>\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(halfRepeated-\/1,halfRepeated-\/1,halfRepeated-\/1);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ FReal\ extendedBoxWidth()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ nbLevelsAboveRoot\ ==\ -\/1\ )\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tree-\/>getBoxWidth()*2;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tree-\/>getBoxWidth()\ *\ FReal(4<<(nbLevelsAboveRoot));}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ FReal\ extendedBoxWidthBoundary()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ nbLevelsAboveRoot\ ==\ -\/1\ )\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tree-\/>getBoxWidth()*4;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tree-\/>getBoxWidth()\ *\ FReal(8<<(nbLevelsAboveRoot));}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00123\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_ad33105e379076119af77d1e849038661}{extendedBoxCenter}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ nbLevelsAboveRoot\ ==\ -\/1\ )\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ originalBoxWidth\ \ \ \ \ \ \ \ \ \ \ \ =\ tree-\/>getBoxWidth();}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ originalBoxCenter\ \ \ =\ tree-\/>getBoxCenter();}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ originalBoxWidthDiv2\ \ \ \ \ \ \ \ =\ originalBoxWidth/2.0;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(\ originalBoxCenter.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ originalBoxWidthDiv2,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ originalBoxCenter.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ originalBoxWidthDiv2,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ originalBoxCenter.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ originalBoxWidthDiv2);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ originalBoxWidth\ \ \ \ \ =\ tree-\/>getBoxWidth();}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ originalBoxWidthDiv2\ =\ originalBoxWidth/2.0;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ originalBoxCenter\ \ \ =\ tree-\/>getBoxCenter();}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ offset\ =\ extendedBoxWidth()/FReal(2.0);}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(\ originalBoxCenter.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ -\/\ originalBoxWidthDiv2\ +\ offset,}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ originalBoxCenter.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ -\/\ originalBoxWidthDiv2\ +\ offset,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ originalBoxCenter.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ -\/\ originalBoxWidthDiv2\ +\ offset);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ extendedBoxCenterBoundary()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ nbLevelsAboveRoot\ ==\ -\/1\ )\{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ originalBoxWidth\ \ \ \ \ \ \ \ \ \ \ \ =\ tree-\/>getBoxWidth();}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ originalBoxCenter\ \ \ =\ tree-\/>getBoxCenter();}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ originalBoxWidthDiv2\ \ \ \ \ \ \ \ =\ originalBoxWidth/2.0;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(\ originalBoxCenter.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ originalBoxWidthDiv2,}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ originalBoxCenter.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ originalBoxWidthDiv2,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ originalBoxCenter.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ originalBoxWidthDiv2);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ originalBoxWidth\ \ \ \ \ =\ tree-\/>getBoxWidth();}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ originalBoxWidthDiv2\ =\ originalBoxWidth/2.0;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ originalBoxCenter\ \ \ =\ tree-\/>getBoxCenter();}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(\ originalBoxCenter.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ originalBoxWidthDiv2,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ originalBoxCenter.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ originalBoxWidthDiv2,}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ originalBoxCenter.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ originalBoxWidthDiv2);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_ae0764d8ad4f7eef353454baa458e2b70}{extendedTreeHeight}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ real\ height}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ OctreeHeight\ +\ offsetRealTree;}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{int}\ extendedTreeHeightBoundary()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ real\ height}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ OctreeHeight\ +\ offsetRealTree\ +\ 1;}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a2a4040917c958637510c57c1f9762855}{executeCore}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ operationsToProceed)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ FAssertLF(kernels,\ \textcolor{stringliteral}{"{}kernels\ cannot\ be\ null"{}});}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(operationsToProceed\ \&\ FFmmP2M)\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a9622b9ab48e82bb7e2f99657394cdcc3}{bottomPass}}();}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(operationsToProceed\ \&\ FFmmM2M)\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a24058f800c2ab55f04885f688374b975}{upwardPass}}();}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(operationsToProceed\ \&\ FFmmM2L)\{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a1bcb9e4d251530c1ab245aa67dda3ef2}{transferPass}}();}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ before\ downward\ pass\ we\ have\ to\ perform\ the\ periodicity}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_acb34585501367cfed4c981c9cdd03704}{processPeriodicLevels}}();}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(operationsToProceed\ \&\ FFmmL2L)\ downardPass();}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((operationsToProceed\ \&\ FFmmP2P)\ ||\ (operationsToProceed\ \&\ FFmmL2P))\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a616121e8b7a83e0aa438bbec81a31e1a}{directPass}}((operationsToProceed\ \&\ FFmmP2P),(operationsToProceed\ \&\ FFmmL2P));}
+\DoxyCodeLine{00201\ \ \ \ \ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{comment}{//\ P2M}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a9622b9ab48e82bb7e2f99657394cdcc3}{bottomPass}}()\{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Bottom\ Pass\(\backslash\)n"{}}).write(FLog::Flush)\ );}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTime);}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ computationCounter);}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Iterate\ on\ leafs}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ the\ current\ cell\ that\ represent\ the\ leaf}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ and\ the\ list\ of\ particles}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>P2M(\ octreeIterator.getCurrentCell()\ ,\ octreeIterator.getCurrentListSrc());}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Bottom\ Pass\ (P2M)\ =\ "{}}\ \ <<\ counterTime.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ :\ "{}}\ <<\ computationCounter.\mbox{\hyperlink{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e}{cumulated}}()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00228\ \ \ \ \ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{comment}{//\ Upward}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a24058f800c2ab55f04885f688374b975}{upwardPass}}()\{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Upward\ Pass\(\backslash\)n"{}}).write(FLog::Flush);\ );}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTime);}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ computationCounter);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Start\ from\ leal\ level\ -\/\ 1}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ octreeIterator.moveUp();}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ avoidGotoLeftIterator(octreeIterator);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ levels}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ OctreeHeight\ -\/\ 2\ ;\ idxLevel\ >\ 0\ ;\ -\/-\/idxLevel\ )\{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTimeLevel);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ fackLevel\ =\ idxLevel\ +\ offsetRealTree;}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ cells}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ the\ current\ cell\ and\ the\ child}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ child\ is\ an\ array\ (of\ 8\ child)\ that\ may\ be\ null}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>M2M(\ octreeIterator.getCurrentCell()\ ,\ octreeIterator.getCurrentChild(),\ fackLevel);}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGotoLeftIterator.moveUp();}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGotoLeftIterator;\textcolor{comment}{//\ equal\ octreeIterator.moveUp();\ octreeIterator.gotoLeft();}}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t>>\ Level\ "{}}\ <<\ idxLevel\ <<\ \textcolor{stringliteral}{"{}("{}}\ <<\ fackLevel\ <<\ \textcolor{stringliteral}{"{})\ =\ "{}}\ \ <<\ counterTimeLevel.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Upward\ Pass\ (M2M)\ =\ "{}}\ \ <<\ counterTime.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ :\ "{}}\ <<\ computationCounter.\mbox{\hyperlink{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e}{cumulated}}()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00268\ \ \ \ \ \}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{comment}{//\ Transfer}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a1bcb9e4d251530c1ab245aa67dda3ef2}{transferPass}}()\{}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Downward\ Pass\ (M2L)\(\backslash\)n"{}}).write(FLog::Flush);\ );}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTime);}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ computationCounter);}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ avoidGotoLeftIterator(octreeIterator);}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ neighbors[342];}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ neighborPositions[342];}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ levels}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 1\ ;\ idxLevel\ <\ OctreeHeight\ ;\ ++idxLevel\ )\{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTimeLevel);}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ fackLevel\ =\ idxLevel\ +\ offsetRealTree;}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ separationCriteria\ =\ (idxLevel\ !=\ OctreeHeight-\/1\ ?\ 1\ :\ leafLevelSeperationCriteria);}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ cells}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counter\ =\ tree-\/>getPeriodicInteractionNeighbors(neighbors,\ neighborPositions,\ octreeIterator.getCurrentGlobalCoordinate(),\ idxLevel,\ AllDirs,\ separationCriteria);}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(counter)\ kernels-\/>M2L(\ octreeIterator.getCurrentCell()\ ,\ neighbors,\ neighborPositions,\ counter,\ fackLevel);}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGotoLeftIterator.moveDown();}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGotoLeftIterator;}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>finishedLevelM2L(fackLevel);}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t>>\ Level\ "{}}\ <<\ idxLevel\ <<\ \textcolor{stringliteral}{"{}("{}}\ <<\ fackLevel\ <<\ \textcolor{stringliteral}{"{})\ =\ "{}}\ \ <<\ counterTimeLevel.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Downward\ Pass\ (M2L)\ =\ "{}}\ \ <<\ counterTime.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ :\ "{}}\ <<\ computationCounter.\mbox{\hyperlink{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e}{cumulated}}()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00308\ \ \ \ \ \}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{comment}{//\ Downward}}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordtype}{void}\ downardPass()\{\ \textcolor{comment}{//\ second\ L2L}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Downward\ Pass\ (L2L)\(\backslash\)n"{}}).write(FLog::Flush);\ );}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTime);}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ computationCounter\ );}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ avoidGotoLeftIterator(octreeIterator);}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ heightMinusOne\ =\ OctreeHeight\ -\/\ 1;}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ levels\ exepted\ leaf\ level}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 1\ ;\ idxLevel\ <\ heightMinusOne\ ;\ ++idxLevel\ )\{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTimeLevel);}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ fackLevel\ =\ idxLevel\ +\ offsetRealTree;}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ cells}}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.tic());}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>L2L(\ octreeIterator.getCurrentCell()\ ,\ octreeIterator.getCurrentChild(),\ fackLevel);}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.tac());}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGotoLeftIterator.moveDown();}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGotoLeftIterator;}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t>>\ Level\ "{}}\ <<\ idxLevel\ <<\ \textcolor{stringliteral}{"{}("{}}\ <<\ fackLevel\ <<\ \textcolor{stringliteral}{"{})\ =\ "{}}\ \ <<\ counterTimeLevel.tacAndElapsed()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Downward\ Pass\ (L2L)\ =\ "{}}\ \ <<\ counterTime.tacAndElapsed()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ :\ "{}}\ <<\ computationCounter.cumulated()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \ \ \}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{comment}{//\ Direct}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a616121e8b7a83e0aa438bbec81a31e1a}{directPass}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ p2pEnabled,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ l2pEnabled)\{}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Direct\ Pass\(\backslash\)n"{}}).write(FLog::Flush);\ );}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTime);}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ computationCounterL2P);}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ computationCounterP2P);}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ heightMinusOne\ =\ OctreeHeight\ -\/\ 1;}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ boxWidth\ =\ tree-\/>getBoxWidth();}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ There\ is\ a\ maximum\ of\ 26\ neighbors}}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ ContainerClass*\ neighbors[26];}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ offsets[26];}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ neighborPositions[26];}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ hasPeriodicLeaves;}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ leafs}}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(l2pEnabled)\{}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounterL2P.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>L2P(octreeIterator.getCurrentCell(),\ octreeIterator.getCurrentListTargets());}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounterL2P.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(p2pEnabled)\{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ the\ current\ particles\ and\ neighbors\ particles}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ centerOfLeaf\ =\ octreeIterator.getCurrentGlobalCoordinate();}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counter\ =\ tree-\/>getPeriodicLeafsNeighbors(\ neighbors,\ neighborPositions,\ offsets,\ \&hasPeriodicLeaves,\ centerOfLeaf,\ heightMinusOne,\ AllDirs);}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ periodicNeighborsCounter\ =\ 0;}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(hasPeriodicLeaves)\{}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ periodicNeighbors[26];}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ periodicNeighborPositions[26];}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxNeig\ =\ 0\ ;\ idxNeig\ <\ counter\ ;\ ++idxNeig)\{}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !offsets[idxNeig].equals(0,0,0)\ )\{}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(octreeIterator.getCurrentListTargets()\ !=\ neighbors[idxNeig]);}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Put\ periodic\ neighbors\ into\ other\ array}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ positionsX\ =\ neighbors[idxNeig]-\/>getWPositions()[0];}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ positionsY\ =\ neighbors[idxNeig]-\/>getWPositions()[1];}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ positionsZ\ =\ neighbors[idxNeig]-\/>getWPositions()[2];}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0;\ idxPart\ <\ neighbors[idxNeig]-\/>getNbParticles()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positionsX[idxPart]\ +=\ boxWidth\ *\ FReal(offsets[idxNeig].getX());}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positionsY[idxPart]\ +=\ boxWidth\ *\ FReal(offsets[idxNeig].getY());}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positionsZ[idxPart]\ +=\ boxWidth\ *\ FReal(offsets[idxNeig].getZ());}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offsets[periodicNeighborsCounter]\ =\ offsets[idxNeig];}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ periodicNeighbors[periodicNeighborsCounter]\ =\ neighbors[idxNeig];}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ periodicNeighborPositions[periodicNeighborsCounter]\ =\ neighborPositions[idxNeig];}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++periodicNeighborsCounter;}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neighbors[idxNeig-\/periodicNeighborsCounter]\ =\ neighbors[idxNeig];}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neighborPositions[idxNeig-\/periodicNeighborsCounter]\ =\ neighborPositions[idxNeig];}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounterP2P.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>P2PRemote(octreeIterator.getCurrentGlobalCoordinate(),octreeIterator.getCurrentListTargets(),}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.getCurrentListSrc(),\ periodicNeighbors,\ periodicNeighborPositions,\ periodicNeighborsCounter);}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounterP2P.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxNeig\ =\ 0\ ;\ idxNeig\ <\ periodicNeighborsCounter\ ;\ ++idxNeig)\{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ positionsX\ =\ periodicNeighbors[idxNeig]-\/>getWPositions()[0];}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ positionsY\ =\ periodicNeighbors[idxNeig]-\/>getWPositions()[1];}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ positionsZ\ =\ periodicNeighbors[idxNeig]-\/>getWPositions()[2];}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0;\ idxPart\ <\ periodicNeighbors[idxNeig]-\/>getNbParticles()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positionsX[idxPart]\ -\/=\ boxWidth\ *\ FReal(offsets[idxNeig].getX());}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positionsY[idxPart]\ -\/=\ boxWidth\ *\ FReal(offsets[idxNeig].getY());}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positionsZ[idxPart]\ -\/=\ boxWidth\ *\ FReal(offsets[idxNeig].getZ());}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounterP2P.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>P2P(octreeIterator.getCurrentGlobalCoordinate(),octreeIterator.getCurrentListTargets(),}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.getCurrentListSrc(),\ neighbors,\ neighborPositions,\ counter\ -\/\ periodicNeighborsCounter);}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounterP2P.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Direct\ Pass\ (L2P\ +\ P2P)\ =\ "{}}\ \ <<\ counterTime.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ L2P\ :\ "{}}\ <<\ computationCounterL2P.\mbox{\hyperlink{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e}{cumulated}}()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ P2P\ :\ "{}}\ <<\ computationCounterP2P.\mbox{\hyperlink{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e}{cumulated}}()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \ \ \}}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{comment}{//\ Periodic\ levels\ =\ levels\ <=\ 0}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_ab33f1f51b8f6c95afdde5d17f3b54e59}{neighIndex}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ y,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ z)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (((x+3)*7)\ +\ (y+3))*7\ +\ (z\ +\ 3);}
+\DoxyCodeLine{00454\ \ \ \ \ \}}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00467\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_acb34585501367cfed4c981c9cdd03704}{processPeriodicLevels}}()\{}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Periodic\ Pass\(\backslash\)n"{}}).write(FLog::Flush);\ );}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTime);}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ nbLevelsAboveRoot\ !=\ -\/1\ )\{}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ we\ will\ use\ offsetRealTree-\/1\ cells\ but\ for\ simplicity\ allocate\ offsetRealTree}}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ upperCells[offsetRealTree-\/1]\ is\ root\ cell}}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\textcolor{keyword}{const}\ upperCells\ =\ \textcolor{keyword}{new}\ CellClass[offsetRealTree];}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.gotoLeft();}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>M2M(\ \&upperCells[offsetRealTree-\/1],\ octreeIterator.getCurrentBox(),\ offsetRealTree);}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ virtualChild[8];}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ offsetRealTree-\/1\ ;\ idxLevel\ >\ 1\ \ ;\ -\/-\/idxLevel)\{}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_aba85f46562a9dc576bca7d39ce202159}{FMemUtils::setall}}(virtualChild,\&upperCells[idxLevel],8);}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>M2M(\ \&upperCells[idxLevel-\/1],\ virtualChild,\ idxLevel);}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\textcolor{keyword}{const}\ downerCells\ =\ \textcolor{keyword}{new}\ CellClass[offsetRealTree];}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxUpperLevel\ =\ 2;}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ neighbors[342];}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ neighborPositions[342];}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counter\ =\ 0;}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/3\ ;\ idxX\ <=\ 2\ ;\ ++idxX)\{}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/3\ ;\ idxY\ <=\ 2\ ;\ ++idxY)\{}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/3\ ;\ idxZ\ <=\ 2\ ;\ ++idxZ)\{}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxX)\ >\ 1\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxY)\ >\ 1\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxZ)\ >\ 1)\{}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neighbors[counter]\ =\ \&upperCells[idxUpperLevel-\/1];}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neighborPositions[counter]\ =\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_ab33f1f51b8f6c95afdde5d17f3b54e59}{neighIndex}}(idxX,idxY,idxZ);}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++counter;}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ M2L}}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>M2L(\ \&downerCells[idxUpperLevel-\/1]\ ,\ neighbors,\ neighborPositions,\ counter,\ idxUpperLevel);}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00509\ }
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxUpperLevel\ =\ 3\ ;\ idxUpperLevel\ <=\ offsetRealTree\ ;\ ++idxUpperLevel)\{}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ neighbors[342];}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ neighborPositions[342];}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counter\ =\ 0;}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/2\ ;\ idxX\ <=\ 3\ ;\ ++idxX)\{}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/2\ ;\ idxY\ <=\ 3\ ;\ ++idxY)\{}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/2\ ;\ idxZ\ <=\ 3\ ;\ ++idxZ)\{}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxX)\ >\ 1\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxY)\ >\ 1\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxZ)\ >\ 1)\{}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neighbors[counter]\ =\ \&upperCells[idxUpperLevel-\/1];}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neighborPositions[counter]\ =\ \mbox{\hyperlink{class_f_fmm_algorithm_periodic_ab33f1f51b8f6c95afdde5d17f3b54e59}{neighIndex}}(idxX,idxY,idxZ);}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++counter;}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ M2L}}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>M2L(\ \&downerCells[idxUpperLevel-\/1]\ ,\ neighbors,\ neighborPositions,\ counter,\ idxUpperLevel);}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ virtualChild[8];}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memset(virtualChild,\ 0,\ \textcolor{keyword}{sizeof}(CellClass*)\ *\ 8);}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 2\ ;\ idxLevel\ <\ offsetRealTree-\/1\ \ ;\ ++idxLevel)\{}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ virtualChild[0]\ =\ \&downerCells[idxLevel];}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>L2L(\ \&downerCells[idxLevel-\/1],\ virtualChild,\ idxLevel);}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00538\ }
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ virtualChild[8];}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memset(virtualChild,\ 0,\ \textcolor{keyword}{sizeof}(CellClass*)\ *\ 8);}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLevel\ =\ offsetRealTree-\/1;}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ virtualChild[7]\ =\ \&downerCells[idxLevel];}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>L2L(\ \&downerCells[idxLevel-\/1],\ virtualChild,\ idxLevel);}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ L2L\ from\ 0\ to\ level\ 1}}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.gotoLeft();}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>L2L(\ \&downerCells[offsetRealTree-\/1],\ octreeIterator.getCurrentBox(),\ offsetRealTree);}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ upperCells;}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ downerCells;}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Periodic\ =\ "{}}\ \ <<\ counterTime.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00559\ \ \ \ \ \}}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \};}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FFMMALGORITHMPERIODIC\_HPP}}
+
+\end{DoxyCode}

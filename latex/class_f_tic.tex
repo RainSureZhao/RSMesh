@@ -1,0 +1,183 @@
+\doxysection{FTic类 参考}
+\hypertarget{class_f_tic}{}\label{class_f_tic}\index{FTic@{FTic}}
+
+
+Time counter class.  
+
+
+
+
+{\ttfamily \#include $<$FTic.\+hpp$>$}
+
+类 FTic 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_tic}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_tic_adafe13542bd0ee700ab193435b70ce78}\label{class_f_tic_adafe13542bd0ee700ab193435b70ce78} 
+{\bfseries FTic} ()
+\begin{DoxyCompactList}\small\item\em Constructor \end{DoxyCompactList}\item 
+\Hypertarget{class_f_tic_a1cfdf4faca864f70d876694d782a759a}\label{class_f_tic_a1cfdf4faca864f70d876694d782a759a} 
+{\bfseries FTic} (const \mbox{\hyperlink{class_f_tic}{FTic}} \&other)=default
+\begin{DoxyCompactList}\small\item\em Copy constructor \end{DoxyCompactList}\item 
+\Hypertarget{class_f_tic_ab50636b2393cc6051eafd8e97905f4fa}\label{class_f_tic_ab50636b2393cc6051eafd8e97905f4fa} 
+{\bfseries FTic} (\mbox{\hyperlink{class_f_tic}{FTic}} \&\&other)=default
+\begin{DoxyCompactList}\small\item\em Move constructor \end{DoxyCompactList}\item 
+\Hypertarget{class_f_tic_a560c0e8b9fcec1c13a2f438fa2017e10}\label{class_f_tic_a560c0e8b9fcec1c13a2f438fa2017e10} 
+\mbox{\hyperlink{class_f_tic}{FTic}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_f_tic}{FTic}} \&other)
+\begin{DoxyCompactList}\small\item\em Copies an other timer \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_f_tic}{FTic}} \mbox{\hyperlink{class_f_tic_ad7ab7978aa7917cc26e8ee9767e3b556}{operator+}} (const \mbox{\hyperlink{class_f_tic}{FTic}} \&other) const
+\begin{DoxyCompactList}\small\item\em Adds two timers \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_tic_add8f7cf5d655cb3858f1b93ee6d715a5}{reset}} ()
+\begin{DoxyCompactList}\small\item\em Resets the timer \end{DoxyCompactList}\item 
+\Hypertarget{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}\label{class_f_tic_ac0e070e65af128fbe5af711e51033b0a} 
+void {\bfseries tic} ()
+\begin{DoxyCompactList}\small\item\em Start measuring time. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_tic_aa06d84151d980ca58e34de7809abd9db}\label{class_f_tic_aa06d84151d980ca58e34de7809abd9db} 
+double {\bfseries peek} () const
+\begin{DoxyCompactList}\small\item\em Peek at current elapsed time without stopping timer \end{DoxyCompactList}\item 
+\Hypertarget{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}\label{class_f_tic_a3efff71f7c95acd38451bfab08fa4583} 
+double {\bfseries tac} ()
+\begin{DoxyCompactList}\small\item\em Stop measuring time and add to cumulated time. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}} () const
+\begin{DoxyCompactList}\small\item\em Elapsed time between the last \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} and \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac()} (in seconds). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e}{cumulated}} () const
+\begin{DoxyCompactList}\small\item\em Cumulated \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} -\/ \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac()} time spans \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tac\+And\+Elapsed}} ()
+\begin{DoxyCompactList}\small\item\em Combination of \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} and \doxylink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed()}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+static double \mbox{\hyperlink{class_f_tic_a97caf52cd60c5a23ad6fb1af2dd5235d}{Get\+Time}} ()
+\begin{DoxyCompactList}\small\item\em Get system dependent time point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+Time counter class. 
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+This time counter can be (re)started using \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} and stopped using \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac()}.
+
+
+\begin{DoxyItemize}
+\item use \doxylink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed()} to get the last time interval;
+\item use \doxylink{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e}{cumulated()} to get the total running time;
+\item use \doxylink{class_f_tic_add8f7cf5d655cb3858f1b93ee6d715a5}{reset()} to stop and reset the counter.
+\end{DoxyItemize}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{timer.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}();}
+\DoxyCodeLine{\textcolor{comment}{//...(1)}}
+\DoxyCodeLine{timer.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}();}
+\DoxyCodeLine{timer.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}();\ \ \textcolor{comment}{//\ time\ of\ (1)\ in\ s}}
+\DoxyCodeLine{timer.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}();}
+\DoxyCodeLine{\textcolor{comment}{//...(2)}}
+\DoxyCodeLine{timer.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}();}
+\DoxyCodeLine{timer.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}();\ \ \textcolor{comment}{//\ time\ of\ (2)\ in\ s}}
+\DoxyCodeLine{timer.\mbox{\hyperlink{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e}{cumulated}}()\ \textcolor{comment}{//\ time\ of\ (1)\ and\ (2)\ in\ s}}
+\DoxyCodeLine{timer.\mbox{\hyperlink{class_f_tic_add8f7cf5d655cb3858f1b93ee6d715a5}{reset}}()\ \ \ \ \ \textcolor{comment}{//\ reset\ the\ object}}
+
+\end{DoxyCode}
+
+
+The special method that uses asm register is based on code by Alexandre DENIS \href{http://dept-info.labri.fr/~denis/Enseignement/2006-SSECPD/timing.h}{\texttt{ http\+://dept-\/info.\+labri.\+fr/\texorpdfstring{$\sim$}{\string~}denis/\+Enseignement/2006-\/\+SSECPD/timing.\+h}} 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e}\label{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e} 
+\index{FTic@{FTic}!cumulated@{cumulated}}
+\index{cumulated@{cumulated}!FTic@{FTic}}
+\doxysubsubsection{\texorpdfstring{cumulated()}{cumulated()}}
+{\footnotesize\ttfamily double FTic\+::cumulated (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Cumulated \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} -\/ \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac()} time spans 
+
+\begin{DoxyReturn}{返回}
+the time elapsed between ALL \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} \& \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac()} in second. 
+\end{DoxyReturn}
+\Hypertarget{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}\label{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e} 
+\index{FTic@{FTic}!elapsed@{elapsed}}
+\index{elapsed@{elapsed}!FTic@{FTic}}
+\doxysubsubsection{\texorpdfstring{elapsed()}{elapsed()}}
+{\footnotesize\ttfamily double FTic\+::elapsed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Elapsed time between the last \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} and \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac()} (in seconds). 
+
+\begin{DoxyReturn}{返回}
+the time elapsed between \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} \& \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac()} in second. 
+\end{DoxyReturn}
+\Hypertarget{class_f_tic_a97caf52cd60c5a23ad6fb1af2dd5235d}\label{class_f_tic_a97caf52cd60c5a23ad6fb1af2dd5235d} 
+\index{FTic@{FTic}!GetTime@{GetTime}}
+\index{GetTime@{GetTime}!FTic@{FTic}}
+\doxysubsubsection{\texorpdfstring{GetTime()}{GetTime()}}
+{\footnotesize\ttfamily static double FTic\+::\+Get\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Get system dependent time point. 
+
+Get\+Tick\+Count on windows gettimeofday on linux or a direct ASM method \begin{DoxyReturn}{返回}
+A system dependent time point. 
+\end{DoxyReturn}
+\Hypertarget{class_f_tic_ad7ab7978aa7917cc26e8ee9767e3b556}\label{class_f_tic_ad7ab7978aa7917cc26e8ee9767e3b556} 
+\index{FTic@{FTic}!operator+@{operator+}}
+\index{operator+@{operator+}!FTic@{FTic}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_f_tic}{FTic}} FTic\+::operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_tic}{FTic}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds two timers 
+
+The addition is done by keeping \+:
+\begin{DoxyItemize}
+\item the left operand start date
+\item the left operand end date
+\item adding the cumulated times \begin{DoxyReturn}{返回}
+A new \doxylink{class_f_tic}{FTic} object 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{class_f_tic_add8f7cf5d655cb3858f1b93ee6d715a5}\label{class_f_tic_add8f7cf5d655cb3858f1b93ee6d715a5} 
+\index{FTic@{FTic}!reset@{reset}}
+\index{reset@{reset}!FTic@{FTic}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void FTic\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Resets the timer 
+
+\begin{DoxyWarning}{警告}
+Use \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} to restart the timer. 
+\end{DoxyWarning}
+\Hypertarget{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}\label{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081} 
+\index{FTic@{FTic}!tacAndElapsed@{tacAndElapsed}}
+\index{tacAndElapsed@{tacAndElapsed}!FTic@{FTic}}
+\doxysubsubsection{\texorpdfstring{tacAndElapsed()}{tacAndElapsed()}}
+{\footnotesize\ttfamily double FTic\+::tac\+And\+Elapsed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Combination of \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} and \doxylink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed()}. 
+
+\begin{DoxyRefDesc}{待办事项}
+\item[\mbox{\hyperlink{todo__todo000007}{待办事项}}]deprecate \end{DoxyRefDesc}
+\begin{DoxyReturn}{返回}
+the time elapsed between \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic()} \& \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac()} in second. 
+\end{DoxyReturn}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Utils/FTic.\+hpp\end{DoxyCompactItemize}

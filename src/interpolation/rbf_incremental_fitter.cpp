@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/29.
+// Created by RainSure on 2024/2/29.
 //
 #include "interpolation/rbf_incremental_fitter.h"
 #include "point_cloud/distance_filter.h"

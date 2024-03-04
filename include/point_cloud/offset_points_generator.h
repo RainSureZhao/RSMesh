@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2023/11/10.
+// Created by RainSure on 2023/11/10.
 //
 
 #ifndef RSMESH_OFFSET_POINTS_GENERATOR_H

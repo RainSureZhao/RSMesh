@@ -1,0 +1,266 @@
+\doxysection{FGroup\+Task\+Star\+PUMpi\+Algorithm\texorpdfstring{$<$}{<} Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_group_task_star_p_u_mpi_algorithm}{}\label{class_f_group_task_star_p_u_mpi_algorithm}\index{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$@{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$}}
+类 FGroup\+Task\+Star\+PUMpi\+Algorithm\texorpdfstring{$<$}{<} Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.475626cm]{class_f_group_task_star_p_u_mpi_algorithm}
+\end{center}
+\end{figure}
+\doxysubsubsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_block_descriptor}{Block\+Descriptor}}
+\item 
+struct \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_block_interactions}{Block\+Interactions}}
+\item 
+struct \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_cell_handles}{Cell\+Handles}}
+\item 
+struct \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_mpi_dependency}{Mpi\+Dependency}}
+\item 
+struct \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_particle_handles}{Particle\+Handles}}
+\item 
+struct \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_remote_handle}{Remote\+Handle}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a9da2fddbb5460d35a59ef24d06858088}\label{class_f_group_task_star_p_u_mpi_algorithm_a9da2fddbb5460d35a59ef24d06858088} 
+{\bfseries FGroup\+Task\+Star\+PUMpi\+Algorithm} (const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} \&in\+Comm, Octree\+Class \texorpdfstring{$\ast$}{*}const in\+Tree, Kernel\+Class \texorpdfstring{$\ast$}{*}in\+Kernels)
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a497d8b7123739f0b74e76867e8a43737}\label{class_f_group_task_star_p_u_mpi_algorithm_a497d8b7123739f0b74e76867e8a43737} 
+void {\bfseries build\+Task\+Names} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_afac93507315b4e8f7777be2f518176a3}\label{class_f_group_task_star_p_u_mpi_algorithm_afac93507315b4e8f7777be2f518176a3} 
+void {\bfseries sync\+Data} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a317e3c1627b3eb17c2848970739573df}\label{class_f_group_task_star_p_u_mpi_algorithm_a317e3c1627b3eb17c2848970739573df} 
+void {\bfseries rebuild\+Interactions} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries execute} (const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm for given levels. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} () final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed, const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute only some FMM operations for given levels. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed) final
+\begin{DoxyCompactList}\small\item\em Execute only some steps. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a93fa227da5a46d6cf9458f163bc1af64}\label{class_f_group_task_star_p_u_mpi_algorithm_a93fa227da5a46d6cf9458f163bc1af64} 
+typedef \mbox{\hyperlink{class_f_group_task_star_p_u_mpi_algorithm}{FGroup\+Task\+Star\+PUMpi\+Algorithm}}$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class $>$ {\bfseries This\+Class}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_af6a8d12f33abcd8bb50931ebcfbf92b6}\label{class_f_group_task_star_p_u_mpi_algorithm_af6a8d12f33abcd8bb50931ebcfbf92b6} 
+int {\bfseries get\+Tag} (const int in\+Level, const Morton\+Index mindex, const int idx\+Bloc, const int mode, const int other\+Proc) const
+\item 
+void \mbox{\hyperlink{class_f_group_task_star_p_u_mpi_algorithm_a041d36d4ea9e6bb425ed5c9b7ce6e9b0}{execute\+Core}} (const unsigned operations\+To\+Proceed) override
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a988ee98733e4f16e532a80e5da8158b9}\label{class_f_group_task_star_p_u_mpi_algorithm_a988ee98733e4f16e532a80e5da8158b9} 
+void {\bfseries init\+Codelet} ()
+\item 
+void \mbox{\hyperlink{class_f_group_task_star_p_u_mpi_algorithm_a8c9870196537254592681db15a518ed2}{clean\+Handle}} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a188d3ecef53eb6717900d5d908c12651}\label{class_f_group_task_star_p_u_mpi_algorithm_a188d3ecef53eb6717900d5d908c12651} 
+void {\bfseries init\+Codelet\+Mpi} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ad12685aba7ef3c3f26e0f394667fd340}\label{class_f_group_task_star_p_u_mpi_algorithm_ad12685aba7ef3c3f26e0f394667fd340} 
+void {\bfseries build\+Remote\+Interactions\+And\+Handles} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a1f1786a80470782c5769065fbb761278}\label{class_f_group_task_star_p_u_mpi_algorithm_a1f1786a80470782c5769065fbb761278} 
+void {\bfseries post\+Recv\+Allocated\+Blocks} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a4ecb2b41a70c9144400ab621857d2888}\label{class_f_group_task_star_p_u_mpi_algorithm_a4ecb2b41a70c9144400ab621857d2888} 
+void {\bfseries insert\+Particles\+Send} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a6b2381957bb95a658f94bee1ffb62ba4}\label{class_f_group_task_star_p_u_mpi_algorithm_a6b2381957bb95a658f94bee1ffb62ba4} 
+void {\bfseries insert\+Cells\+Send} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a246fb616b6a3413861a93f343bc4d5c8}\label{class_f_group_task_star_p_u_mpi_algorithm_a246fb616b6a3413861a93f343bc4d5c8} 
+void {\bfseries clean\+Handle\+Mpi} ()
+\item 
+void \mbox{\hyperlink{class_f_group_task_star_p_u_mpi_algorithm_a0a79415321e4c161739259623ea34fcd}{build\+Handles}} ()
+\item 
+void \mbox{\hyperlink{class_f_group_task_star_p_u_mpi_algorithm_aff29c7d0ad17cefe0495b2ef1b348fc2}{build\+External\+Interaction\+Vecs}} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a78c597d17d7b821cfe25b5c394c22ac2}\label{class_f_group_task_star_p_u_mpi_algorithm_a78c597d17d7b821cfe25b5c394c22ac2} 
+void {\bfseries bottom\+Pass} ()
+\begin{DoxyCompactList}\small\item\em Bottom Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_abb958c2b0283800fe7b96d576818912c}\label{class_f_group_task_star_p_u_mpi_algorithm_abb958c2b0283800fe7b96d576818912c} 
+void {\bfseries upward\+Pass} ()
+\begin{DoxyCompactList}\small\item\em Upward Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ad5cf0410312d1cc497bff50deb89e16b}\label{class_f_group_task_star_p_u_mpi_algorithm_ad5cf0410312d1cc497bff50deb89e16b} 
+void {\bfseries transfer\+Pass\+Mpi} ()
+\begin{DoxyCompactList}\small\item\em Transfer Pass Mpi \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ac988a24f8b1b8653d35d2a89dcf9cdec}\label{class_f_group_task_star_p_u_mpi_algorithm_ac988a24f8b1b8653d35d2a89dcf9cdec} 
+void {\bfseries transfer\+Pass} (const int from\+Level, const int to\+Level, const bool inner, const bool outer)
+\begin{DoxyCompactList}\small\item\em Transfer Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a164598a5ad44cd97effeca45d38b0617}\label{class_f_group_task_star_p_u_mpi_algorithm_a164598a5ad44cd97effeca45d38b0617} 
+void {\bfseries downard\+Pass} ()
+\begin{DoxyCompactList}\small\item\em Downard Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a0afee8f5cab97a6908a3460df2a35cd5}\label{class_f_group_task_star_p_u_mpi_algorithm_a0afee8f5cab97a6908a3460df2a35cd5} 
+void {\bfseries direct\+Pass\+Mpi} ()
+\begin{DoxyCompactList}\small\item\em Direct Pass MPI \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a7a5a4b62e687f54aaea1065c9e7e8ee8}\label{class_f_group_task_star_p_u_mpi_algorithm_a7a5a4b62e687f54aaea1065c9e7e8ee8} 
+void {\bfseries direct\+Pass} ()
+\begin{DoxyCompactList}\small\item\em Direct Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a4bd5a7c960dff137571ee45ca2d3fd4c}\label{class_f_group_task_star_p_u_mpi_algorithm_a4bd5a7c960dff137571ee45ca2d3fd4c} 
+void {\bfseries merge\+Pass} ()
+\begin{DoxyCompactList}\small\item\em Merge Pass \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries set\+Nb\+Levels\+In\+Tree} (const int in\+Nb\+Levels\+In\+Tree)
+\item 
+void {\bfseries validate\+Levels} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ad012bf450e84be17d09280b3218466a1}\label{class_f_group_task_star_p_u_mpi_algorithm_ad012bf450e84be17d09280b3218466a1} 
+const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} \& {\bfseries comm}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ae16ac7ad771be7111dd74cead35c9c8f}\label{class_f_group_task_star_p_u_mpi_algorithm_ae16ac7ad771be7111dd74cead35c9c8f} 
+std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_block_interactions}{Block\+Interactions}}$<$ Cell\+Container\+Class $>$ $>$ $>$ $>$ {\bfseries external\+Interactions\+All\+Level}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_adcc4c7f2a5368495ec5a01b34c3f86cc}\label{class_f_group_task_star_p_u_mpi_algorithm_adcc4c7f2a5368495ec5a01b34c3f86cc} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_block_interactions}{Block\+Interactions}}$<$ Particle\+Group\+Class $>$ $>$ $>$ {\bfseries external\+Interactions\+Leaf\+Level}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a168544d90cb22c9070fa3ece7e11c293}\label{class_f_group_task_star_p_u_mpi_algorithm_a168544d90cb22c9070fa3ece7e11c293} 
+Octree\+Class \texorpdfstring{$\ast$}{*}const {\bfseries tree}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a6cd94f2304c4f947bcc4859a95c11b7a}\label{class_f_group_task_star_p_u_mpi_algorithm_a6cd94f2304c4f947bcc4859a95c11b7a} 
+Kernel\+Class \texorpdfstring{$\ast$}{*}const {\bfseries original\+Cpu\+Kernel}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_af43e2cbc5b8640f8c11c274248127cb2}\label{class_f_group_task_star_p_u_mpi_algorithm_af43e2cbc5b8640f8c11c274248127cb2} 
+std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_cell_handles}{Cell\+Handles}} $>$ \texorpdfstring{$\ast$}{*} {\bfseries cell\+Handles}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_adfe9660ebd63488fdaf6ea5e814de8a2}\label{class_f_group_task_star_p_u_mpi_algorithm_adfe9660ebd63488fdaf6ea5e814de8a2} 
+std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_particle_handles}{Particle\+Handles}} $>$ {\bfseries particle\+Handles}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_acefad75baba4db3899ed80e2d25e7ba5}\label{class_f_group_task_star_p_u_mpi_algorithm_acefad75baba4db3899ed80e2d25e7ba5} 
+starpu\+\_\+codelet {\bfseries p2m\+\_\+cl}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a48c15e4b876a7b83bc1e45cc3f5afd43}\label{class_f_group_task_star_p_u_mpi_algorithm_a48c15e4b876a7b83bc1e45cc3f5afd43} 
+starpu\+\_\+codelet {\bfseries m2m\+\_\+cl}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a7ea1d3222c0b7001436cc3dcffbcefbe}\label{class_f_group_task_star_p_u_mpi_algorithm_a7ea1d3222c0b7001436cc3dcffbcefbe} 
+starpu\+\_\+codelet {\bfseries l2l\+\_\+cl}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a056e192b902e69601dfb58f11d6dbb9b}\label{class_f_group_task_star_p_u_mpi_algorithm_a056e192b902e69601dfb58f11d6dbb9b} 
+starpu\+\_\+codelet {\bfseries l2l\+\_\+cl\+\_\+nocommute}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a06b7fac74509ac252e3ca8369ea19c6e}\label{class_f_group_task_star_p_u_mpi_algorithm_a06b7fac74509ac252e3ca8369ea19c6e} 
+starpu\+\_\+codelet {\bfseries l2p\+\_\+cl}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a34839db97ed0619e953da8dad3dc83c1}\label{class_f_group_task_star_p_u_mpi_algorithm_a34839db97ed0619e953da8dad3dc83c1} 
+starpu\+\_\+codelet {\bfseries m2l\+\_\+cl\+\_\+in}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a4e3e9ea246d063a519e50ebec506d68d}\label{class_f_group_task_star_p_u_mpi_algorithm_a4e3e9ea246d063a519e50ebec506d68d} 
+starpu\+\_\+codelet {\bfseries m2l\+\_\+cl\+\_\+inout}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a6644dc83e73582fe19a0e06d8a827d06}\label{class_f_group_task_star_p_u_mpi_algorithm_a6644dc83e73582fe19a0e06d8a827d06} 
+starpu\+\_\+codelet {\bfseries m2l\+\_\+cl\+\_\+inout\+\_\+mpi}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a6fd6a4dae169f92f02c8a91e8253142c}\label{class_f_group_task_star_p_u_mpi_algorithm_a6fd6a4dae169f92f02c8a91e8253142c} 
+starpu\+\_\+codelet {\bfseries p2p\+\_\+cl\+\_\+in}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ac3d9958f456b736d54585d308e4b09b7}\label{class_f_group_task_star_p_u_mpi_algorithm_ac3d9958f456b736d54585d308e4b09b7} 
+starpu\+\_\+codelet {\bfseries p2p\+\_\+cl\+\_\+inout}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a2dcd4730b2f6e8302182e4a9f0d8875b}\label{class_f_group_task_star_p_u_mpi_algorithm_a2dcd4730b2f6e8302182e4a9f0d8875b} 
+starpu\+\_\+codelet {\bfseries p2p\+\_\+cl\+\_\+inout\+\_\+mpi}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ad0d5e817d99fe0232c7b0cffc5404687}\label{class_f_group_task_star_p_u_mpi_algorithm_ad0d5e817d99fe0232c7b0cffc5404687} 
+const bool {\bfseries no\+Commute\+At\+Last\+Level}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a15014fb8b0f343df26bc2b3a36c2b5b0}\label{class_f_group_task_star_p_u_mpi_algorithm_a15014fb8b0f343df26bc2b3a36c2b5b0} 
+const bool {\bfseries no\+Commute\+Between\+Level}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a405288258d9382b09a2eecbc777b12fc}\label{class_f_group_task_star_p_u_mpi_algorithm_a405288258d9382b09a2eecbc777b12fc} 
+\mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStar\+PUPtr\+Interface}} {\bfseries wrappers}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a63f9fb60939135f7df15a00fd3fbdc3f}\label{class_f_group_task_star_p_u_mpi_algorithm_a63f9fb60939135f7df15a00fd3fbdc3f} 
+\mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStar\+PUPtr\+Interface}} \texorpdfstring{$\ast$}{*} {\bfseries wrapperptr}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ad4ad664f8b76cc59cbec4f6defd1b421}\label{class_f_group_task_star_p_u_mpi_algorithm_ad4ad664f8b76cc59cbec4f6defd1b421} 
+std\+::vector$<$ std\+::pair$<$ Morton\+Index, Morton\+Index $>$ $>$ {\bfseries processes\+Interval\+Per\+Levels}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ab37726f0be8141d6ffe02db823380a8d}\label{class_f_group_task_star_p_u_mpi_algorithm_ab37726f0be8141d6ffe02db823380a8d} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_block_descriptor}{Block\+Descriptor}} $>$ $>$ {\bfseries processes\+Block\+Infos}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ae5295460982d752c8e67d5a6291760ec}\label{class_f_group_task_star_p_u_mpi_algorithm_ae5295460982d752c8e67d5a6291760ec} 
+std\+::vector$<$ int $>$ {\bfseries nb\+Blocks\+Per\+Level\+All}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ab1fc1ee18a9bf98dc8c6ee2e6686a69e}\label{class_f_group_task_star_p_u_mpi_algorithm_ab1fc1ee18a9bf98dc8c6ee2e6686a69e} 
+std\+::vector$<$ int $>$ {\bfseries nb\+Blocks\+Before\+Min\+Per\+Level}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a06cd3f72d6b64cddef14a38d89f30d00}\label{class_f_group_task_star_p_u_mpi_algorithm_a06cd3f72d6b64cddef14a38d89f30d00} 
+std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_block_interactions}{Block\+Interactions}}$<$ Cell\+Container\+Class $>$ $>$ $>$ $>$ {\bfseries external\+Interactions\+All\+Level\+Mpi}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ad5f54580f9a4f0d72b55e809e6ed65c6}\label{class_f_group_task_star_p_u_mpi_algorithm_ad5f54580f9a4f0d72b55e809e6ed65c6} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_block_interactions}{Block\+Interactions}}$<$ Particle\+Group\+Class $>$ $>$ $>$ {\bfseries external\+Interactions\+Leaf\+Level\+Mpi}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_ac95fafbdb3020be9940ef18a8e6cd1e2}\label{class_f_group_task_star_p_u_mpi_algorithm_ac95fafbdb3020be9940ef18a8e6cd1e2} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_remote_handle}{Remote\+Handle}} $>$ $>$ {\bfseries remote\+Cell\+Groups}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a1cd5cd93040b88e964fe353212380071}\label{class_f_group_task_star_p_u_mpi_algorithm_a1cd5cd93040b88e964fe353212380071} 
+std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_remote_handle}{Remote\+Handle}} $>$ {\bfseries remote\+Particle\+Groupss}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_aa72eccefb0989cd841b492f1a4618c4e}\label{class_f_group_task_star_p_u_mpi_algorithm_aa72eccefb0989cd841b492f1a4618c4e} 
+std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_mpi_algorithm_1_1_mpi_dependency}{Mpi\+Dependency}} $>$ {\bfseries to\+Send}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries upper\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to start the work \end{DoxyCompactList}\item 
+int {\bfseries lower\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to end the work (exclusive) \end{DoxyCompactList}\item 
+int {\bfseries nb\+Levels\+In\+Tree}
+\begin{DoxyCompactList}\small\item\em Height of the tree \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_aff29c7d0ad17cefe0495b2ef1b348fc2}\label{class_f_group_task_star_p_u_mpi_algorithm_aff29c7d0ad17cefe0495b2ef1b348fc2} 
+\index{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$@{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$}!buildExternalInteractionVecs@{buildExternalInteractionVecs}}
+\index{buildExternalInteractionVecs@{buildExternalInteractionVecs}!FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$@{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$}}
+\doxysubsubsection{\texorpdfstring{buildExternalInteractionVecs()}{buildExternalInteractionVecs()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Container\+Class , class Kernel\+Class , class Particle\+Group\+Class , class Star\+PUCpu\+Wrapper\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_task_star_p_u_mpi_algorithm}{FGroup\+Task\+Star\+PUMpi\+Algorithm}}$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class $>$\+::build\+External\+Interaction\+Vecs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+This function is creating the interactions vector between blocks. It fills external\+Interactions\+All\+Level and external\+Interactions\+Leaf\+Level. Warning, the omp task for now are using the class attributes! \Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a0a79415321e4c161739259623ea34fcd}\label{class_f_group_task_star_p_u_mpi_algorithm_a0a79415321e4c161739259623ea34fcd} 
+\index{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$@{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$}!buildHandles@{buildHandles}}
+\index{buildHandles@{buildHandles}!FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$@{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$}}
+\doxysubsubsection{\texorpdfstring{buildHandles()}{buildHandles()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Container\+Class , class Kernel\+Class , class Particle\+Group\+Class , class Star\+PUCpu\+Wrapper\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_task_star_p_u_mpi_algorithm}{FGroup\+Task\+Star\+PUMpi\+Algorithm}}$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class $>$\+::build\+Handles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Reset the handles array and create new ones to define in a starpu way each block of data \Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a8c9870196537254592681db15a518ed2}\label{class_f_group_task_star_p_u_mpi_algorithm_a8c9870196537254592681db15a518ed2} 
+\index{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$@{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$}!cleanHandle@{cleanHandle}}
+\index{cleanHandle@{cleanHandle}!FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$@{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$}}
+\doxysubsubsection{\texorpdfstring{cleanHandle()}{cleanHandle()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Container\+Class , class Kernel\+Class , class Particle\+Group\+Class , class Star\+PUCpu\+Wrapper\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_task_star_p_u_mpi_algorithm}{FGroup\+Task\+Star\+PUMpi\+Algorithm}}$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class $>$\+::clean\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+dealloc in a starpu way all the defined handles \Hypertarget{class_f_group_task_star_p_u_mpi_algorithm_a041d36d4ea9e6bb425ed5c9b7ce6e9b0}\label{class_f_group_task_star_p_u_mpi_algorithm_a041d36d4ea9e6bb425ed5c9b7ce6e9b0} 
+\index{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$@{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$}!executeCore@{executeCore}}
+\index{executeCore@{executeCore}!FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$@{FGroupTaskStarPUMpiAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass $>$}}
+\doxysubsubsection{\texorpdfstring{executeCore()}{executeCore()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Container\+Class , class Kernel\+Class , class Particle\+Group\+Class , class Star\+PUCpu\+Wrapper\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_task_star_p_u_mpi_algorithm}{FGroup\+Task\+Star\+PUMpi\+Algorithm}}$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class $>$\+::execute\+Core (\begin{DoxyParamCaption}\item[{const unsigned}]{operations\+To\+Proceed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Runs the complete algorithm. 
+
+实现了 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Core/FGroup\+Task\+Starpu\+Mpi\+Algorithm.\+hpp\end{DoxyCompactItemize}

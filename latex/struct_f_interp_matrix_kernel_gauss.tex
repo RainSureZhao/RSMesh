@@ -1,0 +1,123 @@
+\doxysection{FInterp\+Matrix\+Kernel\+Gauss\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板结构体 参考}
+\hypertarget{struct_f_interp_matrix_kernel_gauss}{}\label{struct_f_interp_matrix_kernel_gauss}\index{FInterpMatrixKernelGauss$<$ FReal $>$@{FInterpMatrixKernelGauss$<$ FReal $>$}}
+
+
+{\ttfamily \#include $<$FInterp\+Matrix\+Kernel\+\_\+\+Covariance.\+hpp$>$}
+
+类 FInterp\+Matrix\+Kernel\+Gauss\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{struct_f_interp_matrix_kernel_gauss}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_ade077a62c8297d06ade91142129db887}\label{struct_f_interp_matrix_kernel_gauss_ade077a62c8297d06ade91142129db887} 
+{\bfseries FInterp\+Matrix\+Kernel\+Gauss} (const FReal length\+Scale=FReal(1.))
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a8c7d94802addf46534f2a0dab3d91687}\label{struct_f_interp_matrix_kernel_gauss_a8c7d94802addf46534f2a0dab3d91687} 
+{\bfseries FInterp\+Matrix\+Kernel\+Gauss} (const \mbox{\hyperlink{struct_f_interp_matrix_kernel_gauss}{FInterp\+Matrix\+Kernel\+Gauss}} \&other)
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a38f1423349678509538408d789c455d4}\label{struct_f_interp_matrix_kernel_gauss_a38f1423349678509538408d789c455d4} 
+int {\bfseries get\+Position} (const unsigned int) const
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_aacadc00813829c84dc43963dac202397}\label{struct_f_interp_matrix_kernel_gauss_aacadc00813829c84dc43963dac202397} 
+FReal {\bfseries get\+Mutual\+Coefficient} () const
+\item 
+FReal \mbox{\hyperlink{struct_f_interp_matrix_kernel_gauss_ac4aa8a1ebe1d9762ddc5e04a9e554b0e}{evaluate}} (const FReal \texorpdfstring{$\ast$}{*}x, const FReal \texorpdfstring{$\ast$}{*}y) const
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_acde9488273626246320d6016440a3aaa}\label{struct_f_interp_matrix_kernel_gauss_acde9488273626246320d6016440a3aaa} 
+{\footnotesize template$<$class Value\+Class $>$ }\\Value\+Class {\bfseries evaluate} (const Value\+Class \&x1, const Value\+Class \&y1, const Value\+Class \&z1, const Value\+Class \&x2, const Value\+Class \&y2, const Value\+Class \&z2) const
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_aa46a6a53df5a258eb6eada28f54e0fdb}\label{struct_f_interp_matrix_kernel_gauss_aa46a6a53df5a258eb6eada28f54e0fdb} 
+{\footnotesize template$<$class Value\+Class $>$ }\\void {\bfseries evaluate\+Block} (const Value\+Class \&x1, const Value\+Class \&y1, const Value\+Class \&z1, const Value\+Class \&x2, const Value\+Class \&y2, const Value\+Class \&z2, Value\+Class \texorpdfstring{$\ast$}{*}block) const
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a1d8749333ad320a09abb7b2bac50caed}\label{struct_f_interp_matrix_kernel_gauss_a1d8749333ad320a09abb7b2bac50caed} 
+{\footnotesize template$<$class Value\+Class $>$ }\\void {\bfseries evaluate\+Block\+And\+Derivative} (const Value\+Class \&x1, const Value\+Class \&y1, const Value\+Class \&z1, const Value\+Class \&x2, const Value\+Class \&y2, const Value\+Class \&z2, Value\+Class block\mbox{[}1\mbox{]}, Value\+Class block\+Derivative\mbox{[}3\mbox{]}) const
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a40f02ce1a6b374249779dc5b43dd2ceb}\label{struct_f_interp_matrix_kernel_gauss_a40f02ce1a6b374249779dc5b43dd2ceb} 
+FReal {\bfseries get\+Scale\+Factor} (const FReal, const int) const
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_ab10e08b277e7554664a1e28f1343f837}\label{struct_f_interp_matrix_kernel_gauss_ab10e08b277e7554664a1e28f1343f837} 
+FReal {\bfseries get\+Scale\+Factor} (const FReal) const
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a2f7eed54f6f4b44fef4df08bc5a77700}\label{struct_f_interp_matrix_kernel_gauss_a2f7eed54f6f4b44fef4df08bc5a77700} 
+FReal {\bfseries evaluate} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&p1, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&p2) const
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a2c351bae3505ea506d9f101bd49be27b}\label{struct_f_interp_matrix_kernel_gauss_a2c351bae3505ea506d9f101bd49be27b} 
+void {\bfseries evaluate\+Block} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&p1, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&p2, FReal \texorpdfstring{$\ast$}{*}block) const
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a1a36efefad46ca01c67aad31f2cdfed1}\label{struct_f_interp_matrix_kernel_gauss_a1a36efefad46ca01c67aad31f2cdfed1} 
+void {\bfseries evaluate\+Block\+And\+Derivative} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&p1, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&p2, FReal block\mbox{[}1\mbox{]}, FReal block\+Derivative\mbox{[}3\mbox{]}) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_abf76a9de37904ec2b6f6648fb88f8b94}\label{struct_f_interp_matrix_kernel_gauss_abf76a9de37904ec2b6f6648fb88f8b94} 
+static const char \texorpdfstring{$\ast$}{*} {\bfseries get\+ID} ()
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a1e2d43d3db1e69e1e42842f735847fbe}\label{struct_f_interp_matrix_kernel_gauss_a1e2d43d3db1e69e1e42842f735847fbe} 
+static void {\bfseries print\+Info} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a1874e74735a8fa75446fddd0444188ab}\label{struct_f_interp_matrix_kernel_gauss_a1874e74735a8fa75446fddd0444188ab} 
+FReal {\bfseries length\+Scale\+\_\+}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_aeff574b3c33b197d0282c846cc35f268}\label{struct_f_interp_matrix_kernel_gauss_aeff574b3c33b197d0282c846cc35f268} 
+static const KERNEL\+\_\+\+FUNCTION\+\_\+\+TYPE {\bfseries Type} = NON\+\_\+\+HOMOGENEOUS
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_af61eb466c45d6786f507c36959d67f15}\label{struct_f_interp_matrix_kernel_gauss_af61eb466c45d6786f507c36959d67f15} 
+static const CORRELATION\+\_\+\+SUPPORT\+\_\+\+EXTENSION {\bfseries Extension} = INFINITE
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_aedaeb5c677ddeda896abacca2f63741e}\label{struct_f_interp_matrix_kernel_gauss_aedaeb5c677ddeda896abacca2f63741e} 
+static const unsigned int {\bfseries NCMP} = 1
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_ae847230d02f01c729df16cac505e1f1b}\label{struct_f_interp_matrix_kernel_gauss_ae847230d02f01c729df16cac505e1f1b} 
+static const unsigned int {\bfseries NPV} = 1
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_ab34227f39e16fae41d0220fa3c7994f1}\label{struct_f_interp_matrix_kernel_gauss_ab34227f39e16fae41d0220fa3c7994f1} 
+static const unsigned int {\bfseries NPOT} = 1
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a0edb3b81a91a20771a9310c5fd65ad51}\label{struct_f_interp_matrix_kernel_gauss_a0edb3b81a91a20771a9310c5fd65ad51} 
+static const unsigned int {\bfseries NRHS} = 1
+\item 
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_a33d8ab581617e108cd76842e5b461c80}\label{struct_f_interp_matrix_kernel_gauss_a33d8ab581617e108cd76842e5b461c80} 
+static const unsigned int {\bfseries NLHS} = 1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_no_copyable}{FNo\+Copyable}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_no_copyable_af6c8508f3d9c89baf58d70f6b2fb0a9d}{FNo\+Copyable}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal$>$\newline
+struct FInterp\+Matrix\+Kernel\+Gauss$<$ FReal $>$}
+Generic Gaussian correlation function Special case of Matern function with \$\textbackslash{}nu \textbackslash{}rightarrow \textbackslash{}infty\$ ~\newline
+ 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{struct_f_interp_matrix_kernel_gauss_ac4aa8a1ebe1d9762ddc5e04a9e554b0e}\label{struct_f_interp_matrix_kernel_gauss_ac4aa8a1ebe1d9762ddc5e04a9e554b0e} 
+\index{FInterpMatrixKernelGauss$<$ FReal $>$@{FInterpMatrixKernelGauss$<$ FReal $>$}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!FInterpMatrixKernelGauss$<$ FReal $>$@{FInterpMatrixKernelGauss$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{struct_f_interp_matrix_kernel_gauss}{FInterp\+Matrix\+Kernel\+Gauss}}$<$ FReal $>$\+::evaluate (\begin{DoxyParamCaption}\item[{const FReal \texorpdfstring{$\ast$}{*}}]{x,  }\item[{const FReal \texorpdfstring{$\ast$}{*}}]{y }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+实现了 \mbox{\hyperlink{struct_f_abstract_correlation_kernel}{FAbstract\+Correlation\+Kernel$<$ FReal $>$}}.
+
+
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Interpolation/FInterp\+Matrix\+Kernel\+\_\+\+Covariance.\+hpp\end{DoxyCompactItemize}

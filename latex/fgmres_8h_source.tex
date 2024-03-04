@@ -1,0 +1,38 @@
+\doxysection{fgmres.\+h}
+\hypertarget{fgmres_8h_source}{}\label{fgmres_8h_source}\index{include/krylov/fgmres.h@{include/krylov/fgmres.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/13.}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_FGMRES\_H}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_FGMRES\_H}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}gmres.h"{}}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00013}00013\ \textcolor{keyword}{namespace\ }rsmesh::krylov\ \{}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00014}\mbox{\hyperlink{classrsmesh_1_1krylov_1_1fgmres}{00014}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1krylov_1_1fgmres}{fgmres}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres}{gmres}}\ \{}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00015}00015\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00016}00016\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1krylov_1_1fgmres}{fgmres}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\_operator}}\&\ op,\ \textcolor{keyword}{const}\ valuesd\&\ rhs,\ index\_t\ max\_iter);}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_left\_preconditioner(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\_operator}}\&\ \textcolor{comment}{/*left\_preconditioner*/})\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}set\_left\_preconditioner\ is\ not\ supported."{}});}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ valuesd\ solution\_vector()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ add\_preconditioned\_krylov\_basis(\textcolor{keyword}{const}\ valuesd\&\ z)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ zs[i]\ :=\ right\_preconditioned(vs[i\ -\/\ 1]).}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ std::vector<valuesd>\ zs\_;}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00029}00029\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8h_source_l00032}00032\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_FGMRES\_H}}
+
+\end{DoxyCode}

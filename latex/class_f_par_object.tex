@@ -1,0 +1,43 @@
+\doxysection{FPar\+Object\texorpdfstring{$<$}{<} Shared\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_par_object}{}\label{class_f_par_object}\index{FParObject$<$ SharedClass $>$@{FParObject$<$ SharedClass $>$}}
+
+
+{\ttfamily \#include $<$FPar\+Object.\+hpp$>$}
+
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_par_object_a3636639ccb3f888820349d6578844883}\label{class_f_par_object_a3636639ccb3f888820349d6578844883} 
+{\footnotesize template$<$class... Args\+Class$>$ }\\{\bfseries FPar\+Object} (Args\+Class... args)
+\item 
+\Hypertarget{class_f_par_object_abf3cfe7de3d12f3837d93bb905c7a9b9}\label{class_f_par_object_abf3cfe7de3d12f3837d93bb905c7a9b9} 
+Shared\+Class \& {\bfseries get\+Mine} ()
+\item 
+\Hypertarget{class_f_par_object_a48081e0b7e1756ea4de042835162a762}\label{class_f_par_object_a48081e0b7e1756ea4de042835162a762} 
+const Shared\+Class \& {\bfseries get\+Mine} () const
+\item 
+\Hypertarget{class_f_par_object_a26dee3c0189420a75a4c60c0416d2512}\label{class_f_par_object_a26dee3c0189420a75a4c60c0416d2512} 
+void {\bfseries apply\+To\+All} (std\+::function$<$ void(Shared\+Class \&)$>$ func)
+\item 
+\Hypertarget{class_f_par_object_a8b3c77fcd8750ce9d79ab680d23b64d5}\label{class_f_par_object_a8b3c77fcd8750ce9d79ab680d23b64d5} 
+void {\bfseries apply\+To\+All\+Par} (std\+::function$<$ void(Shared\+Class \&)$>$ func)
+\item 
+\Hypertarget{class_f_par_object_ab7ef0f2d4546ee81cad3d95192a46254}\label{class_f_par_object_ab7ef0f2d4546ee81cad3d95192a46254} 
+Shared\+Class {\bfseries reduce} (std\+::function$<$ Shared\+Class(const Shared\+Class \&, const Shared\+Class \&)$>$ func)
+\item 
+\Hypertarget{class_f_par_object_adfcd212fffd28544e20fbd9a60963683}\label{class_f_par_object_adfcd212fffd28544e20fbd9a60963683} 
+void {\bfseries set} (const Shared\+Class \&val)
+\item 
+\Hypertarget{class_f_par_object_aa64b264cba96780ad3d402fe69a4d85b}\label{class_f_par_object_aa64b264cba96780ad3d402fe69a4d85b} 
+\mbox{\hyperlink{class_f_par_object}{FPar\+Object}} \& {\bfseries operator=} (const Shared\+Class \&val)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class Shared\+Class$>$\newline
+class FPar\+Object$<$ Shared\+Class $>$}
+This class is a way to hide concurent access to the user. Especially with the FPar\+For\+Each\+Octree functions. Please refer to the test\+Octree\+Parallel\+Functeur to see an example. 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Utils/FPar\+Object.\+hpp\end{DoxyCompactItemize}

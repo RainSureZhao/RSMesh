@@ -1,0 +1,58 @@
+\doxysection{domain\+\_\+divider.\+h}
+\hypertarget{domain__divider_8h_source}{}\label{domain__divider_8h_source}\index{include/preconditioner/domain\_divider.h@{include/preconditioner/domain\_divider.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/18.}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_DOMAIN\_DIVIDER\_H}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_DOMAIN\_DIVIDER\_H}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}geometry/bbox3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}domain.h"{}}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00016}00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1preconditioner}{rsmesh::preconditioner}}\ \{}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00017}\mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1domain__divider}{00017}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1domain__divider}{domain\_divider}}\ \{}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ overlap\_quota\ =\ 0.75;}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ index\_t\ max\_leaf\_size\ =\ 256;}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1domain__divider}{domain\_divider}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ points,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ grad\_points,}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<index\_t>\&\ point\_indices,}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<index\_t>\&\ grad\_point\_indices,}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<index\_t>\&\ poly\_point\_indices);}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ std::pair<std::vector<index\_t>,\ std::vector<index\_t>>\ choose\_coarse\_points(\textcolor{keywordtype}{double}\ ratio)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::list<domain>\&\ domains()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ std::list<domain>\&\&\ into\_domains();}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ divide\_domain(std::list<domain>::iterator\ it);}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ divide\_domains();}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry::bbox3d}}\ domain\_bbox(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1domain}{domain}}\&\ \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1domain}{domain}})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ round\_half\_to\_even(\textcolor{keywordtype}{double}\ d);}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ points\_;}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ grad\_points\_;}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ index\_t\ mixed\_size\_of\_root\_;}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ longest\_side\_length\_of\_root\_;}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ std::vector<index\_t>\ poly\_point\_idcs\_;}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ std::list<domain>\ domains\_;}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00049}00049\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00050}00050\ \}\ \textcolor{comment}{//\ namespace\ rsmesh::preconditioner}}
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{domain__divider_8h_source_l00052}00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_DOMAIN\_DIVIDER\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,194 @@
+\doxysection{FTree\+Builder.\+hpp}
+\hypertarget{_f_tree_builder_8hpp_source}{}\label{_f_tree_builder_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Files/FTreeBuilder.hpp@{third\_party/ScalFMM/include/ScalFMM/Files/FTreeBuilder.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FTREEBUILDER\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FTREEBUILDER\_H}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Utils/FLog.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Utils/FQuickSort.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Utils/FTic.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../Utils/FAssert.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../Containers/FOctree.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../Containers/FTreeCoordinate.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}../Components/FBasicParticleContainer.hpp"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <omp.h>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ OctreeClass,\ \textcolor{keyword}{class}\ LeafClass>}
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_tree_builder}{FTreeBuilder}}\{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{struct\ }IndexedParticle\{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ MortonIndex\ mindex;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ FSize\ particlePositionInArray;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ To\ sort\ according\ to\ the\ mindex}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator<=(\textcolor{keyword}{const}\ IndexedParticle\&\ rhs)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>mindex\ <=\ rhs.mindex;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{struct\ }LeafDescriptor\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ LeafClass*\ leafPtr;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ FSize\ offsetInArray;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ FSize\ nbParticlesInLeaf;}
+\DoxyCodeLine{00053\ \ \ \ \ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}\ <\ \textcolor{keywordtype}{unsigned}\ NbAttributes,\ \textcolor{keyword}{class}\ AttributeClass>}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_tree_builder_a0be95f5d545efb842e86d35d80ec9b0e}{BuildTreeFromArray}}(OctreeClass*\textcolor{keyword}{const}\ tree,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_basic_particle_container}{FBasicParticleContainer<FReal,\ NbAttributes,\ AttributeClass>}}\&\ particlesContainers,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isAlreadySorted=\textcolor{keyword}{false})\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ numberOfParticle\ =\ particlesContainers.\mbox{\hyperlink{class_f_basic_particle_container_aef8110f5835414ab05368df5a05aabbf}{getNbParticles}}();}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ the\ parts\ are\ already\ sorted,\ no\ need\ to\ sort\ again}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ enumTimer,\ leavesPtr,\ leavesOffset\ );}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ insertTimer,\ copyTimer);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ General\ values\ needed}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ NbLevels\ \ \ \ \ \ \ =\ tree-\/>getHeight();}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ centerOfBox\ =\ tree-\/>getBoxCenter();}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ boxWidth\ \ \ \ \ =\ tree-\/>getBoxWidth();}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ boxWidthAtLeafLevel\ =\ boxWidth/FReal(1\ <<\ (NbLevels\ -\/\ 1));}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ boxCorner\ \ \ =\ centerOfBox\ -\/\ boxWidth/2;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First,\ copy\ datas\ into\ an\ array\ that\ will\ be\ sorted\ and}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ Morton\ index\ for\ each\ particle}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Temporary\ FTreeCoordinate}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ std::unique\_ptr<IndexedParticle[]>\ particleIndexes(\textcolor{keyword}{new}\ IndexedParticle[numberOfParticle]);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ FLOG(copyTimer.tic());}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ parallel\ for\ schedule(static)}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxParts=0;\ idxParts<numberOfParticle\ ;\ ++idxParts\ )\{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ the\ Morton\ Index}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ host(}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FCoordinateComputer::GetTreeCoordinate<FReal>(particlesContainers.\mbox{\hyperlink{class_f_basic_particle_container_ac505b111866e49f62b068cf3e30f8d1a}{getPositions}}()[0][idxParts]\ -\/\ boxCorner.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxWidth,boxWidthAtLeafLevel,\ \ NbLevels),}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FCoordinateComputer::GetTreeCoordinate<FReal>(particlesContainers.\mbox{\hyperlink{class_f_basic_particle_container_ac505b111866e49f62b068cf3e30f8d1a}{getPositions}}()[1][idxParts]\ -\/\ boxCorner.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxWidth,boxWidthAtLeafLevel,\ NbLevels\ ),}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FCoordinateComputer::GetTreeCoordinate<FReal>(particlesContainers.\mbox{\hyperlink{class_f_basic_particle_container_ac505b111866e49f62b068cf3e30f8d1a}{getPositions}}()[2][idxParts]\ -\/\ boxCorner.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}(),}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxWidth,boxWidthAtLeafLevel,\ NbLevels\ )}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Store\ morton\ index\ and\ original\ idx}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ particleIndexes[idxParts].mindex\ =\ host.getMortonIndex();}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ particleIndexes[idxParts].particlePositionInArray\ =\ idxParts;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ FLOG(copyTimer.tac());}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ FLOG(FLog::Controller<<\textcolor{stringliteral}{"{}Time\ needed\ for\ copying\ "{}}<<\ numberOfParticle<<\textcolor{stringliteral}{"{}\ particles\ :\ "{}}<<copyTimer.elapsed()\ <<\ \textcolor{stringliteral}{"{}\ secondes\ !\(\backslash\)n"{}});}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!isAlreadySorted)\{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Sort\ dat\ array}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ sortTimer);}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_quick_sort}{FQuickSort<IndexedParticle,FSize>::QsOmp}}(\ particleIndexes.get(),\ numberOfParticle);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(sortTimer.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(FLog::Controller\ <<\ \textcolor{stringliteral}{"{}Time\ needed\ for\ sorting\ the\ particles\ :\ "{}}<<\ sortTimer.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ secondes\ !\(\backslash\)n"{}});}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Enumerate\ the\ different\ leaves\ AND\ copy\ the\ positions}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numberOfLeaves\ =\ 0;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ FLOG(enumTimer.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ previousIndex\ =\ -\/1;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxParts\ =\ 0\ ;\ idxParts\ <\ numberOfParticle\ ;\ ++idxParts)\{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ not\ the\ same\ leaf,\ inc\ the\ counter}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(particleIndexes[idxParts].mindex\ !=\ previousIndex)\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ previousIndex\ \ \ =\ particleIndexes[idxParts].mindex;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ numberOfLeaves\ +=\ 1;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ FLOG(enumTimer.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ FLOG(FLog::Controller\ <<\ \textcolor{stringliteral}{"{}Time\ needed\ for\ enumerate\ the\ leaves\ :\ "{}}<<\ enumTimer.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ secondes\ !\(\backslash\)n"{}});}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ FLOG(FLog::Controller\ <<\ \textcolor{stringliteral}{"{}Found\ "{}}\ <<\ numberOfLeaves\ <<\ \textcolor{stringliteral}{"{}\ leaves\ differents.\ \(\backslash\)n"{}});}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ FLOG(leavesOffset.tic());}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Store\ the\ size\ of\ each\ leaves}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ std::unique\_ptr<LeafDescriptor[]>\ leavesDescriptor(\textcolor{keyword}{new}\ LeafDescriptor[numberOfLeaves]);}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ memset(leavesDescriptor.get(),\ 0,\ \textcolor{keyword}{sizeof}(LeafDescriptor)*(numberOfLeaves));}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Init}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ currentLeafIndex\ =\ -\/1;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ currentMortonIndex\ =\ -\/1;}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxParts\ =\ 0\ ;\ idxParts\ <\ numberOfParticle\ ;\ ++idxParts)\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ not\ the\ same\ leaf}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(particleIndexes[idxParts].mindex\ !=\ currentMortonIndex)\{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(FSize(currentLeafIndex)\ <\ numberOfLeaves);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ to\ next\ descriptor}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentLeafIndex\ \ +=\ 1;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentMortonIndex\ =\ particleIndexes[idxParts].mindex;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fill\ the\ descriptor}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ leavesDescriptor[currentLeafIndex].offsetInArray\ =\ idxParts;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ leavesDescriptor[currentLeafIndex].leafPtr\ =\ tree-\/>createLeaf(currentMortonIndex);}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ leavesDescriptor[currentLeafIndex].nbParticlesInLeaf\ =\ 0;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Inc\ the\ number\ of\ particles\ in\ the\ current\ leaf}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ leavesDescriptor[currentLeafIndex].nbParticlesInLeaf\ +=\ 1;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ FLOG(leavesOffset.tac());}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ FLOG(FLog::Controller\ <<\ \textcolor{stringliteral}{"{}Time\ needed\ for\ setting\ the\ offset\ of\ each\ leaves\ :\ "{}}<<\ leavesOffset.elapsed()\ <<\ \textcolor{stringliteral}{"{}\ secondes\ !\(\backslash\)n"{}});}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Then,\ we\ create\ the\ leaves\ inside\ the\ tree}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ FLOG(insertTimer.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ each\ parts\ into\ corresponding\ Leaf}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ parallel}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ std::array<AttributeClass,\ NbAttributes>\ particleAttr;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ partX\ =\ particlesContainers.\mbox{\hyperlink{class_f_basic_particle_container_ac505b111866e49f62b068cf3e30f8d1a}{getPositions}}()[0];}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ partY\ =\ particlesContainers.\mbox{\hyperlink{class_f_basic_particle_container_ac505b111866e49f62b068cf3e30f8d1a}{getPositions}}()[1];}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ partZ\ =\ particlesContainers.\mbox{\hyperlink{class_f_basic_particle_container_ac505b111866e49f62b068cf3e30f8d1a}{getPositions}}()[2];}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#pragma\ omp\ for\ schedule(static)}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxLeaf\ =\ 0\ ;\ idxLeaf\ <\ numberOfLeaves\ ;\ ++idxLeaf\ )\{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesAlreadyInLeaf\ =\ leavesDescriptor[idxLeaf].leafPtr-\/>getSrc()-\/>getNbParticles();}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reserve\ the\ space\ needed\ for\ the\ new\ particles}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ leavesDescriptor[idxLeaf].leafPtr-\/>getSrc()-\/>reserve(nbParticlesAlreadyInLeaf\ +\ leavesDescriptor[idxLeaf].nbParticlesInLeaf);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ all\ particles}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ leavesDescriptor[idxLeaf].nbParticlesInLeaf\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ position\ in\ the\ original\ container}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ particleOriginalPos\ =\ particleIndexes[leavesDescriptor[idxLeaf].offsetInArray\ +\ idxPart].particlePositionInArray;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ the\ original\ position}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ particlePos(\ partX[particleOriginalPos],}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ partY[particleOriginalPos],}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ partZ[particleOriginalPos]);}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ the\ attributes}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttr\ =\ 0\ ;\ idxAttr\ <\ NbAttributes;\ ++idxAttr)\{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particleAttr[idxAttr]\ =\ particlesContainers.\mbox{\hyperlink{class_f_basic_particle_container_a5bb3011726842cabb190bf00dabb3aba}{getAttribute}}(idxAttr)[particleOriginalPos];}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Push\ the\ particle\ in\ the\ array}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ leavesDescriptor[idxLeaf].leafPtr-\/>push(particlePos,\ particleAttr);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ FLOG(insertTimer.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ FLOG(FLog::Controller\ <<\ \textcolor{stringliteral}{"{}Time\ needed\ for\ inserting\ the\ parts\ into\ the\ leaves\ :\ "{}}<<\ insertTimer.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ secondes\ !\(\backslash\)n"{}});}
+\DoxyCodeLine{00219\ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \};}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FTREEBUILDER\_H}}
+
+\end{DoxyCode}

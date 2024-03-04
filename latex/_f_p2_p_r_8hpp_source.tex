@@ -1,0 +1,485 @@
+\doxysection{FP2\+PR.\+hpp}
+\hypertarget{_f_p2_p_r_8hpp_source}{}\label{_f_p2_p_r_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/P2P/FP2PR.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/P2P/FP2PR.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ FP2PR\_HPP}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ FP2PR\_HPP}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FMath.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_f_p2_p_r}{FP2PR}}\{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00015\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MutualParticles(\textcolor{keyword}{const}\ FReal\ targetX,\textcolor{keyword}{const}\ FReal\ targetY,\textcolor{keyword}{const}\ FReal\ targetZ,\ \textcolor{keyword}{const}\ FReal\ targetPhysicalValue,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ targetForceX,\ FReal*\ targetForceY,\ FReal*\ targetForceZ,\ FReal*\ targetPotential,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ sourceX,\textcolor{keyword}{const}\ FReal\ sourceY,\textcolor{keyword}{const}\ FReal\ sourceZ,\ \textcolor{keyword}{const}\ FReal\ sourcePhysicalValue,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ sourceForceX,\ FReal*\ sourceForceY,\ FReal*\ sourceForceZ,\ FReal*\ sourcePotential)\{}
+\DoxyCodeLine{00019\ \ \ \ \ FReal\ dx\ =\ targetX\ -\/\ sourceX;}
+\DoxyCodeLine{00020\ \ \ \ \ FReal\ dy\ =\ targetY\ -\/\ sourceY;}
+\DoxyCodeLine{00021\ \ \ \ \ FReal\ dz\ =\ targetZ\ -\/\ sourceZ;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ FReal\ inv\_square\_distance\ =\ FReal(1.0)\ /\ (dx*dx\ +\ dy*dy\ +\ dz*dz);}
+\DoxyCodeLine{00024\ \ \ \ \ FReal\ inv\_distance\ =\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(inv\_square\_distance);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ inv\_square\_distance\ *=\ inv\_distance;}
+\DoxyCodeLine{00027\ \ \ \ \ inv\_square\_distance\ *=\ targetPhysicalValue\ *\ sourcePhysicalValue;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ dx\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00030\ \ \ \ \ dy\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00031\ \ \ \ \ dz\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ *targetForceX\ +=\ dx;}
+\DoxyCodeLine{00034\ \ \ \ \ *targetForceY\ +=\ dy;}
+\DoxyCodeLine{00035\ \ \ \ \ *targetForceZ\ +=\ dz;}
+\DoxyCodeLine{00036\ \ \ \ \ *targetPotential\ +=\ (\ inv\_distance\ *\ sourcePhysicalValue\ );}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ *sourceForceX\ -\/=\ dx;}
+\DoxyCodeLine{00039\ \ \ \ \ *sourceForceY\ -\/=\ dy;}
+\DoxyCodeLine{00040\ \ \ \ \ *sourceForceZ\ -\/=\ dz;}
+\DoxyCodeLine{00041\ \ \ \ \ *sourcePotential\ +=\ (\ inv\_distance\ *\ targetPhysicalValue\ );}
+\DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00045\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ NonMutualParticles(\textcolor{keyword}{const}\ FReal\ targetX,\textcolor{keyword}{const}\ FReal\ targetY,\textcolor{keyword}{const}\ FReal\ targetZ,\ \textcolor{keyword}{const}\ FReal\ targetPhysicalValue,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ targetForceX,\ FReal*\ targetForceY,\ FReal*\ targetForceZ,\ FReal*\ targetPotential,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ sourceX,\textcolor{keyword}{const}\ FReal\ sourceY,\textcolor{keyword}{const}\ FReal\ sourceZ,\ \textcolor{keyword}{const}\ FReal\ sourcePhysicalValue)\{}
+\DoxyCodeLine{00048\ \ \ \ \ FReal\ dx\ =\ targetX\ -\/\ sourceX;}
+\DoxyCodeLine{00049\ \ \ \ \ FReal\ dy\ =\ targetY\ -\/\ sourceY;}
+\DoxyCodeLine{00050\ \ \ \ \ FReal\ dz\ =\ targetZ\ -\/\ sourceZ;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ FReal\ inv\_square\_distance\ =\ FReal(1.0)\ /\ (dx*dx\ +\ dy*dy\ +\ dz*dz);}
+\DoxyCodeLine{00053\ \ \ \ \ FReal\ inv\_distance\ =\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(inv\_square\_distance);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ inv\_square\_distance\ *=\ inv\_distance;}
+\DoxyCodeLine{00056\ \ \ \ \ inv\_square\_distance\ *=\ targetPhysicalValue\ *\ sourcePhysicalValue;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ d/dx(1/|x-\/y|)=-\/(x-\/y)/r\string^3}}
+\DoxyCodeLine{00059\ \ \ \ \ dx\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00060\ \ \ \ \ dy\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00061\ \ \ \ \ dz\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ *targetForceX\ +=\ dx;}
+\DoxyCodeLine{00064\ \ \ \ \ *targetForceY\ +=\ dy;}
+\DoxyCodeLine{00065\ \ \ \ \ *targetForceZ\ +=\ dz;}
+\DoxyCodeLine{00066\ \ \ \ \ *targetPotential\ +=\ (\ inv\_distance\ *\ sourcePhysicalValue\ );}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{class}\ ComputeClass,\ \textcolor{keywordtype}{int}\ NbFRealInComputeClass>}
+\DoxyCodeLine{00071\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GenericFullMutual(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesTargets\ =\ inTargets-\/>getNbParticles();}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsPhysicalValues\ =\ inTargets-\/>getPhysicalValues();}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsX\ =\ inTargets-\/>getPositions()[0];}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsY\ =\ inTargets-\/>getPositions()[1];}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsZ\ =\ inTargets-\/>getPositions()[2];}
+\DoxyCodeLine{00079\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesX\ =\ inTargets-\/>getForcesX();}
+\DoxyCodeLine{00080\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesY\ =\ inTargets-\/>getForcesY();}
+\DoxyCodeLine{00081\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesZ\ =\ inTargets-\/>getForcesZ();}
+\DoxyCodeLine{00082\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsPotentials\ =\ inTargets-\/>getPotentials();}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ mOne\ =\ FMath::One<ComputeClass>();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxNeighbors\ =\ 0\ ;\ idxNeighbors\ <\ limiteNeighbors\ ;\ ++idxNeighbors)\{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ inNeighbors[idxNeighbors]\ )\{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesSources\ =\ (inNeighbors[idxNeighbors]-\/>getNbParticles()+NbFRealInComputeClass-\/1)/NbFRealInComputeClass;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesPhysicalValues\ =\ (\textcolor{keyword}{const}\ ComputeClass*)inNeighbors[idxNeighbors]-\/>getPhysicalValues();}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesX\ =\ (\textcolor{keyword}{const}\ ComputeClass*)inNeighbors[idxNeighbors]-\/>getPositions()[0];}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesY\ =\ (\textcolor{keyword}{const}\ ComputeClass*)inNeighbors[idxNeighbors]-\/>getPositions()[1];}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesZ\ =\ (\textcolor{keyword}{const}\ ComputeClass*)inNeighbors[idxNeighbors]-\/>getPositions()[2];}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass*\textcolor{keyword}{const}\ sourcesForcesX\ =\ (ComputeClass*)inNeighbors[idxNeighbors]-\/>getForcesX();}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass*\textcolor{keyword}{const}\ sourcesForcesY\ =\ (ComputeClass*)inNeighbors[idxNeighbors]-\/>getForcesY();}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass*\textcolor{keyword}{const}\ sourcesForcesZ\ =\ (ComputeClass*)inNeighbors[idxNeighbors]-\/>getForcesZ();}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass*\textcolor{keyword}{const}\ sourcesPotentials\ =\ (ComputeClass*)inNeighbors[idxNeighbors]-\/>getPotentials();}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxTarget\ =\ 0\ ;\ idxTarget\ <\ nbParticlesTargets\ ;\ ++idxTarget)\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ tx\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsX[idxTarget]);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ ty\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsY[idxTarget]);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ tz\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsZ[idxTarget]);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ tv\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsPhysicalValues[idxTarget]);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tfx\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tfy\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tfz\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tpo\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxSource\ =\ 0\ ;\ idxSource\ <\ nbParticlesSources\ ;\ ++idxSource)\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ dx\ =\ tx\ -\/\ sourcesX[idxSource];}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ dy\ =\ ty\ -\/\ sourcesY[idxSource];}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ dz\ =\ tz\ -\/\ sourcesZ[idxSource];}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ inv\_square\_distance\ =\ mOne\ /\ (dx*dx\ +\ dy*dy\ +\ dz*dz);}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ inv\_distance\ =\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(inv\_square\_distance);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_square\_distance\ *=\ inv\_distance;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_square\_distance\ *=\ tv\ *\ sourcesPhysicalValues[idxSource];}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dx\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dy\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dz\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tfx\ +=\ dx;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tfy\ +=\ dy;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tfz\ +=\ dz;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tpo\ +=\ inv\_distance\ *\ sourcesPhysicalValues[idxSource];}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesForcesX[idxSource]\ -\/=\ dx;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesForcesY[idxSource]\ -\/=\ dy;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesForcesZ[idxSource]\ -\/=\ dz;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesPotentials[idxSource]\ +=\ inv\_distance\ *\ tv;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesX[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tfx);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesY[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tfy);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesZ[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tfz);}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsPotentials[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tpo);}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{class}\ ComputeClass,\ \textcolor{keywordtype}{int}\ NbFRealInComputeClass>}
+\DoxyCodeLine{00144\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GenericInner(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets)\{}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesTargets\ =\ inTargets-\/>getNbParticles();}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsPhysicalValues\ =\ inTargets-\/>getPhysicalValues();}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsX\ =\ inTargets-\/>getPositions()[0];}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsY\ =\ inTargets-\/>getPositions()[1];}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsZ\ =\ inTargets-\/>getPositions()[2];}
+\DoxyCodeLine{00151\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesX\ =\ inTargets-\/>getForcesX();}
+\DoxyCodeLine{00152\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesY\ =\ inTargets-\/>getForcesY();}
+\DoxyCodeLine{00153\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesZ\ =\ inTargets-\/>getForcesZ();}
+\DoxyCodeLine{00154\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsPotentials\ =\ inTargets-\/>getPotentials();}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ mOne\ =\ FMath::One<ComputeClass>();}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \{\textcolor{comment}{//In\ this\ part,\ we\ compute\ (vectorially)\ the\ interaction}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{comment}{//within\ the\ target\ leaf.}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesSources\ =\ (nbParticlesTargets+NbFRealInComputeClass-\/1)/NbFRealInComputeClass;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesPhysicalValues\ =\ (\textcolor{keyword}{const}\ ComputeClass*)targetsPhysicalValues;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesX\ =\ (\textcolor{keyword}{const}\ ComputeClass*)targetsX;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesY\ =\ (\textcolor{keyword}{const}\ ComputeClass*)targetsY;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesZ\ =\ (\textcolor{keyword}{const}\ ComputeClass*)targetsZ;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ ComputeClass*\textcolor{keyword}{const}\ sourcesForcesX\ =\ (ComputeClass*)targetsForcesX;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ ComputeClass*\textcolor{keyword}{const}\ sourcesForcesY\ =\ (ComputeClass*)targetsForcesY;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ ComputeClass*\textcolor{keyword}{const}\ sourcesForcesZ\ =\ (ComputeClass*)targetsForcesZ;}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ ComputeClass*\textcolor{keyword}{const}\ sourcesPotentials\ =\ (ComputeClass*)targetsPotentials;}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxTarget\ =\ 0\ ;\ idxTarget\ <\ nbParticlesTargets\ ;\ ++idxTarget)\{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ tx\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsX[idxTarget]);}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ ty\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsY[idxTarget]);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ tz\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsZ[idxTarget]);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ tv\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsPhysicalValues[idxTarget]);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tfx\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tfy\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tfz\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tpo\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxSource\ =\ (idxTarget+NbFRealInComputeClass)/NbFRealInComputeClass\ ;\ idxSource\ <\ nbParticlesSources\ ;\ ++idxSource)\{}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ dx\ =\ tx\ -\/\ sourcesX[idxSource];}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ dy\ =\ ty\ -\/\ sourcesY[idxSource];}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ dz\ =\ tz\ -\/\ sourcesZ[idxSource];}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ inv\_square\_distance\ =\ mOne\ /\ (dx*dx\ +\ dy*dy\ +\ dz*dz);}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ inv\_distance\ =\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(inv\_square\_distance);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_square\_distance\ *=\ inv\_distance;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_square\_distance\ *=\ tv\ *\ sourcesPhysicalValues[idxSource];}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dx\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dy\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dz\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tfx\ +=\ dx;}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tfy\ +=\ dy;}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tfz\ +=\ dz;}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tpo\ +=\ inv\_distance\ *\ sourcesPhysicalValues[idxSource];}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesForcesX[idxSource]\ -\/=\ dx;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesForcesY[idxSource]\ -\/=\ dy;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesForcesZ[idxSource]\ -\/=\ dz;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesPotentials[idxSource]\ +=\ inv\_distance\ *\ tv;}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesX[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tfx);}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesY[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tfy);}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesZ[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tfz);}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ targetsPotentials[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tpo);}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxTarget\ =\ 0\ ;\ idxTarget\ <\ nbParticlesTargets\ ;\ ++idxTarget)\{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ limitForTarget\ =\ NbFRealInComputeClass-\/(idxTarget\%NbFRealInComputeClass);}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxS\ =\ 1\ ;\ idxS\ <\ limitForTarget\ ;\ ++idxS)\{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ idxSource\ =\ idxTarget\ +\ idxS;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ dx\ =\ targetsX[idxTarget]\ -\/\ targetsX[idxSource];}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ dy\ =\ targetsY[idxTarget]\ -\/\ targetsY[idxSource];}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ dz\ =\ targetsZ[idxTarget]\ -\/\ targetsZ[idxSource];}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ inv\_square\_distance\ =\ FReal(1.0)\ /\ (dx*dx\ +\ dy*dy\ +\ dz*dz);}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ inv\_distance\ =\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(inv\_square\_distance);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ inv\_square\_distance\ *=\ inv\_distance;}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ inv\_square\_distance\ *=\ targetsPhysicalValues[idxTarget]\ *\ targetsPhysicalValues[idxSource];}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ dx\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ dy\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ dz\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesX[idxTarget]\ +=\ dx;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesY[idxTarget]\ +=\ dy;}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesZ[idxTarget]\ +=\ dz;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ targetsPotentials[idxTarget]\ +=\ inv\_distance\ *\ targetsPhysicalValues[idxSource];}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesX[idxSource]\ -\/=\ dx;}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesY[idxSource]\ -\/=\ dy;}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesZ[idxSource]\ -\/=\ dz;}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ targetsPotentials[idxSource]\ +=\ inv\_distance\ *\ targetsPhysicalValues[idxTarget];}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00242\ \ \ \ \ \}}
+\DoxyCodeLine{00243\ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{class}\ ComputeClass,\ \textcolor{keywordtype}{int}\ NbFRealInComputeClass>}
+\DoxyCodeLine{00246\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GenericFullRemote(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesTargets\ =\ inTargets-\/>getNbParticles();}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsPhysicalValues\ =\ inTargets-\/>getPhysicalValues();}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsX\ =\ inTargets-\/>getPositions()[0];}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsY\ =\ inTargets-\/>getPositions()[1];}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsZ\ =\ inTargets-\/>getPositions()[2];}
+\DoxyCodeLine{00253\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesX\ =\ inTargets-\/>getForcesX();}
+\DoxyCodeLine{00254\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesY\ =\ inTargets-\/>getForcesY();}
+\DoxyCodeLine{00255\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesZ\ =\ inTargets-\/>getForcesZ();}
+\DoxyCodeLine{00256\ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsPotentials\ =\ inTargets-\/>getPotentials();}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ mOne\ =\ FMath::One<ComputeClass>();}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxNeighbors\ =\ 0\ ;\ idxNeighbors\ <\ limiteNeighbors\ ;\ ++idxNeighbors)\{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ inNeighbors[idxNeighbors]\ )\{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesSources\ =\ (inNeighbors[idxNeighbors]-\/>getNbParticles()+NbFRealInComputeClass-\/1)/NbFRealInComputeClass;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesPhysicalValues\ =\ (\textcolor{keyword}{const}\ ComputeClass*)inNeighbors[idxNeighbors]-\/>getPhysicalValues();}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesX\ =\ (\textcolor{keyword}{const}\ ComputeClass*)inNeighbors[idxNeighbors]-\/>getPositions()[0];}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesY\ =\ (\textcolor{keyword}{const}\ ComputeClass*)inNeighbors[idxNeighbors]-\/>getPositions()[1];}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass*\textcolor{keyword}{const}\ sourcesZ\ =\ (\textcolor{keyword}{const}\ ComputeClass*)inNeighbors[idxNeighbors]-\/>getPositions()[2];}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxTarget\ =\ 0\ ;\ idxTarget\ <\ nbParticlesTargets\ ;\ ++idxTarget)\{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ tx\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsX[idxTarget]);}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ ty\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsY[idxTarget]);}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ tz\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsZ[idxTarget]);}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ tv\ =\ FMath::ConvertTo<ComputeClass,\ const\ FReal*>(\&targetsPhysicalValues[idxTarget]);}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tfx\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tfy\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tfz\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ \ tpo\ =\ FMath::Zero<ComputeClass>();}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxSource\ =\ 0\ ;\ idxSource\ <\ nbParticlesSources\ ;\ ++idxSource)\{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ dx\ =\ tx\ -\/\ sourcesX[idxSource];}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ dy\ =\ ty\ -\/\ sourcesY[idxSource];}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ dz\ =\ tz\ -\/\ sourcesZ[idxSource];}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ComputeClass\ inv\_square\_distance\ =\ mOne\ /\ (dx*dx\ +\ dy*dy\ +\ dz*dz);}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeClass\ inv\_distance\ =\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(inv\_square\_distance);}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_square\_distance\ *=\ inv\_distance;}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_square\_distance\ *=\ tv\ *\ sourcesPhysicalValues[idxSource];}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dx\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dy\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dz\ *=\ -\/\ inv\_square\_distance;}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tfx\ +=\ dx;}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tfy\ +=\ dy;}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tfz\ +=\ dz;}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tpo\ +=\ inv\_distance\ *\ sourcesPhysicalValues[idxSource];}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesX[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tfx);}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesY[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tfy);}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesZ[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tfz);}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsPotentials[idxTarget]\ +=\ FMath::ConvertTo<FReal,\ ComputeClass>(tpo);}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00305\ \ \ \ \ \}}
+\DoxyCodeLine{00306\ \}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \}\ \textcolor{comment}{//\ End\ namespace}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00311\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_p2_p_r_t}{FP2PRT}}\{}
+\DoxyCodeLine{00312\ \};}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#if\ defined(SCALFMM\_USE\_AVX)}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00317\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_p2_p_r_t}{FP2PRT}}<double>\{}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullMutual(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ FP2PR::GenericFullMutual<double,\ ContainerClass,\ \_\_m256d,\ 4>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00322\ \ \ \ \ \}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Inner(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets)\{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ FP2PR::GenericInner<double,\ ContainerClass,\ \_\_m256d,\ 4>(inTargets);}
+\DoxyCodeLine{00327\ \ \ \ \ \}}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullRemote(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ FP2PR::GenericFullRemote<double,\ ContainerClass,\ \_\_m256d,\ 4>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00333\ \ \ \ \ \}}
+\DoxyCodeLine{00334\ \};}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00337\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_p2_p_r_t}{FP2PRT}}<float>\{}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullMutual(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ FP2PR::GenericFullMutual<float,\ ContainerClass,\ \_\_m256,\ 8>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00342\ \ \ \ \ \}}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Inner(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets)\{}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ FP2PR::GenericFullMutual<float,\ ContainerClass,\ \_\_m256,\ 8>(inTargets);}
+\DoxyCodeLine{00347\ \ \ \ \ \}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullRemote(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ FP2PR::GenericFullRemote<float,\ ContainerClass,\ \_\_m256,\ 8>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00353\ \ \ \ \ \}}
+\DoxyCodeLine{00354\ \};}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#elif\ defined(SCALFMM\_USE\_AVX2)}}
+\DoxyCodeLine{00356\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00357\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_p2_p_r_t}{FP2PRT}}<double>\{}
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullMutual(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ FP2PR::GenericFullMutual<double,\ ContainerClass,\ \_\_m512d,\ 8>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00362\ \ \ \ \ \}}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Inner(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets)\{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ FP2PR::GenericInner<double,\ ContainerClass,\ \_\_m512d,\ 8>(inTargets);}
+\DoxyCodeLine{00367\ \ \ \ \ \}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullRemote(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ FP2PR::GenericFullRemote<double,\ ContainerClass,\ \_\_m512d,\ 8>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00373\ \ \ \ \ \}}
+\DoxyCodeLine{00374\ \};}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00377\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_p2_p_r_t}{FP2PRT}}<float>\{}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00379\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullMutual(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ FP2PR::GenericFullMutual<float,\ ContainerClass,\ \_\_m512,\ 16>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00382\ \ \ \ \ \}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Inner(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets)\{}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ FP2PR::GenericFullMutual<float,\ ContainerClass,\ \_\_m512,\ 16>(inTargets);}
+\DoxyCodeLine{00387\ \ \ \ \ \}}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullRemote(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ FP2PR::GenericFullRemote<float,\ ContainerClass,\ \_\_m512,\ 16>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00393\ \ \ \ \ \}}
+\DoxyCodeLine{00394\ \};}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#elif\ defined(SCALFMM\_USE\_SSE)}}
+\DoxyCodeLine{00397\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00398\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_p2_p_r_t}{FP2PRT}}<double>\{}
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullMutual(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ FP2PR::GenericFullMutual<double,\ ContainerClass,\ \_\_m128d,\ 2>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00403\ \ \ \ \ \}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Inner(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets)\{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ FP2PR::GenericInner<double,\ ContainerClass,\ \_\_m128d,\ 2>(inTargets);}
+\DoxyCodeLine{00408\ \ \ \ \ \}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00411\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullRemote(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ FP2PR::GenericFullRemote<double,\ ContainerClass,\ \_\_m128d,\ 2>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00414\ \ \ \ \ \}}
+\DoxyCodeLine{00415\ \};}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00418\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_p2_p_r_t}{FP2PRT}}<float>\{}
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullMutual(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ FP2PR::GenericFullMutual<float,\ ContainerClass,\ \_\_m128,\ 4>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00423\ \ \ \ \ \}}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00426\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Inner(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets)\{}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ FP2PR::GenericInner<float,\ ContainerClass,\ \_\_m128,\ 4>(inTargets);}
+\DoxyCodeLine{00428\ \ \ \ \ \}}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00431\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullRemote(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ FP2PR::GenericFullRemote<float,\ ContainerClass,\ \_\_m128,\ 4>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00434\ \ \ \ \ \}}
+\DoxyCodeLine{00435\ \};}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00438\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00439\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_p2_p_r_t}{FP2PRT}}<double>\{}
+\DoxyCodeLine{00440\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00441\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullMutual(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ FP2PR::GenericFullMutual<double,\ ContainerClass,\ double,\ 1>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00444\ \ \ \ \ \}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00447\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Inner(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets)\{}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ FP2PR::GenericInner<double,\ ContainerClass,\ double,\ 1>(inTargets);}
+\DoxyCodeLine{00449\ \ \ \ \ \}}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullRemote(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ FP2PR::GenericFullRemote<double,\ ContainerClass,\ double,\ 1>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00455\ \ \ \ \ \}}
+\DoxyCodeLine{00456\ \};}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00459\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_p2_p_r_t}{FP2PRT}}<float>\{}
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00461\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullMutual(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ FP2PR::GenericFullMutual<float,\ ContainerClass,\ float,\ 1>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00464\ \ \ \ \ \}}
+\DoxyCodeLine{00465\ }
+\DoxyCodeLine{00466\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00467\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Inner(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets)\{}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ FP2PR::GenericInner<float,\ ContainerClass,\ float,\ 1>(inTargets);}
+\DoxyCodeLine{00469\ \ \ \ \ \}}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ FullRemote(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors)\{}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ FP2PR::GenericFullRemote<float,\ ContainerClass,\ float,\ 1>(inTargets,\ inNeighbors,\ limiteNeighbors);}
+\DoxyCodeLine{00475\ \ \ \ \ \}}
+\DoxyCodeLine{00476\ \};}
+\DoxyCodeLine{00477\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ }
+\DoxyCodeLine{00482\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FP2PR\_HPP}}
+
+\end{DoxyCode}

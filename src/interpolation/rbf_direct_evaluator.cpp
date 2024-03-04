@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/3.
+// Created by RainSure on 2024/2/3.
 //
 #include"interpolation/rbf_direct_evaluator.h"
 #include"numeric/sum_accumulator.h"

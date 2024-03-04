@@ -1,0 +1,103 @@
+\doxysection{FList\texorpdfstring{$<$}{<} Object \texorpdfstring{$>$}{>}\+::Basic\+Iterator类 参考}
+\hypertarget{class_f_list_1_1_basic_iterator}{}\label{class_f_list_1_1_basic_iterator}\index{FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}}
+
+
+{\ttfamily \#include $<$FList.\+hpp$>$}
+
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_list_1_1_basic_iterator_a01cae628a4b8b1933ac61996caced6a6}{Basic\+Iterator}} (\mbox{\hyperlink{class_f_list}{FList}} \&list)
+\item 
+void \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a668277138575fde58f361b486345e12a}{goto\+Next}} ()
+\item 
+Object \& \mbox{\hyperlink{class_f_list_1_1_basic_iterator_abb495ca0c19c0a127d9e204fd628e606}{data}} ()
+\item 
+const Object \& \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a64a668a6376b69a762093012200393fc}{data}} () const
+\item 
+void \mbox{\hyperlink{class_f_list_1_1_basic_iterator_af76f38be75ab29f51ef7a3173799785a}{set\+Data}} (const Object \&in\+Data)
+\item 
+bool \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a8e479f8f4b53aa1ccc04e2ccf21ae3dd}{has\+Not\+Finished}} () const
+\item 
+void \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a3153d65cdcf299404146afe67d3ae902}{remove}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class Object$>$\newline
+class FList$<$ Object $>$\+::\+Basic\+Iterator}
+This iterator allow accessing list\textquotesingle{}s elements If you change the target list pointed by an iterator you cannot used the iterator any more. {\ttfamily  FList$<$int$>$ values; ~\newline
+ // inserting ... ~\newline
+ FList$<$int$>$\+::\+Basic\+Iterator iter(values); ~\newline
+ while( iter.\+has\+Not\+Finished() )\{ ~\newline
+ iter.\+data() += 1; ~\newline
+ iter.\+goto\+Next(); ~\newline
+ \} ~\newline
+ } 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_list_1_1_basic_iterator_a01cae628a4b8b1933ac61996caced6a6}\label{class_f_list_1_1_basic_iterator_a01cae628a4b8b1933ac61996caced6a6} 
+\index{FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}!BasicIterator@{BasicIterator}}
+\index{BasicIterator@{BasicIterator}!FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}}
+\doxysubsubsection{\texorpdfstring{BasicIterator()}{BasicIterator()}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+\mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Basic\+Iterator\+::\+Basic\+Iterator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_list}{FList}} \&}]{list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+Constructor needs the target list 
+\begin{DoxyParams}{参数}
+{\em the} & list to iterate on \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_list_1_1_basic_iterator_abb495ca0c19c0a127d9e204fd628e606}\label{class_f_list_1_1_basic_iterator_abb495ca0c19c0a127d9e204fd628e606} 
+\index{FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}!data@{data}}
+\index{data@{data}!FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+Object \& \mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Basic\+Iterator\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Current pointed value current iterator must be valide (\doxylink{class_f_list_1_1_basic_iterator_a8e479f8f4b53aa1ccc04e2ccf21ae3dd}{has\+Not\+Finished()}) to use this function \Hypertarget{class_f_list_1_1_basic_iterator_a64a668a6376b69a762093012200393fc}\label{class_f_list_1_1_basic_iterator_a64a668a6376b69a762093012200393fc} 
+\index{FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}!data@{data}}
+\index{data@{data}!FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+const Object \& \mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Basic\+Iterator\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Current pointed value current iterator must be valide (\doxylink{class_f_list_1_1_basic_iterator_a8e479f8f4b53aa1ccc04e2ccf21ae3dd}{has\+Not\+Finished()}) to use this function \Hypertarget{class_f_list_1_1_basic_iterator_a668277138575fde58f361b486345e12a}\label{class_f_list_1_1_basic_iterator_a668277138575fde58f361b486345e12a} 
+\index{FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}!gotoNext@{gotoNext}}
+\index{gotoNext@{gotoNext}!FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}}
+\doxysubsubsection{\texorpdfstring{gotoNext()}{gotoNext()}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+void \mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Basic\+Iterator\+::goto\+Next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To goto\+Next on the list \Hypertarget{class_f_list_1_1_basic_iterator_a8e479f8f4b53aa1ccc04e2ccf21ae3dd}\label{class_f_list_1_1_basic_iterator_a8e479f8f4b53aa1ccc04e2ccf21ae3dd} 
+\index{FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}!hasNotFinished@{hasNotFinished}}
+\index{hasNotFinished@{hasNotFinished}!FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}}
+\doxysubsubsection{\texorpdfstring{hasNotFinished()}{hasNotFinished()}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+bool \mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Basic\+Iterator\+::has\+Not\+Finished (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if an iterator is at the end of the list \begin{DoxyReturn}{返回}
+true if the current iterator can goto\+Next and access to value, else false 
+\end{DoxyReturn}
+\Hypertarget{class_f_list_1_1_basic_iterator_a3153d65cdcf299404146afe67d3ae902}\label{class_f_list_1_1_basic_iterator_a3153d65cdcf299404146afe67d3ae902} 
+\index{FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}!remove@{remove}}
+\index{remove@{remove}!FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}}
+\doxysubsubsection{\texorpdfstring{remove()}{remove()}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+void \mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Basic\+Iterator\+::remove (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Remove an element \Hypertarget{class_f_list_1_1_basic_iterator_af76f38be75ab29f51ef7a3173799785a}\label{class_f_list_1_1_basic_iterator_af76f38be75ab29f51ef7a3173799785a} 
+\index{FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}!setData@{setData}}
+\index{setData@{setData}!FList$<$ Object $>$::BasicIterator@{FList$<$ Object $>$::BasicIterator}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+void \mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Basic\+Iterator\+::set\+Data (\begin{DoxyParamCaption}\item[{const Object \&}]{in\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Set the data 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Containers/FList.\+hpp\end{DoxyCompactItemize}

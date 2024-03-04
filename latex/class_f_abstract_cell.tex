@@ -1,0 +1,152 @@
+\doxysection{FAbstract\+Cell类 参考}
+\hypertarget{class_f_abstract_cell}{}\label{class_f_abstract_cell}\index{FAbstractCell@{FAbstractCell}}
+
+
+This class define the methods that every cell class has to implement to be insertable in the tree.  
+
+
+
+
+{\ttfamily \#include $<$FAbstract\+Cell.\+hpp$>$}
+
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_f_abstract_cell_a40ee131e89242324968f0a1a8cea1acc}{\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Cell}} ()
+\item 
+virtual Morton\+Index \mbox{\hyperlink{class_f_abstract_cell_ab75ba968546a6cc61c4cba14f0b12662}{get\+Morton\+Index}} () const =0
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_cell_a1599b4ccda3ef0eafeb1a4e2a9608ebf}{set\+Morton\+Index}} (const Morton\+Index in\+Index)=0
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_cell_ac9d19ce6452f4934338e5b595ef0a80a}{set\+Position}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Position)=0
+\item 
+virtual const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \& \mbox{\hyperlink{class_f_abstract_cell_a735b5b49f79ccdb94a94c2e54a5977b6}{get\+Coordinate}} () const =0
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_cell_abdf8f1ca8467d447fa5d131e44802c95}{set\+Coordinate}} (const long inX, const long inY, const long inZ)=0
+\item 
+virtual bool \mbox{\hyperlink{class_f_abstract_cell_acad16f1289f2d2930477592254513120}{has\+Src\+Child}} () const =0
+\item 
+virtual bool \mbox{\hyperlink{class_f_abstract_cell_a9e9098c6fda1535962bcfdf259f957d8}{has\+Targets\+Child}} () const =0
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_cell_a9edd9d7aacffb6bc68ad5d2f4b06d921}{set\+Src\+Child\+True}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_cell_a4f072bc77f65c945e2d412dd007b9c4f}{set\+Targets\+Child\+True}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_cell_a9451bc26109827d46f223dcb5c5a9b35}{reset\+To\+Initial\+State}} ()=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+This class define the methods that every cell class has to implement to be insertable in the tree. 
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+
+
+In fact \doxylink{class_f_octree}{FOctree} \& \doxylink{class_f_fmm_algorithm}{FFmm\+Algorithm} need this functions to be implemented. But you cannot use this interface with the extension (as an example \+: because the compiler will faill to know if get\+Morton\+Index is coming from this interface or from the extension)
+
+You can look to \doxylink{class_f_basic_cell}{FBasic\+Cell} to have an idea of implementation. 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_abstract_cell_a40ee131e89242324968f0a1a8cea1acc}\label{class_f_abstract_cell_a40ee131e89242324968f0a1a8cea1acc} 
+\index{FAbstractCell@{FAbstractCell}!````~FAbstractCell@{\texorpdfstring{$\sim$}{\string~}FAbstractCell}}
+\index{````~FAbstractCell@{\texorpdfstring{$\sim$}{\string~}FAbstractCell}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FAbstractCell()}{\string~FAbstractCell()}}
+{\footnotesize\ttfamily virtual FAbstract\+Cell\+::\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Cell (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Default destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_abstract_cell_a735b5b49f79ccdb94a94c2e54a5977b6}\label{class_f_abstract_cell_a735b5b49f79ccdb94a94c2e54a5977b6} 
+\index{FAbstractCell@{FAbstractCell}!getCoordinate@{getCoordinate}}
+\index{getCoordinate@{getCoordinate}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{getCoordinate()}{getCoordinate()}}
+{\footnotesize\ttfamily virtual const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \& FAbstract\+Cell\+::get\+Coordinate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Must be implemented by each user Cell class \begin{DoxyReturn}{返回}
+the position in the tree coordinate 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_cell_ab75ba968546a6cc61c4cba14f0b12662}\label{class_f_abstract_cell_ab75ba968546a6cc61c4cba14f0b12662} 
+\index{FAbstractCell@{FAbstractCell}!getMortonIndex@{getMortonIndex}}
+\index{getMortonIndex@{getMortonIndex}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{getMortonIndex()}{getMortonIndex()}}
+{\footnotesize\ttfamily virtual Morton\+Index FAbstract\+Cell\+::get\+Morton\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Must be implemented by each user Cell class \begin{DoxyReturn}{返回}
+the position of the current cell 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_cell_acad16f1289f2d2930477592254513120}\label{class_f_abstract_cell_acad16f1289f2d2930477592254513120} 
+\index{FAbstractCell@{FAbstractCell}!hasSrcChild@{hasSrcChild}}
+\index{hasSrcChild@{hasSrcChild}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{hasSrcChild()}{hasSrcChild()}}
+{\footnotesize\ttfamily virtual bool FAbstract\+Cell\+::has\+Src\+Child (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Because the system can run in Tsm mode a cell has to express if it has sources \begin{DoxyReturn}{返回}
+true if there are sources particles inside 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_cell_a9e9098c6fda1535962bcfdf259f957d8}\label{class_f_abstract_cell_a9e9098c6fda1535962bcfdf259f957d8} 
+\index{FAbstractCell@{FAbstractCell}!hasTargetsChild@{hasTargetsChild}}
+\index{hasTargetsChild@{hasTargetsChild}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{hasTargetsChild()}{hasTargetsChild()}}
+{\footnotesize\ttfamily virtual bool FAbstract\+Cell\+::has\+Targets\+Child (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Because the system can run in Tsm mode a cell has to express if it has targets \begin{DoxyReturn}{返回}
+true if there are targets particles inside 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_cell_a9451bc26109827d46f223dcb5c5a9b35}\label{class_f_abstract_cell_a9451bc26109827d46f223dcb5c5a9b35} 
+\index{FAbstractCell@{FAbstractCell}!resetToInitialState@{resetToInitialState}}
+\index{resetToInitialState@{resetToInitialState}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{resetToInitialState()}{resetToInitialState()}}
+{\footnotesize\ttfamily virtual void FAbstract\+Cell\+::reset\+To\+Initial\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+This function make the cell containing targets \Hypertarget{class_f_abstract_cell_abdf8f1ca8467d447fa5d131e44802c95}\label{class_f_abstract_cell_abdf8f1ca8467d447fa5d131e44802c95} 
+\index{FAbstractCell@{FAbstractCell}!setCoordinate@{setCoordinate}}
+\index{setCoordinate@{setCoordinate}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{setCoordinate()}{setCoordinate()}}
+{\footnotesize\ttfamily virtual void FAbstract\+Cell\+::set\+Coordinate (\begin{DoxyParamCaption}\item[{const long}]{inX,  }\item[{const long}]{inY,  }\item[{const long}]{inZ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Must be implemented by each user Cell class 
+\begin{DoxyParams}{参数}
+{\em the} & position in the tree coordinate \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_abstract_cell_a1599b4ccda3ef0eafeb1a4e2a9608ebf}\label{class_f_abstract_cell_a1599b4ccda3ef0eafeb1a4e2a9608ebf} 
+\index{FAbstractCell@{FAbstractCell}!setMortonIndex@{setMortonIndex}}
+\index{setMortonIndex@{setMortonIndex}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{setMortonIndex()}{setMortonIndex()}}
+{\footnotesize\ttfamily virtual void FAbstract\+Cell\+::set\+Morton\+Index (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Must be implemented by each user Cell class 
+\begin{DoxyParams}{参数}
+{\em in\+Index} & the position of the current cell \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_abstract_cell_ac9d19ce6452f4934338e5b595ef0a80a}\label{class_f_abstract_cell_ac9d19ce6452f4934338e5b595ef0a80a} 
+\index{FAbstractCell@{FAbstractCell}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily virtual void FAbstract\+Cell\+::set\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Must be implemented by each user Cell class 
+\begin{DoxyParams}{参数}
+{\em in\+Position} & the position of the current cell \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_abstract_cell_a9edd9d7aacffb6bc68ad5d2f4b06d921}\label{class_f_abstract_cell_a9edd9d7aacffb6bc68ad5d2f4b06d921} 
+\index{FAbstractCell@{FAbstractCell}!setSrcChildTrue@{setSrcChildTrue}}
+\index{setSrcChildTrue@{setSrcChildTrue}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{setSrcChildTrue()}{setSrcChildTrue()}}
+{\footnotesize\ttfamily virtual void FAbstract\+Cell\+::set\+Src\+Child\+True (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+This function make the cell containing sources \Hypertarget{class_f_abstract_cell_a4f072bc77f65c945e2d412dd007b9c4f}\label{class_f_abstract_cell_a4f072bc77f65c945e2d412dd007b9c4f} 
+\index{FAbstractCell@{FAbstractCell}!setTargetsChildTrue@{setTargetsChildTrue}}
+\index{setTargetsChildTrue@{setTargetsChildTrue}!FAbstractCell@{FAbstractCell}}
+\doxysubsubsection{\texorpdfstring{setTargetsChildTrue()}{setTargetsChildTrue()}}
+{\footnotesize\ttfamily virtual void FAbstract\+Cell\+::set\+Targets\+Child\+True (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+This function make the cell containing targets 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Components/FAbstract\+Cell.\+hpp\end{DoxyCompactItemize}

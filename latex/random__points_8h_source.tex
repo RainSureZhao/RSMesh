@@ -1,0 +1,34 @@
+\doxysection{random\+\_\+points.\+h}
+\hypertarget{random__points_8h_source}{}\label{random__points_8h_source}\index{include/point\_cloud/random\_points.h@{include/point\_cloud/random\_points.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2023/11/3.}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_RANDOM\_POINTS\_H}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_RANDOM\_POINTS\_H}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}Eigen/Core"{}}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}geometry/cuboid3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}geometry/sphere3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00016}00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh}{rsmesh}}\ \{}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{namespace\ }point\_cloud\ \{}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }seed\_type\ =\ std::random\_device::result\_type;}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\ random\_points(\textcolor{keyword}{const}\ geometry::cuboid3d\&\ cuboid,\ index\_t\ n,\ seed\_type\ seed\ =\ std::random\_device()());}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\ \ random\_points(\textcolor{keyword}{const}\ geometry::sphere3d\&\ sphere,\ index\_t\ n,\ seed\_type\ seed\ =\ std::random\_device()());}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00025}00025\ \ \ \ \ \}\ \textcolor{comment}{//\ rsmesh}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00026}00026\ \}\ \textcolor{comment}{//\ point\_cloud}}
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{random__points_8h_source_l00028}00028\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_RANDOM\_POINTS\_H}}
+
+\end{DoxyCode}

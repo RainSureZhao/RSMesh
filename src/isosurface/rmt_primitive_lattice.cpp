@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/29.
+// Created by RainSure on 2024/2/29.
 //
 #include <numbers>
 #include "isosurface/rmt_primitive_lattice.h"

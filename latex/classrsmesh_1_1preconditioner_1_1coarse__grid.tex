@@ -1,0 +1,96 @@
+\doxysection{rsmesh\+::preconditioner\+::coarse\+\_\+grid类 参考}
+\hypertarget{classrsmesh_1_1preconditioner_1_1coarse__grid}{}\label{classrsmesh_1_1preconditioner_1_1coarse__grid}\index{rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1coarse__grid_a8889681e04f3a5725b50a572f7db9cae}{coarse\+\_\+grid}} (const \mbox{\hyperlink{classrsmesh_1_1model}{model}} \&\mbox{\hyperlink{classrsmesh_1_1model}{model}}, \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1domain}{domain}} \&\&\mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1domain}{domain}})
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1coarse__grid_a7b2226b288e39b1b74f272063eb5b9a7}{clear}} ()
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1coarse__grid_ab467a34426903506b0dd0603b4c9225a}{setup}} (const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&points\+\_\+full, const Eigen\+::\+Matrix\+Xd \&lagrange\+\_\+pt\+\_\+full)
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1coarse__grid_aae06ac91e0c6d0b37c83c7b8a409e87b}{setup}} (const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&points\+\_\+full, const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&grad\+\_\+points\+\_\+full, const Eigen\+::\+Matrix\+Xd \&lagrange\+\_\+pt\+\_\+full)
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1coarse__grid_a57749d070e24a83c4526d6b1624ca056}{set\+\_\+solution\+\_\+to}} (Eigen\+::\+Ref$<$ valuesd $>$ weights\+\_\+full) const
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1coarse__grid_a4d879149c08784da303f5ea0863cb36d}{solve}} (const Eigen\+::\+Ref$<$ const valuesd $>$ \&values\+\_\+full)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+
+
+在文件 \mbox{\hyperlink{coarse__grid_8h_source}{coarse\+\_\+grid.\+h}} 第 \mbox{\hyperlink{coarse__grid_8h_source_l00022}{22}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{classrsmesh_1_1preconditioner_1_1coarse__grid_a8889681e04f3a5725b50a572f7db9cae}\label{classrsmesh_1_1preconditioner_1_1coarse__grid_a8889681e04f3a5725b50a572f7db9cae} 
+\index{rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}!coarse\_grid@{coarse\_grid}}
+\index{coarse\_grid@{coarse\_grid}!rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}}
+\doxysubsubsection{\texorpdfstring{coarse\_grid()}{coarse\_grid()}}
+{\footnotesize\ttfamily rsmesh\+::preconditioner\+::coarse\+\_\+grid\+::coarse\+\_\+grid (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrsmesh_1_1model}{model}} \&}]{model,  }\item[{\mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1domain}{domain}} \&\&}]{domain }\end{DoxyParamCaption})}
+
+
+
+在文件 \mbox{\hyperlink{coarse__grid_8cpp_source}{coarse\+\_\+grid.\+cpp}} 第 \mbox{\hyperlink{coarse__grid_8cpp_source_l00012}{12}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{classrsmesh_1_1preconditioner_1_1coarse__grid_a7b2226b288e39b1b74f272063eb5b9a7}\label{classrsmesh_1_1preconditioner_1_1coarse__grid_a7b2226b288e39b1b74f272063eb5b9a7} 
+\index{rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}!clear@{clear}}
+\index{clear@{clear}!rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void rsmesh\+::preconditioner\+::coarse\+\_\+grid\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+在文件 \mbox{\hyperlink{coarse__grid_8cpp_source}{coarse\+\_\+grid.\+cpp}} 第 \mbox{\hyperlink{coarse__grid_8cpp_source_l00024}{24}} 行定义.
+
+\Hypertarget{classrsmesh_1_1preconditioner_1_1coarse__grid_a57749d070e24a83c4526d6b1624ca056}\label{classrsmesh_1_1preconditioner_1_1coarse__grid_a57749d070e24a83c4526d6b1624ca056} 
+\index{rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}!set\_solution\_to@{set\_solution\_to}}
+\index{set\_solution\_to@{set\_solution\_to}!rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}}
+\doxysubsubsection{\texorpdfstring{set\_solution\_to()}{set\_solution\_to()}}
+{\footnotesize\ttfamily void rsmesh\+::preconditioner\+::coarse\+\_\+grid\+::set\+\_\+solution\+\_\+to (\begin{DoxyParamCaption}\item[{Eigen\+::\+Ref$<$ valuesd $>$}]{weights\+\_\+full }\end{DoxyParamCaption}) const}
+
+
+
+在文件 \mbox{\hyperlink{coarse__grid_8cpp_source}{coarse\+\_\+grid.\+cpp}} 第 \mbox{\hyperlink{coarse__grid_8cpp_source_l00080}{80}} 行定义.
+
+\Hypertarget{classrsmesh_1_1preconditioner_1_1coarse__grid_ab467a34426903506b0dd0603b4c9225a}\label{classrsmesh_1_1preconditioner_1_1coarse__grid_ab467a34426903506b0dd0603b4c9225a} 
+\index{rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}!setup@{setup}}
+\index{setup@{setup}!rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void rsmesh\+::preconditioner\+::coarse\+\_\+grid\+::setup (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&}]{points\+\_\+full,  }\item[{const Eigen\+::\+Matrix\+Xd \&}]{lagrange\+\_\+pt\+\_\+full }\end{DoxyParamCaption})}
+
+
+
+在文件 \mbox{\hyperlink{coarse__grid_8cpp_source}{coarse\+\_\+grid.\+cpp}} 第 \mbox{\hyperlink{coarse__grid_8cpp_source_l00032}{32}} 行定义.
+
+\Hypertarget{classrsmesh_1_1preconditioner_1_1coarse__grid_aae06ac91e0c6d0b37c83c7b8a409e87b}\label{classrsmesh_1_1preconditioner_1_1coarse__grid_aae06ac91e0c6d0b37c83c7b8a409e87b} 
+\index{rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}!setup@{setup}}
+\index{setup@{setup}!rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void rsmesh\+::preconditioner\+::coarse\+\_\+grid\+::setup (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&}]{points\+\_\+full,  }\item[{const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&}]{grad\+\_\+points\+\_\+full,  }\item[{const Eigen\+::\+Matrix\+Xd \&}]{lagrange\+\_\+pt\+\_\+full }\end{DoxyParamCaption})}
+
+
+
+在文件 \mbox{\hyperlink{coarse__grid_8cpp_source}{coarse\+\_\+grid.\+cpp}} 第 \mbox{\hyperlink{coarse__grid_8cpp_source_l00037}{37}} 行定义.
+
+\Hypertarget{classrsmesh_1_1preconditioner_1_1coarse__grid_a4d879149c08784da303f5ea0863cb36d}\label{classrsmesh_1_1preconditioner_1_1coarse__grid_a4d879149c08784da303f5ea0863cb36d} 
+\index{rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}!solve@{solve}}
+\index{solve@{solve}!rsmesh::preconditioner::coarse\_grid@{rsmesh::preconditioner::coarse\_grid}}
+\doxysubsubsection{\texorpdfstring{solve()}{solve()}}
+{\footnotesize\ttfamily void rsmesh\+::preconditioner\+::coarse\+\_\+grid\+::solve (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Ref$<$ const valuesd $>$ \&}]{values\+\_\+full }\end{DoxyParamCaption})}
+
+
+
+在文件 \mbox{\hyperlink{coarse__grid_8cpp_source}{coarse\+\_\+grid.\+cpp}} 第 \mbox{\hyperlink{coarse__grid_8cpp_source_l00090}{90}} 行定义.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+include/preconditioner/coarse\+\_\+grid.\+h\item 
+src/preconditioner/coarse\+\_\+grid.\+cpp\end{DoxyCompactItemize}

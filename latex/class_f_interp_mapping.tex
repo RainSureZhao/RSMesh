@@ -1,0 +1,78 @@
+\doxysection{FInterp\+Mapping\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_interp_mapping}{}\label{class_f_interp_mapping}\index{FInterpMapping$<$ FReal $>$@{FInterpMapping$<$ FReal $>$}}
+
+
+{\ttfamily \#include $<$FInterp\+Mapping.\+hpp$>$}
+
+类 FInterp\+Mapping\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_f_interp_mapping}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_f_interp_mapping_ac29c0ace0ae589788a83c030576e0719}{is\+\_\+in\+\_\+cluster}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&position) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_interp_mapping_a304386f5a9a8db688ca406fd02a23b05}\label{class_f_interp_mapping_a304386f5a9a8db688ca406fd02a23b05} 
+{\bfseries FInterp\+Mapping} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width)
+\item 
+virtual void \mbox{\hyperlink{class_f_interp_mapping_adf736198bbb86839fd89401508077777}{operator()}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&, \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&) const =0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_interp_mapping_a17162907894eb0ba048703fe5c6821b8}\label{class_f_interp_mapping_a17162907894eb0ba048703fe5c6821b8} 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries a}
+\item 
+\Hypertarget{class_f_interp_mapping_a254243555f17365a61b70166118e06cf}\label{class_f_interp_mapping_a254243555f17365a61b70166118e06cf} 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries b}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal$>$\newline
+class FInterp\+Mapping$<$ FReal $>$}
+\begin{DoxyAuthor}{作者}
+Matthias Messner (\href{mailto:matthias.matthias@inria.fr}{\texttt{ matthias.\+matthias@inria.\+fr}}) Please read the license
+\end{DoxyAuthor}
+The class {\ttfamily \doxylink{class_f_interp_mapping}{FInterp\+Mapping}} is the base class for the affine mapping $\Phi:[-1,1]\rightarrow[a,b] $ and the inverse affine mapping $\Phi^{-1}:[a,b]\rightarrow[-1,1]$. 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_interp_mapping_ac29c0ace0ae589788a83c030576e0719}\label{class_f_interp_mapping_ac29c0ace0ae589788a83c030576e0719} 
+\index{FInterpMapping$<$ FReal $>$@{FInterpMapping$<$ FReal $>$}!is\_in\_cluster@{is\_in\_cluster}}
+\index{is\_in\_cluster@{is\_in\_cluster}!FInterpMapping$<$ FReal $>$@{FInterpMapping$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{is\_in\_cluster()}{is\_in\_cluster()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+bool \mbox{\hyperlink{class_f_interp_mapping}{FInterp\+Mapping}}$<$ FReal $>$\+::is\+\_\+in\+\_\+cluster (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{position }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Checks wheter {\ttfamily position} is within cluster, ie within {\ttfamily a} and {\ttfamily b}, or not.
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em position} & position (eg of a particle) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+{\ttfamily true} if position is in cluster else {\ttfamily false} 
+\end{DoxyReturn}
+\Hypertarget{class_f_interp_mapping_adf736198bbb86839fd89401508077777}\label{class_f_interp_mapping_adf736198bbb86839fd89401508077777} 
+\index{FInterpMapping$<$ FReal $>$@{FInterpMapping$<$ FReal $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!FInterpMapping$<$ FReal $>$@{FInterpMapping$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+virtual void \mbox{\hyperlink{class_f_interp_mapping}{FInterp\+Mapping}}$<$ FReal $>$\+::operator() (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{,  }\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+在 \mbox{\hyperlink{classmap__glob__loc_aad638e3c490d841d9fecc3bb8918eea5}{map\+\_\+glob\+\_\+loc$<$ FReal $>$}} , 以及 \mbox{\hyperlink{classmap__loc__glob_ac8cb8a60951f1d147d32dee1e236396d}{map\+\_\+loc\+\_\+glob$<$ FReal $>$}} 内被实现.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Interpolation/FInterp\+Mapping.\+hpp\end{DoxyCompactItemize}

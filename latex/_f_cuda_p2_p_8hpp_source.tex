@@ -1,0 +1,344 @@
+\doxysection{FCuda\+P2\+P.\+hpp}
+\hypertarget{_f_cuda_p2_p_8hpp_source}{}\label{_f_cuda_p2_p_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/P2P/FCudaP2P.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/P2P/FCudaP2P.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FCUDAP2P\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FCUDAP2P\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Cuda/FCudaGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Cuda/FCudaGroupAttachedLeaf.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Cuda/FCudaEmptyCellSymb.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Cuda/FCudaCompositeCell.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ Min(x,y)\ ((x)<(y)?(x):(y))}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ Max(x,y)\ ((x)>(y)?(x):(y))}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_cuda_p2_p}{FCudaP2P}}\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ DirectComputation(\textcolor{keyword}{const}\ FReal\&\ targetX,\ \textcolor{keyword}{const}\ FReal\&\ targetY,\ \textcolor{keyword}{const}\ FReal\&\ targetZ,\textcolor{keyword}{const}\ \ FReal\&\ targetPhys,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\&\ forceX,\ FReal\&\ forceY,FReal\&\ \ forceZ,\ FReal\&\ potential,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\&\ sourcesX,\ \textcolor{keyword}{const}\ FReal\&\ sourcesY,\ \textcolor{keyword}{const}\ FReal\&\ sourcesZ,\ \textcolor{keyword}{const}\ FReal\&\ sourcesPhys)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ FReal\ dx\ =\ sourcesX\ -\/\ targetX;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ FReal\ dy\ =\ sourcesY\ -\/\ targetY;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ FReal\ dz\ =\ sourcesZ\ -\/\ targetZ;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ FReal\ inv\_square\_distance\ =\ FReal(1.0)\ /\ (dx*dx\ +\ dy*dy\ +\ dz*dz);}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ FReal\ inv\_distance\ =\ sqrt(inv\_square\_distance);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ inv\_square\_distance\ *=\ inv\_distance;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ inv\_square\_distance\ *=\ targetPhys\ *\ sourcesPhys;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ dx\ *=\ inv\_square\_distance;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ dy\ *=\ inv\_square\_distance;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ dz\ *=\ inv\_square\_distance;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ forceX\ +=\ dx;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ forceY\ +=\ dy;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ forceZ\ +=\ dz;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ potential\ +=\ inv\_distance\ *\ sourcesPhys;}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ DSqrt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ val)\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sqrt(val);}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ FSqrt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ val)\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sqrtf(val);}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{FCudaGroupAttachedLeaf<FReal,1,4,FReal>}}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{FCudaCompositeCell<FCudaEmptyCellSymb,int,int>}}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ NB\_THREAD\_GROUPS\ =\ 30;\ \textcolor{comment}{//\ 2\ x\ 15}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ THREAD\_GROUP\_SIZE\ =\ 256;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SHARED\_MEMORY\_SIZE\ =\ 512;\textcolor{comment}{//\ 49152}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ P2M(\mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \textcolor{comment}{/*pole*/},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ \textcolor{comment}{/*particles*/})\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ M2M(\mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \ \textcolor{comment}{/*pole*/},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \ \textcolor{comment}{/*child*/}[8],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*level*/})\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ M2L(\mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \ \textcolor{comment}{/*pole*/},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}*\ \textcolor{comment}{/*distantNeighbors*/},}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ \textcolor{comment}{/*neighPositions*/},}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*size*/},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*level*/})\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ L2L(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \ \textcolor{comment}{/*local*/},\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \ \textcolor{comment}{/*child*/}[8],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*level*/})\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ L2P(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \ \textcolor{comment}{/*local*/},\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\textcolor{keyword}{const}\ \textcolor{comment}{/*particles*/})\{}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ P2P(\textcolor{keyword}{const}\ int3\&\ pos,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ \ targets,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ \ sources,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ directNeighborsParticles,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ neighborPositions,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counter)\{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ with\ other}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ P2PRemote(pos,\ targets,\ sources,\ directNeighborsParticles,\ neighborPositions,\ counter);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ inside}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbLoops\ =\ (targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()+blockDim.x-\/1)/blockDim.x;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLoop\ =\ 0\ ;\ idxLoop\ <\ nbLoops\ ;\ ++idxLoop)\{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxPart\ =\ (idxLoop*blockDim.x)+threadIdx.x;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ threadCompute\ =\ (idxPart\ <\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}());}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ targetX,\ targetY,\ targetZ,\ targetPhys;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ forceX\ =\ 0,\ forceY\ =\ 0,\ forceZ\ =\ 0,\ potential\ =\ 0;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ targetX\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[0][idxPart]\ :\ 0);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ targetY\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[1][idxPart]\ :\ 0);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ targetZ\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[2][idxPart]\ :\ 0);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ targetPhys\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(0)[idxPart]\ :\ 0);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxCopy\ =\ 0\ ;\ idxCopy\ <\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()\ ;\ idxCopy\ +=\ SHARED\_MEMORY\_SIZE)\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesX[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesY[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesZ[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesPhys[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbCopies\ =\ Min(SHARED\_MEMORY\_SIZE,\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()-\/idxCopy);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ threadIdx.x\ ;\ idx\ <\ nbCopies\ ;\ idx\ +=\ blockDim.x)\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[idx]\ =\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[0][idx+idxCopy];}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesY[idx]\ =\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[1][idx+idxCopy];}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesZ[idx]\ =\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[2][idx+idxCopy];}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesPhys[idx]\ =\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(0)[idx+idxCopy];}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_syncthreads();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadCompute)\{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ leftCopies\ =\ nbCopies;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(idxCopy\ <=\ idxPart\ \&\&\ idxPart\ <\ idxCopy\ +\ nbCopies)\{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ leftCopies\ =\ idxPart\ -\/\ idxCopy;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Left\ Part}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ otherIndex\ =\ 0;\ otherIndex\ <\ leftCopies\ -\/\ 3;\ otherIndex\ +=\ 4)\ \{\ \textcolor{comment}{//\ unrolling\ x4}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex],\ sourcesY[otherIndex],\ sourcesZ[otherIndex],\ sourcesPhys[otherIndex]);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+1],\ sourcesY[otherIndex+1],\ sourcesZ[otherIndex+1],\ sourcesPhys[otherIndex+1]);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+2],\ sourcesY[otherIndex+2],\ sourcesZ[otherIndex+2],\ sourcesPhys[otherIndex+2]);}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+3],\ sourcesY[otherIndex+3],\ sourcesZ[otherIndex+3],\ sourcesPhys[otherIndex+3]);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ otherIndex\ =\ (leftCopies/4)\ *\ 4;\ otherIndex\ <\ leftCopies;\ ++otherIndex)\ \{\ \textcolor{comment}{//\ if\ nk\%4\ is\ not\ zero}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex],\ sourcesY[otherIndex],\ sourcesZ[otherIndex],\ sourcesPhys[otherIndex]);}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Right\ Part}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ otherIndex\ =\ leftCopies+1;\ otherIndex\ <\ nbCopies\ -\/\ 3;\ otherIndex\ +=\ 4)\ \{\ \textcolor{comment}{//\ unrolling\ x4}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex],\ sourcesY[otherIndex],\ sourcesZ[otherIndex],\ sourcesPhys[otherIndex]);}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+1],\ sourcesY[otherIndex+1],\ sourcesZ[otherIndex+1],\ sourcesPhys[otherIndex+1]);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+2],\ sourcesY[otherIndex+2],\ sourcesZ[otherIndex+2],\ sourcesPhys[otherIndex+2]);}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+3],\ sourcesY[otherIndex+3],\ sourcesZ[otherIndex+3],\ sourcesPhys[otherIndex+3]);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ otherIndex\ =\ leftCopies+1\ +\ ((nbCopies-\/(leftCopies+1))/4)*4\ ;\ otherIndex\ <\ nbCopies;\ ++otherIndex)\ \{\ \textcolor{comment}{//\ if\ nk\%4\ is\ not\ zero}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex],\ sourcesY[otherIndex],\ sourcesZ[otherIndex],\ sourcesPhys[otherIndex]);}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_syncthreads();}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ threadCompute\ )\{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(1)[idxPart]\ +=\ potential;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(2)[idxPart]\ +=\ forceX;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(3)[idxPart]\ +=\ forceY;}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(4)[idxPart]\ +=\ forceZ;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_syncthreads();}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ P2PRemote(\textcolor{keyword}{const}\ int3\&\ ,}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ \ targets,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ \ \textcolor{comment}{/*sources*/},}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ directNeighborsParticles,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ \textcolor{comment}{/*neighborsPositions*/},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counter)\{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxNeigh\ =\ 0\ ;\ idxNeigh\ <\ counter\ ;\ ++idxNeigh)\{}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbLoops\ =\ (targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()+blockDim.x-\/1)/blockDim.x;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLoop\ =\ 0\ ;\ idxLoop\ <\ nbLoops\ ;\ ++idxLoop)\{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxPart\ =\ (idxLoop*blockDim.x)+threadIdx.x;}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ threadCompute\ =\ (idxPart\ <\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}());}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ targetX,\ targetY,\ targetZ,\ targetPhys;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ forceX\ =\ 0,\ forceY\ =\ 0,\ forceZ\ =\ 0,\ potential\ =\ 0;}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetX\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[0][idxPart]\ :\ 0);}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetY\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[1][idxPart]\ :\ 0);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetZ\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[2][idxPart]\ :\ 0);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetPhys\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(0)[idxPart]\ :\ 0);}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxCopy\ =\ 0\ ;\ idxCopy\ <\ directNeighborsParticles[idxNeigh].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()\ ;\ idxCopy\ +=\ SHARED\_MEMORY\_SIZE)\{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesX[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesY[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesZ[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesPhys[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbCopies\ =\ Min(SHARED\_MEMORY\_SIZE,\ directNeighborsParticles[idxNeigh].getNbParticles()-\/idxCopy);}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ threadIdx.x\ ;\ idx\ <\ nbCopies\ ;\ idx\ +=\ blockDim.x)\{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[idx]\ =\ directNeighborsParticles[idxNeigh].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[0][idx+idxCopy];}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesY[idx]\ =\ directNeighborsParticles[idxNeigh].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[1][idx+idxCopy];}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesZ[idx]\ =\ directNeighborsParticles[idxNeigh].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[2][idx+idxCopy];}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesPhys[idx]\ =\ directNeighborsParticles[idxNeigh].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(0)[idx+idxCopy];}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_syncthreads();}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadCompute)\{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ otherIndex\ =\ 0;\ otherIndex\ <\ nbCopies\ -\/\ 3;\ otherIndex\ +=\ 4)\ \{\ \textcolor{comment}{//\ unrolling\ x4}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex],\ sourcesY[otherIndex],\ sourcesZ[otherIndex],\ sourcesPhys[otherIndex]);}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+1],\ sourcesY[otherIndex+1],\ sourcesZ[otherIndex+1],\ sourcesPhys[otherIndex+1]);}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+2],\ sourcesY[otherIndex+2],\ sourcesZ[otherIndex+2],\ sourcesPhys[otherIndex+2]);}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+3],\ sourcesY[otherIndex+3],\ sourcesZ[otherIndex+3],\ sourcesPhys[otherIndex+3]);}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ otherIndex\ =\ (nbCopies/4)\ *\ 4;\ otherIndex\ <\ nbCopies;\ ++otherIndex)\ \{\ \textcolor{comment}{//\ if\ nk\%4\ is\ not\ zero}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex],\ sourcesY[otherIndex],\ sourcesZ[otherIndex],\ sourcesPhys[otherIndex]);}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_syncthreads();}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ threadCompute\ )\{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(1)[idxPart]\ +=\ potential;}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(2)[idxPart]\ +=\ forceX;}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(3)[idxPart]\ +=\ forceY;}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(4)[idxPart]\ +=\ forceZ;}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_syncthreads();}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00248\ \ \ \ \ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ P2POuter(\textcolor{keyword}{const}\ int3\&\ ,}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ \ targets,}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ directNeighborsParticles,}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ \textcolor{comment}{/*neighborsPositions*/},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counter)\{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxNeigh\ =\ 0\ ;\ idxNeigh\ <\ counter\ ;\ ++idxNeigh)\{}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbLoops\ =\ (targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()+blockDim.x-\/1)/blockDim.x;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLoop\ =\ 0\ ;\ idxLoop\ <\ nbLoops\ ;\ ++idxLoop)\{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxPart\ =\ (idxLoop*blockDim.x)+threadIdx.x;}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ threadCompute\ =\ (idxPart\ <\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}());}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ targetX,\ targetY,\ targetZ,\ targetPhys;}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ forceX\ =\ 0,\ forceY\ =\ 0,\ forceZ\ =\ 0,\ potential\ =\ 0;}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetX\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[0][idxPart]\ :\ 0);}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetY\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[1][idxPart]\ :\ 0);}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetZ\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[2][idxPart]\ :\ 0);}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetPhys\ =\ (threadCompute?\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(0)[idxPart]\ :\ 0);}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxCopy\ =\ 0\ ;\ idxCopy\ <\ directNeighborsParticles[idxNeigh].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()\ ;\ idxCopy\ +=\ SHARED\_MEMORY\_SIZE)\{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesX[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesY[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesZ[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_shared\_\_\ FReal\ sourcesPhys[SHARED\_MEMORY\_SIZE];}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbCopies\ =\ Min(SHARED\_MEMORY\_SIZE,\ directNeighborsParticles[idxNeigh].getNbParticles()-\/idxCopy);}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ threadIdx.x\ ;\ idx\ <\ nbCopies\ ;\ idx\ +=\ blockDim.x)\{}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[idx]\ =\ directNeighborsParticles[idxNeigh].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[0][idx+idxCopy];}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesY[idx]\ =\ directNeighborsParticles[idxNeigh].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[1][idx+idxCopy];}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesZ[idx]\ =\ directNeighborsParticles[idxNeigh].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a3b8a5687176f5f1e8c24a9065e009bbd}{getPositions}}()[2][idx+idxCopy];}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesPhys[idx]\ =\ directNeighborsParticles[idxNeigh].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(0)[idx+idxCopy];}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_syncthreads();}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadCompute)\{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ otherIndex\ =\ 0;\ otherIndex\ <\ nbCopies\ -\/\ 3;\ otherIndex\ +=\ 4)\ \{\ \textcolor{comment}{//\ unrolling\ x4}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex],\ sourcesY[otherIndex],\ sourcesZ[otherIndex],\ sourcesPhys[otherIndex]);}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+1],\ sourcesY[otherIndex+1],\ sourcesZ[otherIndex+1],\ sourcesPhys[otherIndex+1]);}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+2],\ sourcesY[otherIndex+2],\ sourcesZ[otherIndex+2],\ sourcesPhys[otherIndex+2]);}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex+3],\ sourcesY[otherIndex+3],\ sourcesZ[otherIndex+3],\ sourcesPhys[otherIndex+3]);}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ otherIndex\ =\ (nbCopies/4)\ *\ 4;\ otherIndex\ <\ nbCopies;\ ++otherIndex)\ \{\ \textcolor{comment}{//\ if\ nk\%4\ is\ not\ zero}}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DirectComputation(targetX,\ targetY,\ targetZ,\ targetPhys,}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ forceX,\ forceY,\ forceZ,\ potential,}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesX[otherIndex],\ sourcesY[otherIndex],\ sourcesZ[otherIndex],\ sourcesPhys[otherIndex]);}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_syncthreads();}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ threadCompute\ )\{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(1)[idxPart]\ +=\ potential;}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(2)[idxPart]\ +=\ forceX;}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(3)[idxPart]\ +=\ forceY;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_ac01175ceb3da978aef24d53941713575}{getAttribute}}(4)[idxPart]\ +=\ forceZ;}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_syncthreads();}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00321\ \ \ \ \ \}}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ \ \ \_\_host\_\_\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_cuda_p2_p}{FCudaP2P}}*\ InitKernelKernel(\textcolor{keywordtype}{void}*)\{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00325\ \ \ \ \ \}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \_\_host\_\_\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ReleaseKernel(\mbox{\hyperlink{class_f_cuda_p2_p}{FCudaP2P}}*\ \textcolor{comment}{/*todealloc*/})\{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ nothing\ to\ do}}
+\DoxyCodeLine{00329\ \ \ \ \ \}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \_\_host\_\_\ \textcolor{keyword}{static}\ dim3\ GetGridSize(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*intervalSize*/})\{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NB\_THREAD\_GROUPS;}
+\DoxyCodeLine{00333\ \ \ \ \ \}}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \ \ \ \ \_\_host\_\_\ \textcolor{keyword}{static}\ dim3\ GetBlocksSize()\{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ THREAD\_GROUP\_SIZE;}
+\DoxyCodeLine{00337\ \ \ \ \ \}}
+\DoxyCodeLine{00338\ \};}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FCUDAP2P\_HPP}}
+\DoxyCodeLine{00341\ }
+
+\end{DoxyCode}

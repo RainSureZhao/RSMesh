@@ -1,0 +1,44 @@
+\doxysection{FTree\+IO\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_tree_i_o}{}\label{class_f_tree_i_o}\index{FTreeIO$<$ FReal $>$@{FTreeIO$<$ FReal $>$}}
+
+
+{\ttfamily \#include $<$FTree\+IO.\+hpp$>$}
+
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Octree\+Class , class Cell\+Class , class Leaf\+Class , class Container\+Class $>$ }\\static bool \mbox{\hyperlink{class_f_tree_i_o_aeae3b53fd9aab0d78cc647634f5dbf91}{Save}} (const char filename\mbox{[}$\,$\mbox{]}, Octree\+Class \&tree)
+\item 
+{\footnotesize template$<$class Octree\+Class , class Cell\+Class , class Leaf\+Class , class Container\+Class $>$ }\\static bool \mbox{\hyperlink{class_f_tree_i_o_a1cb2f1ebb8c80ba0203ec1d7e2eaf3af}{Load}} (const char filename\mbox{[}$\,$\mbox{]}, Octree\+Class \&tree)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal$>$\newline
+class FTree\+IO$<$ FReal $>$}
+This class proposes static methods to save and load a tree. It used binary format (so FReal must be the same!)
+
+The format is \+: \mbox{[}nb leaves\mbox{]} \mbox{[}nb particles in leaf\mbox{]}\mbox{[}particles.....\mbox{]} ... \mbox{[}nb cells at level\mbox{]} \mbox{[}morton index\mbox{]}\mbox{[}cell\mbox{]} .... ... 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_tree_i_o_a1cb2f1ebb8c80ba0203ec1d7e2eaf3af}\label{class_f_tree_i_o_a1cb2f1ebb8c80ba0203ec1d7e2eaf3af} 
+\index{FTreeIO$<$ FReal $>$@{FTreeIO$<$ FReal $>$}!Load@{Load}}
+\index{Load@{Load}!FTreeIO$<$ FReal $>$@{FTreeIO$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+template$<$class Octree\+Class , class Cell\+Class , class Leaf\+Class , class Container\+Class $>$ \\
+static bool \mbox{\hyperlink{class_f_tree_i_o}{FTree\+IO}}$<$ FReal $>$\+::\+Load (\begin{DoxyParamCaption}\item[{const char}]{filename\mbox{[}$\,$\mbox{]},  }\item[{Octree\+Class \&}]{tree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+To load from memory \Hypertarget{class_f_tree_i_o_aeae3b53fd9aab0d78cc647634f5dbf91}\label{class_f_tree_i_o_aeae3b53fd9aab0d78cc647634f5dbf91} 
+\index{FTreeIO$<$ FReal $>$@{FTreeIO$<$ FReal $>$}!Save@{Save}}
+\index{Save@{Save}!FTreeIO$<$ FReal $>$@{FTreeIO$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{Save()}{Save()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+template$<$class Octree\+Class , class Cell\+Class , class Leaf\+Class , class Container\+Class $>$ \\
+static bool \mbox{\hyperlink{class_f_tree_i_o}{FTree\+IO}}$<$ FReal $>$\+::\+Save (\begin{DoxyParamCaption}\item[{const char}]{filename\mbox{[}$\,$\mbox{]},  }\item[{Octree\+Class \&}]{tree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+To save in memory 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Files/FTree\+IO.\+hpp\end{DoxyCompactItemize}

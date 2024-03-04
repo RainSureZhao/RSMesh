@@ -1,0 +1,103 @@
+\doxysection{FTest\+Cuda\+Kernels\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_test_cuda_kernels}{}\label{class_f_test_cuda_kernels}\index{FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}}
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_test_cuda_kernels_a66c5687b4f49334b846995bc608afa7f}\label{class_f_test_cuda_kernels_a66c5687b4f49334b846995bc608afa7f} 
+typedef \mbox{\hyperlink{struct_f_cuda_composite_cell}{FCuda\+Composite\+Cell}}$<$ \mbox{\hyperlink{struct_f_basic_cell_p_o_d}{FTest\+Cell\+PODCore}}, FTest\+Cell\+PODData, FTest\+Cell\+PODData $>$ {\bfseries Cell\+Class}
+\item 
+\Hypertarget{class_f_test_cuda_kernels_a93ed4aed3ee3aa6a260a16a4b60ef90e}\label{class_f_test_cuda_kernels_a93ed4aed3ee3aa6a260a16a4b60ef90e} 
+typedef \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{FCuda\+Group\+Attached\+Leaf}}$<$ FReal, 0, 1, long long int $>$ {\bfseries Container\+Class}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels_a3f54320e4b8829af7a275429b8f43050}{P2M}} (\mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} pole, const \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const particles)
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels_a1bf09b21ad053d1da273ac519ba48e1b}{M2M}} (\mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} pole, const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} child\mbox{[}8\mbox{]}, const int)
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels_a450de7ba949b50c7dd5dc8b8168784a0}{M2L}} (\mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} local, const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} \texorpdfstring{$\ast$}{*}distant\+Neighbors, const int \texorpdfstring{$\ast$}{*}, const int size, const int)
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels_a941f39c4652b1e95a7d0d8da7882c429}{L2L}} (const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} local, \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} child\mbox{[}8\mbox{]}, const int)
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels_a5fa67623bd1330079cfaf85ca50cc508}{L2P}} (const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} local, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const particles)
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels_aa7ce5cd48cf91b0d5427d41f45213ab3}{P2P}} (const int3 \&, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const targets, const \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const sources, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const direct\+Neighbors\+Particles, const int \texorpdfstring{$\ast$}{*}, const int counter)
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels_ab2c2bfb3b242c253d52e2da7515cebaf}{P2\+PRemote}} (const int3 \&, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const targets, const \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const sources, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const direct\+Neighbors\+Particles, const int \texorpdfstring{$\ast$}{*}, const int counter)
+\item 
+\Hypertarget{class_f_test_cuda_kernels_a65cec8d17ca0c989a54a24213ad7954b}\label{class_f_test_cuda_kernels_a65cec8d17ca0c989a54a24213ad7954b} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries P2\+POuter} (const int3 \&, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const targets, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const direct\+Neighbors\+Particles, const int \texorpdfstring{$\ast$}{*}, const int counter)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_test_cuda_kernels_a00391c32a8968f45368996e7c7b786e9}\label{class_f_test_cuda_kernels_a00391c32a8968f45368996e7c7b786e9} 
+static \+\_\+\+\_\+host\+\_\+\+\_\+ \mbox{\hyperlink{class_f_test_cuda_kernels}{FTest\+Cuda\+Kernels}} \texorpdfstring{$\ast$}{*} {\bfseries Init\+Kernel\+Kernel} (void \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{class_f_test_cuda_kernels_a3cd4c58081426fe2c908e054a426d3af}\label{class_f_test_cuda_kernels_a3cd4c58081426fe2c908e054a426d3af} 
+static \+\_\+\+\_\+host\+\_\+\+\_\+ void {\bfseries Release\+Kernel} (\mbox{\hyperlink{class_f_test_cuda_kernels}{FTest\+Cuda\+Kernels}} \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{class_f_test_cuda_kernels_a2c6b47f486c4f2aac79471256ebd10b7}\label{class_f_test_cuda_kernels_a2c6b47f486c4f2aac79471256ebd10b7} 
+static \+\_\+\+\_\+host\+\_\+\+\_\+ dim3 {\bfseries Get\+Grid\+Size} (const int)
+\item 
+\Hypertarget{class_f_test_cuda_kernels_a659b47bd46de7d95d2815f133f7345d3}\label{class_f_test_cuda_kernels_a659b47bd46de7d95d2815f133f7345d3} 
+static \+\_\+\+\_\+host\+\_\+\+\_\+ dim3 {\bfseries Get\+Blocks\+Size} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_test_cuda_kernels_a941f39c4652b1e95a7d0d8da7882c429}\label{class_f_test_cuda_kernels_a941f39c4652b1e95a7d0d8da7882c429} 
+\index{FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}!L2L@{L2L}}
+\index{L2L@{L2L}!FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{L2L()}{L2L()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels}{FTest\+Cuda\+Kernels}}$<$ FReal $>$\+::\+L2L (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}}]{local,  }\item[{\mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}}]{child\mbox{[}8\mbox{]},  }\item[{const int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+During Downward \Hypertarget{class_f_test_cuda_kernels_a5fa67623bd1330079cfaf85ca50cc508}\label{class_f_test_cuda_kernels_a5fa67623bd1330079cfaf85ca50cc508} 
+\index{FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}!L2P@{L2P}}
+\index{L2P@{L2P}!FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{L2P()}{L2P()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels}{FTest\+Cuda\+Kernels}}$<$ FReal $>$\+::\+L2P (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}}]{local,  }\item[{\mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const}]{particles }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+After Downward \Hypertarget{class_f_test_cuda_kernels_a450de7ba949b50c7dd5dc8b8168784a0}\label{class_f_test_cuda_kernels_a450de7ba949b50c7dd5dc8b8168784a0} 
+\index{FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}!M2L@{M2L}}
+\index{M2L@{M2L}!FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{M2L()}{M2L()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels}{FTest\+Cuda\+Kernels}}$<$ FReal $>$\+::\+M2L (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}}]{local,  }\item[{const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} \texorpdfstring{$\ast$}{*}}]{distant\+Neighbors,  }\item[{const int \texorpdfstring{$\ast$}{*}}]{,  }\item[{const int}]{size,  }\item[{const int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Before Downward \Hypertarget{class_f_test_cuda_kernels_a1bf09b21ad053d1da273ac519ba48e1b}\label{class_f_test_cuda_kernels_a1bf09b21ad053d1da273ac519ba48e1b} 
+\index{FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}!M2M@{M2M}}
+\index{M2M@{M2M}!FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{M2M()}{M2M()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels}{FTest\+Cuda\+Kernels}}$<$ FReal $>$\+::\+M2M (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}}]{pole,  }\item[{const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}}]{child\mbox{[}8\mbox{]},  }\item[{const int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+During upward \Hypertarget{class_f_test_cuda_kernels_a3f54320e4b8829af7a275429b8f43050}\label{class_f_test_cuda_kernels_a3f54320e4b8829af7a275429b8f43050} 
+\index{FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}!P2M@{P2M}}
+\index{P2M@{P2M}!FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{P2M()}{P2M()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels}{FTest\+Cuda\+Kernels}}$<$ FReal $>$\+::\+P2M (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}}]{pole,  }\item[{const \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const}]{particles }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Before upward \Hypertarget{class_f_test_cuda_kernels_aa7ce5cd48cf91b0d5427d41f45213ab3}\label{class_f_test_cuda_kernels_aa7ce5cd48cf91b0d5427d41f45213ab3} 
+\index{FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}!P2P@{P2P}}
+\index{P2P@{P2P}!FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{P2P()}{P2P()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels}{FTest\+Cuda\+Kernels}}$<$ FReal $>$\+::\+P2P (\begin{DoxyParamCaption}\item[{const int3 \&}]{,  }\item[{\mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const}]{targets,  }\item[{const \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const}]{sources,  }\item[{\mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const}]{direct\+Neighbors\+Particles,  }\item[{const int \texorpdfstring{$\ast$}{*}}]{,  }\item[{const int}]{counter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+After Downward \Hypertarget{class_f_test_cuda_kernels_ab2c2bfb3b242c253d52e2da7515cebaf}\label{class_f_test_cuda_kernels_ab2c2bfb3b242c253d52e2da7515cebaf} 
+\index{FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}!P2PRemote@{P2PRemote}}
+\index{P2PRemote@{P2PRemote}!FTestCudaKernels$<$ FReal $>$@{FTestCudaKernels$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{P2PRemote()}{P2PRemote()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{class_f_test_cuda_kernels}{FTest\+Cuda\+Kernels}}$<$ FReal $>$\+::\+P2\+PRemote (\begin{DoxyParamCaption}\item[{const int3 \&}]{,  }\item[{\mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const}]{targets,  }\item[{const \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const}]{sources,  }\item[{\mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const}]{direct\+Neighbors\+Particles,  }\item[{const int \texorpdfstring{$\ast$}{*}}]{,  }\item[{const int}]{counter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+After Downward 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Test\+Kernel/FCuda\+Test\+Kernels.\+hpp\end{DoxyCompactItemize}

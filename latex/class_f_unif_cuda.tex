@@ -1,0 +1,97 @@
+\doxysection{FUnif\+Cuda\texorpdfstring{$<$}{<} FReal, ORDER \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_unif_cuda}{}\label{class_f_unif_cuda}\index{FUnifCuda$<$ FReal, ORDER $>$@{FUnifCuda$<$ FReal, ORDER $>$}}
+
+
+{\ttfamily \#include $<$FUnif\+Cuda.\+hpp$>$}
+
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_unif_cuda_accfc5242bdb53833e5946470fa125cc9}\label{class_f_unif_cuda_accfc5242bdb53833e5946470fa125cc9} 
+typedef \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{FCuda\+Group\+Attached\+Leaf}}$<$ FReal, 1, 4, FReal $>$ {\bfseries Container\+Class}
+\item 
+\Hypertarget{class_f_unif_cuda_ab7cd8ca5b62904875510d56dbc5bd296}\label{class_f_unif_cuda_ab7cd8ca5b62904875510d56dbc5bd296} 
+typedef \mbox{\hyperlink{struct_f_cuda_composite_cell}{FCuda\+Composite\+Cell}}$<$ \mbox{\hyperlink{struct_f_basic_cell_p_o_d}{FBasic\+Cell\+POD}}, \mbox{\hyperlink{struct_f_cuda_unif_cell_p_o_d_pole}{FCuda\+Unif\+Cell\+PODPole}}$<$ FReal, ORDER $>$, \mbox{\hyperlink{struct_f_cuda_unif_cell_p_o_d_local}{FCuda\+Unif\+Cell\+PODLocal}}$<$ FReal, ORDER $>$ $>$ {\bfseries Cell\+Class}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_unif_cuda_ab352ac6c45de17796138105a2b5b10c3}\label{class_f_unif_cuda_ab352ac6c45de17796138105a2b5b10c3} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries P2M} (\mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}, const \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const)
+\item 
+\Hypertarget{class_f_unif_cuda_a9fe998fdd5ffec6e0420ddaccb4305a7}\label{class_f_unif_cuda_a9fe998fdd5ffec6e0420ddaccb4305a7} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries M2M} (\mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}, const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}\mbox{[}8\mbox{]}, const int)
+\item 
+\Hypertarget{class_f_unif_cuda_ad9291da3c69985afd237bc6926572da1}\label{class_f_unif_cuda_ad9291da3c69985afd237bc6926572da1} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ FReal {\bfseries get\+Scale\+Factor} (const FReal Cell\+Width) const
+\item 
+\Hypertarget{class_f_unif_cuda_a658cd95f534d23336bb2be00826f20e1}\label{class_f_unif_cuda_a658cd95f534d23336bb2be00826f20e1} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries add\+Mul} (\mbox{\hyperlink{struct_f_cuda_unif_complex}{FCuda\+Unif\+Complex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}\+\_\+\+\_\+restrict\+\_\+\+\_\+ res, const \mbox{\hyperlink{struct_f_cuda_unif_complex}{FCuda\+Unif\+Complex}}$<$ FReal $>$ \&other, const \mbox{\hyperlink{struct_f_cuda_unif_complex}{FCuda\+Unif\+Complex}}$<$ FReal $>$ \&another) const
+\item 
+\Hypertarget{class_f_unif_cuda_ae141901c392460d1acb54673dd3833dc}\label{class_f_unif_cuda_ae141901c392460d1acb54673dd3833dc} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries apply\+FC} (const unsigned int idx, const unsigned int, const FReal scale, const \mbox{\hyperlink{struct_f_cuda_unif_complex}{FCuda\+Unif\+Complex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const \+\_\+\+\_\+restrict\+\_\+\+\_\+ FY, \mbox{\hyperlink{struct_f_cuda_unif_complex}{FCuda\+Unif\+Complex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const \+\_\+\+\_\+restrict\+\_\+\+\_\+ FX) const
+\item 
+\Hypertarget{class_f_unif_cuda_af35dc528a7b7b54853b3414abd6b6ad2}\label{class_f_unif_cuda_af35dc528a7b7b54853b3414abd6b6ad2} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries M2L} (\mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} pole, const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}} \texorpdfstring{$\ast$}{*}distant\+Neighbors, const int \texorpdfstring{$\ast$}{*}neighbor\+Positions, const int in\+Size, const int Tree\+Level)
+\item 
+\Hypertarget{class_f_unif_cuda_add11ec7711725971d01c3aded26e6fbe}\label{class_f_unif_cuda_add11ec7711725971d01c3aded26e6fbe} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries L2L} (const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}, \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}\mbox{[}8\mbox{]}, const int)
+\item 
+\Hypertarget{class_f_unif_cuda_a26ad54f591e38db2a6f7a0d9da0682d2}\label{class_f_unif_cuda_a26ad54f591e38db2a6f7a0d9da0682d2} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries L2P} (const \mbox{\hyperlink{struct_f_cuda_composite_cell}{Cell\+Class}}, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const)
+\item 
+\Hypertarget{class_f_unif_cuda_a96645e87cf549ad81eb8ecca25be6706}\label{class_f_unif_cuda_a96645e87cf549ad81eb8ecca25be6706} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries Direct\+Computation} (const FReal \&targetX, const FReal \&targetY, const FReal \&targetZ, const FReal \&target\+Phys, FReal \&forceX, FReal \&forceY, FReal \&forceZ, FReal \&potential, const FReal \&sourcesX, const FReal \&sourcesY, const FReal \&sourcesZ, const FReal \&sources\+Phys) const
+\item 
+\Hypertarget{class_f_unif_cuda_a927128993692c99183d5b18fddea42c3}\label{class_f_unif_cuda_a927128993692c99183d5b18fddea42c3} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries P2P} (const int3 \&pos, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const targets, const \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const sources, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const direct\+Neighbors\+Particles, const int \texorpdfstring{$\ast$}{*}neighbor\+Positions, const int counter)
+\item 
+\Hypertarget{class_f_unif_cuda_a718c248630c76ac9a8ec291657fa1214}\label{class_f_unif_cuda_a718c248630c76ac9a8ec291657fa1214} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries P2\+PRemote} (const int3 \&, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const targets, const \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const direct\+Neighbors\+Particles, const int \texorpdfstring{$\ast$}{*}, const int counter)
+\item 
+\Hypertarget{class_f_unif_cuda_a73b5f523ea21aa734cc42b5be8fc7d5c}\label{class_f_unif_cuda_a73b5f523ea21aa734cc42b5be8fc7d5c} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries P2\+POuter} (const int3 \&, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const targets, \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{Container\+Class}} \texorpdfstring{$\ast$}{*}const direct\+Neighbors\+Particles, const int \texorpdfstring{$\ast$}{*}, const int counter)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_unif_cuda_a8266300eb875f69ba463de3d37ab13db}\label{class_f_unif_cuda_a8266300eb875f69ba463de3d37ab13db} 
+static \+\_\+\+\_\+host\+\_\+\+\_\+ \mbox{\hyperlink{class_f_unif_cuda}{FUnif\+Cuda}} \texorpdfstring{$\ast$}{*} {\bfseries Init\+Kernel\+Kernel} (void \texorpdfstring{$\ast$}{*})
+\item 
+\Hypertarget{class_f_unif_cuda_a88b666a4e631b8d000550e5d187cf87c}\label{class_f_unif_cuda_a88b666a4e631b8d000550e5d187cf87c} 
+static \+\_\+\+\_\+host\+\_\+\+\_\+ void {\bfseries Release\+Kernel} (\mbox{\hyperlink{class_f_unif_cuda}{FUnif\+Cuda}} \texorpdfstring{$\ast$}{*}cuda\+Kernel)
+\item 
+\Hypertarget{class_f_unif_cuda_a26673d384f40fc1be0159768fc632e32}\label{class_f_unif_cuda_a26673d384f40fc1be0159768fc632e32} 
+static \+\_\+\+\_\+host\+\_\+\+\_\+ dim3 {\bfseries Get\+Grid\+Size} (const int)
+\item 
+\Hypertarget{class_f_unif_cuda_a2e2ad7185992aa3404090e1b6bfbe880}\label{class_f_unif_cuda_a2e2ad7185992aa3404090e1b6bfbe880} 
+static \+\_\+\+\_\+host\+\_\+\+\_\+ dim3 {\bfseries Get\+Blocks\+Size} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_unif_cuda_ad98c867529c096708b18c994c2a26a62}\label{class_f_unif_cuda_ad98c867529c096708b18c994c2a26a62} 
+\mbox{\hyperlink{struct_f_unif_cuda_shared_data}{FUnif\+Cuda\+Shared\+Data}}$<$ FReal, ORDER $>$ {\bfseries data}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_unif_cuda_a87055050c7332eea6f23c24ef3185218}\label{class_f_unif_cuda_a87055050c7332eea6f23c24ef3185218} 
+static const int {\bfseries NB\+\_\+\+THREAD\+\_\+\+GROUPS} = 30
+\item 
+\Hypertarget{class_f_unif_cuda_a375fd57b93e4c7f75256ee1e2ff88fde}\label{class_f_unif_cuda_a375fd57b93e4c7f75256ee1e2ff88fde} 
+static const int {\bfseries THREAD\+\_\+\+GROUP\+\_\+\+SIZE} = 256
+\item 
+\Hypertarget{class_f_unif_cuda_a3fc11f91bc397f9b645d6cb00b210e87}\label{class_f_unif_cuda_a3fc11f91bc397f9b645d6cb00b210e87} 
+static const int {\bfseries SHARED\+\_\+\+MEMORY\+\_\+\+SIZE} = 512
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, int ORDER$>$\newline
+class FUnif\+Cuda$<$ FReal, ORDER $>$}
+This class defines what should be a Cuda kernel. 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Uniform/FUnif\+Cuda.\+hpp\end{DoxyCompactItemize}

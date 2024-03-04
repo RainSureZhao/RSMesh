@@ -1,0 +1,124 @@
+\doxysection{rmt\+\_\+primitive\+\_\+lattice.\+h}
+\hypertarget{rmt__primitive__lattice_8h_source}{}\label{rmt__primitive__lattice_8h_source}\index{include/isosurface/rmt\_primitive\_lattice.h@{include/isosurface/rmt\_primitive\_lattice.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/23.}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_RMT\_PRIMITIVE\_LATTICE\_H}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_RMT\_PRIMITIVE\_LATTICE\_H}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}Eigen/Geometry"{}}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <numbers>}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}geometry/bbox3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}isosurface/isosurface\_types.h"{}}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00017}00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1isosurface}{rsmesh::isosurface}}\ \{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{namespace\ }detail\ \{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00019}\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1detail_1_1lattice__vectors}{00019}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1detail_1_1lattice__vectors}{lattice\_vectors}}\ :\ \textcolor{keyword}{public}\ std::array<geometry::vector3d,\ 3>\ \{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }base\ =\ std::array<geometry::vector3d,\ 3>;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1isosurface_1_1detail_1_1lattice__vectors}{lattice\_vectors}}();}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00026}\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1detail_1_1dual__lattice__vectors}{00026}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1detail_1_1dual__lattice__vectors}{dual\_lattice\_vectors}}\ :\ \textcolor{keyword}{public}\ std::array<geometry::vector3d,\ 3>\ \{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }base\ =\ std::array<geometry::vector3d,\ 3>;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1isosurface_1_1detail_1_1dual__lattice__vectors}{dual\_lattice\_vectors}}();}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00032}00032\ \ \ \ \ \}\ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a72e45be83081efde821fab26fdbdaae3}{geometry::linear\_transformation3d}}\ rotation()\ \{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a352f92f563081131bb38bf26e43e1aef}{geometry::to\_linear\_transformation3d}}(}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::AngleAxisd(-\/std::numbers::pi\ /\ 2.0,\ geometry::vector3d::UnitZ())\ *}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::AngleAxisd(-\/std::numbers::pi\ /\ 4.0,\ geometry::vector3d::UnitY()));}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00037}00037\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00039}00039\ \textcolor{comment}{//\ Primitive\ vectors\ of\ the\ body-\/centered\ cubic\ lattice.}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00040}00040\ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ detail::lattice\_vectors\ LatticeVectors;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00042}00042\ \textcolor{comment}{//\ Reciprocal\ primitive\ vectors\ of\ the\ body-\/centered\ cubic\ lattice.}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00043}00043\ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ detail::dual\_lattice\_vectors\ DualLatticeVectors;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00045}\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1rmt__primitive__lattice}{00045}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1rmt__primitive__lattice}{rmt\_primitive\_lattice}}\ \{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00046}00046\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1isosurface_1_1rmt__primitive__lattice}{rmt\_primitive\_lattice}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry::bbox3d}}\&\ bbox,\ \textcolor{keywordtype}{double}\ resolution)}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ a0\_(resolution\ *\ LatticeVectors[0]),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a1\_(resolution\ *\ LatticeVectors[1]),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a2\_(resolution\ *\ LatticeVectors[2]),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b0\_(DualLatticeVectors[0]\ /\ resolution),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b1\_(DualLatticeVectors[1]\ /\ resolution),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b2\_(DualLatticeVectors[2]\ /\ resolution),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bbox\_(bbox),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ext\_bbox\_(compute\_extended\_bbox(bbox,\ resolution)),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ resolution\_(resolution)\ \{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\ ext\_bbox\_vertices(8,\ 3);}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ ext\_bbox\_vertices\ <<\ ext\_bbox\_.min()(0),\ ext\_bbox\_.min()(1),\ ext\_bbox\_.min()(2),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ext\_bbox\_.max()(0),\ ext\_bbox\_.min()(1),\ ext\_bbox\_.min()(2),\ ext\_bbox\_.min()(0),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ext\_bbox\_.max()(1),\ ext\_bbox\_.min()(2),\ ext\_bbox\_.min()(0),\ ext\_bbox\_.min()(1),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ext\_bbox\_.max()(2),\ ext\_bbox\_.min()(0),\ ext\_bbox\_.max()(1),\ ext\_bbox\_.max()(2),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ext\_bbox\_.max()(0),\ ext\_bbox\_.min()(1),\ ext\_bbox\_.max()(2),\ ext\_bbox\_.max()(0),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ext\_bbox\_.max()(1),\ ext\_bbox\_.min()(2),\ ext\_bbox\_.max()(0),\ ext\_bbox\_.max()(1),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ext\_bbox\_.max()(2);}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ cell\_vectors\ cvs(8,\ 3);}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ 8;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cvs.row(i)\ =\ cell\_vector\_from\_point(ext\_bbox\_vertices.row(i));}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Bounds\ of\ cell\ vectors\ for\ enumerating\ all\ nodes\ in\ the\ extended\ bbox.}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ cv\_min\ =\ cvs.colwise().minCoeff().array()\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ cv\_max\ =\ cvs.colwise().maxCoeff();}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry::bbox3d}}\&\ bbox()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ bbox\_;\ \}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a5a8298c925fa95dd2345ab74c96efaf8}{geometry::point3d}}\ cell\_node\_point(\textcolor{keyword}{const}\ cell\_vector\&\ cv)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cv(0)\ *\ a0\_\ +\ cv(1)\ *\ a1\_\ +\ cv(2)\ *\ a2\_;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00080}00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ cell\_vector\ cell\_vector\_from\_point(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a5a8298c925fa95dd2345ab74c96efaf8}{geometry::point3d}}\&\ p)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(std::floor(p.dot(b0\_))),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(std::floor(p.dot(b1\_))),}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(std::floor(p.dot(b2\_)))\};}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00085}00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ All\ nodes\ in\ the\ extended\ bbox\ must\ be\ evaluated}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ ensure\ that\ the\ isosurface\ does\ not\ have\ boundary\ in\ the\ bbox.}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry::bbox3d}}\&\ extended\_bbox()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ ext\_bbox\_;\ \}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ resolution()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ resolution\_;\ \}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00093}00093\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00094}00094\ \ \ \ \ \ \ \ \ cell\_vector\ cv\_min;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00095}00095\ \ \ \ \ \ \ \ \ cell\_vector\ cv\_max;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00097}00097\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry::bbox3d}}\ compute\_extended\_bbox(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry::bbox3d}}\&\ bbox,\ \textcolor{keywordtype}{double}\ resolution)\ \{}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{geometry::vector3d}}\ cell\_bbox\_size\ =}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ resolution\ *\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{geometry::vector3d}}(3.0\ /\ std::numbers::sqrt2,\ 2.0,\ 1.0);}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{geometry::vector3d}}\ ext\ =\ 1.01\ *\ cell\_bbox\_size;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{bbox.min()\ -\/\ ext,\ bbox.max()\ +\ ext\};}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00103}00103\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{geometry::vector3d}}\ a0\_;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{geometry::vector3d}}\ a1\_;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{geometry::vector3d}}\ a2\_;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{geometry::vector3d}}\ b0\_;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{geometry::vector3d}}\ b1\_;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{geometry::vector3d}}\ b2\_;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry::bbox3d}}\ bbox\_;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry::bbox3d}}\ ext\_bbox\_;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ resolution\_;}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00114}00114\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00116}00116\ \}}
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{rmt__primitive__lattice_8h_source_l00118}00118\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_RMT\_PRIMITIVE\_LATTICE\_H}}
+
+\end{DoxyCode}

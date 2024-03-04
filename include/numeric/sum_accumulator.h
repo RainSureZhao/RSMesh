@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/1/14.
+// Created by RainSure on 2024/1/14.
 //
 
 #ifndef RSMESH_SUM_ACCUMULATOR_H

@@ -1,0 +1,69 @@
+\doxysection{FLight\+Octree.\+hpp}
+\hypertarget{_f_light_octree_8hpp_source}{}\label{_f_light_octree_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Containers/FLightOctree.hpp@{third\_party/ScalFMM/include/ScalFMM/Containers/FLightOctree.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FLIGHTOCTREE\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FLIGHTOCTREE\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ CellClass>}
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_light_octree}{FLightOctree}}\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ The\ node\ class}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{struct\ }Node\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ Node*\ next[8];\ \ \ \textcolor{comment}{//\ Child}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ CellClass*\ cell;\ \textcolor{comment}{//\ Cell\ data}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ Node()\ :\ cell(\textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ memset(next,\ 0,\ \textcolor{keyword}{sizeof}(Node*)*8);}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \string~Node()\{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxNext\ =\ 0\ ;\ idxNext\ <\ 8\ ;\ ++idxNext)\{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ next[idxNext];}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ cell;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ Tree\ root}}
+\DoxyCodeLine{00032\ \ \ \ \ Node\ root;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_f_light_octree}{FLightOctree}}()\{}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ Insert\ a\ cell}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ insertCell(\textcolor{keyword}{const}\ MortonIndex\&\ index,\ \textcolor{keywordtype}{int}\ level,\ CellClass*\textcolor{keyword}{const}\ inCell)\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ Node*\ iter\ =\ \&root;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(level)\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ host\ =\ (index\ >>\ (3\ *\ (level-\/1)))\ \&\ 0x07;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!iter-\/>next[host])\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iter-\/>next[host]\ =\ \textcolor{keyword}{new}\ Node();}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ iter\ =\ iter-\/>next[host];}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ level\ -\/=\ 1;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ iter-\/>cell\ =\ inCell;}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ Retreive\ a\ cell}}
+\DoxyCodeLine{00054\ \ \ \ \ CellClass*\ getCell(\textcolor{keyword}{const}\ MortonIndex\&\ index,\ \textcolor{keywordtype}{int}\ level)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Node*\ iter\ =\ \&root;}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(level)\{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ host\ =\ (index\ >>\ (3\ *\ (level-\/1)))\ \&\ 0x07;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!iter-\/>next[host])\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ iter\ =\ iter-\/>next[host];}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ level\ -\/=\ 1;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ iter-\/>cell;}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FLIGHTOCTREE\_HPP}}
+
+\end{DoxyCode}

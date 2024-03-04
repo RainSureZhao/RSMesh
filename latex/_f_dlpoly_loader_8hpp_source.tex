@@ -1,0 +1,331 @@
+\doxysection{FDlpoly\+Loader.\+hpp}
+\hypertarget{_f_dlpoly_loader_8hpp_source}{}\label{_f_dlpoly_loader_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Files/FDlpolyLoader.hpp@{third\_party/ScalFMM/include/ScalFMM/Files/FDlpolyLoader.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FDlpolyLOADER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FDlpolyLOADER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}FAbstractLoader.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../Utils/FPoint.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_loader}{FAbstractLoader}}<FReal>\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ \ std::ifstream\ file;\ \ \ \ \ \ \ \ \ //<\ The\ file\ to\ read}}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ \ \ \ \ \ \ \ centerOfBox;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ center\ of\ box\ read\ from\ file}}
+\DoxyCodeLine{00019\ \ \ \ \ FReal\ \ \ \ \ \ \ \ \ boxWidth;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ the\ box\ width\ read\ from\ file}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ nbParticles;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ the\ number\ of\ particles\ read\ from\ file}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ levcfg\ \ ;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ DL\_POLY\ CONFIG\ file\ key.\ 0,1\ or\ 2}}
+\DoxyCodeLine{00022\ \ \ \ \ FReal\ \ \ \ \ \ \ \ \ energy\ \ ;}
+\DoxyCodeLine{00023\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{enum}\ Type\{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ OW,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ HW,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ Na,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ Cl,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ Undefined,}
+\DoxyCodeLine{00030\ \ \ \ \ \};}
+\DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_dlpoly_loader}{\string~FDlpolyLoader}}()}
+\DoxyCodeLine{00033\ \ \ \ \ \{\}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_dlpoly_loader_a9838a0fc9e8c4146cdc4bc82bcc0c9a0}{isOpen}}()\ \textcolor{keyword}{const}\ =0;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ fillParticle(\mbox{\hyperlink{class_f_point}{FPoint<FReal>}}*\ inPosition,\ FReal\ inForces[3],\ FReal*\ inPhysicalValue,\ \textcolor{keywordtype}{int}*\ inIndex)=0;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ FSize\ \mbox{\hyperlink{class_f_dlpoly_loader_ae4d2e8d81e946487155d2bff0f428cfd}{getNumberOfParticles}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FSize(this-\/>nbParticles);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ \mbox{\hyperlink{class_f_dlpoly_loader_a0352bea3b5bf9d3ac216c991a5ba85e7}{getCenterOfBox}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>centerOfBox;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_dlpoly_loader_ab515a75b4d0b4c76f0c9092642de3ef2}{getBoxWidth}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>boxWidth;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ FReal\ getEnergy()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>energy;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \textcolor{keywordtype}{void}\ getPhysicalValue(std::string\ \&type,FReal\ \&\ outPhysicalValue,\ \textcolor{keywordtype}{int}\ \&\ outIndex)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ strncmp(type.c\_str(),\ \textcolor{stringliteral}{"{}OW"{}},\ 2)\ ==\ 0)\{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ outPhysicalValue\ =\ FReal(-\/0.82);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ outIndex\ =\ OW;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ strncmp(type.c\_str(),\ \textcolor{stringliteral}{"{}HW"{}},\ 2)\ ==\ 0)\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ outPhysicalValue\ =\ FReal(-\/0.41);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ outIndex\ =\ HW;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ strncmp(type.c\_str(),\ \textcolor{stringliteral}{"{}Na"{}},\ 2)\ ==\ 0)\{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ outPhysicalValue\ =\ FReal(1.0);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ outIndex\ =\ Na;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ strncmp(type.c\_str(),\ \textcolor{stringliteral}{"{}Cl"{}},\ 2)\ ==\ 0)\{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ outPhysicalValue\ =\ FReal(-\/1.0);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ outIndex\ =\ Cl;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Atom\ type\ not\ defined\ "{}}<<\ type\ <<\ std::endl;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/1);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ "{}Atom\ type\ "{}\ <<\ type\ <<\ "{}\ \ "{}<<\ outPhysicalValue\ <<\ "{}\ "{}\ <<\ outIndex\ <<std::endl;}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \textcolor{keywordtype}{void}\ getPhysicalValue(\textcolor{keywordtype}{char}\ type[2],FReal\ \&\ outPhysicalValue,\ \textcolor{keywordtype}{int}\ \&\ outIndex)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ strncmp(type,\ \textcolor{stringliteral}{"{}OW"{}},\ 2)\ ==\ 0)\{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ outPhysicalValue\ =\ FReal(-\/0.82);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ outIndex\ =\ OW;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ strncmp(type,\ \textcolor{stringliteral}{"{}HW"{}},\ 2)\ ==\ 0)\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ outPhysicalValue\ =\ FReal(-\/0.41);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ outIndex\ =\ HW;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ strncmp(type,\ \textcolor{stringliteral}{"{}Na"{}},\ 2)\ ==\ 0)\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ outPhysicalValue\ =\ FReal(1.0);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ outIndex\ =\ Na;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ strncmp(type,\ \textcolor{stringliteral}{"{}Cl"{}},\ 2)\ ==\ 0)\{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ outPhysicalValue\ =\ FReal(-\/1.0);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ outIndex\ =\ Cl;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Atom\ type\ not\ defined\ "{}}<<\ type\ <<\ std::endl;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/1);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \textcolor{comment}{//\ \ \ std::cout\ <<\ "{}Atom\ type\ "{}\ <<\ type\ <<\ "{}\ \ "{}<<\ outPhysicalValue\ <<\ "{}\ "{}\ <<\ outIndex\ <<std::endl;}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \}\ ;}
+\DoxyCodeLine{00121\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00122\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_dlpoly_ascii_loader}{FDlpolyAsciiLoader}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader}}<FReal>\ \{}
+\DoxyCodeLine{00123\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00124\ \ \ \ \ std::ifstream\ file;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ file\ to\ read}}
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ \ \ \ FPoint<FReal>\ \ \ \ \ \ \ \ centerOfBox;\ \ \ \ \ \ \ \ \ \ //<\ The\ center\ of\ box\ read\ from\ file}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ \ \ \ FReal\ \ \ \ \ \ \ \ \ boxWidth;\ \ \ \ \ \ \ \ \ \ \ \ \ //<\ the\ box\ width\ read\ from\ file}}
+\DoxyCodeLine{00127\ \textcolor{comment}{//\ \ \ \ int\ \ \ \ \ \ \ \ \ \ \ nbParticles;\ \ \ \ \ \ \ \ \ \ \ \ //<\ the\ number\ of\ particles\ read\ from\ file}}
+\DoxyCodeLine{00128\ \textcolor{comment}{//\ \ \ \ int\ \ \ \ \ \ \ \ \ \ \ levcfg\ \ ;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //<\ DL\_POLY\ CONFIG\ file\ key.\ 0,1\ or\ 2}}
+\DoxyCodeLine{00129\ \textcolor{comment}{//\ \ \ \ FReal\ \ \ \ \ \ \ \ \ energy\ \ ;}}
+\DoxyCodeLine{00130\ \textcolor{comment}{//public:}}
+\DoxyCodeLine{00131\ \textcolor{comment}{//\ \ \ \ enum\ Type\{}}
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ \ \ \ \ \ \ \ OW,}}
+\DoxyCodeLine{00133\ \textcolor{comment}{//\ \ \ \ \ \ \ \ HW,}}
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ \ \ \ \ \ \ \ Na,}}
+\DoxyCodeLine{00135\ \textcolor{comment}{//\ \ \ \ \ \ \ \ Cl,}}
+\DoxyCodeLine{00136\ \textcolor{comment}{//\ \ \ \ \ \ \ \ Undefined,}}
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ \ \ \ \};}}
+\DoxyCodeLine{00138\ \textcolor{comment}{//}}
+\DoxyCodeLine{00149\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00150\ \ \ \ \ \mbox{\hyperlink{class_f_dlpoly_ascii_loader_a5fe36ffd1ad50c9d6545c422c957c80b}{FDlpolyAsciiLoader}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ filename):\ file(filename,std::ifstream::in)\{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ test\ if\ open}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>file.is\_open())\{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ bufferSize\ =\ 512;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[bufferSize];}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ file.getline(buffer,\ bufferSize);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ imcon\ ;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//int\ tempi(0);}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ tempf(0);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::levcfg}}\ >>\ imcon\ >>\ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::nbParticles}}\ >>\ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::energy}};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Periodic\ case}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ imcon\ >\ 0\ )\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ widthx,\ widthy,\ widthz;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ widthx\ >>\ tempf\ >>\ tempf;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ tempf\ >>\ widthy\ >>\ tempf;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ tempf\ >>\ tempf\ >>\ widthz;}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>boxWidth\ =\ widthx;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Non\ periodic\ case}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ this-\/>boxWidth;}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>centerOfBox.\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(0.0,0.0,0.0);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>boxWidth\ \ \ \ =\ 0;}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>nbParticles\ =\ 0;}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ASCII\ LOADER\ "{}}<<\ this-\/>nbParticles<<\ \textcolor{stringliteral}{"{}\ \ \ \ \ "{}}<<\ this-\/>boxWidth<<std::endl;}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_dlpoly_ascii_loader_a3e9eedcc3eb0f15b2ac7587526e8602b}{\string~FDlpolyAsciiLoader}}()\{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ file.close();}
+\DoxyCodeLine{00189\ \ \ \ \ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_dlpoly_ascii_loader_a29c7fe3ebbc51995a4d7681aabe44ff4}{isOpen}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>file.is\_open()\ \&\&\ !this-\/>file.eof();}
+\DoxyCodeLine{00197\ \ \ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_dlpoly_ascii_loader_ab135f774f43ff9c91106f453586bbab4}{fillParticle}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal>}}*\ inPosition,\ FReal\ inForces[3],\ FReal*\ inPhysicalValue,\ \textcolor{keywordtype}{int}*\ inIndex)\{}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ FReal\ x,\ y,\ z,\ fx=0.0,\ fy=0.0,\ fz=0.0,\ vx=0.0,\ vy=0.0,\ vz=0.0;}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index;}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ this-\/>file.ignore(std::numeric\_limits<std::streamsize>::max(),\ \textcolor{charliteral}{'\(\backslash\)n'});}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ std::string\ atomType,\ line;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ this-\/>file\ >>\ atomType;}
+\DoxyCodeLine{00219\ \textcolor{comment}{//}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ file\ >>\ index;}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ std::getline(file,\ line);\ \textcolor{comment}{//\ needed\ to\ skip\ the\ end\ of\ the\ line\ in\ non\ periodic\ case}}
+\DoxyCodeLine{00223\ \ \ \textcolor{comment}{//\ \ \ \ std::cout\ <<\ "{}line:\ "{}\ <<\ line\ <<\ std::endl;}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::levcfg}}\ ==\ 0)\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ x\ >>\ y\ >>\ z;}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::levcfg}}\ ==\ 1)\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ x\ >>\ y\ >>\ z;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ vx\ >>\ vy\ >>\ vz;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ x\ >>\ y\ >>\ z;}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ vx\ >>\ vy\ >>\ vz;}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ fx\ >>\ fy\ >>\ fz;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ inIndex[0]\ =\ index;}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ inPosition-\/>\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(\ x,\ y\ ,z);}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ inForces[0]\ =\ fx;}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ inForces[1]\ =\ fy;}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ inForces[2]\ =\ fz;}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::getPhysicalValue}}(atomType,\ *inPhysicalValue,*inIndex\ \ );}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \}}
+\DoxyCodeLine{00245\ \};}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00249\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_dlpoly_bin_loader}{FDlpolyBinLoader}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader}}<FReal>\ \{}
+\DoxyCodeLine{00250\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00251\ \ \ \ \ FILE*\ \textcolor{keyword}{const}\ file;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ file\ to\ read}}
+\DoxyCodeLine{00252\ \textcolor{comment}{//\ \ \ \ FPoint<FReal>\ centerOfBox;\ \ \ \ //<\ The\ center\ of\ box\ read\ from\ file}}
+\DoxyCodeLine{00253\ \textcolor{comment}{//\ \ \ \ double\ boxWidth;\ \ \ \ \ \ \ \ \ \ \ \ \ //<\ the\ box\ width\ read\ from\ file}}
+\DoxyCodeLine{00254\ \textcolor{comment}{//\ \ \ \ FSize\ nbParticles;\ \ \ \ \ \ \ \ \ \ \ \ //<\ the\ number\ of\ particles\ read\ from\ file}}
+\DoxyCodeLine{00255\ \textcolor{comment}{//\ \ \ \ double\ energy;}}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ removeWarning;}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Type>}
+\DoxyCodeLine{00259\ \ \ \ \ Type\ readValue()\{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeBefore,\ sizeAfter;}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ Type\ value;}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&sizeBefore,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}),\ 1,\ file);}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&value,\ \textcolor{keyword}{sizeof}(Type),\ 1,\ file);}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&sizeAfter,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}),\ 1,\ file);}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ sizeBefore\ !=\ \textcolor{keyword}{sizeof}(Type)\ )\ printf(\textcolor{stringliteral}{"{}Error\ in\ loader\ Dlpoly\ Size\ before\ \%d\ should\ be\ \%lu\(\backslash\)n"{}},\ sizeBefore,\ \textcolor{keyword}{sizeof}(Type));}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ sizeAfter\ !=\ \textcolor{keyword}{sizeof}(Type)\ )\ printf(\textcolor{stringliteral}{"{}Error\ in\ loader\ Dlpoly\ Size\ after\ \%d\ should\ be\ \%lu\(\backslash\)n"{}},\ sizeAfter,\ \textcolor{keyword}{sizeof}(Type));}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00268\ \ \ \ \ \}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Type>}
+\DoxyCodeLine{00271\ \ \ \ \ Type*\ readArray(Type\ array[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size)\{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeBefore,\ sizeAfter;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&sizeBefore,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}),\ 1,\ file);}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(array,\ \textcolor{keyword}{sizeof}(Type),\ size,\ file);}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&sizeAfter,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}),\ 1,\ file);}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ sizeBefore\ !=\ \textcolor{keywordtype}{int}(\textcolor{keyword}{sizeof}(Type)\ *\ size)\ )\ printf(\textcolor{stringliteral}{"{}Error\ in\ loader\ Dlpoly\ Size\ before\ \%d\ should\ be\ \%lu\(\backslash\)n"{}},\ sizeBefore,\ size*\textcolor{keyword}{sizeof}(Type));}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ sizeAfter\ !=\ \textcolor{keywordtype}{int}(\textcolor{keyword}{sizeof}(Type)\ *\ size)\ )\ printf(\textcolor{stringliteral}{"{}Error\ in\ loader\ Dlpoly\ Size\ after\ \%d\ should\ be\ \%lu\(\backslash\)n"{}},\ sizeAfter,\ size*\textcolor{keyword}{sizeof}(Type));}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ array;}
+\DoxyCodeLine{00279\ \ \ \ \ \}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00290\ \ \ \ \ \mbox{\hyperlink{class_f_dlpoly_bin_loader_af3ba899c57cf0305917c7e761a56b547}{FDlpolyBinLoader}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ filename):\ file(fopen(filename,\ \textcolor{stringliteral}{"{}rb"{}}))\ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ test\ if\ open}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>file\ !=\ \textcolor{keyword}{nullptr})\{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::energy}}\ =\ readValue<double>();}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ boxDim[3];}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::boxWidth}}\ =\ readArray<double>(boxDim,3)[0];}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::nbParticles}}\ =\ readValue<int>();}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::centerOfBox}}.setPosition(0.0,0.0,0.0);}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::boxWidth}}\ \ \ \ =\ 0;}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::nbParticles}}\ =\ 0;}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}nbParticles\ \ "{}}<<\ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpolyLoader<FReal>::nbParticles}}\ <<std::endl;}
+\DoxyCodeLine{00305\ \ \ \ \ \}}
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_dlpoly_bin_loader_a99badbd2f4ef6edbbcd2d305eac82e3c}{\string~FDlpolyBinLoader}}()\{}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ fclose(file);}
+\DoxyCodeLine{00311\ \ \ \ \ \}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_dlpoly_bin_loader_a1e97d0e5f0ab8ebdfdeab2c323ad7e32}{isOpen}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>file\ !=\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00319\ \ \ \ \ \}}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \textcolor{comment}{//\ \ \ \ /**}}
+\DoxyCodeLine{00322\ \textcolor{comment}{//\ \ \ \ \ \ *\ To\ get\ the\ number\ of\ particles\ from\ this\ loader}}
+\DoxyCodeLine{00323\ \textcolor{comment}{//\ \ \ \ \ \ *\ @param\ the\ number\ of\ particles\ the\ loader\ can\ fill}}
+\DoxyCodeLine{00324\ \textcolor{comment}{//\ \ \ \ \ \ */}}
+\DoxyCodeLine{00325\ \textcolor{comment}{//\ \ \ \ FSize\ getNumberOfParticles()\ const\{}}
+\DoxyCodeLine{00326\ \textcolor{comment}{//\ \ \ \ \ \ \ \ return\ FSize(this-\/>nbParticles);}}
+\DoxyCodeLine{00327\ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{00328\ \textcolor{comment}{//}}
+\DoxyCodeLine{00329\ \textcolor{comment}{//\ \ \ \ /**}}
+\DoxyCodeLine{00330\ \textcolor{comment}{//\ \ \ \ \ \ *\ The\ center\ of\ the\ box\ from\ the\ simulation\ file\ opened\ by\ the\ loader}}
+\DoxyCodeLine{00331\ \textcolor{comment}{//\ \ \ \ \ \ *\ @return\ box\ center}}
+\DoxyCodeLine{00332\ \textcolor{comment}{//\ \ \ \ \ \ */}}
+\DoxyCodeLine{00333\ \textcolor{comment}{//\ \ \ \ FPoint<FReal>\ getCenterOfBox()\ const\{}}
+\DoxyCodeLine{00334\ \textcolor{comment}{//\ \ \ \ \ \ \ \ return\ this-\/>centerOfBox;}}
+\DoxyCodeLine{00335\ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{00336\ \textcolor{comment}{//}}
+\DoxyCodeLine{00337\ \textcolor{comment}{//\ \ \ \ /**}}
+\DoxyCodeLine{00338\ \textcolor{comment}{//\ \ \ \ \ \ *\ The\ box\ width\ from\ the\ simulation\ file\ opened\ by\ the\ loader}}
+\DoxyCodeLine{00339\ \textcolor{comment}{//\ \ \ \ \ \ *\ @return\ box\ width}}
+\DoxyCodeLine{00340\ \textcolor{comment}{//\ \ \ \ \ \ */}}
+\DoxyCodeLine{00341\ \textcolor{comment}{//\ \ \ \ FReal\ getBoxWidth()\ const\{}}
+\DoxyCodeLine{00342\ \textcolor{comment}{//\ \ \ \ \ \ return\ static\_cast<FReal>(this-\/>boxWidth);}}
+\DoxyCodeLine{00343\ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{00344\ \textcolor{comment}{//}}
+\DoxyCodeLine{00345\ \textcolor{comment}{//\ \ \ \ FReal\ getEnergy()\ const\{}}
+\DoxyCodeLine{00346\ \textcolor{comment}{//\ \ \ \ \ \ return\ static\_cast<FReal>(this-\/>energy);}}
+\DoxyCodeLine{00347\ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_dlpoly_bin_loader_ae5d9de6bdc09d078021ec5554c3b16e1}{fillParticle}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal>}}*\ inPosition,\ FReal\ inForces[3],\ FReal*\ inPhysicalValue,\ \textcolor{keywordtype}{int}*\ inIndex)\{}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ x,\ y,\ z,\ fx,\ fy,\ fz,\ charge;}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index;}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size;}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&size,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}),\ 1,\ file);}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(size\ !=\ 60)\ printf(\textcolor{stringliteral}{"{}Error\ in\ loader\ Dlpoly\ Size\ \%d\ should\ be\ \%d\(\backslash\)n"{}},\ size,\ 60);}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&index,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}),\ 1,\ file);}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&charge,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ 1,\ file);}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&x,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ 1,\ file);}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&y,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ 1,\ file);}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&z,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ 1,\ file);}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&fx,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ 1,\ file);}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&fy,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ 1,\ file);}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&fz,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ 1,\ file);}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ removeWarning\ =\ fread(\&size,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}),\ 1,\ file);}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(size\ !=\ 60)\ printf(\textcolor{stringliteral}{"{}Error\ in\ loader\ Dlpoly\ Size\ \%d\ should\ be\ \%d\(\backslash\)n"{}},\ size,\ 60);}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ inPosition-\/>\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(\ \textcolor{keyword}{static\_cast<}FReal\textcolor{keyword}{>}(x),\ \textcolor{keyword}{static\_cast<}FReal\textcolor{keyword}{>}(y)\ ,\textcolor{keyword}{static\_cast<}FReal\textcolor{keyword}{>}(z));}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ inForces[0]\ =\ \textcolor{keyword}{static\_cast<}FReal\textcolor{keyword}{>}(fx);}
+\DoxyCodeLine{00379\ \ \ \ \ inForces[1]\ =\ \textcolor{keyword}{static\_cast<}FReal\textcolor{keyword}{>}(fy);}
+\DoxyCodeLine{00380\ \ \ \ \ inForces[2]\ =\ \textcolor{keyword}{static\_cast<}FReal\textcolor{keyword}{>}(fz);}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ *inPhysicalValue\ =\ \textcolor{keyword}{static\_cast<}FReal\textcolor{keyword}{>}(charge);}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ *inIndex\ =\ index;}
+\DoxyCodeLine{00383\ \ \ \ \ \}}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \};}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FDlpolyLoader\_HPP}}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ }
+
+\end{DoxyCode}

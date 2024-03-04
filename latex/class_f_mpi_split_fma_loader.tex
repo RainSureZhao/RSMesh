@@ -1,0 +1,93 @@
+\doxysection{FMpi\+Split\+Fma\+Loader\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_mpi_split_fma_loader}{}\label{class_f_mpi_split_fma_loader}\index{FMpiSplitFmaLoader$<$ FReal $>$@{FMpiSplitFmaLoader$<$ FReal $>$}}
+类 FMpi\+Split\+Fma\+Loader\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_f_mpi_split_fma_loader}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_mpi_split_fma_loader_a1afc9cf0ada84820023463eddc3c301b}\label{class_f_mpi_split_fma_loader_a1afc9cf0ada84820023463eddc3c301b} 
+{\bfseries FMpi\+Split\+Fma\+Loader} (const std\+::string \&filename, int proc\+Rank)
+\item 
+FSize \mbox{\hyperlink{class_f_mpi_split_fma_loader_a602209ea0f99a62e49c93ad636f4eaa8}{get\+Number\+Of\+Particles}} () const
+\item 
+\Hypertarget{class_f_mpi_split_fma_loader_a6a2ea3bcb46220c37d7aa32b33893645}\label{class_f_mpi_split_fma_loader_a6a2ea3bcb46220c37d7aa32b33893645} 
+FSize {\bfseries get\+My\+Number\+Of\+Particles} () const
+\item 
+\Hypertarget{class_f_mpi_split_fma_loader_a811d882f43179fe53071c61cd5126e42}\label{class_f_mpi_split_fma_loader_a811d882f43179fe53071c61cd5126e42} 
+FSize {\bfseries get\+Start} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_fma_generic_loader}{FFma\+Generic\+Loader$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_fma_generic_loader_a7db1a6737f5e1758c4dc5f3d6fc1ae36}{FFma\+Generic\+Loader}} (const std\+::string \&filename, const bool binary)
+\item 
+\mbox{\hyperlink{class_f_fma_generic_loader_ad6b95074becd919b3d602dc7c7a4e6a4}{FFma\+Generic\+Loader}} (const std\+::string \&filename)
+\item 
+virtual \mbox{\hyperlink{class_f_fma_generic_loader_a7dc2174066fdb6346457c4aca7ada84c}{\texorpdfstring{$\sim$}{\string~}\+FFma\+Generic\+Loader}} ()
+\item 
+bool \mbox{\hyperlink{class_f_fma_generic_loader_afc1689c8e7ca6cbeaa1800c0d4e94577}{is\+Open}} () const
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_fma_generic_loader_af861de4a5396827fc1f2eaed48271a25}{get\+Center\+Of\+Box}} () const
+\item 
+FSize \mbox{\hyperlink{class_f_fma_generic_loader_af391216bf39ba81e81217d95b734dec5}{get\+Particle\+Count}} () const
+\begin{DoxyCompactList}\small\item\em Get the distribution particle count \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_fma_generic_loader_a977edcd8680772d6d3f41dd438a2c468}{get\+Box\+Center}} () const
+\begin{DoxyCompactList}\small\item\em Get distribution center \end{DoxyCompactList}\item 
+FReal \mbox{\hyperlink{class_f_fma_generic_loader_ada3d289cddb6b42042e16e9b02e9f8d8}{get\+Box\+Width}} () const
+\item 
+unsigned int \mbox{\hyperlink{class_f_fma_generic_loader_aa9999659f8ecb90bd85e907077f8a3fc}{get\+Nb\+Record\+Perline}} ()
+\item 
+unsigned int \mbox{\hyperlink{class_f_fma_generic_loader_adad72e0ee49ae211d73908f050d4c59d}{get\+Data\+Type}} ()
+\item 
+void \mbox{\hyperlink{class_f_fma_generic_loader_aeb1d51f55e165e0062c88496e9917691}{fill\+Particle}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const out\+Particle\+Positions, FReal \texorpdfstring{$\ast$}{*}const out\+Physical\+Value)
+\item 
+void \mbox{\hyperlink{class_f_fma_generic_loader_a0660d7f4d28ff0063a13f35be9331d2a}{fill\+Particle}} (FReal \texorpdfstring{$\ast$}{*}data\+To\+Read, const unsigned int nb\+Data\+To\+Read)
+\item 
+{\footnotesize template$<$class data\+Part $>$ }\\void \mbox{\hyperlink{class_f_fma_generic_loader_a38820d758b57438a656008467c647a0a}{fill\+Particle}} (data\+Part \&data\+To\+Read)
+\item 
+{\footnotesize template$<$class data\+Part $>$ }\\void \mbox{\hyperlink{class_f_fma_generic_loader_ae3e24e0254540e1c3d0ff231762c5a6d}{fill\+Particle}} (data\+Part \texorpdfstring{$\ast$}{*}data\+To\+Read, const FSize N)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_loader}{FAbstract\+Loader$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_f_abstract_loader_a50fdd33c7eac1ec0733b79ed1bd4b4e8}{\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Loader}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{class_f_fma_generic_loader}{FFma\+Generic\+Loader$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::fstream \texorpdfstring{$\ast$}{*} {\bfseries file}
+\begin{DoxyCompactList}\small\item\em the stream used to read the file \end{DoxyCompactList}\item 
+bool {\bfseries binary\+File}
+\begin{DoxyCompactList}\small\item\em if true the file to read is in binary mode \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries center\+Of\+Box}
+\begin{DoxyCompactList}\small\item\em The center of box (read from file) \end{DoxyCompactList}\item 
+FReal {\bfseries box\+Width}
+\begin{DoxyCompactList}\small\item\em the box width (read from file) \end{DoxyCompactList}\item 
+FSize {\bfseries nb\+Particles}
+\begin{DoxyCompactList}\small\item\em the number of particles (read from file) \end{DoxyCompactList}\item 
+unsigned int {\bfseries type\+Data} \mbox{[}2\mbox{]}
+\begin{DoxyCompactList}\small\item\em Size of the data to read, number of data on 1 line \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_mpi_split_fma_loader_a602209ea0f99a62e49c93ad636f4eaa8}\label{class_f_mpi_split_fma_loader_a602209ea0f99a62e49c93ad636f4eaa8} 
+\index{FMpiSplitFmaLoader$<$ FReal $>$@{FMpiSplitFmaLoader$<$ FReal $>$}!getNumberOfParticles@{getNumberOfParticles}}
+\index{getNumberOfParticles@{getNumberOfParticles}!FMpiSplitFmaLoader$<$ FReal $>$@{FMpiSplitFmaLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getNumberOfParticles()}{getNumberOfParticles()}}
+{\footnotesize\ttfamily template$<$typename FReal $>$ \\
+FSize \mbox{\hyperlink{class_f_mpi_split_fma_loader}{FMpi\+Split\+Fma\+Loader}}$<$ FReal $>$\+::get\+Number\+Of\+Particles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+To get the number of particles from this loader 
+
+重载 \mbox{\hyperlink{class_f_fma_generic_loader_a0eae474db04243aa97ce35da95931cc4}{FFma\+Generic\+Loader$<$ FReal $>$}} .
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Files/FMpi\+Split\+Fma\+Loader.\+hpp\end{DoxyCompactItemize}

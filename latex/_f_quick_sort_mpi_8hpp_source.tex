@@ -1,0 +1,455 @@
+\doxysection{FQuick\+Sort\+Mpi.\+hpp}
+\hypertarget{_f_quick_sort_mpi_8hpp_source}{}\label{_f_quick_sort_mpi_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FQuickSortMpi.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FQuickSortMpi.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FQUICKSORTMPI\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FQUICKSORTMPI\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}FQuickSort.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}FMpi.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}FLog.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}FAssert.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}FEnv.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ SortType,\ \textcolor{keyword}{class}\ CompareType,\ \textcolor{keyword}{class}\ IndexType\ =\ \textcolor{keywordtype}{size\_t}>}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_quick_sort_mpi}{FQuickSortMpi}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_quick_sort}{FQuickSort}}<\ SortType,\ IndexType>\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_USE\_LOG}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ VerboseLog;}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ We\ need\ a\ structure\ see\ the\ algorithm\ detail\ to\ know\ more}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{struct\ }Partition\{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ IndexType\ lowerPart;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ IndexType\ greaterPart;}
+\DoxyCodeLine{00024\ \ \ \ \ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{struct\ }PackData\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idProc;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ IndexType\ fromElement;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ IndexType\ toElement;}
+\DoxyCodeLine{00030\ \ \ \ \ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Swap(SortType\&\ value,\ SortType\&\ other)\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ SortType\ temp\ =\ std::move(value);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ value\ =\ std::move(other);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ other\ =\ std::move(temp);}
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{/*\ A\ local\ iteration\ of\ qs\ */}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ IndexType\ QsPartition(SortType\ array[],\ IndexType\ left,\ IndexType\ right,\ \textcolor{keyword}{const}\ CompareType\&\ pivot)\{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ IndexType\ idx\ =\ left;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ idx\ <=\ right\ \&\&\ CompareType(array[idx])\ <=\ pivot)\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ idx\ +=\ 1;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ left\ =\ idx;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ ;\ idx\ <=\ right\ ;\ ++idx)\{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ CompareType(array[idx])\ <=\ pivot\ )\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Swap(array[idx],array[left]);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ left\ +=\ 1;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ left;}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<PackData>\ Distribute(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ currentRank,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ currentNbProcs\ ,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Partition\ globalElementBalance[],\ \textcolor{keyword}{const}\ Partition\ globalElementBalanceSum[],}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ procInTheMiddle,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ inFromRightToLeft)\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First\ agree\ on\ who\ send\ and\ who\ recv}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ firstProcToSend\ =\ (inFromRightToLeft\ ?\ procInTheMiddle+1\ :\ 0);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ lastProcToSend\ \ =\ (inFromRightToLeft\ ?\ currentNbProcs\ :\ procInTheMiddle+1);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ firstProcToRecv\ =\ (inFromRightToLeft\ ?\ 0\ :\ procInTheMiddle+1);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ lastProcToRecv\ \ =\ (inFromRightToLeft\ ?\ procInTheMiddle+1\ :\ currentNbProcs);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ the\ number\ of\ element\ depending\ on\ the\ lower\ or\ greater\ send/recv}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ totalElementToProceed\ =\ (inFromRightToLeft\ ?}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalanceSum[lastProcToSend].lowerPart\ -\/\ globalElementBalanceSum[firstProcToSend].lowerPart\ :}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalanceSum[lastProcToSend].greaterPart\ -\/\ globalElementBalanceSum[firstProcToSend].greaterPart);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ totalElementAlreadyOwned\ =\ (inFromRightToLeft\ ?}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalanceSum[lastProcToRecv].lowerPart\ -\/\ globalElementBalanceSum[firstProcToRecv].lowerPart\ :}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalanceSum[lastProcToRecv].greaterPart\ -\/\ globalElementBalanceSum[firstProcToRecv].greaterPart);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbProcsToRecv\ =\ (lastProcToRecv-\/firstProcToRecv);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbProcsToSend\ =\ (lastProcToSend-\/firstProcToSend);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ totalElements\ =\ (totalElementToProceed+totalElementAlreadyOwned);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ std::vector<IndexType>\ nbElementsToRecvPerProc;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ nbElementsToRecvPerProc.resize(nbProcsToRecv);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ the\ number\ of\ elements\ each\ proc\ should\ recv}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ IndexType\ totalRemainingElements\ =\ totalElements;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ IndexType\ totalAvailableElements\ =\ totalElementToProceed;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ firstProcToRecv;\ idxProc\ <\ lastProcToRecv\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ nbElementsAlreadyOwned\ =\ (inFromRightToLeft\ ?\ globalElementBalance[idxProc].lowerPart\ :\ globalElementBalance[idxProc].greaterPart);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ averageNbElementForRemainingProc\ =\ (totalRemainingElements)/(lastProcToRecv-\/idxProc);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ totalRemainingElements\ -\/=\ nbElementsAlreadyOwned;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(totalRemainingElements\ >=\ 0);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nbElementsAlreadyOwned\ <\ averageNbElementForRemainingProc\ \&\&\ totalAvailableElements)\{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbElementsToRecvPerProc[idxProc\ -\/\ firstProcToRecv]\ =\ \mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(totalAvailableElements,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ averageNbElementForRemainingProc\ -\/\ nbElementsAlreadyOwned);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ totalAvailableElements\ -\/=\ nbElementsToRecvPerProc[idxProc\ -\/\ firstProcToRecv];}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ totalRemainingElements\ -\/=\ nbElementsToRecvPerProc[idxProc\ -\/\ firstProcToRecv];}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbElementsToRecvPerProc[idxProc\ -\/\ firstProcToRecv]\ =\ 0;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentRank\ <<\ \textcolor{stringliteral}{"{}]\ nbElementsToRecvPerProc["{}}\ <<\ idxProc\ <<\ \textcolor{stringliteral}{"{}]\ =\ "{}}\ <<\ nbElementsToRecvPerProc[idxProc\ -\/\ firstProcToRecv]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(totalRemainingElements\ ==\ 0);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Store\ in\ an\ array\ the\ number\ of\ element\ to\ send}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ std::vector<IndexType>\ nbElementsToSendPerProc;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ nbElementsToSendPerProc.resize(nbProcsToSend);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ firstProcToSend;\ idxProc\ <\ lastProcToSend\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ nbElementsAlreadyOwned\ =\ (inFromRightToLeft\ ?\ globalElementBalance[idxProc].lowerPart\ :\ globalElementBalance[idxProc].greaterPart);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ nbElementsToSendPerProc[idxProc-\/firstProcToSend]\ =\ nbElementsAlreadyOwned;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentRank\ <<\ \textcolor{stringliteral}{"{}]\ nbElementsToSendPerProc["{}}\ <<\ idxProc\ <<\ \textcolor{stringliteral}{"{}]\ =\ "{}}\ <<\ nbElementsToSendPerProc[idxProc-\/firstProcToSend]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ all\ the\ send\ recv\ but\ keep\ only\ the\ ones\ related\ to\ currentRank}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ std::vector<PackData>\ packs;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxProcSend\ =\ 0;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ IndexType\ positionElementsSend\ =\ 0;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxProcRecv\ =\ 0;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ IndexType\ positionElementsRecv\ =\ 0;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(idxProcSend\ !=\ nbProcsToSend\ \&\&\ idxProcRecv\ !=\ nbProcsToRecv)\{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nbElementsToSendPerProc[idxProcSend]\ ==\ 0)\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxProcSend\ +=\ 1;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positionElementsSend\ =\ 0;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(nbElementsToRecvPerProc[idxProcRecv]\ ==\ 0)\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxProcRecv\ +=\ 1;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positionElementsRecv\ =\ 0;}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ nbElementsInPack\ =\ \mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(nbElementsToSendPerProc[idxProcSend],\ nbElementsToRecvPerProc[idxProcRecv]);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(idxProcSend\ +\ firstProcToSend\ ==\ currentRank)\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PackData\ pack;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pack.idProc\ \ \ \ \ \ =\ idxProcRecv\ +\ firstProcToRecv;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pack.fromElement\ =\ positionElementsSend;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pack.toElement\ \ \ =\ pack.fromElement\ +\ nbElementsInPack;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ packs.push\_back(pack);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(idxProcRecv\ +\ firstProcToRecv\ ==\ currentRank)\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PackData\ pack;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pack.idProc\ \ \ \ \ \ =\ idxProcSend\ +\ firstProcToSend;}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pack.fromElement\ =\ positionElementsRecv;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pack.toElement\ \ \ =\ pack.fromElement\ +\ nbElementsInPack;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ packs.push\_back(pack);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbElementsToSendPerProc[idxProcSend]\ -\/=\ nbElementsInPack;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbElementsToRecvPerProc[idxProcRecv]\ -\/=\ nbElementsInPack;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positionElementsSend\ +=\ nbElementsInPack;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ positionElementsRecv\ +=\ nbElementsInPack;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ packs;}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ RecvDistribution(SortType\ **\ inPartRecv,\ IndexType*\ inNbElementsRecv,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Partition\ globalElementBalance[],\ \textcolor{keyword}{const}\ Partition\ globalElementBalanceSum[],}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ procInTheMiddle,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ currentComm,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ inFromRightToLeft)\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ to\ know\ what\ to\ recv}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<PackData>\ whatToRecvFromWho\ =\ Distribute(currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}(),\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}(),}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalance,\ globalElementBalanceSum,}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ procInTheMiddle,\ inFromRightToLeft);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ the\ total\ number\ of\ elements\ to\ recv}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ IndexType\ totalToRecv\ =\ 0;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ PackData\&\ pack\ :\ whatToRecvFromWho)\{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ totalToRecv\ +=\ pack.toElement\ -\/\ pack.fromElement;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Alloc\ buffer}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ SortType*\ recvBuffer\ =\ \textcolor{keyword}{new}\ SortType[totalToRecv];}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Recv\ all\ data}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ std::vector<MPI\_Request>\ requests;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ requests.reserve(whatToRecvFromWho.size());}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxPack\ =\ 0\ ;\ idxPack\ <\ int(whatToRecvFromWho.size())\ ;\ ++idxPack)\{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ PackData\&\ pack\ =\ whatToRecvFromWho[idxPack];}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Recv\ from\ "{}}\ <<\ pack.idProc\ <<\ \textcolor{stringliteral}{"{}\ from\ "{}}\ <<\ pack.fromElement\ <<\ \textcolor{stringliteral}{"{}\ to\ "{}}\ <<\ pack.toElement\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ );}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(pack.toElement\ <=\ totalToRecv);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ FMpi::IRecvSplit(\&recvBuffer[pack.fromElement],}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (pack.toElement\ -\/\ pack.fromElement),}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pack.idProc,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FMpi::TagQuickSort,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentComm,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&requests);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ FAssertLF(whatToRecvFromWho.size()\ <=\ requests.size());}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ \textcolor{stringliteral}{"{}Wait\ for\ "{}}\ <<\ requests.size()\ <<\ \textcolor{stringliteral}{"{}\ request\ \(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Wait\ to\ complete}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Waitall(\textcolor{keywordtype}{int}(requests.size()),\ requests.data(),\ MPI\_STATUSES\_IGNORE),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Recv\ Done\ \(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ to\ ouput\ variables}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ (*inPartRecv)\ =\ recvBuffer;}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ (*inNbElementsRecv)\ =\ totalToRecv;}
+\DoxyCodeLine{00194\ \ \ \ \ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SendDistribution(\textcolor{keyword}{const}\ SortType\ *\ inPartToSend,\ \textcolor{keyword}{const}\ IndexType\ inNbElementsToSend,}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Partition\ globalElementBalance[],\ \textcolor{keyword}{const}\ Partition\ globalElementBalanceSum[],}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ procInTheMiddle,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ currentComm,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ inFromRightToLeft)\{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ to\ know\ what\ to\ send}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<PackData>\ whatToSendToWho\ =\ Distribute(currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}(),\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}(),}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalance,\ globalElementBalanceSum,}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ procInTheMiddle,\ inFromRightToLeft);}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Post\ send\ messages}}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ std::vector<MPI\_Request>\ requests;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ requests.reserve(whatToSendToWho.size());}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxPack\ =\ 0\ ;\ idxPack\ <\ int(whatToSendToWho.size())\ ;\ ++idxPack)\{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ PackData\&\ pack\ =\ whatToSendToWho[idxPack];}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Send\ to\ "{}}\ <<\ pack.idProc\ <<\ \textcolor{stringliteral}{"{}\ from\ "{}}\ <<\ pack.fromElement\ <<\ \textcolor{stringliteral}{"{}\ to\ "{}}\ <<\ pack.toElement\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ );}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ FMpi::ISendSplit(\&inPartToSend[pack.fromElement],}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (pack.toElement\ -\/\ pack.fromElement),}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pack.idProc,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FMpi::TagQuickSort,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentComm,}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&requests);}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ FAssertLF(whatToSendToWho.size()\ <=\ requests.size());}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Wait\ for\ "{}}\ <<\ requests.size()\ <<\ \textcolor{stringliteral}{"{}\ request\ \(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Wait\ to\ complete}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Waitall(\textcolor{keywordtype}{int}(requests.size()),\ requests.data(),\ MPI\_STATUSES\_IGNORE),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Send\ Done\ \(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00225\ \ \ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keyword}{static}\ CompareType\ SelectPivot(\textcolor{keyword}{const}\ SortType\ workingArray[],\ \textcolor{keyword}{const}\ IndexType\ currentSize,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ currentComm,\ \textcolor{keywordtype}{bool}*\ shouldStop)\{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ ValuesState\{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ ALL\_THE\_SAME,}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ NO\_VALUES,}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ AVERAGE\_2}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ all\ the\ same}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ allTheSame\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ empty}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ noValues\ =\ (currentSize\ ==\ 0);}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ the\ local\ pivot\ if\ not\ empty}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ CompareType\ localPivot\ =\ CompareType(0);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(noValues\ ==\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ know\ the\ max\ value\ to\ ensure\ that\ the\ pivot\ will\ be\ different}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ CompareType\ maxFoundValue\ =\ CompareType(workingArray[0]);}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ know\ the\ min\ value\ to\ ensure\ that\ the\ pivot\ will\ be\ different}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ CompareType\ minFoundValue\ =\ CompareType(workingArray[0]);}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 1\ ;\ idx\ <\ currentSize\ ;\ ++idx)\{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ max}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxFoundValue\ =\ \mbox{\hyperlink{struct_f_math_ada359f2b021ce4b999c0fd7a6e9daae6}{FMath::Max}}(maxFoundValue\ ,\ CompareType(workingArray[idx]));}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ min}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minFoundValue\ =\ \mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(minFoundValue\ ,\ CompareType(workingArray[idx]));}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ allTheSame\ =\ (maxFoundValue\ ==\ minFoundValue);}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Value\ equal\ to\ pivot\ are\ kept\ on\ the\ left\ so}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ localPivot\ =\ ((maxFoundValue-\/minFoundValue)/2)\ +\ minFoundValue;}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ pivot\ must\ be\ different\ (to\ ensure\ that\ the\ partition\ will\ return\ two\ parts)}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ localPivot\ ==\ maxFoundValue\ \&\&\ !allTheSame)\{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Pivot\ "{}}\ <<\ localPivot\ <<\ \textcolor{stringliteral}{"{}\ is\ equal\ max\ and\ allTheSame\ equal\ "{}}\ <<\ allTheSame\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ localPivot\ -\/=\ 1;}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ localPivot\ =\ "{}}\ <<\ localPivot\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{comment}{//const\ int\ myRank\ =\ currentComm.processId();}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbProcs\ =\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}();}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exchange\ the\ pivos\ and\ the\ state}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ std::unique\_ptr<int[]>\ allProcStates(\textcolor{keyword}{new}\ \textcolor{keywordtype}{int}[nbProcs]);}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ std::unique\_ptr<CompareType[]>\ allProcPivots(\textcolor{keyword}{new}\ CompareType[nbProcs]);}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ myState\ =\ (noValues?NO\_VALUES:(allTheSame?ALL\_THE\_SAME:AVERAGE\_2));}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Allgather(\ \&myState,\ 1,\ MPI\_INT,\ allProcStates.get(),}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1,\ MPI\_INT,\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}()),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Allgather(\ \&localPivot,\ \textcolor{keyword}{sizeof}(CompareType),\ MPI\_BYTE,\ allProcPivots.get(),}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(CompareType),\ MPI\_BYTE,\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}()),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Test\ if\ all\ the\ procs\ have\ ALL\_THE\_SAME\ and\ the\ same\ value}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ allProcsAreSame\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;\ idxProc\ <\ nbProcs\ \&\&\ allProcsAreSame;\ ++idxProc)\{}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(allProcStates[idxProc]\ !=\ NO\_VALUES\ \&\&\ (allProcStates[idxProc]\ !=\ ALL\_THE\_SAME\ ||\ allProcPivots[0]\ !=\ allProcPivots[idxProc]))\{}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ allProcsAreSame\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(allProcsAreSame)\{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ All\ the\ procs\ are\ the\ same\ so\ we\ need\ to\ stop}}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ (*shouldStop)\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ CompareType(0);}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ CompareType\ globalPivot\ =\ 0;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ CompareType\ counterValuesInPivot\ =\ 0;}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ pivos}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;\ idxProc\ <\ nbProcs;\ ++idxProc)\{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(allProcStates[idxProc]\ !=\ NO\_VALUES)\{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalPivot\ +=\ allProcPivots[idxProc];}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ counterValuesInPivot\ +=\ 1;}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(counterValuesInPivot\ <=\ 1)\{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*shouldStop)\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ globalPivot;}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ (*shouldStop)\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ globalPivot/counterValuesInPivot;}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00308\ \ \ \ \ \}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ QsMpi(\textcolor{keyword}{const}\ SortType\ originalArray[],\ \textcolor{keyword}{const}\ IndexType\ originalSize,}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SortType**\ outputArray,\ IndexType*\ outputSize,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ originalComm)\{}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ do\ not\ work\ in\ place,\ so\ create\ a\ new\ array}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ IndexType\ currentSize\ =\ originalSize;}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ SortType*\ workingArray\ =\ \textcolor{keyword}{new}\ SortType[currentSize];}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_afba06a533855d38cf96cddbec48f155a}{FMemUtils::memcpy}}(workingArray,\ originalArray,\ \textcolor{keyword}{sizeof}(SortType)\ *\ currentSize);}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Clone\ the\ MPI\ group\ because\ we\ will\ reduce\ it\ after\ each\ partition}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\ currentComm(originalComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}());}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Parallel\ sharing\ until\ I\ am\ alone\ on\ the\ data}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()\ !=\ 1\ )\{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Agree\ on\ the\ Pivot}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ shouldStop;}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CompareType\ globalPivot\ =\ SelectPivot(workingArray,\ currentSize,\ currentComm,\ \&shouldStop);}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(shouldStop)\{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ shouldStop\ =\ "{}}\ <<\ shouldStop\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ globalPivot\ =\ "{}}\ <<\ globalPivot\ <<\ \textcolor{stringliteral}{"{}\ for\ "{}}\ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Split\ the\ array\ in\ two\ parts\ lower\ equal\ to\ pivot\ and\ greater\ than\ pivot}}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ nbLowerElements\ =\ QsPartition(workingArray,\ 0,\ currentSize-\/1,\ globalPivot);}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ nbGreaterElements\ =\ currentSize\ -\/\ nbLowerElements;}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ After\ Partition:\ lower\ =\ "{}}\ <<\ nbLowerElements\ <<\ \textcolor{stringliteral}{"{}\ greater\ =\ "{}}\ <<\ nbGreaterElements\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ currentRank\ =\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}();}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ currentNbProcs\ =\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}();}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ know\ what\ each\ process\ is\ holding}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ Partition\ currentElementsBalance\ =\ \{\ nbLowerElements,\ nbGreaterElements\};}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ Partition\ globalElementBalance[currentNbProcs];}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Every\ one\ in\ the\ group\ need\ to\ know}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Allgather(\ \&currentElementsBalance,\ \textcolor{keyword}{sizeof}(Partition),\ MPI\_BYTE,\ globalElementBalance,}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(Partition),\ MPI\_BYTE,\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}()),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ number\ of\ elements\ lower\ or\ greater}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ IndexType\ globalNumberOfElementsGreater\ =\ 0;}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ IndexType\ globalNumberOfElementsLower\ =\ 0;}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ Partition\ globalElementBalanceSum[currentNbProcs\ +\ 1];}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalanceSum[0].lowerPart\ =\ 0;}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalanceSum[0].greaterPart\ =\ 0;}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;\ idxProc\ <\ currentNbProcs\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalanceSum[idxProc\ +\ 1].lowerPart\ =\ globalElementBalanceSum[idxProc].lowerPart\ +\ globalElementBalance[idxProc].lowerPart;}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalanceSum[idxProc\ +\ 1].greaterPart\ =\ globalElementBalanceSum[idxProc].greaterPart\ +\ globalElementBalance[idxProc].greaterPart;}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalNumberOfElementsGreater\ +=\ globalElementBalance[idxProc].greaterPart;}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalNumberOfElementsLower\ \ \ +=\ globalElementBalance[idxProc].lowerPart;}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ globalNumberOfElementsGreater\ =\ "{}}\ <<\ globalNumberOfElementsGreater\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ globalNumberOfElementsLower\ \ \ =\ "{}}\ <<\ globalNumberOfElementsLower\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ proc\ rank\ in\ the\ middle\ from\ the\ percentage}}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ procInTheMiddle;}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(globalNumberOfElementsLower\ ==\ 0)\ \ \ \ \ \ \ \ procInTheMiddle\ =\ -\/1;}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(globalNumberOfElementsGreater\ ==\ 0)\ procInTheMiddle\ =\ currentNbProcs-\/1;}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ procInTheMiddle\ =\ int(\mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(IndexType(currentNbProcs-\/2),\ (currentNbProcs*globalNumberOfElementsLower)}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /(globalNumberOfElementsGreater\ +\ globalNumberOfElementsLower)));}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ procInTheMiddle\ =\ "{}}\ <<\ procInTheMiddle\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Send\ or\ receive\ depending\ on\ the\ state}}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(currentRank\ <=\ procInTheMiddle)\{}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ I\ am\ in\ the\ group\ of\ the\ lower\ elements}}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SendDistribution(workingArray\ +\ nbLowerElements,\ nbGreaterElements,}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalance,\ globalElementBalanceSum,\ procInTheMiddle,\ currentComm,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SortType*\ lowerPartRecv\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IndexType\ nbLowerElementsRecv\ =\ 0;}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RecvDistribution(\&lowerPartRecv,\ \&nbLowerElementsRecv,}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalance,\ globalElementBalanceSum,\ procInTheMiddle,\ currentComm,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Merge\ previous\ part\ and\ just\ received\ elements}}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ fullNbLowerElementsRecv\ =\ nbLowerElementsRecv\ +\ nbLowerElements;}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SortType*\ fullLowerPart\ =\ \textcolor{keyword}{new}\ SortType[fullNbLowerElementsRecv];}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(fullLowerPart,\ workingArray,\ \textcolor{keyword}{sizeof}(SortType)*\ nbLowerElements);}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(fullLowerPart\ +\ nbLowerElements,\ lowerPartRecv,\ \textcolor{keyword}{sizeof}(SortType)*\ nbLowerElementsRecv);}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ workingArray;}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ lowerPartRecv;}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workingArray\ =\ fullLowerPart;}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentSize\ =\ fullNbLowerElementsRecv;}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reduce\ working\ group}}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Reduce\ group\ to\ "{}}\ <<\ 0\ <<\ \textcolor{stringliteral}{"{}\ /\ "{}}\ <<\ procInTheMiddle\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_ac3b117571c348f334ad6a8687d93f0ac}{groupReduce}}(\ 0,\ procInTheMiddle);}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Done\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(VerboseLog)\ \ FLog::Controller.flush());}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ I\ am\ in\ the\ group\ of\ the\ greater\ elements}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SortType*\ greaterPartRecv\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IndexType\ nbGreaterElementsRecv\ =\ 0;}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RecvDistribution(\&greaterPartRecv,\ \&nbGreaterElementsRecv,}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalance,\ globalElementBalanceSum,\ procInTheMiddle,\ currentComm,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SendDistribution(workingArray,\ nbLowerElements,}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ globalElementBalance,\ globalElementBalanceSum,\ procInTheMiddle,\ currentComm,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Merge\ previous\ part\ and\ just\ received\ elements}}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ IndexType\ fullNbGreaterElementsRecv\ =\ nbGreaterElementsRecv\ +\ nbGreaterElements;}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SortType*\ fullGreaterPart\ =\ \textcolor{keyword}{new}\ SortType[fullNbGreaterElementsRecv];}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(fullGreaterPart,\ workingArray\ +\ nbLowerElements,\ \textcolor{keyword}{sizeof}(SortType)*\ nbGreaterElements);}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(fullGreaterPart\ +\ nbGreaterElements,\ greaterPartRecv,\ \textcolor{keyword}{sizeof}(SortType)*\ nbGreaterElementsRecv);}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ workingArray;}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ greaterPartRecv;}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workingArray\ =\ fullGreaterPart;}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentSize\ =\ fullNbGreaterElementsRecv;}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reduce\ working\ group}}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordflow}{if}(VerboseLog)\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Reduce\ group\ to\ "{}}\ <<\ procInTheMiddle\ +\ 1\ <<\ \textcolor{stringliteral}{"{}\ /\ "{}}\ <<\ currentNbProcs\ -\/\ 1\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordflow}{if}(VerboseLog)\ FLog::Controller.flush());}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_ac3b117571c348f334ad6a8687d93f0ac}{groupReduce}}(\ procInTheMiddle\ +\ 1,\ currentNbProcs\ -\/\ 1);}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordflow}{if}(VerboseLog)\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Done\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordflow}{if}(VerboseLog)\ FLog::Controller.flush());}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordflow}{if}(VerboseLog)\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}SCALFMM-\/DEBUG\ ["{}}\ \ <<\ currentComm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}]\ Sequential\ sort\ (currentSize\ =\ "{}}\ <<\ currentSize\ <<\ \textcolor{stringliteral}{"{})\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordflow}{if}(VerboseLog)\ FLog::Controller.flush());}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Finish\ by\ a\ local\ sort}}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_quick_sort}{FQuickSort<\ SortType,\ IndexType>::QsOmp}}(workingArray,\ currentSize,\ [](\textcolor{keyword}{const}\ SortType\&\ v1,\ \textcolor{keyword}{const}\ SortType\&\ v2)\{}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ CompareType(v1)\ <=\ CompareType(v2);}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ (*outputSize)\ \ =\ currentSize;}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ (*outputArray)\ =\ workingArray;}
+\DoxyCodeLine{00440\ \ \ \ \ \}}
+\DoxyCodeLine{00441\ \};}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_USE\_LOG}}
+\DoxyCodeLine{00445\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ SortType,\ \textcolor{keyword}{class}\ CompareType,\ \textcolor{keyword}{class}\ IndexType>}
+\DoxyCodeLine{00446\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_quick_sort_mpi}{FQuickSortMpi<SortType,\ CompareType,\ IndexType>::VerboseLog}}\ =\ FEnv::GetBool(\textcolor{stringliteral}{"{}SCALFMM\_DEBUG\_LOG"{}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FQUICKSORTMPI\_HPP}}
+
+\end{DoxyCode}

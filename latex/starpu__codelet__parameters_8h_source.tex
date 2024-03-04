@@ -1,0 +1,203 @@
+\doxysection{starpu\+\_\+codelet\+\_\+parameters.\+h}
+\hypertarget{starpu__codelet__parameters_8h_source}{}\label{starpu__codelet__parameters_8h_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/Core/starpu\_codelet\_parameters.h@{third\_party/ScalFMM/include/ScalFMM/GroupTree/Core/starpu\_codelet\_parameters.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_STARPU\_CODELET\_PARAMETERS\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_STARPU\_CODELET\_PARAMETERS\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <starpu.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../StarPUUtils/FStarPUUtils.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{/*\ P2P\ */}}
+\DoxyCodeLine{00013\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p2p\_cl\_in\_parameters\_names[]\ =\ \{\ \textcolor{stringliteral}{"{}NbLeavesBlock"{}},\ \textcolor{stringliteral}{"{}SizeInterval"{}},\ \textcolor{stringliteral}{"{}NbParticlesGroup"{}},\ \textcolor{stringliteral}{"{}NbInteractions"{}}\ \};}
+\DoxyCodeLine{00014\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ p2p\_cl\_in\_combi1\ [4]\ =\ \{\ 0,\ 0,\ 1,\ 0\ \};}
+\DoxyCodeLine{00015\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ p2p\_cl\_in\_combi2\ [4]\ =\ \{\ 0,\ 0,\ 0,\ 1\ \};}
+\DoxyCodeLine{00016\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ *p2p\_cl\_in\_combinations[]\ =\ \{\ p2p\_cl\_in\_combi1,\ p2p\_cl\_in\_combi2\ \};}
+\DoxyCodeLine{00017\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ p2p\_cl\_in\_perf\_func(\textcolor{keyword}{struct}\ starpu\_task\ *task,\ \textcolor{keywordtype}{double}\ *parameters)\{}
+\DoxyCodeLine{00018\ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ wrapperptr;}
+\DoxyCodeLine{00019\ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00020\ \ \ starpu\_codelet\_unpack\_args(task-\/>cl\_arg,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&wrapperptr,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&i,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[0],}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[1],}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[2],}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[3]);}
+\DoxyCodeLine{00027\ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{/*\ P2P\_out\ */}}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p2p\_cl\_inout\_parameters\_names[]\ =\ \{\ \textcolor{stringliteral}{"{}NbLeavesBlock"{}},\ \textcolor{stringliteral}{"{}SizeInterval"{}},\ \textcolor{stringliteral}{"{}NbParticlesGroup"{}},\ \textcolor{stringliteral}{"{}iNbLeavesBlock"{}},\ \textcolor{stringliteral}{"{}iSizeInterval"{}},\ \textcolor{stringliteral}{"{}iNBParticlesGroup"{}},\ \textcolor{stringliteral}{"{}OutsideInteractionsSize"{}},\ \textcolor{stringliteral}{"{}NbDiff0"{}},\ \textcolor{stringliteral}{"{}NbDiff1"{}},\ \textcolor{stringliteral}{"{}NbInteractions"{}}\ \};}
+\DoxyCodeLine{00031\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ p2p\_cl\_inout\_combi1\ [10]\ =\ \{\ 0,\ 0,\ 1,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00032\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ p2p\_cl\_inout\_combi2\ [10]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 1,\ 0,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00033\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ p2p\_cl\_inout\_combi3\ [10]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00034\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ p2p\_cl\_inout\_combi4\ [10]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0,\ 0,\ 0\ \};}
+\DoxyCodeLine{00035\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ p2p\_cl\_inout\_combi5\ [10]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0,\ 0\ \};}
+\DoxyCodeLine{00036\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ p2p\_cl\_inout\_combi6\ [10]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0\ \};}
+\DoxyCodeLine{00037\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ p2p\_cl\_inout\_combi7\ [10]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 1\ \};}
+\DoxyCodeLine{00038\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ *p2p\_cl\_inout\_combinations[]\ =\ \{\ p2p\_cl\_inout\_combi1,\ p2p\_cl\_inout\_combi2,\ p2p\_cl\_inout\_combi3,\ p2p\_cl\_inout\_combi4,\ p2p\_cl\_inout\_combi5,\ p2p\_cl\_inout\_combi6,\ p2p\_cl\_inout\_combi7\ \};}
+\DoxyCodeLine{00039\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ p2p\_cl\_inout\_perf\_func(\textcolor{keyword}{struct}\ starpu\_task\ *task,\ \textcolor{keywordtype}{double}\ *parameters)\{}
+\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ wrapperptr;}
+\DoxyCodeLine{00041\ \ \ std::vector<OutOfBlockInteraction>*\ outsideInteractions;}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00043\ \ \ starpu\_codelet\_unpack\_args(task-\/>cl\_arg,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&wrapperptr,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&outsideInteractions,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&i,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[0],}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[1],}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[2],}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[3],}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[4],}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[5],}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[6],}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[7],}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[8],}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[9]);}
+\DoxyCodeLine{00057\ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*\ P2M\ */}}
+\DoxyCodeLine{00060\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p2m\_cl\_parameters\_names[]\ =\ \{\ \textcolor{stringliteral}{"{}NbCellsBlock"{}},\ \textcolor{stringliteral}{"{}SizeInterval"{}},\ \textcolor{stringliteral}{"{}NbParticlesGroup"{}}\ \};}
+\DoxyCodeLine{00061\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ p2m\_cl\_combi1\ [3]\ =\ \{\ 0,\ 0,\ 1\ \};}
+\DoxyCodeLine{00062\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ *p2m\_cl\_combinations[]\ =\ \{\ p2m\_cl\_combi1\ \};}
+\DoxyCodeLine{00063\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ p2m\_cl\_perf\_func(\textcolor{keyword}{struct}\ starpu\_task\ *task,\ \textcolor{keywordtype}{double}\ *parameters)\{}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ wrapperptr;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00066\ \ \ starpu\_codelet\_unpack\_args(task-\/>cl\_arg,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&wrapperptr,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&i,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[0],}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[1],}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[2]);}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ \ \ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*\ M2M\ */}}
+\DoxyCodeLine{00075\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *m2m\_cl\_parameters\_names[]\ =\ \{\ \textcolor{stringliteral}{"{}Lvl"{}},\ \textcolor{stringliteral}{"{}NbCellsBlock"{}},\ \textcolor{stringliteral}{"{}SizeInterval"{}},\ \textcolor{stringliteral}{"{}NbCellsBlockLvl+1"{}},\ \textcolor{stringliteral}{"{}SizeIntervalLvl+1"{}},\ \textcolor{stringliteral}{"{}NbDiff"{}},\ \textcolor{stringliteral}{"{}NbChildParent"{}}\ \};}
+\DoxyCodeLine{00076\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ m2m\_cl\_combi1\ [7]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0\ \};}
+\DoxyCodeLine{00077\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ m2m\_cl\_combi2\ [7]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 1,\ 1,\ 0\ \};}
+\DoxyCodeLine{00078\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ *m2m\_cl\_combinations[]\ =\ \{\ m2m\_cl\_combi1,\ m2m\_cl\_combi2\ \};}
+\DoxyCodeLine{00079\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ m2m\_cl\_perf\_func(\textcolor{keyword}{struct}\ starpu\_task\ *task,\ \textcolor{keywordtype}{double}\ *parameters)\{}
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ wrapperptr;}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{int}\ idxLevel,\ i;}
+\DoxyCodeLine{00082\ \ \ starpu\_codelet\_unpack\_args(task-\/>cl\_arg,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&wrapperptr,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&idxLevel,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&i,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[0],}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[1],}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[2],}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[3],}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[4],}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[5],}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[6]);}
+\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00094\ \ \ }
+\DoxyCodeLine{00095\ \textcolor{comment}{/*\ M2L\ */}}
+\DoxyCodeLine{00096\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *m2l\_cl\_in\_parameters\_names[]\ =\ \{\ \textcolor{stringliteral}{"{}Lvl"{}},\ \textcolor{stringliteral}{"{}NbLeavesBlock"{}},\ \textcolor{stringliteral}{"{}SizeInterval"{}},\ \textcolor{stringliteral}{"{}NbM2LInteractions"{}}\ \};}
+\DoxyCodeLine{00097\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ m2l\_cl\_in\_combi1\ [4]\ =\ \{\ 0,\ 0,\ 0,\ 1\ \};}
+\DoxyCodeLine{00098\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ *m2l\_cl\_in\_combinations[]\ =\ \{\ m2l\_cl\_in\_combi1\ \};}
+\DoxyCodeLine{00099\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ m2l\_cl\_in\_perf\_func(\textcolor{keyword}{struct}\ starpu\_task\ *task,\ \textcolor{keywordtype}{double}\ *parameters)\{}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ wrapperptr;}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{int}\ idxLevel,\ i;}
+\DoxyCodeLine{00102\ \ \ starpu\_codelet\_unpack\_args(task-\/>cl\_arg,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&wrapperptr,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&idxLevel,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&i,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[0],}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[1],}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[2],}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[3]);}
+\DoxyCodeLine{00110\ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{/*\ M2L\_out\ */}}
+\DoxyCodeLine{00113\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *m2l\_cl\_inout\_parameters\_names[]\ =\ \{\ \textcolor{stringliteral}{"{}Lvl"{}},\ \textcolor{stringliteral}{"{}NbLeavesBlock"{}},\ \textcolor{stringliteral}{"{}SizeInterval"{}},\ \textcolor{stringliteral}{"{}iNbLeavesBlock"{}},\ \textcolor{stringliteral}{"{}iSizeInterval"{}},\ \textcolor{stringliteral}{"{}OutsideInteractionsSize"{}},\ \textcolor{stringliteral}{"{}NbDiff0"{}},\ \textcolor{stringliteral}{"{}NbDiff1"{}}\ \};}
+\DoxyCodeLine{00114\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ m2l\_cl\_inout\_combi1\ [8]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0,\ 0\ \};}
+\DoxyCodeLine{00115\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ m2l\_cl\_inout\_combi2\ [8]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0\ \};}
+\DoxyCodeLine{00116\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ *m2l\_cl\_inout\_combinations[]\ =\ \{\ m2l\_cl\_inout\_combi1,\ m2l\_cl\_inout\_combi2\ \};}
+\DoxyCodeLine{00117\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ m2l\_cl\_inout\_perf\_func(\textcolor{keyword}{struct}\ starpu\_task\ *task,\ \textcolor{keywordtype}{double}\ *parameters)\{}
+\DoxyCodeLine{00118\ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ wrapperptr;}
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{const}\ std::vector<OutOfBlockInteraction>*\ outsideInteractions;}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{int}\ idxLevel,\ i,\ m;}
+\DoxyCodeLine{00121\ \ \ starpu\_codelet\_unpack\_args(task-\/>cl\_arg,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&wrapperptr,}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&idxLevel,}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&outsideInteractions,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&i,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&m,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[0],}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[1],}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[2],}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[3],}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[4],}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[5],}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[6],}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[7]);}
+\DoxyCodeLine{00135\ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{/*\ L2L\ */}}
+\DoxyCodeLine{00138\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *l2l\_cl\_parameters\_names[]\ =\ \{\ \textcolor{stringliteral}{"{}Lvl"{}},\ \textcolor{stringliteral}{"{}NbCellsBlock"{}},\ \textcolor{stringliteral}{"{}SizeInterval"{}},\ \textcolor{stringliteral}{"{}NbCellsBlockLvl+1"{}},\ \textcolor{stringliteral}{"{}SizeIntervalLvl+1"{}},\ \textcolor{stringliteral}{"{}NbDiff"{}},\ \textcolor{stringliteral}{"{}NbChildParent"{}}\ \};}
+\DoxyCodeLine{00139\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ l2l\_cl\_combi1\ [7]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0\ \};}
+\DoxyCodeLine{00140\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ *l2l\_cl\_combinations[]\ =\ \{\ l2l\_cl\_combi1\ \};}
+\DoxyCodeLine{00141\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ l2l\_cl\_perf\_func(\textcolor{keyword}{struct}\ starpu\_task\ *task,\ \textcolor{keywordtype}{double}\ *parameters)\{}
+\DoxyCodeLine{00142\ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ wrapperptr;}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{int}\ idxLevel,\ i;}
+\DoxyCodeLine{00144\ \ \ starpu\_codelet\_unpack\_args(task-\/>cl\_arg,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&wrapperptr,}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&idxLevel,}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&i,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[0],}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[1],}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[2],}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[3],}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[4],}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[5],}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[6]);}
+\DoxyCodeLine{00155\ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{comment}{/*\ L2L\_NOCOMMUTE\ */}}
+\DoxyCodeLine{00158\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *l2l\_cl\_nocommute\_parameters\_names[]\ =\ \{\ \textcolor{stringliteral}{"{}Lvl"{}},\ \textcolor{stringliteral}{"{}NbCellsBlock"{}},\ \textcolor{stringliteral}{"{}SizeInterval"{}},\ \textcolor{stringliteral}{"{}NbCellsBlockLvl+1"{}},\ \textcolor{stringliteral}{"{}SizeIntervalLvl+1"{}},\ \textcolor{stringliteral}{"{}NbDiff"{}},\ \textcolor{stringliteral}{"{}NbChildParent"{}}\ \};}
+\DoxyCodeLine{00159\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ l2l\_cl\_nocommute\_combi1\ [7]\ =\ \{\ 0,\ 0,\ 0,\ 0,\ 0,\ 1,\ 0\ \};}
+\DoxyCodeLine{00160\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ *l2l\_cl\_nocommute\_combinations[]\ =\ \{\ l2l\_cl\_nocommute\_combi1\ \};}
+\DoxyCodeLine{00161\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ l2l\_cl\_nocommute\_perf\_func(\textcolor{keyword}{struct}\ starpu\_task\ *task,\ \textcolor{keywordtype}{double}\ *parameters)\{}
+\DoxyCodeLine{00162\ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ wrapperptr;}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{int}\ idxLevel,\ i;}
+\DoxyCodeLine{00164\ \ \ starpu\_codelet\_unpack\_args(task-\/>cl\_arg,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&wrapperptr,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&idxLevel,}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&i,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[0],}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[1],}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[2],}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[3],}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[4],}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[5],}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[6]);}
+\DoxyCodeLine{00175\ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{comment}{/*\ L2P\ */}}
+\DoxyCodeLine{00178\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *l2p\_cl\_parameters\_names[]\ =\ \{\ \textcolor{stringliteral}{"{}NbCellsBlock"{}},\ \textcolor{stringliteral}{"{}SizeInterval"{}},\ \textcolor{stringliteral}{"{}NbParticlesGroup"{}}\ \};}
+\DoxyCodeLine{00179\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ l2p\_cl\_combi1\ [3]\ =\ \{\ 0,\ 0,\ 1\ \};}
+\DoxyCodeLine{00180\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ *l2p\_cl\_combinations[]\ =\ \{\ l2p\_cl\_combi1\ \};}
+\DoxyCodeLine{00181\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ l2p\_cl\_perf\_func(\textcolor{keyword}{struct}\ starpu\_task\ *task,\ \textcolor{keywordtype}{double}\ *parameters)\{}
+\DoxyCodeLine{00182\ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ wrapperptr;}
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00184\ \ \ starpu\_codelet\_unpack\_args(task-\/>cl\_arg,}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&wrapperptr,}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&i,}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[0],}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[1],}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[2],}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&parameters[3]);}
+\DoxyCodeLine{00191\ \}}
+\DoxyCodeLine{00192\ \ \ }
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00194\ \}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_STARPU\_CODELET\_PARAMETERS\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

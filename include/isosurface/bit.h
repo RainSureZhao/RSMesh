@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/23.
+// Created by RainSure on 2024/2/23.
 //
 
 #ifndef RSMESH_BIT_H
@@ -7,6 +7,10 @@
 
 #include <bit>
 
+/**
+ * \namespace rsmesh::isosurface
+ * \brief 该命名空间下主要定义了等值面提取相关的类和函数
+ */
 namespace rsmesh::isosurface {
     template <class T>
     int bit_count(T bit_set) {

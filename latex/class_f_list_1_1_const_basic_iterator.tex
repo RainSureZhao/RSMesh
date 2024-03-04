@@ -1,0 +1,85 @@
+\doxysection{FList\texorpdfstring{$<$}{<} Object \texorpdfstring{$>$}{>}\+::Const\+Basic\+Iterator类 参考}
+\hypertarget{class_f_list_1_1_const_basic_iterator}{}\label{class_f_list_1_1_const_basic_iterator}\index{FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}}
+
+
+{\ttfamily \#include $<$FList.\+hpp$>$}
+
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_list_1_1_const_basic_iterator_abc9326b91a8bbfc5d1aa5679ca366b36}{Const\+Basic\+Iterator}} (const \mbox{\hyperlink{class_f_list}{FList}} \&list)
+\item 
+void \mbox{\hyperlink{class_f_list_1_1_const_basic_iterator_a611190cf7d4d4e548b3fe998eb785806}{goto\+Next}} ()
+\item 
+Object \mbox{\hyperlink{class_f_list_1_1_const_basic_iterator_a6e0744b5a67ebab54019b5b9fb175dd9}{data}} ()
+\item 
+const Object \& \mbox{\hyperlink{class_f_list_1_1_const_basic_iterator_ab3eafe7454c75a1f1f5854fb50f00a5c}{data}} () const
+\item 
+bool \mbox{\hyperlink{class_f_list_1_1_const_basic_iterator_ad6511f2b745f4d1de856bec3a3c7ae49}{has\+Not\+Finished}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class Object$>$\newline
+class FList$<$ Object $>$\+::\+Const\+Basic\+Iterator}
+This iterator allow accessing list\textquotesingle{}s elements If you change the target list pointed by an iterator you cannot used the iterator any more. {\ttfamily  FList$<$int$>$ values; ~\newline
+ // inserting ... ~\newline
+ FList$<$int$>$\+::\+Const\+Basic\+Iterator iter(values); ~\newline
+ while( iter.\+has\+Not\+Finished() )\{ ~\newline
+ iter.\+data() += 1; ~\newline
+ iter.\+goto\+Next(); ~\newline
+ \} ~\newline
+ } 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_list_1_1_const_basic_iterator_abc9326b91a8bbfc5d1aa5679ca366b36}\label{class_f_list_1_1_const_basic_iterator_abc9326b91a8bbfc5d1aa5679ca366b36} 
+\index{FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}!ConstBasicIterator@{ConstBasicIterator}}
+\index{ConstBasicIterator@{ConstBasicIterator}!FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}}
+\doxysubsubsection{\texorpdfstring{ConstBasicIterator()}{ConstBasicIterator()}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+\mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Const\+Basic\+Iterator\+::\+Const\+Basic\+Iterator (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_list}{FList}} \&}]{list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+Constructor needs the target list 
+\begin{DoxyParams}{参数}
+{\em the} & list to iterate on \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_list_1_1_const_basic_iterator_a6e0744b5a67ebab54019b5b9fb175dd9}\label{class_f_list_1_1_const_basic_iterator_a6e0744b5a67ebab54019b5b9fb175dd9} 
+\index{FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}!data@{data}}
+\index{data@{data}!FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+Object \mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Const\+Basic\+Iterator\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Current pointed value current iterator must be valide (\doxylink{class_f_list_1_1_const_basic_iterator_ad6511f2b745f4d1de856bec3a3c7ae49}{has\+Not\+Finished()}) to use this function \Hypertarget{class_f_list_1_1_const_basic_iterator_ab3eafe7454c75a1f1f5854fb50f00a5c}\label{class_f_list_1_1_const_basic_iterator_ab3eafe7454c75a1f1f5854fb50f00a5c} 
+\index{FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}!data@{data}}
+\index{data@{data}!FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+const Object \& \mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Const\+Basic\+Iterator\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Current pointed value current iterator must be valide (\doxylink{class_f_list_1_1_const_basic_iterator_ad6511f2b745f4d1de856bec3a3c7ae49}{has\+Not\+Finished()}) to use this function \Hypertarget{class_f_list_1_1_const_basic_iterator_a611190cf7d4d4e548b3fe998eb785806}\label{class_f_list_1_1_const_basic_iterator_a611190cf7d4d4e548b3fe998eb785806} 
+\index{FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}!gotoNext@{gotoNext}}
+\index{gotoNext@{gotoNext}!FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}}
+\doxysubsubsection{\texorpdfstring{gotoNext()}{gotoNext()}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+void \mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Const\+Basic\+Iterator\+::goto\+Next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+to goto\+Next on the list \Hypertarget{class_f_list_1_1_const_basic_iterator_ad6511f2b745f4d1de856bec3a3c7ae49}\label{class_f_list_1_1_const_basic_iterator_ad6511f2b745f4d1de856bec3a3c7ae49} 
+\index{FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}!hasNotFinished@{hasNotFinished}}
+\index{hasNotFinished@{hasNotFinished}!FList$<$ Object $>$::ConstBasicIterator@{FList$<$ Object $>$::ConstBasicIterator}}
+\doxysubsubsection{\texorpdfstring{hasNotFinished()}{hasNotFinished()}}
+{\footnotesize\ttfamily template$<$class Object $>$ \\
+bool \mbox{\hyperlink{class_f_list}{FList}}$<$ Object $>$\+::\+Const\+Basic\+Iterator\+::has\+Not\+Finished (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if an iterator is at the end of the list \begin{DoxyReturn}{返回}
+true if the current iterator can goto\+Next and access to value, else false 
+\end{DoxyReturn}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Containers/FList.\+hpp\end{DoxyCompactItemize}

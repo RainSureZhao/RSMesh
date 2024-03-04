@@ -1,0 +1,25 @@
+\doxysection{FInterp\+Matrix\+Kernels类 参考}
+\hypertarget{class_f_interp_matrix_kernels}{}\label{class_f_interp_matrix_kernels}\index{FInterpMatrixKernels@{FInterpMatrixKernels}}
+
+
+{\ttfamily \#include $<$FInterp\+Matrix\+Kernel.\+hpp$>$}
+
+
+
+\doxysubsection{详细描述}
+\begin{DoxyAuthor}{作者}
+Matthias Messner (\href{mailto:matthias.messner@inria.fr}{\texttt{ matthias.\+messner@inria.\+fr}}) 
+
+Pierre Blanchard (\href{mailto:pierre.blanchard@inria.fr}{\texttt{ pierre.\+blanchard@inria.\+fr}})
+\end{DoxyAuthor}
+Please read the license
+
+This class provides the evaluators and scaling functions of the matrix kernels. A matrix kernel should be understood in the sense of a kernel of interaction (or the fundamental solution of a given equation). It can either be scalar (NCMP=1) or tensorial (NCMP\texorpdfstring{$>$}{>}1) depending on the dimension of the equation considered. NCMP denotes the number of components that are actually stored (e.\+g. 6 for a $3\times3$ symmetric tensor).
+
+Notes on the application scheme\+: Let there be a kernel $K$ such that $Potential_i(X)X=K_{ij}(X,Y)PhysicalValue_j(Y)$ with $Potential$ the lhs of size NLHS and $PhysicalValues$ the rhs of size NRHS. The table apply\+Tab provides the indices in the reduced storage table corresponding to the application scheme depicted earlier.
+
+PB\+: BEWARE! Homogeneous matrix kernels do not support cell width extension yet. Is it possible to find a reference width and a scale factor such that only 1 set of M2L opt can be used for all levels?? 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Interpolation/FInterp\+Matrix\+Kernel.\+hpp\end{DoxyCompactItemize}

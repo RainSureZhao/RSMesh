@@ -1,0 +1,45 @@
+\doxysection{mesh\+\_\+defects\+\_\+finder.\+h}
+\hypertarget{mesh__defects__finder_8h_source}{}\label{mesh__defects__finder_8h_source}\index{include/isosurface/mesh\_defects\_finder.h@{include/isosurface/mesh\_defects\_finder.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/23.}}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_MESH\_DEFECTS\_FINDER\_H}}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_MESH\_DEFECTS\_FINDER\_H}}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}isosurface/isosurface\_types.h"{}}}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00013}00013\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1isosurface}{rsmesh::isosurface}}\ \{}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00014}\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1mesh__defects__finder}{00014}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1mesh__defects__finder}{mesh\_defects\_finder}}\ \{}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }vertices\_type\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}};}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }face\_type\ =\ Eigen::Matrix<index\_t,\ 1,\ 3>;}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }faces\_type\ =\ Eigen::Matrix<index\_t,\ Eigen::Dynamic,\ 3,\ Eigen::RowMajor>;}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1isosurface_1_1mesh__defects__finder}{mesh\_defects\_finder}}(\textcolor{keyword}{const}\ vertices\_type\&\ vertices,\ \textcolor{keyword}{const}\ faces\_type\&\ faces);}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ std::unordered\_set<index\_t>\ intersecting\_faces()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ std::unordered\_set<index\_t>\ singular\_vertices()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ segment\_triangle\_intersect(index\_t\ vi,\ index\_t\ vj,\ index\_t\ fi)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ index\_t\ next\_vertex(index\_t\ fi,\ index\_t\ vi)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ index\_t\ prev\_vertex(index\_t\ fi,\ index\_t\ vi)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vertices\_type\&\ vertices\_;}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ faces\_type\&\ faces\_;}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ std::vector<std::vector<index\_t>>\ vf\_map\_;}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00036}00036\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00037}00037\ \}}
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{mesh__defects__finder_8h_source_l00039}00039\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_MESH\_DEFECTS\_FINDER\_H}}
+
+\end{DoxyCode}

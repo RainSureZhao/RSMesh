@@ -1,0 +1,307 @@
+\doxysection{FFmm\+Algorithm\+Tsm.\+hpp}
+\hypertarget{_f_fmm_algorithm_tsm_8hpp_source}{}\label{_f_fmm_algorithm_tsm_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Core/FFmmAlgorithmTsm.hpp@{third\_party/ScalFMM/include/ScalFMM/Core/FFmmAlgorithmTsm.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FFMMALGORITHMTSM\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FFMMALGORITHMTSM\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Utils/FAssert.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Utils/FLog.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Utils/FTic.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../Containers/FOctree.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}FCoreCommon.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ OctreeClass,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{class}\ KernelClass,\ \textcolor{keyword}{class}\ LeafClass>}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_fmm_algorithm_tsm}{FFmmAlgorithmTsm}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstractAlgorithm}}\{}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ OctreeClass*\ \textcolor{keyword}{const}\ tree;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ octree\ to\ work\ on}}
+\DoxyCodeLine{00031\ \ \ \ \ KernelClass*\ \textcolor{keyword}{const}\ kernels;\ \ \ \ \textcolor{comment}{//<\ The\ kernels}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ OctreeHeight;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ leafLevelSeparationCriteria;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTime);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ In\ case\ of\ debug:\ to\ count\ the\ elapsed\ time}}
+\DoxyCodeLine{00038\ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ computationCounter);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ In\ case\ of\ debug:\ to\ \ count\ computation\ time}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_a12eb416c43fe0f003bf5ee5c06e5e58f}{FFmmAlgorithmTsm}}(OctreeClass*\ \textcolor{keyword}{const}\ inTree,\ KernelClass*\ \textcolor{keyword}{const}\ inKernels,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLeafLevelSeperationCriteria\ =\ 1)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ :\ tree(inTree)\ ,\ kernels(inKernels)\ ,\ OctreeHeight(tree-\/>getHeight()),\ leafLevelSeparationCriteria(inLeafLevelSeperationCriteria)\{}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ FAssertLF(tree,\ \textcolor{stringliteral}{"{}tree\ cannot\ be\ null"{}});}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ FAssertLF(kernels,\ \textcolor{stringliteral}{"{}kernels\ cannot\ be\ null"{}});}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ FAssertLF(leafLevelSeparationCriteria\ <\ 3,\ \textcolor{stringliteral}{"{}Separation\ criteria\ should\ be\ <\ 3"{}});}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ FAbstractAlgorithm::setNbLevelsInTree(tree-\/>getHeight());}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ FLOG(FLog::Controller\ <<\ \textcolor{stringliteral}{"{}FFmmAlgorithmTsm\(\backslash\)n"{}});}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_a278643971de43609b79377a3bae70421}{\string~FFmmAlgorithmTsm}}()\{}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_a6fa32f59009bd16033e9f2c5d62c38d4}{executeCore}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ operationsToProceed)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(operationsToProceed\ \&\ FFmmP2M)\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_a9368526910ff31eedac74c845229b4b6}{bottomPass}}();}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(operationsToProceed\ \&\ FFmmM2M)\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_adf90b5546822062f984b16014dee3b8a}{upwardPass}}();}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(operationsToProceed\ \&\ FFmmM2L)\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_ae8d5de9224bf078d2b0917a5baffac93}{transferPass}}();}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(operationsToProceed\ \&\ FFmmL2L)\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_aa711ce088d2f2c8bc5135ac1c410a5d9}{downardPass}}();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((operationsToProceed\ \&\ FFmmP2P)\ ||\ (operationsToProceed\ \&\ FFmmL2P))\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_a623f27188db12d0ed6b1ba460d7c6d37}{directPass}}((operationsToProceed\ \&\ FFmmP2P),(operationsToProceed\ \&\ FFmmL2P));}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_a9368526910ff31eedac74c845229b4b6}{bottomPass}}()\{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Bottom\ Pass\(\backslash\)n"{}}).write(FLog::Flush)\ );}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ FLOG(\ counterTime.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}()\ );}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordtype}{double}\ totalComputation\ =\ 0\ );}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Iterate\ on\ leafs}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ the\ current\ cell\ that\ represent\ the\ leaf}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ and\ the\ list\ of\ particles}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ sources\ =\ octreeIterator.getCurrentListSrc();}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sources-\/>getNbParticles())\{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.getCurrentCell()-\/>setSrcChildTrue();}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>P2M(\ octreeIterator.getCurrentCell()\ ,\ sources);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(octreeIterator.getCurrentListTargets()-\/>getNbParticles())\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.getCurrentCell()-\/>setTargetsChildTrue();}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(totalComputation\ +=\ computationCounter.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}());}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ FLOG(\ counterTime.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}()\ );}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Bottom\ Pass\ (P2M)\ =\ "{}}\ \ <<\ counterTime.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ :\ "{}}\ <<\ totalComputation\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_adf90b5546822062f984b16014dee3b8a}{upwardPass}}()\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Upward\ Pass\(\backslash\)n"{}}).write(FLog::Flush);\ );}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ FLOG(\ counterTime.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}()\ );}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordtype}{double}\ totalComputation\ =\ 0\ );}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Start\ from\ leal\ level\ -\/\ 1}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ octreeIterator.moveUp();}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ OctreeHeight\ -\/\ 2\ ;\ idxLevel\ >\ \mbox{\hyperlink{class_f_abstract_algorithm_a694b8888186be58e38691ce08b177d46}{FAbstractAlgorithm::lowerWorkingLevel}}-\/1\ ;\ -\/-\/idxLevel)\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.moveUp();}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ avoidGotoLeftIterator(octreeIterator);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ levels}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ \mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(OctreeHeight\ -\/\ 2,\ \mbox{\hyperlink{class_f_abstract_algorithm_a694b8888186be58e38691ce08b177d46}{FAbstractAlgorithm::lowerWorkingLevel}}\ -\/\ 1)\ ;\ idxLevel\ >=\ \mbox{\hyperlink{class_f_abstract_algorithm_ade49cb5ede82d078261e576a9d809dc2}{FAbstractAlgorithm::upperWorkingLevel}}\ ;\ -\/-\/idxLevel\ )\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTimeLevel);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ cells}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ the\ current\ cell\ and\ the\ child}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ child\ is\ an\ array\ (of\ 8\ child)\ that\ may\ be\ null}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ potentialChild[8];}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass**\ \textcolor{keyword}{const}\ realChild\ =\ octreeIterator.getCurrentChild();}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ \textcolor{keyword}{const}\ currentCell\ =\ octreeIterator.getCurrentCell();}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxChild\ =\ 0\ ;\ idxChild\ <\ 8\ ;\ ++idxChild)\{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ potentialChild[idxChild]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(realChild[idxChild])\{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(realChild[idxChild]-\/>hasSrcChild())\{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCell-\/>setSrcChildTrue();}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ potentialChild[idxChild]\ =\ realChild[idxChild];}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(realChild[idxChild]-\/>hasTargetsChild())\{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCell-\/>setTargetsChildTrue();}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>M2M(\ currentCell\ ,\ potentialChild,\ idxLevel);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(totalComputation\ +=\ computationCounter.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}());}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGotoLeftIterator.moveUp();}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGotoLeftIterator;\textcolor{comment}{//\ equal\ octreeIterator.moveUp();\ octreeIterator.gotoLeft();}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t>>\ Level\ "{}}\ <<\ idxLevel\ <<\ \textcolor{stringliteral}{"{}\ =\ "{}}\ \ <<\ counterTimeLevel.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ FLOG(\ counterTime.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}()\ );}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Upward\ Pass\ (M2M)\ =\ "{}}\ \ <<\ counterTime.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ :\ "{}}\ <<\ totalComputation\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_ae8d5de9224bf078d2b0917a5baffac93}{transferPass}}()\{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Downward\ Pass\ (M2L)\(\backslash\)n"{}}).write(FLog::Flush);\ );}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ FLOG(\ counterTime.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}()\ );}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordtype}{double}\ totalComputation\ =\ 0\ );}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ octreeIterator.moveDown();}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 2\ ;\ idxLevel\ <\ \mbox{\hyperlink{class_f_abstract_algorithm_ade49cb5ede82d078261e576a9d809dc2}{FAbstractAlgorithm::upperWorkingLevel}}\ ;\ ++idxLevel)\{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.moveDown();}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ avoidGotoLeftIterator(octreeIterator);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ neighbors[342];}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ neighborPositions[342];}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ levels}}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ \mbox{\hyperlink{class_f_abstract_algorithm_ade49cb5ede82d078261e576a9d809dc2}{FAbstractAlgorithm::upperWorkingLevel}}\ ;\ idxLevel\ <\ \mbox{\hyperlink{class_f_abstract_algorithm_a694b8888186be58e38691ce08b177d46}{FAbstractAlgorithm::lowerWorkingLevel}}\ ;\ ++idxLevel\ )\{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTimeLevel);}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ separationCriteria\ =\ (idxLevel\ !=\ \mbox{\hyperlink{class_f_abstract_algorithm_a694b8888186be58e38691ce08b177d46}{FAbstractAlgorithm::lowerWorkingLevel}}-\/1\ ?\ 1\ :\ leafLevelSeparationCriteria);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ cells}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ \textcolor{keyword}{const}\ currentCell\ =\ octreeIterator.getCurrentCell();}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(currentCell-\/>hasTargetsChild())\{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counter\ =\ tree-\/>getInteractionNeighbors(neighbors,\ neighborPositions,\ octreeIterator.getCurrentGlobalCoordinate(),idxLevel,\ separationCriteria);}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ counter\ )\{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counterWithSrc\ =\ 0;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxRealNeighbors\ =\ 0\ ;\ idxRealNeighbors\ <\ counter\ ;\ ++idxRealNeighbors\ )\{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(neighbors[idxRealNeighbors]-\/>hasSrcChild())\{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neighbors[counterWithSrc]\ =\ neighbors[idxRealNeighbors];}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neighborPositions[counterWithSrc]\ =\ neighborPositions[idxRealNeighbors];}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++counterWithSrc;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(counterWithSrc)\{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>M2L(\ currentCell\ ,\ neighbors,\ neighborPositions,\ counterWithSrc,\ idxLevel);}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(totalComputation\ +=\ computationCounter.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}());}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>finishedLevelM2L(idxLevel);}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGotoLeftIterator.moveDown();}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGotoLeftIterator;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t>>\ Level\ "{}}\ <<\ idxLevel\ <<\ \textcolor{stringliteral}{"{}\ =\ "{}}\ \ <<\ counterTimeLevel.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ FLOG(\ counterTime.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}()\ );}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Downward\ Pass\ (M2L)\ =\ "{}}\ \ <<\ counterTime.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ :\ "{}}\ <<\ totalComputation\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00229\ \ \ \ \ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_aa711ce088d2f2c8bc5135ac1c410a5d9}{downardPass}}()\{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Downward\ Pass\ (L2L)\(\backslash\)n"{}}).write(FLog::Flush);\ );}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ FLOG(\ counterTime.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}()\ );}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordtype}{double}\ totalComputation\ =\ 0\ );}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ octreeIterator.moveDown();}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 2\ ;\ idxLevel\ <\ \mbox{\hyperlink{class_f_abstract_algorithm_ade49cb5ede82d078261e576a9d809dc2}{FAbstractAlgorithm::upperWorkingLevel}}\ ;\ ++idxLevel)\{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.moveDown();}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ avoidGotoLeftIterator(octreeIterator);}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ heightMinusOne\ =\ \mbox{\hyperlink{class_f_abstract_algorithm_a694b8888186be58e38691ce08b177d46}{FAbstractAlgorithm::lowerWorkingLevel}}\ -\/\ 1;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ levels\ exepted\ leaf\ level}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ \mbox{\hyperlink{class_f_abstract_algorithm_ade49cb5ede82d078261e576a9d809dc2}{FAbstractAlgorithm::upperWorkingLevel}}\ ;\ idxLevel\ <\ heightMinusOne\ ;\ ++idxLevel\ )\{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\mbox{\hyperlink{class_f_tic}{FTic}}\ counterTimeLevel);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ cells}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ octreeIterator.getCurrentCell()-\/>hasTargetsChild()\ )\{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ potentialChild[8];}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass**\ \textcolor{keyword}{const}\ realChild\ =\ octreeIterator.getCurrentChild();}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ \textcolor{keyword}{const}\ currentCell\ =\ octreeIterator.getCurrentCell();}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxChild\ =\ 0\ ;\ idxChild\ <\ 8\ ;\ ++idxChild)\{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(realChild[idxChild]\ \&\&\ realChild[idxChild]-\/>hasTargetsChild())\{}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ potentialChild[idxChild]\ =\ realChild[idxChild];}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ potentialChild[idxChild]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>L2L(\ currentCell\ ,\ potentialChild,\ idxLevel);}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(totalComputation\ +=\ computationCounter.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}());}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGotoLeftIterator.moveDown();}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGotoLeftIterator;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t>>\ Level\ "{}}\ <<\ idxLevel\ <<\ \textcolor{stringliteral}{"{}\ =\ "{}}\ \ <<\ counterTimeLevel.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ FLOG(\ counterTime.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}()\ );}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Downward\ Pass\ (L2L)\ =\ "{}}\ \ <<\ counterTime.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ :\ "{}}\ <<\ totalComputation\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00279\ \ \ \ \ \}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fmm_algorithm_tsm_a623f27188db12d0ed6b1ba460d7c6d37}{directPass}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ p2pEnabled,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ l2pEnabled)\{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}\(\backslash\)tStart\ Direct\ Pass\(\backslash\)n"{}}).write(FLog::Flush);\ );}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ FLOG(\ counterTime.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}()\ );}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{keywordtype}{double}\ totalComputation\ =\ 0\ );}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ heightMinusOne\ =\ OctreeHeight\ -\/\ 1;}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ There\ is\ a\ maximum\ of\ 26\ neighbors}}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ ContainerClass*\ neighbors[26];}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ neighborPositions[26];}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ each\ leafs}}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ octreeIterator.getCurrentCell()-\/>hasTargetsChild()\ )\{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}());}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(l2pEnabled)\{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>L2P(octreeIterator.getCurrentCell(),\ octreeIterator.getCurrentListTargets());}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(p2pEnabled)\{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(octreeIterator.getCurrentCell()-\/>hasSrcChild())\{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>P2P(\ octreeIterator.getCurrentGlobalCoordinate(),\ octreeIterator.getCurrentListTargets(),}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.getCurrentListSrc()\ ,\ neighbors,\ neighborPositions,\ 0);}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ the\ current\ particles\ and\ neighbors\ particles}}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counter\ =\ tree-\/>getLeafsNeighbors(neighbors,\ neighborPositions,\ octreeIterator.getCurrentGlobalCoordinate(),\ heightMinusOne);}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernels-\/>P2PRemote(\ octreeIterator.getCurrentGlobalCoordinate(),\ octreeIterator.getCurrentListTargets(),}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.getCurrentListSrc()\ ,\ neighbors,\ neighborPositions,\ counter);}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(computationCounter.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}());}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(totalComputation\ +=\ computationCounter.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}());}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ FLOG(\ counterTime.\mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}()\ );}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)tFinished\ (@Direct\ Pass\ (L2P\ +\ P2P)\ =\ "{}}\ \ <<\ counterTime.\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}()\ <<\ \textcolor{stringliteral}{"{}\ s)\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)t\ Computation\ L2P\ +\ P2P\ :\ "{}}\ <<\ totalComputation\ <<\ \textcolor{stringliteral}{"{}\ s\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \};}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FFMMALGORITHMTSM\_HPP}}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ }
+
+\end{DoxyCode}

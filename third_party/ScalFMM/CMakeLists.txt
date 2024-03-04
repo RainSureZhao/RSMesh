@@ -14,9 +14,9 @@ set(scalFmm_sources
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Utils/FSignalHandler.cpp)
 
 # set the library header files
-file(GLOB scalFmm_include ${CMAKE_CURRENT_SOURCE_DIR}/include/ScalFMM/*)
+file(GLOB_RECURSE scalFmm_include ${CMAKE_CURRENT_SOURCE_DIR}/include/ScalFMM/*)
 set(scalFmm_headers ${scalFmm_include})
 
 # create the library
-add_library(ScalFmm ${scalFmm_sources} ${scalFmm_headers})
+add_library(ScalFmm STATIC ${scalFmm_sources} ${scalFmm_headers})
 target_include_directories(ScalFmm PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

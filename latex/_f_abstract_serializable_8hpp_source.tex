@@ -1,0 +1,27 @@
+\doxysection{FAbstract\+Serializable.\+hpp}
+\hypertarget{_f_abstract_serializable_8hpp_source}{}\label{_f_abstract_serializable_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Components/FAbstractSerializable.hpp@{third\_party/ScalFMM/include/ScalFMM/Components/FAbstractSerializable.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FABSTRACTSERIALIZABLE\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FABSTRACTSERIALIZABLE\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_abstract_serializable}{FAbstractSerializable}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferWriterClass>}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_abstract_serializable_a45fdedf0656ebbfbe53b0d17b6ccece5}{save}}(BufferWriterClass\&)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(BufferWriterClass)\ ==\ 0\ ,\ \textcolor{stringliteral}{"{}Your\ class\ should\ implement\ save"{}});}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferReaderClass>}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_abstract_serializable_ab11ebf8e05ea24fd43723cb6f14a39c9}{restore}}(BufferReaderClass\&)\{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(BufferReaderClass)\ ==\ 0\ ,\ \textcolor{stringliteral}{"{}Your\ class\ should\ implement\ restore"{}});}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ FSize\ getSavedSize()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FABSTRACTSERIALIZABLE\_HPP}}
+
+\end{DoxyCode}

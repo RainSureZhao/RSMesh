@@ -1,0 +1,147 @@
+\doxysection{FDlpoly\+Bin\+Loader\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_dlpoly_bin_loader}{}\label{class_f_dlpoly_bin_loader}\index{FDlpolyBinLoader$<$ FReal $>$@{FDlpolyBinLoader$<$ FReal $>$}}
+类 FDlpoly\+Bin\+Loader\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_f_dlpoly_bin_loader}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_dlpoly_bin_loader_af3ba899c57cf0305917c7e761a56b547}{FDlpoly\+Bin\+Loader}} (const char \texorpdfstring{$\ast$}{*}const filename)
+\item 
+virtual \mbox{\hyperlink{class_f_dlpoly_bin_loader_a99badbd2f4ef6edbbcd2d305eac82e3c}{\texorpdfstring{$\sim$}{\string~}\+FDlpoly\+Bin\+Loader}} ()
+\item 
+bool \mbox{\hyperlink{class_f_dlpoly_bin_loader_a1e97d0e5f0ab8ebdfdeab2c323ad7e32}{is\+Open}} () const
+\item 
+void \mbox{\hyperlink{class_f_dlpoly_bin_loader_ae5d9de6bdc09d078021ec5554c3b16e1}{fill\+Particle}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}in\+Position, FReal in\+Forces\mbox{[}3\mbox{]}, FReal \texorpdfstring{$\ast$}{*}in\+Physical\+Value, int \texorpdfstring{$\ast$}{*}in\+Index)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpoly\+Loader$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+FSize \mbox{\hyperlink{class_f_dlpoly_loader_ae4d2e8d81e946487155d2bff0f428cfd}{get\+Number\+Of\+Particles}} () const
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_dlpoly_loader_a0352bea3b5bf9d3ac216c991a5ba85e7}{get\+Center\+Of\+Box}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_dlpoly_loader_ab515a75b4d0b4c76f0c9092642de3ef2}{get\+Box\+Width}} () const
+\item 
+FReal {\bfseries get\+Energy} () const
+\item 
+void {\bfseries get\+Physical\+Value} (std\+::string \&type, FReal \&out\+Physical\+Value, int \&out\+Index) const
+\item 
+void {\bfseries get\+Physical\+Value} (char type\mbox{[}2\mbox{]}, FReal \&out\+Physical\+Value, int \&out\+Index) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_loader}{FAbstract\+Loader$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_f_abstract_loader_a50fdd33c7eac1ec0733b79ed1bd4b4e8}{\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Loader}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_dlpoly_bin_loader_ae3bf61625ca97fcd3f27025e5f86acf5}\label{class_f_dlpoly_bin_loader_ae3bf61625ca97fcd3f27025e5f86acf5} 
+{\footnotesize template$<$class Type $>$ }\\Type {\bfseries read\+Value} ()
+\item 
+\Hypertarget{class_f_dlpoly_bin_loader_a76ed6cd4c17dd024652e526e3b09143d}\label{class_f_dlpoly_bin_loader_a76ed6cd4c17dd024652e526e3b09143d} 
+{\footnotesize template$<$class Type $>$ }\\Type \texorpdfstring{$\ast$}{*} {\bfseries read\+Array} (Type array\mbox{[}$\,$\mbox{]}, const int size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_dlpoly_bin_loader_a2ef2252290e7cd42cf9cb52f38f71930}\label{class_f_dlpoly_bin_loader_a2ef2252290e7cd42cf9cb52f38f71930} 
+FILE \texorpdfstring{$\ast$}{*}const {\bfseries file}
+\item 
+\Hypertarget{class_f_dlpoly_bin_loader_adb60b2bf0af50095dc49ab138cbb97e4}\label{class_f_dlpoly_bin_loader_adb60b2bf0af50095dc49ab138cbb97e4} 
+size\+\_\+t {\bfseries remove\+Warning}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpoly\+Loader$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries center\+Of\+Box}
+\item 
+FReal {\bfseries box\+Width}
+\item 
+int {\bfseries nb\+Particles}
+\item 
+int {\bfseries levcfg}
+\item 
+FReal {\bfseries energy}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{Protected 类型 继承自 \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpoly\+Loader$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_dlpoly_loader_a77bbdd42c2570b93f803cbfae4f5915b}\label{class_f_dlpoly_loader_a77bbdd42c2570b93f803cbfae4f5915b} 
+enum {\bfseries Type} \{ \newline
+{\bfseries OW}
+, {\bfseries HW}
+, {\bfseries Na}
+, {\bfseries Cl}
+, \newline
+{\bfseries Undefined}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_dlpoly_bin_loader_af3ba899c57cf0305917c7e761a56b547}\label{class_f_dlpoly_bin_loader_af3ba899c57cf0305917c7e761a56b547} 
+\index{FDlpolyBinLoader$<$ FReal $>$@{FDlpolyBinLoader$<$ FReal $>$}!FDlpolyBinLoader@{FDlpolyBinLoader}}
+\index{FDlpolyBinLoader@{FDlpolyBinLoader}!FDlpolyBinLoader$<$ FReal $>$@{FDlpolyBinLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{FDlpolyBinLoader()}{FDlpolyBinLoader()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\mbox{\hyperlink{class_f_dlpoly_bin_loader}{FDlpoly\+Bin\+Loader}}$<$ FReal $>$\mbox{\hyperlink{class_f_dlpoly_bin_loader}{\+::\+FDlpoly\+Bin\+Loader}} (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}const}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+The constructor need the file name 
+\begin{DoxyParams}{参数}
+{\em filename} & the name of the file to open you can test if file is successfuly open by calling has\+Not\+Finished() energy box size nb particles \mbox{[}index charge x y z fx fy fz\mbox{]} int double double ... \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_dlpoly_bin_loader_a99badbd2f4ef6edbbcd2d305eac82e3c}\label{class_f_dlpoly_bin_loader_a99badbd2f4ef6edbbcd2d305eac82e3c} 
+\index{FDlpolyBinLoader$<$ FReal $>$@{FDlpolyBinLoader$<$ FReal $>$}!````~FDlpolyBinLoader@{\texorpdfstring{$\sim$}{\string~}FDlpolyBinLoader}}
+\index{````~FDlpolyBinLoader@{\texorpdfstring{$\sim$}{\string~}FDlpolyBinLoader}!FDlpolyBinLoader$<$ FReal $>$@{FDlpolyBinLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FDlpolyBinLoader()}{\string~FDlpolyBinLoader()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+virtual \mbox{\hyperlink{class_f_dlpoly_bin_loader}{FDlpoly\+Bin\+Loader}}$<$ FReal $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_dlpoly_bin_loader}{FDlpoly\+Bin\+Loader}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Default destructor, simply close the file 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_dlpoly_bin_loader_ae5d9de6bdc09d078021ec5554c3b16e1}\label{class_f_dlpoly_bin_loader_ae5d9de6bdc09d078021ec5554c3b16e1} 
+\index{FDlpolyBinLoader$<$ FReal $>$@{FDlpolyBinLoader$<$ FReal $>$}!fillParticle@{fillParticle}}
+\index{fillParticle@{fillParticle}!FDlpolyBinLoader$<$ FReal $>$@{FDlpolyBinLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{fillParticle()}{fillParticle()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+void \mbox{\hyperlink{class_f_dlpoly_bin_loader}{FDlpoly\+Bin\+Loader}}$<$ FReal $>$\+::fill\+Particle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}}]{in\+Position,  }\item[{FReal}]{in\+Forces\mbox{[}3\mbox{]},  }\item[{FReal \texorpdfstring{$\ast$}{*}}]{in\+Physical\+Value,  }\item[{int \texorpdfstring{$\ast$}{*}}]{in\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Fill a particle \begin{DoxyWarning}{警告}
+to work with the loader, particles has to expose a set\+Position method 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{参数}
+{\em the} & particle to fill \mbox{[}index charge x y z fx fy fz\mbox{]} \\
+\hline
+\end{DoxyParams}
+
+
+实现了 \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpoly\+Loader$<$ FReal $>$}}.
+
+\Hypertarget{class_f_dlpoly_bin_loader_a1e97d0e5f0ab8ebdfdeab2c323ad7e32}\label{class_f_dlpoly_bin_loader_a1e97d0e5f0ab8ebdfdeab2c323ad7e32} 
+\index{FDlpolyBinLoader$<$ FReal $>$@{FDlpolyBinLoader$<$ FReal $>$}!isOpen@{isOpen}}
+\index{isOpen@{isOpen}!FDlpolyBinLoader$<$ FReal $>$@{FDlpolyBinLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{isOpen()}{isOpen()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+bool \mbox{\hyperlink{class_f_dlpoly_bin_loader}{FDlpoly\+Bin\+Loader}}$<$ FReal $>$\+::is\+Open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+To know if file is open and ready to read \begin{DoxyReturn}{返回}
+true if loader can work 
+\end{DoxyReturn}
+
+
+实现了 \mbox{\hyperlink{class_f_dlpoly_loader_a9838a0fc9e8c4146cdc4bc82bcc0c9a0}{FDlpoly\+Loader$<$ FReal $>$}}.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Files/FDlpoly\+Loader.\+hpp\end{DoxyCompactItemize}

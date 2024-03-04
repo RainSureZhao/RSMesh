@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/14.
+// Created by RainSure on 2024/2/14.
 //
 
 #ifndef RSMESH_RAS_PRECONDITIONER_H

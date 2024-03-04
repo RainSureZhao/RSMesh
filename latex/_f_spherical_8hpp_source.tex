@@ -1,0 +1,79 @@
+\doxysection{FSpherical.\+hpp}
+\hypertarget{_f_spherical_8hpp_source}{}\label{_f_spherical_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FSpherical.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FSpherical.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ FSPHERICAL\_HPP}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ FSPHERICAL\_HPP}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}FGlobal.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}FMath.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}FPoint.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}FLog.hpp"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00041\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_spherical}{FSpherical}}\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//\ The\ attributes\ of\ a\ sphere}}
+\DoxyCodeLine{00043\ \ \ \ \ FReal\ r;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ FReal\ theta;\ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ FReal\ phi;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ FReal\ cosTheta;}
+\DoxyCodeLine{00047\ \ \ \ \ FReal\ sinTheta;}
+\DoxyCodeLine{00048\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_f_spherical_a3cdf6bc92e7a9c30076fd5a50c2609bc}{FSpherical}}()}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ :\ r(0.0),\ theta(0.0),\ phi(0.0),\ cosTheta(0.0),\ sinTheta(0.0)\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_f_spherical_a9166d1b97b557cda1da7176ef8bb5aa3}{FSpherical}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inVector)\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ x2y2\ =\ (inVector.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ *\ inVector.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}())\ +\ (inVector.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ *\ inVector.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}());}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ this-\/>r\ \ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(\ x2y2\ +\ (inVector.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ *\ inVector.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()));}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ this-\/>phi\ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{struct_f_math_acf67619efdbbef379ac65cba790b33b1}{FMath::Atan2}}(inVector.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),inVector.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}());}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ this-\/>cosTheta\ =\ inVector.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ /\ r;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ this-\/>sinTheta\ =\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(x2y2)\ /\ r;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ this-\/>theta\ \ \ \ =\ \mbox{\hyperlink{struct_f_math_ae5e5fdca9f2a8424d083dc4daa28250b}{FMath::ACos}}(this-\/>cosTheta);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ r\ ==\ 0\ we\ cannot\ divide!}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ FLOG(\textcolor{keywordflow}{if}(\ r\ <\ FMath::Epsilon<FReal>()\ )\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}!!!\ In\ FSpherical,\ r\ ==\ 0!\(\backslash\)n"{}};\ )}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00069\ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_spherical_afe70b334deb1d5feae782bda8851056d}{getR}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00074\ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_spherical_a8901493cf4910374e3aabc62fb984ffd}{getTheta}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ theta;}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_spherical_adf0db5a2f069c50c9c55be96457dd41d}{getPhi}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ phi;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00083\ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_spherical_a142b6af5616618a154c76983acdab34f}{getInclination}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ theta;}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_spherical_ac47e9ee1557ed6e700cc985c9031a02b}{getPhiZero2Pi}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (phi\ <\ 0\ ?\ FMath::FTwoPi<FReal>()\ +\ phi\ :\ phi);}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00092\ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_spherical_a7f3ca3427a17cf1b9e114aa1ed7049a3}{getCosTheta}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cosTheta;}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00097\ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_spherical_accff4b45e34fd2b215715563a68a412f}{getSinTheta}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sinTheta;}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ StreamClass>}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{friend}\ StreamClass\&\ \mbox{\hyperlink{class_f_spherical_aa0ae9915740a4d3f375ac79f1bcd8006}{operator<<}}(StreamClass\&\ output,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_spherical}{FSpherical}}\&\ inPosition)\{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ output\ <<\ \textcolor{stringliteral}{"{}("{}}\ <<\ \ inPosition.\mbox{\hyperlink{class_f_spherical_afe70b334deb1d5feae782bda8851056d}{getR}}()\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ inPosition.\mbox{\hyperlink{class_f_spherical_a8901493cf4910374e3aabc62fb984ffd}{getTheta}}()\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ inPosition.\mbox{\hyperlink{class_f_spherical_adf0db5a2f069c50c9c55be96457dd41d}{getPhi}}()\ <<\textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ output;\ \ \textcolor{comment}{//\ for\ multiple\ <<\ operators.}}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FSPHERICAL\_HPP}}
+
+\end{DoxyCode}

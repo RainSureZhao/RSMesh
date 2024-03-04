@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/1/21.
+// Created by RainSure on 2024/1/21.
 //
 
 #ifndef RSMESH_LAGRANGE_BASIS_H
@@ -15,6 +15,10 @@
 #include "types.h"
 #include <stdexcept>
 
+/**
+ * \namespace rsmesh::polynomial
+ * \brief 该命名空间下主要定义了多项式计算相关的类和函数
+ */
 namespace rsmesh::polynomial {
     class lagrange_basis : public polynomial_basis_base {
         static constexpr double kRcondThreshold = 1e-10; // 用于判断奇异矩阵的阈值

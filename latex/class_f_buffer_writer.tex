@@ -1,0 +1,143 @@
+\doxysection{FBuffer\+Writer类 参考}
+\hypertarget{class_f_buffer_writer}{}\label{class_f_buffer_writer}\index{FBufferWriter@{FBufferWriter}}
+
+
+{\ttfamily \#include $<$FBuffer\+Writer.\+hpp$>$}
+
+类 FBuffer\+Writer 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_buffer_writer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_buffer_writer_a6b3832218c7f8948049466e5aa37f285}{FBuffer\+Writer}} (const FSize in\+Capacity=512)
+\item 
+virtual \mbox{\hyperlink{class_f_buffer_writer_a6da90a628d152cb9098ebb0e1a73279a}{\texorpdfstring{$\sim$}{\string~}\+FBuffer\+Writer}} ()
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_buffer_writer_a6a9be83a2405c1b86f9ad3d9481e0113}{data}} ()
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_buffer_writer_a4a26e5f797f34ad23b0c1600af8dbdf2}{data}} () const
+\item 
+FSize \mbox{\hyperlink{class_f_buffer_writer_a98858aad316cb7af567e08c8d01f3c19}{get\+Size}} () const
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void \mbox{\hyperlink{class_f_buffer_writer_a952d0248e89c49ebae8d7ffca798cfa9}{write}} (const Class\+Type \&object)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void \mbox{\hyperlink{class_f_buffer_writer_af641ea184d95cb055ea8c9acd84d5a70}{write\+At}} (const FSize position, const Class\+Type \&object)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void \mbox{\hyperlink{class_f_buffer_writer_ab79162c61c6c0f431870d0a40f4553db}{write}} (const Class\+Type \texorpdfstring{$\ast$}{*}const objects, const FSize in\+Size)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\\mbox{\hyperlink{class_f_buffer_writer}{FBuffer\+Writer}} \& \mbox{\hyperlink{class_f_buffer_writer_a625dc6c0dfbc56e7e34065a1617d59b6}{operator$<$$<$}} (const Class\+Type \&object)
+\item 
+void \mbox{\hyperlink{class_f_buffer_writer_af44d4b83026115a302e91634d5acd757}{reset}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void {\bfseries write} (const Class\+Type \&object)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void {\bfseries write\+At} (const FSize position, const Class\+Type \&object)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void {\bfseries write} (const Class\+Type \texorpdfstring{$\ast$}{*}const objects, const FSize in\+Size)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\\mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}} \& {\bfseries operator$<$$<$} (const Class\+Type \&)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\begin{DoxyAuthor}{作者}
+Berenger Bramas This class provide a fast way to manage a memory and fill it
+\end{DoxyAuthor}
+Put some data then insert back if needed finaly use data pointer as you like 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_buffer_writer_a6b3832218c7f8948049466e5aa37f285}\label{class_f_buffer_writer_a6b3832218c7f8948049466e5aa37f285} 
+\index{FBufferWriter@{FBufferWriter}!FBufferWriter@{FBufferWriter}}
+\index{FBufferWriter@{FBufferWriter}!FBufferWriter@{FBufferWriter}}
+\doxysubsubsection{\texorpdfstring{FBufferWriter()}{FBufferWriter()}}
+{\footnotesize\ttfamily FBuffer\+Writer\+::\+FBuffer\+Writer (\begin{DoxyParamCaption}\item[{const FSize}]{in\+Capacity = {\ttfamily 512} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+Constructor with a default capacity of 512 bytes \Hypertarget{class_f_buffer_writer_a6da90a628d152cb9098ebb0e1a73279a}\label{class_f_buffer_writer_a6da90a628d152cb9098ebb0e1a73279a} 
+\index{FBufferWriter@{FBufferWriter}!````~FBufferWriter@{\texorpdfstring{$\sim$}{\string~}FBufferWriter}}
+\index{````~FBufferWriter@{\texorpdfstring{$\sim$}{\string~}FBufferWriter}!FBufferWriter@{FBufferWriter}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FBufferWriter()}{\string~FBufferWriter()}}
+{\footnotesize\ttfamily virtual FBuffer\+Writer\+::\texorpdfstring{$\sim$}{\string~}\+FBuffer\+Writer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_buffer_writer_a6a9be83a2405c1b86f9ad3d9481e0113}\label{class_f_buffer_writer_a6a9be83a2405c1b86f9ad3d9481e0113} 
+\index{FBufferWriter@{FBufferWriter}!data@{data}}
+\index{data@{data}!FBufferWriter@{FBufferWriter}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} FBuffer\+Writer\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get allocated memory pointer 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}}.
+
+\Hypertarget{class_f_buffer_writer_a4a26e5f797f34ad23b0c1600af8dbdf2}\label{class_f_buffer_writer_a4a26e5f797f34ad23b0c1600af8dbdf2} 
+\index{FBufferWriter@{FBufferWriter}!data@{data}}
+\index{data@{data}!FBufferWriter@{FBufferWriter}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} FBuffer\+Writer\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get allocated memory pointer 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}}.
+
+\Hypertarget{class_f_buffer_writer_a98858aad316cb7af567e08c8d01f3c19}\label{class_f_buffer_writer_a98858aad316cb7af567e08c8d01f3c19} 
+\index{FBufferWriter@{FBufferWriter}!getSize@{getSize}}
+\index{getSize@{getSize}!FBufferWriter@{FBufferWriter}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily FSize FBuffer\+Writer\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Get the filled space 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}}.
+
+\Hypertarget{class_f_buffer_writer_a625dc6c0dfbc56e7e34065a1617d59b6}\label{class_f_buffer_writer_a625dc6c0dfbc56e7e34065a1617d59b6} 
+\index{FBufferWriter@{FBufferWriter}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!FBufferWriter@{FBufferWriter}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+\mbox{\hyperlink{class_f_buffer_writer}{FBuffer\+Writer}} \& FBuffer\+Writer\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{const Class\+Type \&}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Equivalent to write \Hypertarget{class_f_buffer_writer_af44d4b83026115a302e91634d5acd757}\label{class_f_buffer_writer_af44d4b83026115a302e91634d5acd757} 
+\index{FBufferWriter@{FBufferWriter}!reset@{reset}}
+\index{reset@{reset}!FBufferWriter@{FBufferWriter}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void FBuffer\+Writer\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Reset the writing index, but do not change the capacity 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}}.
+
+\Hypertarget{class_f_buffer_writer_a952d0248e89c49ebae8d7ffca798cfa9}\label{class_f_buffer_writer_a952d0248e89c49ebae8d7ffca798cfa9} 
+\index{FBufferWriter@{FBufferWriter}!write@{write}}
+\index{write@{write}!FBufferWriter@{FBufferWriter}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+void FBuffer\+Writer\+::write (\begin{DoxyParamCaption}\item[{const Class\+Type \&}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Write data by mem cpy \Hypertarget{class_f_buffer_writer_ab79162c61c6c0f431870d0a40f4553db}\label{class_f_buffer_writer_ab79162c61c6c0f431870d0a40f4553db} 
+\index{FBufferWriter@{FBufferWriter}!write@{write}}
+\index{write@{write}!FBufferWriter@{FBufferWriter}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+void FBuffer\+Writer\+::write (\begin{DoxyParamCaption}\item[{const Class\+Type \texorpdfstring{$\ast$}{*}const}]{objects,  }\item[{const FSize}]{in\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Write an array \Hypertarget{class_f_buffer_writer_af641ea184d95cb055ea8c9acd84d5a70}\label{class_f_buffer_writer_af641ea184d95cb055ea8c9acd84d5a70} 
+\index{FBufferWriter@{FBufferWriter}!writeAt@{writeAt}}
+\index{writeAt@{writeAt}!FBufferWriter@{FBufferWriter}}
+\doxysubsubsection{\texorpdfstring{writeAt()}{writeAt()}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+void FBuffer\+Writer\+::write\+At (\begin{DoxyParamCaption}\item[{const FSize}]{position,  }\item[{const Class\+Type \&}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Write back, position + sizeof(object) has to be \texorpdfstring{$<$}{<} size 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Containers/FBuffer\+Writer.\+hpp\end{DoxyCompactItemize}

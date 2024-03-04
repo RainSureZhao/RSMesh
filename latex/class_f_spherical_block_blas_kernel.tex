@@ -1,0 +1,254 @@
+\doxysection{FSpherical\+Block\+Blas\+Kernel\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_spherical_block_blas_kernel}{}\label{class_f_spherical_block_blas_kernel}\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+
+
+{\ttfamily \#include $<$FSpherical\+Block\+Blas\+Kernel.\+hpp$>$}
+
+类 FSpherical\+Block\+Blas\+Kernel\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_f_spherical_block_blas_kernel}
+\end{center}
+\end{figure}
+\doxysubsubsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_f_spherical_block_blas_kernel_1_1_computation_pair}{Computation\+Pair}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_spherical_block_blas_kernel_a93e6db0f091561a695f782d4fa55aad9}{FSpherical\+Block\+Blas\+Kernel}} (const int in\+DevP, const int in\+Tree\+Height, const FReal in\+Box\+Width, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Box\+Center, const int in\+Block\+Size=512)
+\item 
+\mbox{\hyperlink{class_f_spherical_block_blas_kernel_a11ee2b58acfba5b857eab2827d68baa4}{FSpherical\+Block\+Blas\+Kernel}} (const \mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}} \&other)
+\item 
+\mbox{\hyperlink{class_f_spherical_block_blas_kernel_a42afb83519c6db7905bf543820aa1832}{\texorpdfstring{$\sim$}{\string~}\+FSpherical\+Block\+Blas\+Kernel}} ()
+\item 
+void \mbox{\hyperlink{class_f_spherical_block_blas_kernel_a3b5ccf192974396f66af9c0a0dddca1c}{M2L}} (Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Local, const Cell\+Class \texorpdfstring{$\ast$}{*}distant\+Neighbors\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size, const int in\+Level) override
+\item 
+void \mbox{\hyperlink{class_f_spherical_block_blas_kernel_a912a4924c1f9c820728c8bcfcfcf3944}{finished\+Level\+M2L}} (const int in\+Level)
+\item 
+void \mbox{\hyperlink{class_f_spherical_block_blas_kernel_a05b2ae374adf872fac760243fb7ffa17}{pre\+Exp\+NExp}} (\mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const exp) const
+\item 
+void \mbox{\hyperlink{class_f_spherical_block_blas_kernel_a565b26dbb5707f5356bb8a531e075b94}{multipole\+To\+Local}} (const int interaction\+Index, const int in\+Level)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel$<$ FReal, Cell\+Class, Container\+Class $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_abstract_spherical_kernel_a0b54228b0c735ce7b144b3d8343a73e8}{FAbstract\+Spherical\+Kernel}} (const int in\+DevP, const int in\+Tree\+Height, const FReal in\+Box\+Width, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Box\+Center)
+\item 
+\mbox{\hyperlink{class_f_abstract_spherical_kernel_ad6870ad19bc54634e737844f347874e7}{FAbstract\+Spherical\+Kernel}} (const \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}} \&other)
+\item 
+virtual \mbox{\hyperlink{class_f_abstract_spherical_kernel_a59d56b6e29c28deda9a3e3ac11095ef4}{\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Spherical\+Kernel}} ()
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a99ff8bc846395c53344439b108bda0b8}{P2M}} (Cell\+Class \texorpdfstring{$\ast$}{*}const in\+Pole, const Container\+Class \texorpdfstring{$\ast$}{*}const in\+Particles) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_afcaf811c616b31076b38480c34b90cd3}{M2M}} (Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Pole, const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict \texorpdfstring{$\ast$}{*}const FRestrict in\+Child, const int in\+Level) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a60db61f9f00f287c917ead0de7436aed}{L2L}} (const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict pole, Cell\+Class \texorpdfstring{$\ast$}{*}FRestrict \texorpdfstring{$\ast$}{*}const FRestrict child, const int in\+Level) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_ac57a738ac23aa6c99839187d702ad3cc}{L2P}} (const Cell\+Class \texorpdfstring{$\ast$}{*}const local, Container\+Class \texorpdfstring{$\ast$}{*}const in\+Particles) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a81799db940bb9bb063793b5fb3707f51}{P2P}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&in\+Position, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Targets, const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Sources, Container\+Class \texorpdfstring{$\ast$}{*}const in\+Neighbors\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size) override
+\item 
+void {\bfseries P2\+POuter} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Targets, Container\+Class \texorpdfstring{$\ast$}{*}const in\+Neighbors\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a2840367a75950077714ea2928829251b}{P2\+PRemote}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Targets, const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict, const Container\+Class \texorpdfstring{$\ast$}{*}const in\+Neighbors\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a371eaa267f66a73a47c83a5b535ca7f4}{compute\+Velocity}} (Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Particles, const FReal DT)
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a0e142f8d879c1bdde196f87c400adbf2}{update\+Position}} (Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Particles, const FReal DT)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool \mbox{\hyperlink{class_f_spherical_block_blas_kernel_ab4ca93909f8572f2bb0808812a4bc12b}{Need\+Finished\+M2\+LEvent}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_spherical_block_blas_kernel_a44226743869d28e7ea56f8c7fc5ce956}\label{class_f_spherical_block_blas_kernel_a44226743869d28e7ea56f8c7fc5ce956} 
+typedef \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$ {\bfseries Parent}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_f_spherical_block_blas_kernel_a4647f308803f7e84b8672ba08ef89834}{index\+M2\+LTransition}} (const int idxX, const int idxY, const int idxZ) const
+\item 
+void \mbox{\hyperlink{class_f_spherical_block_blas_kernel_ad1207b1746febf20b472a5547d61a8be}{alloc\+And\+Init}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel$<$ FReal, Cell\+Class, Container\+Class $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_ac91e7268ab96b0f9d1c0028a732ef0b0}{alloc\+And\+Init}} ()
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_abstract_spherical_kernel_a8e2097d3422b40de21f069da98ba2b6b}{get\+Leaf\+Center}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} coordinate) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_spherical_block_blas_kernel_a72e92d6f6d6229315014d077fcf4b65a}\label{class_f_spherical_block_blas_kernel_a72e92d6f6d6229315014d077fcf4b65a} 
+const int {\bfseries FF\+\_\+\+MATRIX\+\_\+\+ROW\+\_\+\+DIM}
+\item 
+\Hypertarget{class_f_spherical_block_blas_kernel_a20f4d5d759d88ad02b7416d95a94b751}\label{class_f_spherical_block_blas_kernel_a20f4d5d759d88ad02b7416d95a94b751} 
+const int {\bfseries FF\+\_\+\+MATRIX\+\_\+\+COLUMN\+\_\+\+DIM}
+\item 
+\Hypertarget{class_f_spherical_block_blas_kernel_a0d072c60b0adc6c5140bcfe67263648a}\label{class_f_spherical_block_blas_kernel_a0d072c60b0adc6c5140bcfe67263648a} 
+const int {\bfseries FF\+\_\+\+MATRIX\+\_\+\+SIZE}
+\item 
+\Hypertarget{class_f_spherical_block_blas_kernel_ae685f1af0c1675d2eaa0e7c19f08fb19}\label{class_f_spherical_block_blas_kernel_ae685f1af0c1675d2eaa0e7c19f08fb19} 
+const int {\bfseries Block\+Size}
+\item 
+\Hypertarget{class_f_spherical_block_blas_kernel_ad2f75ac47960841592f9fdab3fe1efa7}\label{class_f_spherical_block_blas_kernel_ad2f75ac47960841592f9fdab3fe1efa7} 
+\mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const {\bfseries multipole\+Matrix}
+\item 
+\Hypertarget{class_f_spherical_block_blas_kernel_ac226dac477ea16a47d52e457296487a3}\label{class_f_spherical_block_blas_kernel_ac226dac477ea16a47d52e457296487a3} 
+\mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const {\bfseries local\+Matrix}
+\item 
+\Hypertarget{class_f_spherical_block_blas_kernel_a233585e11121b5550e6ce387e95f1edd}\label{class_f_spherical_block_blas_kernel_a233585e11121b5550e6ce387e95f1edd} 
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ \mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} $>$ {\bfseries pre\+M2\+LTransitions}
+\item 
+\Hypertarget{class_f_spherical_block_blas_kernel_a957ef78796c15e7d1c68ebb8ec59c558}\label{class_f_spherical_block_blas_kernel_a957ef78796c15e7d1c68ebb8ec59c558} 
+\mbox{\hyperlink{class_f_vector}{FVector}}$<$ \mbox{\hyperlink{struct_f_spherical_block_blas_kernel_1_1_computation_pair}{Computation\+Pair}} $>$ {\bfseries interactions} \mbox{[}343\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel$<$ FReal, Cell\+Class, Container\+Class $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+const int {\bfseries devP}
+\item 
+const FReal {\bfseries box\+Width}
+\item 
+const int {\bfseries tree\+Height}
+\item 
+const FReal {\bfseries width\+At\+Leaf\+Level}
+\item 
+const FReal {\bfseries width\+At\+Leaf\+Level\+Div2}
+\item 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries box\+Corner}
+\item 
+\mbox{\hyperlink{class_f_harmonic}{FHarmonic}}$<$ FReal $>$ {\bfseries harmonic}
+\item 
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ \mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*} $>$ {\bfseries pre\+L2\+LTransitions}
+\item 
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ \mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*} $>$ {\bfseries pre\+M2\+MTransitions}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Cell\+Class, class Container\+Class$>$\newline
+class FSpherical\+Block\+Blas\+Kernel$<$ FReal, Cell\+Class, Container\+Class $>$}
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}}) This class is a spherical harmonic kernels using block blas 
+\end{DoxyAuthor}
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_spherical_block_blas_kernel_a93e6db0f091561a695f782d4fa55aad9}\label{class_f_spherical_block_blas_kernel_a93e6db0f091561a695f782d4fa55aad9} 
+\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}!FSphericalBlockBlasKernel@{FSphericalBlockBlasKernel}}
+\index{FSphericalBlockBlasKernel@{FSphericalBlockBlasKernel}!FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{FSphericalBlockBlasKernel()}{FSphericalBlockBlasKernel()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+\mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\mbox{\hyperlink{class_f_spherical_block_blas_kernel}{\+::\+FSpherical\+Block\+Blas\+Kernel}} (\begin{DoxyParamCaption}\item[{const int}]{in\+DevP,  }\item[{const int}]{in\+Tree\+Height,  }\item[{const FReal}]{in\+Box\+Width,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Box\+Center,  }\item[{const int}]{in\+Block\+Size = {\ttfamily 512} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor 
+\begin{DoxyParams}{参数}
+{\em in\+DevP} & the polynomial degree \\
+\hline
+{\em in\+Three\+Height} & the height of the tree \\
+\hline
+{\em in\+Box\+Width} & the size of the simulation box \\
+\hline
+{\em in\+Periodic\+Level} & the number of level upper to 0 that will be requiried \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_spherical_block_blas_kernel_a11ee2b58acfba5b857eab2827d68baa4}\label{class_f_spherical_block_blas_kernel_a11ee2b58acfba5b857eab2827d68baa4} 
+\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}!FSphericalBlockBlasKernel@{FSphericalBlockBlasKernel}}
+\index{FSphericalBlockBlasKernel@{FSphericalBlockBlasKernel}!FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{FSphericalBlockBlasKernel()}{FSphericalBlockBlasKernel()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+\mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\mbox{\hyperlink{class_f_spherical_block_blas_kernel}{\+::\+FSpherical\+Block\+Blas\+Kernel}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Copy constructor \Hypertarget{class_f_spherical_block_blas_kernel_a42afb83519c6db7905bf543820aa1832}\label{class_f_spherical_block_blas_kernel_a42afb83519c6db7905bf543820aa1832} 
+\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}!````~FSphericalBlockBlasKernel@{\texorpdfstring{$\sim$}{\string~}FSphericalBlockBlasKernel}}
+\index{````~FSphericalBlockBlasKernel@{\texorpdfstring{$\sim$}{\string~}FSphericalBlockBlasKernel}!FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FSphericalBlockBlasKernel()}{\string~FSphericalBlockBlasKernel()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+\mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_spherical_block_blas_kernel_ad1207b1746febf20b472a5547d61a8be}\label{class_f_spherical_block_blas_kernel_ad1207b1746febf20b472a5547d61a8be} 
+\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}!allocAndInit@{allocAndInit}}
+\index{allocAndInit@{allocAndInit}!FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{allocAndInit()}{allocAndInit()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::alloc\+And\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Alloc and init pre-\/vectors \Hypertarget{class_f_spherical_block_blas_kernel_a912a4924c1f9c820728c8bcfcfcf3944}\label{class_f_spherical_block_blas_kernel_a912a4924c1f9c820728c8bcfcfcf3944} 
+\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}!finishedLevelM2L@{finishedLevelM2L}}
+\index{finishedLevelM2L@{finishedLevelM2L}!FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{finishedLevelM2L()}{finishedLevelM2L()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::finished\+Level\+M2L (\begin{DoxyParamCaption}\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Do we have some computation to do in the buffers \Hypertarget{class_f_spherical_block_blas_kernel_a4647f308803f7e84b8672ba08ef89834}\label{class_f_spherical_block_blas_kernel_a4647f308803f7e84b8672ba08ef89834} 
+\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}!indexM2LTransition@{indexM2LTransition}}
+\index{indexM2LTransition@{indexM2LTransition}!FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{indexM2LTransition()}{indexM2LTransition()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+int \mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::index\+M2\+LTransition (\begin{DoxyParamCaption}\item[{const int}]{idxX,  }\item[{const int}]{idxY,  }\item[{const int}]{idxZ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+To access te precomputed M2L transfer matrixes \Hypertarget{class_f_spherical_block_blas_kernel_a3b5ccf192974396f66af9c0a0dddca1c}\label{class_f_spherical_block_blas_kernel_a3b5ccf192974396f66af9c0a0dddca1c} 
+\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}!M2L@{M2L}}
+\index{M2L@{M2L}!FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{M2L()}{M2L()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\+M2L (\begin{DoxyParamCaption}\item[{Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Local,  }\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{distant\+Neighbors\mbox{[}$\,$\mbox{]},  }\item[{const int}]{neighbor\+Positions\mbox{[}$\,$\mbox{]},  }\item[{const int}]{in\+Size,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+M2L with a cell and all the existing neighbors 
+
+实现了 \mbox{\hyperlink{class_f_abstract_spherical_kernel_afbfc38a891e83599b912aa1b5ce6e537}{FAbstract\+Spherical\+Kernel$<$ FReal, Cell\+Class, Container\+Class $>$}}.
+
+\Hypertarget{class_f_spherical_block_blas_kernel_a565b26dbb5707f5356bb8a531e075b94}\label{class_f_spherical_block_blas_kernel_a565b26dbb5707f5356bb8a531e075b94} 
+\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}!multipoleToLocal@{multipoleToLocal}}
+\index{multipoleToLocal@{multipoleToLocal}!FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{multipoleToLocal()}{multipoleToLocal()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::multipole\+To\+Local (\begin{DoxyParamCaption}\item[{const int}]{interaction\+Index,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+M2L We compute the conversion of multipole\+\_\+exp\+\_\+src in \texorpdfstring{$\ast$}{*}p\+\_\+center\+\_\+of\+\_\+exp\+\_\+src to a local expansion in \texorpdfstring{$\ast$}{*}p\+\_\+center\+\_\+of\+\_\+exp\+\_\+target, and add the result to local\+\_\+exp\+\_\+target.
+
+O\+\_\+n\texorpdfstring{$^\wedge$}{\string^}l (with n=0..P, l=-\/n..n) being the former multipole expansion terms (whose center is \texorpdfstring{$\ast$}{*}p\+\_\+center\+\_\+of\+\_\+multipole\+\_\+exp\+\_\+src) we have for the new local expansion terms (whose center is \texorpdfstring{$\ast$}{*}p\+\_\+center\+\_\+of\+\_\+local\+\_\+exp\+\_\+target)\+:
+
+L\+\_\+j\texorpdfstring{$^\wedge$}{\string^}k = sum\{n=0..+\} sum\{l=-\/n..n\} O\+\_\+n\texorpdfstring{$^\wedge$}{\string^}l Outer\+\_\+\{j+n\}\texorpdfstring{$^\wedge$}{\string^}\{-\/k-\/l\}(rho, alpha, beta)
+
+where (rho, alpha, beta) are the spherical coordinates of the vector \+: p\+\_\+center\+\_\+of\+\_\+local\+\_\+exp\+\_\+src -\/ \texorpdfstring{$\ast$}{*}p\+\_\+center\+\_\+of\+\_\+multipole\+\_\+exp\+\_\+target
+
+Remark\+: here we have always j+n \texorpdfstring{$>$}{>}= \texorpdfstring{$\vert$}{|}-\/k-\/l\texorpdfstring{$\vert$}{|}
+
+const \doxylink{class_f_complex_3_01_f_real_01_4}{FComplex$<$\+FReal$>$}\texorpdfstring{$\ast$}{*}const M2\+LTransfer = pre\+M2\+LTransitions\mbox{[}in\+Level\mbox{]}\mbox{[}interaction\+Index\mbox{]}; for(int idxK = 0 ; idxK \texorpdfstring{$<$}{<} interactions\mbox{[}interaction\+Index\mbox{]}.get\+Size() ; ++idxK)\{ for(int idx\+Row = 0 ; idx\+Row \texorpdfstring{$<$}{<} FF\+\_\+\+MATRIX\+\_\+\+ROW\+\_\+\+DIM ; ++idx\+Row)\{ \doxylink{class_f_complex_3_01_f_real_01_4}{FComplex$<$\+FReal$>$} compute; for(int idx\+Col = 0 ; idx\+Col \texorpdfstring{$<$}{<} FF\+\_\+\+MATRIX\+\_\+\+COLUMN\+\_\+\+DIM ; ++idx\+Col)\{ compute.\+add\+Mul(M2\+LTransfer\mbox{[}idx\+Col \texorpdfstring{$\ast$}{*} FF\+\_\+\+MATRIX\+\_\+\+ROW\+\_\+\+DIM + idx\+Row\mbox{]}, multipole\+Matrix\mbox{[}idx\+Col + idxK \texorpdfstring{$\ast$}{*} FF\+\_\+\+MATRIX\+\_\+\+COLUMN\+\_\+\+DIM\mbox{]}); \} local\+Matrix\mbox{[}FF\+\_\+\+MATRIX\+\_\+\+ROW\+\_\+\+DIM \texorpdfstring{$\ast$}{*} idxK + idx\+Row\mbox{]} = compute; \} \} \Hypertarget{class_f_spherical_block_blas_kernel_ab4ca93909f8572f2bb0808812a4bc12b}\label{class_f_spherical_block_blas_kernel_ab4ca93909f8572f2bb0808812a4bc12b} 
+\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}!NeedFinishedM2LEvent@{NeedFinishedM2LEvent}}
+\index{NeedFinishedM2LEvent@{NeedFinishedM2LEvent}!FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{NeedFinishedM2LEvent()}{NeedFinishedM2LEvent()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+static constexpr bool \mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\+Need\+Finished\+M2\+LEvent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+the need\+Finished\+M2\+LEvent method is needed ~\newline
+ \Hypertarget{class_f_spherical_block_blas_kernel_a05b2ae374adf872fac760243fb7ffa17}\label{class_f_spherical_block_blas_kernel_a05b2ae374adf872fac760243fb7ffa17} 
+\index{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}!preExpNExp@{preExpNExp}}
+\index{preExpNExp@{preExpNExp}!FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$@{FSphericalBlockBlasKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{preExpNExp()}{preExpNExp()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_spherical_block_blas_kernel}{FSpherical\+Block\+Blas\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::pre\+Exp\+NExp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const}]{exp }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+pre\+Exp\+NExp 
+\begin{DoxyParams}{参数}
+{\em exp} & an exponent vector to create an computable vector \\
+\hline
+\end{DoxyParams}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Spherical/FSpherical\+Block\+Blas\+Kernel.\+hpp\end{DoxyCompactItemize}

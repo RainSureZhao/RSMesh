@@ -1,0 +1,105 @@
+\doxysection{FRepeat\+Action.\+hpp}
+\hypertarget{_f_repeat_action_8hpp_source}{}\label{_f_repeat_action_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FRepeatAction.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FRepeatAction.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_FPROGRESSBAR\_HPP\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_FPROGRESSBAR\_HPP\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Utils/FTic.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_repeat_action}{FRepeatAction}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_tic}{FTic}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{using\ }function\ =\ std::function<bool()>;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{using\ }time\_type\ =\ std::chrono::milliseconds;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_continue\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00024\ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_running\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00029\ \ \ \ \ function\ \_f;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00032\ \ \ \ \ time\_type\ \_sleepTime;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \ \ \ \ std::thread\ \_thread;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ run(\ function\ f,\ \textcolor{keywordtype}{bool}\&\ cont,\ time\_type\&\ sleepTime)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ f()\ \&\&\ cont\ )\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sleepTime\ ==\ time\_type\{0\})\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Cannot\ have\ a\ null\ sleep\ time."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ std::this\_thread::sleep\_for(sleepTime);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{class_f_repeat_action_a2c548f2e2ee92e1231ca87b1529243e4}{FRepeatAction}}()\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00052\ \ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_f_repeat_action_a0a5bda039918af5a3364ab961b2b52dc}{FRepeatAction}}(\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_repeat_action}{FRepeatAction}}\&\ other\ )\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_f_repeat_action_a015a31b72c44d5f97d1e7fb5b12f6ae7}{FRepeatAction}}(\ \mbox{\hyperlink{class_f_repeat_action}{FRepeatAction}}\&\&\ other\ )\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{class_f_repeat_action_a1eb32e2be49f6cf2dda289ad71d2daf3}{FRepeatAction}}(\ function\ f,\ \textcolor{keywordtype}{int}\ sleepTime,\ \textcolor{keywordtype}{bool}\ start\_now\ =\ \textcolor{keyword}{true}\ )\ :\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \_f(f),}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \_sleepTime(sleepTime)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(start\_now)}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_repeat_action_ac4695fc9eb47395f30292a48b366fe13}{start}}();}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{class_f_repeat_action_ae9c05cad249963358da7ec85f3c5826b}{\string~FRepeatAction}}()\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_repeat_action_a2bc742e7c091a5948ca03ca6d453aa72}{stop}}();}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_repeat_action_a2bc742e7c091a5948ca03ca6d453aa72}{stop}}()\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \_continue\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{FTic::tac}}();}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_thread.joinable())}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \_thread.join();}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \_running\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_repeat_action_ac4695fc9eb47395f30292a48b366fe13}{start}}()\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \_running\ )\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \_\_FUNCTION\_\_\ <<\ \textcolor{stringliteral}{"{}A\ thread\ is\ already\ running."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ \_sleepTime\ ==\ time\_type\{0\}\ )\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Cannot\ have\ a\ null\ sleep\ time."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \_running\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \_continue\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{FTic::tic}}();}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \_thread\ =\ std::thread(run,\ \_f,\ std::ref(\_continue),\ std::ref(\_sleepTime));}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_repeat_action_aeb8d17d76a91e1bb5a1326f1f0a8fbcc}{setFunction}}(\ function\ f\ )\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \_running\ )\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \_\_FUNCTION\_\_\ <<\ \textcolor{stringliteral}{"{}A\ thread\ is\ already\ running."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic_add8f7cf5d655cb3858f1b93ee6d715a5}{FTic::reset}}();}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \_f\ =\ f;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_repeat_action_a1346776d2be00f94d302920c8719454e}{setSleepTime}}(\textcolor{keywordtype}{int}\ sleepTime)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \_running\ )\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \_\_FUNCTION\_\_\ <<\ \textcolor{stringliteral}{"{}A\ thread\ is\ already\ running."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \_sleepTime\ =\ time\_type\{sleepTime\};}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \};}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

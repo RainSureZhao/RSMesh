@@ -1,0 +1,227 @@
+\doxysection{FCheb\+Tensorial\+Kernel\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_cheb_tensorial_kernel}{}\label{class_f_cheb_tensorial_kernel}\index{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+
+
+Please read the license  
+
+
+
+
+{\ttfamily \#include $<$FCheb\+Tensorial\+Kernel.\+hpp$>$}
+
+类 FCheb\+Tensorial\+Kernel\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.916667cm]{class_f_cheb_tensorial_kernel}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_cheb_tensorial_kernel_af1dff35a7184b0add75b8ee1e15c5a63}{FCheb\+Tensorial\+Kernel}} (const int in\+Tree\+Height, const FReal in\+Box\+Width, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Box\+Center, const Matrix\+Kernel\+Class \texorpdfstring{$\ast$}{*}const in\+Matrix\+Kernel, const FReal in\+Box\+Width\+Extension)
+\item 
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel_a35b25641ce96e472b8bd8720d64ecb31}{P2M}} (Cell\+Class \texorpdfstring{$\ast$}{*}const Leaf\+Cell, const Container\+Class \texorpdfstring{$\ast$}{*}const Source\+Particles)
+\item 
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel_a3babe172e80a98ba486e936678ac9566}{M2M}} (Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict Parent\+Cell, const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict \texorpdfstring{$\ast$}{*}const FRestrict Child\+Cells, const int Tree\+Level)
+\item 
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel_ac710e5c3ab037e88e1653cdda174441f}{M2L}} (Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict Target\+Cell, const Cell\+Class \texorpdfstring{$\ast$}{*}Source\+Cells\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size, const int Tree\+Level) override
+\item 
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel_a4ab82bb275cbdbf20e31a41b9b753c67}{L2L}} (const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict Parent\+Cell, Cell\+Class \texorpdfstring{$\ast$}{*}FRestrict \texorpdfstring{$\ast$}{*}const FRestrict Child\+Cells, const int Tree\+Level)
+\item 
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel_a2145f2b6f19a970c95ac3eff2e55d70a}{L2P}} (const Cell\+Class \texorpdfstring{$\ast$}{*}const Leaf\+Cell, Container\+Class \texorpdfstring{$\ast$}{*}const Target\+Particles)
+\item 
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel_ab303eb9f6f5ae842f4160bc6190589f1}{P2P}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&in\+Position, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Targets, const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Sources, Container\+Class \texorpdfstring{$\ast$}{*}const in\+Neighbors\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size) override
+\item 
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel_a20326be51022ead2f5b331e450dbb7aa}{P2\+POuter}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Targets, Container\+Class \texorpdfstring{$\ast$}{*}const in\+Neighbors\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size) override
+\item 
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel_ae4d963b0e65ae4184893c842009ee8d6}{P2\+PRemote}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Targets, const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict, const Container\+Class \texorpdfstring{$\ast$}{*}const in\+Neighbors\mbox{[}$\,$\mbox{]}, const int\mbox{[}$\,$\mbox{]}, const int in\+Size) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_abstract_cheb_kernel_aca6c0bbd63564632cfb655fdcf2c1db3}{FAbstract\+Cheb\+Kernel}} (const int in\+Tree\+Height, const FReal in\+Box\+Width, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Box\+Center, const FReal in\+Box\+Width\+Extension=0.\+0)
+\item 
+const \mbox{\hyperlink{class_f_cheb_interpolator}{Interpolator\+Class}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Ptr\+To\+Interpolator} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_cheb_tensorial_kernel_af2b8a992e0027547c06ee190afd9208d}\label{class_f_cheb_tensorial_kernel_af2b8a992e0027547c06ee190afd9208d} 
+typedef \mbox{\hyperlink{class_f_cheb_tensorial_m2_l_handler}{FCheb\+Tensorial\+M2\+LHandler}}$<$ FReal, ORDER, Matrix\+Kernel\+Class, Matrix\+Kernel\+Class\+::\+Type $>$ {\bfseries M2\+LHandler\+Class}
+\item 
+\Hypertarget{class_f_cheb_tensorial_kernel_a35e79c921e9c01958d2bb1cbf5e5e34f}\label{class_f_cheb_tensorial_kernel_a35e79c921e9c01958d2bb1cbf5e5e34f} 
+typedef \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$ {\bfseries Abstract\+Base\+Class}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 类型 继承自 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_abstract_cheb_kernel_a4d1d43f73eec18a60c439928fae87d65}\label{class_f_abstract_cheb_kernel_a4d1d43f73eec18a60c439928fae87d65} 
+enum \{ {\bfseries nnodes} = Tensor\+Traits\texorpdfstring{$<$}{<}ORDER\texorpdfstring{$>$}{>}\+::nnodes
+ \}
+\item 
+typedef \mbox{\hyperlink{class_f_cheb_interpolator}{FCheb\+Interpolator}}$<$ FReal, ORDER, Matrix\+Kernel\+Class, NVALS $>$ {\bfseries Interpolator\+Class}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_cheb_tensorial_kernel_a8ca3cc88869c5a328af7261e1645d15d}\label{class_f_cheb_tensorial_kernel_a8ca3cc88869c5a328af7261e1645d15d} 
+const Matrix\+Kernel\+Class \texorpdfstring{$\ast$}{*}const {\bfseries Matrix\+Kernel}
+\begin{DoxyCompactList}\small\item\em Needed for P2P and M2L operators \end{DoxyCompactList}\item 
+\Hypertarget{class_f_cheb_tensorial_kernel_a83a2bdd97ac83c8675435f0805886330}\label{class_f_cheb_tensorial_kernel_a83a2bdd97ac83c8675435f0805886330} 
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ \mbox{\hyperlink{class_f_cheb_tensorial_m2_l_handler}{M2\+LHandler\+Class}}, FSmart\+Pointer\+Memory $>$ {\bfseries M2\+LHandler}
+\begin{DoxyCompactList}\small\item\em Needed for M2L operator \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ \mbox{\hyperlink{class_f_cheb_interpolator}{Interpolator\+Class}}, FSmart\+Pointer\+Memory $>$ {\bfseries Interpolator}
+\begin{DoxyCompactList}\small\item\em Needed for P2M, M2M, L2L and L2P operators \end{DoxyCompactList}\item 
+const unsigned int {\bfseries Tree\+Height}
+\begin{DoxyCompactList}\small\item\em Height of the entire oct-\/tree \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries Box\+Corner}
+\begin{DoxyCompactList}\small\item\em Corner of oct-\/tree box \end{DoxyCompactList}\item 
+const FReal {\bfseries Box\+Width}
+\begin{DoxyCompactList}\small\item\em Width of oct-\/tree box ~\newline
+ \end{DoxyCompactList}\item 
+const FReal {\bfseries Box\+Width\+Leaf}
+\begin{DoxyCompactList}\small\item\em Width of a leaf cell box \end{DoxyCompactList}\item 
+const FReal {\bfseries Box\+Width\+Extension}
+\begin{DoxyCompactList}\small\item\em Extension of the box width ( same for all level! ) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_abstract_cheb_kernel_af57d7784efc2307a362e8546fbf6e0c2}{get\+Leaf\+Cell\+Center}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&Coordinate) const
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_abstract_cheb_kernel_aeada2f69df8dc8850541d246efa0c0d6}{get\+Cell\+Center}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} coordinate, int in\+Level)
+\begin{DoxyCompactList}\small\item\em Return the position of the center of a cell from its tree coordinate \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Cell\+Class, class Container\+Class, class Matrix\+Kernel\+Class, int ORDER, int NVALS = 1$>$\newline
+class FCheb\+Tensorial\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}
+Please read the license 
+
+\begin{DoxyAuthor}{作者}
+Matthias Messner(\href{mailto:matthias.messner@inria.fr}{\texttt{ matthias.\+messner@inria.\+fr}})
+\end{DoxyAuthor}
+
+
+This kernels implement the Chebyshev interpolation based FMM operators. It implements all interfaces (P2P, P2M, M2M, M2L, L2L, L2P) which are required by the \doxylink{class_f_fmm_algorithm}{FFmm\+Algorithm} and \doxylink{class_f_fmm_algorithm_thread}{FFmm\+Algorithm\+Thread}.
+
+
+\begin{DoxyTemplParams}{模板参数}
+{\em Cell\+Class} & Type of cell \\
+\hline
+{\em Container\+Class} & Type of container to store particles \\
+\hline
+{\em Matrix\+Kernel\+Class} & Type of matrix kernel function \\
+\hline
+{\em ORDER} & Chebyshev interpolation order \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_cheb_tensorial_kernel_af1dff35a7184b0add75b8ee1e15c5a63}\label{class_f_cheb_tensorial_kernel_af1dff35a7184b0add75b8ee1e15c5a63} 
+\index{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!FChebTensorialKernel@{FChebTensorialKernel}}
+\index{FChebTensorialKernel@{FChebTensorialKernel}!FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{FChebTensorialKernel()}{FChebTensorialKernel()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+\mbox{\hyperlink{class_f_cheb_tensorial_kernel}{FCheb\+Tensorial\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\mbox{\hyperlink{class_f_cheb_tensorial_kernel}{\+::\+FCheb\+Tensorial\+Kernel}} (\begin{DoxyParamCaption}\item[{const int}]{in\+Tree\+Height,  }\item[{const FReal}]{in\+Box\+Width,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Box\+Center,  }\item[{const Matrix\+Kernel\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Matrix\+Kernel,  }\item[{const FReal}]{in\+Box\+Width\+Extension }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+The constructor initializes all constant attributes and it reads the precomputed and compressed M2L operators from a binary file (an runtime\+\_\+error is thrown if the required file is not valid). 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_cheb_tensorial_kernel_a4ab82bb275cbdbf20e31a41b9b753c67}\label{class_f_cheb_tensorial_kernel_a4ab82bb275cbdbf20e31a41b9b753c67} 
+\index{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!L2L@{L2L}}
+\index{L2L@{L2L}!FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{L2L()}{L2L()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel}{FCheb\+Tensorial\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\+::\+L2L (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{Parent\+Cell,  }\item[{Cell\+Class \texorpdfstring{$\ast$}{*}FRestrict \texorpdfstring{$\ast$}{*}const FRestrict}]{Child\+Cells,  }\item[{const int}]{Tree\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}.
+
+\Hypertarget{class_f_cheb_tensorial_kernel_a2145f2b6f19a970c95ac3eff2e55d70a}\label{class_f_cheb_tensorial_kernel_a2145f2b6f19a970c95ac3eff2e55d70a} 
+\index{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!L2P@{L2P}}
+\index{L2P@{L2P}!FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{L2P()}{L2P()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel}{FCheb\+Tensorial\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\+::\+L2P (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}const}]{Leaf\+Cell,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const}]{Target\+Particles }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}.
+
+\Hypertarget{class_f_cheb_tensorial_kernel_ac710e5c3ab037e88e1653cdda174441f}\label{class_f_cheb_tensorial_kernel_ac710e5c3ab037e88e1653cdda174441f} 
+\index{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!M2L@{M2L}}
+\index{M2L@{M2L}!FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{M2L()}{M2L()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel}{FCheb\+Tensorial\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\+::\+M2L (\begin{DoxyParamCaption}\item[{Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{Target\+Cell,  }\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{Source\+Cells\mbox{[}$\,$\mbox{]},  }\item[{const int}]{neighbor\+Positions\mbox{[}$\,$\mbox{]},  }\item[{const int}]{in\+Size,  }\item[{const int}]{Tree\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}.
+
+\Hypertarget{class_f_cheb_tensorial_kernel_a3babe172e80a98ba486e936678ac9566}\label{class_f_cheb_tensorial_kernel_a3babe172e80a98ba486e936678ac9566} 
+\index{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!M2M@{M2M}}
+\index{M2M@{M2M}!FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{M2M()}{M2M()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel}{FCheb\+Tensorial\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\+::\+M2M (\begin{DoxyParamCaption}\item[{Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{Parent\+Cell,  }\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict \texorpdfstring{$\ast$}{*}const FRestrict}]{Child\+Cells,  }\item[{const int}]{Tree\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}.
+
+\Hypertarget{class_f_cheb_tensorial_kernel_a35b25641ce96e472b8bd8720d64ecb31}\label{class_f_cheb_tensorial_kernel_a35b25641ce96e472b8bd8720d64ecb31} 
+\index{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!P2M@{P2M}}
+\index{P2M@{P2M}!FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{P2M()}{P2M()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel}{FCheb\+Tensorial\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\+::\+P2M (\begin{DoxyParamCaption}\item[{Cell\+Class \texorpdfstring{$\ast$}{*}const}]{Leaf\+Cell,  }\item[{const Container\+Class \texorpdfstring{$\ast$}{*}const}]{Source\+Particles }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}.
+
+\Hypertarget{class_f_cheb_tensorial_kernel_ab303eb9f6f5ae842f4160bc6190589f1}\label{class_f_cheb_tensorial_kernel_ab303eb9f6f5ae842f4160bc6190589f1} 
+\index{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!P2P@{P2P}}
+\index{P2P@{P2P}!FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{P2P()}{P2P()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel}{FCheb\+Tensorial\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\+::\+P2P (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{in\+Position,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Targets,  }\item[{const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Sources,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Neighbors\mbox{[}$\,$\mbox{]},  }\item[{const int}]{neighbor\+Positions\mbox{[}$\,$\mbox{]},  }\item[{const int}]{in\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}.
+
+\Hypertarget{class_f_cheb_tensorial_kernel_a20326be51022ead2f5b331e450dbb7aa}\label{class_f_cheb_tensorial_kernel_a20326be51022ead2f5b331e450dbb7aa} 
+\index{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!P2POuter@{P2POuter}}
+\index{P2POuter@{P2POuter}!FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{P2POuter()}{P2POuter()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel}{FCheb\+Tensorial\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\+::\+P2\+POuter (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Targets,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Neighbors\mbox{[}$\,$\mbox{]},  }\item[{const int}]{neighbor\+Positions\mbox{[}$\,$\mbox{]},  }\item[{const int}]{in\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}.
+
+\Hypertarget{class_f_cheb_tensorial_kernel_ae4d963b0e65ae4184893c842009ee8d6}\label{class_f_cheb_tensorial_kernel_ae4d963b0e65ae4184893c842009ee8d6} 
+\index{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!P2PRemote@{P2PRemote}}
+\index{P2PRemote@{P2PRemote}!FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FChebTensorialKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{P2PRemote()}{P2PRemote()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+void \mbox{\hyperlink{class_f_cheb_tensorial_kernel}{FCheb\+Tensorial\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\+::\+P2\+PRemote (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Targets,  }\item[{const Container\+Class \texorpdfstring{$\ast$}{*}const}]{FRestrict,  }\item[{const Container\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Neighbors\mbox{[}$\,$\mbox{]},  }\item[{const int}]{\mbox{[}$\,$\mbox{]},  }\item[{const int}]{in\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstract\+Cheb\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}}.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Chebyshev/FCheb\+Tensorial\+Kernel.\+hpp\end{DoxyCompactItemize}

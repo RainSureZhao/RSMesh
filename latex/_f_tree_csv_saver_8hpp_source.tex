@@ -1,0 +1,74 @@
+\doxysection{FTree\+Csv\+Saver.\+hpp}
+\hypertarget{_f_tree_csv_saver_8hpp_source}{}\label{_f_tree_csv_saver_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Files/FTreeCsvSaver.hpp@{third\_party/ScalFMM/include/ScalFMM/Files/FTreeCsvSaver.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FTREECSVSAVER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FTREECSVSAVER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ OctreeClass,\ \textcolor{keyword}{class}\ ContainerClass\ >}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_tree_csv_saver}{FTreeCsvSaver}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ includeHeader;\ \ \ \textcolor{comment}{//<\ To\ include\ a\ line\ of\ header}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ nbFrames;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ current\ frame}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{char}\ basefile[512];\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ base\ file\ name\ like\ "{}\string~/OUT/simulation\%d.csv"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_f_tree_csv_saver_ae45dc2f89369ef4d23109a4c54ec3c97}{FTreeCsvSaver}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ inBasefile[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ inIncludeHeader\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ :\ includeHeader(inIncludeHeader),\ nbFrames(0)\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ strcpy(basefile,\ inBasefile);}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_tree_csv_saver_ae1becd3d5ab60f53a90749b8bd2e5564}{\string~FTreeCsvSaver}}()\{}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_tree_csv_saver_a2e65f0c5ace85f8caeee869a94d02ba1}{getNbFrames}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nbFrames;}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_tree_csv_saver_aa278f73793634b284fdc4ddb14d47302}{exportTree}}(OctreeClass*\textcolor{keyword}{const}\ tree)\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ currentFilename[512];}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ sprintf(currentFilename,\ basefile,\ nbFrames++);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::ofstream\ file(currentFilename,\ std::ofstream::out\ );}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(includeHeader)\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}x,\ y,\ z,\ value\(\backslash\)n"{}};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ values[4];}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ container\ =\ octreeIterator.getCurrentListTargets();}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ container-\/>getNbParticles()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ container-\/>fillToCsv(idxPart,\ values);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ values[0]\ <<\ \textcolor{stringliteral}{"{},"{}}\ <<\ values[1]\ <<\ \textcolor{stringliteral}{"{},"{}}\ <<}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ values[2]\ <<\ \textcolor{stringliteral}{"{},"{}}\ <<\ values[3]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ isUsingTsm\ =\ (octreeIterator.getCurrentListTargets()\ !=\ octreeIterator.getCurrentListSrc());}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ isUsingTsm\ )\{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ container\ =\ octreeIterator.getCurrentListSrc();}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ container-\/>getNbParticles()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ container-\/>fillToCsv(idxPart,\ values);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ values[0]\ <<\ \textcolor{stringliteral}{"{},"{}}\ <<\ values[1]\ <<\ \textcolor{stringliteral}{"{},"{}}\ <<}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ values[2]\ <<\ \textcolor{stringliteral}{"{},"{}}\ <<\ values[3]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ file.close();}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FTREECSVSAVER\_HPP}}
+
+\end{DoxyCode}

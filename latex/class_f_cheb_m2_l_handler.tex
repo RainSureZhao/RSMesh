@@ -1,0 +1,200 @@
+\doxysection{FCheb\+M2\+LHandler\texorpdfstring{$<$}{<} FReal, ORDER, Matrix\+Kernel\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_cheb_m2_l_handler}{}\label{class_f_cheb_m2_l_handler}\index{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}}
+
+
+{\ttfamily \#include $<$FCheb\+M2\+LHandler.\+hpp$>$}
+
+类 FCheb\+M2\+LHandler\texorpdfstring{$<$}{<} FReal, ORDER, Matrix\+Kernel\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_cheb_m2_l_handler}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_cheb_m2_l_handler_a4e5dc64df275548edfd7f469fdd130c5}\label{class_f_cheb_m2_l_handler_a4e5dc64df275548edfd7f469fdd130c5} 
+{\bfseries FCheb\+M2\+LHandler} (const Matrix\+Kernel\+Class \texorpdfstring{$\ast$}{*}const in\+Matrix\+Kernel, const FReal \+\_\+epsilon)
+\item 
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler_acbd171865c6efd661f208f1f94d32a34}{Compute\+And\+Compress\+And\+Set}} ()
+\item 
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler_a96d77431183165d82f4c858f6b724021}{Compute\+And\+Compress\+And\+Store\+In\+Binary\+File\+And\+Read\+From\+File\+And\+Set}} ()
+\item 
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler_a247ce5b02f0812e8a459acf1db9ffa24}{Read\+From\+Binary\+File\+And\+Set}} ()
+\item 
+unsigned int \mbox{\hyperlink{class_f_cheb_m2_l_handler_ad4fa32bd50ecc34a35919d8a0b3a523c}{get\+Rank}} () const
+\item 
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler_a9725b744399d14f29267268d55e6a6ef}{applyU}} (const FReal \texorpdfstring{$\ast$}{*}const X, FReal \texorpdfstring{$\ast$}{*}const x) const
+\item 
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler_a0463cee2a593beadc1640d7fcfa084a1}{applyC}} (const int transfer\mbox{[}3\mbox{]}, FReal Cell\+Width, const FReal \texorpdfstring{$\ast$}{*}const Y, FReal \texorpdfstring{$\ast$}{*}const X) const
+\item 
+\Hypertarget{class_f_cheb_m2_l_handler_a7da43f0979701db73c7d6db3d836f871}\label{class_f_cheb_m2_l_handler_a7da43f0979701db73c7d6db3d836f871} 
+void {\bfseries applyC} (const unsigned int idx, FReal Cell\+Width, const FReal \texorpdfstring{$\ast$}{*}const Y, FReal \texorpdfstring{$\ast$}{*}const X) const
+\item 
+\Hypertarget{class_f_cheb_m2_l_handler_ad122198800f28d8910ff943cafb050df}\label{class_f_cheb_m2_l_handler_ad122198800f28d8910ff943cafb050df} 
+void {\bfseries applyC} (FReal Cell\+Width, const FReal \texorpdfstring{$\ast$}{*}const Y, FReal \texorpdfstring{$\ast$}{*}const X) const
+\item 
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler_a4408d1c4afd8fd489768092aa885d074}{applyB}} (FReal \texorpdfstring{$\ast$}{*}const y, FReal \texorpdfstring{$\ast$}{*}const Y) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned int \mbox{\hyperlink{class_f_cheb_m2_l_handler_ab6281c59de16ca5b764e73137a8e7e42}{Compute\+And\+Compress}} (const Matrix\+Kernel\+Class \texorpdfstring{$\ast$}{*}const Matrix\+Kernel, const FReal epsilon, FReal \texorpdfstring{$\ast$}{*}\&U, FReal \texorpdfstring{$\ast$}{*}\&C, FReal \texorpdfstring{$\ast$}{*}\&B)
+\item 
+static void \mbox{\hyperlink{class_f_cheb_m2_l_handler_a2fcf5d2a0cba740c8db39001e52b0b44}{Compute\+And\+Compress\+And\+Store\+In\+Binary\+File}} (const Matrix\+Kernel\+Class \texorpdfstring{$\ast$}{*}const Matrix\+Kernel, const FReal epsilon)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, int ORDER, class Matrix\+Kernel\+Class$>$\newline
+class FCheb\+M2\+LHandler$<$ FReal, ORDER, Matrix\+Kernel\+Class $>$}
+\begin{DoxyAuthor}{作者}
+Matthias Messner (\href{mailto:matthias.messner@inria.fr}{\texttt{ matthias.\+messner@inria.\+fr}})
+\end{DoxyAuthor}
+Please read the license
+
+This class precomputes and compresses the M2L operators $[K_1,\dots,K_{316}]$ for all ( $7^3-3^3 = 316$ possible interacting cells in the far-\/field) interactions for the Chebyshev interpolation approach. The class uses the compression via a truncated SVD and represents the compressed M2L operator as $K_t \sim U C_t B^\top$ with $t=1,\dots,316$. The truncation rank is denoted by $r$ and is determined by the prescribed accuracy $\varepsilon$. Hence, the originally $K_t$ of size $\ell^3\times\ell^3$ times $316$ for all interactions is reduced to only one $U$ and one $B$, each of size $\ell^3\times r$, and $316$ $C_t$, each of size $r\times
+r$.
+
+PB\+: \doxylink{class_f_cheb_m2_l_handler}{FCheb\+M2\+LHandler} does not seem to support non-\/homogeneous kernels! In fact nothing appears to handle this here (i.\+e. adapt scaling and storage to Matrix\+Kernel\+Class\+::\+Type). Given the relatively important cost of the Chebyshev variant, it is probably a choice not to have implemented this feature here but instead in the Chebyshev\+Sym variant. But what if the kernel is non homogeneous and non symmetric (e.\+g. Dislocations)...
+
+TODO Specialize class (see Unif\+M2\+LHandler) OR prevent from using this class with non homogeneous kernels ?!
+
+
+\begin{DoxyTemplParams}{模板参数}
+{\em ORDER} & interpolation order $\ell$\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyAuthor}{作者}
+Matthias Messner (\href{mailto:matthias.messner@inria.fr}{\texttt{ matthias.\+messner@inria.\+fr}})
+\end{DoxyAuthor}
+Please read the license
+
+This class precomputes and compresses the M2L operators $[K_1,\dots,K_{316}]$ for all ( $7^3-3^3 = 316$ possible interacting cells in the far-\/field) interactions for the Chebyshev interpolation approach. The class uses the compression via a truncated SVD and represents the compressed M2L operator as $K_t \sim U C_t B^\top$ with $t=1,\dots,316$. The truncation rank is denoted by $r$ and is determined by the prescribed accuracy $\varepsilon$. Hence, the originally $K_t$ of size $\ell^3\times\ell^3$ times $316$ for all interactions is reduced to only one $U$ and one $B$, each of size $\ell^3\times r$, and $316$ $C_t$, each of size $r\times
+r$.
+
+PB\+: BEWARE! Homogeneous matrix kernels do not support cell width extension yet. Is it possible to find a reference width and a scale factor such that only 1 set of M2L ops can be used for all levels??
+
+
+\begin{DoxyTemplParams}{模板参数}
+{\em ORDER} & interpolation order $\ell$ \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_cheb_m2_l_handler_a4408d1c4afd8fd489768092aa885d074}\label{class_f_cheb_m2_l_handler_a4408d1c4afd8fd489768092aa885d074} 
+\index{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}!applyB@{applyB}}
+\index{applyB@{applyB}!FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}}
+\doxysubsubsection{\texorpdfstring{applyB()}{applyB()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class $>$ \\
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler}{FCheb\+M2\+LHandler}}$<$ FReal, ORDER, Matrix\+Kernel\+Class $>$\+::applyB (\begin{DoxyParamCaption}\item[{FReal \texorpdfstring{$\ast$}{*}const}]{y,  }\item[{FReal \texorpdfstring{$\ast$}{*}const}]{Y }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Compresses densities $Y=B^\top y$ of a source cell. This operation can be seen as part of the M2M operation.
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em y} & multipole expansion of size $\ell^3$ \\
+\hline
+\mbox{\texttt{ out}}  & {\em Y} & compressed multipole expansion of size $r$ \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_cheb_m2_l_handler_a0463cee2a593beadc1640d7fcfa084a1}\label{class_f_cheb_m2_l_handler_a0463cee2a593beadc1640d7fcfa084a1} 
+\index{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}!applyC@{applyC}}
+\index{applyC@{applyC}!FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}}
+\doxysubsubsection{\texorpdfstring{applyC()}{applyC()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class $>$ \\
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler}{FCheb\+M2\+LHandler}}$<$ FReal, ORDER, Matrix\+Kernel\+Class $>$\+::applyC (\begin{DoxyParamCaption}\item[{const int}]{transfer\mbox{[}3\mbox{]},  }\item[{FReal}]{Cell\+Width,  }\item[{const FReal \texorpdfstring{$\ast$}{*}const}]{Y,  }\item[{FReal \texorpdfstring{$\ast$}{*}const}]{X }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Compressed M2L operation $X+=C_tY$, where $Y$ is the compressed multipole expansion and $X$ is the compressed local expansion, both of size $r$. The index $t$ denotes the transfer vector of the target cell to the source cell.
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em transfer} & transfer vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em Y} & compressed multipole expansion \\
+\hline
+\mbox{\texttt{ out}}  & {\em X} & compressed local expansion \\
+\hline
+\mbox{\texttt{ in}}  & {\em Cell\+Width} & needed for the scaling of the compressed M2L operators which are based on a homogeneous matrix kernel computed for the reference cell width $w=2$, ie in $[-1,1]^3$. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_cheb_m2_l_handler_a9725b744399d14f29267268d55e6a6ef}\label{class_f_cheb_m2_l_handler_a9725b744399d14f29267268d55e6a6ef} 
+\index{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}!applyU@{applyU}}
+\index{applyU@{applyU}!FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}}
+\doxysubsubsection{\texorpdfstring{applyU()}{applyU()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class $>$ \\
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler}{FCheb\+M2\+LHandler}}$<$ FReal, ORDER, Matrix\+Kernel\+Class $>$\+::applyU (\begin{DoxyParamCaption}\item[{const FReal \texorpdfstring{$\ast$}{*}const}]{X,  }\item[{FReal \texorpdfstring{$\ast$}{*}const}]{x }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Expands potentials $x+=UX$ of a target cell. This operation can be seen as part of the L2L operation.
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em X} & compressed local expansion of size $r$ \\
+\hline
+\mbox{\texttt{ out}}  & {\em x} & local expansion of size $\ell^3$ \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_cheb_m2_l_handler_ab6281c59de16ca5b764e73137a8e7e42}\label{class_f_cheb_m2_l_handler_ab6281c59de16ca5b764e73137a8e7e42} 
+\index{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}!ComputeAndCompress@{ComputeAndCompress}}
+\index{ComputeAndCompress@{ComputeAndCompress}!FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}}
+\doxysubsubsection{\texorpdfstring{ComputeAndCompress()}{ComputeAndCompress()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class $>$ \\
+unsigned int \mbox{\hyperlink{class_f_cheb_m2_l_handler}{FCheb\+M2\+LHandler}}$<$ FReal, ORDER, Matrix\+Kernel\+Class $>$\+::\+Compute\+And\+Compress (\begin{DoxyParamCaption}\item[{const Matrix\+Kernel\+Class \texorpdfstring{$\ast$}{*}const}]{Matrix\+Kernel,  }\item[{const FReal}]{epsilon,  }\item[{FReal \texorpdfstring{$\ast$}{*}\&}]{U,  }\item[{FReal \texorpdfstring{$\ast$}{*}\&}]{C,  }\item[{FReal \texorpdfstring{$\ast$}{*}\&}]{B }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Computes and compressed all $K_t$.
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em epsilon} & accuracy \\
+\hline
+\mbox{\texttt{ out}}  & {\em U} & matrix of size $\ell^3\times r$ \\
+\hline
+\mbox{\texttt{ out}}  & {\em C} & matrix of size $r\times 316 r$ storing $[C_1,\dots,C_{316}]$ \\
+\hline
+\mbox{\texttt{ out}}  & {\em B} & matrix of size $\ell^3\times r$ \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_cheb_m2_l_handler_acbd171865c6efd661f208f1f94d32a34}\label{class_f_cheb_m2_l_handler_acbd171865c6efd661f208f1f94d32a34} 
+\index{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}!ComputeAndCompressAndSet@{ComputeAndCompressAndSet}}
+\index{ComputeAndCompressAndSet@{ComputeAndCompressAndSet}!FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}}
+\doxysubsubsection{\texorpdfstring{ComputeAndCompressAndSet()}{ComputeAndCompressAndSet()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class $>$ \\
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler}{FCheb\+M2\+LHandler}}$<$ FReal, ORDER, Matrix\+Kernel\+Class $>$\+::\+Compute\+And\+Compress\+And\+Set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Computes, compresses and sets the matrices $Y, C_t, B$ \Hypertarget{class_f_cheb_m2_l_handler_a2fcf5d2a0cba740c8db39001e52b0b44}\label{class_f_cheb_m2_l_handler_a2fcf5d2a0cba740c8db39001e52b0b44} 
+\index{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}!ComputeAndCompressAndStoreInBinaryFile@{ComputeAndCompressAndStoreInBinaryFile}}
+\index{ComputeAndCompressAndStoreInBinaryFile@{ComputeAndCompressAndStoreInBinaryFile}!FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}}
+\doxysubsubsection{\texorpdfstring{ComputeAndCompressAndStoreInBinaryFile()}{ComputeAndCompressAndStoreInBinaryFile()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class $>$ \\
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler}{FCheb\+M2\+LHandler}}$<$ FReal, ORDER, Matrix\+Kernel\+Class $>$\+::\+Compute\+And\+Compress\+And\+Store\+In\+Binary\+File (\begin{DoxyParamCaption}\item[{const Matrix\+Kernel\+Class \texorpdfstring{$\ast$}{*}const}]{Matrix\+Kernel,  }\item[{const FReal}]{epsilon }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Computes, compresses and stores the matrices $Y, C_t, B$ in a binary file \Hypertarget{class_f_cheb_m2_l_handler_a96d77431183165d82f4c858f6b724021}\label{class_f_cheb_m2_l_handler_a96d77431183165d82f4c858f6b724021} 
+\index{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}!ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet@{ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet}}
+\index{ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet@{ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet}!FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}}
+\doxysubsubsection{\texorpdfstring{ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet()}{ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class $>$ \\
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler}{FCheb\+M2\+LHandler}}$<$ FReal, ORDER, Matrix\+Kernel\+Class $>$\+::\+Compute\+And\+Compress\+And\+Store\+In\+Binary\+File\+And\+Read\+From\+File\+And\+Set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Computes, compresses, writes to binary file, reads it and sets the matrices $Y, C_t, B$ \Hypertarget{class_f_cheb_m2_l_handler_ad4fa32bd50ecc34a35919d8a0b3a523c}\label{class_f_cheb_m2_l_handler_ad4fa32bd50ecc34a35919d8a0b3a523c} 
+\index{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}!getRank@{getRank}}
+\index{getRank@{getRank}!FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}}
+\doxysubsubsection{\texorpdfstring{getRank()}{getRank()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class $>$ \\
+unsigned int \mbox{\hyperlink{class_f_cheb_m2_l_handler}{FCheb\+M2\+LHandler}}$<$ FReal, ORDER, Matrix\+Kernel\+Class $>$\+::get\+Rank (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{返回}
+rank of the SVD compressed M2L operators 
+\end{DoxyReturn}
+\Hypertarget{class_f_cheb_m2_l_handler_a247ce5b02f0812e8a459acf1db9ffa24}\label{class_f_cheb_m2_l_handler_a247ce5b02f0812e8a459acf1db9ffa24} 
+\index{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}!ReadFromBinaryFileAndSet@{ReadFromBinaryFileAndSet}}
+\index{ReadFromBinaryFileAndSet@{ReadFromBinaryFileAndSet}!FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$@{FChebM2LHandler$<$ FReal, ORDER, MatrixKernelClass $>$}}
+\doxysubsubsection{\texorpdfstring{ReadFromBinaryFileAndSet()}{ReadFromBinaryFileAndSet()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class $>$ \\
+void \mbox{\hyperlink{class_f_cheb_m2_l_handler}{FCheb\+M2\+LHandler}}$<$ FReal, ORDER, Matrix\+Kernel\+Class $>$\+::\+Read\+From\+Binary\+File\+And\+Set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Reads the matrices $Y, C_t, B$ from the respective binary file 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Chebyshev/FCheb\+M2\+LHandler.\+hpp\end{DoxyCompactItemize}

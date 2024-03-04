@@ -1,0 +1,75 @@
+\doxysection{map\+\_\+glob\+\_\+loc\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{classmap__glob__loc}{}\label{classmap__glob__loc}\index{map\_glob\_loc$<$ FReal $>$@{map\_glob\_loc$<$ FReal $>$}}
+
+
+{\ttfamily \#include $<$FInterp\+Mapping.\+hpp$>$}
+
+类 map\+\_\+glob\+\_\+loc\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classmap__glob__loc}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmap__glob__loc_a730cc1661275946152905461c5bb92f5}\label{classmap__glob__loc_a730cc1661275946152905461c5bb92f5} 
+{\bfseries map\+\_\+glob\+\_\+loc} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width)
+\item 
+void \mbox{\hyperlink{classmap__glob__loc_aad638e3c490d841d9fecc3bb8918eea5}{operator()}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&glob\+Pos, \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&locl\+Pos) const
+\item 
+\Hypertarget{classmap__glob__loc_a402de4a491c36075ac5e30d53a21d6c4}\label{classmap__glob__loc_a402de4a491c36075ac5e30d53a21d6c4} 
+void {\bfseries compute\+Jacobian} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&jacobian) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_interp_mapping}{FInterp\+Mapping$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_f_interp_mapping_ac29c0ace0ae589788a83c030576e0719}{is\+\_\+in\+\_\+cluster}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&position) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_interp_mapping}{FInterp\+Mapping$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries FInterp\+Mapping} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{class_f_interp_mapping}{FInterp\+Mapping$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries a}
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries b}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal$>$\newline
+class map\+\_\+glob\+\_\+loc$<$ FReal $>$}
+This class defines the inverse affine mapping $\Phi^{-1}:[a,b]\rightarrow[-1,1]$. It maps from global coordinates to local ones. 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{classmap__glob__loc_aad638e3c490d841d9fecc3bb8918eea5}\label{classmap__glob__loc_aad638e3c490d841d9fecc3bb8918eea5} 
+\index{map\_glob\_loc$<$ FReal $>$@{map\_glob\_loc$<$ FReal $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!map\_glob\_loc$<$ FReal $>$@{map\_glob\_loc$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+void \mbox{\hyperlink{classmap__glob__loc}{map\+\_\+glob\+\_\+loc}}$<$ FReal $>$\+::operator() (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{glob\+Pos,  }\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{locl\+Pos }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Maps from a global position to its local position\+: $\Phi^{-1}(x) =
+\frac{2x-b-a}{b-a}$.
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em glob\+Pos} & global position \\
+\hline
+\mbox{\texttt{ out}}  & {\em locl\+Pos} & local position \\
+\hline
+\end{DoxyParams}
+
+
+实现了 \mbox{\hyperlink{class_f_interp_mapping}{FInterp\+Mapping$<$ FReal $>$}}.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Interpolation/FInterp\+Mapping.\+hpp\end{DoxyCompactItemize}

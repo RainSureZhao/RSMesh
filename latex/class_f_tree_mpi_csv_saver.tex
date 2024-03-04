@@ -1,0 +1,70 @@
+\doxysection{FTree\+Mpi\+Csv\+Saver\texorpdfstring{$<$}{<} FReal, Octree\+Class, Container\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_tree_mpi_csv_saver}{}\label{class_f_tree_mpi_csv_saver}\index{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$@{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$}}
+
+
+{\ttfamily \#include $<$FTree\+Mpi\+Csv\+Saver.\+hpp$>$}
+
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_tree_mpi_csv_saver_a175c80fe6694a2c18be894f487db2e71}{FTree\+Mpi\+Csv\+Saver}} (const char in\+Basefile\mbox{[}$\,$\mbox{]}, const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} \&communicator, const bool in\+Include\+Header=false)
+\item 
+virtual \mbox{\hyperlink{class_f_tree_mpi_csv_saver_a18f46b271ff5d4396fe562a0d12b8bdb}{\texorpdfstring{$\sim$}{\string~}\+FTree\+Mpi\+Csv\+Saver}} ()
+\item 
+int \mbox{\hyperlink{class_f_tree_mpi_csv_saver_a6370a58d53940d2aa6ca6b65c992bca6}{get\+Nb\+Frames}} () const
+\item 
+void \mbox{\hyperlink{class_f_tree_mpi_csv_saver_a0f98968e05659ca7c8571b30957abded}{export\+Tree}} (Octree\+Class \texorpdfstring{$\ast$}{*}const tree)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Octree\+Class, class Container\+Class$>$\newline
+class FTree\+Mpi\+Csv\+Saver$<$ FReal, Octree\+Class, Container\+Class $>$}
+This class is to export a tree in csv file 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_tree_mpi_csv_saver_a175c80fe6694a2c18be894f487db2e71}\label{class_f_tree_mpi_csv_saver_a175c80fe6694a2c18be894f487db2e71} 
+\index{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$@{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$}!FTreeMpiCsvSaver@{FTreeMpiCsvSaver}}
+\index{FTreeMpiCsvSaver@{FTreeMpiCsvSaver}!FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$@{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{FTreeMpiCsvSaver()}{FTreeMpiCsvSaver()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Container\+Class $>$ \\
+\mbox{\hyperlink{class_f_tree_mpi_csv_saver}{FTree\+Mpi\+Csv\+Saver}}$<$ FReal, Octree\+Class, Container\+Class $>$\mbox{\hyperlink{class_f_tree_mpi_csv_saver}{\+::\+FTree\+Mpi\+Csv\+Saver}} (\begin{DoxyParamCaption}\item[{const char}]{in\+Basefile\mbox{[}$\,$\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} \&}]{communicator,  }\item[{const bool}]{in\+Include\+Header = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor 
+\begin{DoxyParams}{参数}
+{\em in\+Basefile} & is the output file name, you must put d in it \\
+\hline
+{\em communicator} & Mpi communicator \\
+\hline
+{\em in\+Include\+Header} & tells if header must be included \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_tree_mpi_csv_saver_a18f46b271ff5d4396fe562a0d12b8bdb}\label{class_f_tree_mpi_csv_saver_a18f46b271ff5d4396fe562a0d12b8bdb} 
+\index{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$@{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$}!````~FTreeMpiCsvSaver@{\texorpdfstring{$\sim$}{\string~}FTreeMpiCsvSaver}}
+\index{````~FTreeMpiCsvSaver@{\texorpdfstring{$\sim$}{\string~}FTreeMpiCsvSaver}!FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$@{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FTreeMpiCsvSaver()}{\string~FTreeMpiCsvSaver()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Container\+Class $>$ \\
+virtual \mbox{\hyperlink{class_f_tree_mpi_csv_saver}{FTree\+Mpi\+Csv\+Saver}}$<$ FReal, Octree\+Class, Container\+Class $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_tree_mpi_csv_saver}{FTree\+Mpi\+Csv\+Saver}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Virtual destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_tree_mpi_csv_saver_a0f98968e05659ca7c8571b30957abded}\label{class_f_tree_mpi_csv_saver_a0f98968e05659ca7c8571b30957abded} 
+\index{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$@{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$}!exportTree@{exportTree}}
+\index{exportTree@{exportTree}!FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$@{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{exportTree()}{exportTree()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_tree_mpi_csv_saver}{FTree\+Mpi\+Csv\+Saver}}$<$ FReal, Octree\+Class, Container\+Class $>$\+::export\+Tree (\begin{DoxyParamCaption}\item[{Octree\+Class \texorpdfstring{$\ast$}{*}const}]{tree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+export a tree \Hypertarget{class_f_tree_mpi_csv_saver_a6370a58d53940d2aa6ca6b65c992bca6}\label{class_f_tree_mpi_csv_saver_a6370a58d53940d2aa6ca6b65c992bca6} 
+\index{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$@{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$}!getNbFrames@{getNbFrames}}
+\index{getNbFrames@{getNbFrames}!FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$@{FTreeMpiCsvSaver$<$ FReal, OctreeClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{getNbFrames()}{getNbFrames()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Container\+Class $>$ \\
+int \mbox{\hyperlink{class_f_tree_mpi_csv_saver}{FTree\+Mpi\+Csv\+Saver}}$<$ FReal, Octree\+Class, Container\+Class $>$\+::get\+Nb\+Frames (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+to know how many frame has been saved 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Files/FTree\+Mpi\+Csv\+Saver.\+hpp\end{DoxyCompactItemize}

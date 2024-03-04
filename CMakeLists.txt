@@ -8,6 +8,15 @@ set(CMAKE_AUTOUIC ON)
 set(CGAL_DO_NOT_WARN_ABOUT_CMAKE_BUILD_TYPE TRUE)
 set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS ON)
 
+set(MKL_ARCH "intel64")
+if(UNIX)
+    set(MKL_LINK "static")
+elseif(MSVC)
+    set(MKL_LINK "dynamic")
+endif()
+set(MKL_THREADING "sequential")
+set(MKL_INTERFACE "lp64")
+
 find_package(Qt6 COMPONENTS
         Core
         Gui
@@ -20,6 +29,7 @@ find_package(flann CONFIG REQUIRED)
 # find_package(double-conversion CONFIG REQUIRED)
 find_package(MKL CONFIG REQUIRED)
 find_package(OpenMP REQUIRED)
+#find_package(Ceres CONFIG REQUIRED)
 
 add_subdirectory(third_party)
 set(MKL_INCLUDE_DIRS "${MKL_ROOT}/include")
@@ -92,17 +102,40 @@ target_link_libraries(RSMesh PUBLIC
         CGAL::CGAL
         flann::flann flann::flann_cpp
         ScalFmm
-        ${MKL_LIBRARIES}
         OpenMP::OpenMP_CXX
         double-conversion
+#        ceres
+        Boost::boost
 )
 
+if(MSVC)
+    target_link_libraries(RSMesh PUBLIC
+        MKL::MKL
+    )
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND WIN32)
+    target_link_libraries(RSMesh PUBLIC
+            ${MKL_LIBRARIES}
+    )
+endif()
 target_compile_definitions(RSMesh PUBLIC
     # EIGEN_USE_MKL_ALL
     RSMESH_USE_MKL
 )
 
-# message(STATUS "MKL_INCLUDE_DIRS: ${MKL_INCLUDE_DIRS}")
+target_compile_definitions(RSMesh PUBLIC
+    -DEIGEN_DONT_PARALLELIZE
+    -DEIGEN_MPL2_ONLY
+)
+
+# Disable warnings in msvc
+if(MSVC)
+    target_compile_options(RSMesh PRIVATE
+        /wd4819
+        /wd5055
+    )
+endif()
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)

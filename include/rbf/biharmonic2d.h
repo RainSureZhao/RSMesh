@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/22.
+// Created by RainSure on 2024/2/22.
 //
 
 #ifndef RSMESH_BIHARMONIC2D_H
@@ -7,6 +7,10 @@
 
 #include "rbf_base.h"
 
+/**
+ * \namespace rsmesh::rbf
+ * \brief 该命名空间下主要定义了径向基函数相关的类和函数
+ */
 namespace rsmesh::rbf {
     class biharmonic2d final : public rbf_base {
     public:

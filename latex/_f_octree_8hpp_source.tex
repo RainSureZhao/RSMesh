@@ -1,0 +1,1367 @@
+\doxysection{FOctree.\+hpp}
+\hypertarget{_f_octree_8hpp_source}{}\label{_f_octree_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Containers/FOctree.hpp@{third\_party/ScalFMM/include/ScalFMM/Containers/FOctree.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FOCTREE\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FOCTREE\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}FSubOctree.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}FTreeCoordinate.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}FBlockAllocator.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../Utils/FLog.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobalPeriodic.hpp"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}../Utils/FPoint.hpp"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}../Utils/FMath.hpp"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}../Utils/FNoCopyable.hpp"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}../Utils/FAssert.hpp"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}FCoordinateComputer.hpp"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{class}\ LeafClass,\ \textcolor{keyword}{class}\ CellAllocatorClass\ =\ FBasicBlockAllocator<CellClass>\ \textcolor{comment}{/*FListBlockAllocator<CellClass,\ 15>*/}\ >}
+\DoxyCodeLine{00042\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_octree}{FOctree}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_no_copyable}{FNoCopyable}}\ \{}
+\DoxyCodeLine{00043\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{using\ }FRealType\ =\ FReal;}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{using\ }CellClassType\ =\ CellClass;}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{using\ }ContainerClassType\ =\ ContainerClass;}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{using\ }LeafClassType\ =\ LeafClass;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ type\ of\ the\ Leaf\ used\ in\ the\ Octree}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_octree}{FOctree<FReal,\ CellClass\ ,\ ContainerClass,\ LeafClass,\ CellAllocatorClass>}}\ \ \ \ \ \ \mbox{\hyperlink{class_f_octree}{OctreeType}};}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{typedef}\ \ \mbox{\hyperlink{class_f_sub_octree_with_leafs}{FSubOctreeWithLeafs<FReal,\ CellClass\ ,\ ContainerClass,\ LeafClass,\ CellAllocatorClass>}}\ \mbox{\hyperlink{class_f_sub_octree_with_leafs}{SubOctreeWithLeaves}};}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_sub_octree}{FSubOctree<FReal,\ CellClass\ ,\ ContainerClass,\ LeafClass,\ CellAllocatorClass>}}\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_sub_octree}{SubOctree}};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstractSubOctree<FReal,\ CellClass\ ,\ ContainerClass,\ LeafClass,\ CellAllocatorClass>}}*\ root;\ \ \ \textcolor{comment}{//<\ root\ suboctree}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ FReal*\textcolor{keyword}{const}\ boxWidthAtLevel;\ \ \ \ \textcolor{comment}{//<\ to\ store\ the\ width\ of\ each\ boxs\ at\ all\ levels}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ height;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ tree\ height}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ subHeight;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ tree\ height}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ leafIndex;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ index\ of\ leaf\ int\ array}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ boxCenter;\ \textcolor{comment}{//<\ the\ space\ system\ center}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ boxCorner;\ \textcolor{comment}{//<\ the\ space\ system\ corner\ (used\ to\ compute\ morton\ index)}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{const}\ FReal\ boxWidth;\ \ \ \ \ \ \ \textcolor{comment}{//<\ the\ space\ system\ width}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ \mbox{\hyperlink{class_f_octree_a15337a21a082394fc20dcb5f3c5fa459}{getCoordinateFromPosition}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inPosition)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FCoordinateComputer::GetCoordinateFromPositionAndCorner<FReal>(this-\/>boxCorner,\ this-\/>boxWidth,\ height,\ inPosition);}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_ab6520064cd16489db7d7326106b06363}{getTreeCoordinate}}(\textcolor{keyword}{const}\ FReal\ inRelativePosition)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FCoordinateComputer::GetTreeCoordinate<FReal>(inRelativePosition,\ this-\/>boxWidth,\ this-\/>boxWidthAtLevel[this-\/>leafIndex],\ height);}
+\DoxyCodeLine{00085\ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{class_f_octree_a4090750115111422db7387886f7519d8}{FOctree}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inHeight,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inSubHeight,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ inBoxWidth,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inBoxCenter)}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ :\ root(nullptr),\ boxWidthAtLevel(new\ FReal[inHeight]),}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ height(inHeight)\ ,\ subHeight(inSubHeight),\ leafIndex(this-\/>height-\/1),}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ boxCenter(inBoxCenter),\ boxCorner(inBoxCenter,-\/(inBoxWidth/2)),\ boxWidth(inBoxWidth)}
+\DoxyCodeLine{00100\ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ FAssertLF(subHeight\ <=\ height\ -\/\ 1,\ \textcolor{stringliteral}{"{}Subheight\ cannot\ be\ greater\ than\ height"{}},\ \_\_LINE\_\_,\ \_\_FILE\_\_\ );}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Does\ we\ only\ need\ one\ suboctree?}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(subHeight\ ==\ height\ -\/\ 1)\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ root\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_sub_octree_with_leafs}{FSubOctreeWithLeafs<\ FReal,\ CellClass\ ,\ ContainerClass,\ LeafClass,CellAllocatorClass>}}(\textcolor{keyword}{nullptr},\ 0,\ this-\/>subHeight,\ 1);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{\textcolor{comment}{//\ if(subHeight\ <\ height\ -\/\ 1)}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ root\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_sub_octree}{FSubOctree<\ FReal,\ CellClass\ ,\ ContainerClass,\ LeafClass,CellAllocatorClass>}}(\textcolor{keyword}{nullptr},\ 0,\ this-\/>subHeight,\ 1);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ FReal\ tempWidth\ =\ this-\/>boxWidth;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pre\ compute\ box\ width\ for\ each\ level}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ indexLevel\ =\ 0;\ indexLevel\ <\ this-\/>height;\ ++indexLevel\ )\{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>boxWidthAtLevel[indexLevel]\ =\ tempWidth;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ tempWidth\ /=\ FReal(2.0);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_octree_a5b348e8752d9a2f1c9b94862aea42bb5}{\string~FOctree}}()\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ boxWidthAtLevel;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ root;}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_ad3ab30c6c96970df4502219e7c21da58}{getHeight}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>height;}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a5a77b32769133bf95e003f0704fca20a}{getSubHeight}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>subHeight;}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00135\ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_octree_a4696025cdcf84b63c6bd28cb6028ea6d}{getBoxWidth}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>boxWidth;}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ \mbox{\hyperlink{class_f_octree_aa40de7e29a215d3f0fa70c470cd71788}{getBoxCenter}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>boxCenter;}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_acd40357110105bbff1bd91ee4b664047}{getNbCellsPerLevel}}(\textcolor{keywordtype}{int}\ inNbCells[])\{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\ octreeIterator(\textcolor{keyword}{this});}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a7da91ea283e61575f6e96b9f11bb28f3}{gotoBottomLeft}}();}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\ avoidGoLeft(octreeIterator);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ height\ -\/\ 1\ ;\ idxLevel\ >\ 0;\ -\/-\/idxLevel\ )\{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counter\ =\ 0;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++counter;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a372eaea436f11838a3618721c60ad97e}{moveRight}}());}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGoLeft.\mbox{\hyperlink{class_f_octree_1_1_iterator_accf33ffc63fdd67f8469ce62026fe84d}{moveUp}}();}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGoLeft;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ inNbCells[idxLevel]\ =\ counter;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ inNbCells[0]\ =\ 0;}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_adc254d87f0d6221f9f5f16e61334135b}{insert}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inParticlePosition,\ Args...\ args)\{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ host\ =\ \mbox{\hyperlink{class_f_octree_a15337a21a082394fc20dcb5f3c5fa459}{getCoordinateFromPosition}}(\ inParticlePosition\ );}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ particleIndex\ =\ host.getMortonIndex();}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(root-\/>\mbox{\hyperlink{class_f_abstract_sub_octree_a421a3044968d532b28a3ac6c5ad61948}{isLeafPart}}())\{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{class_f_sub_octree_with_leafs}{SubOctreeWithLeaves}}*)root)-\/>insert(\ particleIndex,\ host,\ this-\/>height,\ inParticlePosition,\ args...\ );}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ ((\mbox{\hyperlink{class_f_sub_octree}{SubOctree}}*)root)-\/>insert(\ particleIndex,\ host,\ this-\/>height,\ inParticlePosition,\ args...\ );}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00188\ \ \ \ \ LeafClass*\ \mbox{\hyperlink{class_f_octree_ab61fe351471acb84bd88d7736f6204c4}{createLeaf}}(\textcolor{keyword}{const}\ MortonIndex\ indexToCreate\ )\{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ host(indexToCreate);}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(root-\/>\mbox{\hyperlink{class_f_abstract_sub_octree_a421a3044968d532b28a3ac6c5ad61948}{isLeafPart}}())\{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((\mbox{\hyperlink{class_f_sub_octree_with_leafs}{SubOctreeWithLeaves}}*)root)-\/>createLeaf(\ indexToCreate,\ host,\ this-\/>height\ );}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((\mbox{\hyperlink{class_f_sub_octree}{SubOctree}}*)root)-\/>createLeaf(\ indexToCreate,\ host,\ this-\/>height\ );}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_a0de9a0a5d5fc8b29cd08d28ceb95b4e1}{removeLeaf}}(\textcolor{keyword}{const}\ MortonIndex\ indexToRemove\ )\{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ root-\/>\mbox{\hyperlink{class_f_abstract_sub_octree_ac7f182a25b647bc54b21d663be54bdfd}{removeLeaf}}(\ indexToRemove\ ,\ this-\/>height);}
+\DoxyCodeLine{00203\ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00210\ \ \ \ \ MortonIndex\ \mbox{\hyperlink{class_f_octree_a65c815d13f70184ccc74479023156d1b}{getMortonFromPosition}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ position)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_octree_a15337a21a082394fc20dcb5f3c5fa459}{getCoordinateFromPosition}}(position).getMortonIndex();}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ \ \ \ \ *\ Indicate\ if\ tree\ is\ empty\ or\ not.}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{bool}\ isEmpty()\{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ root-\/>\mbox{\hyperlink{class_f_abstract_sub_octree_a63a17e493316d4783dff0f364f29dc7f}{getRightLeafIndex}}()\ <\ 0;}
+\DoxyCodeLine{00219\ \ \ \ \ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keyword}{union\ }\mbox{\hyperlink{union_f_octree_1_1_sub_octree_types}{SubOctreeTypes}}\ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstractSubOctree<FReal,CellClass,ContainerClass,LeafClass,CellAllocatorClass>}}*\ tree;\ \ \ \ \ \textcolor{comment}{//<\ Usual\ pointer\ to\ work}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_sub_octree}{FSubOctree<FReal,CellClass,ContainerClass,LeafClass,CellAllocatorClass>}}*\ middleTree;\ \ \ \ \ \ \ \textcolor{comment}{//<\ To\ access\ to\ sub-\/octree\ under}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_sub_octree_with_leafs}{FSubOctreeWithLeafs<FReal,CellClass,ContainerClass,LeafClass,CellAllocatorClass>}}*\ leafTree;\textcolor{comment}{//<\ To\ access\ to\ particles\ lists}}
+\DoxyCodeLine{00231\ \ \ \ \ \};}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keyword}{union\ }\mbox{\hyperlink{union_f_octree_1_1_sub_octree_types_const}{SubOctreeTypesConst}}\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstractSubOctree<FReal,CellClass,ContainerClass,LeafClass,CellAllocatorClass>}}*\ tree;\ \ \ \ \ \textcolor{comment}{//<\ Usual\ pointer\ to\ work}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_sub_octree}{FSubOctree<FReal,CellClass,ContainerClass,LeafClass,CellAllocatorClass>}}*\ middleTree;\ \ \ \ \ \ \ \textcolor{comment}{//<\ To\ access\ to\ sub-\/octree\ under}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_sub_octree_with_leafs}{FSubOctreeWithLeafs<FReal,CellClass,ContainerClass,LeafClass,CellAllocatorClass>}}*\ leafTree;\textcolor{comment}{//<\ To\ access\ to\ particles\ lists}}
+\DoxyCodeLine{00240\ \ \ \ \ \};}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{union_f_octree_1_1_sub_octree_types}{SubOctreeTypes}}\ current;\ \textcolor{comment}{//<\ Current\ suboctree}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ currentLocalIndex;\ \ \textcolor{comment}{//<\ Current\ index\ (array\ position)\ in\ the\ current\_suboctree.cells[\ currentLocalLevel\ ]}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ currentLocalLevel;\ \ \textcolor{comment}{//<\ Current\ level\ in\ the\ current\ suboctree}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ TransposeIndex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ indexInLeafLevel,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ distanceFromLeafLevel)\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ indexInLeafLevel\ >>\ (3\ *\ distanceFromLeafLevel);}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a228b2bcc7fd95a7304f31fd8aaf8b966}{Iterator}}(\mbox{\hyperlink{class_f_octree}{FOctree}}*\ \textcolor{keyword}{const}\ inTarget)}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ :\ currentLocalIndex(0)\ ,\ currentLocalLevel(0)\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(inTarget,\ \textcolor{stringliteral}{"{}Target\ for\ Octree::Iterator\ cannot\ be\ null"{}},\ \_\_LINE\_\_,\ \_\_FILE\_\_);}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(inTarget-\/>root-\/>getRightLeafIndex()\ >=\ 0,\ \textcolor{stringliteral}{"{}Octree\ seems\ to\ be\ empty,\ getRightLeafIndex\ ==\ 0"{}},\ \_\_LINE\_\_,\ \_\_FILE\_\_);}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Start\ by\ the\ root}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current.tree\ =\ inTarget-\/>root;}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ On\ the\ left\ limit}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ TransposeIndex(this-\/>current.tree-\/>getLeftLeafIndex(),\ (this-\/>current.tree-\/>getSubOctreeHeight()\ -\/\ this-\/>currentLocalLevel\ -\/\ 1)\ );}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}()\ :\ currentLocalIndex(0),currentLocalLevel(0)\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ current.tree\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator_a5e030851c965752a57633483d9b92c95}{Iterator}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\&\ other)\{}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current\ =\ other.current\ ;}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalLevel\ =\ other.currentLocalLevel\ ;}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ other.currentLocalIndex\ ;}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator_a254749322b9259b9295c67467195b536}{Iterator}}(\mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\&\&\ other)\{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current\ =\ other.current\ ;}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalLevel\ =\ other.currentLocalLevel\ ;}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ other.currentLocalIndex\ ;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\&\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a3a96569939ae1b4ebd766e5cd38a9575}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\&\ other)\{}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current\ =\ other.current\ ;}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalLevel\ =\ other.currentLocalLevel\ ;}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ other.currentLocalIndex\ ;}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\&\ \mbox{\hyperlink{class_f_octree_1_1_iterator_ac44bac37ec49352b1ae57c10dd38ae53}{operator=}}(\mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\&\&\ other)\ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current\ =\ other.current\ ;}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalLevel\ =\ other.currentLocalLevel\ ;}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ other.currentLocalIndex\ ;}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a7b310f24e5d6d9f83f29762dcde67936}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Note\ C++11\ standard,\ \$5.9.4:}}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ two\ pointers\ point\ to\ non-\/static\ data\ members\ of\ the\ same}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ union\ object,\ they\ compare\ equal\ (after\ conversion\ to\ void*,\ if}}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ necessary).\ If\ two\ pointers\ point\ to\ elements\ of\ the\ same\ array}}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ or\ one\ beyond\ the\ end\ of\ the\ array,\ the\ pointer\ to\ the\ object}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ with\ the\ higher\ subscript\ compares\ higher.}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ is\ why\ we\ compare\ the\ 'tree'\ component\ of\ the\ 'current'\ union}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>current.tree\ ==\ other.current.tree\ \&\&}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalLevel\ ==\ other.currentLocalLevel\ \&\&}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ ==\ other.currentLocalIndex\ ;}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a84e2aa2625fdd91929226c03d4eae834}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !\ (*\textcolor{keyword}{this}\ ==\ other);}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a8daf2034c5a8d329b6e24af8d22da1da}{gotoTop}}()\{}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(this-\/>current.tree-\/>hasParent())\{}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current.tree\ =\ this-\/>current.tree-\/>getParent();}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalLevel\ =\ 0;}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ TransposeIndex(this-\/>current.tree-\/>getLeftLeafIndex(),\ (this-\/>current.tree-\/>getSubOctreeHeight()\ -\/\ 1)\ );}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a7da91ea283e61575f6e96b9f11bb28f3}{gotoBottomLeft}}()\{}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator_a8daf2034c5a8d329b6e24af8d22da1da}{gotoTop}}();}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(1)\ \{}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalLevel\ =\ this-\/>current.tree-\/>getSubOctreeHeight()\ -\/\ 1;}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ this-\/>current.tree-\/>getLeftLeafIndex();}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{class_f_octree_1_1_iterator_ac550b9455df8c580bbb7e1e6d30f78a6}{isAtLeafLevel}}()\ )\{}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current.tree\ =\ this-\/>current.middleTree-\/>leafs(\ this-\/>currentLocalIndex\ );}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a78e82bca73dc40d2cc7955e00f281a7a}{gotoLeft}}()\{}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ Function\ variables}}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ currentLevel\ =\ \mbox{\hyperlink{class_f_octree_1_1_iterator_aedc816b9ee59b4d2e882eb68761de3cd}{level}}();}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Goto\ root\ sutoctree}}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ this-\/>current.tree-\/>hasParent()\ )\{}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current.tree\ =\ this-\/>current.tree-\/>getParent();}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Go\ down\ on\ the\ left\ until\ arriving\ on\ the\ same\ global\ level}}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ this-\/>current.tree-\/>getSubOctreeHeight()\ +\ this-\/>current.tree-\/>getSubOctreePosition()\ -\/\ 1\ <\ currentLevel\ )\ \{}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current.tree\ =\ this-\/>current.middleTree-\/>leafs(this-\/>current.tree-\/>getLeftLeafIndex());}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Level\ still\ unchanged\ we\ only\ go\ to\ the\ left}}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ left\ limit\ on\ this\ tree\ at\ the\ level\ we\ want\ to\ stay}}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ TransposeIndex(this-\/>current.tree-\/>getLeftLeafIndex(),\ (this-\/>current.tree-\/>getSubOctreeHeight()\ -\/\ this-\/>currentLocalLevel\ -\/\ 1));}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a7e70771f86a71768f776dc2fcc3fb273}{gotoRight}}()\{}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ Function\ variables}}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ currentLevel\ =\ \mbox{\hyperlink{class_f_octree_1_1_iterator_aedc816b9ee59b4d2e882eb68761de3cd}{level}}();}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Goto\ root\ sutoctree}}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ this-\/>current.tree-\/>hasParent()\ )\{}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current.tree\ =\ this-\/>current.tree-\/>getParent();}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Go\ down\ on\ the\ left\ until\ arriving\ on\ the\ same\ global\ level}}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ this-\/>current.tree-\/>getSubOctreeHeight()\ +\ this-\/>current.tree-\/>getSubOctreePosition()\ -\/\ 1\ <\ currentLevel\ )\ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current.tree\ =\ this-\/>current.middleTree-\/>leafs(this-\/>current.tree-\/>getRightLeafIndex());}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Level\ still\ unchanged\ we\ only\ go\ to\ the\ left}}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ left\ limit\ on\ this\ tree\ at\ the\ level\ we\ want\ to\ stay}}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ TransposeIndex(this-\/>current.tree-\/>getRightLeafIndex(),\ (this-\/>current.tree-\/>getSubOctreeHeight()\ -\/\ this-\/>currentLocalLevel\ -\/\ 1));}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a372eaea436f11838a3618721c60ad97e}{moveRight}}()\{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ Function\ variables}}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{union_f_octree_1_1_sub_octree_types}{SubOctreeTypes}}\ workingTree\ =\ this-\/>current;\ \ \ \ \textcolor{comment}{//\ To\ cover\ parent\ other\ sub\ octre}}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ workingLevel\ =\ this-\/>currentLocalLevel;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ To\ know\ where\ we\ are}}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ workingIndex\ =\ this-\/>currentLocalIndex;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ To\ know\ where\ we\ are}}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/-\/\ First\ we\ have\ to\ go\ in\ a\ tree\ where\ we\ can\ move\ on\ the\ right\ -\/-\/}}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Number\ of\ time\ we\ go\ into\ parent\ subtree}}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ countUpward\ =\ 0;}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ stop\ when\ we\ can\ right\ move\ or\ if\ there\ is\ no\ more\ parent\ (root)}}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ workingIndex\ ==\ TransposeIndex(workingTree.tree-\/>getRightLeafIndex(),\ (workingTree.tree-\/>getSubOctreeHeight()\ -\/\ workingLevel\ -\/\ 1)\ )}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ workingTree.tree-\/>hasParent()\ )\{}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Goto\ the\ leaf\ level\ into\ parent\ at\ current\_tree.position\_into\_parent\_array}}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workingIndex\ \ \ \ \ \ \ \ =\ workingTree.tree-\/>getIndexInParent();}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workingTree.tree\ \ \ \ =\ workingTree.tree-\/>getParent();}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workingLevel\ \ \ \ \ \ \ \ =\ workingTree.tree-\/>getSubOctreeHeight()\ -\/\ 1;}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ inc\ counter}}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++countUpward;}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Do\ we\ stop\ because\ we\ are\ on\ the\ root\ (means\ we\ cannot\ move\ right?)}}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ workingIndex\ <\ TransposeIndex(workingTree.tree-\/>getRightLeafIndex(),\ (workingTree.tree-\/>getSubOctreeHeight()\ -\/\ workingLevel\ -\/\ 1)\ )\ )\{}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ to\ the\ first\ right\ cell\ pointer(!)}}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++workingIndex;}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Maybe\ it\ is\ null,\ but\ we\ know\ there\ is\ almost\ one\ cell\ on\ the\ right}}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ we\ need\ to\ find\ it}}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !workingTree.tree-\/>cellsAt(workingLevel)[workingIndex]\ )\{}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ While\ we\ are\ not\ on\ a\ allocated\ cell}}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ \textcolor{keyword}{true}\ )\{}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Test\ element\ on\ the\ right\ (test\ brothers)}}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ rightLimite\ =\ (workingIndex\ |\ 7)\ +\ 1;}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ workingIndex\ <\ rightLimite\ \&\&\ !workingTree.tree-\/>cellsAt(workingLevel)[workingIndex])\{}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++workingIndex;}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Stop\ if\ we\ are\ on\ an\ allocated\ cell}}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ workingTree.tree-\/>cellsAt(workingLevel)[workingIndex]\ )\{}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Else\ go\ to\ the\ upper\ level}}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/workingLevel;}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workingIndex\ >>=\ 3;}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ wokring\ tree\ !=\ current\ tree\ =>\ working\ tree\ leafs\ level\ ;\ else\ current\ level}}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ objectiveLevel\ =\ (countUpward\ ?\ workingTree.tree-\/>getSubOctreeHeight()\ -\/\ 1\ :\ this-\/>currentLocalLevel\ );}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ go\ down\ as\ left\ as\ possible}}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ workingLevel\ !=\ objectiveLevel\ )\{}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++workingLevel;}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workingIndex\ <<=\ 3;}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ rightLimite\ =\ (workingIndex\ |\ 7);\ \textcolor{comment}{//\ not\ +\ 1\ because\ if\ the\ 7th\ first\ are\ null\ it\ must\ be\ the\ 8th!}}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ workingIndex\ <\ rightLimite\ \&\&\ !workingTree.tree-\/>cellsAt(workingLevel)[workingIndex])\{}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++workingIndex;}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Do\ we\ change\ from\ the\ current\ sub\ octree?}}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ countUpward\ )\{}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Then\ we\ simply\ need\ to\ go\ down\ the\ same\ number\ of\ time}}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workingTree.tree\ =\ workingTree.middleTree-\/>leafs(workingIndex);}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ -\/-\/countUpward\ )\{}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ workingTree.tree\ =\ workingTree.middleTree-\/>leafs(workingTree.tree-\/>getLeftLeafIndex());}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ level\ did\ not\ change,\ simpli\ set\ octree\ and\ get\ left\ limit\ of\ this\ octree\ at\ the\ current\ level}}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current\ =\ workingTree;}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ TransposeIndex(workingTree.tree-\/>getLeftLeafIndex(),\ (workingTree.tree-\/>getSubOctreeHeight()\ -\/\ this-\/>currentLocalLevel\ -\/\ 1)\ );}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ are\ on\ the\ right\ tree}}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ workingIndex;}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_accf33ffc63fdd67f8469ce62026fe84d}{moveUp}}()\ \{}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ It\ is\ on\ the\ top\ level?}}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ this-\/>currentLocalLevel\ )\{}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ so\ simply\ go\ up}}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/this-\/>currentLocalLevel;}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ >>=\ 3;}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Yes\ need\ to\ change\ suboctree}}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ this-\/>current.tree-\/>hasParent()\ )\{}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ this-\/>current.tree-\/>getIndexInParent();}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current.tree\ =\ this-\/>current.tree-\/>getParent();}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalLevel\ =\ \ this-\/>current.tree-\/>getSubOctreeHeight()\ -\/\ 1;}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_abf6352805438c6e8bee5c14580a952a2}{moveDown}}()\{}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !\mbox{\hyperlink{class_f_octree_1_1_iterator_ac550b9455df8c580bbb7e1e6d30f78a6}{isAtLeafLevel}}()\ )\{}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ are\ on\ the\ leaf\ of\ the\ current\ suboctree?}}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>currentLocalLevel\ +\ 1\ ==\ this-\/>current.tree-\/>getSubOctreeHeight())\{}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Yes\ change\ sub\ octree}}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>current.tree\ =\ this-\/>current.middleTree-\/>leafs(this-\/>currentLocalIndex);}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ =\ 0;}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalLevel\ =\ 0;}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ simply\ go\ down}}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++this-\/>currentLocalLevel;}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>currentLocalIndex\ <<=\ 3;}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ first\ allocated\ cell\ from\ left\ to\ right}}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!this-\/>current.tree-\/>cellsAt(this-\/>currentLocalLevel)[this-\/>currentLocalIndex])\{}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++this-\/>currentLocalIndex;}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a33808b0b322d221abd54779d4b946cb0}{canProgressToUp}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>currentLocalLevel\ ||\ this-\/>current.tree-\/>hasParent();}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_abb66369b7e8b39d9f539f9f36dd6ca93}{canProgressToDown}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !\mbox{\hyperlink{class_f_octree_1_1_iterator_ac550b9455df8c580bbb7e1e6d30f78a6}{isAtLeafLevel}}();}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_ac550b9455df8c580bbb7e1e6d30f78a6}{isAtLeafLevel}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>current.tree-\/>isLeafPart()\ \&\&\ this-\/>currentLocalLevel\ +\ 1\ ==\ this-\/>current.tree-\/>getSubOctreeHeight();}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00631\ }
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_aedc816b9ee59b4d2e882eb68761de3cd}{level}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>currentLocalLevel\ +\ this-\/>current.tree-\/>getSubOctreePosition();}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ LeafClass*\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a20dee8812ea4822ac25f8c5c0e852272}{getCurrentLeaf}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>current.leafTree-\/>getLeaf(this-\/>currentLocalIndex);}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ ContainerClass*\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a5bc83dd046da9b65371bae7249f774b5}{getCurrentListSrc}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>current.leafTree-\/>getLeafSrc(this-\/>currentLocalIndex);}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ ContainerClass*\ \mbox{\hyperlink{class_f_octree_1_1_iterator_ac84ddf663d0a378634bfd2c214c1d7d1}{getCurrentListTargets}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>current.leafTree-\/>getLeafTargets(this-\/>currentLocalIndex);}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00662\ }
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ CellClass*\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a4a46f6c9166281b21d3cd1b9a9ba2a8e}{getCurrentCell}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>current.tree-\/>cellsAt(this-\/>currentLocalLevel)[this-\/>currentLocalIndex];}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00669\ }
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ CellClass**\ \mbox{\hyperlink{class_f_octree_1_1_iterator_ab247592f431f438721a8c43d37b34543}{getCurrentChild}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ are\ we\ at\ the\ bottom\ of\ the\ suboctree}}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>current.tree-\/>getSubOctreeHeight()\ -\/\ 1\ ==\ this-\/>currentLocalLevel\ )\{}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ then\ return\ first\ level\ of\ the\ suboctree\ under}}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&this-\/>current.middleTree-\/>leafs(this-\/>currentLocalIndex)-\/>cellsAt(0)[0];}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ else\ simply\ return\ the\ array\ at\ the\ right\ position}}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&this-\/>current.tree-\/>cellsAt(this-\/>currentLocalLevel\ +\ 1)[this-\/>currentLocalIndex\ <<\ 3];}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00687\ }
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ CellClass**\ \mbox{\hyperlink{class_f_octree_1_1_iterator_abee816111fcdd6a7b818bf5b618bbdf8}{getCurrentChildren}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_octree_1_1_iterator_ab247592f431f438721a8c43d37b34543}{getCurrentChild}}();}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00698\ }
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ CellClass**\ \mbox{\hyperlink{class_f_octree_1_1_iterator_ad4de34326568eba5cdb1876a44c15cea}{getCurrentBox}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&this-\/>current.tree-\/>cellsAt(this-\/>currentLocalLevel)[this-\/>currentLocalIndex\ \&\ \string~7];}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00705\ }
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ MortonIndex\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a3d9a632dc85f6c32710af495619a71d7}{getCurrentGlobalIndex}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>current.tree-\/>cellsAt(this-\/>currentLocalLevel)[this-\/>currentLocalIndex]-\/>getMortonIndex();}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00715\ }
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \mbox{\hyperlink{class_f_octree_1_1_iterator_a074c602afb6739fb356d602bdc164d75}{getCurrentGlobalCoordinate}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>current.tree-\/>cellsAt(this-\/>currentLocalLevel)[this-\/>currentLocalIndex]-\/>getCoordinate();}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00722\ }
+\DoxyCodeLine{00723\ \ \ \ \ \};}
+\DoxyCodeLine{00724\ }
+\DoxyCodeLine{00725\ \ \ \ \ \textcolor{comment}{//\ To\ be\ able\ to\ access\ octree\ root\ \&\ data}}
+\DoxyCodeLine{00726\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Iterator;}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00729\ \ \ \ \ \textcolor{comment}{//\ This\ part\ is\ related\ to\ the\ FMM\ algorithm\ (needed\ by\ M2M,M2L,etc.)}}
+\DoxyCodeLine{00731\ }
+\DoxyCodeLine{00738\ \ \ \ \ CellClass*\ \mbox{\hyperlink{class_f_octree_ac915497d9a02ca1f4c6ab989a4562cf9}{getCell}}(\textcolor{keyword}{const}\ MortonIndex\ inIndex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{union_f_octree_1_1_sub_octree_types_const}{SubOctreeTypesConst}}\ workingTree;}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ workingTree.tree\ =\ this-\/>root;}
+\DoxyCodeLine{00741\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ treeSubLeafMask\ =\ \string~(\string~0ULL\ <<\ (3\ *\ \ workingTree.tree-\/>getSubOctreeHeight()\ ));}
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ suboctree\ a\ the\ correct\ level}}
+\DoxyCodeLine{00744\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(inLevel\ >=\ workingTree.tree-\/>getSubOctreeHeight()\ +\ workingTree.tree-\/>getSubOctreePosition())\ \{}
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ the\ leaf\ index}}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ fullIndex\ =\ inIndex\ >>\ (3\ *\ (inLevel\ +\ 1\ -\/\ (workingTree.tree-\/>getSubOctreeHeight()\ +\ workingTree.tree-\/>getSubOctreePosition())\ )\ );}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ to\ next\ suboctree}}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \ \ \ \ workingTree.tree\ =\ workingTree.middleTree-\/>leafs(treeSubLeafMask\ \&\ fullIndex);}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!workingTree.tree)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00751\ }
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ correct\ index\ in\ the\ array}}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ treeLeafMask\ =\ \string~(\string~0ULL\ <<\ (3\ *\ \ (inLevel\ +\ 1\ -\/\ workingTree.tree-\/>getSubOctreePosition())\ ));}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ workingTree.tree-\/>cellsAt(inLevel\ -\/\ workingTree.tree-\/>getSubOctreePosition())[treeLeafMask\ \&\ inIndex];}
+\DoxyCodeLine{00755\ \ \ \ \ \}}
+\DoxyCodeLine{00756\ }
+\DoxyCodeLine{00757\ }
+\DoxyCodeLine{00771\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_ae93b172d11dd15c4741e79abde31bcb4}{getNeighborsNoBrothers}}(CellClass*\ inNeighbors[26],\ \textcolor{keyword}{const}\ MortonIndex\ inIndex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ center;}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ center.setPositionFromMorton(inIndex);}
+\DoxyCodeLine{00774\ }
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel);}
+\DoxyCodeLine{00776\ }
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/1\ ;\ idxX\ <=\ 1\ ;\ ++idxX)\{}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00782\ }
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/1\ ;\ idxY\ <=\ 1\ ;\ ++idxY)\{}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00785\ }
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/1\ ;\ idxZ\ <=\ 1\ ;\ ++idxZ)\{}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00788\ }
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !(!idxX\ \&\&\ !idxY\ \&\&\ !idxZ)\ )\{}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ other(center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOther\ =\ other.getMortonIndex();}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ not\ a\ brother}}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ mortonOther>>3\ !=\ inIndex>>3\ )\{}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ cell}}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ \textcolor{keyword}{const}\ cell\ =\ \mbox{\hyperlink{class_f_octree_ac915497d9a02ca1f4c6ab989a4562cf9}{getCell}}(mortonOther,\ inLevel);}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ list\ if\ not\ null}}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cell)\ inNeighbors[idxNeighbors++]\ =\ cell;}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00804\ }
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{00806\ \ \ \ \ \}}
+\DoxyCodeLine{00807\ }
+\DoxyCodeLine{00808\ }
+\DoxyCodeLine{00816\ \ \ \ \ CellClass**\ \mbox{\hyperlink{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}{getCellPt}}(\textcolor{keyword}{const}\ MortonIndex\ inIndex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{union_f_octree_1_1_sub_octree_types_const}{SubOctreeTypesConst}}\ workingTree;}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ workingTree.tree\ =\ this-\/>root;}
+\DoxyCodeLine{00819\ }
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ treeMiddleMask\ =\ \string~(\string~0ULL\ <<\ (3\ *\ \ workingTree.tree-\/>getSubOctreeHeight()\ ));}
+\DoxyCodeLine{00821\ }
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ suboctree\ a\ the\ correct\ level}}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(inLevel\ >=\ workingTree.tree-\/>getSubOctreeHeight()\ +\ workingTree.tree-\/>getSubOctreePosition())\ \{}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ the\ leaf\ index}}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ fullIndex\ =\ inIndex\ >>\ 3\ *\ (inLevel\ +\ 1\ -\/\ (workingTree.tree-\/>getSubOctreeHeight()\ +\ workingTree.tree-\/>getSubOctreePosition())\ );}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ to\ next\ suboctree}}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \ \ \ \ workingTree.tree\ =\ workingTree.middleTree-\/>leafs(\textcolor{keywordtype}{int}(treeMiddleMask\ \&\ fullIndex));}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!workingTree.tree)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00830\ }
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Be\ sure\ there\ is\ a\ parent\ allocated}}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ levelInTree\ =\ inLevel\ -\/\ workingTree.tree-\/>getSubOctreePosition();}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ levelInTree\ \&\&\ !workingTree.tree-\/>cellsAt(levelInTree\ -\/\ 1)[\string~(\string~0ULL\ <<\ (3\ *\ levelInTree\ ))\ \&\ (inIndex>>3)])\{}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00836\ }
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ correct\ index\ in\ the\ array\ and\ return\ the\ @\ in\ array}}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ treeLeafMask\ =\ \string~(\string~0ULL\ <<\ (3\ *\ (levelInTree\ +\ 1\ )\ ));}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&workingTree.tree-\/>cellsAt(levelInTree)[treeLeafMask\ \&\ inIndex];}
+\DoxyCodeLine{00840\ \ \ \ \ \}}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ }
+\DoxyCodeLine{00850\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_afdb14573d0247f3ca60611ef4b42c39a}{getInteractionNeighbors}}(\textcolor{keyword}{const}\ CellClass*\ inNeighbors[343],}
+\DoxyCodeLine{00851\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ workingCell,}
+\DoxyCodeLine{00852\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighSeparation\ =\ 1)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset}}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ memset(inNeighbors,\ 0,\ \textcolor{keyword}{sizeof}(CellClass*)\ *\ 343);}
+\DoxyCodeLine{00855\ }
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Then\ take\ each\ child\ of\ the\ parent's\ neighbors\ if\ not\ in\ directNeighbors}}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Father\ coordinate}}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ parentCell(workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()>>1);}
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Limite\ at\ parent\ level\ number\ of\ box\ (split\ by\ 2\ by\ level)}}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel-\/1);}
+\DoxyCodeLine{00862\ }
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/1\ ;\ idxX\ <=\ 1\ ;\ ++idxX)\{}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00867\ }
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/1\ ;\ idxY\ <=\ 1\ ;\ ++idxY)\{}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00870\ }
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/1\ ;\ idxZ\ <=\ 1\ ;\ ++idxZ)\{}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00873\ }
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ neighSeparation<1\ ||\ idxX\ ||\ idxY\ ||\ idxZ\ )\{}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ otherParent(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOtherParent\ =\ otherParent.getMortonIndex()\ <<\ 3;}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ child}}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass**\ \textcolor{keyword}{const}\ cells\ =\ \mbox{\hyperlink{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}{getCellPt}}(mortonOtherParent,\ inLevel);}
+\DoxyCodeLine{00880\ }
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there\ is\ one\ or\ more\ child}}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells)\{}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ child}}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxCousin\ =\ 0\ ;\ idxCousin\ <\ 8\ ;\ ++idxCousin)\{}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells[idxCousin])\{}
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ xdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()<<1)\ |\ (\ (idxCousin>>2)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}();}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ydiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()<<1)\ |\ (\ (idxCousin>>1)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}();}
+\DoxyCodeLine{00888\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ zdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()<<1)\ |\ (idxCousin\&1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}();}
+\DoxyCodeLine{00889\ }
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Test\ if\ it\ is\ a\ direct\ neighbor}}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(xdiff)\ >\ neighSeparation\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(ydiff)\ >\ neighSeparation\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(zdiff)\ >\ neighSeparation)\{}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ neighbors}}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[\ (((xdiff+3)\ *\ 7)\ +\ (ydiff+3))\ *\ 7\ +\ zdiff\ +\ 3]\ =\ cells[idxCousin];}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00903\ }
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{00905\ \ \ \ \ \}}
+\DoxyCodeLine{00906\ }
+\DoxyCodeLine{00914\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a8d057636177b2d51bae98366d8402120}{getInteractionNeighbors}}(\textcolor{keyword}{const}\ CellClass*\ inNeighbors[342],}
+\DoxyCodeLine{00915\ \ \ \ \ \textcolor{keywordtype}{int}\ inNeighborPositions[343],}
+\DoxyCodeLine{00916\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ workingCell,}
+\DoxyCodeLine{00917\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighSeparation\ =\ 1)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Then\ take\ each\ child\ of\ the\ parent's\ neighbors\ if\ not\ in\ directNeighbors}}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Father\ coordinate}}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ parentCell(workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()>>1);}
+\DoxyCodeLine{00921\ }
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Limite\ at\ parent\ level\ number\ of\ box\ (split\ by\ 2\ by\ level)}}
+\DoxyCodeLine{00923\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel-\/1);}
+\DoxyCodeLine{00924\ }
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/1\ ;\ idxX\ <=\ 1\ ;\ ++idxX)\{}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00929\ }
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/1\ ;\ idxY\ <=\ 1\ ;\ ++idxY)\{}
+\DoxyCodeLine{00931\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00932\ }
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/1\ ;\ idxZ\ <=\ 1\ ;\ ++idxZ)\{}
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00935\ }
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ neighSeparation<1\ ||\ idxX\ ||\ idxY\ ||\ idxZ\ )\{}
+\DoxyCodeLine{00938\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ otherParent(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{00939\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOtherParent\ =\ otherParent.getMortonIndex()\ <<\ 3;}
+\DoxyCodeLine{00940\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ child}}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass**\ \textcolor{keyword}{const}\ cells\ =\ \mbox{\hyperlink{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}{getCellPt}}(mortonOtherParent,\ inLevel);}
+\DoxyCodeLine{00942\ }
+\DoxyCodeLine{00943\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there\ is\ one\ or\ more\ child}}
+\DoxyCodeLine{00944\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells)\{}
+\DoxyCodeLine{00945\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ child}}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxCousin\ =\ 0\ ;\ idxCousin\ <\ 8\ ;\ ++idxCousin)\{}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells[idxCousin])\{}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ xdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()<<1)\ |\ (\ (idxCousin>>2)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}();}
+\DoxyCodeLine{00949\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ydiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()<<1)\ |\ (\ (idxCousin>>1)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}();}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ zdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()<<1)\ |\ (idxCousin\&1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}();}
+\DoxyCodeLine{00951\ }
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Test\ if\ it\ is\ a\ direct\ neighbor}}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(xdiff)\ >\ neighSeparation\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(ydiff)\ >\ neighSeparation\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(zdiff)\ >\ neighSeparation)\{}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ neighbors}}
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[idxNeighbors]\ =\ cells[idxCousin];}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighborPositions[idxNeighbors]\ =\ (((xdiff+3)\ *\ 7)\ +\ (ydiff+3))\ *\ 7\ +\ zdiff\ +\ 3;}
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{00958\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00960\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00966\ }
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{00968\ \ \ \ \ \}}
+\DoxyCodeLine{00969\ }
+\DoxyCodeLine{00980\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a213750fc54d195b6537b15d827c6eaa1}{getFullNeighborhood}}(\textcolor{keyword}{const}\ CellClass*\ inNeighbors[343],}
+\DoxyCodeLine{00981\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ workingCell,}
+\DoxyCodeLine{00982\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset}}
+\DoxyCodeLine{00984\ \ \ \ \ \ \ \ \ memset(inNeighbors,\ 0,\ \textcolor{keyword}{sizeof}(CellClass*)\ *\ 343);}
+\DoxyCodeLine{00985\ }
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Then\ take\ each\ child\ of\ the\ parent's\ neighbors}}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Father\ coordinate}}
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ parentCell(workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()>>1);}
+\DoxyCodeLine{00989\ }
+\DoxyCodeLine{00990\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Limite\ at\ parent\ level\ number\ of\ box\ (split\ by\ 2\ by\ level)}}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel-\/1);}
+\DoxyCodeLine{00992\ }
+\DoxyCodeLine{00993\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{00994\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{00995\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/1\ ;\ idxX\ <=\ 1\ ;\ ++idxX)\{}
+\DoxyCodeLine{00996\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00997\ }
+\DoxyCodeLine{00998\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/1\ ;\ idxY\ <=\ 1\ ;\ ++idxY)\{}
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01000\ }
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/1\ ;\ idxZ\ <=\ 1\ ;\ ++idxZ)\{}
+\DoxyCodeLine{01002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01003\ }
+\DoxyCodeLine{01004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ otherParent(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{01005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOtherParent\ =\ otherParent.getMortonIndex()\ <<\ 3;}
+\DoxyCodeLine{01006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ child}}
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass**\ \textcolor{keyword}{const}\ cells\ =\ \mbox{\hyperlink{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}{getCellPt}}(mortonOtherParent,\ inLevel);}
+\DoxyCodeLine{01008\ }
+\DoxyCodeLine{01009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there\ is\ one\ or\ more\ child}}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells)\{}
+\DoxyCodeLine{01011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ child}}
+\DoxyCodeLine{01012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxCousin\ =\ 0\ ;\ idxCousin\ <\ 8\ ;\ ++idxCousin)\{}
+\DoxyCodeLine{01013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells[idxCousin])\{}
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ xdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()<<1)\ |\ (\ (idxCousin>>2)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}();}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ydiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()<<1)\ |\ (\ (idxCousin>>1)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}();}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ zdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()<<1)\ |\ (idxCousin\&1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}();}
+\DoxyCodeLine{01017\ }
+\DoxyCodeLine{01018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ neighbors}}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[\ (((xdiff+3)\ *\ 7)\ +\ (ydiff+3))\ *\ 7\ +\ zdiff\ +\ 3]\ =\ cells[idxCousin];}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01025\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01026\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01027\ }
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{01029\ \ \ \ \ \}}
+\DoxyCodeLine{01030\ }
+\DoxyCodeLine{01041\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a3c83e2114b95f41a696e7e0ccc4b3407}{getFullNeighborhood}}(\textcolor{keyword}{const}\ CellClass*\ inNeighbors[342],}
+\DoxyCodeLine{01042\ \ \ \ \ \textcolor{keywordtype}{int}\ inNeighborPositions[342],}
+\DoxyCodeLine{01043\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ workingCell,}
+\DoxyCodeLine{01044\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset}}
+\DoxyCodeLine{01046\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Then\ take\ each\ child\ of\ the\ parent's\ neighbors}}
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Father\ coordinate}}
+\DoxyCodeLine{01048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ parentCell(workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()>>1);}
+\DoxyCodeLine{01049\ }
+\DoxyCodeLine{01050\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Limite\ at\ parent\ level\ number\ of\ box\ (split\ by\ 2\ by\ level)}}
+\DoxyCodeLine{01051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel-\/1);}
+\DoxyCodeLine{01052\ }
+\DoxyCodeLine{01053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{01054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{01055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/1\ ;\ idxX\ <=\ 1\ ;\ ++idxX)\{}
+\DoxyCodeLine{01056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01057\ }
+\DoxyCodeLine{01058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/1\ ;\ idxY\ <=\ 1\ ;\ ++idxY)\{}
+\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01060\ }
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/1\ ;\ idxZ\ <=\ 1\ ;\ ++idxZ)\{}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01063\ }
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ otherParent(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOtherParent\ =\ otherParent.getMortonIndex()\ <<\ 3;}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ child}}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass**\ \textcolor{keyword}{const}\ cells\ =\ \mbox{\hyperlink{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}{getCellPt}}(mortonOtherParent,\ inLevel);}
+\DoxyCodeLine{01068\ }
+\DoxyCodeLine{01069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there\ is\ one\ or\ more\ child}}
+\DoxyCodeLine{01070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells)\{}
+\DoxyCodeLine{01071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ child}}
+\DoxyCodeLine{01072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxCousin\ =\ 0\ ;\ idxCousin\ <\ 8\ ;\ ++idxCousin)\{}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells[idxCousin])\{}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ xdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()<<1)\ |\ (\ (idxCousin>>2)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}();}
+\DoxyCodeLine{01075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ydiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()<<1)\ |\ (\ (idxCousin>>1)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}();}
+\DoxyCodeLine{01076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ zdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()<<1)\ |\ (idxCousin\&1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}();}
+\DoxyCodeLine{01077\ }
+\DoxyCodeLine{01078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ neighbors}}
+\DoxyCodeLine{01079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[idxNeighbors]\ =\ cells[idxCousin];}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighborPositions[idxNeighbors]\ =\ (((xdiff+3)\ *\ 7)\ +\ (ydiff+3))\ *\ 7\ +\ zdiff\ +\ 3;}
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{01082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01086\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01088\ }
+\DoxyCodeLine{01089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{01090\ \ \ \ \ \}}
+\DoxyCodeLine{01091\ }
+\DoxyCodeLine{01101\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a406ff8bd01484c4b5dbed26f73349ce4}{getPeriodicInteractionNeighbors}}(\textcolor{keyword}{const}\ CellClass*\ inNeighbors[343],}
+\DoxyCodeLine{01102\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ workingCell,}
+\DoxyCodeLine{01103\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDirection,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighSeparation\ =\ 1)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{01104\ }
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Then\ take\ each\ child\ of\ the\ parent's\ neighbors\ if\ not\ in\ directNeighbors}}
+\DoxyCodeLine{01106\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Father\ coordinate}}
+\DoxyCodeLine{01107\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ parentCell(workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()>>1);}
+\DoxyCodeLine{01108\ }
+\DoxyCodeLine{01109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Limite\ at\ parent\ level\ number\ of\ box\ (split\ by\ 2\ by\ level)}}
+\DoxyCodeLine{01110\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel-\/1);}
+\DoxyCodeLine{01111\ }
+\DoxyCodeLine{01112\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ is\ not\ on\ a\ border\ we\ can\ use\ normal\ interaction\ list\ method}}
+\DoxyCodeLine{01113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ ==\ 0\ ||\ parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ ==\ 0\ ||\ parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ ==\ 0\ ||}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ ==\ boxLimite\ -\/\ 1\ ||\ parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ ==\ boxLimite\ -\/\ 1\ ||\ parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ ==\ boxLimite\ -\/\ 1\ )\ )\ \{}
+\DoxyCodeLine{01115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_octree_afdb14573d0247f3ca60611ef4b42c39a}{getInteractionNeighbors}}(\ inNeighbors,\ workingCell,\ inLevel);}
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset}}
+\DoxyCodeLine{01119\ }
+\DoxyCodeLine{01120\ \ \ \ \ \ \ \ \ \ \ \ \ memset(inNeighbors,\ 0,\ \textcolor{keyword}{sizeof}(CellClass*)\ *\ 343);}
+\DoxyCodeLine{01121\ }
+\DoxyCodeLine{01122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startX\ =\ \ (TestPeriodicCondition(inDirection,\ DirMinusX)\ ||\ parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endX\ =\ \ \ \ (TestPeriodicCondition(inDirection,\ DirPlusX)\ \ ||\ parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startY\ =\ \ (TestPeriodicCondition(inDirection,\ DirMinusY)\ ||\ parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endY\ =\ \ \ \ (TestPeriodicCondition(inDirection,\ DirPlusY)\ \ ||\ parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startZ\ =\ \ (TestPeriodicCondition(inDirection,\ DirMinusZ)\ ||\ parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endZ\ =\ \ \ \ (TestPeriodicCondition(inDirection,\ DirPlusZ)\ \ ||\ parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01128\ }
+\DoxyCodeLine{01129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{01130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{01131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ startX\ ;\ idxX\ <=\ endX\ ;\ ++idxX)\{}
+\DoxyCodeLine{01132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ startY\ ;\ idxY\ <=\ endY\ ;\ ++idxY)\{}
+\DoxyCodeLine{01133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ startZ\ ;\ idxZ\ <=\ endZ\ ;\ ++idxZ)\{}
+\DoxyCodeLine{01134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{01135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(neighSeparation<1\ ||\ idxX\ ||\ idxY\ ||\ idxZ\ )\{}
+\DoxyCodeLine{01136\ }
+\DoxyCodeLine{01137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ otherParent(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{01138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ otherParentInBox(otherParent);}
+\DoxyCodeLine{01139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ periodic}}
+\DoxyCodeLine{01140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ <\ 0\ )\{}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ boxLimite\ );}
+\DoxyCodeLine{01142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherParentInBox.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ )\{}
+\DoxyCodeLine{01144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ -\/\ boxLimite\ );}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01146\ }
+\DoxyCodeLine{01147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ <\ 0\ )\{}
+\DoxyCodeLine{01148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ boxLimite\ );}
+\DoxyCodeLine{01149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherParentInBox.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ )\{}
+\DoxyCodeLine{01151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ -\/\ boxLimite\ );}
+\DoxyCodeLine{01152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01153\ }
+\DoxyCodeLine{01154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ <\ 0\ )\{}
+\DoxyCodeLine{01155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ boxLimite\ );}
+\DoxyCodeLine{01156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherParentInBox.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ )\{}
+\DoxyCodeLine{01158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ -\/\ boxLimite\ );}
+\DoxyCodeLine{01159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01160\ }
+\DoxyCodeLine{01161\ }
+\DoxyCodeLine{01162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOtherParent\ =\ otherParentInBox.getMortonIndex()\ <<\ 3;}
+\DoxyCodeLine{01163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ child}}
+\DoxyCodeLine{01164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass**\ \textcolor{keyword}{const}\ cells\ =\ \mbox{\hyperlink{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}{getCellPt}}(mortonOtherParent,\ inLevel);}
+\DoxyCodeLine{01165\ }
+\DoxyCodeLine{01166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there\ is\ one\ or\ more\ child}}
+\DoxyCodeLine{01167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells)\{}
+\DoxyCodeLine{01168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ child}}
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxCousin\ =\ 0\ ;\ idxCousin\ <\ 8\ ;\ ++idxCousin)\{}
+\DoxyCodeLine{01170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells[idxCousin])\{}
+\DoxyCodeLine{01171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ xdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()<<1)\ |\ (\ (idxCousin>>2)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}();}
+\DoxyCodeLine{01172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ydiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()<<1)\ |\ (\ (idxCousin>>1)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}();}
+\DoxyCodeLine{01173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ zdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()<<1)\ |\ (idxCousin\&1))\ \ \ \ \ \ \ \ \ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}();}
+\DoxyCodeLine{01174\ }
+\DoxyCodeLine{01175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Test\ if\ it\ is\ a\ direct\ neighbor}}
+\DoxyCodeLine{01176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(xdiff)\ >\ neighSeparation\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(ydiff)\ >\ neighSeparation\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(zdiff)\ >\ neighSeparation)\{}
+\DoxyCodeLine{01177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ neighbors}}
+\DoxyCodeLine{01178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[\ (((xdiff+3)\ *\ 7)\ +\ (ydiff+3))\ *\ 7\ +\ zdiff\ +\ 3]\ =\ cells[idxCousin];}
+\DoxyCodeLine{01179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{01180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01188\ }
+\DoxyCodeLine{01189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{01190\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01191\ \ \ \ \ \}}
+\DoxyCodeLine{01192\ }
+\DoxyCodeLine{01202\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a2b54cea308bed1b084d53fc984df84a8}{getPeriodicInteractionNeighbors}}(\textcolor{keyword}{const}\ CellClass*\ inNeighbors[342],\ \textcolor{keywordtype}{int}\ inNeighborPositions[342],}
+\DoxyCodeLine{01203\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ workingCell,}
+\DoxyCodeLine{01204\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDirection,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighSeparation\ =\ 1)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{01205\ }
+\DoxyCodeLine{01206\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Then\ take\ each\ child\ of\ the\ parent's\ neighbors\ if\ not\ in\ directNeighbors}}
+\DoxyCodeLine{01207\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Father\ coordinate}}
+\DoxyCodeLine{01208\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ parentCell(workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()>>1,workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()>>1);}
+\DoxyCodeLine{01209\ }
+\DoxyCodeLine{01210\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Limite\ at\ parent\ level\ number\ of\ box\ (split\ by\ 2\ by\ level)}}
+\DoxyCodeLine{01211\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel-\/1);}
+\DoxyCodeLine{01212\ }
+\DoxyCodeLine{01213\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ is\ not\ on\ a\ border\ we\ can\ use\ normal\ interaction\ list\ method}}
+\DoxyCodeLine{01214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ !(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ ==\ 0\ ||\ parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ ==\ 0\ ||\ parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ ==\ 0\ ||}
+\DoxyCodeLine{01215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ ==\ boxLimite\ -\/\ 1\ ||\ parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ ==\ boxLimite\ -\/\ 1\ ||\ parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ ==\ boxLimite\ -\/\ 1\ )\ )\ \{}
+\DoxyCodeLine{01216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_octree_afdb14573d0247f3ca60611ef4b42c39a}{getInteractionNeighbors}}(\ inNeighbors,\ inNeighborPositions,\ workingCell,\ inLevel);}
+\DoxyCodeLine{01217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{01219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startX\ =\ \ (TestPeriodicCondition(inDirection,\ DirMinusX)\ ||\ parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endX\ =\ \ \ \ (TestPeriodicCondition(inDirection,\ DirPlusX)\ \ ||\ parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startY\ =\ \ (TestPeriodicCondition(inDirection,\ DirMinusY)\ ||\ parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endY\ =\ \ \ \ (TestPeriodicCondition(inDirection,\ DirPlusY)\ \ ||\ parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startZ\ =\ \ (TestPeriodicCondition(inDirection,\ DirMinusZ)\ ||\ parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endZ\ =\ \ \ \ (TestPeriodicCondition(inDirection,\ DirPlusZ)\ \ ||\ parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01225\ }
+\DoxyCodeLine{01226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{01227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{01228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ startX\ ;\ idxX\ <=\ endX\ ;\ ++idxX)\{}
+\DoxyCodeLine{01229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ startY\ ;\ idxY\ <=\ endY\ ;\ ++idxY)\{}
+\DoxyCodeLine{01230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ startZ\ ;\ idxZ\ <=\ endZ\ ;\ ++idxZ)\{}
+\DoxyCodeLine{01231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{01232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(neighSeparation<1\ ||\ idxX\ ||\ idxY\ ||\ idxZ\ )\{}
+\DoxyCodeLine{01233\ }
+\DoxyCodeLine{01234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ otherParent(parentCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,parentCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,parentCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{01235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ otherParentInBox(otherParent);}
+\DoxyCodeLine{01236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ periodic}}
+\DoxyCodeLine{01237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ <\ 0\ )\{}
+\DoxyCodeLine{01238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ boxLimite\ );}
+\DoxyCodeLine{01239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherParentInBox.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ )\{}
+\DoxyCodeLine{01241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ -\/\ boxLimite\ );}
+\DoxyCodeLine{01242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01243\ }
+\DoxyCodeLine{01244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ <\ 0\ )\{}
+\DoxyCodeLine{01245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ boxLimite\ );}
+\DoxyCodeLine{01246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherParentInBox.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ )\{}
+\DoxyCodeLine{01248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ -\/\ boxLimite\ );}
+\DoxyCodeLine{01249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01250\ }
+\DoxyCodeLine{01251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ <\ 0\ )\{}
+\DoxyCodeLine{01252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ boxLimite\ );}
+\DoxyCodeLine{01253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherParentInBox.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ )\{}
+\DoxyCodeLine{01255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherParentInBox.\mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}}(\ otherParentInBox.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ -\/\ boxLimite\ );}
+\DoxyCodeLine{01256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01257\ }
+\DoxyCodeLine{01258\ }
+\DoxyCodeLine{01259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOtherParent\ =\ otherParentInBox.getMortonIndex()\ <<\ 3;}
+\DoxyCodeLine{01260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ child}}
+\DoxyCodeLine{01261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass**\ \textcolor{keyword}{const}\ cells\ =\ \mbox{\hyperlink{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}{getCellPt}}(mortonOtherParent,\ inLevel);}
+\DoxyCodeLine{01262\ }
+\DoxyCodeLine{01263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ there\ is\ one\ or\ more\ child}}
+\DoxyCodeLine{01264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells)\{}
+\DoxyCodeLine{01265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ child}}
+\DoxyCodeLine{01266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxCousin\ =\ 0\ ;\ idxCousin\ <\ 8\ ;\ ++idxCousin)\{}
+\DoxyCodeLine{01267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cells[idxCousin])\{}
+\DoxyCodeLine{01268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ xdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()<<1)\ |\ (\ (idxCousin>>2)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}();}
+\DoxyCodeLine{01269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ydiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()<<1)\ |\ (\ (idxCousin>>1)\ \&\ 1))\ -\/\ workingCell.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}();}
+\DoxyCodeLine{01270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ zdiff\ \ =\ ((otherParent.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()<<1)\ |\ (idxCousin\&1))\ \ \ \ \ \ \ \ \ -\/\ workingCell.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}();}
+\DoxyCodeLine{01271\ }
+\DoxyCodeLine{01272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Test\ if\ it\ is\ a\ direct\ neighbor}}
+\DoxyCodeLine{01273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(xdiff)\ >\ neighSeparation\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(ydiff)\ >\ neighSeparation\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(zdiff)\ >\ neighSeparation)\{}
+\DoxyCodeLine{01274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ neighbors}}
+\DoxyCodeLine{01275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[idxNeighbors]\ =\ cells[idxCousin];}
+\DoxyCodeLine{01276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighborPositions[idxNeighbors]\ =\ (((xdiff+3)\ *\ 7)\ +\ (ydiff+3))\ *\ 7\ +\ zdiff\ +\ 3;}
+\DoxyCodeLine{01277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{01278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01285\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01286\ }
+\DoxyCodeLine{01287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{01288\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01289\ \ \ \ \ \}}
+\DoxyCodeLine{01290\ }
+\DoxyCodeLine{01291\ }
+\DoxyCodeLine{01298\ \ \ \ \ ContainerClass*\ \mbox{\hyperlink{class_f_octree_ac5155e908ca55112cb70af255c5053b3}{getLeafSrc}}(\textcolor{keyword}{const}\ MortonIndex\ inIndex)\{}
+\DoxyCodeLine{01299\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{union_f_octree_1_1_sub_octree_types}{SubOctreeTypes}}\ workingTree;}
+\DoxyCodeLine{01300\ \ \ \ \ \ \ \ \ workingTree.tree\ =\ this-\/>root;}
+\DoxyCodeLine{01301\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ treeSubLeafMask\ =\ \string~(\string~0ULL\ <<\ (3\ *\ \ workingTree.tree-\/>getSubOctreeHeight()\ ));}
+\DoxyCodeLine{01302\ }
+\DoxyCodeLine{01303\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ suboctree\ a\ the\ correct\ level}}
+\DoxyCodeLine{01304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(leafIndex\ >=\ workingTree.tree-\/>getSubOctreeHeight()\ +\ workingTree.tree-\/>getSubOctreePosition())\ \{}
+\DoxyCodeLine{01305\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ the\ leaf\ index}}
+\DoxyCodeLine{01306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ fullIndex\ =\ inIndex\ >>\ (3\ *\ (leafIndex\ +\ 1\ \ -\/\ (workingTree.tree-\/>getSubOctreeHeight()\ +\ workingTree.tree-\/>getSubOctreePosition())\ )\ );}
+\DoxyCodeLine{01307\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ to\ next\ suboctree}}
+\DoxyCodeLine{01308\ \ \ \ \ \ \ \ \ \ \ \ \ workingTree.tree\ =\ workingTree.middleTree-\/>leafs(\textcolor{keywordtype}{int}(treeSubLeafMask\ \&\ fullIndex));}
+\DoxyCodeLine{01309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!workingTree.tree)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01310\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01311\ }
+\DoxyCodeLine{01312\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ correct\ index\ in\ the\ array}}
+\DoxyCodeLine{01313\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ treeLeafMask\ =\ \string~(\string~0ULL\ <<\ (3\ *\ \ (leafIndex\ +\ 1\ -\/\ workingTree.tree-\/>getSubOctreePosition())\ ));}
+\DoxyCodeLine{01314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ workingTree.leafTree-\/>getLeafSrc(\textcolor{keywordtype}{int}(treeLeafMask\ \&\ inIndex));}
+\DoxyCodeLine{01315\ \ \ \ \ \}}
+\DoxyCodeLine{01316\ }
+\DoxyCodeLine{01323\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a3e7f2c7074b4c990fe7bf1499c7419b0}{getLeafsNeighbors}}(ContainerClass*\ inNeighbors[27],\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ center,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\{}
+\DoxyCodeLine{01324\ \ \ \ \ \ \ \ \ memset(\ inNeighbors,\ 0\ ,\ 27\ *\ \textcolor{keyword}{sizeof}(ContainerClass*));}
+\DoxyCodeLine{01325\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel);}
+\DoxyCodeLine{01326\ }
+\DoxyCodeLine{01327\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{01328\ }
+\DoxyCodeLine{01329\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{01330\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/1\ ;\ idxX\ <=\ 1\ ;\ ++idxX)\{}
+\DoxyCodeLine{01331\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01332\ }
+\DoxyCodeLine{01333\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/1\ ;\ idxY\ <=\ 1\ ;\ ++idxY)\{}
+\DoxyCodeLine{01334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01335\ }
+\DoxyCodeLine{01336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/1\ ;\ idxZ\ <=\ 1\ ;\ ++idxZ)\{}
+\DoxyCodeLine{01337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01338\ }
+\DoxyCodeLine{01339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{01340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ idxX\ ||\ idxY\ ||\ idxZ\ )\{}
+\DoxyCodeLine{01341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ other(center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{01342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOther\ =\ other.getMortonIndex();}
+\DoxyCodeLine{01343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ cell}}
+\DoxyCodeLine{01344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ leaf\ =\ \mbox{\hyperlink{class_f_octree_ac5155e908ca55112cb70af255c5053b3}{getLeafSrc}}(mortonOther);}
+\DoxyCodeLine{01345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ list\ if\ not\ null}}
+\DoxyCodeLine{01346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leaf)\{}
+\DoxyCodeLine{01347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[(((idxX\ +\ 1)\ *\ 3)\ +\ (idxY\ +1))\ *\ 3\ +\ idxZ\ +\ 1]\ =\ leaf;}
+\DoxyCodeLine{01348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{01349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01352\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01353\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01354\ }
+\DoxyCodeLine{01355\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{01356\ \ \ \ \ \}}
+\DoxyCodeLine{01357\ }
+\DoxyCodeLine{01364\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a83d8a3a8a3396abb96ad8e7a8411a00c}{getLeafsNeighbors}}(ContainerClass*\ inNeighbors[26],\ \textcolor{keywordtype}{int}\ inNeighborPositions[26],\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ center,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\{}
+\DoxyCodeLine{01365\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel);}
+\DoxyCodeLine{01366\ }
+\DoxyCodeLine{01367\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{01368\ }
+\DoxyCodeLine{01369\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{01370\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/1\ ;\ idxX\ <=\ 1\ ;\ ++idxX)\{}
+\DoxyCodeLine{01371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01372\ }
+\DoxyCodeLine{01373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/1\ ;\ idxY\ <=\ 1\ ;\ ++idxY)\{}
+\DoxyCodeLine{01374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01375\ }
+\DoxyCodeLine{01376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/1\ ;\ idxZ\ <=\ 1\ ;\ ++idxZ)\{}
+\DoxyCodeLine{01377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01378\ }
+\DoxyCodeLine{01379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{01380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ idxX\ ||\ idxY\ ||\ idxZ\ )\{}
+\DoxyCodeLine{01381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ other(center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{01382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOther\ =\ other.getMortonIndex();}
+\DoxyCodeLine{01383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ cell}}
+\DoxyCodeLine{01384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ leaf\ =\ \mbox{\hyperlink{class_f_octree_ac5155e908ca55112cb70af255c5053b3}{getLeafSrc}}(mortonOther);}
+\DoxyCodeLine{01385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ list\ if\ not\ null}}
+\DoxyCodeLine{01386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leaf)\{}
+\DoxyCodeLine{01387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[idxNeighbors]\ =\ leaf;}
+\DoxyCodeLine{01388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighborPositions[idxNeighbors]\ =\ (((idxX\ +\ 1)\ *\ 3)\ +\ (idxY\ +1))\ *\ 3\ +\ idxZ\ +\ 1;}
+\DoxyCodeLine{01389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{01390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01393\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01394\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01395\ }
+\DoxyCodeLine{01396\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{01397\ \ \ \ \ \}}
+\DoxyCodeLine{01398\ }
+\DoxyCodeLine{01399\ }
+\DoxyCodeLine{01406\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a7286738fd1006b840ac649c94c1f5919}{getLeafsNeighbors}}(\textcolor{keyword}{const}\ CellClass*\ \ inNeighbors[27],\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ center,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\{}
+\DoxyCodeLine{01407\ \ \ \ \ \ \ \ \ memset(\ inNeighbors,\ 0\ ,\ 27\ *\ \textcolor{keyword}{sizeof}(CellClass*));}
+\DoxyCodeLine{01408\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel);}
+\DoxyCodeLine{01409\ }
+\DoxyCodeLine{01410\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{01411\ }
+\DoxyCodeLine{01412\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{01413\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/1\ ;\ idxX\ <=\ 1\ ;\ ++idxX)\{}
+\DoxyCodeLine{01414\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01415\ }
+\DoxyCodeLine{01416\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/1\ ;\ idxY\ <=\ 1\ ;\ ++idxY)\{}
+\DoxyCodeLine{01417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01418\ }
+\DoxyCodeLine{01419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/1\ ;\ idxZ\ <=\ 1\ ;\ ++idxZ)\{}
+\DoxyCodeLine{01420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01421\ }
+\DoxyCodeLine{01422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{01423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ idxX\ ||\ idxY\ ||\ idxZ\ )\{}
+\DoxyCodeLine{01424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ other(center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{01425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOther\ =\ other.getMortonIndex();}
+\DoxyCodeLine{01426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ cell}}
+\DoxyCodeLine{01427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass**\ \textcolor{keyword}{const}\ leaf\ =\ \mbox{\hyperlink{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}{getCellPt}}(mortonOther,\ inLevel);}
+\DoxyCodeLine{01428\ }
+\DoxyCodeLine{01429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ list\ if\ not\ null}}
+\DoxyCodeLine{01430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leaf)\{}
+\DoxyCodeLine{01431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[(((idxX\ +\ 1)\ *\ 3)\ +\ (idxY\ +1))\ *\ 3\ +\ idxZ\ +\ 1]\ =\ leaf;}
+\DoxyCodeLine{01432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{01433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01436\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01437\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01438\ }
+\DoxyCodeLine{01439\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{01440\ \ \ \ \ \}}
+\DoxyCodeLine{01441\ }
+\DoxyCodeLine{01448\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a4cb7b744c6fabb95f4c71f38bbf43378}{getLeafsNeighbors}}(\textcolor{keyword}{const}\ CellClass*\ \ inNeighbors[26],\ \textcolor{keywordtype}{int}\ inNeighborPositions[26],\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ center,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\{}
+\DoxyCodeLine{01449\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel);}
+\DoxyCodeLine{01450\ }
+\DoxyCodeLine{01451\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{01452\ }
+\DoxyCodeLine{01453\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{01454\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/1\ ;\ idxX\ <=\ 1\ ;\ ++idxX)\{}
+\DoxyCodeLine{01455\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01456\ }
+\DoxyCodeLine{01457\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/1\ ;\ idxY\ <=\ 1\ ;\ ++idxY)\{}
+\DoxyCodeLine{01458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01459\ }
+\DoxyCodeLine{01460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/1\ ;\ idxZ\ <=\ 1\ ;\ ++idxZ)\{}
+\DoxyCodeLine{01461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{struct_f_math_a0937a75e6690b78c54e1ea7a07530a81}{FMath::Between}}(center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ,0,boxLimite))\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{01462\ }
+\DoxyCodeLine{01463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{01464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ idxX\ ||\ idxY\ ||\ idxZ\ )\{}
+\DoxyCodeLine{01465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ other(center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX,center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY,center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ);}
+\DoxyCodeLine{01466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOther\ =\ other.getMortonIndex();}
+\DoxyCodeLine{01467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ cell}}
+\DoxyCodeLine{01468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass**\ \textcolor{keyword}{const}\ leaf\ =\ \mbox{\hyperlink{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}{getCellPt}}(mortonOther,\ inLevel);}
+\DoxyCodeLine{01469\ }
+\DoxyCodeLine{01470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ list\ if\ not\ null}}
+\DoxyCodeLine{01471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leaf)\{}
+\DoxyCodeLine{01472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[idxNeighbors]\ =\ leaf;}
+\DoxyCodeLine{01473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighborPositions[idxNeighbors]\ =\ (((idxX\ +\ 1)\ *\ 3)\ +\ (idxY\ +1))\ *\ 3\ +\ idxZ\ +\ 1;}
+\DoxyCodeLine{01474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{01475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01478\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01479\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01480\ }
+\DoxyCodeLine{01481\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{01482\ \ \ \ \ \}}
+\DoxyCodeLine{01483\ }
+\DoxyCodeLine{01484\ }
+\DoxyCodeLine{01491\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_ae866e212ab67d439ad7f117d02a1bbe6}{getPeriodicLeafsNeighbors}}(ContainerClass*\ inNeighbors[27],\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ outOffsets[27],\ \textcolor{keywordtype}{bool}*\textcolor{keyword}{const}\ isPeriodic,}
+\DoxyCodeLine{01492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ center,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDirection)\{}
+\DoxyCodeLine{01493\ }
+\DoxyCodeLine{01494\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel);}
+\DoxyCodeLine{01495\ }
+\DoxyCodeLine{01496\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ 0\ \&\&\ center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ 0\ \&\&\ center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ 0\ \&\&}
+\DoxyCodeLine{01497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ boxLimite\ -\/\ 1\ \&\&\ center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ boxLimite\ -\/\ 1\ \&\&\ center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ boxLimite\ -\/\ 1\ )\{}
+\DoxyCodeLine{01498\ \ \ \ \ \ \ \ \ \ \ \ \ (*isPeriodic)\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01499\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_octree_a3e7f2c7074b4c990fe7bf1499c7419b0}{getLeafsNeighbors}}(inNeighbors,\ center,\ inLevel);}
+\DoxyCodeLine{01500\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01501\ }
+\DoxyCodeLine{01502\ \ \ \ \ \ \ \ \ (*isPeriodic)\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01503\ \ \ \ \ \ \ \ \ memset(inNeighbors\ ,\ 0\ ,\ 27\ *\ \textcolor{keyword}{sizeof}(ContainerClass*));}
+\DoxyCodeLine{01504\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{01505\ }
+\DoxyCodeLine{01506\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startX\ =\ (TestPeriodicCondition(inDirection,\ DirMinusX)\ ||\ center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01507\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endX\ =\ (TestPeriodicCondition(inDirection,\ DirPlusX)\ ||\ center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01508\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startY\ =\ (TestPeriodicCondition(inDirection,\ DirMinusY)\ ||\ center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01509\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endY\ =\ (TestPeriodicCondition(inDirection,\ DirPlusY)\ ||\ center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01510\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startZ\ =\ (TestPeriodicCondition(inDirection,\ DirMinusZ)\ ||\ center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01511\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endZ\ =\ (TestPeriodicCondition(inDirection,\ DirPlusZ)\ ||\ center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01512\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ otherX,otherY,otherZ;}
+\DoxyCodeLine{01513\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ other;}
+\DoxyCodeLine{01514\ }
+\DoxyCodeLine{01515\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ xoffset\ =\ 0,\ yoffset\ =\ 0,\ zoffset\ =\ 0;}
+\DoxyCodeLine{01516\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{01517\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ startX\ ;\ idxX\ <=\ endX\ ;\ ++idxX)\{}
+\DoxyCodeLine{01518\ \ \ \ \ \ \ \ \ \ \ \ \ otherX\ =\ center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX\ ;\ xoffset\ =\ 0\ ;}
+\DoxyCodeLine{01519\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherX\ <\ 0\ )\{}
+\DoxyCodeLine{01520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherX\ +=\ boxLimite\ ;}
+\DoxyCodeLine{01521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xoffset\ =\ -\/1;}
+\DoxyCodeLine{01522\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01523\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherX\ )\{}
+\DoxyCodeLine{01524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherX\ -\/=\ boxLimite\ ;}
+\DoxyCodeLine{01525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xoffset\ =\ 1;}
+\DoxyCodeLine{01526\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01527\ \ \ \ \ \ \ \ \ \ \ \ \ other.\mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}}(otherX);}
+\DoxyCodeLine{01528\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ startY\ ;\ idxY\ <=\ endY\ ;\ ++idxY)\{}
+\DoxyCodeLine{01529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherY\ =\ center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY\ ;}
+\DoxyCodeLine{01530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yoffset\ =\ 0\ ;}
+\DoxyCodeLine{01531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherY\ <\ 0\ )\{}
+\DoxyCodeLine{01532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherY\ +=\ boxLimite\ ;}
+\DoxyCodeLine{01533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yoffset\ =\ -\/1;}
+\DoxyCodeLine{01534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherY\ )\{}
+\DoxyCodeLine{01536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherY\ -\/=\ boxLimite\ ;}
+\DoxyCodeLine{01537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yoffset\ =\ 1;}
+\DoxyCodeLine{01538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ other.\mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}}(otherY);}
+\DoxyCodeLine{01540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ startZ\ ;\ idxZ\ <=\ endZ\ ;\ ++idxZ)\{}
+\DoxyCodeLine{01541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zoffset\ =\ 0\ ;}
+\DoxyCodeLine{01542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{01543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ idxX\ ||\ idxY\ ||\ idxZ\ )\{\ \textcolor{comment}{//\ \ !(\ idxX\ !=0\ \ \&\&\ idxY\ !=\ 0\ \ \&\&idxZ\ !=\ 0\ \ )}}
+\DoxyCodeLine{01544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherZ\ =\ center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ\ ;}
+\DoxyCodeLine{01545\ }
+\DoxyCodeLine{01546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherZ\ <\ 0\ )\{}
+\DoxyCodeLine{01547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherZ\ +=\ boxLimite\ ;}
+\DoxyCodeLine{01548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zoffset\ =\ -\/1;}
+\DoxyCodeLine{01549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherZ\ )\{}
+\DoxyCodeLine{01551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherZ\ -\/=\ boxLimite\ ;}
+\DoxyCodeLine{01552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zoffset\ =\ 1;}
+\DoxyCodeLine{01553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01554\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ other.\mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}}(otherZ);}
+\DoxyCodeLine{01555\ }
+\DoxyCodeLine{01556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOther\ =\ other.getMortonIndex();}
+\DoxyCodeLine{01557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ cell}}
+\DoxyCodeLine{01558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ leaf\ =\ \mbox{\hyperlink{class_f_octree_ac5155e908ca55112cb70af255c5053b3}{getLeafSrc}}(mortonOther);}
+\DoxyCodeLine{01559\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ list\ if\ not\ null}}
+\DoxyCodeLine{01560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leaf)\{}
+\DoxyCodeLine{01561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index\ =\ (((idxX\ +\ 1)\ *\ 3)\ +\ (idxY\ +1))\ *\ 3\ +\ idxZ\ +\ 1;}
+\DoxyCodeLine{01562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[index]\ =\ leaf;}
+\DoxyCodeLine{01563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ outOffsets[index].\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(xoffset,yoffset,zoffset);}
+\DoxyCodeLine{01564\ }
+\DoxyCodeLine{01565\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{01566\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \textcolor{comment}{//\ if(leaf)}}
+\DoxyCodeLine{01567\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ if(\ idxX\ ||\ idxY\ ||\ idxZ\ )}}
+\DoxyCodeLine{01568\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01569\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01570\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01571\ }
+\DoxyCodeLine{01572\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{01573\ \ \ \ \ \}}
+\DoxyCodeLine{01574\ }
+\DoxyCodeLine{01581\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_octree_a1fc4aa91c212fd06ee228f96160e2441}{getPeriodicLeafsNeighbors}}(ContainerClass*\ inNeighbors[26],\ \textcolor{keywordtype}{int}\ inNeighborPositions[26],\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ outOffsets[26],\ \textcolor{keywordtype}{bool}*\textcolor{keyword}{const}\ isPeriodic,}
+\DoxyCodeLine{01582\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ center,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDirection)\{}
+\DoxyCodeLine{01583\ }
+\DoxyCodeLine{01584\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ boxLimite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(inLevel);}
+\DoxyCodeLine{01585\ }
+\DoxyCodeLine{01586\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ 0\ \&\&\ center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ 0\ \&\&\ center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ 0\ \&\&}
+\DoxyCodeLine{01587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ boxLimite\ -\/\ 1\ \&\&\ center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ boxLimite\ -\/\ 1\ \&\&\ center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ boxLimite\ -\/\ 1\ )\{}
+\DoxyCodeLine{01588\ \ \ \ \ \ \ \ \ \ \ \ \ (*isPeriodic)\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01589\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_octree_a3e7f2c7074b4c990fe7bf1499c7419b0}{getLeafsNeighbors}}(inNeighbors,\ inNeighborPositions,\ center,\ inLevel);}
+\DoxyCodeLine{01590\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01591\ }
+\DoxyCodeLine{01592\ \ \ \ \ \ \ \ \ (*isPeriodic)\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01593\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxNeighbors\ =\ 0;}
+\DoxyCodeLine{01594\ }
+\DoxyCodeLine{01595\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startX\ =\ (TestPeriodicCondition(inDirection,\ DirMinusX)\ ||\ center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01596\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endX\ =\ (TestPeriodicCondition(inDirection,\ DirPlusX)\ ||\ center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01597\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startY\ =\ (TestPeriodicCondition(inDirection,\ DirMinusY)\ ||\ center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01598\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endY\ =\ (TestPeriodicCondition(inDirection,\ DirPlusY)\ ||\ center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01599\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ startZ\ =\ (TestPeriodicCondition(inDirection,\ DirMinusZ)\ ||\ center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ 0\ ?-\/1:0);}
+\DoxyCodeLine{01600\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ endZ\ =\ (TestPeriodicCondition(inDirection,\ DirPlusZ)\ ||\ center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ !=\ boxLimite\ -\/\ 1\ ?1:0);}
+\DoxyCodeLine{01601\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ otherX,otherY,otherZ;}
+\DoxyCodeLine{01602\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ other;}
+\DoxyCodeLine{01603\ }
+\DoxyCodeLine{01604\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ xoffset\ =\ 0,\ yoffset\ =\ 0,\ zoffset\ =\ 0;}
+\DoxyCodeLine{01605\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ test\ all\ cells\ around}}
+\DoxyCodeLine{01606\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ startX\ ;\ idxX\ <=\ endX\ ;\ ++idxX)\{}
+\DoxyCodeLine{01607\ \ \ \ \ \ \ \ \ \ \ \ \ otherX\ =\ center.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ idxX\ ;\ xoffset\ =\ 0\ ;}
+\DoxyCodeLine{01608\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherX\ <\ 0\ )\{}
+\DoxyCodeLine{01609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherX\ +=\ boxLimite\ ;}
+\DoxyCodeLine{01610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xoffset\ =\ -\/1;}
+\DoxyCodeLine{01611\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01612\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherX\ )\{}
+\DoxyCodeLine{01613\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherX\ -\/=\ boxLimite\ ;}
+\DoxyCodeLine{01614\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xoffset\ =\ 1;}
+\DoxyCodeLine{01615\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01616\ \ \ \ \ \ \ \ \ \ \ \ \ other.\mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}}(otherX);}
+\DoxyCodeLine{01617\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ startY\ ;\ idxY\ <=\ endY\ ;\ ++idxY)\{}
+\DoxyCodeLine{01618\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherY\ =\ center.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ idxY\ ;}
+\DoxyCodeLine{01619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yoffset\ =\ 0\ ;}
+\DoxyCodeLine{01620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherY\ <\ 0\ )\{}
+\DoxyCodeLine{01621\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherY\ +=\ boxLimite\ ;}
+\DoxyCodeLine{01622\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yoffset\ =\ -\/1;}
+\DoxyCodeLine{01623\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01624\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherY\ )\{}
+\DoxyCodeLine{01625\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherY\ -\/=\ boxLimite\ ;}
+\DoxyCodeLine{01626\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yoffset\ =\ 1;}
+\DoxyCodeLine{01627\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01628\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ other.\mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}}(otherY);}
+\DoxyCodeLine{01629\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ startZ\ ;\ idxZ\ <=\ endZ\ ;\ ++idxZ)\{}
+\DoxyCodeLine{01630\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zoffset\ =\ 0\ ;}
+\DoxyCodeLine{01631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ we\ are\ not\ on\ the\ current\ cell}}
+\DoxyCodeLine{01632\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ idxX\ ||\ idxY\ ||\ idxZ\ )\{\ \textcolor{comment}{//\ \ !(\ idxX\ !=0\ \ \&\&\ idxY\ !=\ 0\ \ \&\&idxZ\ !=\ 0\ \ )}}
+\DoxyCodeLine{01633\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherZ\ =\ center.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ idxZ\ ;}
+\DoxyCodeLine{01634\ }
+\DoxyCodeLine{01635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherZ\ <\ 0\ )\{}
+\DoxyCodeLine{01636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherZ\ +=\ boxLimite\ ;}
+\DoxyCodeLine{01637\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zoffset\ =\ -\/1;}
+\DoxyCodeLine{01638\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01639\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ boxLimite\ <=\ otherZ\ )\{}
+\DoxyCodeLine{01640\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherZ\ -\/=\ boxLimite\ ;}
+\DoxyCodeLine{01641\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zoffset\ =\ 1;}
+\DoxyCodeLine{01642\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01643\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ other.\mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}}(otherZ);}
+\DoxyCodeLine{01644\ }
+\DoxyCodeLine{01645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mortonOther\ =\ other.getMortonIndex();}
+\DoxyCodeLine{01646\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ cell}}
+\DoxyCodeLine{01647\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ leaf\ =\ \mbox{\hyperlink{class_f_octree_ac5155e908ca55112cb70af255c5053b3}{getLeafSrc}}(mortonOther);}
+\DoxyCodeLine{01648\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ list\ if\ not\ null}}
+\DoxyCodeLine{01649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leaf)\{}
+\DoxyCodeLine{01650\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighbors[idxNeighbors]\ =\ leaf;}
+\DoxyCodeLine{01651\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ outOffsets[idxNeighbors].\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(xoffset,yoffset,zoffset);}
+\DoxyCodeLine{01652\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inNeighborPositions[idxNeighbors]\ =\ (((idxX\ +\ 1)\ *\ 3)\ +\ (idxY\ +1))\ *\ 3\ +\ idxZ\ +\ 1;}
+\DoxyCodeLine{01653\ }
+\DoxyCodeLine{01654\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxNeighbors;}
+\DoxyCodeLine{01655\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \textcolor{comment}{//\ if(leaf)}}
+\DoxyCodeLine{01656\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ if(\ idxX\ ||\ idxY\ ||\ idxZ\ )}}
+\DoxyCodeLine{01657\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01658\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01659\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01660\ }
+\DoxyCodeLine{01661\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxNeighbors;}
+\DoxyCodeLine{01662\ \ \ \ \ \}}
+\DoxyCodeLine{01663\ }
+\DoxyCodeLine{01664\ }
+\DoxyCodeLine{01666\ \ \ \ \ \textcolor{comment}{//\ Lambda\ function\ to\ apply\ to\ all\ member}}
+\DoxyCodeLine{01668\ }
+\DoxyCodeLine{01673\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_aedace34bf46bad18ec8126256a361f20}{forEachLeaf}}(std::function<\textcolor{keywordtype}{void}(LeafClass*)>\ function)\{}
+\DoxyCodeLine{01674\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isEmpty())\{}
+\DoxyCodeLine{01675\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01676\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01677\ }
+\DoxyCodeLine{01678\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\ octreeIterator(\textcolor{keyword}{this});}
+\DoxyCodeLine{01679\ \ \ \ \ \ \ \ \ octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a7da91ea283e61575f6e96b9f11bb28f3}{gotoBottomLeft}}();}
+\DoxyCodeLine{01680\ }
+\DoxyCodeLine{01681\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{01682\ \ \ \ \ \ \ \ \ \ \ \ \ function(octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a20dee8812ea4822ac25f8c5c0e852272}{getCurrentLeaf}}());}
+\DoxyCodeLine{01683\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a372eaea436f11838a3618721c60ad97e}{moveRight}}());}
+\DoxyCodeLine{01684\ \ \ \ \ \}}
+\DoxyCodeLine{01685\ }
+\DoxyCodeLine{01690\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_ab9558b23c76f5f5d0695d89cb24010bb}{forEachCell}}(std::function<\textcolor{keywordtype}{void}(CellClass*)>\ function)\{}
+\DoxyCodeLine{01691\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isEmpty())\{}
+\DoxyCodeLine{01692\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01693\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01694\ }
+\DoxyCodeLine{01695\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\ octreeIterator(\textcolor{keyword}{this});}
+\DoxyCodeLine{01696\ \ \ \ \ \ \ \ \ octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a7da91ea283e61575f6e96b9f11bb28f3}{gotoBottomLeft}}();}
+\DoxyCodeLine{01697\ }
+\DoxyCodeLine{01698\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\ avoidGoLeft(octreeIterator);}
+\DoxyCodeLine{01699\ }
+\DoxyCodeLine{01700\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ this-\/>height-\/1\ ;\ idx\ >=\ 1\ ;\ -\/-\/idx\ )\{}
+\DoxyCodeLine{01701\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{01702\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ function(octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a4a46f6c9166281b21d3cd1b9a9ba2a8e}{getCurrentCell}}());}
+\DoxyCodeLine{01703\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a372eaea436f11838a3618721c60ad97e}{moveRight}}());}
+\DoxyCodeLine{01704\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGoLeft.\mbox{\hyperlink{class_f_octree_1_1_iterator_accf33ffc63fdd67f8469ce62026fe84d}{moveUp}}();}
+\DoxyCodeLine{01705\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGoLeft;}
+\DoxyCodeLine{01706\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01707\ \ \ \ \ \}}
+\DoxyCodeLine{01708\ }
+\DoxyCodeLine{01713\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_a25b87cf6baf6a4733666c1c7bb590255}{forEachCellWithLevel}}(std::function<\textcolor{keywordtype}{void}(CellClass*,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int})>\ function)\{}
+\DoxyCodeLine{01714\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isEmpty())\{}
+\DoxyCodeLine{01715\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01716\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01717\ }
+\DoxyCodeLine{01718\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\ octreeIterator(\textcolor{keyword}{this});}
+\DoxyCodeLine{01719\ \ \ \ \ \ \ \ \ octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a7da91ea283e61575f6e96b9f11bb28f3}{gotoBottomLeft}}();}
+\DoxyCodeLine{01720\ }
+\DoxyCodeLine{01721\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\ avoidGoLeft(octreeIterator);}
+\DoxyCodeLine{01722\ }
+\DoxyCodeLine{01723\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ this-\/>height-\/1\ ;\ idx\ >=\ 1\ ;\ -\/-\/idx\ )\{}
+\DoxyCodeLine{01724\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{01725\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ function(octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a4a46f6c9166281b21d3cd1b9a9ba2a8e}{getCurrentCell}}(),idx);}
+\DoxyCodeLine{01726\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a372eaea436f11838a3618721c60ad97e}{moveRight}}());}
+\DoxyCodeLine{01727\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGoLeft.\mbox{\hyperlink{class_f_octree_1_1_iterator_accf33ffc63fdd67f8469ce62026fe84d}{moveUp}}();}
+\DoxyCodeLine{01728\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGoLeft;}
+\DoxyCodeLine{01729\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01730\ \ \ \ \ \}}
+\DoxyCodeLine{01731\ }
+\DoxyCodeLine{01736\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_octree_ab8915e334c374dfb1e20b3ad8be7b431}{forEachCellLeaf}}(std::function<\textcolor{keywordtype}{void}(CellClass*,LeafClass*)>\ function)\{}
+\DoxyCodeLine{01737\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isEmpty())\{}
+\DoxyCodeLine{01738\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01739\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01740\ }
+\DoxyCodeLine{01741\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}\ octreeIterator(\textcolor{keyword}{this});}
+\DoxyCodeLine{01742\ \ \ \ \ \ \ \ \ octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a7da91ea283e61575f6e96b9f11bb28f3}{gotoBottomLeft}}();}
+\DoxyCodeLine{01743\ }
+\DoxyCodeLine{01744\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{01745\ \ \ \ \ \ \ \ \ \ \ \ \ function(octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a4a46f6c9166281b21d3cd1b9a9ba2a8e}{getCurrentCell}}(),octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a20dee8812ea4822ac25f8c5c0e852272}{getCurrentLeaf}}());}
+\DoxyCodeLine{01746\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.\mbox{\hyperlink{class_f_octree_1_1_iterator_a372eaea436f11838a3618721c60ad97e}{moveRight}}());}
+\DoxyCodeLine{01747\ \ \ \ \ \}}
+\DoxyCodeLine{01748\ \};}
+\DoxyCodeLine{01749\ }
+\DoxyCodeLine{01750\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FOCTREE\_HPP}}
+
+\end{DoxyCode}

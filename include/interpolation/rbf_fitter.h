@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/1/31.
+// Created by RainSure on 2024/1/31.
 //
 
 #ifndef RSMESH_RBF_FITTER_H

@@ -1,0 +1,115 @@
+\doxysection{FInterp\+Tensor\texorpdfstring{$<$}{<} FReal, ORDER, Roots\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_interp_tensor}{}\label{class_f_interp_tensor}\index{FInterpTensor$<$ FReal, ORDER, RootsClass $>$@{FInterpTensor$<$ FReal, ORDER, RootsClass $>$}}
+
+
+{\ttfamily \#include $<$FInterp\+Tensor.\+hpp$>$}
+
+类 FInterp\+Tensor\texorpdfstring{$<$}{<} FReal, ORDER, Roots\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_interp_tensor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_f_interp_tensor_aeecba74045a1cd16382c87ab3acdb20a}{set\+Node\+Ids}} (unsigned int Node\+Ids\mbox{[}nnodes\mbox{]}\mbox{[}3\mbox{]})
+\item 
+static void \mbox{\hyperlink{class_f_interp_tensor_ac8107c468326e9c786873c23fe2e8766}{set\+Roots}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width, \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ root\+Positions\mbox{[}nnodes\mbox{]})
+\item 
+static void \mbox{\hyperlink{class_f_interp_tensor_abc18f0f754049c342b5f808990ba95d0}{set\+Polynomials\+Roots}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width, FReal roots\mbox{[}3\mbox{]}\mbox{[}ORDER\mbox{]})
+\item 
+static void \mbox{\hyperlink{class_f_interp_tensor_a3e87e6a9c05e36db6e7e902d81ff1e66}{set\+Relative\+Child\+Center}} (const unsigned int Child\+Index, \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&Child\+Center, const FReal Extended\+Cell\+Ratio=FReal(.\+5))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, int ORDER, typename Roots\+Class$>$\newline
+class FInterp\+Tensor$<$ FReal, ORDER, Roots\+Class $>$}
+The class \doxylink{class_f_interp_tensor}{FInterp\+Tensor} provides function considering the tensor product interpolation.
+
+
+\begin{DoxyTemplParams}{模板参数}
+{\em ORDER} & interpolation order $\ell$ \\
+\hline
+{\em Roots\+Class} & class containing the roots choosen for the interpolation (e.\+g. \doxylink{struct_f_cheb_roots}{FCheb\+Roots}, \doxylink{struct_f_unif_roots}{FUnif\+Roots}...) \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_interp_tensor_aeecba74045a1cd16382c87ab3acdb20a}\label{class_f_interp_tensor_aeecba74045a1cd16382c87ab3acdb20a} 
+\index{FInterpTensor$<$ FReal, ORDER, RootsClass $>$@{FInterpTensor$<$ FReal, ORDER, RootsClass $>$}!setNodeIds@{setNodeIds}}
+\index{setNodeIds@{setNodeIds}!FInterpTensor$<$ FReal, ORDER, RootsClass $>$@{FInterpTensor$<$ FReal, ORDER, RootsClass $>$}}
+\doxysubsubsection{\texorpdfstring{setNodeIds()}{setNodeIds()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, typename Roots\+Class $>$ \\
+static void \mbox{\hyperlink{class_f_interp_tensor}{FInterp\+Tensor}}$<$ FReal, ORDER, Roots\+Class $>$\+::set\+Node\+Ids (\begin{DoxyParamCaption}\item[{unsigned int}]{Node\+Ids\mbox{[}nnodes\mbox{]}\mbox{[}3\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Sets the ids of the coordinates of all $\ell^3$ interpolation nodes
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ out}}  & {\em Node\+Ids} & ids of coordinates of interpolation nodes \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_interp_tensor_abc18f0f754049c342b5f808990ba95d0}\label{class_f_interp_tensor_abc18f0f754049c342b5f808990ba95d0} 
+\index{FInterpTensor$<$ FReal, ORDER, RootsClass $>$@{FInterpTensor$<$ FReal, ORDER, RootsClass $>$}!setPolynomialsRoots@{setPolynomialsRoots}}
+\index{setPolynomialsRoots@{setPolynomialsRoots}!FInterpTensor$<$ FReal, ORDER, RootsClass $>$@{FInterpTensor$<$ FReal, ORDER, RootsClass $>$}}
+\doxysubsubsection{\texorpdfstring{setPolynomialsRoots()}{setPolynomialsRoots()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, typename Roots\+Class $>$ \\
+static void \mbox{\hyperlink{class_f_interp_tensor}{FInterp\+Tensor}}$<$ FReal, ORDER, Roots\+Class $>$\+::set\+Polynomials\+Roots (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{center,  }\item[{const FReal}]{width,  }\item[{FReal}]{roots\mbox{[}3\mbox{]}\mbox{[}\+ORDER\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Sets the equispaced roots in the cluster with {\ttfamily center} and {\ttfamily width} 
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em center} & of cluster \\
+\hline
+\mbox{\texttt{ in}}  & {\em width} & of cluster \\
+\hline
+\mbox{\texttt{ out}}  & {\em roots} & coordinates of equispaced roots \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_interp_tensor_a3e87e6a9c05e36db6e7e902d81ff1e66}\label{class_f_interp_tensor_a3e87e6a9c05e36db6e7e902d81ff1e66} 
+\index{FInterpTensor$<$ FReal, ORDER, RootsClass $>$@{FInterpTensor$<$ FReal, ORDER, RootsClass $>$}!setRelativeChildCenter@{setRelativeChildCenter}}
+\index{setRelativeChildCenter@{setRelativeChildCenter}!FInterpTensor$<$ FReal, ORDER, RootsClass $>$@{FInterpTensor$<$ FReal, ORDER, RootsClass $>$}}
+\doxysubsubsection{\texorpdfstring{setRelativeChildCenter()}{setRelativeChildCenter()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, typename Roots\+Class $>$ \\
+static void \mbox{\hyperlink{class_f_interp_tensor}{FInterp\+Tensor}}$<$ FReal, ORDER, Roots\+Class $>$\+::set\+Relative\+Child\+Center (\begin{DoxyParamCaption}\item[{const unsigned int}]{Child\+Index,  }\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{Child\+Center,  }\item[{const FReal}]{Extended\+Cell\+Ratio = {\ttfamily FReal(.5)} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Set the relative child (width = 1) center according to the Morton index.
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em Child\+Index} & index of child according to Morton index \\
+\hline
+\mbox{\texttt{ out}}  & {\em center} & \\
+\hline
+\mbox{\texttt{ in}}  & {\em Extended\+Cell\+Ratio} & ratio between extended child and parent widths \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_interp_tensor_ac8107c468326e9c786873c23fe2e8766}\label{class_f_interp_tensor_ac8107c468326e9c786873c23fe2e8766} 
+\index{FInterpTensor$<$ FReal, ORDER, RootsClass $>$@{FInterpTensor$<$ FReal, ORDER, RootsClass $>$}!setRoots@{setRoots}}
+\index{setRoots@{setRoots}!FInterpTensor$<$ FReal, ORDER, RootsClass $>$@{FInterpTensor$<$ FReal, ORDER, RootsClass $>$}}
+\doxysubsubsection{\texorpdfstring{setRoots()}{setRoots()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, typename Roots\+Class $>$ \\
+static void \mbox{\hyperlink{class_f_interp_tensor}{FInterp\+Tensor}}$<$ FReal, ORDER, Roots\+Class $>$\+::set\+Roots (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{center,  }\item[{const FReal}]{width,  }\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$}]{root\+Positions\mbox{[}nnodes\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Sets the interpolation points in the cluster with {\ttfamily center} and {\ttfamily width} 
+
+PB\+: tensorial version
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em center} & of cluster \\
+\hline
+\mbox{\texttt{ in}}  & {\em width} & of cluster \\
+\hline
+\mbox{\texttt{ out}}  & {\em root\+Positions} & coordinates of interpolation points \\
+\hline
+\end{DoxyParams}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Interpolation/FInterp\+Tensor.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,369 @@
+\doxysection{FMpi\+Fma\+Divider.\+hpp}
+\hypertarget{_f_mpi_fma_divider_8hpp_source}{}\label{_f_mpi_fma_divider_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Files/FMpiFmaDivider.hpp@{third\_party/ScalFMM/include/ScalFMM/Files/FMpiFmaDivider.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_FMPIFMADIVIDER\_HPP\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_FMPIFMADIVIDER\_HPP\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../Files/FFmaGenericLoader.hpp"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}../Containers/FCoordinateComputer.hpp"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}../Utils/FPoint.hpp"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}../Utils/FLog.hpp"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}../Utils/FRepeatAction.hpp"{}}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ FReal>}
+\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_mpi_fma_divider}{FMpiFmaDivider}}\ \{}
+\DoxyCodeLine{00067\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}{DispatchPolicy}}\ \{PARTICLES\ =\ 0,\ BOXES\ =\ 1\};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{class\ }FmaParticle\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ \_boxCenter;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ FReal\ \_boxWidth;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \ \ \_divisionLevel;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ FReal\ data[8];}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ dataCount;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keyword}{enum}\ do\_not\_overload\ \{\};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...Args>}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ FmaParticle(do\_not\_overload,\ Args\&\&...\ args)\ :}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ data\{args...\},}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ dataCount\{sizeof...(Args)\}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \{\}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ FmaParticle(\mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ pos,\ FReal\&\ val)\ :}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ FmaParticle(do\_not\_overload(),\ pos.getX(),\ pos.getY(),\ pos.getZ(),\ val)}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ FmaParticle()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ FmaParticle(\textcolor{keyword}{const}\ FmaParticle\&\ other)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ FmaParticle(FmaParticle\&\&\ other)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ MortonIndex\ getMortonIndex()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FCoordinateComputer::}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GetCoordinateFromPosition(\_boxCenter,\ \_boxWidth,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_divisionLevel,\ getPosition()).}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ getMortonIndex();}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ getPosition()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(data[0],\ data[1],\ data[2]);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ FReal\ getPhysicalValue()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[3];}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ getForces()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dataCount\ >=\ 6\ ?\ data+5\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ FReal\ getPotential()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dataCount\ >=\ 5\ ?\ data[4]\ :\ 0;}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ FReal*\ getPtrFirstData()\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data;}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getDataCount()\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dataCount;}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getWriteDataNumber()\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ getDataCount();}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ FmaParticle\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ getPosition()\ ==\ other.getPosition()\ \&\&}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ getPhysicalValue()\ ==\ other.getPhysicalValue();}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ FmaParticle\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ getMortonIndex()\ <\ other.getMortonIndex();}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\&\ operator<<(std::ostream\&\ os,\ \textcolor{keyword}{const}\ FmaParticle\&\ p)\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ p.dataCount;\ i++)\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ os\ <<\ p.data[i]\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \};}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00214\ \ \ \ \ std::string\ \_filename;}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00217\ \ \ \ \ std::string\ \_outputBasename;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00220\ \ \ \ \ std::string\ \_outputExt;}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordtype}{int}\ \_splitCount;\ }
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordtype}{int}\ \_divisionLevel;}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00229\ \ \ \ \ std::multiset<FmaParticle>\ \_particles;}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00232\ \ \ \ \ FSize\ \_particleCount\ \{0\};}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_dataType\ \{\textcolor{keyword}{sizeof}(FReal)\};}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_nbRecordsPerLine\ \{4\};}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00241\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}{DispatchPolicy}}\ \_dispatchPolicy\ =\ PARTICLES;}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00254\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_divider_a1934560ea602b402d1b61f8052201adf}{FMpiFmaDivider}}(\textcolor{keyword}{const}\ std::string\ filename,}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ splitCount,}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ divisionLevel,}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}{DispatchPolicy}}\ dispatchPolicy\ =\ PARTICLES)\ :}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_divider}{FMpiFmaDivider}}(filename,\ }
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filename.substr(0,filename.find\_last\_of(\textcolor{stringliteral}{"{}."{}})),}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filename.substr(filename.find\_last\_of(\textcolor{stringliteral}{"{}."{}})),}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ splitCount,}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ divisionLevel,}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dispatchPolicy\ )\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00275\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_divider_a484f5736cb5b5fa224bf61983b4c2091}{FMpiFmaDivider}}(\textcolor{keyword}{const}\ std::string\ filename,}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ basename,}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ ext,}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ splitCount,}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ divisionLevel,}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}{DispatchPolicy}}\ dispatchPolicy)\ :}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \_filename(filename),}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \_outputBasename(basename),}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \_outputExt(ext),}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \_splitCount(splitCount),}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \_divisionLevel(divisionLevel),}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \_dispatchPolicy(dispatchPolicy)\ \{}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_divider_ade98663469071f6b042b25179f470c97}{readFile}}();}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_divider_a821792f24a2166523fc661348691db89}{writeFiles}}();}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00295\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_divider_a385e93c52060e0b280111b43e0b33232}{FMpiFmaDivider}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_fma_divider}{FMpiFmaDivider}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00297\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_divider_a2475366d00bdfb3c72629f234c12cbd0}{FMpiFmaDivider}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_fma_divider}{FMpiFmaDivider}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_mpi_fma_divider_ade98663469071f6b042b25179f470c97}{readFile}}()\ \{}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ particle\ loader}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_fma_generic_loader}{FFmaGenericLoader<FReal>}}\ loader(\_filename);}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \_particleCount\ =\ loader.\mbox{\hyperlink{class_f_fma_generic_loader_a0eae474db04243aa97ce35da95931cc4}{getNumberOfParticles}}();}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \_dataType\ =\ loader.\mbox{\hyperlink{class_f_fma_generic_loader_adad72e0ee49ae211d73908f050d4c59d}{getDataType}}();}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \_nbRecordsPerLine\ =\ loader.\mbox{\hyperlink{class_f_fma_generic_loader_aa9999659f8ecb90bd85e907077f8a3fc}{getNbRecordPerline}}();}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ particles'\ space\ to\ enable\ comparisons.}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ FmaParticle::\_boxCenter\ =\ loader.\mbox{\hyperlink{class_f_fma_generic_loader_af861de4a5396827fc1f2eaed48271a25}{getCenterOfBox}}();}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ FmaParticle::\_boxWidth\ =\ loader.\mbox{\hyperlink{class_f_fma_generic_loader_ada3d289cddb6b42042e16e9b02e9f8d8}{getBoxWidth}}();}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ FmaParticle::\_divisionLevel\ =\ \_divisionLevel;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ FReal\ valueBuffer;}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ positionBuffer;}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxPart\ =\ 0;}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ FLOG(\ }
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_repeat_action}{FRepeatAction}}\ progress(}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ -\/>\ \textcolor{keywordtype}{bool}\ \{}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \(\backslash\)rReading\ \&\ sorting\ particles:\ "{}}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ idxPart\ *\ 100\ /\ \_particleCount\ <<\ \textcolor{stringliteral}{"{}\%"{}}\ ;}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \},\ 200\ );\ }
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\ idxPart\ =\ 0\ ;\ idxPart\ <\ \_particleCount;\ idxPart++)\ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ loader.\mbox{\hyperlink{class_f_fma_generic_loader_aeb1d51f55e165e0062c88496e9917691}{fillParticle}}(\&positionBuffer,\ \&valueBuffer);}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \_particles.emplace(positionBuffer,\ valueBuffer);}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ FLOG(\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ progress.stop();}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ std::endl;}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}@@\ read-\/insert-\/particle-\/time:"{}}}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ progress.cumulated()}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00346\ \ \ \ \ \}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_mpi_fma_divider_a821792f24a2166523fc661348691db89}{writeFiles}}()\ \{}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ std::vector<std::vector<FmaParticle>\ >\ filesParticles(\_splitCount);}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Temporary\ vector\ to\ store\ all\ particles\ with\ same\ Morton\ index}}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ std::vector<FmaParticle>\ container;}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }size\_type\ =\ \textcolor{keyword}{typename}\ std::vector<FmaParticle>::size\_type;}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ size\_type\ totalCount\ =\ \_particleCount;}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ size\_type\ currentCount\ =\ 0;}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ MortonIndex\ currentMortonIdx\ =\ 0;}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ currentFileIdx\ =\ 0;}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ BOXES\ ==\ \_dispatchPolicy\ )\ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ totalCount\ =\ 1;}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\ \textcolor{keyword}{auto}\ p\ :\ \ \_particles\ )\ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ p.getMortonIndex()\ !=\ currentMortonIdx)\ \{}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ totalCount++;}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentMortonIdx\ =\ p.getMortonIndex();}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ currentMortonIdx\ =\ 0;}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ FIND\ OUT\ PARTICLES'\ FILE\ ////////////////////////////////////////////}}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ FLOG(\ \textcolor{comment}{//\ Choose\ file\ progress\ log}}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_repeat_action}{FRepeatAction}}\ progress(}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ -\/>\ \textcolor{keywordtype}{bool}\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \(\backslash\)rCreating\ particle-\/files\ association:\ "{}}}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ currentCount\ *\ 100\ /\ totalCount}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\%"{}}\ ;}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \},\ 200\ );\ );}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\_particles.begin()\ !=\ \_particles.end())\ \{}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Particles\ are\ sorted,\ we\ pull\ out\ all\ those\ with\ the\ same\ Morton}}
+\DoxyCodeLine{00387\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ index\ and\ put\ them\ in\ the\ temporary\ container.\ */}}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ \_particles.begin()\ !=\ \_particles.end()}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (*\_particles.begin()).getMortonIndex()\ ==\ currentMortonIdx)\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ container.push\_back(*(\_particles.begin()));}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_particles.erase(\_particles.begin());}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ File\ number}}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ currentFileIdx\ =\ currentCount\ *\ \_splitCount}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /\ totalCount;}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ particles\ to\ file.}}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FmaParticle\ p\ :\ container)\ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filesParticles[currentFileIdx].push\_back(p);}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ BOXES\ ==\ \_dispatchPolicy\ )\ \{}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCount++;}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ PARTICLES\ ==\ \_dispatchPolicy\ )\ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCount\ +=\ container.size();}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ container.clear();}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ currentMortonIdx\ =\ (*\_particles.begin()).getMortonIndex();}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ FLOG(\{}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ progress.stop();}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ std::endl;}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}@@\ distribute-\/particle-\/time:"{}}}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ progress.cumulated()}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ currentFileIdx\ =\ 0;}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ currentCount\ =\ 0;}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ WRITE\ FILES\ /////////////////////////////////////////////////////////}}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ FLOG(\ }
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)rWriting\ particles\ to\ files...\ "{}};}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ progress.setFunction(}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ -\/>\ \textcolor{keywordtype}{bool}\ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \(\backslash\)rWriting\ particles\ to\ file\ "{}}}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ currentFileIdx}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}:\ "{}}}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ currentCount\ *\ 100\ /\ \_particleCount}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\%"{}}\ ;}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \}\ );}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ progress.start();}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Write\ common\ file\ header}}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_fma_generic_writer}{FFmaGenericWriter<FReal>}}}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ commonWriter(\_outputBasename\ +\ \textcolor{stringliteral}{"{}.main"{}}\ +\ \_outputExt);}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ commonWriter.\mbox{\hyperlink{class_f_fma_generic_writer_a2add3c33baf8308f133807a33cf6ad4a}{writeHeader}}(FmaParticle::\_boxCenter,}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FmaParticle::\_boxWidth,}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_particleCount,}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dataType,}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_nbRecordsPerLine);}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Write\ files}}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\ std::vector<FmaParticle>\&\ filecontent\ :\ filesParticles\ )\ \{}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Open\ the\ current\ file\ writer}}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_fma_generic_writer}{FFmaGenericWriter<FReal>}}}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ writer(\_outputBasename\ +\ \textcolor{stringliteral}{"{}."{}}\ +\ std::to\_string(currentFileIdx)}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \_outputExt);}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ writer.\mbox{\hyperlink{class_f_fma_generic_writer_a2add3c33baf8308f133807a33cf6ad4a}{writeHeader}}(FmaParticle::\_boxCenter,}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FmaParticle::\_boxWidth,}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filecontent.size(),}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dataType,}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_nbRecordsPerLine);}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ FmaParticle\ p\ :\ filecontent\ )\ \{}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ writer.\mbox{\hyperlink{class_f_fma_generic_writer_aeaae4528a146243c18f3d2011e3dcf3b}{writeArrayOfReal}}(p.getPtrFirstData(),}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p.getWriteDataNumber(),\ 1);}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(currentCount++);}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ currentFileIdx++;}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ FLOG(\{}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ progress.stop();}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ std::endl;}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}@@\ write-\/particle-\/time:"{}}}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ progress.cumulated()}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00487\ \ \ \ \ \}}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \};}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ FReal>}
+\DoxyCodeLine{00494\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ \mbox{\hyperlink{class_f_mpi_fma_divider}{FMpiFmaDivider<FReal>::FmaParticle::\_boxCenter}}\ =\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\{0,0,0\};}
+\DoxyCodeLine{00495\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ FReal>}
+\DoxyCodeLine{00496\ FReal\ \mbox{\hyperlink{class_f_mpi_fma_divider}{FMpiFmaDivider<FReal>::FmaParticle::\_boxWidth}}\ =\ 1;}
+\DoxyCodeLine{00497\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ FReal>}
+\DoxyCodeLine{00498\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_mpi_fma_divider}{FMpiFmaDivider<FReal>::FmaParticle::\_divisionLevel}}\ =\ 4;}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

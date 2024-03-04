@@ -1,0 +1,97 @@
+\doxysection{FUnif\+Tensor\texorpdfstring{$<$}{<} FReal, ORDER \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_unif_tensor}{}\label{class_f_unif_tensor}\index{FUnifTensor$<$ FReal, ORDER $>$@{FUnifTensor$<$ FReal, ORDER $>$}}
+
+
+{\ttfamily \#include $<$FUnif\+Tensor.\+hpp$>$}
+
+类 FUnif\+Tensor\texorpdfstring{$<$}{<} FReal, ORDER \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_f_unif_tensor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_f_unif_tensor_a5242f43bc511dd8023be149812cad075}{set\+Node\+Ids\+Diff}} (unsigned int Node\+Ids\+Diff\mbox{[}nnodes \texorpdfstring{$\ast$}{*}nnodes\mbox{]})
+\item 
+static void \mbox{\hyperlink{class_f_unif_tensor_a745acb767f651c86d54ac71a7985bb12}{set\+Node\+Ids\+Pairs}} (unsigned int Node\+Ids\+Pairs\mbox{[}rc\mbox{]}\mbox{[}2\mbox{]})
+\item 
+static void \mbox{\hyperlink{class_f_unif_tensor_a463769ece867c39feccd9878f65e5e3e}{set\+Storage\+Permutation}} (unsigned int perm\mbox{[}rc\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 成员函数 继承自 \mbox{\hyperlink{class_f_interp_tensor}{FInterp\+Tensor$<$ FReal, ORDER, FUnif\+Roots$<$ FReal, ORDER $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_f_interp_tensor_aeecba74045a1cd16382c87ab3acdb20a}{set\+Node\+Ids}} (unsigned int Node\+Ids\mbox{[}nnodes\mbox{]}\mbox{[}3\mbox{]})
+\item 
+static void \mbox{\hyperlink{class_f_interp_tensor_ac8107c468326e9c786873c23fe2e8766}{set\+Roots}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width, \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ root\+Positions\mbox{[}nnodes\mbox{]})
+\item 
+static void \mbox{\hyperlink{class_f_interp_tensor_abc18f0f754049c342b5f808990ba95d0}{set\+Polynomials\+Roots}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width, FReal roots\mbox{[}3\mbox{]}\mbox{[}ORDER\mbox{]})
+\item 
+static void \mbox{\hyperlink{class_f_interp_tensor_a3e87e6a9c05e36db6e7e902d81ff1e66}{set\+Relative\+Child\+Center}} (const unsigned int Child\+Index, \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&Child\+Center, const FReal Extended\+Cell\+Ratio=FReal(.\+5))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, int ORDER$>$\newline
+class FUnif\+Tensor$<$ FReal, ORDER $>$}
+\begin{DoxyAuthor}{作者}
+Pierre Blanchard (\href{mailto:pierre.blanchard@inria.fr}{\texttt{ pierre.\+blanchard@inria.\+fr}}) Please read the license
+\end{DoxyAuthor}
+The class \doxylink{class_f_unif_tensor}{FUnif\+Tensor} provides function considering the tensor product interpolation.
+
+
+\begin{DoxyTemplParams}{模板参数}
+{\em ORDER} & interpolation order $\ell$ \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_unif_tensor_a5242f43bc511dd8023be149812cad075}\label{class_f_unif_tensor_a5242f43bc511dd8023be149812cad075} 
+\index{FUnifTensor$<$ FReal, ORDER $>$@{FUnifTensor$<$ FReal, ORDER $>$}!setNodeIdsDiff@{setNodeIdsDiff}}
+\index{setNodeIdsDiff@{setNodeIdsDiff}!FUnifTensor$<$ FReal, ORDER $>$@{FUnifTensor$<$ FReal, ORDER $>$}}
+\doxysubsubsection{\texorpdfstring{setNodeIdsDiff()}{setNodeIdsDiff()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER$>$ \\
+static void \mbox{\hyperlink{class_f_unif_tensor}{FUnif\+Tensor}}$<$ FReal, ORDER $>$\+::set\+Node\+Ids\+Diff (\begin{DoxyParamCaption}\item[{unsigned int}]{Node\+Ids\+Diff\mbox{[}nnodes \texorpdfstring{$\ast$}{*}nnodes\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Sets the diff of ids of the coordinates of all $\ell^6$ interpolation nodes duet
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ out}}  & {\em Node\+Ids\+Diff} & diff of ids of coordinates of interpolation nodes \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_unif_tensor_a745acb767f651c86d54ac71a7985bb12}\label{class_f_unif_tensor_a745acb767f651c86d54ac71a7985bb12} 
+\index{FUnifTensor$<$ FReal, ORDER $>$@{FUnifTensor$<$ FReal, ORDER $>$}!setNodeIdsPairs@{setNodeIdsPairs}}
+\index{setNodeIdsPairs@{setNodeIdsPairs}!FUnifTensor$<$ FReal, ORDER $>$@{FUnifTensor$<$ FReal, ORDER $>$}}
+\doxysubsubsection{\texorpdfstring{setNodeIdsPairs()}{setNodeIdsPairs()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER$>$ \\
+static void \mbox{\hyperlink{class_f_unif_tensor}{FUnif\+Tensor}}$<$ FReal, ORDER $>$\+::set\+Node\+Ids\+Pairs (\begin{DoxyParamCaption}\item[{unsigned int}]{Node\+Ids\+Pairs\mbox{[}rc\mbox{]}\mbox{[}2\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Compute roots index pairs for each of the (2\textbackslash{}ell-\/1)\texorpdfstring{$^\wedge$}{\string^}3 pairs
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ out}}  & {\em Node\+Ids\+Pairs} & diff of ids of coordinates of interpolation nodes \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_unif_tensor_a463769ece867c39feccd9878f65e5e3e}\label{class_f_unif_tensor_a463769ece867c39feccd9878f65e5e3e} 
+\index{FUnifTensor$<$ FReal, ORDER $>$@{FUnifTensor$<$ FReal, ORDER $>$}!setStoragePermutation@{setStoragePermutation}}
+\index{setStoragePermutation@{setStoragePermutation}!FUnifTensor$<$ FReal, ORDER $>$@{FUnifTensor$<$ FReal, ORDER $>$}}
+\doxysubsubsection{\texorpdfstring{setStoragePermutation()}{setStoragePermutation()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER$>$ \\
+static void \mbox{\hyperlink{class_f_unif_tensor}{FUnif\+Tensor}}$<$ FReal, ORDER $>$\+::set\+Storage\+Permutation (\begin{DoxyParamCaption}\item[{unsigned int}]{perm\mbox{[}rc\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Compute permutation vector used to reorder first row of circulant matrix
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ out}}  & {\em perm} & \\
+\hline
+\end{DoxyParams}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Uniform/FUnif\+Tensor.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,32 @@
+\doxysection{FUnif\+Cuda\+Shared\+Data.\+hpp}
+\hypertarget{_f_unif_cuda_shared_data_8hpp_source}{}\label{_f_unif_cuda_shared_data_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/Uniform/FUnifCudaSharedData.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/Uniform/FUnifCudaSharedData.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FUNIFCUDASHAREDDATA\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FUNIFCUDASHAREDDATA\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Cuda/FCudaGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../StarPUUtils/FStarPUDefaultAlign.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}FUnifCudaCellPOD.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER>}
+\DoxyCodeLine{00010\ \textcolor{keyword}{struct\ }\textcolor{keyword}{alignas}(FStarPUDefaultAlign::StructAlign)\ \mbox{\hyperlink{struct_f_unif_cuda_shared_data}{FUnifCudaSharedData}}\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ rc\ =\ (2*ORDER-\/1)*(2*ORDER-\/1)*(2*ORDER-\/1),}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ opt\_rc\ =\ rc/2+1,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ ninteractions\ =\ 343,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ sizeFc\ =\ opt\_rc\ *\ ninteractions}
+\DoxyCodeLine{00016\ \ \ \ \ \};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ FReal\ BoxWidth;}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{struct_f_cuda_unif_complex}{FCudaUnifComplex<FReal>}}\ FC[sizeFc];}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER>}
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}\ FUnifCudaFillObject(\textcolor{keywordtype}{void}*\ cudaKernel,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_unif_cuda_shared_data}{FUnifCudaSharedData<FReal,ORDER>}}\&\ hostData);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FUNIFCUDASHAREDDATA\_HPP}}
+\DoxyCodeLine{00026\ }
+
+\end{DoxyCode}

@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/1/31.
+// Created by RainSure on 2024/1/31.
 //
 
 #ifndef RSMESH_MODEL_H
@@ -14,6 +14,10 @@
 #include<vector>
 
 namespace rsmesh {
+    /**
+     * \class model
+     * \brief 描述了一个插值模型
+     */
     class model{
     public:
         model(const rbf::rbf_base& rbf, int poly_dimension, int poly_degree) : rbf_(rbf.clone()),

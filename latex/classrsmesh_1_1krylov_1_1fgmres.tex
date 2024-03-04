@@ -1,0 +1,158 @@
+\doxysection{rsmesh\+::krylov\+::fgmres类 参考}
+\hypertarget{classrsmesh_1_1krylov_1_1fgmres}{}\label{classrsmesh_1_1krylov_1_1fgmres}\index{rsmesh::krylov::fgmres@{rsmesh::krylov::fgmres}}
+类 rsmesh\+::krylov\+::fgmres 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classrsmesh_1_1krylov_1_1fgmres}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrsmesh_1_1krylov_1_1fgmres_ac879effbad23380a652be3e0db477956}{fgmres}} (const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\+\_\+operator}} \&op, const valuesd \&rhs, index\+\_\+t max\+\_\+iter)
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1krylov_1_1fgmres_a5e7f15e7918bdb52a383a0a7db5663f0}{set\+\_\+left\+\_\+preconditioner}} (const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\+\_\+operator}} \&) override
+\item 
+valuesd \mbox{\hyperlink{classrsmesh_1_1krylov_1_1fgmres_a2ebd9815134ddfbb2011bdf691cfdcab}{solution\+\_\+vector}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres}{rsmesh\+::krylov\+::gmres}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres_a54586ae49871a922f8c9d4054a23e3e9}{gmres}} (const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\+\_\+operator}} \&op, const valuesd \&rhs, index\+\_\+t max\+\_\+iter)
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres_a93138f2f207a2bcb29b4683af912fa9e}{iterate\+\_\+process}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{rsmesh\+::krylov\+::gmres\+\_\+base}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries gmres\+\_\+base} (const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{gmres\+\_\+base}} \&)=delete
+\item 
+{\bfseries gmres\+\_\+base} (\mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{gmres\+\_\+base}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{gmres\+\_\+base}} \& {\bfseries operator=} (const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{gmres\+\_\+base}} \&)=delete
+\item 
+\mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{gmres\+\_\+base}} \& {\bfseries operator=} (\mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{gmres\+\_\+base}} \&\&)=delete
+\item 
+double \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a1685d83eb6055babdcd535bc9a08cda6}{absolute\+\_\+residual}} () const
+\item 
+bool \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a2d2ec732614a70f648b7de093b51cabe}{converged}} () const
+\item 
+index\+\_\+t \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_afbbfbb60a658dbb84043c81a3a49e3c1}{iteration\+\_\+count}} () const
+\item 
+index\+\_\+t \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a1b95b4f7b90ed05e19d20caf04089a3f}{max\+\_\+iterations}} () const
+\item 
+double \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_aab5d8349bb5c07c247f01d12337c1734}{relative\+\_\+residual}} () const
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_ade8cabdf3f374682c358f0384a2d77f6}{set\+\_\+initial\+\_\+solution}} (const valuesd \&x0)
+\item 
+virtual void \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a3af7f8ecabebabf593f9cde98ab26e58}{set\+\_\+right\+\_\+preconditioner}} (const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\+\_\+operator}} \&right\+\_\+preconditioner)
+\item 
+virtual void \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_afae8faa7d7c2646180a4032d67a27839}{setup}} ()
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a71a145e43d007199d7bf65ac1fb4eac9}{solve}} (double tolerance)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{静态 Public 属性 继承自 \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{rsmesh\+::krylov\+::gmres\+\_\+base}}}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_ace616e80ea0f04ee112711f048a5223b}{print\+\_\+progress}} = true
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{rsmesh\+::krylov\+::gmres\+\_\+base}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_aec090c49005e339bda7f7f122726d65c}{gmres\+\_\+base}} (const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\+\_\+operator}} \&op, const valuesd \&rhs, index\+\_\+t max\+\_\+iter)
+\item 
+valuesd \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a3db6f7a324a8a065126108fecdc746b5}{left\+\_\+preconditioned}} (const valuesd \&x) const
+\item 
+valuesd \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a0416e4e7be5391b4ebcdddca2ccbba96}{right\+\_\+preconditioned}} (const valuesd \&x) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{rsmesh\+::krylov\+::gmres\+\_\+base}}}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\+\_\+operator}} \& \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a3d433a409f0ef3cc3d07bec1c361fe28}{op\+\_\+}}
+\item 
+const index\+\_\+t \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a63df8808b7b9fad15ca5d0445b74b319}{m\+\_\+}}
+\item 
+const index\+\_\+t \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a5a6d738035f2876e20a144601bf394eb}{max\+\_\+iter\+\_\+}}
+\item 
+valuesd \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a4831b64c0858b97a86d62e43a7e11ab5}{x0\+\_\+}}
+\item 
+const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\+\_\+operator}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a52376c6a9ebae26a8fa540e4ec4f229f}{left\+\_\+pc\+\_\+}} \{\}
+\item 
+const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\+\_\+operator}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a5106eff5df68a8189ed3ec1a7b602953}{right\+\_\+pc\+\_\+}} \{\}
+\item 
+index\+\_\+t \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_ae3e8e2cfe2603c3a58107859974fa52d}{iter\+\_\+}} \{\}
+\item 
+const valuesd \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_ae40c60aa1700ce29f3a561105e1f2cd2}{rhs\+\_\+}}
+\item 
+double \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_ae1809f1453cd598a49a523afb95d96f8}{rhs\+\_\+norm\+\_\+}}
+\item 
+std\+::vector$<$ valuesd $>$ \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a6477fbcec32af29672a0831534f6de9d}{vs\+\_\+}}
+\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_ad0e339c6b9f93b50972e99bd9d8c1570}{r\+\_\+}}
+\item 
+valuesd \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a34c0f5288d3b89c9f4808a15c991be40}{c\+\_\+}}
+\item 
+valuesd \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a24dc30981731e21294bd5d0d52a7f00f}{s\+\_\+}}
+\item 
+valuesd \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a2a020ae2edd4265276dff4e705df7532}{g\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base_a48d776f112001640b3e57cfed6617d70}{converged\+\_\+}} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+
+
+在文件 \mbox{\hyperlink{fgmres_8h_source}{fgmres.\+h}} 第 \mbox{\hyperlink{fgmres_8h_source_l00014}{14}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{classrsmesh_1_1krylov_1_1fgmres_ac879effbad23380a652be3e0db477956}\label{classrsmesh_1_1krylov_1_1fgmres_ac879effbad23380a652be3e0db477956} 
+\index{rsmesh::krylov::fgmres@{rsmesh::krylov::fgmres}!fgmres@{fgmres}}
+\index{fgmres@{fgmres}!rsmesh::krylov::fgmres@{rsmesh::krylov::fgmres}}
+\doxysubsubsection{\texorpdfstring{fgmres()}{fgmres()}}
+{\footnotesize\ttfamily rsmesh\+::krylov\+::fgmres\+::fgmres (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\+\_\+operator}} \&}]{op,  }\item[{const valuesd \&}]{rhs,  }\item[{index\+\_\+t}]{max\+\_\+iter }\end{DoxyParamCaption})}
+
+
+
+在文件 \mbox{\hyperlink{fgmres_8cpp_source}{fgmres.\+cpp}} 第 \mbox{\hyperlink{fgmres_8cpp_source_l00007}{7}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{classrsmesh_1_1krylov_1_1fgmres_a5e7f15e7918bdb52a383a0a7db5663f0}\label{classrsmesh_1_1krylov_1_1fgmres_a5e7f15e7918bdb52a383a0a7db5663f0} 
+\index{rsmesh::krylov::fgmres@{rsmesh::krylov::fgmres}!set\_left\_preconditioner@{set\_left\_preconditioner}}
+\index{set\_left\_preconditioner@{set\_left\_preconditioner}!rsmesh::krylov::fgmres@{rsmesh::krylov::fgmres}}
+\doxysubsubsection{\texorpdfstring{set\_left\_preconditioner()}{set\_left\_preconditioner()}}
+{\footnotesize\ttfamily void rsmesh\+::krylov\+::fgmres\+::set\+\_\+left\+\_\+preconditioner (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{linear\+\_\+operator}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+重载 \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{rsmesh\+::krylov\+::gmres\+\_\+base}} .
+
+
+
+在文件 \mbox{\hyperlink{fgmres_8h_source}{fgmres.\+h}} 第 \mbox{\hyperlink{fgmres_8h_source_l00018}{18}} 行定义.
+
+\Hypertarget{classrsmesh_1_1krylov_1_1fgmres_a2ebd9815134ddfbb2011bdf691cfdcab}\label{classrsmesh_1_1krylov_1_1fgmres_a2ebd9815134ddfbb2011bdf691cfdcab} 
+\index{rsmesh::krylov::fgmres@{rsmesh::krylov::fgmres}!solution\_vector@{solution\_vector}}
+\index{solution\_vector@{solution\_vector}!rsmesh::krylov::fgmres@{rsmesh::krylov::fgmres}}
+\doxysubsubsection{\texorpdfstring{solution\_vector()}{solution\_vector()}}
+{\footnotesize\ttfamily valuesd rsmesh\+::krylov\+::fgmres\+::solution\+\_\+vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+重载 \mbox{\hyperlink{classrsmesh_1_1krylov_1_1gmres__base}{rsmesh\+::krylov\+::gmres\+\_\+base}} .
+
+
+
+在文件 \mbox{\hyperlink{fgmres_8cpp_source}{fgmres.\+cpp}} 第 \mbox{\hyperlink{fgmres_8cpp_source_l00010}{10}} 行定义.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+include/krylov/fgmres.\+h\item 
+src/krylov/fgmres.\+cpp\end{DoxyCompactItemize}

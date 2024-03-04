@@ -1,0 +1,58 @@
+\doxysection{FTaylor\+Flops\+Kernel\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class, P, order \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_taylor_flops_kernel}{}\label{class_f_taylor_flops_kernel}\index{FTaylorFlopsKernel$<$ FReal, CellClass, ContainerClass, P, order $>$@{FTaylorFlopsKernel$<$ FReal, CellClass, ContainerClass, P, order $>$}}
+
+
+Please read the license  
+
+
+
+
+{\ttfamily \#include $<$FTaylor\+Flops\+Kernel.\+hpp$>$}
+
+类 FTaylor\+Flops\+Kernel\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class, P, order \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_taylor_flops_kernel}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_taylor_flops_kernel_a085e5c35234d9c84b846d391f131eae5}\label{class_f_taylor_flops_kernel_a085e5c35234d9c84b846d391f131eae5} 
+{\bfseries FTaylor\+Flops\+Kernel} (const int in\+Tree\+Height, const FReal in\+Box\+Width, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Box\+Center)
+\item 
+\Hypertarget{class_f_taylor_flops_kernel_afdf555c2b144f6692aa5f043f4fb9fe5}\label{class_f_taylor_flops_kernel_afdf555c2b144f6692aa5f043f4fb9fe5} 
+void {\bfseries P2M} (Cell\+Class \texorpdfstring{$\ast$}{*}const pole, const Container\+Class \texorpdfstring{$\ast$}{*}const particles) override
+\item 
+\Hypertarget{class_f_taylor_flops_kernel_a60166d8bbebbb8272c4c8c160155ad79}\label{class_f_taylor_flops_kernel_a60166d8bbebbb8272c4c8c160155ad79} 
+void {\bfseries M2M} (Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict pole, const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict \texorpdfstring{$\ast$}{*}const FRestrict child, const int in\+Level) override
+\item 
+\Hypertarget{class_f_taylor_flops_kernel_a4ffad5ceca174df76a08898bc4ed99f5}\label{class_f_taylor_flops_kernel_a4ffad5ceca174df76a08898bc4ed99f5} 
+void {\bfseries M2L} (Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict local, const Cell\+Class \texorpdfstring{$\ast$}{*}distant\+Neighbors\mbox{[}$\,$\mbox{]}, const int\mbox{[}$\,$\mbox{]}, const int size, const int in\+Level) override
+\item 
+\Hypertarget{class_f_taylor_flops_kernel_a1a700023555a066917b98ab5409db24b}\label{class_f_taylor_flops_kernel_a1a700023555a066917b98ab5409db24b} 
+void {\bfseries L2L} (const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict father\+Cell, Cell\+Class \texorpdfstring{$\ast$}{*}FRestrict \texorpdfstring{$\ast$}{*}const FRestrict child\+Cell, const int in\+Level) override
+\item 
+\Hypertarget{class_f_taylor_flops_kernel_ab839c9820d10500d1f8fc3d8652bfae9}\label{class_f_taylor_flops_kernel_ab839c9820d10500d1f8fc3d8652bfae9} 
+void {\bfseries L2P} (const Cell\+Class \texorpdfstring{$\ast$}{*}const local, Container\+Class \texorpdfstring{$\ast$}{*}const particles) override
+\item 
+\Hypertarget{class_f_taylor_flops_kernel_a7b0954117d466c504441d93ebe123b86}\label{class_f_taylor_flops_kernel_a7b0954117d466c504441d93ebe123b86} 
+void {\bfseries P2P} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict targets, const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict, Container\+Class \texorpdfstring{$\ast$}{*}const direct\+Neighbors\+Particles\mbox{[}$\,$\mbox{]}, const int, const int) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Cell\+Class, class Container\+Class, int P, int order$>$\newline
+class FTaylor\+Flops\+Kernel$<$ FReal, Cell\+Class, Container\+Class, P, order $>$}
+Please read the license 
+
+\begin{DoxyAuthor}{作者}
+Cyrille Piacibello
+\end{DoxyAuthor}
+
+
+This kernel provide the flops needed for each of the operators used in the Taylor Kernel. 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Taylor/FTaylor\+Flops\+Kernel.\+hpp\end{DoxyCompactItemize}

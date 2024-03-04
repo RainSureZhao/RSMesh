@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/18.
+// Created by RainSure on 2024/2/18.
 //
 
 #ifndef RSMESH_COARSE_GRID_H
@@ -14,7 +14,10 @@
 #include "types.h"
 #include <vector>
 
-
+/**
+ * \namespace rsmesh::preconditioner
+ * \brief 该命名空间下主要定义了关于krylov子空间方法的预处理相关的类和函数
+ */
 namespace rsmesh::preconditioner {
     class coarse_grid {
     public:

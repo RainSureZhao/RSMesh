@@ -1,0 +1,349 @@
+\doxysection{FGroup\+Of\+Cells\texorpdfstring{$<$}{<} Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_group_of_cells}{}\label{class_f_group_of_cells}\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+
+
+The \doxylink{class_f_group_of_cells}{FGroup\+Of\+Cells} class manages the cells in block allocation.  
+
+
+
+
+{\ttfamily \#include $<$FGroup\+Of\+Cells.\+hpp$>$}
+
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_of_cells_ae838f5cace7b6ba9daff2a751b1a0ecb}\label{class_f_group_of_cells_ae838f5cace7b6ba9daff2a751b1a0ecb} 
+typedef Composite\+Cell\+Class {\bfseries Complete\+Cell\+Class}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_of_cells_a72976f441dcb9c2131a3057dc1e2a788}\label{class_f_group_of_cells_a72976f441dcb9c2131a3057dc1e2a788} 
+void {\bfseries reset} (unsigned char \texorpdfstring{$\ast$}{*}in\+Buffer, const size\+\_\+t in\+Allocated\+Memory\+In\+Byte, unsigned char \texorpdfstring{$\ast$}{*}in\+Cell\+Multipoles, unsigned char \texorpdfstring{$\ast$}{*}in\+Cell\+Locals)
+\item 
+\mbox{\hyperlink{class_f_group_of_cells_a1e7a0c7918f1a7086357ec139d867e22}{FGroup\+Of\+Cells}} (unsigned char \texorpdfstring{$\ast$}{*}in\+Buffer, const size\+\_\+t in\+Allocated\+Memory\+In\+Byte, unsigned char \texorpdfstring{$\ast$}{*}in\+Cell\+Multipoles, unsigned char \texorpdfstring{$\ast$}{*}in\+Cell\+Locals)
+\item 
+\mbox{\hyperlink{class_f_group_of_cells_af89a60562f6653ff62753c1057f19548}{FGroup\+Of\+Cells}} (const Morton\+Index in\+Starting\+Index, const Morton\+Index in\+Ending\+Index, const int in\+Number\+Of\+Cells)
+\begin{DoxyCompactList}\small\item\em \doxylink{class_f_group_of_cells}{FGroup\+Of\+Cells} \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_group_of_cells_aebac7335740e76e004bed711b670a738}{\texorpdfstring{$\sim$}{\string~}\+FGroup\+Of\+Cells}} ()
+\item 
+const unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_cells_a3e4b03988e39daf1bfd9ee234a56f511}{get\+Raw\+Buffer}} () const
+\item 
+size\+\_\+t \mbox{\hyperlink{class_f_group_of_cells_ac90ec34f46474e8c6d3e8d7c7cb4ebaa}{get\+Buffer\+Size\+In\+Byte}} () const
+\item 
+const Pole\+Cell\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_cells_a443b82f9bb2d31f3ddf725767eb13dcc}{get\+Raw\+Multipole\+Buffer}} () const
+\item 
+Pole\+Cell\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_cells_aecda326778ba98f9a9aa06b11b5e91ea}{get\+Raw\+Multipole\+Buffer}} ()
+\item 
+size\+\_\+t \mbox{\hyperlink{class_f_group_of_cells_a6232c99da6615361e62bee06ccc84287}{get\+Multipole\+Buffer\+Size\+In\+Byte}} () const
+\item 
+Local\+Cell\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_cells_a20e4dc010544018542ccceb870f0fafa}{get\+Raw\+Local\+Buffer}} ()
+\item 
+const Local\+Cell\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_cells_ad114b8e49f5d8f930336b659e211df99}{get\+Raw\+Local\+Buffer}} () const
+\item 
+size\+\_\+t \mbox{\hyperlink{class_f_group_of_cells_ae9cf29477ac6556196ec64e13790e441}{get\+Local\+Buffer\+Size\+In\+Byte}} () const
+\item 
+bool \mbox{\hyperlink{class_f_group_of_cells_a718cb4c36dc7d1e3db478ae35e87f245}{get\+Delete\+Memory}} () const
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_group_of_cells_a252308879bb9811a1cad627b52366a34}{get\+Starting\+Index}} () const
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_group_of_cells_a55050389f77892b584c9e3f0d00d066f}{get\+Ending\+Index}} () const
+\item 
+int \mbox{\hyperlink{class_f_group_of_cells_a991c48d854ab96f46d13484ad2f1707c}{get\+Number\+Of\+Cells\+In\+Block}} () const
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_group_of_cells_a704f542527377ef9d00a93e89463109d}{get\+Size\+Of\+Interval}} () const
+\item 
+bool \mbox{\hyperlink{class_f_group_of_cells_a32599c0543232f9bf739481e4e17634e}{is\+Inside}} (const Morton\+Index in\+Index) const
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_group_of_cells_a8af2641d9fae83d77edc009e442c978d}{get\+Cell\+Morton\+Index}} (const int cell\+Pos) const
+\item 
+int \mbox{\hyperlink{class_f_group_of_cells_a9918938157b1b8d1be418ba23d645290}{get\+Cell\+Index}} (const Morton\+Index cell\+Idx) const
+\item 
+int \mbox{\hyperlink{class_f_group_of_cells_a42f082c6bf250ad6f857754dacd300db}{get\+Fist\+Child\+Idx}} (const Morton\+Index parent\+Idx) const
+\item 
+bool \mbox{\hyperlink{class_f_group_of_cells_a6f23dbaa46472b2efa9cb77ed1bab39a}{exists}} (const Morton\+Index in\+Index) const
+\item 
+Composite\+Cell\+Class \mbox{\hyperlink{class_f_group_of_cells_a7106f2c07563c158b010811ecc04f9b9}{get\+Complete\+Cell}} (const int cell\+Pos)
+\item 
+Composite\+Cell\+Class \mbox{\hyperlink{class_f_group_of_cells_a65aabe95245f2d7c9ed79896c3820c7c}{get\+Up\+Cell}} (const int cell\+Pos)
+\item 
+Composite\+Cell\+Class \mbox{\hyperlink{class_f_group_of_cells_a174450dac6855dbc0ede5eba6ae71512}{get\+Down\+Cell}} (const int cell\+Pos)
+\item 
+{\footnotesize template$<$typename... Cell\+Constructor\+Params$>$ }\\void \mbox{\hyperlink{class_f_group_of_cells_a910ee7384d96625213d3fee60fca84e7}{new\+Cell}} (const Morton\+Index in\+Index, const int id, Cell\+Constructor\+Params... args)
+\item 
+{\footnotesize template$<$typename... Function\+Params$>$ }\\void \mbox{\hyperlink{class_f_group_of_cells_a3117b3f3b16944abee4d8e143b5a848f}{for\+Each\+Cell}} (std\+::function$<$ void(Composite\+Cell\+Class, Function\+Params...)$>$ function, Function\+Params... args)
+\item 
+\Hypertarget{class_f_group_of_cells_ac34bc873cc9514b711cf426819189adf}\label{class_f_group_of_cells_ac34bc873cc9514b711cf426819189adf} 
+void {\bfseries for\+Each\+Cell} (std\+::function$<$ void(Composite\+Cell\+Class)$>$ function)
+\item 
+size\+\_\+t \mbox{\hyperlink{class_f_group_of_cells_a0da0ade74a1bcc472798d5093293d936}{extract\+Get\+Size\+Symb\+Up}} (const std\+::vector$<$ int $>$ \&cells\+To\+Extract) const
+\item 
+\Hypertarget{class_f_group_of_cells_a542796c234db34e0bc0cb79155cb6659}\label{class_f_group_of_cells_a542796c234db34e0bc0cb79155cb6659} 
+void {\bfseries extract\+Data\+Up} (const std\+::vector$<$ int $>$ \&cells\+To\+Extract, unsigned char \texorpdfstring{$\ast$}{*}output\+Buffer, const size\+\_\+t output\+Buffer\+Size) const
+\item 
+\Hypertarget{class_f_group_of_cells_a8ab3dd60a4dd312eb93b3e0de92dc266}\label{class_f_group_of_cells_a8ab3dd60a4dd312eb93b3e0de92dc266} 
+void {\bfseries restore\+Data\+Up} (const std\+::vector$<$ int $>$ \&cells\+To\+Extract, const unsigned char \texorpdfstring{$\ast$}{*}intput\+Buffer, const size\+\_\+t input\+Buffer\+Size)
+\item 
+\Hypertarget{class_f_group_of_cells_a1410ade64847db1ce41535d22be98518}\label{class_f_group_of_cells_a1410ade64847db1ce41535d22be98518} 
+size\+\_\+t {\bfseries extract\+Get\+Size\+Symb\+Down} (const std\+::vector$<$ int $>$ \&cells\+To\+Extract) const
+\item 
+\Hypertarget{class_f_group_of_cells_aafea29f08c53463e32929b3a797b599d}\label{class_f_group_of_cells_aafea29f08c53463e32929b3a797b599d} 
+void {\bfseries extract\+Data\+Down} (const std\+::vector$<$ int $>$ \&cells\+To\+Extract, unsigned char \texorpdfstring{$\ast$}{*}output\+Buffer, const size\+\_\+t output\+Buffer\+Size) const
+\item 
+\Hypertarget{class_f_group_of_cells_a802336f183c29eb30aba0a5f4bb24fc6}\label{class_f_group_of_cells_a802336f183c29eb30aba0a5f4bb24fc6} 
+void {\bfseries restore\+Data\+Down} (const std\+::vector$<$ int $>$ \&cells\+To\+Extract, const unsigned char \texorpdfstring{$\ast$}{*}intput\+Buffer, const size\+\_\+t input\+Buffer\+Size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_of_cells_a4d028a867dbc7e757dd27929e092a776}\label{class_f_group_of_cells_a4d028a867dbc7e757dd27929e092a776} 
+size\+\_\+t {\bfseries allocated\+Memory\+In\+Byte}
+\item 
+\Hypertarget{class_f_group_of_cells_a71728b3e5394908821727fe091dfc6e7}\label{class_f_group_of_cells_a71728b3e5394908821727fe091dfc6e7} 
+unsigned char \texorpdfstring{$\ast$}{*} {\bfseries memory\+Buffer}
+\item 
+\Hypertarget{class_f_group_of_cells_a124d0fdf1476b0a6f5920e97bbc1a045}\label{class_f_group_of_cells_a124d0fdf1476b0a6f5920e97bbc1a045} 
+Block\+Header \texorpdfstring{$\ast$}{*} {\bfseries block\+Header}
+\item 
+\Hypertarget{class_f_group_of_cells_ad776fa7327355ee0b031243209840c37}\label{class_f_group_of_cells_ad776fa7327355ee0b031243209840c37} 
+Morton\+Index \texorpdfstring{$\ast$}{*} {\bfseries cell\+Indexes}
+\item 
+\Hypertarget{class_f_group_of_cells_a52be7076385c84be6b9db456a523fa9a}\label{class_f_group_of_cells_a52be7076385c84be6b9db456a523fa9a} 
+Symbole\+Cell\+Class \texorpdfstring{$\ast$}{*} {\bfseries block\+Cells}
+\item 
+\Hypertarget{class_f_group_of_cells_a1eb8b4d0f34f6596e73db28e18b873bd}\label{class_f_group_of_cells_a1eb8b4d0f34f6596e73db28e18b873bd} 
+Pole\+Cell\+Class \texorpdfstring{$\ast$}{*} {\bfseries cell\+Multipoles}
+\item 
+\Hypertarget{class_f_group_of_cells_a8f17e38827ef3cc9d9ba0d79e1016fe5}\label{class_f_group_of_cells_a8f17e38827ef3cc9d9ba0d79e1016fe5} 
+Local\+Cell\+Class \texorpdfstring{$\ast$}{*} {\bfseries cell\+Locals}
+\item 
+\Hypertarget{class_f_group_of_cells_ab744153f2c5f0e55a6028cb72457a1f0}\label{class_f_group_of_cells_ab744153f2c5f0e55a6028cb72457a1f0} 
+bool {\bfseries delete\+Buffer}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class Composite\+Cell\+Class, class Symbole\+Cell\+Class, class Pole\+Cell\+Class, class Local\+Cell\+Class$>$\newline
+class FGroup\+Of\+Cells$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$}
+The \doxylink{class_f_group_of_cells}{FGroup\+Of\+Cells} class manages the cells in block allocation. 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_group_of_cells_a1e7a0c7918f1a7086357ec139d867e22}\label{class_f_group_of_cells_a1e7a0c7918f1a7086357ec139d867e22} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!FGroupOfCells@{FGroupOfCells}}
+\index{FGroupOfCells@{FGroupOfCells}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{FGroupOfCells()}{FGroupOfCells()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\mbox{\hyperlink{class_f_group_of_cells}{\+::\+FGroup\+Of\+Cells}} (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{in\+Buffer,  }\item[{const size\+\_\+t}]{in\+Allocated\+Memory\+In\+Byte,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{in\+Cell\+Multipoles,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{in\+Cell\+Locals }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Init from a given buffer 
+\begin{DoxyParams}{参数}
+{\em in\+Buffer} & \\
+\hline
+{\em in\+Allocated\+Memory\+In\+Byte} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_group_of_cells_af89a60562f6653ff62753c1057f19548}\label{class_f_group_of_cells_af89a60562f6653ff62753c1057f19548} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!FGroupOfCells@{FGroupOfCells}}
+\index{FGroupOfCells@{FGroupOfCells}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{FGroupOfCells()}{FGroupOfCells()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\mbox{\hyperlink{class_f_group_of_cells}{\+::\+FGroup\+Of\+Cells}} (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Starting\+Index,  }\item[{const Morton\+Index}]{in\+Ending\+Index,  }\item[{const int}]{in\+Number\+Of\+Cells }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxylink{class_f_group_of_cells}{FGroup\+Of\+Cells} 
+
+
+\begin{DoxyParams}{参数}
+{\em in\+Starting\+Index} & first cell morton index \\
+\hline
+{\em in\+Ending\+Index} & last cell morton index + 1 \\
+\hline
+{\em in\+Number\+Of\+Cells} & total number of cells in the interval (should be \texorpdfstring{$<$}{<}= in\+Ending\+Index-\/in\+Ending\+Index) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_group_of_cells_aebac7335740e76e004bed711b670a738}\label{class_f_group_of_cells_aebac7335740e76e004bed711b670a738} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!````~FGroupOfCells@{\texorpdfstring{$\sim$}{\string~}FGroupOfCells}}
+\index{````~FGroupOfCells@{\texorpdfstring{$\sim$}{\string~}FGroupOfCells}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FGroupOfCells()}{\string~FGroupOfCells()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Call the destructor of cells and dealloc block memory 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_group_of_cells_a6f23dbaa46472b2efa9cb77ed1bab39a}\label{class_f_group_of_cells_a6f23dbaa46472b2efa9cb77ed1bab39a} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!exists@{exists}}
+\index{exists@{exists}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{exists()}{exists()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+bool \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::exists (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return true if in\+Index is located in the current block and is not empty \Hypertarget{class_f_group_of_cells_a0da0ade74a1bcc472798d5093293d936}\label{class_f_group_of_cells_a0da0ade74a1bcc472798d5093293d936} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!extractGetSizeSymbUp@{extractGetSizeSymbUp}}
+\index{extractGetSizeSymbUp@{extractGetSizeSymbUp}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{extractGetSizeSymbUp()}{extractGetSizeSymbUp()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+size\+\_\+t \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::extract\+Get\+Size\+Symb\+Up (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ int $>$ \&}]{cells\+To\+Extract }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Extract for implicit MPI \Hypertarget{class_f_group_of_cells_a3117b3f3b16944abee4d8e143b5a848f}\label{class_f_group_of_cells_a3117b3f3b16944abee4d8e143b5a848f} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!forEachCell@{forEachCell}}
+\index{forEachCell@{forEachCell}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{forEachCell()}{forEachCell()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+template$<$typename... Function\+Params$>$ \\
+void \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::for\+Each\+Cell (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Composite\+Cell\+Class, Function\+Params...)$>$}]{function,  }\item[{Function\+Params...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Iterate on each allocated cells \Hypertarget{class_f_group_of_cells_ac90ec34f46474e8c6d3e8d7c7cb4ebaa}\label{class_f_group_of_cells_ac90ec34f46474e8c6d3e8d7c7cb4ebaa} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getBufferSizeInByte@{getBufferSizeInByte}}
+\index{getBufferSizeInByte@{getBufferSizeInByte}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getBufferSizeInByte()}{getBufferSizeInByte()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+size\+\_\+t \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Buffer\+Size\+In\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The the size of the allocated buffer \Hypertarget{class_f_group_of_cells_a9918938157b1b8d1be418ba23d645290}\label{class_f_group_of_cells_a9918938157b1b8d1be418ba23d645290} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getCellIndex@{getCellIndex}}
+\index{getCellIndex@{getCellIndex}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getCellIndex()}{getCellIndex()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+int \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Cell\+Index (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{cell\+Idx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Check if a cell exist (by binary search) and return it index \Hypertarget{class_f_group_of_cells_a8af2641d9fae83d77edc009e442c978d}\label{class_f_group_of_cells_a8af2641d9fae83d77edc009e442c978d} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getCellMortonIndex@{getCellMortonIndex}}
+\index{getCellMortonIndex@{getCellMortonIndex}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getCellMortonIndex()}{getCellMortonIndex()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+Morton\+Index \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Cell\+Morton\+Index (\begin{DoxyParamCaption}\item[{const int}]{cell\+Pos }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the idx in array of the cell \Hypertarget{class_f_group_of_cells_a7106f2c07563c158b010811ecc04f9b9}\label{class_f_group_of_cells_a7106f2c07563c158b010811ecc04f9b9} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getCompleteCell@{getCompleteCell}}
+\index{getCompleteCell@{getCompleteCell}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getCompleteCell()}{getCompleteCell()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+Composite\+Cell\+Class \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Complete\+Cell (\begin{DoxyParamCaption}\item[{const int}]{cell\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the address of the cell if it exists (or NULL) \Hypertarget{class_f_group_of_cells_a718cb4c36dc7d1e3db478ae35e87f245}\label{class_f_group_of_cells_a718cb4c36dc7d1e3db478ae35e87f245} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getDeleteMemory@{getDeleteMemory}}
+\index{getDeleteMemory@{getDeleteMemory}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getDeleteMemory()}{getDeleteMemory()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+bool \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Delete\+Memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if the object will delete the memory block \Hypertarget{class_f_group_of_cells_a174450dac6855dbc0ede5eba6ae71512}\label{class_f_group_of_cells_a174450dac6855dbc0ede5eba6ae71512} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getDownCell@{getDownCell}}
+\index{getDownCell@{getDownCell}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getDownCell()}{getDownCell()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+Composite\+Cell\+Class \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Down\+Cell (\begin{DoxyParamCaption}\item[{const int}]{cell\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the address of the cell if it exists (or NULL) \Hypertarget{class_f_group_of_cells_a55050389f77892b584c9e3f0d00d066f}\label{class_f_group_of_cells_a55050389f77892b584c9e3f0d00d066f} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getEndingIndex@{getEndingIndex}}
+\index{getEndingIndex@{getEndingIndex}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getEndingIndex()}{getEndingIndex()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+Morton\+Index \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Ending\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The index of the last cell + 1 (set from the constructor) \Hypertarget{class_f_group_of_cells_a42f082c6bf250ad6f857754dacd300db}\label{class_f_group_of_cells_a42f082c6bf250ad6f857754dacd300db} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getFistChildIdx@{getFistChildIdx}}
+\index{getFistChildIdx@{getFistChildIdx}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getFistChildIdx()}{getFistChildIdx()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+int \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Fist\+Child\+Idx (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{parent\+Idx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Check if a cell exist (by binary search) and return it index \Hypertarget{class_f_group_of_cells_ae9cf29477ac6556196ec64e13790e441}\label{class_f_group_of_cells_ae9cf29477ac6556196ec64e13790e441} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getLocalBufferSizeInByte@{getLocalBufferSizeInByte}}
+\index{getLocalBufferSizeInByte@{getLocalBufferSizeInByte}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getLocalBufferSizeInByte()}{getLocalBufferSizeInByte()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+size\+\_\+t \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Local\+Buffer\+Size\+In\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The the size of the allocated buffer \Hypertarget{class_f_group_of_cells_a6232c99da6615361e62bee06ccc84287}\label{class_f_group_of_cells_a6232c99da6615361e62bee06ccc84287} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getMultipoleBufferSizeInByte@{getMultipoleBufferSizeInByte}}
+\index{getMultipoleBufferSizeInByte@{getMultipoleBufferSizeInByte}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getMultipoleBufferSizeInByte()}{getMultipoleBufferSizeInByte()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+size\+\_\+t \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Multipole\+Buffer\+Size\+In\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The the size of the allocated buffer \Hypertarget{class_f_group_of_cells_a991c48d854ab96f46d13484ad2f1707c}\label{class_f_group_of_cells_a991c48d854ab96f46d13484ad2f1707c} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getNumberOfCellsInBlock@{getNumberOfCellsInBlock}}
+\index{getNumberOfCellsInBlock@{getNumberOfCellsInBlock}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getNumberOfCellsInBlock()}{getNumberOfCellsInBlock()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+int \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Number\+Of\+Cells\+In\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The number of cell (set from the constructor) \Hypertarget{class_f_group_of_cells_a3e4b03988e39daf1bfd9ee234a56f511}\label{class_f_group_of_cells_a3e4b03988e39daf1bfd9ee234a56f511} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getRawBuffer@{getRawBuffer}}
+\index{getRawBuffer@{getRawBuffer}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getRawBuffer()}{getRawBuffer()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+const unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Raw\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Give access to the buffer to send the data \Hypertarget{class_f_group_of_cells_a20e4dc010544018542ccceb870f0fafa}\label{class_f_group_of_cells_a20e4dc010544018542ccceb870f0fafa} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getRawLocalBuffer@{getRawLocalBuffer}}
+\index{getRawLocalBuffer@{getRawLocalBuffer}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getRawLocalBuffer()}{getRawLocalBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+Local\+Cell\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Raw\+Local\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Give access to the buffer to send the data \Hypertarget{class_f_group_of_cells_ad114b8e49f5d8f930336b659e211df99}\label{class_f_group_of_cells_ad114b8e49f5d8f930336b659e211df99} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getRawLocalBuffer@{getRawLocalBuffer}}
+\index{getRawLocalBuffer@{getRawLocalBuffer}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getRawLocalBuffer()}{getRawLocalBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+const Local\+Cell\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Raw\+Local\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Give access to the buffer to send the data \Hypertarget{class_f_group_of_cells_aecda326778ba98f9a9aa06b11b5e91ea}\label{class_f_group_of_cells_aecda326778ba98f9a9aa06b11b5e91ea} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getRawMultipoleBuffer@{getRawMultipoleBuffer}}
+\index{getRawMultipoleBuffer@{getRawMultipoleBuffer}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getRawMultipoleBuffer()}{getRawMultipoleBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+Pole\+Cell\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Raw\+Multipole\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Give access to the buffer to send the data \Hypertarget{class_f_group_of_cells_a443b82f9bb2d31f3ddf725767eb13dcc}\label{class_f_group_of_cells_a443b82f9bb2d31f3ddf725767eb13dcc} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getRawMultipoleBuffer@{getRawMultipoleBuffer}}
+\index{getRawMultipoleBuffer@{getRawMultipoleBuffer}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getRawMultipoleBuffer()}{getRawMultipoleBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+const Pole\+Cell\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Raw\+Multipole\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Give access to the buffer to send the data \Hypertarget{class_f_group_of_cells_a704f542527377ef9d00a93e89463109d}\label{class_f_group_of_cells_a704f542527377ef9d00a93e89463109d} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getSizeOfInterval@{getSizeOfInterval}}
+\index{getSizeOfInterval@{getSizeOfInterval}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getSizeOfInterval()}{getSizeOfInterval()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+Morton\+Index \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Size\+Of\+Interval (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The size of the interval ending\+Index-\/starting\+Index (set from the constructor) \Hypertarget{class_f_group_of_cells_a252308879bb9811a1cad627b52366a34}\label{class_f_group_of_cells_a252308879bb9811a1cad627b52366a34} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getStartingIndex@{getStartingIndex}}
+\index{getStartingIndex@{getStartingIndex}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getStartingIndex()}{getStartingIndex()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+Morton\+Index \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Starting\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The index of the fist cell (set from the constructor) \Hypertarget{class_f_group_of_cells_a65aabe95245f2d7c9ed79896c3820c7c}\label{class_f_group_of_cells_a65aabe95245f2d7c9ed79896c3820c7c} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getUpCell@{getUpCell}}
+\index{getUpCell@{getUpCell}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getUpCell()}{getUpCell()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+Composite\+Cell\+Class \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Up\+Cell (\begin{DoxyParamCaption}\item[{const int}]{cell\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the address of the cell if it exists (or NULL) \Hypertarget{class_f_group_of_cells_a32599c0543232f9bf739481e4e17634e}\label{class_f_group_of_cells_a32599c0543232f9bf739481e4e17634e} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!isInside@{isInside}}
+\index{isInside@{isInside}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{isInside()}{isInside()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+bool \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::is\+Inside (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return true if in\+Index should be located in the current block \Hypertarget{class_f_group_of_cells_a910ee7384d96625213d3fee60fca84e7}\label{class_f_group_of_cells_a910ee7384d96625213d3fee60fca84e7} 
+\index{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}!newCell@{newCell}}
+\index{newCell@{newCell}!FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FGroupOfCells$<$ CompositeCellClass, SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{newCell()}{newCell()}}
+{\footnotesize\ttfamily template$<$class Composite\+Cell\+Class , class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+template$<$typename... Cell\+Constructor\+Params$>$ \\
+void \mbox{\hyperlink{class_f_group_of_cells}{FGroup\+Of\+Cells}}$<$ Composite\+Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::new\+Cell (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index,  }\item[{const int}]{id,  }\item[{Cell\+Constructor\+Params...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Allocate a new cell by calling its constructor 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Core/FGroup\+Of\+Cells.\+hpp\end{DoxyCompactItemize}

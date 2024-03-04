@@ -1,0 +1,256 @@
+\doxysection{FIOVtk.\+hpp}
+\hypertarget{_f_i_o_vtk_8hpp_source}{}\label{_f_i_o_vtk_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Files/FIOVtk.hpp@{third\_party/ScalFMM/include/ScalFMM/Files/FIOVtk.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ FIOVTK\_HPP}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ FIOVTK\_HPP}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../../Src/Utils/FPoint.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_i_o_vtk}{FIOVtk}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_f_i_o_vtk}{FIOVtk}}()\ :\ \_format(\textcolor{stringliteral}{"{}xml"{}})}
+\DoxyCodeLine{00016\ \{\}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_i_o_vtk_aca8ab57fe61a504b520326350c916afa}{SetFormat}}(\textcolor{keyword}{const}\ std::string\&\ fmt)}
+\DoxyCodeLine{00030\ \ \ \ \ \{this-\/>\_format\ =\ \ fmt\ ;\ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ OctreeClass>}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_i_o_vtk_a56709320956b92051d164f3cb3f79897}{writeOctree}}(\textcolor{keyword}{const}\ std::string\ \&vtkName,\textcolor{keyword}{const}\ std::string\ \&header,\ \textcolor{keyword}{const}\ OctreeClass\&\ tree);}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//===============================================================}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ OctreeClass>}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_i_o_vtk_ad87562468dc1d98118618b86796c547c}{writeParticules}}(\ OctreeClass\&\ tree,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ ioNode,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \ myRank,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ numProc,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ VTKname\ =\ \ std::string(),std::string\ title\ =\ \ std::string())}
+\DoxyCodeLine{00068\ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(VTKname.empty())\ VTKname=\ \textcolor{stringliteral}{"{}particlesFile"{}};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(title.empty())\ title=\textcolor{stringliteral}{"{}Saving\ Particles\ \ "{}};}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ std::string\ VTKnameTMP(VTKname);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(numProc\ >1\ )\{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ std::stringstream\ rank\ ;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ rank\ <<\ myRank;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ VTKnameTMP\ +=\ rank.str()\ ;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ this-\/>\_format\ ==\ \textcolor{stringliteral}{"{}xml"{}})\{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ioNode\ \&\&\ numProc\ >1)\ this-\/>writeXMLmasterFile(numProc,VTKname,title);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>writeXMLParticles(VTKnameTMP,\ title,tree);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ this-\/>\_format\ ==\ \textcolor{stringliteral}{"{}xmlBinary"{}})\{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ioNode\ \&\&\ numProc\ >1)\ this-\/>writeXMLmasterFile(numProc,VTKname,title);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ this-\/>writeXMLDislocationsBinary(VTKnameTMP,\ title,tree);}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ this-\/>writeVTKDislocations(iterationIndice,VTKnameTMP,\ title);}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{//\ \ void\ writeVTKDislocations(const\ int\&\ iterationIndice,\ const\ std::string\&\ VTKname\ ,const\ std::string\&\ /*title*/)\ ;}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ OctreeClass>}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ writeXMLParticles(\ \textcolor{keyword}{const}\ std::string\&\ VTKname,\textcolor{keyword}{const}\ std::string\&\ \textcolor{comment}{/*title*/},\ \ OctreeClass\&\ tree)\ ;}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{comment}{//\ \ void\ writeXMLDislocationsBinary(const\ int\&\ iterationIndice,\ const\ std::string\&\ VTKname,const\ std::string\&\ /*title*/)\ ;}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ writeXMLmasterFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ numProc,std::string\&\ VTKname,\textcolor{keyword}{const}\ std::string\&\ \textcolor{comment}{/*title*/});}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00105\ \ \ \ \ std::string\ \ \ \_format\ ;}
+\DoxyCodeLine{00106\ \};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00109\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ OctreeClass>}
+\DoxyCodeLine{00110\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_i_o_vtk_a56709320956b92051d164f3cb3f79897}{FIOVtk<FReal>::writeOctree}}(\textcolor{keyword}{const}\ std::string\ \&vtkName,\textcolor{keyword}{const}\ std::string\ \&header,\ \textcolor{keyword}{const}\ OctreeClass\&\ tree)}
+\DoxyCodeLine{00111\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ boxWidth\ =\ tree.getBoxWidth();}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{const}\ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ min(tree.getBoxCenter(),-\/boxWidth/2);}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ level\ =\ tree.getHeight()\ ;}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{int}\ nx\ =\ (int)pow(2.,level-\/1)+1;}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{comment}{//\ output\ file\ name}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00123\ \ \ \ \ std::ofstream\ VTKfile(vtkName.c\_str(),std::ios::out);}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//\ \ OptiDisAssert(VTKfile.is\_open(),DescribeIosFailure(VTKfile).c\_str());}}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ print\ generic\ information}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00128\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\#\ vtk\ DataFile\ Version\ 3.0"{}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00129\ \ \ \ \ VTKfile\ <<\ header\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}ASCII"{}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00132\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}DATASET\ RECTILINEAR\_GRID"{}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00133\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}DIMENSIONS\ "{}}<<nx<<\textcolor{stringliteral}{"{}\ "{}}<<nx<<\textcolor{stringliteral}{"{}\ "{}}<<nx<<\textcolor{stringliteral}{"{}\ "{}}<<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00134\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}X\_COORDINATES\ "{}}\ <<\ nx\ <<\ \textcolor{stringliteral}{"{}\ float\ "{}}\ <<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{double}\ start\ =\ min.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),\ h\ =\ boxWidth\ /\ double(nx-\/1);}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =0;\ i\ <\ nx;\ ++i\ )\{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ start\ +\ i*h\ ;}
+\DoxyCodeLine{00138\ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00140\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}Y\_COORDINATES\ "{}}\ <<\ nx\ <<\ \textcolor{stringliteral}{"{}\ float\ "{}}\ <<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00141\ \ \ \ \ start\ =\ min.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ ;}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =0;\ i\ <\ nx;\ ++i\ )\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ start\ +\ i*h\ ;}
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00146\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}Z\_COORDINATES\ "{}}\ <<\ nx\ <<\ \textcolor{stringliteral}{"{}\ float\ "{}}\ <<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00147\ \ \ \ \ start\ =\ min.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ ;}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =0;\ i\ <\ nx;\ ++i\ )\{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ start\ +\ i*h\ ;}
+\DoxyCodeLine{00150\ \ \ \ \ \}}
+\DoxyCodeLine{00151\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00152\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00153\ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00156\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_i_o_vtk}{FIOVtk<FReal>::writeXMLmasterFile}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ numProc,\ std::string\&\ VTKname,\textcolor{keyword}{const}\ std::string\&\ \textcolor{comment}{/*title*/})}
+\DoxyCodeLine{00157\ \{}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ std::string\ \ \ \ \ \ \ filename;}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ filename\ =\ VTKname\ +\ \textcolor{stringliteral}{"{}.pvtp"{}};}
+\DoxyCodeLine{00162\ \ \ \ \ std::ofstream\ VTKfile(filename.c\_str(),std::ios::out);}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{comment}{//\ print\ generic\ information}}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00166\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}<?xml\ version=\(\backslash\)"{}1.0\(\backslash\)"{}\ ?>"{}}<<\ std::endl;}
+\DoxyCodeLine{00167\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}<VTKFile\ type=\(\backslash\)"{}PPolyData\(\backslash\)"{}\ version=\(\backslash\)"{}0.1\(\backslash\)"{}\ \ \ byte\_order=\(\backslash\)"{}LittleEndian\(\backslash\)"{}>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00168\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ <PPolyData\ \ GhostLevel=\(\backslash\)"{}0\(\backslash\)"{}>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00169\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ <PPointData>\(\backslash\)n"{}};}
+\DoxyCodeLine{00170\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ <PDataArray\ type=\(\backslash\)"{}Float64\(\backslash\)"{}\ Name=\(\backslash\)"{}PhysicalProperties\(\backslash\)"{}\ NumberOfComponents=\(\backslash\)"{}1\(\backslash\)"{}\ />\(\backslash\)n"{}};}
+\DoxyCodeLine{00171\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ <PDataArray\ type=\(\backslash\)"{}Float64\(\backslash\)"{}\ Name=\(\backslash\)"{}Potentials\(\backslash\)"{}\ \ \ \ \ \ \ \ \ NumberOfComponents=\(\backslash\)"{}1\(\backslash\)"{}\ />\(\backslash\)n"{}};}
+\DoxyCodeLine{00172\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ <PDataArray\ type=\(\backslash\)"{}Float64\(\backslash\)"{}\ Name=\(\backslash\)"{}NodalForces\(\backslash\)"{}\ \ \ \ \ \ \ \ NumberOfComponents=\(\backslash\)"{}3\(\backslash\)"{}\ />\(\backslash\)n"{}};}
+\DoxyCodeLine{00173\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ </PPointData>\(\backslash\)n"{}};}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{unsigned}\ found\ =\ VTKname.find\_last\_of(\textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{comment}{//\ \ \ il\ faut\ mettre\ les\ fichiers}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0\ ;\ i<\ numProc\ ;\ ++i)}
+\DoxyCodeLine{00177\ \ \ \ \ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ std::stringstream\ numproc\ ;}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ numproc\ <<\ \ i\ ;}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ filename\ =\ VTKname.substr(found+1)\ +\ numproc.str()\ +\textcolor{stringliteral}{"{}.vtp"{}};}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ <Piece\ Source=\(\backslash\)"{}"{}}<<filename<<\textcolor{stringliteral}{"{}\(\backslash\)"{}/>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00182\ \ \ \ \ \}}
+\DoxyCodeLine{00183\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ </PPolyData>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00184\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}</VTKFile>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00185\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}filename\ "{}}\ <<\ filename<<\ std::endl;}
+\DoxyCodeLine{00186\ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00189\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ OctreeClass>}
+\DoxyCodeLine{00190\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_i_o_vtk}{FIOVtk<FReal>::writeXMLParticles}}(\ \textcolor{keyword}{const}\ std::string\&\ VTKname,\textcolor{keyword}{const}\ std::string\&\ \textcolor{comment}{/*title*/},\ \ OctreeClass\&\ tree)}
+\DoxyCodeLine{00191\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ SAUVEGARDE}}
+\DoxyCodeLine{00194\ \ \ \ \ std::string\ \ \ \ \ \ \ \ filename;}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{comment}{//\ output\ file\ name}}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00198\ \ \ \ \ filename=VTKname\ +\textcolor{stringliteral}{"{}.vtp"{}};}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00200\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ Saving\ in:\ "{}}\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ std::ofstream\ VTKfile(filename.c\_str(),std::ios::out);}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{comment}{//\ print\ generic\ information}}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00206\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}<VTKFile\ type=\(\backslash\)"{}PolyData\(\backslash\)"{}\ version=\(\backslash\)"{}0.1\(\backslash\)"{}\ \ \ byte\_order=\(\backslash\)"{}LittleEndian\(\backslash\)"{}\ compressor=\(\backslash\)"{}vtkZLibDataCompressor\(\backslash\)"{}>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00207\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ <PolyData>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{typename}\ \ OctreeClass::Iterator\ \ octreeIterator(\&tree);}
+\DoxyCodeLine{00210\ \ \ \ \ FSize\ nbNodes=0;}
+\DoxyCodeLine{00211\ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{comment}{//ContainerClass*\ const\ FRestrict\ segments\ =\ octreeIterator.getCurrentListTargets();}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ *\ \textcolor{keyword}{const}\ FRestrict\ particles\ =\ octreeIterator.getCurrentListTargets();}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ nbNodes\ +=\ particles-\/>getNbParticles();}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ Print::Out\ <<\ "{}Index:\ "{}<<\ \ octreeIterator.getCurrentGlobalIndex()\ <<\ "{}\ nbEl:\ "{}\ <<\ nbElements\ <<\ \ "{}\(\backslash\)n"{};}}
+\DoxyCodeLine{00217\ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ VTKfile\ <<\textcolor{stringliteral}{"{}\ \ \ \ \ <Piece\ NumberOfPoints=\(\backslash\)"{}"{}}<<nbNodes<<\textcolor{stringliteral}{"{}\(\backslash\)"{}\ NumberOfVerts=\(\backslash\)"{}0\(\backslash\)"{}\ NumberOfLines=\(\backslash\)"{}"{}}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ 0<<\textcolor{stringliteral}{"{}\(\backslash\)"{}\ NumberOfStrips=\(\backslash\)"{}0\(\backslash\)"{}\ NumberOfPolys=\(\backslash\)"{}0\(\backslash\)"{}>"{}}<<std::endl;}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ <PointData>"{}}<<std::endl;}
+\DoxyCodeLine{00225\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ <DataArray\ type=\(\backslash\)"{}Float64\(\backslash\)"{}\ \ \ Name=\(\backslash\)"{}PhysicalProperties\(\backslash\)"{}\ \ \ \ \ \ NumberOfComponents=\(\backslash\)"{}1\(\backslash\)"{}\ format=\(\backslash\)"{}ascii\(\backslash\)"{}>"{}}<<\ std::endl;}
+\DoxyCodeLine{00226\ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ *\ leaf\ =\ octreeIterator.getCurrentLeaf()\ \ \ ;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ *\ \textcolor{keyword}{const}\ physicalValues\ =\ leaf-\/>getTargets()-\/>getPhysicalValues();}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ FSize\ nbParticlesInLeaf\ \ \ \ \ \ \ =\ leaf-\/>getTargets()-\/>getNbParticles();}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ nbParticlesInLeaf\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ physicalValues[idxPart]\ \ ;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00235\ \ \ \ \ VTKfile\ <<\ std::endl\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ </DataArray>"{}}\ \ <<\ std::endl;}
+\DoxyCodeLine{00236\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ <DataArray\ type=\(\backslash\)"{}Float64\(\backslash\)"{}\ \ \ Name=\(\backslash\)"{}Potentials\(\backslash\)"{}\ \ \ \ \ \ NumberOfComponents=\(\backslash\)"{}1\(\backslash\)"{}\ format=\(\backslash\)"{}ascii\(\backslash\)"{}>"{}}<<\ std::endl;}
+\DoxyCodeLine{00237\ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ *\ leaf\ =\ octreeIterator.getCurrentLeaf()\ \ \ ;}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ *\ \textcolor{keyword}{const}\ potentials\ =\ leaf-\/>getTargets()-\/>getPotentials();}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ FSize\ nbParticlesInLeaf\ \ \ \ \ \ \ =\ leaf-\/>getTargets()-\/>getNbParticles();}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ nbParticlesInLeaf\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ potentials[idxPart]\ \ ;}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00245\ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00246\ \ \ \ \ VTKfile\ <<\ std::endl\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ </DataArray>"{}}\ \ <<\ std::endl;}
+\DoxyCodeLine{00247\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ <DataArray\ type=\(\backslash\)"{}Float64\(\backslash\)"{}\ Name=\(\backslash\)"{}NodalForces\(\backslash\)"{}\ \ \ \ \ NumberOfComponents=\(\backslash\)"{}3\(\backslash\)"{}\ format=\(\backslash\)"{}ascii\(\backslash\)"{}>"{}}<<\ std::endl;}
+\DoxyCodeLine{00248\ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ *\ leaf\ =\ octreeIterator.getCurrentLeaf()\ \ \ ;}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ forcesX\ =\ leaf-\/>getTargets()-\/>getForcesX();}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ forcesY\ =\ leaf-\/>getTargets()-\/>getForcesY();}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ forcesZ\ =\ leaf-\/>getTargets()-\/>getForcesZ();}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ FSize\ nbParticlesInLeaf\ \ \ \ \ \ \ =\ leaf-\/>getTargets()-\/>getNbParticles();}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ nbParticlesInLeaf\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ forcesX[idxPart]\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ forcesY[idxPart]\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ forcesZ[idxPart]\ \ ;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00259\ \ \ \ \ VTKfile\ <<\ std::endl\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ </DataArray>"{}}\ \ <<\ std::endl;}
+\DoxyCodeLine{00260\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ </PointData>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00262\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ <Points>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00263\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ <DataArray\ type=\(\backslash\)"{}Float64\(\backslash\)"{}\ NumberOfComponents=\(\backslash\)"{}3\(\backslash\)"{}\ format=\(\backslash\)"{}ascii\(\backslash\)"{}>"{}}<<\ std::endl;}
+\DoxyCodeLine{00264\ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ *\ leaf\ =\ octreeIterator.getCurrentLeaf()\ \ \ ;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ \textcolor{keyword}{const}\ positionsX\ =\ leaf-\/>getTargets()-\/>getPositions()[0];}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ \textcolor{keyword}{const}\ positionsY\ =\ leaf-\/>getTargets()-\/>getPositions()[1];}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ \textcolor{keyword}{const}\ positionsZ\ =\ leaf-\/>getTargets()-\/>getPositions()[2];}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ FSize\ nbParticlesInLeaf\ \ =\ leaf-\/>getTargets()-\/>getNbParticles();}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ nbParticlesInLeaf\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ positionsX[idxPart]\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ positionsY[idxPart]\ <<\ \textcolor{stringliteral}{"{}\ \ "{}}\ <<\ positionsZ[idxPart]\ \ ;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00274\ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00276\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ </DataArray>"{}}\ \ <<\ std::endl;}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00278\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ </Points>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00279\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ <Verts>"{}}\ <<\ std::endl\ \ \ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ </Verts>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ <Lines>"{}}\ <<\ std::endl\ \ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ </Lines>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ <Strips>"{}}\ <<\ std::endl\ \ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ </Strips>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00285\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ <Polys>"{}}\ <<\ std::endl\ \ \ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ </Polys>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00286\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ \ </Piece>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}\ \ </PolyData>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00290\ \ \ \ \ VTKfile\ <<\ \textcolor{stringliteral}{"{}</VTKFile>"{}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FIOVTK\_HPP*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

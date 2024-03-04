@@ -1,0 +1,126 @@
+\doxysection{FStar\+PUCpu\+Wrapper\texorpdfstring{$<$}{<} Cell\+Container\+Class, Cell\+Class, Kernel\+Class, Particle\+Group\+Class, Particle\+Container\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_star_p_u_cpu_wrapper}{}\label{class_f_star_p_u_cpu_wrapper}\index{FStarPUCpuWrapper$<$ CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass $>$@{FStarPUCpuWrapper$<$ CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass $>$}}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a8ac884e54b2bead656715aad32f73dfe}\label{class_f_star_p_u_cpu_wrapper_a8ac884e54b2bead656715aad32f73dfe} 
+{\bfseries FStar\+PUCpu\+Wrapper} (const int in\+Tree\+Height)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a15dc2ee33c3906402bae4245af057dd6}\label{class_f_star_p_u_cpu_wrapper_a15dc2ee33c3906402bae4245af057dd6} 
+Kernel\+Class \texorpdfstring{$\ast$}{*} {\bfseries get\+Kernel} (const int worker\+Id)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_abd30aae27c0fbf5677f6b6db9b5a4568}\label{class_f_star_p_u_cpu_wrapper_abd30aae27c0fbf5677f6b6db9b5a4568} 
+const Kernel\+Class \texorpdfstring{$\ast$}{*} {\bfseries get\+Kernel} (const int worker\+Id) const
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_afe4d8b23deda6daa95126b77c63d1b70}\label{class_f_star_p_u_cpu_wrapper_afe4d8b23deda6daa95126b77c63d1b70} 
+void {\bfseries init\+Kernel} (const int worker\+Id, Kernel\+Class \texorpdfstring{$\ast$}{*}original\+Kernel)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a6e9b3e57e63d8a00920e1ceed302f2ba}\label{class_f_star_p_u_cpu_wrapper_a6e9b3e57e63d8a00920e1ceed302f2ba} 
+void {\bfseries release\+Kernel} (const int worker\+Id)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a1fc1f837f837ff6f002b82b7cf7cd60f}\label{class_f_star_p_u_cpu_wrapper_a1fc1f837f837ff6f002b82b7cf7cd60f} 
+void {\bfseries bottom\+Pass\+Perform} (Cell\+Container\+Class \texorpdfstring{$\ast$}{*}leaf\+Cells, Particle\+Group\+Class \texorpdfstring{$\ast$}{*}containers)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a918c439b7b3f2d68db46bbb8f5090e83}\label{class_f_star_p_u_cpu_wrapper_a918c439b7b3f2d68db46bbb8f5090e83} 
+void {\bfseries upward\+Pass\+Perform} (Cell\+Container\+Class \texorpdfstring{$\ast$}{*}const current\+Cells, Cell\+Container\+Class \texorpdfstring{$\ast$}{*}sub\+Cell\+Group, const int idx\+Level)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a364586a2f363565b626cc5b9b895aacd}\label{class_f_star_p_u_cpu_wrapper_a364586a2f363565b626cc5b9b895aacd} 
+void {\bfseries transfer\+In\+Pass\+Perform} (Cell\+Container\+Class \texorpdfstring{$\ast$}{*}const current\+Cells, const int idx\+Level)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a2e87f26ea35e126de1d1a7e516783eb2}\label{class_f_star_p_u_cpu_wrapper_a2e87f26ea35e126de1d1a7e516783eb2} 
+void {\bfseries transfer\+Inout\+Pass\+Perform} (Cell\+Container\+Class \texorpdfstring{$\ast$}{*}const current\+Cells, Cell\+Container\+Class \texorpdfstring{$\ast$}{*}const cells\+Other, const int idx\+Level, const std\+::vector$<$ \mbox{\hyperlink{struct_out_of_block_interaction}{Out\+Of\+Block\+Interaction}} $>$ \texorpdfstring{$\ast$}{*}outside\+Interactions, const int mode)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a3c34a042d357be2c32db0f29f18e71be}\label{class_f_star_p_u_cpu_wrapper_a3c34a042d357be2c32db0f29f18e71be} 
+void {\bfseries downard\+Pass\+Perform} (Cell\+Container\+Class \texorpdfstring{$\ast$}{*}const current\+Cells, Cell\+Container\+Class \texorpdfstring{$\ast$}{*}sub\+Cell\+Group, const int idx\+Level)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a0c1c283f604818474a9c253f930bc151}\label{class_f_star_p_u_cpu_wrapper_a0c1c283f604818474a9c253f930bc151} 
+void {\bfseries direct\+In\+Pass\+Perform} (Particle\+Group\+Class \texorpdfstring{$\ast$}{*}containers)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a090048709e21a839c693bf7cd6ad5a72}\label{class_f_star_p_u_cpu_wrapper_a090048709e21a839c693bf7cd6ad5a72} 
+void {\bfseries direct\+Inout\+Pass\+Perform} (Particle\+Group\+Class \texorpdfstring{$\ast$}{*}containers, Particle\+Group\+Class \texorpdfstring{$\ast$}{*}containers\+Other, const std\+::vector$<$ \mbox{\hyperlink{struct_out_of_block_interaction}{Out\+Of\+Block\+Interaction}} $>$ \texorpdfstring{$\ast$}{*}outside\+Interactions)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a1603bd43bd3dde41fbd8dfb72548d57e}\label{class_f_star_p_u_cpu_wrapper_a1603bd43bd3dde41fbd8dfb72548d57e} 
+void {\bfseries merge\+Pass\+Perform} (Cell\+Container\+Class \texorpdfstring{$\ast$}{*}leaf\+Cells, Particle\+Group\+Class \texorpdfstring{$\ast$}{*}containers)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a335f88a9eb4dcc765808df8cd5d112a6}\label{class_f_star_p_u_cpu_wrapper_a335f88a9eb4dcc765808df8cd5d112a6} 
+static void {\bfseries bottom\+Pass\+Callback} (void \texorpdfstring{$\ast$}{*}buffers\mbox{[}$\,$\mbox{]}, void \texorpdfstring{$\ast$}{*}cl\+\_\+arg)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a531a0c82266861f5d16eb0402f636d41}\label{class_f_star_p_u_cpu_wrapper_a531a0c82266861f5d16eb0402f636d41} 
+static void {\bfseries upward\+Pass\+Callback} (void \texorpdfstring{$\ast$}{*}buffers\mbox{[}$\,$\mbox{]}, void \texorpdfstring{$\ast$}{*}cl\+\_\+arg)
+\begin{DoxyCompactList}\small\item\em Upward Pass \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_f_star_p_u_cpu_wrapper_a41ae7a7d4d68aa75f4873e223b02ef42}{transfer\+In\+Pass\+Callback}} (void \texorpdfstring{$\ast$}{*}buffers\mbox{[}$\,$\mbox{]}, void \texorpdfstring{$\ast$}{*}cl\+\_\+arg)
+\begin{DoxyCompactList}\small\item\em Transfer Pass Mpi \end{DoxyCompactList}\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_aed0679decc6bfa8c828fa67e477028b5}\label{class_f_star_p_u_cpu_wrapper_aed0679decc6bfa8c828fa67e477028b5} 
+static void {\bfseries transfer\+Inout\+Pass\+Callback} (void \texorpdfstring{$\ast$}{*}buffers\mbox{[}$\,$\mbox{]}, void \texorpdfstring{$\ast$}{*}cl\+\_\+arg)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a807770e566b2df67663f8fbfe09d1c2c}\label{class_f_star_p_u_cpu_wrapper_a807770e566b2df67663f8fbfe09d1c2c} 
+static void {\bfseries downard\+Pass\+Callback} (void \texorpdfstring{$\ast$}{*}buffers\mbox{[}$\,$\mbox{]}, void \texorpdfstring{$\ast$}{*}cl\+\_\+arg)
+\begin{DoxyCompactList}\small\item\em Downard Pass \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_f_star_p_u_cpu_wrapper_a25d054cc5f62a5b0daeebda2643439be}{direct\+In\+Pass\+Callback}} (void \texorpdfstring{$\ast$}{*}buffers\mbox{[}$\,$\mbox{]}, void \texorpdfstring{$\ast$}{*}cl\+\_\+arg)
+\begin{DoxyCompactList}\small\item\em Direct Pass MPI \end{DoxyCompactList}\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a44bd4ccba7214c5ef3bbefcc31257618}\label{class_f_star_p_u_cpu_wrapper_a44bd4ccba7214c5ef3bbefcc31257618} 
+static void {\bfseries direct\+Inout\+Pass\+Callback} (void \texorpdfstring{$\ast$}{*}buffers\mbox{[}$\,$\mbox{]}, void \texorpdfstring{$\ast$}{*}cl\+\_\+arg)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_aab3d0358897cf3faf5a6e34ff220465a}\label{class_f_star_p_u_cpu_wrapper_aab3d0358897cf3faf5a6e34ff220465a} 
+static void {\bfseries merge\+Pass\+Callback} (void \texorpdfstring{$\ast$}{*}buffers\mbox{[}$\,$\mbox{]}, void \texorpdfstring{$\ast$}{*}cl\+\_\+arg)
+\begin{DoxyCompactList}\small\item\em Merge Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a38cd8cce3c7b00ee6ef60df1d612995d}\label{class_f_star_p_u_cpu_wrapper_a38cd8cce3c7b00ee6ef60df1d612995d} 
+static int {\bfseries get\+Opposite\+Neigh\+Index} (const int index)
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_ac21b838781253d76e3c874313036aeff}\label{class_f_star_p_u_cpu_wrapper_ac21b838781253d76e3c874313036aeff} 
+static int {\bfseries get\+Opposite\+Inter\+Index} (const int index)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_afe86a1a67d83dbd859f9143c11be352d}\label{class_f_star_p_u_cpu_wrapper_afe86a1a67d83dbd859f9143c11be352d} 
+typedef \mbox{\hyperlink{class_f_star_p_u_cpu_wrapper}{FStar\+PUCpu\+Wrapper}}$<$ Cell\+Container\+Class, Cell\+Class, Kernel\+Class, Particle\+Group\+Class, Particle\+Container\+Class $>$ {\bfseries This\+Class}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_ad945ee2b8708ba701db89fc2fb9b7e99}\label{class_f_star_p_u_cpu_wrapper_ad945ee2b8708ba701db89fc2fb9b7e99} 
+const int {\bfseries Get\+Worker\+Id} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a9343b2d4849629aaf4dc9f8361da9f33}\label{class_f_star_p_u_cpu_wrapper_a9343b2d4849629aaf4dc9f8361da9f33} 
+const int {\bfseries tree\+Height}
+\item 
+\Hypertarget{class_f_star_p_u_cpu_wrapper_aa6e9af28c951a433a378215822c69cc3}\label{class_f_star_p_u_cpu_wrapper_aa6e9af28c951a433a378215822c69cc3} 
+Kernel\+Class \texorpdfstring{$\ast$}{*} {\bfseries kernels} \mbox{[}STARPU\+\_\+\+MAXCPUS\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_star_p_u_cpu_wrapper_a25d054cc5f62a5b0daeebda2643439be}\label{class_f_star_p_u_cpu_wrapper_a25d054cc5f62a5b0daeebda2643439be} 
+\index{FStarPUCpuWrapper$<$ CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass $>$@{FStarPUCpuWrapper$<$ CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass $>$}!directInPassCallback@{directInPassCallback}}
+\index{directInPassCallback@{directInPassCallback}!FStarPUCpuWrapper$<$ CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass $>$@{FStarPUCpuWrapper$<$ CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{directInPassCallback()}{directInPassCallback()}}
+{\footnotesize\ttfamily template$<$class Cell\+Container\+Class , class Cell\+Class , class Kernel\+Class , class Particle\+Group\+Class , class Particle\+Container\+Class $>$ \\
+static void \mbox{\hyperlink{class_f_star_p_u_cpu_wrapper}{FStar\+PUCpu\+Wrapper}}$<$ Cell\+Container\+Class, Cell\+Class, Kernel\+Class, Particle\+Group\+Class, Particle\+Container\+Class $>$\+::direct\+In\+Pass\+Callback (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{buffers\mbox{[}$\,$\mbox{]},  }\item[{void \texorpdfstring{$\ast$}{*}}]{cl\+\_\+arg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Direct Pass MPI 
+
+Direct Pass \Hypertarget{class_f_star_p_u_cpu_wrapper_a41ae7a7d4d68aa75f4873e223b02ef42}\label{class_f_star_p_u_cpu_wrapper_a41ae7a7d4d68aa75f4873e223b02ef42} 
+\index{FStarPUCpuWrapper$<$ CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass $>$@{FStarPUCpuWrapper$<$ CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass $>$}!transferInPassCallback@{transferInPassCallback}}
+\index{transferInPassCallback@{transferInPassCallback}!FStarPUCpuWrapper$<$ CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass $>$@{FStarPUCpuWrapper$<$ CellContainerClass, CellClass, KernelClass, ParticleGroupClass, ParticleContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{transferInPassCallback()}{transferInPassCallback()}}
+{\footnotesize\ttfamily template$<$class Cell\+Container\+Class , class Cell\+Class , class Kernel\+Class , class Particle\+Group\+Class , class Particle\+Container\+Class $>$ \\
+static void \mbox{\hyperlink{class_f_star_p_u_cpu_wrapper}{FStar\+PUCpu\+Wrapper}}$<$ Cell\+Container\+Class, Cell\+Class, Kernel\+Class, Particle\+Group\+Class, Particle\+Container\+Class $>$\+::transfer\+In\+Pass\+Callback (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{buffers\mbox{[}$\,$\mbox{]},  }\item[{void \texorpdfstring{$\ast$}{*}}]{cl\+\_\+arg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Transfer Pass Mpi 
+
+Transfer Pass 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Star\+PUUtils/FStar\+PUCpu\+Wrapper.\+hpp\end{DoxyCompactItemize}

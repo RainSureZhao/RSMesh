@@ -1,0 +1,98 @@
+\doxysection{reconstruct\+\_\+surface.\+h}
+\hypertarget{reconstruct__surface_8h_source}{}\label{reconstruct__surface_8h_source}\index{include/examples/reconstruct\_surface.h@{include/examples/reconstruct\_surface.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/20.}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_RECONSTRUCT\_SURFACE\_H}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_RECONSTRUCT\_SURFACE\_H}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}table.h"{}}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}model.h"{}}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}geometry/bbox3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}point\_cloud/distance\_filter.h"{}}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}common/utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}interpolant.h"{}}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}isosurface/isosurface.h"{}}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}isosurface/rbf\_field\_function.h"{}}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00020}00020\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1examples}{rsmesh::examples}}\ \{}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00021}\mbox{\hyperlink{structrsmesh_1_1examples_1_1_reconstruction_parameters}{00021}}\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrsmesh_1_1examples_1_1_reconstruction_parameters}{ReconstructionParameters}}\ \{}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ std::string\ input;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ std::string\ output;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ std::string\ rbf\_name;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ absolute\_tolerance;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry::bbox3d}}\ bbox;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ mesh\_resolution;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ std::vector<double>\ rbf\_parameters;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a72e45be83081efde821fab26fdbdaae3}{geometry::linear\_transformation3d}}\ aniso\ =\ geometry::linear\_transformation3d::Identity();}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ min\_distance\ =\ 1e-\/10;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ nugget\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ poly\_degree\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ max\_iterations\ =\ 30;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ inequality;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ reduce;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00036}00036\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00037}00037\ \ \ \ \ \textcolor{keywordtype}{void}\ reconstruct\_surface(}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structrsmesh_1_1examples_1_1_reconstruction_parameters}{ReconstructionParameters}}\&\ params}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \{}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ tabled\ table\ =\ read\_table(params.input);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\ points\ =\ table(Eigen::all,\ \{0,\ 1,\ 2\});}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ valuesd\ values\ =\ table.col(3);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ std::optional<valuesd>\ values\_lb;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ std::optional<valuesd>\ values\_ub;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(params.inequality)\ \{}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ values\_lb\ =\ table.col(4);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ values\_ub\ =\ table.col(5);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Remove\ very\ close\ points;}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ point\_cloud::distance\_filter\ filter(points,\ params.min\_distance);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ std::tie(points,\ values)\ =\ filter(points,\ values);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(params.inequality)\ \{}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ *values\_lb\ =\ filter(*values\_lb);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ *values\_ub\ =\ filter(*values\_ub);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Define\ the\ model}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ rbf\ =\ common::make\_rbf(params.rbf\_name,\ params.rbf\_parameters);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ rbf-\/>set\_anisotropy(params.aniso);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ model\ model(*rbf,\ 3,\ params.poly\_degree);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ model.set\_nugget(params.nugget);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fit}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00065}00065\ \ \ \ \ \ \ \ \ interpolant\ interpolant(model);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(params.inequality)\ \{}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ interpolant.fit\_inequality(points,\ values,\ *values\_lb,\ *values\_ub,\ params.absolute\_tolerance,\ params.max\_iterations);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00068}00068\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(params.reduce)\ \{}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ interpolant.fit\_incrementally(points,\ values,\ params.absolute\_tolerance,\ params.max\_iterations);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ interpolant.fit(points,\ values,\ params.absolute\_tolerance,\ params.max\_iterations);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Generate\ the\ isosurfaces}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_surface\_points\ =\ (values.array()\ ==\ 0.0).count();}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\ surface\_points(n\_surface\_points,\ 3);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ index\_t\ si\{\};}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ points.rows();\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(values(i)\ ==\ 0.0)\ \{}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ surface\_points.row(si)\ =\ points.row(i);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ si++;}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00083}00083\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ isosurface::isosurface\ isosurface(params.bbox,\ params.mesh\_resolution);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00085}00085\ \ \ \ \ \ \ \ \ isosurface::rbf\_field\_function\ field\_function(interpolant);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00087}00087\ \ \ \ \ \ \ \ \ isosurface.generate\_from\_seed\_points(surface\_points,\ field\_function).export\_obj(params.output);}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00088}00088\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00089}00089\ \}}
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{reconstruct__surface_8h_source_l00092}00092\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_RECONSTRUCT\_SURFACE\_H}}
+
+\end{DoxyCode}

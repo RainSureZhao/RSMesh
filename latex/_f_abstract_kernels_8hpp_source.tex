@@ -1,0 +1,64 @@
+\doxysection{FAbstract\+Kernels.\+hpp}
+\hypertarget{_f_abstract_kernels_8hpp_source}{}\label{_f_abstract_kernels_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Components/FAbstractKernels.hpp@{third\_party/ScalFMM/include/ScalFMM/Components/FAbstractKernels.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FABSTRACTKERNELS\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FABSTRACTKERNELS\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Utils/FLog.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Containers/FTreeCoordinate.hpp"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass\ >}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_abstract_kernels}{FAbstractKernels}}\{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_abstract_kernels}{\string~FAbstractKernels}}()\{}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ P2M(CellClass*\ \textcolor{keyword}{const}\ pole,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ particles)\ =\ 0;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ M2M(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ pole,\ \textcolor{keyword}{const}\ CellClass*\textcolor{keyword}{const}\ FRestrict\ *\textcolor{keyword}{const}\ FRestrict\ child,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\ =\ 0;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ M2L(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ local,\ \textcolor{keyword}{const}\ CellClass*\ distantNeighbors[],}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighborPositions[],}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\ =\ 0;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ NeedFinishedM2LEvent()\{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ finishedLevelM2L(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*level*/})\{}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ L2L(\textcolor{keyword}{const}\ CellClass*\ \textcolor{keyword}{const}\ FRestrict\ local,\ CellClass*\ FRestrict\ *\ \textcolor{keyword}{const}\ FRestrict\ child,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\ =\ 0;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ L2P(\textcolor{keyword}{const}\ CellClass*\ \textcolor{keyword}{const}\ local,\ ContainerClass*\ \textcolor{keyword}{const}\ particles)\ =\ 0;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ P2P(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ inLeafPosition,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ targets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ sources,}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ directNeighborsParticles[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighborPositions[],}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size)\ =\ 0;}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ P2POuter(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \textcolor{comment}{/*inLeafPosition*/},}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*targets*/},}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ \textcolor{comment}{/*directNeighborsParticles*/}[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*neighborPositions*/}[],}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*size*/})\ \ =\ 0;}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ P2PRemote(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \textcolor{comment}{/*inLeafPosition*/},}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*targets*/},\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*sources*/},}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ \textcolor{comment}{/*directNeighborsParticles*/}[],}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*neighborPositions*/}[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*size*/})\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller.write(\textcolor{stringliteral}{"{}Warning,\ P2P\ remote\ is\ used\ but\ not\ implemented!"{}}).write(FLog::Flush)\ );}
+\DoxyCodeLine{00208\ \ \ \ \ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \};}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FABSTRACTKERNELS\_HPP}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ }
+
+\end{DoxyCode}

@@ -1,0 +1,162 @@
+\doxysection{FMpi\+Fma\+Divider\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_mpi_fma_divider}{}\label{class_f_mpi_fma_divider}\index{FMpiFmaDivider$<$ FReal $>$@{FMpiFmaDivider$<$ FReal $>$}}
+
+
+Loads an FMA particle file and splits it for MPI processing.  
+
+
+
+
+{\ttfamily \#include $<$FMpi\+Fma\+Divider.\+hpp$>$}
+
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}{Dispatch\+Policy}} \{ {\bfseries PARTICLES} = 0
+, {\bfseries BOXES} = 1
+ \}
+\begin{DoxyCompactList}\small\item\em Policy for entites that are dispatched. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_mpi_fma_divider_a1934560ea602b402d1b61f8052201adf}{FMpi\+Fma\+Divider}} (const std\+::string filename, int split\+Count, int division\+Level, \mbox{\hyperlink{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}{Dispatch\+Policy}} dispatch\+Policy=PARTICLES)
+\begin{DoxyCompactList}\small\item\em Constructor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_mpi_fma_divider_a484f5736cb5b5fa224bf61983b4c2091}{FMpi\+Fma\+Divider}} (const std\+::string filename, const std\+::string basename, const std\+::string ext, int split\+Count, int division\+Level, \mbox{\hyperlink{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}{Dispatch\+Policy}} dispatch\+Policy)
+\begin{DoxyCompactList}\small\item\em Constructor \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_fma_divider_a385e93c52060e0b280111b43e0b33232}\label{class_f_mpi_fma_divider_a385e93c52060e0b280111b43e0b33232} 
+{\bfseries FMpi\+Fma\+Divider} (const \mbox{\hyperlink{class_f_mpi_fma_divider}{FMpi\+Fma\+Divider}} \&)=delete
+\begin{DoxyCompactList}\small\item\em Deleted copy constructor because of loader \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_fma_divider_a2475366d00bdfb3c72629f234c12cbd0}\label{class_f_mpi_fma_divider_a2475366d00bdfb3c72629f234c12cbd0} 
+{\bfseries FMpi\+Fma\+Divider} (const \mbox{\hyperlink{class_f_mpi_fma_divider}{FMpi\+Fma\+Divider}} \&\&)=delete
+\begin{DoxyCompactList}\small\item\em Deleted move constructor because of loader \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_mpi_fma_divider_ade98663469071f6b042b25179f470c97}\label{class_f_mpi_fma_divider_ade98663469071f6b042b25179f470c97} 
+void {\bfseries read\+File} ()
+\begin{DoxyCompactList}\small\item\em Reads the particles from the loader and stores them sorted by Morton index. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_mpi_fma_divider_a821792f24a2166523fc661348691db89}{write\+Files}} ()
+\begin{DoxyCompactList}\small\item\em Writes the output file based on \+\_\+output\+Basename. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename FReal$>$\newline
+class FMpi\+Fma\+Divider$<$ FReal $>$}
+Loads an FMA particle file and splits it for MPI processing. 
+
+This is meant to be used to split an FMA particle file and save each part in a different file for MPI processes to pick up later. The aim is to distribute the particles in a way that will balance the computing load of all processes during the FMM.
+
+The tree is not actually built. The user chooses the tree-\/level at which he wants to split the file. The generated files can then be loaded with an \doxylink{class_f_fma_generic_loader}{FFma\+Generic\+Loader}.
+
+Each process posseses the fraction of the tree that goes from its root to the particles that it loaded.
+
+{\bfseries{2D example for a division level of 2, a tree of height 4 and 3 processes}}
+
+The space is divided according to the division level. \begin{DoxyVerb}     2D space                  level 1                  level 2
+ |* * * * *   * *|   ->   |* * * *|*   * *|   ->   |* *|* *|*  |* *|
+\end{DoxyVerb}
+ Then the divisions are associated with processors according to particle count and written to the file system. \begin{DoxyVerb} |* *|* *|*  |* *|   ->   |* *|* *|*   * *|
+   0   1   2   2            0   1     2
+\end{DoxyVerb}
+ The files are subsequently loaded into a tree. \begin{DoxyVerb}           Full tree                                        Proc 0 tree
+                                                                  _
+             *                                                  *  |
+          /     \                                            /     | nodes duplicated
+       *           *                                      *        | between processes
+ ____/___\_______/___\____ <-- division level       ____/__       _|
+ |  *  |  *  |  *     *  |                     =>   |  *  |        |
+ | / \ | / \ | /     / \ | <-- sub-trees            | / \ |        | nodes exclusive to proc 0
+ |*   *|*   *|*     *   *| <-- particles            |*   *|       _|
+    0     1        2                                   0
+\end{DoxyVerb}
+ 
+\begin{DoxyTemplParams}{模板参数}
+{\em FReal} & The floating point representation (usually double). \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{成员枚举类型说明}
+\Hypertarget{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}\label{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9} 
+\index{FMpiFmaDivider$<$ FReal $>$@{FMpiFmaDivider$<$ FReal $>$}!DispatchPolicy@{DispatchPolicy}}
+\index{DispatchPolicy@{DispatchPolicy}!FMpiFmaDivider$<$ FReal $>$@{FMpiFmaDivider$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{DispatchPolicy}{DispatchPolicy}}
+{\footnotesize\ttfamily template$<$typename FReal $>$ \\
+enum \mbox{\hyperlink{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}{FMpi\+Fma\+Divider\+::\+Dispatch\+Policy}}}
+
+
+
+Policy for entites that are dispatched. 
+
+
+\begin{DoxyItemize}
+\item PARTICLES to dispatch by counting particles.
+\item BOXES to dispatch by counting Morton index boxes. 
+\end{DoxyItemize}
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_mpi_fma_divider_a1934560ea602b402d1b61f8052201adf}\label{class_f_mpi_fma_divider_a1934560ea602b402d1b61f8052201adf} 
+\index{FMpiFmaDivider$<$ FReal $>$@{FMpiFmaDivider$<$ FReal $>$}!FMpiFmaDivider@{FMpiFmaDivider}}
+\index{FMpiFmaDivider@{FMpiFmaDivider}!FMpiFmaDivider$<$ FReal $>$@{FMpiFmaDivider$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{FMpiFmaDivider()}{FMpiFmaDivider()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename FReal $>$ \\
+\mbox{\hyperlink{class_f_mpi_fma_divider}{FMpi\+Fma\+Divider}}$<$ FReal $>$\mbox{\hyperlink{class_f_mpi_fma_divider}{\+::\+FMpi\+Fma\+Divider}} (\begin{DoxyParamCaption}\item[{const std\+::string}]{filename,  }\item[{int}]{split\+Count,  }\item[{int}]{division\+Level,  }\item[{\mbox{\hyperlink{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}{Dispatch\+Policy}}}]{dispatch\+Policy = {\ttfamily PARTICLES} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor 
+
+Builds the particle divider and opens the loader. The output files basename and extension are extracted from the input file name.
+
+
+\begin{DoxyParams}{参数}
+{\em filename\mbox{[}in\mbox{]}} & The particle input file. \\
+\hline
+{\em splitcount\mbox{[}in\mbox{]}} & The number of parts to split the input file into. \\
+\hline
+{\em division\+Level\mbox{[}in\mbox{]}} & The level in the to-\/be tree at which to do the division. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_mpi_fma_divider_a484f5736cb5b5fa224bf61983b4c2091}\label{class_f_mpi_fma_divider_a484f5736cb5b5fa224bf61983b4c2091} 
+\index{FMpiFmaDivider$<$ FReal $>$@{FMpiFmaDivider$<$ FReal $>$}!FMpiFmaDivider@{FMpiFmaDivider}}
+\index{FMpiFmaDivider@{FMpiFmaDivider}!FMpiFmaDivider$<$ FReal $>$@{FMpiFmaDivider$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{FMpiFmaDivider()}{FMpiFmaDivider()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename FReal $>$ \\
+\mbox{\hyperlink{class_f_mpi_fma_divider}{FMpi\+Fma\+Divider}}$<$ FReal $>$\mbox{\hyperlink{class_f_mpi_fma_divider}{\+::\+FMpi\+Fma\+Divider}} (\begin{DoxyParamCaption}\item[{const std\+::string}]{filename,  }\item[{const std\+::string}]{basename,  }\item[{const std\+::string}]{ext,  }\item[{int}]{split\+Count,  }\item[{int}]{division\+Level,  }\item[{\mbox{\hyperlink{class_f_mpi_fma_divider_a4c5c26bc833cb779f1f684c4456b0bb9}{Dispatch\+Policy}}}]{dispatch\+Policy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor 
+
+Builds the particle divider and opens the loader.
+
+
+\begin{DoxyParams}{参数}
+{\em filename\mbox{[}in\mbox{]}} & The particle input file. \\
+\hline
+{\em output\+Basename\mbox{[}in\mbox{]}} & The basename for the output files. \\
+\hline
+{\em splitcount\mbox{[}in\mbox{]}} & The number of parts to split the input file into. \\
+\hline
+{\em division\+Level\mbox{[}in\mbox{]}} & The level in the to-\/be tree at which to do the division. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_mpi_fma_divider_a821792f24a2166523fc661348691db89}\label{class_f_mpi_fma_divider_a821792f24a2166523fc661348691db89} 
+\index{FMpiFmaDivider$<$ FReal $>$@{FMpiFmaDivider$<$ FReal $>$}!writeFiles@{writeFiles}}
+\index{writeFiles@{writeFiles}!FMpiFmaDivider$<$ FReal $>$@{FMpiFmaDivider$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{writeFiles()}{writeFiles()}}
+{\footnotesize\ttfamily template$<$typename FReal $>$ \\
+void \mbox{\hyperlink{class_f_mpi_fma_divider}{FMpi\+Fma\+Divider}}$<$ FReal $>$\+::write\+Files (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Writes the output file based on \+\_\+output\+Basename. 
+
+Write files progress log
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Files/FMpi\+Fma\+Divider.\+hpp\end{DoxyCompactItemize}

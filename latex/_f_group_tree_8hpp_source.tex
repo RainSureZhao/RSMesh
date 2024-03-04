@@ -1,0 +1,964 @@
+\doxysection{FGroup\+Tree.\+hpp}
+\hypertarget{_f_group_tree_8hpp_source}{}\label{_f_group_tree_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/Core/FGroupTree.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/Core/FGroupTree.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Keep\ in\ private\ GIT}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ FGROUPTREE\_HPP}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ FGROUPTREE\_HPP}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FAssert.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FPoint.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FQuickSort.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../../Containers/FTreeCoordinate.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../../Containers/FCoordinateComputer.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}FGroupOfCells.hpp"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}FGroupOfParticles.hpp"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}FGroupAttachedLeaf.hpp"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }FReal,\ \textcolor{keyword}{class\ }CompositeCellClass,\ \textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }GroupAttachedLeafClass,\ \textcolor{keywordtype}{unsigned}\ NbSymbAttributes,\ \textcolor{keywordtype}{unsigned}\ NbAttributesPerParticle,\ \textcolor{keyword}{class\ }AttributeClass\ =\ FReal>}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_group_tree}{FGroupTree}}\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{typedef}\ GroupAttachedLeafClass\ BasicAttachedClass;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_group_of_particles}{FGroupOfParticles<FReal,\ NbSymbAttributes,\ NbAttributesPerParticle,AttributeClass>}}\ \mbox{\hyperlink{class_f_group_of_particles}{ParticleGroupClass}};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_group_of_cells}{FGroupOfCells<CompositeCellClass,\ SymboleCellClass,\ PoleCellClass,\ LocalCellClass>}}\ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//<\ height\ of\ the\ tree\ (1\ =>\ only\ the\ root)}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ treeHeight;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//<\ max\ number\ of\ cells\ in\ a\ block}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbElementsPerBlock;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//<\ all\ the\ blocks\ of\ the\ tree}}
+\DoxyCodeLine{00033\ \ \ \ \ std::vector<CellGroupClass*>*\ cellBlocksPerLevel;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//<\ all\ the\ blocks\ of\ leaves}}
+\DoxyCodeLine{00035\ \ \ \ \ std::vector<ParticleGroupClass*>\ particleBlocks;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//<\ the\ space\ system\ center}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ boxCenter;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//<\ the\ space\ system\ corner\ (used\ to\ compute\ morton\ index)}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ boxCorner;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//<\ the\ space\ system\ width}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{const}\ FReal\ boxWidth;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//<\ the\ width\ of\ a\ box\ at\ width\ level}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{const}\ FReal\ boxWidthAtLeafLevel;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ std::vector<CellGroupClass*>::iterator\ CellGroupIterator;}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ std::vector<CellGroupClass*>::const\_iterator\ CellGroupConstIterator;}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ std::vector<ParticleGroupClass*>::iterator\ ParticleGroupIterator;}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ std::vector<ParticleGroupClass*>::const\_iterator\ ParticleGroupConstIterator;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ OctreeClass>}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_f_group_tree_a34acc12640f196f68787c6de9d18d092}{FGroupTree}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inNbElementsPerBlock,\ OctreeClass*\textcolor{keyword}{const}\ inOctreeSrc)}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ :\ treeHeight(inTreeHeight),\ nbElementsPerBlock(inNbElementsPerBlock),\ cellBlocksPerLevel(nullptr),}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ boxCenter(inOctreeSrc-\/>getBoxCenter()),\ boxCorner(inOctreeSrc-\/>getBoxCenter(),-\/(inOctreeSrc-\/>getBoxWidth()/2)),}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ boxWidth(inOctreeSrc-\/>getBoxWidth()),\ boxWidthAtLeafLevel(inOctreeSrc-\/>getBoxWidth()/FReal(1<<(inTreeHeight-\/1)))\{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ cellBlocksPerLevel\ =\ \textcolor{keyword}{new}\ std::vector<CellGroupClass*>[treeHeight];}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Iterate\ on\ the\ tree\ and\ build}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(inOctreeSrc);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \{\ \textcolor{comment}{//\ First\ leaf\ level,\ we\ create\ leaves\ and\ cells\ groups}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLevel\ =\ treeHeight-\/1;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ avoidGotoLeft\ =\ octreeIterator;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ cell\ at\ this\ level}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ blockIteratorInOctree\ =\ octreeIterator;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ the\ iterator\ per\ nbElementsPerBlock\ (or\ until\ it\ cannot\ move\ right)}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeOfBlock\ =\ 1;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ nbParticlesInGroup\ =\ octreeIterator.getCurrentLeaf()-\/>getSrc()-\/>getNbParticles();}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(sizeOfBlock\ <\ nbElementsPerBlock\ \&\&\ octreeIterator.moveRight())\{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ +=\ 1;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesInGroup\ +=\ octreeIterator.getCurrentLeaf()-\/>getSrc()-\/>getNbParticles();}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ block\ with\ the\ apropriate\ parameters}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\textcolor{keyword}{const}\ newBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}(blockIteratorInOctree.getCurrentGlobalIndex(),}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.getCurrentGlobalIndex()+1,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock);}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_particles}{FGroupOfParticles<FReal,\ NbSymbAttributes,\ NbAttributesPerParticle,\ AttributeClass>}}*\textcolor{keyword}{const}\ newParticleBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_particles}{FGroupOfParticles<FReal,\ NbSymbAttributes,\ NbAttributesPerParticle,\ AttributeClass>}}(blockIteratorInOctree.getCurrentGlobalIndex(),}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.getCurrentGlobalIndex()+1,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock,\ nbParticlesInGroup);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ each\ cell\ of\ the\ block}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cellIdInBlock\ =\ 0;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbParticlesOffsetBeforeLeaf\ =\ 0;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(cellIdInBlock\ !=\ sizeOfBlock)\{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ newNodeIndex\ =\ blockIteratorInOctree.getCurrentCell()-\/>getMortonIndex();}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ newNodeCoordinate\ =\ blockIteratorInOctree.getCurrentCell()-\/>getCoordinate();}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ cell}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a910ee7384d96625213d3fee60fca84e7}{newCell}}(newNodeIndex,\ cellIdInBlock);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CompositeCellClass\ newNode\ =\ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a7106f2c07563c158b010811ecc04f9b9}{getCompleteCell}}(cellIdInBlock);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setMortonIndex(newNodeIndex);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setCoordinate(newNodeCoordinate);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setLevel(idxLevel);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ leaf}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesOffsetBeforeLeaf\ =\ newParticleBlock-\/>\mbox{\hyperlink{class_f_group_of_particles_a2d34d6e981b5a0084028490c9db0157c}{newLeaf}}(newNodeIndex,\ cellIdInBlock,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockIteratorInOctree.getCurrentLeaf()-\/>getSrc()-\/>getNbParticles(),}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesOffsetBeforeLeaf);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BasicAttachedClass\ attachedLeaf\ =\ newParticleBlock-\/>template\ getLeaf<BasicAttachedClass>(cellIdInBlock);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attachedLeaf.copyFromContainer(blockIteratorInOctree.getCurrentLeaf()-\/>getSrc(),\ 0);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellIdInBlock\ +=\ 1;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockIteratorInOctree.moveRight();}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ block}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellBlocksPerLevel[idxLevel].push\_back(newBlock);}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particleBlocks.push\_back(newParticleBlock);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ we\ can\ move\ right\ then\ add\ another\ block}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGotoLeft.moveUp();}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGotoLeft;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ level\ from\ heigth\ -\/\ 2\ to\ 1}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ treeHeight-\/2;\ idxLevel\ >\ 0\ ;\ -\/-\/idxLevel)\{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ avoidGotoLeft\ =\ octreeIterator;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ cell\ at\ this\ level}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ blockIteratorInOctree\ =\ octreeIterator;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ the\ iterator\ per\ nbElementsPerBlock\ (or\ until\ it\ cannot\ move\ right)}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeOfBlock\ =\ 1;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(sizeOfBlock\ <\ nbElementsPerBlock\ \&\&\ octreeIterator.moveRight())\{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ +=\ 1;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ block\ with\ the\ apropriate\ parameters}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\textcolor{keyword}{const}\ newBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}(blockIteratorInOctree.getCurrentGlobalIndex(),}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.getCurrentGlobalIndex()+1,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ each\ cell\ of\ the\ block}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cellIdInBlock\ =\ 0;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(cellIdInBlock\ !=\ sizeOfBlock)\{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ newNodeIndex\ =\ blockIteratorInOctree.getCurrentCell()-\/>getMortonIndex();}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ newNodeCoordinate\ =\ blockIteratorInOctree.getCurrentCell()-\/>getCoordinate();}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a910ee7384d96625213d3fee60fca84e7}{newCell}}(newNodeIndex,\ cellIdInBlock);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CompositeCellClass\ newNode\ =\ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a7106f2c07563c158b010811ecc04f9b9}{getCompleteCell}}(cellIdInBlock);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setMortonIndex(newNodeIndex);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setCoordinate(newNodeCoordinate);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setLevel(idxLevel);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellIdInBlock\ +=\ 1;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockIteratorInOctree.moveRight();}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ block}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellBlocksPerLevel[idxLevel].push\_back(newBlock);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ we\ can\ move\ right\ then\ add\ another\ block}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ avoidGotoLeft.moveUp();}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGotoLeft;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00168\ \ \ \ \ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ ParticleContainer>}
+\DoxyCodeLine{00179\ \ \ \ \ \mbox{\hyperlink{class_f_group_tree_ae5a7d5bbcc024faecf364e10fef9ffeb}{FGroupTree}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight,\ \textcolor{keyword}{const}\ FReal\ inBoxWidth,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inBoxCenter,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inNbElementsPerBlock,\ ParticleContainer*\ inParticlesContainer,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ particlesAreSorted\ =\ \textcolor{keyword}{false},\ MortonIndex\ inLeftLimite\ =\ -\/1):}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ treeHeight(inTreeHeight),nbElementsPerBlock(inNbElementsPerBlock),cellBlocksPerLevel(nullptr),}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ boxCenter(inBoxCenter),\ boxCorner(inBoxCenter,-\/(inBoxWidth/2)),\ boxWidth(inBoxWidth),}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ boxWidthAtLeafLevel(inBoxWidth/FReal(1<<(inTreeHeight-\/1)))\{}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ cellBlocksPerLevel\ =\ \textcolor{keyword}{new}\ std::vector<CellGroupClass*>[treeHeight];}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ MortonIndex*\ currentBlockIndexes\ =\ \textcolor{keyword}{new}\ MortonIndex[nbElementsPerBlock];}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First\ we\ work\ at\ leaf\ level}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Build\ morton\ index\ for\ particles}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }ParticleSortingStruct\{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ originalIndex;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ mindex;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ position\ to\ morton\ index}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticles\ =\ inParticlesContainer-\/>getNbParticles();}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleSortingStruct*\ particlesToSort\ =\ \textcolor{keyword}{new}\ ParticleSortingStruct[nbParticles];}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ xpos\ =\ inParticlesContainer-\/>getPositions()[0];}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ ypos\ =\ inParticlesContainer-\/>getPositions()[1];}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ zpos\ =\ inParticlesContainer-\/>getPositions()[2];}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ nbParticles\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ host\ =\ FCoordinateComputer::GetCoordinateFromPositionAndCorner<FReal>(this-\/>boxCorner,\ this-\/>boxWidth,}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ treeHeight,}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(xpos[idxPart],\ ypos[idxPart],\ zpos[idxPart])\ );}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ particleIndex\ =\ host.getMortonIndex();}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlesToSort[idxPart].mindex\ =\ particleIndex;}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlesToSort[idxPart].originalIndex\ =\ idxPart;}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sort\ if\ needed}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(particlesAreSorted\ ==\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_quick_sort}{FQuickSort<ParticleSortingStruct,\ FSize>::QsOmp}}(particlesToSort,\ nbParticles,\ [](\textcolor{keyword}{const}\ ParticleSortingStruct\&\ v1,\ \textcolor{keyword}{const}\ ParticleSortingStruct\&\ v2)\{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v1.mindex\ <=\ v2.mindex;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(nbParticles\ ==\ 0\ ||\ inLeftLimite\ <\ particlesToSort[0].mindex);}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ to\ block}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLevel\ =\ (treeHeight\ -\/\ 1);}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ FSize*\ nbParticlesPerLeaf\ =\ \textcolor{keyword}{new}\ FSize[nbElementsPerBlock];}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ firstParticle\ =\ 0;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ proceed\ each\ group\ in\ sub\ level}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(firstParticle\ !=\ nbParticles)\{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ lastParticle\ =\ firstParticle;}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ until\ end\ of\ sub\ group\ is\ reached\ or\ we\ have\ enough\ cells}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(sizeOfBlock\ <\ nbElementsPerBlock\ \&\&\ lastParticle\ <\ nbParticles)\{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sizeOfBlock\ ==\ 0\ ||\ currentBlockIndexes[sizeOfBlock-\/1]\ !=\ particlesToSort[lastParticle].mindex)\{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock]\ =\ particlesToSort[lastParticle].mindex;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[sizeOfBlock]\ \ =\ 1;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ +=\ 1;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[sizeOfBlock-\/1]\ +=\ 1;}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lastParticle\ +=\ 1;}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(lastParticle\ <\ nbParticles\ \&\&\ currentBlockIndexes[sizeOfBlock-\/1]\ ==\ particlesToSort[lastParticle].mindex)\{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[sizeOfBlock-\/1]\ +=\ 1;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lastParticle\ +=\ 1;}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ group}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\textcolor{keyword}{const}\ newBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}(currentBlockIndexes[0],}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock-\/1]+1,}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock);}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_particles}{FGroupOfParticles<FReal,\ NbSymbAttributes,\ NbAttributesPerParticle,\ AttributeClass>}}*\textcolor{keyword}{const}\ newParticleBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_particles}{FGroupOfParticles<FReal,\ NbSymbAttributes,\ NbAttributesPerParticle,\ AttributeClass>}}(currentBlockIndexes[0],}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock-\/1]+1,}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock,\ lastParticle-\/firstParticle);}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ cells}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbParticlesOffsetBeforeLeaf\ =\ 0;}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ offsetParticles\ =\ firstParticle;}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ cellIdInBlock\ =\ 0;\ cellIdInBlock\ !=\ sizeOfBlock\ ;\ ++cellIdInBlock)\{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a910ee7384d96625213d3fee60fca84e7}{newCell}}(currentBlockIndexes[cellIdInBlock],\ cellIdInBlock);}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CompositeCellClass\ newNode\ =\ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a7106f2c07563c158b010811ecc04f9b9}{getCompleteCell}}(cellIdInBlock);}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setMortonIndex(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coord;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coord.setPositionFromMorton(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setCoordinate(coord);}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ leaf}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesOffsetBeforeLeaf\ =\ newParticleBlock-\/>\mbox{\hyperlink{class_f_group_of_particles_a2d34d6e981b5a0084028490c9db0157c}{newLeaf}}(currentBlockIndexes[cellIdInBlock],\ cellIdInBlock,}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[cellIdInBlock],\ nbParticlesOffsetBeforeLeaf);}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BasicAttachedClass\ attachedLeaf\ =\ newParticleBlock-\/>template\ getLeaf<BasicAttachedClass>(cellIdInBlock);}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ each\ particle\ from\ the\ original\ position}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ nbParticlesPerLeaf[cellIdInBlock]\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attachedLeaf.setParticle(idxPart,\ particlesToSort[idxPart\ +\ offsetParticles].originalIndex,\ inParticlesContainer);}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offsetParticles\ +=\ nbParticlesPerLeaf[cellIdInBlock];}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ block}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellBlocksPerLevel[idxLevel].push\_back(newBlock);}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particleBlocks.push\_back(newParticleBlock);}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ firstParticle\ =\ lastParticle;}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ nbParticlesPerLeaf;}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ particlesToSort;}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ level\ from\ heigth\ -\/\ 2\ to\ 1}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ treeHeight-\/2;\ idxLevel\ >\ 0\ ;\ -\/-\/idxLevel)\{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ inLeftLimite\ =\ (inLeftLimite\ ==\ -\/1\ ?\ inLeftLimite\ :\ (inLeftLimite>>3));}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ CellGroupConstIterator\ iterChildCells\ =\ cellBlocksPerLevel[idxLevel+1].begin();}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellGroupConstIterator\ iterChildEndCells\ =\ cellBlocksPerLevel[idxLevel+1].end();}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Skip\ blocks\ that\ do\ not\ respect\ limit}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterChildCells\ !=\ iterChildEndCells}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ ((*iterChildCells)-\/>getEndingIndex()>>3)\ <=\ inLeftLimite)\{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++iterChildCells;}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ lower\ level\ is\ empty\ or\ all\ blocks\ skiped\ stop\ here}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(iterChildCells\ ==\ iterChildEndCells)\{}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ currentCellIndex\ =\ (*iterChildCells)-\/>getStartingIndex();}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((currentCellIndex>>3)\ <=\ inLeftLimite)\ currentCellIndex\ =\ ((inLeftLimite+1)<<3);}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ proceed\ each\ group\ in\ sub\ level}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterChildCells\ !=\ iterChildEndCells)\{}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ until\ end\ of\ sub\ group\ is\ reached\ or\ we\ have\ enough\ cells}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(sizeOfBlock\ <\ nbElementsPerBlock\ \&\&\ iterChildCells\ !=\ iterChildEndCells\ )\{}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((sizeOfBlock\ ==\ 0\ ||\ currentBlockIndexes[sizeOfBlock-\/1]\ !=\ (currentCellIndex>>3))}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (*iterChildCells)-\/>exists(currentCellIndex))\{}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock]\ =\ (currentCellIndex>>3);}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ +=\ 1;}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ =\ (((currentCellIndex>>3)+1)<<3);}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ +=\ 1;}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ we\ are\ at\ the\ end\ of\ the\ sub\ group,\ move\ to\ next}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterChildCells\ !=\ iterChildEndCells\ \&\&\ (*iterChildCells)-\/>getEndingIndex()\ <=\ currentCellIndex)\{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++iterChildCells;}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ morton\ index}}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(iterChildCells\ !=\ iterChildEndCells\ \&\&\ currentCellIndex\ <\ (*iterChildCells)-\/>getStartingIndex())\{}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ =\ (*iterChildCells)-\/>getStartingIndex();}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ group\ is\ full}}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sizeOfBlock\ ==\ nbElementsPerBlock\ ||\ (sizeOfBlock\ \&\&\ iterChildCells\ ==\ iterChildEndCells))\{}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ group}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\textcolor{keyword}{const}\ newBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}(currentBlockIndexes[0],}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock-\/1]+1,}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock);}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ cells}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ cellIdInBlock\ =\ 0;\ cellIdInBlock\ !=\ sizeOfBlock\ ;\ ++cellIdInBlock)\{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a910ee7384d96625213d3fee60fca84e7}{newCell}}(currentBlockIndexes[cellIdInBlock],\ cellIdInBlock);}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CompositeCellClass\ newNode\ =\ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a7106f2c07563c158b010811ecc04f9b9}{getCompleteCell}}(cellIdInBlock);}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setMortonIndex(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coord;}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coord.setPositionFromMorton(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setCoordinate(coord);}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ block}}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellBlocksPerLevel[idxLevel].push\_back(newBlock);}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ currentBlockIndexes;}
+\DoxyCodeLine{00361\ \ \ \ \ \}}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ ParticleContainer>}
+\DoxyCodeLine{00377\ \ \ \ \ \mbox{\hyperlink{class_f_group_tree_af76df98ddb521ee8812cc876d724283e}{FGroupTree}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight,\ \textcolor{keyword}{const}\ FReal\ inBoxWidth,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inBoxCenter,}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inNbElementsPerBlock,\ ParticleContainer*\ inParticlesContainer,}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ particlesAreSorted,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ oneParent,}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ inCoverRatio\ =\ 0.0,\ MortonIndex\ inLeftLimite\ =\ -\/1):}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ treeHeight(inTreeHeight),nbElementsPerBlock(inNbElementsPerBlock),cellBlocksPerLevel(nullptr),}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ boxCenter(inBoxCenter),\ boxCorner(inBoxCenter,-\/(inBoxWidth/2)),\ boxWidth(inBoxWidth),}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ boxWidthAtLeafLevel(inBoxWidth/FReal(1<<(inTreeHeight-\/1)))\{}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ FAssertLF(inCoverRatio\ ==\ 0.0\ ||\ oneParent\ ==\ \textcolor{keyword}{true},\ \textcolor{stringliteral}{"{}If\ a\ ratio\ is\ choosen\ oneParent\ should\ be\ turned\ on"{}});}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ userCoverRatio\ =\ (inCoverRatio\ !=\ 0.0);}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ cellBlocksPerLevel\ =\ \textcolor{keyword}{new}\ std::vector<CellGroupClass*>[treeHeight];}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ MortonIndex*\ currentBlockIndexes\ =\ \textcolor{keyword}{new}\ MortonIndex[nbElementsPerBlock];}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First\ we\ work\ at\ leaf\ level}}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Build\ morton\ index\ for\ particles}}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }ParticleSortingStruct\{}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ originalIndex;}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ mindex;}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ position\ to\ morton\ index}}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticles\ =\ inParticlesContainer-\/>getNbParticles();}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleSortingStruct*\ particlesToSort\ =\ \textcolor{keyword}{new}\ ParticleSortingStruct[nbParticles];}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ xpos\ =\ inParticlesContainer-\/>getPositions()[0];}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ ypos\ =\ inParticlesContainer-\/>getPositions()[1];}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ zpos\ =\ inParticlesContainer-\/>getPositions()[2];}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ nbParticles\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ host\ =\ FCoordinateComputer::GetCoordinateFromPositionAndCorner<FReal>(this-\/>boxCorner,\ this-\/>boxWidth,}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ treeHeight,}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(xpos[idxPart],\ ypos[idxPart],\ zpos[idxPart])\ );}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ particleIndex\ =\ host.getMortonIndex();}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlesToSort[idxPart].mindex\ =\ particleIndex;}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlesToSort[idxPart].originalIndex\ =\ idxPart;}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sort\ if\ needed}}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(particlesAreSorted\ ==\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_quick_sort}{FQuickSort<ParticleSortingStruct,\ FSize>::QsOmp}}(particlesToSort,\ nbParticles,\ [](\textcolor{keyword}{const}\ ParticleSortingStruct\&\ v1,\ \textcolor{keyword}{const}\ ParticleSortingStruct\&\ v2)\{}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v1.mindex\ <=\ v2.mindex;}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(nbParticles\ ==\ 0\ ||\ inLeftLimite\ <\ particlesToSort[0].mindex);}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ to\ block}}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLevel\ =\ (treeHeight\ -\/\ 1);}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ nbParticlesPerLeaf\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{int}[nbElementsPerBlock];}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ firstParticle\ =\ 0;}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ proceed\ each\ group\ in\ sub\ level}}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(firstParticle\ !=\ nbParticles)\{}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ lastParticle\ =\ firstParticle;}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ until\ end\ of\ sub\ group\ is\ reached\ or\ we\ have\ enough\ cells}}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(sizeOfBlock\ <\ nbElementsPerBlock\ \&\&\ lastParticle\ <\ nbParticles}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (userCoverRatio\ ==\ \textcolor{keyword}{false}}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ sizeOfBlock\ ==\ 0}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ currentBlockIndexes[sizeOfBlock-\/1]\ ==\ particlesToSort[lastParticle].mindex}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ (FReal(sizeOfBlock+1)/FReal(particlesToSort[lastParticle].mindex-\/particlesToSort[firstParticle].mindex))\ >=\ inCoverRatio))\{}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sizeOfBlock\ ==\ 0\ ||\ currentBlockIndexes[sizeOfBlock-\/1]\ !=\ particlesToSort[lastParticle].mindex)\{}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock]\ =\ particlesToSort[lastParticle].mindex;}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[sizeOfBlock]\ \ =\ 1;}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ +=\ 1;}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[sizeOfBlock-\/1]\ +=\ 1;}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lastParticle\ +=\ 1;}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(lastParticle\ <\ nbParticles\ \&\&\ currentBlockIndexes[sizeOfBlock-\/1]\ ==\ particlesToSort[lastParticle].mindex)\{}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[sizeOfBlock-\/1]\ +=\ 1;}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lastParticle\ +=\ 1;}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ group}}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\textcolor{keyword}{const}\ newBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}(currentBlockIndexes[0],}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock-\/1]+1,}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock);}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_particles}{FGroupOfParticles<FReal,\ NbSymbAttributes,\ NbAttributesPerParticle,\ AttributeClass>}}*\textcolor{keyword}{const}\ newParticleBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_particles}{FGroupOfParticles<FReal,\ NbSymbAttributes,\ NbAttributesPerParticle,\ AttributeClass>}}(currentBlockIndexes[0],}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock-\/1]+1,}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock,\ lastParticle-\/firstParticle);}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ cells}}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbParticlesOffsetBeforeLeaf\ =\ 0;}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ offsetParticles\ =\ firstParticle;}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ cellIdInBlock\ =\ 0;\ cellIdInBlock\ !=\ sizeOfBlock\ ;\ ++cellIdInBlock)\{}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a910ee7384d96625213d3fee60fca84e7}{newCell}}(currentBlockIndexes[cellIdInBlock],\ cellIdInBlock);}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CompositeCellClass\ newNode\ =\ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a7106f2c07563c158b010811ecc04f9b9}{getCompleteCell}}(cellIdInBlock);}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setMortonIndex(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coord;}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coord.setPositionFromMorton(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setCoordinate(coord);}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ leaf}}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesOffsetBeforeLeaf\ =\ newParticleBlock-\/>\mbox{\hyperlink{class_f_group_of_particles_a2d34d6e981b5a0084028490c9db0157c}{newLeaf}}(currentBlockIndexes[cellIdInBlock],\ cellIdInBlock,}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[cellIdInBlock],\ nbParticlesOffsetBeforeLeaf);}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BasicAttachedClass\ attachedLeaf\ =\ newParticleBlock-\/>template\ getLeaf<BasicAttachedClass>(cellIdInBlock);}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ each\ particle\ from\ the\ original\ position}}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ nbParticlesPerLeaf[cellIdInBlock]\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attachedLeaf.setParticle(idxPart,\ particlesToSort[idxPart\ +\ offsetParticles].originalIndex,\ inParticlesContainer);}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offsetParticles\ +=\ nbParticlesPerLeaf[cellIdInBlock];}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ block}}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellBlocksPerLevel[idxLevel].push\_back(newBlock);}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particleBlocks.push\_back(newParticleBlock);}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ firstParticle\ =\ lastParticle;}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ nbParticlesPerLeaf;}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ particlesToSort;}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ level\ from\ heigth\ -\/\ 2\ to\ 1}}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ treeHeight-\/2;\ idxLevel\ >\ 0\ ;\ -\/-\/idxLevel)\{}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ inLeftLimite\ =\ (inLeftLimite\ ==\ -\/1\ ?\ inLeftLimite\ :\ (inLeftLimite>>3));}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ CellGroupConstIterator\ iterChildCells\ =\ cellBlocksPerLevel[idxLevel+1].begin();}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellGroupConstIterator\ iterChildEndCells\ =\ cellBlocksPerLevel[idxLevel+1].end();}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Skip\ blocks\ that\ do\ not\ respect\ limit}}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterChildCells\ !=\ iterChildEndCells}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ ((*iterChildCells)-\/>getEndingIndex()>>3)\ <=\ inLeftLimite)\{}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++iterChildCells;}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ lower\ level\ is\ empty\ or\ all\ blocks\ skiped\ stop\ here}}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(iterChildCells\ ==\ iterChildEndCells)\{}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ currentCellIndex\ =\ (*iterChildCells)-\/>getStartingIndex();}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((currentCellIndex>>3)\ <=\ inLeftLimite)\ currentCellIndex\ =\ ((inLeftLimite+1)<<3);}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(oneParent\ ==\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ proceed\ each\ group\ in\ sub\ level}}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterChildCells\ !=\ iterChildEndCells)\{}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ until\ end\ of\ sub\ group\ is\ reached\ or\ we\ have\ enough\ cells}}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(sizeOfBlock\ <\ nbElementsPerBlock\ \&\&\ iterChildCells\ !=\ iterChildEndCells\ )\{}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((sizeOfBlock\ ==\ 0\ ||\ currentBlockIndexes[sizeOfBlock-\/1]\ !=\ (currentCellIndex>>3))}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (*iterChildCells)-\/>exists(currentCellIndex))\{}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock]\ =\ (currentCellIndex>>3);}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ +=\ 1;}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ =\ (((currentCellIndex>>3)+1)<<3);}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ +=\ 1;}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ we\ are\ at\ the\ end\ of\ the\ sub\ group,\ move\ to\ next}}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterChildCells\ !=\ iterChildEndCells\ \&\&\ (*iterChildCells)-\/>getEndingIndex()\ <=\ currentCellIndex)\{}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++iterChildCells;}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ morton\ index}}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(iterChildCells\ !=\ iterChildEndCells\ \&\&\ currentCellIndex\ <\ (*iterChildCells)-\/>getStartingIndex())\{}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ =\ (*iterChildCells)-\/>getStartingIndex();}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ group\ is\ full}}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sizeOfBlock\ ==\ nbElementsPerBlock\ ||\ (sizeOfBlock\ \&\&\ iterChildCells\ ==\ iterChildEndCells))\{}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ group}}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\textcolor{keyword}{const}\ newBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}(currentBlockIndexes[0],}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock-\/1]+1,}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock);}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ cells}}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ cellIdInBlock\ =\ 0;\ cellIdInBlock\ !=\ sizeOfBlock\ ;\ ++cellIdInBlock)\{}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a910ee7384d96625213d3fee60fca84e7}{newCell}}(currentBlockIndexes[cellIdInBlock],\ cellIdInBlock);}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CompositeCellClass\ newNode\ =\ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a7106f2c07563c158b010811ecc04f9b9}{getCompleteCell}}(cellIdInBlock);}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setMortonIndex(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coord;}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coord.setPositionFromMorton(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setCoordinate(coord);}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00559\ }
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ block}}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellBlocksPerLevel[idxLevel].push\_back(newBlock);}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ proceed\ each\ group\ in\ sub\ level}}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterChildCells\ !=\ iterChildEndCells)\{}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ want\ one\ parent\ group\ per\ child\ group\ so\ we\ will\ stop\ the\ parent\ group}}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ when\ we\ arrive\ to\ the\ same\ parent\ as\ lastChildIndex\ (which\ is\ lastChildIndex>>3)}}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ lastChildIndex\ =\ ((*iterChildCells)-\/>getEndingIndex()-\/1);}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ until\ end\ of\ sub\ group\ is\ reached\ or\ we\ passe\ the\ requested\ parent}}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ iterChildCells\ !=\ iterChildEndCells}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (currentCellIndex>>3)\ <=\ (lastChildIndex>>3)\ )\{}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Proceed\ until\ the\ requested\ parent}}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(currentCellIndex\ !=\ (*iterChildCells)-\/>getEndingIndex()}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (currentCellIndex>>3)\ <=\ (lastChildIndex>>3)\ )\{}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((*iterChildCells)-\/>exists(currentCellIndex))\{}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock]\ =\ (currentCellIndex>>3);}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ +=\ 1;}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ =\ (((currentCellIndex>>3)+1)<<3);}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ +=\ 1;}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ we\ are\ at\ the\ end\ of\ the\ sub\ group,\ move\ to\ next\ (otherwise\ we\ have\ consume\ a\ part\ of\ it)}}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterChildCells\ !=\ iterChildEndCells\ \&\&\ (*iterChildCells)-\/>getEndingIndex()\ <=\ currentCellIndex)\{}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++iterChildCells;}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ morton\ index}}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(iterChildCells\ !=\ iterChildEndCells\ \&\&\ currentCellIndex\ <\ (*iterChildCells)-\/>getStartingIndex())\{}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ =\ (*iterChildCells)-\/>getStartingIndex();}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ group\ is\ full}}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sizeOfBlock)\{}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ group}}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\textcolor{keyword}{const}\ newBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}(currentBlockIndexes[0],}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock-\/1]+1,}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock);}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ cells}}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ cellIdInBlock\ =\ 0;\ cellIdInBlock\ !=\ sizeOfBlock\ ;\ ++cellIdInBlock)\{}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a910ee7384d96625213d3fee60fca84e7}{newCell}}(currentBlockIndexes[cellIdInBlock],\ cellIdInBlock);}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CompositeCellClass\ newNode\ =\ newBlock-\/>\mbox{\hyperlink{class_f_group_of_cells_a7106f2c07563c158b010811ecc04f9b9}{getCompleteCell}}(cellIdInBlock);}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setMortonIndex(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coord;}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coord.setPositionFromMorton(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setCoordinate(coord);}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ block}}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellBlocksPerLevel[idxLevel].push\_back(newBlock);}
+\DoxyCodeLine{00617\ }
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ currentBlockIndexes;}
+\DoxyCodeLine{00624\ \ \ \ \ \}}
+\DoxyCodeLine{00625\ }
+\DoxyCodeLine{00626\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ ParticleContainer>}
+\DoxyCodeLine{00627\ \ \ \ \ \mbox{\hyperlink{class_f_group_tree_a34acc12640f196f68787c6de9d18d092}{FGroupTree}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight,\ \textcolor{keyword}{const}\ FReal\ inBoxWidth,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inBoxCenter,}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inNbElementsPerBlock,\ ParticleContainer*\ inParticlesContainer,}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::vector<int>>\ \&\ blockSizeAtEachLevel,}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ particlesAreSorted\ =\ \textcolor{keyword}{false}):}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \ \ \ \ treeHeight(inTreeHeight),nbElementsPerBlock(inNbElementsPerBlock),cellBlocksPerLevel(nullptr),}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ \ \ \ boxCenter(inBoxCenter),\ boxCorner(inBoxCenter,-\/(inBoxWidth/2)),\ boxWidth(inBoxWidth),}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ boxWidthAtLeafLevel(inBoxWidth/FReal(1<<(inTreeHeight-\/1)))\{}
+\DoxyCodeLine{00634\ }
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ cellBlocksPerLevel\ =\ \textcolor{keyword}{new}\ std::vector<CellGroupClass*>[treeHeight];}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ MortonIndex*\ currentBlockIndexes\ =\ \textcolor{keyword}{new}\ MortonIndex[nbElementsPerBlock];}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First\ we\ work\ at\ leaf\ level}}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Build\ morton\ index\ for\ particles}}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }ParticleSortingStruct\{}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ originalIndex;}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ mindex;}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ position\ to\ morton\ index}}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticles\ =\ inParticlesContainer-\/>getNbParticles();}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleSortingStruct*\ particlesToSort\ =\ \textcolor{keyword}{new}\ ParticleSortingStruct[nbParticles];}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ xpos\ =\ inParticlesContainer-\/>getPositions()[0];}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ ypos\ =\ inParticlesContainer-\/>getPositions()[1];}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ zpos\ =\ inParticlesContainer-\/>getPositions()[2];}
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ nbParticles\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ host\ =\ FCoordinateComputer::GetCoordinateFromPositionAndCorner<FReal>(this-\/>boxCorner,\ this-\/>boxWidth,}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ treeHeight,}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(xpos[idxPart],\ ypos[idxPart],\ zpos[idxPart])\ );}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ particleIndex\ =\ host.getMortonIndex(treeHeight-\/1);}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlesToSort[idxPart].mindex\ =\ particleIndex;}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlesToSort[idxPart].originalIndex\ =\ idxPart;}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00662\ }
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sort\ if\ needed}}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(particlesAreSorted\ ==\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_quick_sort}{FQuickSort<ParticleSortingStruct,\ FSize>::QsOmp}}(particlesToSort,\ nbParticles,\ [](\textcolor{keyword}{const}\ ParticleSortingStruct\&\ v1,\ \textcolor{keyword}{const}\ ParticleSortingStruct\&\ v2)\{}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v1.mindex\ <=\ v2.mindex;}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00669\ }
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ to\ block}}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLevel\ =\ (treeHeight\ -\/\ 1);}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxBlock\ =\ 0;}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \ \ \ \ FSize*\ nbParticlesPerLeaf\ =\ \textcolor{keyword}{new}\ FSize[nbElementsPerBlock];}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ firstParticle\ =\ 0;}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ proceed\ each\ group\ in\ sub\ level}}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(firstParticle\ !=\ nbParticles)\{}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ lastParticle\ =\ firstParticle;}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ until\ end\ of\ sub\ group\ is\ reached\ or\ we\ have\ enough\ cells}}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(sizeOfBlock\ <\ blockSizeAtEachLevel[treeHeight-\/1][idxBlock]\ \&\&\ lastParticle\ <\ nbParticles)\{}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sizeOfBlock\ ==\ 0\ ||\ currentBlockIndexes[sizeOfBlock-\/1]\ !=\ particlesToSort[lastParticle].mindex)\{}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock]\ =\ particlesToSort[lastParticle].mindex;}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[sizeOfBlock]\ \ =\ 1;}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ +=\ 1;}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[sizeOfBlock-\/1]\ +=\ 1;}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lastParticle\ +=\ 1;}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(lastParticle\ <\ nbParticles\ \&\&\ currentBlockIndexes[sizeOfBlock-\/1]\ ==\ particlesToSort[lastParticle].mindex)\{}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[sizeOfBlock-\/1]\ +=\ 1;}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lastParticle\ +=\ 1;}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00696\ }
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ group}}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellGroupClass*\textcolor{keyword}{const}\ newBlock\ =\ \textcolor{keyword}{new}\ CellGroupClass(currentBlockIndexes[0],}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock-\/1]+1,}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock);}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_particles}{FGroupOfParticles<FReal,\ NbSymbAttributes,\ NbAttributesPerParticle,\ AttributeClass>}}*\textcolor{keyword}{const}\ newParticleBlock\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_group_of_particles}{FGroupOfParticles<FReal,\ NbSymbAttributes,\ NbAttributesPerParticle,\ AttributeClass>}}(currentBlockIndexes[0],}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock-\/1]+1,}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock,\ lastParticle-\/firstParticle);}
+\DoxyCodeLine{00704\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(currentBlockIndexes[sizeOfBlock-\/1]+1\ ==\ 511)}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Suricate"{}}\ <<\ endl;}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ cells}}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ nbParticlesOffsetBeforeLeaf\ =\ 0;}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ offsetParticles\ =\ firstParticle;}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ cellIdInBlock\ =\ 0;\ cellIdInBlock\ !=\ sizeOfBlock\ ;\ ++cellIdInBlock)\{}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newBlock-\/>newCell(currentBlockIndexes[cellIdInBlock],\ cellIdInBlock);}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CompositeCellClass\ newNode\ =\ newBlock-\/>getCompleteCell(cellIdInBlock);}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setMortonIndex(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coord;}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coord.setPositionFromMorton(currentBlockIndexes[cellIdInBlock],\ idxLevel);}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setCoordinate(coord);}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ leaf}}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesOffsetBeforeLeaf\ =\ newParticleBlock-\/>\mbox{\hyperlink{class_f_group_of_particles_a2d34d6e981b5a0084028490c9db0157c}{newLeaf}}(currentBlockIndexes[cellIdInBlock],\ cellIdInBlock,}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesPerLeaf[cellIdInBlock],\ nbParticlesOffsetBeforeLeaf);}
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BasicAttachedClass\ attachedLeaf\ =\ newParticleBlock-\/>template\ getLeaf<BasicAttachedClass>(cellIdInBlock);}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ each\ particle\ from\ the\ original\ position}}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ nbParticlesPerLeaf[cellIdInBlock]\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ attachedLeaf.setParticle(idxPart,\ particlesToSort[idxPart\ +\ offsetParticles].originalIndex,\ inParticlesContainer);}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offsetParticles\ +=\ nbParticlesPerLeaf[cellIdInBlock];}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00731\ }
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ block}}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellBlocksPerLevel[idxLevel].push\_back(newBlock);}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particleBlocks.push\_back(newParticleBlock);}
+\DoxyCodeLine{00735\ }
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ firstParticle\ =\ lastParticle;}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxBlock;}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ nbParticlesPerLeaf;}
+\DoxyCodeLine{00741\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ particlesToSort;}
+\DoxyCodeLine{00742\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00743\ }
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ each\ level\ from\ heigth\ -\/\ 2\ to\ 1}}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ treeHeight-\/2;\ idxLevel\ >\ 0\ ;\ -\/-\/idxLevel)\{}
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \ \ \ \ CellGroupConstIterator\ iterChildCells\ =\ cellBlocksPerLevel[idxLevel+1].begin();}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellGroupConstIterator\ iterChildEndCells\ =\ cellBlocksPerLevel[idxLevel+1].end();}
+\DoxyCodeLine{00750\ }
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ lower\ level\ is\ empty\ or\ all\ blocks\ skiped\ stop\ here}}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(iterChildCells\ ==\ iterChildEndCells)\{}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00755\ }
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ currentCellIndex\ =\ (*iterChildCells)-\/>getStartingIndex();}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00758\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxBlock\ =\ 0;}
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ need\ to\ proceed\ each\ group\ in\ sub\ level}}
+\DoxyCodeLine{00760\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterChildCells\ !=\ iterChildEndCells)\{}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ until\ end\ of\ sub\ group\ is\ reached\ or\ we\ have\ enough\ cells}}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(sizeOfBlock\ <\ blockSizeAtEachLevel[idxLevel][idxBlock]\ \&\&\ iterChildCells\ !=\ iterChildEndCells\ )\{}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((sizeOfBlock\ ==\ 0\ ||\ currentBlockIndexes[sizeOfBlock-\/1]\ !=\ (currentCellIndex>>3))}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (*iterChildCells)-\/>exists(currentCellIndex))\{}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock]\ =\ (currentCellIndex>>3);}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ +=\ 1;}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ =\ (((currentCellIndex>>3)+1)<<3);}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ +=\ 1;}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ we\ are\ at\ the\ end\ of\ the\ sub\ group,\ move\ to\ next}}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterChildCells\ !=\ iterChildEndCells\ \&\&\ (*iterChildCells)-\/>getEndingIndex()\ <=\ currentCellIndex)\{}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++iterChildCells;}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ morton\ index}}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(iterChildCells\ !=\ iterChildEndCells\ \&\&\ currentCellIndex\ <\ (*iterChildCells)-\/>getStartingIndex())\{}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentCellIndex\ =\ (*iterChildCells)-\/>getStartingIndex();}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00780\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00781\ }
+\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ group\ is\ full}}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(sizeOfBlock\ ==\ blockSizeAtEachLevel[idxLevel][idxBlock]\ ||\ (sizeOfBlock\ \&\&\ iterChildCells\ ==\ iterChildEndCells))\{\ \textcolor{comment}{//NOTE\ la\ seconde\ partie\ va\ sûrement\ sauter,\ car\ la\ taille\ est\ pré-\/calculée}}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ a\ group}}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellGroupClass*\textcolor{keyword}{const}\ newBlock\ =\ \textcolor{keyword}{new}\ CellGroupClass(currentBlockIndexes[0],}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentBlockIndexes[sizeOfBlock-\/1]+1,}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock);}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ cells}}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ cellIdInBlock\ =\ 0;\ cellIdInBlock\ !=\ sizeOfBlock\ ;\ ++cellIdInBlock)\{}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newBlock-\/>newCell(currentBlockIndexes[cellIdInBlock],\ cellIdInBlock);}
+\DoxyCodeLine{00791\ }
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CompositeCellClass\ newNode\ =\ newBlock-\/>getCompleteCell(cellIdInBlock);}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setMortonIndex(currentBlockIndexes[cellIdInBlock]);}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coord;}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coord.setPositionFromMorton(currentBlockIndexes[cellIdInBlock],\ idxLevel);}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ newNode.setCoordinate(coord);}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00798\ }
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Keep\ the\ block}}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellBlocksPerLevel[idxLevel].push\_back(newBlock);}
+\DoxyCodeLine{00801\ }
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeOfBlock\ =\ 0;}
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxBlock;}
+\DoxyCodeLine{00804\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00805\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00807\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ currentBlockIndexes;}
+\DoxyCodeLine{00808\ \ \ \ \ \}}
+\DoxyCodeLine{00809\ }
+\DoxyCodeLine{00811\ \ \ \ \ \mbox{\hyperlink{class_f_group_tree_a7e931217a62322a2d67b5121144bd9a1}{\string~FGroupTree}}()\{}
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 0\ ;\ idxLevel\ <\ treeHeight\ ;\ ++idxLevel)\{}
+\DoxyCodeLine{00813\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<CellGroupClass*>\&\ levelBlocks\ =\ cellBlocksPerLevel[idxLevel];}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\ block:\ levelBlocks)\{}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ block;}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ cellBlocksPerLevel;}
+\DoxyCodeLine{00819\ }
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{class_f_group_of_particles}{ParticleGroupClass}}*\ block:\ particleBlocks)\{}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ block;}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00823\ \ \ \ \ \}}
+\DoxyCodeLine{00824\ }
+\DoxyCodeLine{00825\ }
+\DoxyCodeLine{00827\ \ \ \ \ \textcolor{comment}{//\ Lambda\ function\ to\ apply\ to\ all\ member}}
+\DoxyCodeLine{00829\ }
+\DoxyCodeLine{00834\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ ParticlesAttachedClass>}
+\DoxyCodeLine{00835\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_group_tree_aea609fd093d99653bdcba998e6c44d0b}{forEachLeaf}}(std::function<\textcolor{keywordtype}{void}(ParticlesAttachedClass*)>\ function)\{}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{class_f_group_of_particles}{ParticleGroupClass}}*\ block:\ particleBlocks)\{}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \ \ \ \ block-\/>forEachLeaf(function);}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00839\ \ \ \ \ \}}
+\DoxyCodeLine{00840\ }
+\DoxyCodeLine{00845\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_group_tree_a2c80c8fc0934b93fbadf1b4713b829a2}{forEachCell}}(std::function<\textcolor{keywordtype}{void}(CompositeCellClass)>\ function)\{}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 0\ ;\ idxLevel\ <\ treeHeight\ ;\ ++idxLevel)\{}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<CellGroupClass*>\&\ levelBlocks\ =\ cellBlocksPerLevel[idxLevel];}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\ block:\ levelBlocks)\{}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ block-\/>forEachCell(function);}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00852\ \ \ \ \ \}}
+\DoxyCodeLine{00853\ }
+\DoxyCodeLine{00858\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_group_tree_a99e48c67d204e2b1da2308311f21efdf}{forEachCellWithLevel}}(std::function<\textcolor{keywordtype}{void}(CompositeCellClass,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int})>\ function)\{}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 0\ ;\ idxLevel\ <\ treeHeight\ ;\ ++idxLevel)\{}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<CellGroupClass*>\&\ levelBlocks\ =\ cellBlocksPerLevel[idxLevel];}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\ block:\ levelBlocks)\{}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ block-\/>forEachCell(function,\ idxLevel);}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00865\ \ \ \ \ \}}
+\DoxyCodeLine{00866\ }
+\DoxyCodeLine{00871\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ ParticlesAttachedClass>}
+\DoxyCodeLine{00872\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_group_tree_a0c8f4688cc42dd72c9d0d6d806cc0422}{forEachCellLeaf}}(std::function<\textcolor{keywordtype}{void}(CompositeCellClass,ParticlesAttachedClass*)>\ function)\{}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ CellGroupIterator\ iterCells\ =\ cellBlocksPerLevel[treeHeight-\/1].begin();}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellGroupIterator\ iterEndCells\ =\ cellBlocksPerLevel[treeHeight-\/1].end();}
+\DoxyCodeLine{00875\ }
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ ParticleGroupIterator\ iterLeaves\ =\ particleBlocks.begin();}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ParticleGroupIterator\ iterEndLeaves\ =\ particleBlocks.end();}
+\DoxyCodeLine{00878\ }
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(iterCells\ !=\ iterEndCells\ \&\&\ iterLeaves\ !=\ iterEndLeaves)\{}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \ \ \ \ (*iterCells)-\/>forEachCell([\&](CompositeCellClass\ aCell)\{}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ leafIdx\ =\ (*iterLeaves)-\/>getLeafIndex(aCell.getMortonIndex());}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(leafIdx\ !=\ -\/1);}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ParticlesAttachedClass\ aLeaf\ =\ (*iterLeaves)-\/>template\ getLeaf\ <ParticlesAttachedClass>(leafIdx);}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(aLeaf.isAttachedToSomething());}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ function(aCell,\ \&aLeaf);}
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00887\ }
+\DoxyCodeLine{00888\ \ \ \ \ \ \ \ \ \ \ \ \ ++iterCells;}
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \ \ \ \ ++iterLeaves;}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00891\ }
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ FAssertLF(iterCells\ ==\ iterEndCells\ \&\&\ iterLeaves\ ==\ iterEndLeaves);}
+\DoxyCodeLine{00893\ \ \ \ \ \}}
+\DoxyCodeLine{00894\ }
+\DoxyCodeLine{00895\ }
+\DoxyCodeLine{00896\ }
+\DoxyCodeLine{00900\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_group_tree_ad838a71648c7ea9cc71385457e493fc0}{printInfoBlocks}}()\{}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Group\ Tree\ information:\(\backslash\)n"{}};}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Group\ Size\ =\ "{}}\ <<\ nbElementsPerBlock\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Tree\ height\ =\ "{}}\ <<\ treeHeight\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 1\ ;\ idxLevel\ <\ treeHeight\ ;\ ++idxLevel)\{}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<CellGroupClass*>\&\ levelBlocks\ =\ cellBlocksPerLevel[idxLevel];}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Level\ "{}}\ <<\ idxLevel\ <<\ \textcolor{stringliteral}{"{},\ there\ are\ "{}}\ <<\ levelBlocks.size()\ <<\ \textcolor{stringliteral}{"{}\ groups.\(\backslash\)n"{}};}
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxGroup\ =\ 0;}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_group_of_cells}{CellGroupClass}}*\ block:\ levelBlocks)\{}
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Group\ "{}}\ <<\ (idxGroup++);}
+\DoxyCodeLine{00910\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Size\ =\ "{}}\ <<\ block-\/>getNumberOfCellsInBlock();}
+\DoxyCodeLine{00911\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Starting\ Index\ =\ "{}}\ <<\ block-\/>getStartingIndex();}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Ending\ Index\ =\ "{}}\ <<\ block-\/>getEndingIndex();}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Ratio\ of\ usage\ =\ "{}}\ <<\ float(block-\/>getNumberOfCellsInBlock())/float(block-\/>getEndingIndex()-\/block-\/>getStartingIndex())\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00915\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00916\ }
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}There\ are\ "{}}\ <<\ particleBlocks.size()\ <<\ \textcolor{stringliteral}{"{}\ leaf-\/groups.\(\backslash\)n"{}};}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxGroup\ =\ 0;}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ FSize\ totalNbParticles\ =\ 0;}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_group_of_particles}{ParticleGroupClass}}*\ block:\ particleBlocks)\{}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Group\ "{}}\ <<\ (idxGroup++);}
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Size\ =\ "{}}\ <<\ block-\/>getNumberOfLeavesInBlock();}
+\DoxyCodeLine{00923\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Starting\ Index\ =\ "{}}\ <<\ block-\/>getStartingIndex();}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Ending\ Index\ =\ "{}}\ <<\ block-\/>getEndingIndex();}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Nb\ Particles\ =\ "{}}\ <<\ block-\/>getNbParticlesInGroup();}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Ratio\ of\ usage\ =\ "{}}\ <<\ float(block-\/>getNumberOfLeavesInBlock())/float(block-\/>getEndingIndex()-\/block-\/>getStartingIndex())\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ \ \ \ \ totalNbParticles\ +=\ block-\/>getNbParticlesInGroup();}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}There\ are\ "{}}\ <<\ totalNbParticles\ <<\ \textcolor{stringliteral}{"{}\ particles.\(\backslash\)n"{}};}
+\DoxyCodeLine{00930\ \ \ \ \ \}}
+\DoxyCodeLine{00931\ }
+\DoxyCodeLine{00933\ \ \ \ \ \textcolor{comment}{//\ Algorithm\ function}}
+\DoxyCodeLine{00935\ }
+\DoxyCodeLine{00936\ \ \ \ \ \textcolor{keywordtype}{int}\ getHeight()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ treeHeight;}
+\DoxyCodeLine{00938\ \ \ \ \ \}}
+\DoxyCodeLine{00939\ }
+\DoxyCodeLine{00940\ \ \ \ \ CellGroupIterator\ cellsBegin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\{}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ FAssertLF(inLevel\ <\ treeHeight);}
+\DoxyCodeLine{00942\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cellBlocksPerLevel[inLevel].begin();}
+\DoxyCodeLine{00943\ \ \ \ \ \}}
+\DoxyCodeLine{00944\ }
+\DoxyCodeLine{00945\ \ \ \ \ CellGroupConstIterator\ cellsBegin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ FAssertLF(inLevel\ <\ treeHeight);}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cellBlocksPerLevel[inLevel].begin();}
+\DoxyCodeLine{00948\ \ \ \ \ \}}
+\DoxyCodeLine{00949\ }
+\DoxyCodeLine{00950\ \ \ \ \ CellGroupIterator\ cellsEnd(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\{}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ FAssertLF(inLevel\ <\ treeHeight);}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cellBlocksPerLevel[inLevel].end();}
+\DoxyCodeLine{00953\ \ \ \ \ \}}
+\DoxyCodeLine{00954\ }
+\DoxyCodeLine{00955\ \ \ \ \ CellGroupConstIterator\ cellsEnd(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ FAssertLF(inLevel\ <\ treeHeight);}
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cellBlocksPerLevel[inLevel].end();}
+\DoxyCodeLine{00958\ \ \ \ \ \}}
+\DoxyCodeLine{00959\ }
+\DoxyCodeLine{00960\ \ \ \ \ \textcolor{keywordtype}{int}\ getNbCellGroupAtLevel(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ FAssertLF(inLevel\ <\ treeHeight);}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int(cellBlocksPerLevel[inLevel].size());}
+\DoxyCodeLine{00963\ \ \ \ \ \}}
+\DoxyCodeLine{00964\ }
+\DoxyCodeLine{00965\ \ \ \ \ CellGroupClass*\ getCellGroup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inIdx)\{}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ FAssertLF(inLevel\ <\ treeHeight);}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ FAssertLF(inIdx\ <\ \textcolor{keywordtype}{int}(cellBlocksPerLevel[inLevel].size()));}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cellBlocksPerLevel[inLevel][inIdx];}
+\DoxyCodeLine{00969\ \ \ \ \ \}}
+\DoxyCodeLine{00970\ }
+\DoxyCodeLine{00971\ \ \ \ \ \textcolor{keyword}{const}\ CellGroupClass*\ getCellGroup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inIdx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ FAssertLF(inLevel\ <\ treeHeight);}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ FAssertLF(inIdx\ <\ \textcolor{keywordtype}{int}(cellBlocksPerLevel[inLevel].size()));}
+\DoxyCodeLine{00974\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cellBlocksPerLevel[inLevel][inIdx];}
+\DoxyCodeLine{00975\ \ \ \ \ \}}
+\DoxyCodeLine{00976\ }
+\DoxyCodeLine{00977\ \ \ \ \ ParticleGroupIterator\ leavesBegin()\{}
+\DoxyCodeLine{00978\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ particleBlocks.begin();}
+\DoxyCodeLine{00979\ \ \ \ \ \}}
+\DoxyCodeLine{00980\ }
+\DoxyCodeLine{00981\ \ \ \ \ ParticleGroupConstIterator\ leavesBegin()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ particleBlocks.begin();}
+\DoxyCodeLine{00983\ \ \ \ \ \}}
+\DoxyCodeLine{00984\ }
+\DoxyCodeLine{00985\ \ \ \ \ ParticleGroupIterator\ leavesEnd()\{}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ particleBlocks.end();}
+\DoxyCodeLine{00987\ \ \ \ \ \}}
+\DoxyCodeLine{00988\ }
+\DoxyCodeLine{00989\ \ \ \ \ ParticleGroupConstIterator\ leavesEnd()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ particleBlocks.end();}
+\DoxyCodeLine{00991\ \ \ \ \ \}}
+\DoxyCodeLine{00992\ }
+\DoxyCodeLine{00993\ \ \ \ \ \textcolor{keywordtype}{int}\ getNbParticleGroup()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00994\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int(particleBlocks.size());}
+\DoxyCodeLine{00995\ \ \ \ \ \}}
+\DoxyCodeLine{00996\ }
+\DoxyCodeLine{00997\ \ \ \ \ ParticleGroupClass*\ getParticleGroup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inIdx)\{}
+\DoxyCodeLine{00998\ \ \ \ \ \ \ \ \ FAssertLF(inIdx\ <\ \textcolor{keywordtype}{int}(particleBlocks.size()));}
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ particleBlocks[inIdx];}
+\DoxyCodeLine{01000\ \ \ \ \ \}}
+\DoxyCodeLine{01001\ }
+\DoxyCodeLine{01002\ \ \ \ \ \textcolor{keyword}{const}\ ParticleGroupClass*\ getParticleGroup(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inIdx)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{01003\ \ \ \ \ \ \ \ \ FAssertLF(inIdx\ <\ \textcolor{keywordtype}{int}(particleBlocks.size()));}
+\DoxyCodeLine{01004\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ particleBlocks[inIdx];}
+\DoxyCodeLine{01005\ \ \ \ \ \}}
+\DoxyCodeLine{01006\ \};}
+\DoxyCodeLine{01007\ }
+\DoxyCodeLine{01008\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FGROUPTREE\_HPP}}
+
+\end{DoxyCode}

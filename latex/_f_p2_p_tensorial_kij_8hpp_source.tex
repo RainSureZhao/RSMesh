@@ -1,0 +1,256 @@
+\doxysection{FP2\+PTensorial\+Kij.\+hpp}
+\hypertarget{_f_p2_p_tensorial_kij_8hpp_source}{}\label{_f_p2_p_tensorial_kij_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/P2P/FP2PTensorialKij.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/P2P/FP2PTensorialKij.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FP2P\_TENSORIALKIJ\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FP2P\_TENSORIALKIJ\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{namespace\ }FP2P\ \{}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Tensorial\ Matrix\ Kernels:\ K\_IJ\ /\ p\_i=\(\backslash\)sum\_j\ K\_\{ij\}\ w\_j}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{typename}\ MatrixKernelClass>}
+\DoxyCodeLine{00037\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ MutualParticlesKIJ(\textcolor{keyword}{const}\ FReal\ targetX,\textcolor{keyword}{const}\ FReal\ targetY,\textcolor{keyword}{const}\ FReal\ targetZ,\ \textcolor{keyword}{const}\ FReal*\ targetPhysicalValue,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ targetForceX,\ FReal*\ targetForceY,\ FReal*\ targetForceZ,\ FReal*\ targetPotential,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ sourceX,\textcolor{keyword}{const}\ FReal\ sourceY,\textcolor{keyword}{const}\ FReal\ sourceZ,\ \textcolor{keyword}{const}\ FReal*\ sourcePhysicalValue,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ sourceForceX,\ FReal*\ sourceForceY,\ FReal*\ sourceForceZ,\ FReal*\ sourcePotential,}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ MatrixKernel)\{}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ get\ information\ on\ tensorial\ aspect\ of\ matrix\ kernel}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ncmp\ =\ MatrixKernelClass::NCMP;\ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ npv\ =\ MatrixKernelClass::NPV;\ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ npot\ =\ MatrixKernelClass::NPOT;\ \ \ \ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ evaluate\ kernel\ and\ its\ partial\ derivatives}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ sourcePoint(sourceX,sourceY,sourceZ);}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ targetPoint(targetX,targetY,targetZ);}
+\DoxyCodeLine{00051\ \ \ \ \ FReal\ Kxy[ncmp];}
+\DoxyCodeLine{00052\ \ \ \ \ FReal\ dKxy[ncmp][3];}
+\DoxyCodeLine{00053\ \ \ \ \ MatrixKernel-\/>evaluateBlockAndDerivative(targetPoint,sourcePoint,Kxy,dKxy);}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{const}\ FReal\ mutual\_coeff\ =\ MatrixKernel-\/>getMutualCoefficient();\ \textcolor{comment}{//\ 1\ if\ symmetric;\ -\/1\ if\ antisymmetric}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0\ ;\ i\ <\ npot\ ;\ ++i)\{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j\ =\ 0\ ;\ j\ <\ npv\ ;\ ++j)\{}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ component\ to\ be\ applied}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ d\ =\ MatrixKernel-\/>getPosition(i*npv+j);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ forces\ prefactor}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ coef\ =\ (targetPhysicalValue[j]\ *\ sourcePhysicalValue[j]);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ targetForceX[i]\ +=\ dKxy[d][0]\ *\ coef;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ targetForceY[i]\ +=\ dKxy[d][1]\ *\ coef;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ targetForceZ[i]\ +=\ dKxy[d][2]\ *\ coef;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ targetPotential[i]\ +=\ (\ Kxy[d]\ *\ sourcePhysicalValue[j]\ );}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ sourceForceX[i]\ -\/=\ dKxy[d][0]\ *\ coef;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ sourceForceY[i]\ -\/=\ dKxy[d][1]\ *\ coef;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ sourceForceZ[i]\ -\/=\ dKxy[d][2]\ *\ coef;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ sourcePotential[i]\ +=\ (\ mutual\_coeff\ *\ Kxy[d]\ *\ targetPhysicalValue[j]\ );}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ j}}
+\DoxyCodeLine{00076\ \ \ \ \ \}\textcolor{comment}{//\ i}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ Tensorial\ Matrix\ Kernels:\ K\_IJ}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ TODO:\ Implement\ SSE\ and\ AVX\ variants\ then\ move\ following\ FullMutualKIJ\ and\ FullRemoteKIJ\ to\ FP2P.hpp}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{typename}\ MatrixKernelClass>}
+\DoxyCodeLine{00095\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ FullMutualKIJ(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors,\ \textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ MatrixKernel)\{}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{comment}{//\ get\ information\ on\ tensorial\ aspect\ of\ matrix\ kernel}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ncmp\ =\ MatrixKernelClass::NCMP;}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ npv\ =\ MatrixKernelClass::NPV;\ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ npot\ =\ MatrixKernelClass::NPOT;}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{comment}{//\ get\ info\ on\ targets}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesTargets\ =\ inTargets-\/>getNbParticles();}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsX\ =\ inTargets-\/>getPositions()[0];}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsY\ =\ inTargets-\/>getPositions()[1];}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsZ\ =\ inTargets-\/>getPositions()[2];}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxNeighbors\ =\ 0\ ;\ idxNeighbors\ <\ limiteNeighbors\ ;\ ++idxNeighbors)\{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxTarget\ =\ 0\ ;\ idxTarget\ <\ nbParticlesTargets\ ;\ ++idxTarget)\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ inNeighbors[idxNeighbors]\ )\{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesSources\ =\ inNeighbors[idxNeighbors]-\/>getNbParticles();}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ sourcesX\ =\ inNeighbors[idxNeighbors]-\/>getPositions()[0];}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ sourcesY\ =\ inNeighbors[idxNeighbors]-\/>getPositions()[1];}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ sourcesZ\ =\ inNeighbors[idxNeighbors]-\/>getPositions()[2];}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxSource\ =\ 0\ ;\ idxSource\ <\ nbParticlesSources\ ;\ ++idxSource)\{}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ evaluate\ kernel\ and\ its\ partial\ derivatives}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ sourcePoint(sourcesX[idxSource],sourcesY[idxSource],sourcesZ[idxSource]);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ targetPoint(targetsX[idxTarget],targetsY[idxTarget],targetsZ[idxTarget]);}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ Kxy[ncmp];}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ dKxy[ncmp][3];}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MatrixKernel-\/>evaluateBlockAndDerivative(targetPoint,sourcePoint,Kxy,dKxy);}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ mutual\_coeff\ =\ MatrixKernel-\/>getMutualCoefficient();\ \textcolor{comment}{//\ 1\ if\ symmetric;\ -\/1\ if\ antisymmetric}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0\ ;\ i\ <\ npot\ ;\ ++i)\{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsPotentials\ =\ inTargets-\/>getPotentials(i);}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesX\ =\ inTargets-\/>getForcesX(i);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesY\ =\ inTargets-\/>getForcesY(i);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesZ\ =\ inTargets-\/>getForcesZ(i);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ sourcesPotentials\ =\ inNeighbors[idxNeighbors]-\/>getPotentials(i);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ sourcesForcesX\ =\ inNeighbors[idxNeighbors]-\/>getForcesX(i);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ sourcesForcesY\ =\ inNeighbors[idxNeighbors]-\/>getForcesY(i);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ sourcesForcesZ\ =\ inNeighbors[idxNeighbors]-\/>getForcesZ(i);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j\ =\ 0\ ;\ j\ <\ npv\ ;\ ++j)\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsPhysicalValues\ =\ inTargets-\/>getPhysicalValues(j);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ sourcesPhysicalValues\ =\ inNeighbors[idxNeighbors]-\/>getPhysicalValues(j);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ component\ to\ be\ applied}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ d\ =\ MatrixKernel-\/>getPosition(i*npv+j);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ forces\ prefactor}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ coef\ =\ (targetsPhysicalValues[idxTarget]\ *\ sourcesPhysicalValues[idxSource]);}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesX[idxTarget]\ +=\ dKxy[d][0]\ *\ coef;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesY[idxTarget]\ +=\ dKxy[d][1]\ *\ coef;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesZ[idxTarget]\ +=\ dKxy[d][2]\ *\ coef;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsPotentials[idxTarget]\ +=\ (\ Kxy[d]\ *\ sourcesPhysicalValues[idxSource]\ );}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesForcesX[idxSource]\ -\/=\ dKxy[d][0]\ *\ coef;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesForcesY[idxSource]\ -\/=\ dKxy[d][1]\ *\ coef;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesForcesZ[idxSource]\ -\/=\ dKxy[d][2]\ *\ coef;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sourcesPotentials[idxSource]\ +=\ mutual\_coeff\ *\ Kxy[d]\ *\ targetsPhysicalValues[idxTarget];}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ j}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ i}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{typename}\ MatrixKernelClass>}
+\DoxyCodeLine{00166\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ InnerKIJ(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ MatrixKernel)\{}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{comment}{//\ get\ information\ on\ tensorial\ aspect\ of\ matrix\ kernel}}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ncmp\ =\ MatrixKernelClass::NCMP;}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ npv\ =\ MatrixKernelClass::NPV;\ \ \ \ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ npot\ =\ MatrixKernelClass::NPOT;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{comment}{//\ get\ info\ on\ targets}}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesTargets\ =\ inTargets-\/>getNbParticles();}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsX\ =\ inTargets-\/>getPositions()[0];}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsY\ =\ inTargets-\/>getPositions()[1];}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsZ\ =\ inTargets-\/>getPositions()[2];}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxTarget\ =\ 0\ ;\ idxTarget\ <\ nbParticlesTargets\ ;\ ++idxTarget)\{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxSource\ =\ idxTarget\ +\ 1\ ;\ idxSource\ <\ nbParticlesTargets\ ;\ ++idxSource)\{}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ evaluate\ kernel\ and\ its\ partial\ derivatives}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ sourcePoint(targetsX[idxSource],targetsY[idxSource],targetsZ[idxSource]);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ targetPoint(targetsX[idxTarget],targetsY[idxTarget],targetsZ[idxTarget]);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ Kxy[ncmp];}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ dKxy[ncmp][3];}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ MatrixKernel-\/>evaluateBlockAndDerivative(targetPoint,sourcePoint,Kxy,dKxy);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ mutual\_coeff\ =\ MatrixKernel-\/>getMutualCoefficient();\ \textcolor{comment}{//\ 1\ if\ symmetric;\ -\/1\ if\ antisymmetric}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0\ ;\ i\ <\ npot\ ;\ ++i)\{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsPotentials\ =\ inTargets-\/>getPotentials(i);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesX\ =\ inTargets-\/>getForcesX(i);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesY\ =\ inTargets-\/>getForcesY(i);}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesZ\ =\ inTargets-\/>getForcesZ(i);}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j\ =\ 0\ ;\ j\ <\ npv\ ;\ ++j)\{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsPhysicalValues\ =\ inTargets-\/>getPhysicalValues(j);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ component\ to\ be\ applied}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ d\ =\ MatrixKernel-\/>getPosition(i*npv+j);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ forces\ prefactor}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ coef\ =\ (targetsPhysicalValues[idxTarget]\ *\ targetsPhysicalValues[idxSource]);}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesX[idxTarget]\ +=\ dKxy[d][0]\ *\ coef;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesY[idxTarget]\ +=\ dKxy[d][1]\ *\ coef;}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesZ[idxTarget]\ +=\ dKxy[d][2]\ *\ coef;}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsPotentials[idxTarget]\ +=\ (\ Kxy[d]\ *\ targetsPhysicalValues[idxSource]\ );}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesX[idxSource]\ -\/=\ dKxy[d][0]\ *\ coef;}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesY[idxSource]\ -\/=\ dKxy[d][1]\ *\ coef;}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesZ[idxSource]\ -\/=\ dKxy[d][2]\ *\ coef;}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsPotentials[idxSource]\ +=\ mutual\_coeff\ *\ Kxy[d]\ *\ targetsPhysicalValues[idxTarget];}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ j}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ i}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \ \ \ \ \}}
+\DoxyCodeLine{00219\ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00224\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{typename}\ MatrixKernelClass>}
+\DoxyCodeLine{00225\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ FullRemoteKIJ(ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limiteNeighbors,\ \textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ MatrixKernel)\{}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{comment}{//\ get\ information\ on\ tensorial\ aspect\ of\ matrix\ kernel}}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ncmp\ =\ MatrixKernelClass::NCMP;}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ npv\ =\ MatrixKernelClass::NPV;\ \ \ \ }
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ npot\ =\ MatrixKernelClass::NPOT;}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{comment}{//\ get\ info\ on\ targets}}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesTargets\ =\ inTargets-\/>getNbParticles();}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsX\ =\ inTargets-\/>getPositions()[0];}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsY\ =\ inTargets-\/>getPositions()[1];}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsZ\ =\ inTargets-\/>getPositions()[2];}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxNeighbors\ =\ 0\ ;\ idxNeighbors\ <\ limiteNeighbors\ ;\ ++idxNeighbors)\{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxTarget\ =\ 0\ ;\ idxTarget\ <\ nbParticlesTargets\ ;\ ++idxTarget)\{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ inNeighbors[idxNeighbors]\ )\{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesSources\ =\ inNeighbors[idxNeighbors]-\/>getNbParticles();}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ sourcesX\ =\ inNeighbors[idxNeighbors]-\/>getPositions()[0];}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ sourcesY\ =\ inNeighbors[idxNeighbors]-\/>getPositions()[1];}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ sourcesZ\ =\ inNeighbors[idxNeighbors]-\/>getPositions()[2];}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxSource\ =\ 0\ ;\ idxSource\ <\ nbParticlesSources\ ;\ ++idxSource)\{}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ evaluate\ kernel\ and\ its\ partial\ derivatives}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ sourcePoint(sourcesX[idxSource],sourcesY[idxSource],sourcesZ[idxSource]);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ targetPoint(targetsX[idxTarget],targetsY[idxTarget],targetsZ[idxTarget]);}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ Kxy[ncmp];}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ dKxy[ncmp][3];}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MatrixKernel-\/>evaluateBlockAndDerivative(targetPoint,sourcePoint,Kxy,dKxy);}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0\ ;\ i\ <\ npot\ ;\ ++i)\{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsPotentials\ =\ inTargets-\/>getPotentials(i);}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesX\ =\ inTargets-\/>getForcesX(i);}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesY\ =\ inTargets-\/>getForcesY(i);}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ targetsForcesZ\ =\ inTargets-\/>getForcesZ(i);}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j\ =\ 0\ ;\ j\ <\ npv\ ;\ ++j)\{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ targetsPhysicalValues\ =\ inTargets-\/>getPhysicalValues(j);}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\textcolor{keyword}{const}\ sourcesPhysicalValues\ =\ inNeighbors[idxNeighbors]-\/>getPhysicalValues(j);}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ component\ to\ be\ applied}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ d\ =\ MatrixKernel-\/>getPosition(i*npv+j);}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ forces\ prefactor}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ coef\ =\ (targetsPhysicalValues[idxTarget]\ *\ sourcesPhysicalValues[idxSource]);}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesX[idxTarget]\ +=\ dKxy[d][0]\ *\ coef;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesY[idxTarget]\ +=\ dKxy[d][1]\ *\ coef;}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsForcesZ[idxTarget]\ +=\ dKxy[d][2]\ *\ coef;}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ targetsPotentials[idxTarget]\ +=\ (\ Kxy[d]\ *\ sourcesPhysicalValues[idxSource]\ );}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ j}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ i}}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00283\ \ \ \ \ \}}
+\DoxyCodeLine{00284\ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \}\ \textcolor{comment}{//\ End\ namespace}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FP2P\_TENSORIALKIJ\_HPP}}
+
+\end{DoxyCode}

@@ -1,0 +1,45 @@
+\doxysection{FAbstract\+Sendable.\+hpp}
+\hypertarget{_f_abstract_sendable_8hpp_source}{}\label{_f_abstract_sendable_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Components/FAbstractSendable.hpp@{third\_party/ScalFMM/include/ScalFMM/Components/FAbstractSendable.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FABSTRACTSENDABLE\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FABSTRACTSENDABLE\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_abstract_sendable}{FAbstractSendable}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_abstract_sendable_a57d6a7053c1146969afcb8fa45db891d}{\string~FAbstractSendable}}()\{\}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{//\ For\ Upward\ pass}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferWriterClass>}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_abstract_sendable_a08d5e9df7d4c7d3c8fe7233451ea395e}{serializeUp}}(BufferWriterClass\&)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(BufferWriterClass)\ ==\ 0\ ,\ \textcolor{stringliteral}{"{}Your\ class\ should\ implement\ serializeUp"{}});}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferReaderClass>}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_abstract_sendable_a2a5d0b4043cba21936fa55c36ac5aa5c}{deserializeUp}}(BufferReaderClass\&)\{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(BufferReaderClass)\ ==\ 0\ ,\ \textcolor{stringliteral}{"{}Your\ class\ should\ implement\ deserializeUp"{}});}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{virtual}\ FSize\ getSavedSizeUp()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//\ For\ Downward\ pass}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferWriterClass>}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_abstract_sendable_a981256f4922ba5c0bf0dbbdf81b26c14}{serializeDown}}(BufferWriterClass\&)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(BufferWriterClass)\ ==\ 0\ ,\ \textcolor{stringliteral}{"{}Your\ class\ should\ implement\ serializeDown"{}});}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferReaderClass>}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_abstract_sendable_afdef314dc24eff8bc056b65f4e6a3508}{deserializeDown}}(BufferReaderClass\&)\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(BufferReaderClass)\ ==\ 0\ ,\ \textcolor{stringliteral}{"{}Your\ class\ should\ implement\ deserializeDown"{}});}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{virtual}\ FSize\ getSavedSizeDown()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FABSTRACTSENDABLE\_HPP}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+
+\end{DoxyCode}

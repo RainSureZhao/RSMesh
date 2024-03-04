@@ -1,0 +1,227 @@
+\doxysection{FTaylor\+Flops\+Kernel.\+hpp}
+\hypertarget{_f_taylor_flops_kernel_8hpp_source}{}\label{_f_taylor_flops_kernel_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Taylor/FTaylorFlopsKernel.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/Taylor/FTaylorFlopsKernel.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ FTAYLORFLOPSKERNEL\_HPP}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ FTAYLORFLOPSKERNEL\_HPP}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{template}<\ \ \textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keywordtype}{int}\ P,\ \textcolor{keywordtype}{int}\ order>}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_taylor_flops_kernel}{FTaylorFlopsKernel}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_kernels}{FAbstractKernels}}<CellClass,ContainerClass>\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SizeVector\ =\ ((P+1)*(P+2)*(P+3))*order/6;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ sizeDerivative\ =\ ((2*P+1)*(P+1)*(P+3))*order/3;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ incPowersFlop;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ treeHeight;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ pTIdx;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//Flops\ for\ each\ functions:}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ flopsP2M,\ flopsM2M,\ flopsM2L,\ flopsL2L,\ flopsL2P,\ flopsP2P;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *flopsPerLevelM2M,\ *flopsPerLevelM2L,\ *flopsPerLevelL2L;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ incPowers(\textcolor{keywordtype}{int}\ *\ \textcolor{keyword}{const}\ FRestrict\ a,\ \textcolor{keywordtype}{int}\ *\textcolor{keyword}{const}\ FRestrict\ b,\ \textcolor{keywordtype}{int}\ *\textcolor{keyword}{const}\ FRestrict\ c)}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ t\ =\ (*a)+(*b)+(*c);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(t==0)}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \{a[0]=1;\}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{\ \textcolor{keywordflow}{if}(t==a[0])}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \{a[0]-\/-\/;\ \ b[0]++;\}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{\ \textcolor{keywordflow}{if}(t==c[0])}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{a[0]=t+1;\ \ c[0]=0;\}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{\ \textcolor{keywordflow}{if}(b[0]!=0)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{b[0]-\/-\/;\ c[0]++;\}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b[0]=c[0]+1;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a[0]-\/-\/;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c[0]=0;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_f_taylor_flops_kernel}{FTaylorFlopsKernel}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight,\ \textcolor{keyword}{const}\ FReal\ inBoxWidth,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inBoxCenter)\ :}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ treeHeight(inTreeHeight),}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ flopsP2M(0),}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ flopsM2M(0),}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ flopsM2L(0),}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ flopsL2L(0),}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ flopsL2P(0),}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ flopsP2P(0),}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ pTIdx(10),}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ incPowersFlop(10),}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ flopsPerLevelM2M(NULL),}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ flopsPerLevelM2L(NULL),}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ flopsPerLevelL2L(NULL)}
+\DoxyCodeLine{00074\ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ pTIdx\ =\ 10;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ flopsPerLevelM2M\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ [inTreeHeight];}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ flopsPerLevelM2L\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ [inTreeHeight];}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ flopsPerLevelL2L\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ [inTreeHeight];}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ level\ =\ 0;\ level<inTreeHeight;\ ++level)\{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ flopsPerLevelM2M[level]\ =\ flopsPerLevelM2L[level]\ =\ flopsPerLevelL2L[level]\ =\ 0;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_taylor_flops_kernel}{\string~FTaylorFlopsKernel}}()\{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n=================================================="{}}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/\ Flops\ for\ P2M\ =\ "{}}\ <<\ flopsP2M}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/\ Flops\ for\ M2M\ =\ "{}}\ <<\ flopsM2M}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/\ Flops\ for\ M2L\ =\ "{}}\ <<\ flopsM2L}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/\ Flops\ for\ L2L\ =\ "{}}\ <<\ flopsL2L}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/\ Flops\ for\ L2P\ =\ "{}}\ <<\ flopsL2P}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/\ Flops\ for\ P2P\ =\ "{}}\ <<\ flopsP2P}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/\ Overall\ Flops\ =\ "{}}\ <<\ flopsP2M\ +\ flopsM2M\ +\ flopsM2L\ +\ flopsL2L\ +\ flopsL2P\ +\ flopsP2P}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n==================================================\(\backslash\)n"{}}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n=================================================="{}}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/\ Flops\ for\ P2M/M2M"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ level=0;\ level<treeHeight;\ ++level)}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (level\ <\ treeHeight-\/1)}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ |-\/\ at\ level\ "{}}\ <<\ level\ <<\ \textcolor{stringliteral}{"{}\ flops\ =\ "{}}\ <<\ flopsPerLevelM2M[level]\ <<\ std::endl;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ |-\/\ at\ level\ "{}}\ <<\ level\ <<\ \textcolor{stringliteral}{"{}\ flops\ =\ "{}}\ <<\ flopsP2M\ <<\ std::endl;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}=================================================="{}}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/\ Flops\ for\ M2L"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ level=0;\ level<treeHeight;\ ++level)}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ |-\/\ at\ level\ "{}}\ <<\ level\ <<\ \textcolor{stringliteral}{"{}\ flops\ =\ "{}}\ <<\ flopsPerLevelM2L[level]\ <<\ std::endl;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}=================================================="{}}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/\ Flops\ for\ L2L/L2P"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ level=0;\ level<treeHeight;\ ++level)}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (level\ <\ treeHeight-\/1)}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ |-\/\ at\ level\ "{}}\ <<\ level\ <<\ \textcolor{stringliteral}{"{}\ flops\ =\ "{}}\ <<\ flopsPerLevelL2L[level]\ <<\ std::endl;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ |-\/\ at\ level\ "{}}\ <<\ level\ <<\ \textcolor{stringliteral}{"{}\ flops\ =\ "{}}\ <<\ flopsL2P\ <<\ std::endl;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}=================================================="{}}\ <<\ std::endl;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (flopsPerLevelM2M)\ \textcolor{keyword}{delete}\ []\ flopsPerLevelM2M;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (flopsPerLevelM2L)\ \textcolor{keyword}{delete}\ []\ flopsPerLevelM2L;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (flopsPerLevelL2L)\ \textcolor{keyword}{delete}\ []\ flopsPerLevelL2L;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ P2M(CellClass*\ \textcolor{keyword}{const}\ pole,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ particles)\textcolor{keyword}{override}}
+\DoxyCodeLine{00123\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Nb\_Particule\ *\ [3\ (:\ dx,dy,dz)\ +\ SizeVector*4\ (:\ Classic\ operations)\ ]\ +\ SizeVector\ (:\ multiply\ multipole\ by\ coefficient)}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ this-\/>flopsP2M\ +=\ (particles-\/>getNbParticles())*(3+SizeVector*4)+SizeVector;}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ M2M(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ pole,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\textcolor{keyword}{const}\ FRestrict\ *\textcolor{keyword}{const}\ FRestrict\ child,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{override}}
+\DoxyCodeLine{00131\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Powers\ of\ expansions}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ a=0,b=0,c=0;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Indexes\ of\ powers}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\_a,idx\_b,idx\_c;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flops\ =\ 8;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ChildIndex=0;\ ChildIndex\ <\ 8;\ ++ChildIndex)}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (child[ChildIndex])}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a=0;\ b=0;\ c=0;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ 6\ +\ 6*P;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k=0\ ;\ k<SizeVector\ ;\ ++k)}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(idx\_a=0\ ;\ idx\_a\ <=\ a\ ;\ ++idx\_a)\{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(idx\_b=0\ ;\ idx\_b\ <=\ b\ ;\ ++idx\_b)\{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(idx\_c=0\ ;\ idx\_c\ <=\ c\ ;\ ++idx\_c)\{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ pTIdx;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ 30;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ incPowers(\&a,\&b,\&c);}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops+=incPowersFlop;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ flopsM2M\ +=\ flops;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ flopsPerLevelM2M[inLevel]\ +=\ flops;}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{void}\ M2L(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ local,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ cell}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ distantNeighbors[],\ \ \ \ \ \ \ \textcolor{comment}{//\ Sources\ to\ be\ read}}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*positions*/}[],}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{override}}
+\DoxyCodeLine{00168\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flops\ =\ 343;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ idx=0;\ idx<size;\ ++idx)}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ 2+SizeVector*(2+SizeVector+2);}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ flopsM2L\ +=\ flops;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ flopsPerLevelM2L[inLevel]\ +=\ flops;}
+\DoxyCodeLine{00176\ \ \ \ \ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{void}\ L2L(\textcolor{keyword}{const}\ CellClass*\ \textcolor{keyword}{const}\ FRestrict\ fatherCell,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ FRestrict\ *\ \textcolor{keyword}{const}\ FRestrict\ childCell,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{override}}
+\DoxyCodeLine{00181\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ap,\ bp,\ cp,\ af,\ bf,\ cf;\ \ \ \ \ \textcolor{comment}{//Indexes\ of\ expansion\ for\ father\ and\ child.}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flops\ =\ 2;}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxChild\ =\ 0\ ;\ idxChild\ <\ 8\ ;\ ++idxChild)\{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ child\ exists}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(childCell[idxChild])\{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ af=0;\ \ \ bf=0;\ \ \ cf=0;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ 6\ +\ 6*P;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k=0\ ;\ k<SizeVector\ ;\ ++k)}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Iterator\ over\ parent's\ local\ array}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(ap=af\ ;\ ap<=P\ ;\ ++ap)}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(bp=bf\ ;\ bp<=P\ ;\ ++bp)}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(cp=cf\ ;\ ((cp<=P)\ \&\&\ (ap+bp+cp)\ <=\ P)\ ;\ ++cp)}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ pTIdx;}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ 2+3*2;\textcolor{comment}{/*3\ calls\ to\ combin\ +\ multiplication\ of\ the\ 3\ results*/}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ 5;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ incPowers(\&af,\&bf,\&cf);}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ incPowersFlop;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ flopsL2L\ +=\ flops;}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ flopsPerLevelL2L[inLevel]\ +=\ flops;}
+\DoxyCodeLine{00211\ \ \ \ \ \}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{void}\ L2P(\textcolor{keyword}{const}\ CellClass*\ \textcolor{keyword}{const}\ local,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ particles)\textcolor{keyword}{override}}
+\DoxyCodeLine{00215\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ flops\ =\ 12;}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ FSize\ nbPart\ =\ particles-\/>getNbParticles();}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0\ ;\ i<nbPart\ ;\ ++i)\{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ 16\ +\ 3*(P-\/1);\textcolor{comment}{/*Distances\ computation*/}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0\ ;\ j<SizeVector\ ;\ ++j)\{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ 4+3*4;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ incPowersFlop;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ flops\ +=\ 1\ +\ 3*2;\ \textcolor{comment}{/*store\ of\ results*/}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ flopsL2P\ +=\ flops;}
+\DoxyCodeLine{00227\ \ \ \ \ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{void}\ P2P(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \textcolor{comment}{/*inLeafPosition*/},}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ targets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*sources*/},}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ directNeighborsParticles[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*positions*/},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*size*/})\textcolor{keyword}{override}}
+\DoxyCodeLine{00232\ \textcolor{keyword}{\ \ \ \ }\{\}}
+\DoxyCodeLine{00233\ \ \ \ \ }
+\DoxyCodeLine{00234\ \};}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

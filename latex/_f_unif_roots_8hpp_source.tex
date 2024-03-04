@@ -1,0 +1,363 @@
+\doxysection{FUnif\+Roots.\+hpp}
+\hypertarget{_f_unif_roots_8hpp_source}{}\label{_f_unif_roots_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Uniform/FUnifRoots.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/Uniform/FUnifRoots.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Keep\ in\ private\ GIT}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#ifndef\ FUNIFROOTS\_HPP}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ FUNIFROOTS\_HPP}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <limits>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FNoCopyable.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FMath.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER>}
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots}{FUnifRoots}}\ :\ \mbox{\hyperlink{class_f_no_copyable}{FNoCopyable}}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{enum}\ \{order\ =\ ORDER\};\ }
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{static}\ std::array<FReal,ORDER>\ \mbox{\hyperlink{struct_f_unif_roots_a36e0093f545ab14ba91838992ed8ae27}{roots}};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ FReal\ \mbox{\hyperlink{struct_f_unif_roots_a6eebbab212e497f8202bb65518c4753f}{L}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n,\ FReal\ x)}
+\DoxyCodeLine{00050\ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ assert(std::abs(x)-\/1.<10.*std::numeric\_limits<FReal>::epsilon());}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::abs(x)>1.)\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}x="{}\ <<\ x\ <<\ "{}\ out\ of\ bounds!"{}\ <<\ std::endl;}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ (x\ >\ FReal(\ 1.)\ ?\ FReal(\ 1.)\ :\ x);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ (x\ <\ FReal(-\/1.)\ ?\ FReal(-\/1.)\ :\ x);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Specific\ precomputation\ of\ scale\ factor}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ in\ order\ to\ minimize\ round-\/off\ errors}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NB:\ scale\ factor\ could\ be\ hardcoded\ (just\ as\ the\ roots)}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ FReal\ scale;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ omn\ =\ order-\/n-\/1;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(omn\%2)\ scale=FReal(-\/1.);\ \textcolor{comment}{//\ (-\/1)\string^(n-\/1-\/(k+1)+1)=(-\/1)\string^(omn-\/1)}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ scale=FReal(1.);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ scale/=FReal(\mbox{\hyperlink{struct_f_math_a29fd39b5d729c7e4118b4559548f5d1f}{FMath::pow}}(FReal(2.),order-\/1)*FMath::factorial<FReal>(n)*FMath::factorial<FReal>(omn));}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ L}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ FReal\ \mbox{\hyperlink{struct_f_unif_roots_a6eebbab212e497f8202bb65518c4753f}{L}}=FReal(1.);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ m=0;m<order;++m)\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(m!=n)\{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ previous\ version\ with\ risks\ of\ round-\/off\ error}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//L\ *=\ (x-\/FUnifRoots<order>::roots[m])/(FUnifRoots<order>::roots[n]-\/FUnifRoots<order>::roots[m]);}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ new\ version\ (reducing\ round-\/off)}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ regular\ grid\ on\ [-\/1,1]\ (h\ simplifies,\ only\ the\ size\ of\ the\ domain\ and\ a\ remains\ i.e.\ 2.\ and\ -\/1.)}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_unif_roots_a6eebbab212e497f8202bb65518c4753f}{L}}\ *=\ (FReal(order-\/1)*(x+FReal(1.))-\/FReal(2.)*FReal(m));}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_unif_roots_a6eebbab212e497f8202bb65518c4753f}{L}}*=scale;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FReal(\mbox{\hyperlink{struct_f_unif_roots_a6eebbab212e497f8202bb65518c4753f}{L}});}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keyword}{static}\ FReal\ \mbox{\hyperlink{struct_f_unif_roots_ab8e3f4b60328306e820b70ab491ee4db}{dL}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n,\ FReal\ x)}
+\DoxyCodeLine{00095\ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ assert(std::abs(x)-\/1.<10.*std::numeric\_limits<FReal>::epsilon());}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::abs(x)>1.)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ (x\ >\ FReal(\ 1.)\ ?\ FReal(\ 1.)\ :\ x);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ (x\ <\ FReal(-\/1.)\ ?\ FReal(-\/1.)\ :\ x);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ optimized\ variant}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ FReal\ NdL=FReal(0.);\textcolor{comment}{//\ init\ numerator}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ FReal\ DdL=FReal(1.);\textcolor{comment}{//\ init\ denominator}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ FReal\ tmpNdL;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ p=0;p<order;++p)\{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(p!=n)\{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmpNdL=FReal(1.);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ m=0;m<order;++m)}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(m!=n\ \&\&\ m!=p)}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmpNdL*=x-\/\mbox{\hyperlink{struct_f_unif_roots}{FUnifRoots<FReal,\ order>::roots}}[m];}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NdL+=tmpNdL;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DdL*=\mbox{\hyperlink{struct_f_unif_roots}{FUnifRoots<FReal,\ order>::roots}}[n]-\/\mbox{\hyperlink{struct_f_unif_roots}{FUnifRoots<FReal,\ order>::roots}}[p];}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//endif}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ p}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FReal(NdL/DdL);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{template}<\textcolor{keywordtype}{int}\ ORDER>}
+\DoxyCodeLine{00123\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}\{\};}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER>}
+\DoxyCodeLine{00126\ \textcolor{keyword}{const}\ std::array<FReal,ORDER>\ \mbox{\hyperlink{struct_f_unif_roots}{FUnifRoots<FReal,ORDER>::roots}}\ =\ \mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore<ORDER>::template}}\ Build<FReal>();}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{comment}{//\ order\ 2}}
+\DoxyCodeLine{00130\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00131\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<2>\{}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,2>\ Build()\{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.),\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.)\}\ \};}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ order\ 3}}
+\DoxyCodeLine{00140\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00141\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<3>\{}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,3>\ Build()\{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ ),\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.0),\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ )\}\ \};}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{//\ order\ 4}}
+\DoxyCodeLine{00151\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00152\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<4>\{}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,4>\ Build()\{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.333333333333333),\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.333333333333333),\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\}\ \};}
+\DoxyCodeLine{00159\ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \};}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{comment}{//\ order\ 5}}
+\DoxyCodeLine{00163\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00164\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<5>\{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,5>\ Build()\{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ ),\ \ \ \ \ \ \ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.5),\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.\ ),\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.5),\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ )\}\ \};}
+\DoxyCodeLine{00172\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{comment}{//\ order\ 6}}
+\DoxyCodeLine{00176\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00177\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<6>\{}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,6>\ Build()\{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ ),\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.6),\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.2),\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.2),\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.6),\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ )\}\ \};}
+\DoxyCodeLine{00186\ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{comment}{//\ order\ 7}}
+\DoxyCodeLine{00190\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00191\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<7>\{}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,7>\ Build()\{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.),\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.666666666666666),\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.333333333333333),\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.333333333333333),\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.666666666666666),\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\}\ \};}
+\DoxyCodeLine{00201\ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \};}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{comment}{//\ order\ 8}}
+\DoxyCodeLine{00205\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00206\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<8>\{}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,8>\ Build()\{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.714285714285714),}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.428571428571429),}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.142857142857143),}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.142857142857143),}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.428571428571429),}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.714285714285714),}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\ \}\ \};}
+\DoxyCodeLine{00217\ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \};}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{comment}{//\ order\ 9}}
+\DoxyCodeLine{00221\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00222\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<9>\{}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,9>\ Build()\{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ \ ),}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.75),}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.5\ ),}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.25),}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.0\ ),}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.25),}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.5\ ),}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.75),}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ \ )\}\ \};}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \};}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \textcolor{comment}{//\ order\ 10}}
+\DoxyCodeLine{00238\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00239\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<10>\{}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,10>\ Build()\{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.777777777777777),}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.555555555555555),}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.333333333333333),}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.111111111111111),}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.111111111111111),}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.333333333333333),}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.555555555555555),}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.777777777777777),}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\}\ \};}
+\DoxyCodeLine{00252\ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \};}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{comment}{//\ order\ 11}}
+\DoxyCodeLine{00256\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00257\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<11>\{}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,11>\ Build()\{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ ),}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.8),}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.6),}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.4),}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.2),}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.0),}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.2),}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.4),}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.6),}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.8),}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ )\}\ \};}
+\DoxyCodeLine{00271\ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{comment}{//\ order\ 12}}
+\DoxyCodeLine{00275\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00276\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<12>\{}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,12>\ Build()\{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.818181818181818),}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.636363636363636),}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.454545454545455),}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.272727272727273),}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.090909090909091),}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.090909090909091),}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.272727272727273),}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.454545454545455),}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.636363636363636),}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.818181818181818),}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\}\ \};}
+\DoxyCodeLine{00291\ \ \ \ \ \}}
+\DoxyCodeLine{00292\ \};}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{comment}{//\ order\ 13}}
+\DoxyCodeLine{00296\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00297\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<13>\{}
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,13>\ Build()\{}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.833333333333333),}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.666666666666666),}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.5\ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.333333333333333),}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.166666666666666),}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.0\ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.166666666666666),}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.333333333333333),}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.5\ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.666666666666666),}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.833333333333333),}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\}\ \};}
+\DoxyCodeLine{00313\ \ \ \ \ \}}
+\DoxyCodeLine{00314\ \};}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{comment}{//\ order\ 14}}
+\DoxyCodeLine{00317\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00318\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<14>\{}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,14>\ Build()\{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.846153846153846),}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.692307692307692),}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.538461538461538),}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.384615384615385),}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.230769230769231),}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.076923076923077),}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.076923076923077),}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.230769230769231),}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.384615384615385),}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.538461538461538),}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.692307692307692),}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.846153846153846),}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\}\ \};}
+\DoxyCodeLine{00335\ \ \ \ \ \}}
+\DoxyCodeLine{00336\ \};}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \textcolor{comment}{//\ order\ 15}}
+\DoxyCodeLine{00340\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00341\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<15>\{}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,15>\ Build()\{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.0\ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.857142857142857),}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.714285714285714),}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.571428571428571),}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.428571428571429),}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.285714285714286),}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.142857142857143),}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.0\ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.142857142857143),}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.285714285714286),}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.428571428571429),}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.571428571428571),}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.714285714285714),}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.857142857142857),}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.0\ \ \ \ \ \ \ \ \ \ \ \ \ \ )\}\ \};}
+\DoxyCodeLine{00359\ \ \ \ \ \}}
+\DoxyCodeLine{00360\ \};}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \textcolor{comment}{//\ order\ 20}}
+\DoxyCodeLine{00364\ \textcolor{keyword}{template}<>}
+\DoxyCodeLine{00365\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_unif_roots_core}{FUnifRootsCore}}<16>\{}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keyword}{static}\ std::array<FReal,16>\ Build()\{}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ \{FReal(-\/1.0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.8947368421052632),}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.7894736842105263),}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.6842105263157895),}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.5789473684210527),}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.4736842105263158),}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.3684210526315789),}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.2631578947368421),}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.1578947368421053),}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(-\/0.0526315789473684),}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.0526315789473684),}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.1578947368421053),}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.2631578947368421),}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.3684210526315789),}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.4736842105263158),}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.5789473684210527),}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.6842105263157895),}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.7894736842105263),}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 0.8947368421052632),}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(\ 1.0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\}\ \};}
+\DoxyCodeLine{00388\ \ \ \ \ \}}
+\DoxyCodeLine{00389\ \};}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

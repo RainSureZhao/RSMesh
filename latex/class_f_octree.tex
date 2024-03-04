@@ -1,0 +1,712 @@
+\doxysection{FOctree\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_octree}{}\label{class_f_octree}\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+
+
+{\ttfamily \#include $<$FOctree.\+hpp$>$}
+
+类 FOctree\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_octree}
+\end{center}
+\end{figure}
+\doxysubsubsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_f_octree_1_1_iterator}{Iterator}}
+\item 
+union \mbox{\hyperlink{union_f_octree_1_1_sub_octree_types}{Sub\+Octree\+Types}}
+\item 
+union \mbox{\hyperlink{union_f_octree_1_1_sub_octree_types_const}{Sub\+Octree\+Types\+Const}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_octree_a730bd5e944cc3f27a4ae1f351b0d8dc8}\label{class_f_octree_a730bd5e944cc3f27a4ae1f351b0d8dc8} 
+using {\bfseries FReal\+Type} = FReal
+\item 
+\Hypertarget{class_f_octree_a493903c1f90e0ebebe6ba2fed829c1fa}\label{class_f_octree_a493903c1f90e0ebebe6ba2fed829c1fa} 
+using {\bfseries Cell\+Class\+Type} = Cell\+Class
+\item 
+\Hypertarget{class_f_octree_ab521823349efb691e20d8983d2504e1f}\label{class_f_octree_ab521823349efb691e20d8983d2504e1f} 
+using {\bfseries Container\+Class\+Type} = Container\+Class
+\item 
+\Hypertarget{class_f_octree_a2abc9efa178d61810d71c8126eae4281}\label{class_f_octree_a2abc9efa178d61810d71c8126eae4281} 
+using {\bfseries Leaf\+Class\+Type} = Leaf\+Class
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_octree_a4090750115111422db7387886f7519d8}{FOctree}} (const int in\+Height, const int in\+Sub\+Height, const FReal in\+Box\+Width, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Box\+Center)
+\item 
+virtual \mbox{\hyperlink{class_f_octree_a5b348e8752d9a2f1c9b94862aea42bb5}{\texorpdfstring{$\sim$}{\string~}\+FOctree}} ()
+\item 
+int \mbox{\hyperlink{class_f_octree_ad3ab30c6c96970df4502219e7c21da58}{get\+Height}} () const
+\item 
+int \mbox{\hyperlink{class_f_octree_a5a77b32769133bf95e003f0704fca20a}{get\+Sub\+Height}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_octree_a4696025cdcf84b63c6bd28cb6028ea6d}{get\+Box\+Width}} () const
+\item 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \& \mbox{\hyperlink{class_f_octree_aa40de7e29a215d3f0fa70c470cd71788}{get\+Box\+Center}} () const
+\item 
+void \mbox{\hyperlink{class_f_octree_acd40357110105bbff1bd91ee4b664047}{get\+Nb\+Cells\+Per\+Level}} (int in\+Nb\+Cells\mbox{[}$\,$\mbox{]})
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{class_f_octree_adc254d87f0d6221f9f5f16e61334135b}{insert}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Particle\+Position, Args... args)
+\item 
+Leaf\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_octree_ab61fe351471acb84bd88d7736f6204c4}{create\+Leaf}} (const Morton\+Index index\+To\+Create)
+\item 
+void \mbox{\hyperlink{class_f_octree_a0de9a0a5d5fc8b29cd08d28ceb95b4e1}{remove\+Leaf}} (const Morton\+Index index\+To\+Remove)
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_octree_a65c815d13f70184ccc74479023156d1b}{get\+Morton\+From\+Position}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&position) const
+\item 
+\Hypertarget{class_f_octree_a5823c50dc6060bbad6e307ca3348d0b7}\label{class_f_octree_a5823c50dc6060bbad6e307ca3348d0b7} 
+bool {\bfseries is\+Empty} ()
+\item 
+Cell\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_octree_ac915497d9a02ca1f4c6ab989a4562cf9}{get\+Cell}} (const Morton\+Index in\+Index, const int in\+Level) const
+\item 
+int \mbox{\hyperlink{class_f_octree_ae93b172d11dd15c4741e79abde31bcb4}{get\+Neighbors\+No\+Brothers}} (Cell\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}26\mbox{]}, const Morton\+Index in\+Index, const int in\+Level) const
+\item 
+Cell\+Class \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}{get\+Cell\+Pt}} (const Morton\+Index in\+Index, const int in\+Level) const
+\item 
+int \mbox{\hyperlink{class_f_octree_afdb14573d0247f3ca60611ef4b42c39a}{get\+Interaction\+Neighbors}} (const Cell\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}343\mbox{]}, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&working\+Cell, const int in\+Level, const int neigh\+Separation=1) const
+\item 
+int \mbox{\hyperlink{class_f_octree_a8d057636177b2d51bae98366d8402120}{get\+Interaction\+Neighbors}} (const Cell\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}342\mbox{]}, int in\+Neighbor\+Positions\mbox{[}343\mbox{]}, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&working\+Cell, const int in\+Level, const int neigh\+Separation=1) const
+\item 
+int \mbox{\hyperlink{class_f_octree_a213750fc54d195b6537b15d827c6eaa1}{get\+Full\+Neighborhood}} (const Cell\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}343\mbox{]}, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&working\+Cell, const int in\+Level) const
+\item 
+int \mbox{\hyperlink{class_f_octree_a3c83e2114b95f41a696e7e0ccc4b3407}{get\+Full\+Neighborhood}} (const Cell\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}342\mbox{]}, int in\+Neighbor\+Positions\mbox{[}342\mbox{]}, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&working\+Cell, const int in\+Level) const
+\item 
+int \mbox{\hyperlink{class_f_octree_a406ff8bd01484c4b5dbed26f73349ce4}{get\+Periodic\+Interaction\+Neighbors}} (const Cell\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}343\mbox{]}, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&working\+Cell, const int in\+Level, const int in\+Direction, const int neigh\+Separation=1) const
+\item 
+int \mbox{\hyperlink{class_f_octree_a2b54cea308bed1b084d53fc984df84a8}{get\+Periodic\+Interaction\+Neighbors}} (const Cell\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}342\mbox{]}, int in\+Neighbor\+Positions\mbox{[}342\mbox{]}, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&working\+Cell, const int in\+Level, const int in\+Direction, const int neigh\+Separation=1) const
+\item 
+Container\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_octree_ac5155e908ca55112cb70af255c5053b3}{get\+Leaf\+Src}} (const Morton\+Index in\+Index)
+\item 
+int \mbox{\hyperlink{class_f_octree_a3e7f2c7074b4c990fe7bf1499c7419b0}{get\+Leafs\+Neighbors}} (Container\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}27\mbox{]}, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&center, const int in\+Level)
+\item 
+int \mbox{\hyperlink{class_f_octree_a83d8a3a8a3396abb96ad8e7a8411a00c}{get\+Leafs\+Neighbors}} (Container\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}26\mbox{]}, int in\+Neighbor\+Positions\mbox{[}26\mbox{]}, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&center, const int in\+Level)
+\item 
+int \mbox{\hyperlink{class_f_octree_a7286738fd1006b840ac649c94c1f5919}{get\+Leafs\+Neighbors}} (const Cell\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}27\mbox{]}, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&center, const int in\+Level)
+\item 
+int \mbox{\hyperlink{class_f_octree_a4cb7b744c6fabb95f4c71f38bbf43378}{get\+Leafs\+Neighbors}} (const Cell\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}26\mbox{]}, int in\+Neighbor\+Positions\mbox{[}26\mbox{]}, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&center, const int in\+Level)
+\item 
+int \mbox{\hyperlink{class_f_octree_ae866e212ab67d439ad7f117d02a1bbe6}{get\+Periodic\+Leafs\+Neighbors}} (Container\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}27\mbox{]}, \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} out\+Offsets\mbox{[}27\mbox{]}, bool \texorpdfstring{$\ast$}{*}const is\+Periodic, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&center, const int in\+Level, const int in\+Direction)
+\item 
+int \mbox{\hyperlink{class_f_octree_a1fc4aa91c212fd06ee228f96160e2441}{get\+Periodic\+Leafs\+Neighbors}} (Container\+Class \texorpdfstring{$\ast$}{*}in\+Neighbors\mbox{[}26\mbox{]}, int in\+Neighbor\+Positions\mbox{[}26\mbox{]}, \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} out\+Offsets\mbox{[}26\mbox{]}, bool \texorpdfstring{$\ast$}{*}const is\+Periodic, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&center, const int in\+Level, const int in\+Direction)
+\item 
+void \mbox{\hyperlink{class_f_octree_aedace34bf46bad18ec8126256a361f20}{for\+Each\+Leaf}} (std\+::function$<$ void(Leaf\+Class \texorpdfstring{$\ast$}{*})$>$ function)
+\begin{DoxyCompactList}\small\item\em for\+Each\+Leaf iterate on the leaf and apply the function \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_octree_ab9558b23c76f5f5d0695d89cb24010bb}{for\+Each\+Cell}} (std\+::function$<$ void(Cell\+Class \texorpdfstring{$\ast$}{*})$>$ function)
+\begin{DoxyCompactList}\small\item\em for\+Each\+Leaf iterate on the cell and apply the function \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_octree_a25b87cf6baf6a4733666c1c7bb590255}{for\+Each\+Cell\+With\+Level}} (std\+::function$<$ void(Cell\+Class \texorpdfstring{$\ast$}{*}, const int)$>$ function)
+\begin{DoxyCompactList}\small\item\em for\+Each\+Leaf iterate on the cell and apply the function \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_octree_ab8915e334c374dfb1e20b3ad8be7b431}{for\+Each\+Cell\+Leaf}} (std\+::function$<$ void(Cell\+Class \texorpdfstring{$\ast$}{*}, Leaf\+Class \texorpdfstring{$\ast$}{*})$>$ function)
+\begin{DoxyCompactList}\small\item\em for\+Each\+Leaf iterate on the cell and apply the function \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_octree_a529ac7aec5c8439281ce4d2e96db49fb}\label{class_f_octree_a529ac7aec5c8439281ce4d2e96db49fb} 
+typedef \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$ {\bfseries Octree\+Type}
+\item 
+\Hypertarget{class_f_octree_a1b859c78b41de098143ad7e529e2b4fb}\label{class_f_octree_a1b859c78b41de098143ad7e529e2b4fb} 
+typedef \mbox{\hyperlink{class_f_sub_octree_with_leafs}{FSub\+Octree\+With\+Leafs}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$ {\bfseries Sub\+Octree\+With\+Leaves}
+\item 
+\Hypertarget{class_f_octree_a833be415d532d99f3d6749327ac3e1ac}\label{class_f_octree_a833be415d532d99f3d6749327ac3e1ac} 
+typedef \mbox{\hyperlink{class_f_sub_octree}{FSub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$ {\bfseries Sub\+Octree}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \mbox{\hyperlink{class_f_octree_a15337a21a082394fc20dcb5f3c5fa459}{get\+Coordinate\+From\+Position}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Position) const
+\item 
+int \mbox{\hyperlink{class_f_octree_ab6520064cd16489db7d7326106b06363}{get\+Tree\+Coordinate}} (const FReal in\+Relative\+Position) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_no_copyable}{FNo\+Copyable}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_no_copyable_af6c8508f3d9c89baf58d70f6b2fb0a9d}{FNo\+Copyable}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_octree_a7a8339dff8bbb26a81240e6c169fa0f1}\label{class_f_octree_a7a8339dff8bbb26a81240e6c169fa0f1} 
+\mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$ \texorpdfstring{$\ast$}{*} {\bfseries root}
+\item 
+\Hypertarget{class_f_octree_a45265021520c2c7003b6fae214e6f88e}\label{class_f_octree_a45265021520c2c7003b6fae214e6f88e} 
+FReal \texorpdfstring{$\ast$}{*}const {\bfseries box\+Width\+At\+Level}
+\item 
+\Hypertarget{class_f_octree_a925ec5f5f80eb1cd3feb1c25b2a246c2}\label{class_f_octree_a925ec5f5f80eb1cd3feb1c25b2a246c2} 
+const int {\bfseries height}
+\item 
+\Hypertarget{class_f_octree_a3139011201acf69bbaf5de70f718d40a}\label{class_f_octree_a3139011201acf69bbaf5de70f718d40a} 
+const int {\bfseries sub\+Height}
+\item 
+\Hypertarget{class_f_octree_acc788090d2c6aeb2f70384217748f28c}\label{class_f_octree_acc788090d2c6aeb2f70384217748f28c} 
+const int {\bfseries leaf\+Index}
+\item 
+\Hypertarget{class_f_octree_a55b45a4338a912157f908cdc6eaefb38}\label{class_f_octree_a55b45a4338a912157f908cdc6eaefb38} 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries box\+Center}
+\item 
+\Hypertarget{class_f_octree_aea4a361e9036dfc9f2051ab5814bab6b}\label{class_f_octree_aea4a361e9036dfc9f2051ab5814bab6b} 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries box\+Corner}
+\item 
+\Hypertarget{class_f_octree_a555fb8f930e61bf59d6ef002bdbdb901}\label{class_f_octree_a555fb8f930e61bf59d6ef002bdbdb901} 
+const FReal {\bfseries box\+Width}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{友元}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_octree_a9830fc407400559db7e7783cc10a9394}\label{class_f_octree_a9830fc407400559db7e7783cc10a9394} 
+class {\bfseries Iterator}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Cell\+Class, class Container\+Class, class Leaf\+Class, class Cell\+Allocator\+Class = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$\newline
+class FOctree$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$}
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+Please read the license
+
+This class is an octree container.
+
+Please refere to test\+Octree.\+cpp to see an example. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ can\ be\ used\ as\ :\ <br>}}
+\DoxyCodeLine{\mbox{\hyperlink{class_f_octree}{FOctree<TestParticle,\ TestCell>}}\ tree(1.0,\mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(0.5,0.5,0.5));}
+
+\end{DoxyCode}
+
+
+Particles and cells has to respect the Abstract class definition. Particle must extend \{FExtend\+Position\} Cell must extend extend proposes accessors to \doxylink{class_f_tree_coordinate}{FTree\+Coordinate} and Morton\+Index.
+
+If the octree as an height H, then it goes from 0 to H-\/1 at level 0 the space is not split Cell\+Allocator can be FList\+Block\+Allocator$<$\+Cell\+Class, 10$>$ or \doxylink{class_f_basic_block_allocator}{FBasic\+Block\+Allocator$<$\+Cell\+Class$>$} 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_octree_a4090750115111422db7387886f7519d8}\label{class_f_octree_a4090750115111422db7387886f7519d8} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!FOctree@{FOctree}}
+\index{FOctree@{FOctree}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{FOctree()}{FOctree()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+\mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\mbox{\hyperlink{class_f_octree}{\+::\+FOctree}} (\begin{DoxyParamCaption}\item[{const int}]{in\+Height,  }\item[{const int}]{in\+Sub\+Height,  }\item[{const FReal}]{in\+Box\+Width,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Box\+Center }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor 
+\begin{DoxyParams}{参数}
+{\em in\+Height} & the octree height \\
+\hline
+{\em in\+Sub\+Height} & the octree subheight \\
+\hline
+{\em in\+Box\+Width} & box width for this simulation \\
+\hline
+{\em in\+Box\+Center} & box center for this simulation \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_octree_a5b348e8752d9a2f1c9b94862aea42bb5}\label{class_f_octree_a5b348e8752d9a2f1c9b94862aea42bb5} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!````~FOctree@{\texorpdfstring{$\sim$}{\string~}FOctree}}
+\index{````~FOctree@{\texorpdfstring{$\sim$}{\string~}FOctree}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FOctree()}{\string~FOctree()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+virtual \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_octree}{FOctree}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Desctructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_octree_ab61fe351471acb84bd88d7736f6204c4}\label{class_f_octree_ab61fe351471acb84bd88d7736f6204c4} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!createLeaf@{createLeaf}}
+\index{createLeaf@{createLeaf}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{createLeaf()}{createLeaf()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+Leaf\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::create\+Leaf (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{index\+To\+Create }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Remove a leaf from its morton index 
+\begin{DoxyParams}{参数}
+{\em index\+To\+Remove} & the index of the leaf to remove \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_octree_ab9558b23c76f5f5d0695d89cb24010bb}\label{class_f_octree_ab9558b23c76f5f5d0695d89cb24010bb} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!forEachCell@{forEachCell}}
+\index{forEachCell@{forEachCell}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{forEachCell()}{forEachCell()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+void \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::for\+Each\+Cell (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Cell\+Class \texorpdfstring{$\ast$}{*})$>$}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+for\+Each\+Leaf iterate on the cell and apply the function 
+
+
+\begin{DoxyParams}{参数}
+{\em function} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_octree_ab8915e334c374dfb1e20b3ad8be7b431}\label{class_f_octree_ab8915e334c374dfb1e20b3ad8be7b431} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!forEachCellLeaf@{forEachCellLeaf}}
+\index{forEachCellLeaf@{forEachCellLeaf}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{forEachCellLeaf()}{forEachCellLeaf()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+void \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::for\+Each\+Cell\+Leaf (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Cell\+Class \texorpdfstring{$\ast$}{*}, Leaf\+Class \texorpdfstring{$\ast$}{*})$>$}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+for\+Each\+Leaf iterate on the cell and apply the function 
+
+
+\begin{DoxyParams}{参数}
+{\em function} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_octree_a25b87cf6baf6a4733666c1c7bb590255}\label{class_f_octree_a25b87cf6baf6a4733666c1c7bb590255} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!forEachCellWithLevel@{forEachCellWithLevel}}
+\index{forEachCellWithLevel@{forEachCellWithLevel}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{forEachCellWithLevel()}{forEachCellWithLevel()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+void \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::for\+Each\+Cell\+With\+Level (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Cell\+Class \texorpdfstring{$\ast$}{*}, const int)$>$}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+for\+Each\+Leaf iterate on the cell and apply the function 
+
+
+\begin{DoxyParams}{参数}
+{\em function} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_octree_aedace34bf46bad18ec8126256a361f20}\label{class_f_octree_aedace34bf46bad18ec8126256a361f20} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!forEachLeaf@{forEachLeaf}}
+\index{forEachLeaf@{forEachLeaf}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{forEachLeaf()}{forEachLeaf()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+void \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::for\+Each\+Leaf (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Leaf\+Class \texorpdfstring{$\ast$}{*})$>$}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+for\+Each\+Leaf iterate on the leaf and apply the function 
+
+
+\begin{DoxyParams}{参数}
+{\em function} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_octree_aa40de7e29a215d3f0fa70c470cd71788}\label{class_f_octree_aa40de7e29a215d3f0fa70c470cd71788} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getBoxCenter@{getBoxCenter}}
+\index{getBoxCenter@{getBoxCenter}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getBoxCenter()}{getBoxCenter()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \& \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Box\+Center (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get the center of the box \Hypertarget{class_f_octree_a4696025cdcf84b63c6bd28cb6028ea6d}\label{class_f_octree_a4696025cdcf84b63c6bd28cb6028ea6d} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getBoxWidth@{getBoxWidth}}
+\index{getBoxWidth@{getBoxWidth}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getBoxWidth()}{getBoxWidth()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+FReal \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Box\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get the box width \Hypertarget{class_f_octree_ac915497d9a02ca1f4c6ab989a4562cf9}\label{class_f_octree_ac915497d9a02ca1f4c6ab989a4562cf9} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getCell@{getCell}}
+\index{getCell@{getCell}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getCell()}{getCell()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+Cell\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Cell (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function return a cell (if it exists) from a morton index and a level 
+\begin{DoxyParams}{参数}
+{\em in\+Index} & the index of the desired cell \\
+\hline
+{\em in\+Level} & the level of the desired cell (cannot be inferred from the index) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the cell if it exist or null (0) This function starts from the root until it find a missing cell or the right cell 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584}\label{class_f_octree_ab5e7a244fe09255df7d744f2b2fa1584} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getCellPt@{getCellPt}}
+\index{getCellPt@{getCellPt}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getCellPt()}{getCellPt()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+Cell\+Class \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Cell\+Pt (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function return an address of cell array from a morton index and a level
+
+
+\begin{DoxyParams}{参数}
+{\em in\+Index} & the index of the desired cell array has to contains \\
+\hline
+{\em in\+Level} & the level of the desired cell (cannot be inferred from the index) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the cell if it exist or null (0) 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a15337a21a082394fc20dcb5f3c5fa459}\label{class_f_octree_a15337a21a082394fc20dcb5f3c5fa459} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getCoordinateFromPosition@{getCoordinateFromPosition}}
+\index{getCoordinateFromPosition@{getCoordinateFromPosition}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getCoordinateFromPosition()}{getCoordinateFromPosition()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+\mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Coordinate\+From\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Position }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Get morton index from a position for the leaf level 
+\begin{DoxyParams}{参数}
+{\em in\+Position} & position to compute \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the morton index 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a3c83e2114b95f41a696e7e0ccc4b3407}\label{class_f_octree_a3c83e2114b95f41a696e7e0ccc4b3407} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getFullNeighborhood@{getFullNeighborhood}}
+\index{getFullNeighborhood@{getFullNeighborhood}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getFullNeighborhood()}{getFullNeighborhood()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Full\+Neighborhood (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}342\mbox{]},  }\item[{int}]{in\+Neighbor\+Positions\mbox{[}342\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{working\+Cell,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fills an array with all the neighbors of a cell, i.\+e. Child of parent\textquotesingle{}s neighbors, direct neighbors and cell itself. This is called for instance when the nearfield also needs to be approximated in that cas we only call this function at the leaf level. 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Neighbors\+Index} & the array to store morton index of the neighbors \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a213750fc54d195b6537b15d827c6eaa1}\label{class_f_octree_a213750fc54d195b6537b15d827c6eaa1} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getFullNeighborhood@{getFullNeighborhood}}
+\index{getFullNeighborhood@{getFullNeighborhood}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getFullNeighborhood()}{getFullNeighborhood()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Full\+Neighborhood (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}343\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{working\+Cell,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fills an array with all the neighbors of a cell, i.\+e. Child of parent\textquotesingle{}s neighbors, direct neighbors and cell itself. This is called for instance when the nearfield also needs to be approximated in that cas we only call this function at the leaf level. 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Neighbors\+Index} & the array to store morton index of the neighbors \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_ad3ab30c6c96970df4502219e7c21da58}\label{class_f_octree_ad3ab30c6c96970df4502219e7c21da58} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getHeight@{getHeight}}
+\index{getHeight@{getHeight}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getHeight()}{getHeight()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get the tree height \Hypertarget{class_f_octree_a8d057636177b2d51bae98366d8402120}\label{class_f_octree_a8d057636177b2d51bae98366d8402120} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getInteractionNeighbors@{getInteractionNeighbors}}
+\index{getInteractionNeighbors@{getInteractionNeighbors}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getInteractionNeighbors()}{getInteractionNeighbors()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Interaction\+Neighbors (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}342\mbox{]},  }\item[{int}]{in\+Neighbor\+Positions\mbox{[}343\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{working\+Cell,  }\item[{const int}]{in\+Level,  }\item[{const int}]{neigh\+Separation = {\ttfamily 1} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill an array with the distant neighbors of a cell 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Neighbors\+Index} & the array to store morton index of the neighbors \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_afdb14573d0247f3ca60611ef4b42c39a}\label{class_f_octree_afdb14573d0247f3ca60611ef4b42c39a} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getInteractionNeighbors@{getInteractionNeighbors}}
+\index{getInteractionNeighbors@{getInteractionNeighbors}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getInteractionNeighbors()}{getInteractionNeighbors()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Interaction\+Neighbors (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}343\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{working\+Cell,  }\item[{const int}]{in\+Level,  }\item[{const int}]{neigh\+Separation = {\ttfamily 1} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill an array with the distant neighbors of a cell 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Neighbors\+Index} & the array to store morton index of the neighbors \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a4cb7b744c6fabb95f4c71f38bbf43378}\label{class_f_octree_a4cb7b744c6fabb95f4c71f38bbf43378} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getLeafsNeighbors@{getLeafsNeighbors}}
+\index{getLeafsNeighbors@{getLeafsNeighbors}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getLeafsNeighbors()}{getLeafsNeighbors()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Leafs\+Neighbors (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}26\mbox{]},  }\item[{int}]{in\+Neighbor\+Positions\mbox{[}26\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{center,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill an array with the neighbors of a cell 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a7286738fd1006b840ac649c94c1f5919}\label{class_f_octree_a7286738fd1006b840ac649c94c1f5919} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getLeafsNeighbors@{getLeafsNeighbors}}
+\index{getLeafsNeighbors@{getLeafsNeighbors}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getLeafsNeighbors()}{getLeafsNeighbors()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Leafs\+Neighbors (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}27\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{center,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill an array with the neighbors of a cell 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a83d8a3a8a3396abb96ad8e7a8411a00c}\label{class_f_octree_a83d8a3a8a3396abb96ad8e7a8411a00c} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getLeafsNeighbors@{getLeafsNeighbors}}
+\index{getLeafsNeighbors@{getLeafsNeighbors}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getLeafsNeighbors()}{getLeafsNeighbors()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Leafs\+Neighbors (\begin{DoxyParamCaption}\item[{Container\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}26\mbox{]},  }\item[{int}]{in\+Neighbor\+Positions\mbox{[}26\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{center,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill an array with the neighbors of a cell 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a3e7f2c7074b4c990fe7bf1499c7419b0}\label{class_f_octree_a3e7f2c7074b4c990fe7bf1499c7419b0} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getLeafsNeighbors@{getLeafsNeighbors}}
+\index{getLeafsNeighbors@{getLeafsNeighbors}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getLeafsNeighbors()}{getLeafsNeighbors()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Leafs\+Neighbors (\begin{DoxyParamCaption}\item[{Container\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}27\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{center,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill an array with the neighbors of a cell 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_ac5155e908ca55112cb70af255c5053b3}\label{class_f_octree_ac5155e908ca55112cb70af255c5053b3} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getLeafSrc@{getLeafSrc}}
+\index{getLeafSrc@{getLeafSrc}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getLeafSrc()}{getLeafSrc()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+Container\+Class \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Leaf\+Src (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function return a cell (if it exists) from a morton index and a level 
+\begin{DoxyParams}{参数}
+{\em in\+Index} & the index of the desired cell \\
+\hline
+{\em in\+Level} & the level of the desired cell (cannot be inferred from the index) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the cell if it exist or null (0) 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a65c815d13f70184ccc74479023156d1b}\label{class_f_octree_a65c815d13f70184ccc74479023156d1b} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getMortonFromPosition@{getMortonFromPosition}}
+\index{getMortonFromPosition@{getMortonFromPosition}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getMortonFromPosition()}{getMortonFromPosition()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+Morton\+Index \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Morton\+From\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{position }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get a morton index from a real position 
+\begin{DoxyParams}{参数}
+{\em position} & a position to compute MI \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the morton index 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_acd40357110105bbff1bd91ee4b664047}\label{class_f_octree_acd40357110105bbff1bd91ee4b664047} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getNbCellsPerLevel@{getNbCellsPerLevel}}
+\index{getNbCellsPerLevel@{getNbCellsPerLevel}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getNbCellsPerLevel()}{getNbCellsPerLevel()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+void \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Nb\+Cells\+Per\+Level (\begin{DoxyParamCaption}\item[{int}]{in\+Nb\+Cells\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Count the number of cells per level, it will iter on the tree to do that! \Hypertarget{class_f_octree_ae93b172d11dd15c4741e79abde31bcb4}\label{class_f_octree_ae93b172d11dd15c4741e79abde31bcb4} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getNeighborsNoBrothers@{getNeighborsNoBrothers}}
+\index{getNeighborsNoBrothers@{getNeighborsNoBrothers}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getNeighborsNoBrothers()}{getNeighborsNoBrothers()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Neighbors\+No\+Brothers (\begin{DoxyParamCaption}\item[{Cell\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}26\mbox{]},  }\item[{const Morton\+Index}]{in\+Index,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill a array with the neighbors of a cell it does not put the brothers in the array (brothers are cells at the same level with the same parent) because they are of course direct neighbors. There is a maximum of 26 (3\texorpdfstring{$\ast$}{*}3\texorpdfstring{$\ast$}{*}3-\/1) direct neighbors // Take the neighbors != brothers Cell\+Class\texorpdfstring{$\ast$}{*} direct\+Neighbors\mbox{[}26\mbox{]}; const int nb\+Direct\+Neighbors = get\+Neighbors\+No\+Brothers(direct\+Neighbors,in\+Index,in\+Level); 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a2b54cea308bed1b084d53fc984df84a8}\label{class_f_octree_a2b54cea308bed1b084d53fc984df84a8} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getPeriodicInteractionNeighbors@{getPeriodicInteractionNeighbors}}
+\index{getPeriodicInteractionNeighbors@{getPeriodicInteractionNeighbors}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getPeriodicInteractionNeighbors()}{getPeriodicInteractionNeighbors()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Periodic\+Interaction\+Neighbors (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}342\mbox{]},  }\item[{int}]{in\+Neighbor\+Positions\mbox{[}342\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{working\+Cell,  }\item[{const int}]{in\+Level,  }\item[{const int}]{in\+Direction,  }\item[{const int}]{neigh\+Separation = {\ttfamily 1} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill an array with the distant neighbors of a cell it respects the periodic condition and will give the relative distance between the working cell and the neighbors 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Relative\+Position} & the array to store the relative position of the neighbors \\
+\hline
+{\em working\+Cell} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a406ff8bd01484c4b5dbed26f73349ce4}\label{class_f_octree_a406ff8bd01484c4b5dbed26f73349ce4} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getPeriodicInteractionNeighbors@{getPeriodicInteractionNeighbors}}
+\index{getPeriodicInteractionNeighbors@{getPeriodicInteractionNeighbors}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getPeriodicInteractionNeighbors()}{getPeriodicInteractionNeighbors()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Periodic\+Interaction\+Neighbors (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}343\mbox{]},  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{working\+Cell,  }\item[{const int}]{in\+Level,  }\item[{const int}]{in\+Direction,  }\item[{const int}]{neigh\+Separation = {\ttfamily 1} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill an array with the distant neighbors of a cell it respects the periodic condition and will give the relative distance between the working cell and the neighbors 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Relative\+Position} & the array to store the relative position of the neighbors \\
+\hline
+{\em working\+Cell} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a1fc4aa91c212fd06ee228f96160e2441}\label{class_f_octree_a1fc4aa91c212fd06ee228f96160e2441} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getPeriodicLeafsNeighbors@{getPeriodicLeafsNeighbors}}
+\index{getPeriodicLeafsNeighbors@{getPeriodicLeafsNeighbors}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getPeriodicLeafsNeighbors()}{getPeriodicLeafsNeighbors()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Periodic\+Leafs\+Neighbors (\begin{DoxyParamCaption}\item[{Container\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}26\mbox{]},  }\item[{int}]{in\+Neighbor\+Positions\mbox{[}26\mbox{]},  }\item[{\mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}}}]{out\+Offsets\mbox{[}26\mbox{]},  }\item[{bool \texorpdfstring{$\ast$}{*}const}]{is\+Periodic,  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{center,  }\item[{const int}]{in\+Level,  }\item[{const int}]{in\+Direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill an array with the neighbors of a cell 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_ae866e212ab67d439ad7f117d02a1bbe6}\label{class_f_octree_ae866e212ab67d439ad7f117d02a1bbe6} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getPeriodicLeafsNeighbors@{getPeriodicLeafsNeighbors}}
+\index{getPeriodicLeafsNeighbors@{getPeriodicLeafsNeighbors}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getPeriodicLeafsNeighbors()}{getPeriodicLeafsNeighbors()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Periodic\+Leafs\+Neighbors (\begin{DoxyParamCaption}\item[{Container\+Class \texorpdfstring{$\ast$}{*}}]{in\+Neighbors\mbox{[}27\mbox{]},  }\item[{\mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}}}]{out\+Offsets\mbox{[}27\mbox{]},  }\item[{bool \texorpdfstring{$\ast$}{*}const}]{is\+Periodic,  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{center,  }\item[{const int}]{in\+Level,  }\item[{const int}]{in\+Direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function fill an array with the neighbors of a cell 
+\begin{DoxyParams}{参数}
+{\em in\+Neighbors} & the array to store the elements \\
+\hline
+{\em in\+Index} & the index of the element we want the neighbors \\
+\hline
+{\em in\+Level} & the level of the element \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the number of neighbors 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_a5a77b32769133bf95e003f0704fca20a}\label{class_f_octree_a5a77b32769133bf95e003f0704fca20a} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getSubHeight@{getSubHeight}}
+\index{getSubHeight@{getSubHeight}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getSubHeight()}{getSubHeight()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Sub\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get the tree subheight \Hypertarget{class_f_octree_ab6520064cd16489db7d7326106b06363}\label{class_f_octree_ab6520064cd16489db7d7326106b06363} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getTreeCoordinate@{getTreeCoordinate}}
+\index{getTreeCoordinate@{getTreeCoordinate}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getTreeCoordinate()}{getTreeCoordinate()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+int \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Tree\+Coordinate (\begin{DoxyParamCaption}\item[{const FReal}]{in\+Relative\+Position }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Get the box number from a position at a position POS with a leaf level box width of WI, the position is RELATIVE\+\_\+\+TO\+\_\+\+CORNER(\+POS)/\+WI 
+\begin{DoxyParams}{参数}
+{\em in\+Relative\+Position} & a position from the corner of the box \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the box num at the leaf level that contains in\+Relative\+Position 
+\end{DoxyReturn}
+\Hypertarget{class_f_octree_adc254d87f0d6221f9f5f16e61334135b}\label{class_f_octree_adc254d87f0d6221f9f5f16e61334135b} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!insert@{insert}}
+\index{insert@{insert}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+template$<$typename... Args$>$ \\
+void \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::insert (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Particle\+Position,  }\item[{Args...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Insert a particle on the tree algorithm is \+: Compute morton index for the particle ask node to insert this particle 
+\begin{DoxyParams}{参数}
+{\em in\+Particle} & the particle to insert (must inherit from FAbstract\+Particle) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_octree_a0de9a0a5d5fc8b29cd08d28ceb95b4e1}\label{class_f_octree_a0de9a0a5d5fc8b29cd08d28ceb95b4e1} 
+\index{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!removeLeaf@{removeLeaf}}
+\index{removeLeaf@{removeLeaf}!FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{removeLeaf()}{removeLeaf()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class  = FBasic\+Block\+Allocator$<$\+Cell\+Class$>$$>$ \\
+void \mbox{\hyperlink{class_f_octree}{FOctree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::remove\+Leaf (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{index\+To\+Remove }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Remove a leaf from its morton index 
+\begin{DoxyParams}{参数}
+{\em index\+To\+Remove} & the index of the leaf to remove \\
+\hline
+\end{DoxyParams}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Containers/FOctree.\+hpp\end{DoxyCompactItemize}

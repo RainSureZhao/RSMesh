@@ -1,0 +1,78 @@
+\doxysection{FSignal\+Handler.\+h}
+\hypertarget{_f_signal_handler_8h_source}{}\label{_f_signal_handler_8h_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FSignalHandler.h@{third\_party/ScalFMM/include/ScalFMM/Utils/FSignalHandler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FSIGNALHANDLER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FSIGNALHANDLER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}FGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}FLog.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ Function\ in\ FSignalHandler.cpp}}
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{bool}\ f\_install\_signal\_handler();}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_signal_handler}{FSignalHandler}}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{bool}\ installed;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00023\ \ \ \ \ std::vector<\ std::function<void(\textcolor{keywordtype}{int})>\ >\ \mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_f_signal_handler_a32d34f38d72d0fae17ee2151f935c67d}{FSignalHandler}}()\ :\ installed(false)\{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ installed\ =\ f\_install\_signal\_handler();}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_signal_handler_ad2e82ad8547abc3a44e406c106143e1b}{intercept}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ signalReceived)\{}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_USE\_SIGNALS}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idx\ =\ 0\ ;\ idx\ <\ \mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}.size()\ ;\ ++idx)\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}[idx](signalReceived);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{void}\ f\_sig\_handler(\textcolor{keywordtype}{int}\ signalReceived);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_signal_handler}{FSignalHandler}}\ \mbox{\hyperlink{class_f_signal_handler_a5471a062af1eb88b10a6d99cf404e8ad}{controler}};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_f_signal_handler}{\string~FSignalHandler}}()\{}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_signal_handler_aeb37d0a7c48629786e8e1ca8f3c97870}{registerCallback}}(std::function<\textcolor{keywordtype}{void}(\textcolor{keywordtype}{int})>\ aCallback)\{}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_USE\_SIGNALS}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}.push\_back(aCallback);}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_signal_handler_a4b62a12437334c28cb71b6bcaeab76fa}{unregisterCallback}}(std::function<\textcolor{keywordtype}{void}(\textcolor{keywordtype}{int})>\ aCallback)\{}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_USE\_SIGNALS}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }fptr\ =\ void(*)(int);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ idx\ =\ 0\ ;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(;\ idx\ <\ \mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}.size()\ \&\&\ !(\mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}[idx].target<fptr>()\ ==\ aCallback.target<fptr>());\ ++idx)\{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ idxCopy\ =\ idx;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ idx\ +=\ 1;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(;\ idx\ <\ \mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}.size()\ ;\ ++idx)\{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!(\mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}[idx].target<fptr>()\ ==\ aCallback.target<fptr>()))\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}[idxCopy++]\ =\ \mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}[idx];}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}.resize(\mbox{\hyperlink{class_f_signal_handler_a4ff532988ac4c297702561a6bfff55b6}{callbacks}}.size()\ -\/\ idxCopy);}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{bool}\ isInstalled()\{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ installed;}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FSIGNALHANDLER\_H}}
+
+\end{DoxyCode}

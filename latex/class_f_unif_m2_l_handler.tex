@@ -1,0 +1,28 @@
+\doxysection{FUnif\+M2\+LHandler\texorpdfstring{$<$}{<} FReal, ORDER, TYPE \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_unif_m2_l_handler}{}\label{class_f_unif_m2_l_handler}\index{FUnifM2LHandler$<$ FReal, ORDER, TYPE $>$@{FUnifM2LHandler$<$ FReal, ORDER, TYPE $>$}}
+
+
+{\ttfamily \#include $<$FUnif\+M2\+LHandler.\+hpp$>$}
+
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, int ORDER, KERNEL\+\_\+\+FUNCTION\+\_\+\+TYPE TYPE$>$\newline
+class FUnif\+M2\+LHandler$<$ FReal, ORDER, TYPE $>$}
+\begin{DoxyAuthor}{作者}
+Pierre Blanchard (\href{mailto:pierre.blanchard@inria.fr}{\texttt{ pierre.\+blanchard@inria.\+fr}})
+\end{DoxyAuthor}
+Please read the license
+
+This class precomputes and efficiently stores the M2L operators $[K_1,\dots,K_{316}]$ for all ( $7^3-3^3 = 316$ possible interacting cells in the far-\/field) interactions for the Lagrange interpolation approach. The resulting Lagrange operators have a Circulant Toeplitz structure and can be applied efficiently in Fourier Space. Hence, the originally $K_t$ of size $\ell^3\times\ell^3$ times $316$ for all interactions is reduced to $316$ $C_t$, each of size $2\ell-1$.
+
+
+\begin{DoxyTemplParams}{模板参数}
+{\em ORDER} & interpolation order $\ell$ \\
+\hline
+\end{DoxyTemplParams}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Uniform/FUnif\+M2\+LHandler.\+hpp\end{DoxyCompactItemize}

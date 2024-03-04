@@ -1,0 +1,168 @@
+\doxysection{FMpi\+Buffer\+Writer类 参考}
+\hypertarget{class_f_mpi_buffer_writer}{}\label{class_f_mpi_buffer_writer}\index{FMpiBufferWriter@{FMpiBufferWriter}}
+
+
+{\ttfamily \#include $<$FMpi\+Buffer\+Writer.\+hpp$>$}
+
+类 FMpi\+Buffer\+Writer 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_mpi_buffer_writer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_mpi_buffer_writer_a9d0cc92d9df605236c36014fb3e0ddd5}{FMpi\+Buffer\+Writer}} (const FSize in\+Default\+Capacity=1024)
+\item 
+void \mbox{\hyperlink{class_f_mpi_buffer_writer_a360a6c90c96f28dfe7287d22e0f04fd7}{resize}} (const FSize new\+Capacity)
+\item 
+virtual \mbox{\hyperlink{class_f_mpi_buffer_writer_a53c00bc635ce7653fd00dddd7a62b8ca}{\texorpdfstring{$\sim$}{\string~}\+FMpi\+Buffer\+Writer}} ()
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_mpi_buffer_writer_a00e0998ee250133df7dcd5d9660e4ea8}{data}} () override
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_mpi_buffer_writer_ab54a2aff5dfafde0f5d03bb34ba2cd64}{data}} () const override
+\item 
+FSize \mbox{\hyperlink{class_f_mpi_buffer_writer_afc7f9cb6ee1c0bdcccfffaf187907858}{get\+Size}} () const override
+\item 
+FSize \mbox{\hyperlink{class_f_mpi_buffer_writer_add434d98d42f830992583e7daa3ee53c}{get\+Capacity}} () const
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void \mbox{\hyperlink{class_f_mpi_buffer_writer_a0afc1bae9ec489108a86d6588e10cf2b}{write}} (const Class\+Type \&object)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void \mbox{\hyperlink{class_f_mpi_buffer_writer_a797659fa8db52add24f380ef290462fa}{write}} (const Class\+Type \&\&object)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void \mbox{\hyperlink{class_f_mpi_buffer_writer_a67d766a9b2e16206b809c5d3bfb69a3c}{write\+At}} (const FSize position, const Class\+Type \&object)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void \mbox{\hyperlink{class_f_mpi_buffer_writer_a6ff45ccef920c817aae9b68cd6a1761f}{write}} (const Class\+Type \texorpdfstring{$\ast$}{*}const objects, const FSize in\+Size)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\\mbox{\hyperlink{class_f_mpi_buffer_writer}{FMpi\+Buffer\+Writer}} \& \mbox{\hyperlink{class_f_mpi_buffer_writer_a12d40cdf6f7d1c04c0a0de7791740a20}{operator$<$$<$}} (const Class\+Type \&object)
+\item 
+void \mbox{\hyperlink{class_f_mpi_buffer_writer_a33be7e6032246aa5cd83c3d0b42d8c52}{reset}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void {\bfseries write} (const Class\+Type \&object)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void {\bfseries write\+At} (const FSize position, const Class\+Type \&object)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void {\bfseries write} (const Class\+Type \texorpdfstring{$\ast$}{*}const objects, const FSize in\+Size)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\\mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}} \& {\bfseries operator$<$$<$} (const Class\+Type \&)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\begin{DoxyAuthor}{作者}
+Cyrille Piacibello, Berenger Bramas This class provide the same features as \doxylink{class_f_buffer_writer}{FBuffer\+Writer}
+\end{DoxyAuthor}
+Put some data then insert back if needed finally use data pointer as you like 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_mpi_buffer_writer_a9d0cc92d9df605236c36014fb3e0ddd5}\label{class_f_mpi_buffer_writer_a9d0cc92d9df605236c36014fb3e0ddd5} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!FMpiBufferWriter@{FMpiBufferWriter}}
+\index{FMpiBufferWriter@{FMpiBufferWriter}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{FMpiBufferWriter()}{FMpiBufferWriter()}}
+{\footnotesize\ttfamily FMpi\+Buffer\+Writer\+::\+FMpi\+Buffer\+Writer (\begin{DoxyParamCaption}\item[{const FSize}]{in\+Default\+Capacity = {\ttfamily 1024} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+Constructor with a default array\+Capacity of 512 bytes \Hypertarget{class_f_mpi_buffer_writer_a53c00bc635ce7653fd00dddd7a62b8ca}\label{class_f_mpi_buffer_writer_a53c00bc635ce7653fd00dddd7a62b8ca} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!````~FMpiBufferWriter@{\texorpdfstring{$\sim$}{\string~}FMpiBufferWriter}}
+\index{````~FMpiBufferWriter@{\texorpdfstring{$\sim$}{\string~}FMpiBufferWriter}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FMpiBufferWriter()}{\string~FMpiBufferWriter()}}
+{\footnotesize\ttfamily virtual FMpi\+Buffer\+Writer\+::\texorpdfstring{$\sim$}{\string~}\+FMpi\+Buffer\+Writer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_mpi_buffer_writer_ab54a2aff5dfafde0f5d03bb34ba2cd64}\label{class_f_mpi_buffer_writer_ab54a2aff5dfafde0f5d03bb34ba2cd64} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!data@{data}}
+\index{data@{data}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} FMpi\+Buffer\+Writer\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get allocated memory pointer 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}}.
+
+\Hypertarget{class_f_mpi_buffer_writer_a00e0998ee250133df7dcd5d9660e4ea8}\label{class_f_mpi_buffer_writer_a00e0998ee250133df7dcd5d9660e4ea8} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!data@{data}}
+\index{data@{data}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} FMpi\+Buffer\+Writer\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get allocated memory pointer 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}}.
+
+\Hypertarget{class_f_mpi_buffer_writer_add434d98d42f830992583e7daa3ee53c}\label{class_f_mpi_buffer_writer_add434d98d42f830992583e7daa3ee53c} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!getCapacity@{getCapacity}}
+\index{getCapacity@{getCapacity}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{getCapacity()}{getCapacity()}}
+{\footnotesize\ttfamily FSize FMpi\+Buffer\+Writer\+::get\+Capacity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the allocated space \Hypertarget{class_f_mpi_buffer_writer_afc7f9cb6ee1c0bdcccfffaf187907858}\label{class_f_mpi_buffer_writer_afc7f9cb6ee1c0bdcccfffaf187907858} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!getSize@{getSize}}
+\index{getSize@{getSize}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily FSize FMpi\+Buffer\+Writer\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get the filled space 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}}.
+
+\Hypertarget{class_f_mpi_buffer_writer_a12d40cdf6f7d1c04c0a0de7791740a20}\label{class_f_mpi_buffer_writer_a12d40cdf6f7d1c04c0a0de7791740a20} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+\mbox{\hyperlink{class_f_mpi_buffer_writer}{FMpi\+Buffer\+Writer}} \& FMpi\+Buffer\+Writer\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{const Class\+Type \&}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Equivalent to write \Hypertarget{class_f_mpi_buffer_writer_a33be7e6032246aa5cd83c3d0b42d8c52}\label{class_f_mpi_buffer_writer_a33be7e6032246aa5cd83c3d0b42d8c52} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!reset@{reset}}
+\index{reset@{reset}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void FMpi\+Buffer\+Writer\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Reset the writing index, but do not change the array\+Capacity 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstract\+Buffer\+Writer}}.
+
+\Hypertarget{class_f_mpi_buffer_writer_a360a6c90c96f28dfe7287d22e0f04fd7}\label{class_f_mpi_buffer_writer_a360a6c90c96f28dfe7287d22e0f04fd7} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!resize@{resize}}
+\index{resize@{resize}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{resize()}{resize()}}
+{\footnotesize\ttfamily void FMpi\+Buffer\+Writer\+::resize (\begin{DoxyParamCaption}\item[{const FSize}]{new\+Capacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To change the capacity (but reset the head to 0 if size if lower) \Hypertarget{class_f_mpi_buffer_writer_a797659fa8db52add24f380ef290462fa}\label{class_f_mpi_buffer_writer_a797659fa8db52add24f380ef290462fa} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!write@{write}}
+\index{write@{write}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+void FMpi\+Buffer\+Writer\+::write (\begin{DoxyParamCaption}\item[{const Class\+Type \&\&}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Allow to pass rvalue to write \Hypertarget{class_f_mpi_buffer_writer_a0afc1bae9ec489108a86d6588e10cf2b}\label{class_f_mpi_buffer_writer_a0afc1bae9ec489108a86d6588e10cf2b} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!write@{write}}
+\index{write@{write}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+void FMpi\+Buffer\+Writer\+::write (\begin{DoxyParamCaption}\item[{const Class\+Type \&}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Write data by packing cpy \Hypertarget{class_f_mpi_buffer_writer_a6ff45ccef920c817aae9b68cd6a1761f}\label{class_f_mpi_buffer_writer_a6ff45ccef920c817aae9b68cd6a1761f} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!write@{write}}
+\index{write@{write}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+void FMpi\+Buffer\+Writer\+::write (\begin{DoxyParamCaption}\item[{const Class\+Type \texorpdfstring{$\ast$}{*}const}]{objects,  }\item[{const FSize}]{in\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Write an array Warning \+: in\+Size is a number of Class\+Type object to write, not a size in bytes \Hypertarget{class_f_mpi_buffer_writer_a67d766a9b2e16206b809c5d3bfb69a3c}\label{class_f_mpi_buffer_writer_a67d766a9b2e16206b809c5d3bfb69a3c} 
+\index{FMpiBufferWriter@{FMpiBufferWriter}!writeAt@{writeAt}}
+\index{writeAt@{writeAt}!FMpiBufferWriter@{FMpiBufferWriter}}
+\doxysubsubsection{\texorpdfstring{writeAt()}{writeAt()}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+void FMpi\+Buffer\+Writer\+::write\+At (\begin{DoxyParamCaption}\item[{const FSize}]{position,  }\item[{const Class\+Type \&}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Write back, position + sizeof(object) has to be \texorpdfstring{$<$}{<} size 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Containers/FMpi\+Buffer\+Writer.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,34 @@
+\doxysection{FCoordinate\+Computer结构体 参考}
+\hypertarget{struct_f_coordinate_computer}{}\label{struct_f_coordinate_computer}\index{FCoordinateComputer@{FCoordinateComputer}}
+
+
+The \doxylink{struct_f_coordinate_computer}{FCoordinate\+Computer} struct is the main class to get the tree coordinate from the simulation box properties.  
+
+
+
+
+{\ttfamily \#include $<$FCoordinate\+Computer.\+hpp$>$}
+
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_f_coordinate_computer_a17534cad898c5535ee2ed3ca60ef300a}\label{struct_f_coordinate_computer_a17534cad898c5535ee2ed3ca60ef300a} 
+{\footnotesize template$<$class FReal $>$ }\\static int {\bfseries Get\+Tree\+Coordinate} (const FReal in\+Relative\+Position, const FReal box\+Width, const FReal box\+Width\+At\+Leaf\+Level, const int tree\+Height)
+\item 
+\Hypertarget{struct_f_coordinate_computer_a03117cc3e9b4607d6b8540e1069ef903}\label{struct_f_coordinate_computer_a03117cc3e9b4607d6b8540e1069ef903} 
+{\footnotesize template$<$class FReal $>$ }\\static \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} {\bfseries Get\+Coordinate\+From\+Position} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center\+Of\+Box, const FReal box\+Width, const int tree\+Height, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&pos)
+\item 
+\Hypertarget{struct_f_coordinate_computer_a695a5aadfe72c52733dd556cd827683a}\label{struct_f_coordinate_computer_a695a5aadfe72c52733dd556cd827683a} 
+{\footnotesize template$<$class FReal $>$ }\\static \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} {\bfseries Get\+Coordinate\+From\+Position\+And\+Corner} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&corner\+Of\+Box, const FReal box\+Width, const int tree\+Height, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&pos)
+\item 
+\Hypertarget{struct_f_coordinate_computer_a07aa2f8ab891ac8f24a24bb40299a047}\label{struct_f_coordinate_computer_a07aa2f8ab891ac8f24a24bb40299a047} 
+{\footnotesize template$<$class FReal $>$ }\\static \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries Get\+Position\+From\+Coordinate} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center\+Of\+Box, const FReal box\+Width, const int tree\+Height, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&pos)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+The \doxylink{struct_f_coordinate_computer}{FCoordinate\+Computer} struct is the main class to get the tree coordinate from the simulation box properties. 
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Containers/FCoordinate\+Computer.\+hpp\end{DoxyCompactItemize}

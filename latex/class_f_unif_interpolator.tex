@@ -1,0 +1,130 @@
+\doxysection{FUnif\+Interpolator\texorpdfstring{$<$}{<} FReal, ORDER, Matrix\+Kernel\+Class, NVALS \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_unif_interpolator}{}\label{class_f_unif_interpolator}\index{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}}
+
+
+{\ttfamily \#include $<$FUnif\+Interpolator.\+hpp$>$}
+
+类 FUnif\+Interpolator\texorpdfstring{$<$}{<} FReal, ORDER, Matrix\+Kernel\+Class, NVALS \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_unif_interpolator}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_unif_interpolator_af995e4a1842c56400021da236c677981}{FUnif\+Interpolator}} (const int in\+Tree\+Height=3, const FReal in\+Root\+Cell\+Width=FReal(1.), const FReal in\+Cell\+Width\+Extension=FReal(0.))
+\item 
+\mbox{\hyperlink{class_f_unif_interpolator_aa90bcddd68390d603cbcb3e7b4db3753}{\texorpdfstring{$\sim$}{\string~}\+FUnif\+Interpolator}} ()
+\item 
+void \mbox{\hyperlink{class_f_unif_interpolator_ab5f15e3036f7b1fbf23a1325c0d7e578}{assemble\+Interpolator}} (const unsigned int Number\+Of\+Local\+Points, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const Local\+Points, FReal \texorpdfstring{$\ast$}{*}const Interpolator) const
+\item 
+\Hypertarget{class_f_unif_interpolator_a42f615114dfb1924fc793465c659c55d}\label{class_f_unif_interpolator_a42f615114dfb1924fc793465c659c55d} 
+void {\bfseries assemble\+Interpolator} (const unsigned int M, const FReal \texorpdfstring{$\ast$}{*}const x, FReal \texorpdfstring{$\ast$}{*}const S) const
+\item 
+\Hypertarget{class_f_unif_interpolator_aaac75929042b83efa40b3e00e3347419}\label{class_f_unif_interpolator_aaac75929042b83efa40b3e00e3347419} 
+const FReal \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*} {\bfseries get\+Child\+Parent\+Interpolator} () const
+\item 
+\Hypertarget{class_f_unif_interpolator_a8fa7ad500d77caf1f8a0247558bd1941}\label{class_f_unif_interpolator_a8fa7ad500d77caf1f8a0247558bd1941} 
+const unsigned int \texorpdfstring{$\ast$}{*} {\bfseries get\+Permutations\+M2\+ML2L} (unsigned int i) const
+\item 
+{\footnotesize template$<$class Container\+Class $>$ }\\void \mbox{\hyperlink{class_f_unif_interpolator_a3234e3ea88ad97b7263927d211879da6}{apply\+P2M}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width, FReal \texorpdfstring{$\ast$}{*}const multipole\+Expansion, const Container\+Class \texorpdfstring{$\ast$}{*}const source\+Particles) const
+\item 
+{\footnotesize template$<$class Container\+Class $>$ }\\void \mbox{\hyperlink{class_f_unif_interpolator_a262fb412654ba58ae36d8f697c9113b2}{apply\+L2P}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width, const FReal \texorpdfstring{$\ast$}{*}const local\+Expansion, Container\+Class \texorpdfstring{$\ast$}{*}const local\+Particles) const
+\item 
+{\footnotesize template$<$class Container\+Class $>$ }\\void \mbox{\hyperlink{class_f_unif_interpolator_a63eccb7e2da74d9f8a452838d1af1d75}{apply\+L2\+PGradient}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width, const FReal \texorpdfstring{$\ast$}{*}const local\+Expansion, Container\+Class \texorpdfstring{$\ast$}{*}const local\+Particles) const
+\item 
+{\footnotesize template$<$class Container\+Class $>$ }\\void \mbox{\hyperlink{class_f_unif_interpolator_a77895628b85264058935bedc129b6026}{apply\+L2\+PTotal}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center, const FReal width, const FReal \texorpdfstring{$\ast$}{*}const local\+Expansion, Container\+Class \texorpdfstring{$\ast$}{*}const local\+Particles) const
+\item 
+\Hypertarget{class_f_unif_interpolator_a9c1786b36b41b130975af5f9ffe4d950}\label{class_f_unif_interpolator_a9c1786b36b41b130975af5f9ffe4d950} 
+void {\bfseries apply\+M2M} (const unsigned int Child\+Index, const FReal \texorpdfstring{$\ast$}{*}const Child\+Expansion, FReal \texorpdfstring{$\ast$}{*}const Parent\+Expansion, const unsigned int Tree\+Level=2) const
+\item 
+\Hypertarget{class_f_unif_interpolator_af79c6b66e89b6ebdbd8e63be04b5b568}\label{class_f_unif_interpolator_af79c6b66e89b6ebdbd8e63be04b5b568} 
+void {\bfseries apply\+L2L} (const unsigned int Child\+Index, const FReal \texorpdfstring{$\ast$}{*}const Parent\+Expansion, FReal \texorpdfstring{$\ast$}{*}const Child\+Expansion, const unsigned int Tree\+Level=2) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, int ORDER, class Matrix\+Kernel\+Class, int NVALS = 1$>$\newline
+class FUnif\+Interpolator$<$ FReal, ORDER, Matrix\+Kernel\+Class, NVALS $>$}
+\begin{DoxyAuthor}{作者}
+Pierre Blanchard (\href{mailto:pierre.blanchard@inria.fr}{\texttt{ pierre.\+blanchard@inria.\+fr}}) Please read the license
+\end{DoxyAuthor}
+The class {\ttfamily \doxylink{class_f_unif_interpolator}{FUnif\+Interpolator}} defines the anterpolation (M2M) and interpolation (L2L) concerning operations. 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_unif_interpolator_af995e4a1842c56400021da236c677981}\label{class_f_unif_interpolator_af995e4a1842c56400021da236c677981} 
+\index{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}!FUnifInterpolator@{FUnifInterpolator}}
+\index{FUnifInterpolator@{FUnifInterpolator}!FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{FUnifInterpolator()}{FUnifInterpolator()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class , int NVALS = 1$>$ \\
+\mbox{\hyperlink{class_f_unif_interpolator}{FUnif\+Interpolator}}$<$ FReal, ORDER, Matrix\+Kernel\+Class, NVALS $>$\mbox{\hyperlink{class_f_unif_interpolator}{\+::\+FUnif\+Interpolator}} (\begin{DoxyParamCaption}\item[{const int}]{in\+Tree\+Height = {\ttfamily 3},  }\item[{const FReal}]{in\+Root\+Cell\+Width = {\ttfamily FReal(1.)},  }\item[{const FReal}]{in\+Cell\+Width\+Extension = {\ttfamily FReal(0.)} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+Constructor\+: Initialize the Lagrange polynomials at the equispaced roots/interpolation point
+
+PB\+: Input parameters ONLY affect the computation of the M2\+M/\+L2L ops. These parameters are ONLY required in the context of extended bbox. If no M2\+M/\+L2L is required then the interpolator can be built with the default ctor. \Hypertarget{class_f_unif_interpolator_aa90bcddd68390d603cbcb3e7b4db3753}\label{class_f_unif_interpolator_aa90bcddd68390d603cbcb3e7b4db3753} 
+\index{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}!````~FUnifInterpolator@{\texorpdfstring{$\sim$}{\string~}FUnifInterpolator}}
+\index{````~FUnifInterpolator@{\texorpdfstring{$\sim$}{\string~}FUnifInterpolator}!FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FUnifInterpolator()}{\string~FUnifInterpolator()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class , int NVALS = 1$>$ \\
+\mbox{\hyperlink{class_f_unif_interpolator}{FUnif\+Interpolator}}$<$ FReal, ORDER, Matrix\+Kernel\+Class, NVALS $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_unif_interpolator}{FUnif\+Interpolator}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Destructor\+: Delete dynamically allocated memory for M2M and L2L operator 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_unif_interpolator_a262fb412654ba58ae36d8f697c9113b2}\label{class_f_unif_interpolator_a262fb412654ba58ae36d8f697c9113b2} 
+\index{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}!applyL2P@{applyL2P}}
+\index{applyL2P@{applyL2P}!FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{applyL2P()}{applyL2P()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class , int NVALS$>$ \\
+template$<$class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_unif_interpolator}{FUnif\+Interpolator}}$<$ FReal, ORDER, Matrix\+Kernel\+Class, NVALS $>$\+::apply\+L2P (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{center,  }\item[{const FReal}]{width,  }\item[{const FReal \texorpdfstring{$\ast$}{*}const}]{local\+Expansion,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Particles }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Local to particle operation\+: application of $S_\ell(x,\bar x_m)$ (interpolation) \Hypertarget{class_f_unif_interpolator_a63eccb7e2da74d9f8a452838d1af1d75}\label{class_f_unif_interpolator_a63eccb7e2da74d9f8a452838d1af1d75} 
+\index{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}!applyL2PGradient@{applyL2PGradient}}
+\index{applyL2PGradient@{applyL2PGradient}!FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{applyL2PGradient()}{applyL2PGradient()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class , int NVALS$>$ \\
+template$<$class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_unif_interpolator}{FUnif\+Interpolator}}$<$ FReal, ORDER, Matrix\+Kernel\+Class, NVALS $>$\+::apply\+L2\+PGradient (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{center,  }\item[{const FReal}]{width,  }\item[{const FReal \texorpdfstring{$\ast$}{*}const}]{local\+Expansion,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Particles }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Local to particle operation\+: application of $\nabla_x S_\ell(x,\bar x_m)$ (interpolation) \Hypertarget{class_f_unif_interpolator_a77895628b85264058935bedc129b6026}\label{class_f_unif_interpolator_a77895628b85264058935bedc129b6026} 
+\index{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}!applyL2PTotal@{applyL2PTotal}}
+\index{applyL2PTotal@{applyL2PTotal}!FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{applyL2PTotal()}{applyL2PTotal()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class , int NVALS = 1$>$ \\
+template$<$class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_unif_interpolator}{FUnif\+Interpolator}}$<$ FReal, ORDER, Matrix\+Kernel\+Class, NVALS $>$\+::apply\+L2\+PTotal (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{center,  }\item[{const FReal}]{width,  }\item[{const FReal \texorpdfstring{$\ast$}{*}const}]{local\+Expansion,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const}]{local\+Particles }\end{DoxyParamCaption}) const}
+
+Local to particle operation\+: application of $S_\ell(x,\bar x_m)$ and $\nabla_x S_\ell(x,\bar x_m)$ (interpolation) \Hypertarget{class_f_unif_interpolator_a3234e3ea88ad97b7263927d211879da6}\label{class_f_unif_interpolator_a3234e3ea88ad97b7263927d211879da6} 
+\index{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}!applyP2M@{applyP2M}}
+\index{applyP2M@{applyP2M}!FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{applyP2M()}{applyP2M()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class , int NVALS$>$ \\
+template$<$class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_unif_interpolator}{FUnif\+Interpolator}}$<$ FReal, ORDER, Matrix\+Kernel\+Class, NVALS $>$\+::apply\+P2M (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{center,  }\item[{const FReal}]{width,  }\item[{FReal \texorpdfstring{$\ast$}{*}const}]{multipole\+Expansion,  }\item[{const Container\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Particles }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Particle to moment\+: application of $S_\ell(y,\bar y_n)$ (anterpolation, it is the transposed interpolation) \Hypertarget{class_f_unif_interpolator_ab5f15e3036f7b1fbf23a1325c0d7e578}\label{class_f_unif_interpolator_ab5f15e3036f7b1fbf23a1325c0d7e578} 
+\index{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}!assembleInterpolator@{assembleInterpolator}}
+\index{assembleInterpolator@{assembleInterpolator}!FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$@{FUnifInterpolator$<$ FReal, ORDER, MatrixKernelClass, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{assembleInterpolator()}{assembleInterpolator()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER, class Matrix\+Kernel\+Class , int NVALS = 1$>$ \\
+void \mbox{\hyperlink{class_f_unif_interpolator}{FUnif\+Interpolator}}$<$ FReal, ORDER, Matrix\+Kernel\+Class, NVALS $>$\+::assemble\+Interpolator (\begin{DoxyParamCaption}\item[{const unsigned int}]{Number\+Of\+Local\+Points,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const}]{Local\+Points,  }\item[{FReal \texorpdfstring{$\ast$}{*}const}]{Interpolator }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Assembles the interpolator $S_\ell$ of size $N\times
+\ell^3$. Here local points is meant as points whose global coordinates have already been mapped to the reference interval \mbox{[}-\/1,1\mbox{]}.
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em Number\+Of\+Local\+Points} & \\
+\hline
+\mbox{\texttt{ in}}  & {\em Local\+Points} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em Interpolator} & \\
+\hline
+\end{DoxyParams}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Uniform/FUnif\+Interpolator.\+hpp\end{DoxyCompactItemize}

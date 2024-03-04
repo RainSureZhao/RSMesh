@@ -1,0 +1,89 @@
+\doxysection{FCheb\+Interface.\+h}
+\hypertarget{_f_cheb_interface_8h_source}{}\label{_f_cheb_interface_8h_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Chebyshev/FChebInterface.h@{third\_party/ScalFMM/include/ScalFMM/Kernels/Chebyshev/FChebInterface.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ FCHEBINTERFACE\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ FCHEBINTERFACE\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//To\ access\ leaf\ datas}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{struct\ }FChebLeaf\_struct;}
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }FChebLeaf\_struct\ ChebLeafStruct;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//To\ access\ a\ cell}}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }FChebCell\_struct;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }FChebCell\_struct\ ChebCellStruct;}
+\DoxyCodeLine{00020\ ChebCellStruct\ *\ ChebCellStruct\_create(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ index,\textcolor{keywordtype}{int}\ *\ tree\_position);}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ ChebCellStruct\_free(ChebCellStruct\ *\ cell);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//To\ manage\ leaves}}
+\DoxyCodeLine{00024\ ChebLeafStruct\ *\ ChebLeafStruct\_create(FSize\ nbPart);}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ ChebLeafStruct\_free(\textcolor{keywordtype}{void}\ *\ leafData);}
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{void}\ ChebLeafStruct\_fill(FSize\ nbPart,\ \textcolor{keyword}{const}\ FSize\ *\ idxPart,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ morton\_index,\ \textcolor{keywordtype}{void}\ *\ leafData,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\ userData);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}\ ChebLeafStruct\_get\_back\_results(\textcolor{keywordtype}{void}\ *\ leafData,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ **\ forceXptr,\ \ \textcolor{keywordtype}{double}\ **\ forceYptr,\ \ \textcolor{keywordtype}{double}\ **\ forceZptr,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ **\ potentialsptr);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//To\ access\ the\ kernel}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{struct\ }FChebKernel\_struct;}
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }FChebKernel\_struct\ ChebKernelStruct;}
+\DoxyCodeLine{00037\ ChebKernelStruct\ *\ ChebKernelStruct\_create(\textcolor{keywordtype}{int}\ inTreeHeight,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ inBoxWidth,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ inBoxCenter);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ ChebKernelStruct\_free(\textcolor{keywordtype}{void}\ *\ kernel);}
+\DoxyCodeLine{00042\ \textcolor{comment}{//To\ access\ kernel\ member\ function}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{void}\ ChebKernel\_P2M(\textcolor{keywordtype}{void}\ *\ leafCell,\ \textcolor{keywordtype}{void}\ *\ leafData,\ FSize\ nbParticles,\textcolor{keyword}{const}\ FSize*\ particleIndexes,\ \textcolor{keywordtype}{void}*\ kernel);}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ ChebKernel\_M2M(\textcolor{keywordtype}{int}\ level,\ \textcolor{keywordtype}{void}*\ parentCell,\ \textcolor{keywordtype}{int}\ childPosition,\ \textcolor{keywordtype}{void}*\ childCell,\ \textcolor{keywordtype}{void}*\ kernel);}
+\DoxyCodeLine{00046\ \textcolor{comment}{//Change\ here\ to\ somethong\ nearer\ M2L\ defined\ in\ Src/Components/FAbstractKernels.hpp}}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ ChebKernel\_M2L(\textcolor{keywordtype}{int}\ level,\ \textcolor{keywordtype}{void}*\ targetCell,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*neighborPositions,\textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{void}**\ sourceCell,\ \textcolor{keywordtype}{void}*\ kernel);}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ ChebKernel\_L2L(\textcolor{keywordtype}{int}\ level,\ \textcolor{keywordtype}{void}*\ parentCell,\ \textcolor{keywordtype}{int}\ childPosition,\ \textcolor{keywordtype}{void}*\ childCell,\ \textcolor{keywordtype}{void}*\ kernel);}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ ChebKernel\_L2P(\textcolor{keywordtype}{void}*\ leafCell,\ \textcolor{keywordtype}{void}\ *\ leafData,\ FSize\ nbParticles,\ \textcolor{keyword}{const}\ FSize*\ particleIndexes,\ \textcolor{keywordtype}{void}*\ kernel);}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{void}\ ChebKernel\_P2P(\textcolor{keywordtype}{void}\ *\ targetLeaf,\ FSize\ nbParticles,\ \textcolor{keyword}{const}\ FSize*\ particleIndexes,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ **\ sourceLeaves,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ **\ sourceParticleIndexes,\ FSize\ *\ sourceNbPart,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ *\ sourcePosition,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size,\textcolor{keywordtype}{void}*\ userData);}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ ChebKernel\_P2P\_old(\textcolor{keywordtype}{void}\ *\ targetLeaf,\ FSize\ nbParticles,\ \textcolor{keyword}{const}\ FSize*\ particleIndexes,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ **\ sourceLeaves,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ **\ sourceParticleIndexes,FSize*\ sourceNbPart,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ *\ sourcePosition,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{void}*\ inKernel);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ ChebKernel\_P2PRemote(\textcolor{keywordtype}{void}\ *\ targetLeaf,FSize\ nbParticles,\ \textcolor{keyword}{const}\ FSize*\ particleIndexes,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ **\ sourceLeaves,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ **\ sourceParticleIndexes,FSize\ *\ sourceNbPart,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ *\ sourcePosition,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keywordtype}{void}*\ inKernel);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{void}\ ChebCell\_reset(\textcolor{keywordtype}{int}\ level,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ morton\_index,\ \textcolor{keywordtype}{int}*\ tree\_position,\ \textcolor{keywordtype}{double}*\ spatial\_position,\ \textcolor{keywordtype}{void}\ *\ userCell,\ \textcolor{keywordtype}{void}\ *\ kernel);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ FSize\ ChebCell\_getSize(\textcolor{keywordtype}{int}\ level,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ morton\_index);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keywordtype}{void}\ ChebCell\_copy(\textcolor{keywordtype}{void}\ *\ userDatas,\ FSize\ size,\ \textcolor{keywordtype}{void}\ *\ memoryAllocated);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keywordtype}{void}*\ ChebCell\_restore(\textcolor{keywordtype}{int}\ level,\ \textcolor{keywordtype}{void}\ *\ arrayTobeRead);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ FSize\ ChebLeaf\_getSize(FSize\ nbPart);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{void}\ ChebLeaf\_copy(FSize\ nbPart,\textcolor{keywordtype}{void}\ *\ userdata,\ \textcolor{keywordtype}{void}\ *\ memAllocated);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ *\ ChebLeaf\_restore(FSize\ nbPart,\textcolor{keywordtype}{void}\ *\ memToRead);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmy_user_datas}{myUserDatas}}\{}
+\DoxyCodeLine{00079\ \ \ \ \ ChebKernelStruct\ *\ kernelStruct;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{double}\ *\ insertedPositions;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{double}\ *\ myPhyValues;}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{double}\ **\ forcesComputed;}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//In\ the\ same\ way\ we\ store\ multiples\ forces\ array.}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{double}\ **\ potentials;}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{double}\ totalEnergy;}
+\DoxyCodeLine{00086\ \}\mbox{\hyperlink{structmy_user_datas}{UserData}};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FCHEBINTERFACE\_H}}
+
+\end{DoxyCode}

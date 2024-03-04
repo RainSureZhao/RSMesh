@@ -1,0 +1,631 @@
+\doxysection{FStar\+PUHeteoprio.\+hpp}
+\hypertarget{_f_star_p_u_heteoprio_8hpp_source}{}\label{_f_star_p_u_heteoprio_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/StarPUUtils/FStarPUHeteoprio.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/StarPUUtils/FStarPUHeteoprio.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ FSTARPUHETEOPRIO\_HPP}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ FSTARPUHETEOPRIO\_HPP}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#include\ "{}FStarPUUtils.hpp"{}}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00150\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00151\ \{}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#include\ <starpu\_scheduler.h>}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#include\ <starpu\_bitmap.h>}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00160\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{comment}{/*\ Out\ of\ starpu\ build,\ cannot\ access\ :\ \#include\ <sched\_policies/fifo\_queues.h>\ */}}
+\DoxyCodeLine{00163\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq__node}{\_starpu\_fifo\_taskq\_node}}\{}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq__node}{\_starpu\_fifo\_taskq\_node}}*\ next;}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{struct\ }starpu\_task*\ task;}
+\DoxyCodeLine{00166\ \};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}\{}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq__node}{\_starpu\_fifo\_taskq\_node}}*\ head;}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq__node}{\_starpu\_fifo\_taskq\_node}}*\ tail;}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ ntasks;}
+\DoxyCodeLine{00172\ \};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}*\ \_starpu\_create\_fifo()\{}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}*\ fifo\ =\ (\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}*)malloc(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}));}
+\DoxyCodeLine{00176\ \ \ \ \ memset(fifo,\ 0,\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}));}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{return}\ fifo;}
+\DoxyCodeLine{00178\ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{keywordtype}{void}\ \_starpu\_destroy\_fifo(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}*\ fifo)\{}
+\DoxyCodeLine{00181\ \ \ \ \ assert(fifo);}
+\DoxyCodeLine{00182\ \ \ \ \ assert(fifo-\/>head\ ==\ NULL\ \&\&\ fifo-\/>tail\ ==\ NULL\ \&\&\ fifo-\/>ntasks\ ==\ 0);}
+\DoxyCodeLine{00183\ \ \ \ \ free(fifo);}
+\DoxyCodeLine{00184\ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \textcolor{keywordtype}{int}\ \_starpu\_fifo\_empty(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}\ *fifo)\{}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{return}\ fifo-\/>ntasks\ ==\ 0;}
+\DoxyCodeLine{00188\ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{keyword}{struct\ }starpu\_task*\ \_starpu\_fifo\_pop\_local\_task(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}\ *fifo)\{}
+\DoxyCodeLine{00191\ \ \ \ \ assert(fifo);}
+\DoxyCodeLine{00192\ \ \ \ \ assert(fifo-\/>ntasks);}
+\DoxyCodeLine{00193\ \ \ \ \ assert(fifo-\/>head);}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{struct\ }starpu\_task*\ task\ =\ fifo-\/>head-\/>task;}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq__node}{\_starpu\_fifo\_taskq\_node}}*\ to\_remove\ =\ fifo-\/>head;}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{if}(fifo-\/>tail\ ==\ fifo-\/>head)\{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ fifo-\/>tail\ =\ NULL;}
+\DoxyCodeLine{00198\ \ \ \ \ \}}
+\DoxyCodeLine{00199\ \ \ \ \ fifo-\/>head\ =\ fifo-\/>head-\/>next;}
+\DoxyCodeLine{00200\ \ \ \ \ free(to\_remove);}
+\DoxyCodeLine{00201\ \ \ \ \ fifo-\/>ntasks\ -\/=\ 1;}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordflow}{return}\ task;}
+\DoxyCodeLine{00203\ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{keywordtype}{void}\ \_starpu\_task\_list\_push\_back(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}\ *fifo,\ \textcolor{keyword}{struct}\ starpu\_task*\ task)\{}
+\DoxyCodeLine{00206\ \ \ \ \ assert(fifo);}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq__node}{\_starpu\_fifo\_taskq\_node}}*\ new\_node\ =\ (\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq__node}{\_starpu\_fifo\_taskq\_node}}*)malloc(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__fifo__taskq__node}{\_starpu\_fifo\_taskq\_node}}));}
+\DoxyCodeLine{00208\ \ \ \ \ new\_node-\/>task\ =\ task;}
+\DoxyCodeLine{00209\ \ \ \ \ new\_node-\/>next\ =\ NULL;}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{if}(fifo-\/>tail\ !=\ NULL)\{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ fifo-\/>tail-\/>next\ =\ new\_node;}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ fifo-\/>tail\ =\ new\_node;}
+\DoxyCodeLine{00213\ \ \ \ \ \}}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ fifo-\/>head\ =\ new\_node;}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ fifo-\/>tail\ =\ new\_node;}
+\DoxyCodeLine{00217\ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \ \ \ \ fifo-\/>ntasks\ +=\ 1;}
+\DoxyCodeLine{00219\ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{comment}{/*\ Cannot\ find\ a\ function\ that\ give\ the\ nb\ of\ task\ in\ a\ fifo\ so\ provide\ it\ */}}
+\DoxyCodeLine{00222\ \textcolor{keywordtype}{int}\ \_starpu\_fifo\_size(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}\ *fifo)\{}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{return}\ fifo-\/>ntasks;}
+\DoxyCodeLine{00224\ \}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00227\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{comment}{/*\ A\ bucket\ corresponds\ to\ a\ Pair\ of\ priorities}}
+\DoxyCodeLine{00230\ \textcolor{comment}{\ *\ When\ a\ task\ is\ pushed\ with\ a\ priority\ X,\ it\ will\ be\ stored}}
+\DoxyCodeLine{00231\ \textcolor{comment}{\ *\ into\ the\ bucket\ X.}}
+\DoxyCodeLine{00232\ \textcolor{comment}{\ *\ All\ the\ tasks\ stored\ in\ the\ fifo\ should\ be\ computable\ by\ the\ arch}}
+\DoxyCodeLine{00233\ \textcolor{comment}{\ *\ in\ valide\_archs.}}
+\DoxyCodeLine{00234\ \textcolor{comment}{\ *\ For\ example\ if\ valide\_archs\ =\ (STARPU\_CPU|STARPU\_CUDA)}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ *\ Then\ task-\/>task-\/>cl-\/>where\ should\ be\ at\ least\ (STARPU\_CPU|STARPU\_CUDA)}}
+\DoxyCodeLine{00236\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00237\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__bucket}{\_starpu\_heteroprio\_bucket}}\{}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{comment}{/*\ The\ task\ of\ the\ current\ bucket\ */}}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__fifo__taskq}{\_starpu\_fifo\_taskq}}*\ tasks\_queue;}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{comment}{/*\ The\ correct\ arch\ for\ the\ current\ bucket\ */}}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ valide\_archs;}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{comment}{/*\ The\ slow\ factors\ for\ any\ archs\ */}}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordtype}{float}\ slow\_factors\_per\_index[FSTARPU\_NB\_TYPES];}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{comment}{/*\ The\ base\ arch\ for\ the\ slow\ factor\ (the\ fatest\ arch\ for\ the\ current\ task\ in\ the\ bucket\ */}}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ factor\_base\_arch\_index;}
+\DoxyCodeLine{00246\ \};}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{comment}{/*\ Init\ a\ bucket\ */}}
+\DoxyCodeLine{00249\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_starpu\_heteroprio\_bucket\_init(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__heteroprio__bucket}{\_starpu\_heteroprio\_bucket}}*\ bucket)\{}
+\DoxyCodeLine{00250\ \ \ \ \ memset(bucket,\ 0,\ \textcolor{keyword}{sizeof}(*bucket));}
+\DoxyCodeLine{00251\ \ \ \ \ bucket-\/>tasks\_queue\ =\ \ \_starpu\_create\_fifo();}
+\DoxyCodeLine{00252\ \}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{comment}{/*\ Release\ a\ bucket\ */}}
+\DoxyCodeLine{00255\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_starpu\_heteroprio\_bucket\_release(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__heteroprio__bucket}{\_starpu\_heteroprio\_bucket}}*\ bucket)\{}
+\DoxyCodeLine{00256\ \ \ \ \ assert(\_starpu\_fifo\_empty(bucket-\/>tasks\_queue)\ !=\ 0);}
+\DoxyCodeLine{00257\ \ \ \ \ \_starpu\_destroy\_fifo(bucket-\/>tasks\_queue);}
+\DoxyCodeLine{00258\ \}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00261\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{comment}{/*\ HETEROPRIO\_MAX\_PREFETCH\ Represent\ the\ number\ of\ task\ stored\ in\ each\ worker\ queue\ if\ possible\ */}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#define\ HETEROPRIO\_MAX\_PREFETCH\ 1}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#if\ HETEROPRIO\_MAX\_PREFETCH\ <=\ 0}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#error\ HETEROPRIO\_MAX\_PREFETCH\ ==\ 1\ means\ no\ prefetch\ so\ HETEROPRIO\_MAX\_PREFETCH\ must\ >=\ 1}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \textcolor{comment}{/*\ A\ worker\ is\ mainly\ composed\ of\ a\ fifo\ for\ the\ tasks}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ *\ and\ some\ direct\ access\ to\ worker\ properties.}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ *\ The\ fifo\ is\ implemented\ with\ any\ array,}}
+\DoxyCodeLine{00273\ \textcolor{comment}{\ *\ to\ read\ a\ task,\ access\ tasks\_queue[tasks\_queue\_index]}}
+\DoxyCodeLine{00274\ \textcolor{comment}{\ *\ to\ write\ a\ task,\ access\ tasks\_queue[(tasks\_queue\_index+tasks\_queue\_size)\%HETEROPRIO\_MAX\_PREFETCH]}}
+\DoxyCodeLine{00275\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00276\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__worker}{\_starpu\_heteroprio\_worker}}\{}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ arch\_type;}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ arch\_index;}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keyword}{struct\ }starpu\_task*\ tasks\_queue[HETEROPRIO\_MAX\_PREFETCH];}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ tasks\_queue\_size;}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ tasks\_queue\_index;}
+\DoxyCodeLine{00282\ \ \ \ \ starpu\_pthread\_mutex\_t\ ws\_prefetch\_mutex;}
+\DoxyCodeLine{00283\ \};}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{comment}{/*\ Init\ a\ worker\ by\ setting\ every\ thing\ to\ zero\ */}}
+\DoxyCodeLine{00286\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_starpu\_heteroprio\_worker\_init(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__heteroprio__worker}{\_starpu\_heteroprio\_worker}}*\ worker)\{}
+\DoxyCodeLine{00287\ \ \ \ \ memset(worker,\ 0,\ \textcolor{keyword}{sizeof}(*worker));}
+\DoxyCodeLine{00288\ \ \ \ \ worker-\/>tasks\_queue\_index\ =\ 0;}
+\DoxyCodeLine{00289\ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_INIT(\&worker-\/>ws\_prefetch\_mutex,\ NULL);}
+\DoxyCodeLine{00290\ \}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{comment}{/*\ Release\ a\ worker\ */}}
+\DoxyCodeLine{00293\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_starpu\_heteroprio\_worker\_release(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__heteroprio__worker}{\_starpu\_heteroprio\_worker}}*\ worker)\{}
+\DoxyCodeLine{00294\ \ \ \ \ assert(worker-\/>tasks\_queue\_size\ ==\ 0);}
+\DoxyCodeLine{00295\ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_DESTROY(\&worker-\/>ws\_prefetch\_mutex);}
+\DoxyCodeLine{00296\ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00299\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \textcolor{comment}{/*\ HETEROPRIO\_MAX\_PRIO\ is\ the\ maximum\ prio/buckets\ available\ */}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#define\ HETEROPRIO\_MAX\_PRIO\ 100}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \textcolor{comment}{/*\ This\ is\ the\ core\ part\ of\ the\ scheduler.}}
+\DoxyCodeLine{00306\ \textcolor{comment}{\ *\ It\ contains\ the\ buckets,\ the\ worker\ information}}
+\DoxyCodeLine{00307\ \textcolor{comment}{\ *\ and\ several\ counters\ to\ avoid\ useless\ iteration}}
+\DoxyCodeLine{00308\ \textcolor{comment}{\ *\ Also\ it\ contains\ the\ mapping\ for\ each\ arch\ to\ the\ correct\ buckets.}}
+\DoxyCodeLine{00309\ \textcolor{comment}{\ *\ For\ example\ a\ worker\ of\ type\ CUDA\ has\ index\ FSTARPU\_CUDA\_IDX}}
+\DoxyCodeLine{00310\ \textcolor{comment}{\ *\ It\ has\ nb\_prio\_per\_arch\_index[FSTARPU\_CUDA\_IDX]\ buckets\ to\ check\ (<=\ HETEROPRIO\_MAX\_PRIO).}}
+\DoxyCodeLine{00311\ \textcolor{comment}{\ *\ It\ will\ access\ the\ correct\ bucket\ using\ the\ mapping\ prio\_mapping\_per\_arch\_index[FSTARPU\_CUDA\_IDX][idx].}}
+\DoxyCodeLine{00312\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00313\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}}
+\DoxyCodeLine{00314\ \{}
+\DoxyCodeLine{00315\ \ \ \ \ starpu\_pthread\_mutex\_t\ policy\_mutex;}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keyword}{struct\ }starpu\_bitmap\ *waiters;}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{comment}{/*\ The\ bucket\ to\ store\ the\ tasks\ */}}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__bucket}{\_starpu\_heteroprio\_bucket}}\ buckets[HETEROPRIO\_MAX\_PRIO];}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{comment}{/*\ The\ number\ of\ buckets\ for\ each\ arch\ */}}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ nb\_prio\_per\_arch\_index[FSTARPU\_NB\_TYPES];}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{comment}{/*\ The\ mapping\ to\ the\ corresponding\ buckets\ */}}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ prio\_mapping\_per\_arch\_index[FSTARPU\_NB\_TYPES][HETEROPRIO\_MAX\_PRIO];}
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{comment}{/*\ The\ number\ of\ available\ tasks\ for\ a\ given\ arch\ (not\ prefetched)\ */}}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ nb\_remaining\_tasks\_per\_arch\_index[FSTARPU\_NB\_TYPES];}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{comment}{/*\ The\ total\ number\ of\ tasks\ in\ the\ bucket\ (not\ prefetched)\ */}}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ total\_tasks\_in\_buckets;}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{comment}{/*\ The\ total\ number\ of\ prefetched\ tasks\ for\ a\ given\ arch\ */}}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ nb\_prefetched\_tasks\_per\_arch\_index[FSTARPU\_NB\_TYPES];}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{comment}{/*\ The\ information\ for\ all\ the\ workers\ */}}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__worker}{\_starpu\_heteroprio\_worker}}\ workers\_heteroprio[STARPU\_NMAXWORKERS];}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{comment}{/*\ The\ number\ of\ workers\ */}}
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ nb\_workers;}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{comment}{/*\ The\ number\ of\ workers\ for\ a\ given\ arch\ */}}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ nb\_workers\_per\_arch\_index[FSTARPU\_NB\_TYPES];}
+\DoxyCodeLine{00335\ \};}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00338\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \textcolor{comment}{/*\ This\ is\ the\ callback\ that\ must\ init\ the\ scheduler\ buckets\ */}}
+\DoxyCodeLine{00341\ \textcolor{keyword}{typedef}\ void\ (*Heteroprio\_callback\_type)(\textcolor{keywordtype}{unsigned}\ sched\_ctx\_id,\ \textcolor{keywordtype}{void}*\ heteroprio);}
+\DoxyCodeLine{00342\ \textcolor{comment}{/*extern*/}\ Heteroprio\_callback\_type\ initialize\_heteroprio\_center\_policy\_callback\ =\ NULL;}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ starpu\_heteroprio\_set\_callback(Heteroprio\_callback\_type\ user\_callback)\{}
+\DoxyCodeLine{00346\ \ \ \ \ initialize\_heteroprio\_center\_policy\_callback\ =\ user\_callback;}
+\DoxyCodeLine{00347\ \}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00350\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ starpu\_heteroprio\_set\_nb\_prios(\textcolor{keywordtype}{void}*\ heterodata,\ \textcolor{keyword}{const}\ FStarPUTypes\ arch,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ max\_prio)\{}
+\DoxyCodeLine{00351\ \ \ \ \ assert(max\_prio\ <\ HETEROPRIO\_MAX\_PRIO);}
+\DoxyCodeLine{00352\ \ \ \ \ ((\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*)heterodata)-\/>nb\_prio\_per\_arch\_index[arch]\ =\ max\_prio;}
+\DoxyCodeLine{00353\ \}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00356\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ starpu\_heteroprio\_set\_mapping(\textcolor{keywordtype}{void}*\ heterodata,\ \textcolor{keyword}{const}\ FStarPUTypes\ arch,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ source\_prio,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ dest\_bucket\_id)\{}
+\DoxyCodeLine{00357\ \ \ \ \ assert(dest\_bucket\_id\ <\ HETEROPRIO\_MAX\_PRIO);}
+\DoxyCodeLine{00358\ \ \ \ \ ((\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*)heterodata)-\/>prio\_mapping\_per\_arch\_index[arch][source\_prio]\ =\ dest\_bucket\_id;}
+\DoxyCodeLine{00359\ \ \ \ \ ((\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*)heterodata)-\/>buckets[dest\_bucket\_id].valide\_archs\ |=\ FStarPUTypesToArch[arch];}
+\DoxyCodeLine{00360\ \}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00363\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ starpu\_heteroprio\_set\_faster\_arch(\textcolor{keywordtype}{void}*\ heterodata,\ \textcolor{keyword}{const}\ FStarPUTypes\ arch,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ bucket\_id)\{}
+\DoxyCodeLine{00364\ \ \ \ \ assert(bucket\_id\ <\ HETEROPRIO\_MAX\_PRIO);}
+\DoxyCodeLine{00365\ \ \ \ \ ((\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*)heterodata)-\/>buckets[bucket\_id].factor\_base\_arch\_index\ =\ arch;}
+\DoxyCodeLine{00366\ \ \ \ \ ((\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*)heterodata)-\/>buckets[bucket\_id].slow\_factors\_per\_index[arch]\ =\ 0;}
+\DoxyCodeLine{00367\ \}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00370\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ starpu\_heteroprio\_set\_arch\_slow\_factor(\textcolor{keywordtype}{void}*\ heterodata,\ \textcolor{keyword}{const}\ FStarPUTypes\ arch,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ bucket\_id,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ slow\_factor)\{}
+\DoxyCodeLine{00371\ \ \ \ \ assert(bucket\_id\ <\ HETEROPRIO\_MAX\_PRIO);}
+\DoxyCodeLine{00372\ \ \ \ \ ((\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*)heterodata)-\/>buckets[bucket\_id].slow\_factors\_per\_index[arch]\ =\ slow\_factor;}
+\DoxyCodeLine{00373\ \}}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00376\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{comment}{/*\ Init\ the\ scheduler\ -\/\ This\ will\ call\ the\ init\ callback!\ */}}
+\DoxyCodeLine{00379\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ initialize\_heteroprio\_center\_policy(\textcolor{keywordtype}{unsigned}\ sched\_ctx\_id)}
+\DoxyCodeLine{00380\ \{}
+\DoxyCodeLine{00381\ \ \ \ \ \textcolor{comment}{/*\ Copy\ of\ eager\ */}}
+\DoxyCodeLine{00382\ \textcolor{comment}{//\#ifdef\ STARPU\_HAVE\_HWLOC}}
+\DoxyCodeLine{00383\ \textcolor{comment}{//\ \ \ \ starpu\_sched\_ctx\_create\_worker\_collection(sched\_ctx\_id,\ STARPU\_WORKER\_TREE);}}
+\DoxyCodeLine{00384\ \textcolor{comment}{//\#else}}
+\DoxyCodeLine{00385\ \textcolor{comment}{//\ \ \ \ starpu\_sched\_ctx\_create\_worker\_collection(sched\_ctx\_id,\ STARPU\_WORKER\_LIST);}}
+\DoxyCodeLine{00386\ \textcolor{comment}{//\#endif}}
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{comment}{/*\ Alloc\ the\ scheduler\ data\ \ */}}
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*\ heteroprio\ =\ (\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*)malloc(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}));}
+\DoxyCodeLine{00389\ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a005b2bd1925d50a688606ed5877c5aec}{memset}}(heteroprio,\ 0,\ \textcolor{keyword}{sizeof}(*heteroprio));}
+\DoxyCodeLine{00390\ \ \ \ \ heteroprio-\/>waiters\ =\ starpu\_bitmap\_create();}
+\DoxyCodeLine{00391\ \ \ \ \ starpu\_sched\_ctx\_set\_policy\_data(sched\_ctx\_id,\ (\textcolor{keywordtype}{void}*)heteroprio);}
+\DoxyCodeLine{00392\ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_INIT(\&heteroprio-\/>policy\_mutex,\ NULL);}
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{comment}{/*\ End\ copy\ of\ eager\ */}}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{comment}{/*\ Init\ the\ buckets\ */}}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idx\_prio\ =\ 0\ ;\ idx\_prio\ <\ HETEROPRIO\_MAX\_PRIO\ ;\ ++idx\_prio)\{}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \_starpu\_heteroprio\_bucket\_init(\&heteroprio-\/>buckets[idx\_prio]);}
+\DoxyCodeLine{00398\ \ \ \ \ \}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{comment}{/*\ Init\ the\ worker\ information\ */}}
+\DoxyCodeLine{00401\ \ \ \ \ heteroprio-\/>nb\_workers\ =\ starpu\_worker\_get\_count();}
+\DoxyCodeLine{00402\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idx\_worker\ =\ 0\ ;\ idx\_worker\ <\ starpu\_worker\_get\_count()\ ;\ ++idx\_worker)\{}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \_starpu\_heteroprio\_worker\_init(\&heteroprio-\/>workers\_heteroprio[idx\_worker]);}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(starpu\_worker\_get\_type(idx\_worker))\{}
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#ifdef\ STARPU\_USE\_CPU}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ STARPU\_CPU\_WORKER:}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>workers\_heteroprio[idx\_worker].arch\_type\ =\ STARPU\_CPU;}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>workers\_heteroprio[idx\_worker].arch\_index\ =\ FSTARPU\_CPU\_IDX;}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00411\ \textcolor{preprocessor}{\#ifdef\ STARPU\_USE\_CUDA}}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ STARPU\_CUDA\_WORKER:}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>workers\_heteroprio[idx\_worker].arch\_type\ =\ STARPU\_CUDA;}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>workers\_heteroprio[idx\_worker].arch\_index\ =\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00416\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\#ifdef\ STARPU\_USE\_OPENCL}}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ STARPU\_OPENCL\_WORKER:}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>workers\_heteroprio[idx\_worker].arch\_type\ =\ STARPU\_OPENCL;}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>workers\_heteroprio[idx\_worker].arch\_index\ =\ FSTARPU\_OPENCL\_IDX;}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ assert(0);}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ heteroprio-\/>nb\_workers\_per\_arch\_index[heteroprio-\/>workers\_heteroprio[idx\_worker].arch\_index]\ +=\ 1;}
+\DoxyCodeLine{00427\ \ \ \ \ \}}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{comment}{/*\ Ask\ the\ user\ to\ fill\ the\ bucket\ information\ */}}
+\DoxyCodeLine{00430\ \ \ \ \ assert(initialize\_heteroprio\_center\_policy\_callback\ !=\ NULL);}
+\DoxyCodeLine{00431\ \ \ \ \ (*initialize\_heteroprio\_center\_policy\_callback)(sched\_ctx\_id,\ heteroprio);}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{comment}{/*\ Ensure\ that\ information\ have\ been\ correctly\ filled\ */}}
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ check\_all\_archs[HETEROPRIO\_MAX\_PRIO];}
+\DoxyCodeLine{00435\ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a005b2bd1925d50a688606ed5877c5aec}{memset}}(check\_all\_archs,\ 0,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned})*HETEROPRIO\_MAX\_PRIO);}
+\DoxyCodeLine{00436\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ arch\_index\ =\ 0\ ;\ arch\_index\ <\ FSTARPU\_NB\_TYPES\ ;\ ++arch\_index)\{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ assert(heteroprio-\/>nb\_prio\_per\_arch\_index[arch\_index]\ <=\ HETEROPRIO\_MAX\_PRIO);}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ check\_archs[HETEROPRIO\_MAX\_PRIO];}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a005b2bd1925d50a688606ed5877c5aec}{memset}}(check\_archs,\ 0,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned})*HETEROPRIO\_MAX\_PRIO);}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idx\_prio\ =\ 0\ ;\ idx\_prio\ <\ heteroprio-\/>nb\_prio\_per\_arch\_index[arch\_index]\ ;\ ++idx\_prio)\{}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ mapped\_prio\ =\ heteroprio-\/>prio\_mapping\_per\_arch\_index[arch\_index][idx\_prio];}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ assert(mapped\_prio\ <=\ HETEROPRIO\_MAX\_PRIO);}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ assert(heteroprio-\/>buckets[mapped\_prio].slow\_factors\_per\_index[arch\_index]\ >=\ 0.0);}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ assert(heteroprio-\/>buckets[mapped\_prio].valide\_archs\ \&\ FStarPUTypesToArch[arch\_index]);}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ check\_archs[mapped\_prio]\ \ \ \ \ \ =\ 1;}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ check\_all\_archs[mapped\_prio]\ +=\ 1;}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idx\_prio\ =\ 0\ ;\ idx\_prio\ <\ HETEROPRIO\_MAX\_PRIO\ ;\ ++idx\_prio)\{}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Ensure\ the\ current\ arch\ use\ a\ bucket\ or\ someone\ else\ can\ use\ it\ */}}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ assert(check\_archs[idx\_prio]\ ==\ 1\ ||\ heteroprio-\/>buckets[idx\_prio].valide\_archs\ ==\ 0}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ (heteroprio-\/>buckets[idx\_prio].valide\_archs\ \&\ \string~FStarPUTypesToArch[arch\_index])\ !=\ 0);}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00454\ \ \ \ \ \}}
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{comment}{/*\ Ensure\ that\ if\ a\ valide\_archs\ =\ (STARPU\_CPU|STARPU\_CUDA)\ then\ check\_all\_archs[]\ =\ 2\ for\ example\ */}}
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idx\_prio\ =\ 0\ ;\ idx\_prio\ <\ HETEROPRIO\_MAX\_PRIO\ ;\ ++idx\_prio)\{}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ nb\_arch\_on\_bucket\ =\ 0;}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ arch\_index\ =\ 0\ ;\ arch\_index\ <\ FSTARPU\_NB\_TYPES\ ;\ ++arch\_index)\{}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(heteroprio-\/>buckets[idx\_prio].valide\_archs\ \&\ FStarPUTypesToArch[arch\_index])\{}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nb\_arch\_on\_bucket\ +=\ 1;}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ assert(check\_all\_archs[idx\_prio]\ ==\ nb\_arch\_on\_bucket);}
+\DoxyCodeLine{00464\ \ \ \ \ \}}
+\DoxyCodeLine{00465\ \}}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \textcolor{comment}{/*\ Release\ a\ scheduler\ */}}
+\DoxyCodeLine{00468\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ deinitialize\_heteroprio\_center\_policy(\textcolor{keywordtype}{unsigned}\ sched\_ctx\_id)}
+\DoxyCodeLine{00469\ \{}
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}\ *heteroprio\ =\ (\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*)starpu\_sched\_ctx\_get\_policy\_data(sched\_ctx\_id);}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{comment}{/*\ Ensure\ there\ are\ no\ more\ tasks\ */}}
+\DoxyCodeLine{00473\ \ \ \ \ assert(heteroprio-\/>total\_tasks\_in\_buckets\ ==\ 0);}
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ arch\_index\ =\ 0\ ;\ arch\_index\ <\ FSTARPU\_NB\_TYPES\ ;\ ++arch\_index)\{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ assert(heteroprio-\/>nb\_remaining\_tasks\_per\_arch\_index[arch\_index]\ ==\ 0);}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ assert(heteroprio-\/>nb\_prefetched\_tasks\_per\_arch\_index[arch\_index]\ ==\ 0);}
+\DoxyCodeLine{00477\ \ \ \ \ \}}
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00479\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idx\_prio\ =\ 0\ ;\ idx\_prio\ <\ HETEROPRIO\_MAX\_PRIO\ ;\ ++idx\_prio)\{}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \_starpu\_heteroprio\_bucket\_release(\&heteroprio-\/>buckets[idx\_prio]);}
+\DoxyCodeLine{00481\ \ \ \ \ \}}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idx\_worker\ =\ 0\ ;\ idx\_worker\ <\ heteroprio-\/>nb\_workers\ ;\ ++idx\_worker)\{}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \_starpu\_heteroprio\_worker\_release(\&heteroprio-\/>workers\_heteroprio[idx\_worker]);}
+\DoxyCodeLine{00485\ \ \ \ \ \}}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{comment}{/*\ Copy\ of\ eager\ */}}
+\DoxyCodeLine{00488\ \ \ \ \ starpu\_bitmap\_destroy(heteroprio-\/>waiters);}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \ \ \ \ \textcolor{comment}{//starpu\_sched\_ctx\_delete\_worker\_collection(sched\_ctx\_id);}}
+\DoxyCodeLine{00491\ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_DESTROY(\&heteroprio-\/>policy\_mutex);}
+\DoxyCodeLine{00492\ \ \ \ \ free(heteroprio);}
+\DoxyCodeLine{00493\ \ \ \ \ \textcolor{comment}{/*\ End\ copy\ of\ eager\ */}}
+\DoxyCodeLine{00494\ \}}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \textcolor{comment}{/*\ Push\ a\ new\ task\ (simply\ store\ it\ and\ update\ counters)\ */}}
+\DoxyCodeLine{00497\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ push\_task\_heteroprio\_policy(\textcolor{keyword}{struct}\ starpu\_task\ *task)}
+\DoxyCodeLine{00498\ \{}
+\DoxyCodeLine{00499\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ sched\_ctx\_id\ =\ task-\/>sched\_ctx;}
+\DoxyCodeLine{00500\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}\ *heteroprio\ =\ (\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*)starpu\_sched\_ctx\_get\_policy\_data(sched\_ctx\_id);}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \ \ \ \ \textcolor{comment}{/*\ One\ worker\ at\ a\ time\ use\ heteroprio\ */}}
+\DoxyCodeLine{00503\ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_LOCK(\&heteroprio-\/>policy\_mutex);}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{comment}{/*\ Retrieve\ the\ correct\ bucket\ */}}
+\DoxyCodeLine{00506\ \ \ \ \ assert(task-\/>priority\ <\ HETEROPRIO\_MAX\_PRIO);}
+\DoxyCodeLine{00507\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__bucket}{\_starpu\_heteroprio\_bucket}}*\ bucket\ =\ \&heteroprio-\/>buckets[task-\/>priority];}
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{comment}{/*\ Ensure\ that\ any\ worker\ that\ check\ that\ list\ can\ compute\ the\ task\ */}}
+\DoxyCodeLine{00509\ \ \ \ \ assert(bucket-\/>valide\_archs}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \&\&\ ((bucket-\/>valide\_archs\ \string^\ task-\/>cl-\/>where)\ \&\ bucket-\/>valide\_archs)\ ==\ 0);}
+\DoxyCodeLine{00511\ \ \ \ \ \textcolor{comment}{/*\ save\ the\ task\ */}}
+\DoxyCodeLine{00512\ \ \ \ \ \_starpu\_task\_list\_push\_back(bucket-\/>tasks\_queue,task);}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{comment}{/*\ Inc\ counters\ */}}
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ arch\_index\ =\ 0\ ;\ arch\_index\ <\ FSTARPU\_NB\_TYPES\ ;\ ++arch\_index)\{}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ We\ test\ the\ archs\ on\ the\ bucket\ and\ not\ on\ task-\/>cl-\/>where\ since\ it\ is\ restrictive\ */}}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(bucket-\/>valide\_archs\ \&\ FStarPUTypesToArch[arch\_index])\{}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>nb\_remaining\_tasks\_per\_arch\_index[arch\_index]\ +=\ 1;}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00520\ \ \ \ \ \}}
+\DoxyCodeLine{00521\ \ \ \ \ heteroprio-\/>total\_tasks\_in\_buckets\ +=\ 1;}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ \ \ \ \ starpu\_push\_task\_end(task);}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \ \ \ \ \textcolor{comment}{/*\ Copy\ of\ eager\ */}}
+\DoxyCodeLine{00526\ \ \ \ \ \textcolor{comment}{/*if\ there\ are\ no\ tasks\_queue\ block\ */}}
+\DoxyCodeLine{00527\ \ \ \ \ \textcolor{comment}{/*\ wake\ people\ waiting\ for\ a\ task\ */}}
+\DoxyCodeLine{00528\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ worker\ =\ 0;}
+\DoxyCodeLine{00529\ \ \ \ \ \textcolor{keyword}{struct\ }starpu\_worker\_collection\ *workers\ =\ starpu\_sched\_ctx\_get\_worker\_collection(sched\_ctx\_id);}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00531\ \ \ \ \ \textcolor{keyword}{struct\ }starpu\_sched\_ctx\_iterator\ it;}
+\DoxyCodeLine{00532\ \textcolor{preprocessor}{\#ifndef\ STARPU\_NON\_BLOCKING\_DRIVERS}}
+\DoxyCodeLine{00533\ \ \ \ \ \textcolor{keywordtype}{char}\ dowake[STARPU\_NMAXWORKERS]\ =\ \{\ 0\ \};}
+\DoxyCodeLine{00534\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \ \ \ \ workers-\/>init\_iterator(workers,\ \&it);}
+\DoxyCodeLine{00537\ \ \ \ \ \textcolor{keywordflow}{while}(workers-\/>has\_next(workers,\ \&it))}
+\DoxyCodeLine{00538\ \ \ \ \ \{}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ worker\ =\ workers-\/>get\_next(workers,\ \&it);}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00541\ \textcolor{preprocessor}{\#ifdef\ STARPU\_NON\_BLOCKING\_DRIVERS}}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!starpu\_bitmap\_get(heteroprio-\/>waiters,\ worker))}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ This\ worker\ is\ not\ waiting\ for\ a\ task\ */}}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00545\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (starpu\_worker\_can\_execute\_task\_first\_impl(worker,\ task,\ NULL))}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ It\ can\ execute\ this\ one,\ tell\ him!\ */}}
+\DoxyCodeLine{00550\ \textcolor{preprocessor}{\#ifdef\ STARPU\_NON\_BLOCKING\_DRIVERS}}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ starpu\_bitmap\_unset(heteroprio-\/>waiters,\ worker);}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ We\ really\ woke\ at\ least\ somebody,\ no\ need\ to\ wake\ somebody\ else\ */}}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00554\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ dowake[worker]\ =\ 1;}
+\DoxyCodeLine{00556\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00558\ \ \ \ \ \}}
+\DoxyCodeLine{00559\ \ \ \ \ \textcolor{comment}{/*\ Let\ the\ task\ free\ */}}
+\DoxyCodeLine{00560\ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_UNLOCK(\&heteroprio-\/>policy\_mutex);}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \textcolor{preprocessor}{\#ifndef\ STARPU\_NON\_BLOCKING\_DRIVERS}}
+\DoxyCodeLine{00563\ \ \ \ \ \textcolor{comment}{/*\ Now\ that\ we\ have\ a\ list\ of\ potential\ workers,\ try\ to\ wake\ one\ */}}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \ \ \ \ workers-\/>init\_iterator(workers,\ \&it);}
+\DoxyCodeLine{00566\ \ \ \ \ \textcolor{keywordflow}{while}(workers-\/>has\_next(workers,\ \&it))}
+\DoxyCodeLine{00567\ \ \ \ \ \{}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ worker\ =\ workers-\/>get\_next(workers,\ \&it);}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dowake[worker])}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (starpu\_wake\_worker(worker))}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \textcolor{comment}{//\ wake\ up\ a\ single\ worker}}
+\DoxyCodeLine{00572\ \ \ \ \ \}}
+\DoxyCodeLine{00573\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00574\ \ \ \ \ \textcolor{comment}{/*\ End\ copy\ of\ eager\ */}}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00576\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00577\ \}}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }starpu\_task\ *pop\_task\_heteroprio\_policy(\textcolor{keywordtype}{unsigned}\ sched\_ctx\_id)}
+\DoxyCodeLine{00581\ \{}
+\DoxyCodeLine{00582\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ workerid\ =\ starpu\_worker\_get\_id();}
+\DoxyCodeLine{00583\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}\ *heteroprio\ =\ (\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__center__policy__heteroprio}{\_starpu\_heteroprio\_center\_policy\_heteroprio}}*)starpu\_sched\_ctx\_get\_policy\_data(sched\_ctx\_id);}
+\DoxyCodeLine{00584\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__worker}{\_starpu\_heteroprio\_worker}}*\ worker\ =\ \&heteroprio-\/>workers\_heteroprio[workerid];}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00586\ \ \ \ \ \textcolor{comment}{/*\ If\ not\ tasks\ available,\ not\ tasks\ in\ worker\ queue\ or\ some\ arch\ worker\ queue\ just\ return\ NULL\ */}}
+\DoxyCodeLine{00587\ \ \ \ \ \textcolor{keywordflow}{if}\ ((heteroprio-\/>total\_tasks\_in\_buckets\ ==\ 0\ ||\ heteroprio-\/>nb\_remaining\_tasks\_per\_arch\_index[worker-\/>arch\_index]\ ==\ 0)}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ worker-\/>tasks\_queue\_size\ ==\ 0\ \&\&\ heteroprio-\/>nb\_prefetched\_tasks\_per\_arch\_index[worker-\/>arch\_index]\ ==\ 0)\{}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00590\ \ \ \ \ \}}
+\DoxyCodeLine{00591\ }
+\DoxyCodeLine{00592\ \textcolor{preprocessor}{\#ifdef\ STARPU\_NON\_BLOCKING\_DRIVERS}}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keywordflow}{if}\ (starpu\_bitmap\_get(heteroprio-\/>waiters,\ workerid))\{}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Nobody\ woke\ us,\ avoid\ bothering\ the\ mutex\ */}}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00596\ \ \ \ \ \}}
+\DoxyCodeLine{00597\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_LOCK(\&heteroprio-\/>policy\_mutex);}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00601\ \ \ \ \ \textcolor{comment}{/*\ keep\ track\ of\ the\ new\ added\ task\ to\ perfom\ real\ prefetch\ on\ node\ */}}
+\DoxyCodeLine{00602\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ nb\_added\_tasks\ =\ 0;}
+\DoxyCodeLine{00603\ }
+\DoxyCodeLine{00604\ \ \ \ \ \textcolor{comment}{/*\ Check\ that\ some\ tasks\ are\ available\ for\ the\ current\ worker\ arch\ */}}
+\DoxyCodeLine{00605\ \ \ \ \ \textcolor{keywordflow}{if}(\ heteroprio-\/>nb\_remaining\_tasks\_per\_arch\_index[worker-\/>arch\_index]\ !=\ 0\ )\{}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Ideally\ we\ would\ like\ to\ fill\ the\ prefetch\ array\ */}}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ nb\_tasks\_to\_prefetch\ =\ (HETEROPRIO\_MAX\_PREFETCH-\/worker-\/>tasks\_queue\_size);}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ But\ there\ are\ maybe\ less\ tasks\ than\ that!\ */}}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nb\_tasks\_to\_prefetch\ >\ heteroprio-\/>nb\_remaining\_tasks\_per\_arch\_index[worker-\/>arch\_index])\{}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \ \ nb\_tasks\_to\_prefetch\ =\ heteroprio-\/>nb\_remaining\_tasks\_per\_arch\_index[worker-\/>arch\_index];}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ But\ in\ case\ there\ are\ less\ tasks\ than\ worker\ we\ take\ the\ minimum\ */}}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(heteroprio-\/>nb\_remaining\_tasks\_per\_arch\_index[worker-\/>arch\_index]\ <\ heteroprio-\/>nb\_workers)\{}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(worker-\/>tasks\_queue\_size\ ==\ 0)\ nb\_tasks\_to\_prefetch\ =\ 1;}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ nb\_tasks\_to\_prefetch\ =\ 0;}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00617\ }
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ nb\_added\_tasks\ =\ nb\_tasks\_to\_prefetch;}
+\DoxyCodeLine{00619\ }
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ We\ iterate\ until\ we\ found\ all\ the\ tasks\ we\ need\ */}}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idx\_prio\ =\ 0\ ;\ nb\_tasks\_to\_prefetch\ \&\&\ idx\_prio\ <\ heteroprio-\/>nb\_prio\_per\_arch\_index[worker-\/>arch\_index]\ ;\ ++idx\_prio)\{}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Retrieve\ the\ bucket\ using\ the\ mapping\ */}}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__starpu__heteroprio__bucket}{\_starpu\_heteroprio\_bucket}}*\ bucket\ =\ \&heteroprio-\/>buckets[heteroprio-\/>prio\_mapping\_per\_arch\_index[worker-\/>arch\_index][idx\_prio]];}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Ensure\ we\ can\ compute\ task\ from\ this\ bucket\ */}}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ assert(bucket-\/>valide\_archs\ \&\ worker-\/>arch\_type);}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Take\ nb\_tasks\_to\_prefetch\ tasks\ if\ possible\ */}}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\_starpu\_fifo\_empty(bucket-\/>tasks\_queue)\ ==\ 0\ \&\&\ nb\_tasks\_to\_prefetch}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ (bucket-\/>factor\_base\_arch\_index\ ==\ 0\ ||\ worker-\/>arch\_index\ ==\ bucket-\/>factor\_base\_arch\_index}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ (\textcolor{keywordtype}{float}(\_starpu\_fifo\_size(bucket-\/>tasks\_queue))/\textcolor{keywordtype}{float}(heteroprio-\/>nb\_workers\_per\_arch\_index[bucket-\/>factor\_base\_arch\_index])}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ >=\ bucket-\/>slow\_factors\_per\_index[worker-\/>arch\_index])))\{}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }starpu\_task*\ task\ =\ \_starpu\_fifo\_pop\_local\_task(bucket-\/>tasks\_queue);}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ assert(starpu\_worker\_can\_execute\_task(workerid,\ task,\ 0));}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Save\ the\ task\ */}}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker-\/>tasks\_queue[(worker-\/>tasks\_queue\_index+worker-\/>tasks\_queue\_size)\%HETEROPRIO\_MAX\_PREFETCH]\ =\ task;}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ worker-\/>tasks\_queue\_size\ +=\ 1;}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Update\ general\ counter\ */}}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>nb\_prefetched\_tasks\_per\_arch\_index[worker-\/>arch\_index]\ +=\ 1;}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>total\_tasks\_in\_buckets\ \ \ \ -\/=\ 1;}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ arch\_index\ =\ 0\ ;\ arch\_index\ <\ FSTARPU\_NB\_TYPES\ ;\ ++arch\_index)\{}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ We\ test\ the\ archs\ on\ the\ bucket\ and\ not\ on\ task-\/>cl-\/>where\ since\ it\ is\ restrictive\ */}}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(bucket-\/>valide\_archs\ \&\ FStarPUTypesToArch[arch\_index])\{}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>nb\_remaining\_tasks\_per\_arch\_index[arch\_index]\ -\/=\ 1;}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Decrease\ the\ number\ of\ tasks\ to\ found\ */}}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nb\_tasks\_to\_prefetch\ -\/=\ 1;}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TODO\ starpu\_prefetch\_task\_input\_on\_node(task,\ workerid);}}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ is\ not\ sure\ any\ more\ assert(nb\_tasks\_to\_prefetch\ ==\ 0);}}
+\DoxyCodeLine{00651\ \ \ \ \ \}}
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00653\ \ \ \ \ \textcolor{keyword}{struct\ }starpu\_task*\ task\ =\ NULL;}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00655\ \ \ \ \ \textcolor{comment}{/*\ The\ worker\ has\ some\ tasks\ in\ its\ queue\ */}}
+\DoxyCodeLine{00656\ \ \ \ \ \textcolor{keywordflow}{if}(worker-\/>tasks\_queue\_size)\{}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ task\ =\ worker-\/>tasks\_queue[worker-\/>tasks\_queue\_index];}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ worker-\/>tasks\_queue\_index\ =\ (worker-\/>tasks\_queue\_index+1)\%HETEROPRIO\_MAX\_PREFETCH;}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ worker-\/>tasks\_queue\_size\ -\/=\ 1;}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ heteroprio-\/>nb\_prefetched\_tasks\_per\_arch\_index[worker-\/>arch\_index]\ -\/=\ 1;}
+\DoxyCodeLine{00661\ \ \ \ \ \}}
+\DoxyCodeLine{00662\ \ \ \ \ \textcolor{comment}{/*\ Otherwise\ look\ if\ we\ can\ steal\ some\ work\ */}}
+\DoxyCodeLine{00663\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(heteroprio-\/>nb\_prefetched\_tasks\_per\_arch\_index[worker-\/>arch\_index])\{}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ HETEROPRIO\_MAX\_PREFETCH==1\ it\ should\ not\ be\ possible\ to\ steal\ work\ */}}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ assert(HETEROPRIO\_MAX\_PREFETCH\ !=\ 1);}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Each\ worker\ starts\ from\ its\ own\ index\ and\ do\ a\ turn\ */}}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idx\_worker\_it\ =\ 1\ ;\ idx\_worker\_it\ <\ heteroprio-\/>nb\_workers\ ;\ ++idx\_worker\_it)\{}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ idx\_worker\ =\ ((workerid+idx\_worker\_it)\%heteroprio-\/>nb\_workers);}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ we\ must\ never\ test\ on\ ourself\ */}}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \ \ \ \ assert(idx\_worker\ !=\ workerid);}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ it\ is\ the\ same\ arch\ and\ there\ is\ a\ task\ to\ steal\ */}}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(heteroprio-\/>workers\_heteroprio[idx\_worker].arch\_index\ ==\ worker-\/>arch\_index}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ heteroprio-\/>workers\_heteroprio[idx\_worker].tasks\_queue\_size)\{}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ensure\ the\ worker\ is\ not\ currently\ prefetching\ its\ data\ */}}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_LOCK(\&heteroprio-\/>workers\_heteroprio[idx\_worker].ws\_prefetch\_mutex);}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(heteroprio-\/>workers\_heteroprio[idx\_worker].arch\_index\ ==\ worker-\/>arch\_index}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ heteroprio-\/>workers\_heteroprio[idx\_worker].tasks\_queue\_size)\{}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ steal\ the\ last\ added\ task\ */}}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ task\ =\ heteroprio-\/>workers\_heteroprio[idx\_worker].tasks\_queue[(heteroprio-\/>workers\_heteroprio[idx\_worker].tasks\_queue\_index+heteroprio-\/>workers\_heteroprio[idx\_worker].tasks\_queue\_size-\/1)}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \%\ HETEROPRIO\_MAX\_PREFETCH];}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ update\ the\ worker\ by\ saying\ we\ steal\ a\ task\ */}}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>workers\_heteroprio[idx\_worker].tasks\_queue\_size\ -\/=\ 1;}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ we\ steal\ a\ task\ update\ global\ counter\ */}}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ heteroprio-\/>nb\_prefetched\_tasks\_per\_arch\_index[heteroprio-\/>workers\_heteroprio[idx\_worker].arch\_index]\ -\/=\ 1;}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_UNLOCK(\&heteroprio-\/>workers\_heteroprio[idx\_worker].ws\_prefetch\_mutex);}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_UNLOCK(\&heteroprio-\/>workers\_heteroprio[idx\_worker].ws\_prefetch\_mutex);}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00691\ \ \ \ \ \}}
+\DoxyCodeLine{00692\ }
+\DoxyCodeLine{00693\ \ \ \ \ \textcolor{comment}{/*\ Copy\ of\ eager\ */}}
+\DoxyCodeLine{00694\ \ \ \ \ \textcolor{keywordflow}{if}\ (!task)\{}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Tell\ pushers\ that\ we\ are\ waiting\ for\ tasks\_queue\ for\ us\ */}}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ starpu\_bitmap\_set(heteroprio-\/>waiters,\ workerid);}
+\DoxyCodeLine{00697\ \ \ \ \ \}}
+\DoxyCodeLine{00698\ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_UNLOCK(\&heteroprio-\/>policy\_mutex);}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00700\ \ \ \ \ \textcolor{keywordflow}{if}(task)\{}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ child\_sched\_ctx\ =\ starpu\_sched\_ctx\_worker\_is\_master\_for\_child\_ctx(workerid,\ sched\_ctx\_id);}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(child\_sched\_ctx\ !=\ STARPU\_NMAX\_SCHED\_CTXS)\{}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ starpu\_sched\_ctx\_revert\_task\_counters(sched\_ctx\_id,\ task-\/>flops);}
+\DoxyCodeLine{00704\ \textcolor{preprocessor}{\#if\ (STARPU\_MAJOR\_VERSION\ >=\ 1)\ \&\&\ (STARPU\_MINOR\_VERSION\ >=\ 3)}}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \ \ \ \ starpu\_sched\_ctx\_move\_task\_to\_ctx(task,\ child\_sched\_ctx,\ 1,\ 1);}
+\DoxyCodeLine{00706\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \ \ \ \ starpu\_sched\_ctx\_move\_task\_to\_ctx(task,\ child\_sched\_ctx);}
+\DoxyCodeLine{00708\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00711\ \ \ \ \ \}}
+\DoxyCodeLine{00712\ \ \ \ \ \textcolor{comment}{/*\ End\ copy\ of\ eager\ */}}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00714\ \ \ \ \ \textcolor{comment}{/*\ if\ we\ have\ task\ (task)\ me\ way\ have\ some\ in\ the\ queue\ (worker-\/>tasks\_queue\_size)\ that\ was\ freshly\ addeed\ (nb\_added\_tasks)\ */}}
+\DoxyCodeLine{00715\ \ \ \ \ \textcolor{keywordflow}{if}(task\ \&\&\ worker-\/>tasks\_queue\_size\ \&\&\ nb\_added\_tasks\ \&\&\ starpu\_get\_prefetch\_flag())\{}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ memory\_node\ =\ starpu\_worker\_get\_memory\_node(workerid);}
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ prefetch\ the\ new\ task\ that\ I\ own\ but\ protecte\ my\ node\ from\ work\ stealing\ during\ the\ prefetch\ */}}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_LOCK(\&worker-\/>ws\_prefetch\_mutex);}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ prefetch\ task\ but\ stop\ in\ case\ we\ now\ some\ one\ may\ steal\ a\ task\ from\ us\ */}}
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(nb\_added\_tasks\ \&\&\ heteroprio-\/>nb\_remaining\_tasks\_per\_arch\_index[worker-\/>arch\_index]\ !=\ 0)\{}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ prefetch\ from\ closest\ to\ end\ task\ */}}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \ \ \ \ starpu\_prefetch\_task\_input\_on\_node(worker-\/>tasks\_queue[(worker-\/>tasks\_queue\_index+worker-\/>tasks\_queue\_size-\/nb\_added\_tasks)\%HETEROPRIO\_MAX\_PREFETCH],\ memory\_node);}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \ \ \ \ nb\_added\_tasks\ -\/=\ 1;}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ STARPU\_PTHREAD\_MUTEX\_UNLOCK(\&worker-\/>ws\_prefetch\_mutex);}
+\DoxyCodeLine{00729\ \ \ \ \ \}}
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \ \ \ \ \textcolor{keywordflow}{return}\ task;}
+\DoxyCodeLine{00732\ \}}
+\DoxyCodeLine{00733\ }
+\DoxyCodeLine{00734\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00735\ \textcolor{comment}{/********************************************************************************/}}
+\DoxyCodeLine{00736\ }
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00738\ \textcolor{keyword}{struct\ }starpu\_sched\_policy\ \_starpu\_sched\_heteroprio\_policy\_build()\{}
+\DoxyCodeLine{00739\ \ \ \ \ \textcolor{keyword}{struct\ }starpu\_sched\_policy\ policy;}
+\DoxyCodeLine{00740\ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a005b2bd1925d50a688606ed5877c5aec}{memset}}(\&policy,\ 0,\ \textcolor{keyword}{sizeof}(policy));}
+\DoxyCodeLine{00741\ \ \ \ \ policy.init\_sched\ \ \ \ \ \ \ \ \ =\ initialize\_heteroprio\_center\_policy;}
+\DoxyCodeLine{00742\ \ \ \ \ policy.deinit\_sched\ \ \ \ \ \ \ =\ deinitialize\_heteroprio\_center\_policy;}
+\DoxyCodeLine{00743\ \ \ \ \ policy.add\_workers\ \ \ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{00744\ \ \ \ \ policy.remove\_workers\ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{00745\ \ \ \ \ policy.push\_task\ \ \ \ \ \ \ \ \ \ =\ push\_task\_heteroprio\_policy;}
+\DoxyCodeLine{00746\ \ \ \ \ policy.pop\_task\ \ \ \ \ \ \ \ \ \ \ =\ pop\_task\_heteroprio\_policy;}
+\DoxyCodeLine{00747\ \ \ \ \ policy.pre\_exec\_hook\ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{00748\ \ \ \ \ policy.post\_exec\_hook\ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{00749\ \ \ \ \ policy.pop\_every\_task\ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{00750\ \ \ \ \ policy.policy\_name\ \ \ \ \ \ \ \ =\ \textcolor{stringliteral}{"{}heteroprio"{}};}
+\DoxyCodeLine{00751\ \ \ \ \ policy.policy\_description\ =\ \textcolor{stringliteral}{"{}heteroprio\ policy\ from\ scalfmm"{}};}
+\DoxyCodeLine{00752\ \textcolor{preprocessor}{\#if\ (STARPU\_MAJOR\_VERSION\ >=\ 1)\ \&\&\ (STARPU\_MINOR\_VERSION\ >=\ 3)}}
+\DoxyCodeLine{00753\ \textcolor{preprocessor}{\#ifdef\ STARPU\_HAVE\_HWLOC}}
+\DoxyCodeLine{00754\ \ \ \ \ policy.worker\_type\ =\ STARPU\_WORKER\_TREE;}
+\DoxyCodeLine{00755\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00756\ \ \ \ \ policy.worker\_type\ =\ STARPU\_WORKER\_LIST;}
+\DoxyCodeLine{00757\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00758\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00759\ \ \ \ \ \textcolor{keywordflow}{return}\ policy;}
+\DoxyCodeLine{00760\ \}}
+\DoxyCodeLine{00761\ }
+\DoxyCodeLine{00762\ \textcolor{keyword}{struct\ }starpu\_sched\_policy\ \_starpu\_sched\_heteroprio\_policy\ =\ \_starpu\_sched\_heteroprio\_policy\_build();}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00764\ }
+\DoxyCodeLine{00765\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00766\ \}}
+\DoxyCodeLine{00767\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00768\ }
+\DoxyCodeLine{00769\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FSTARPUHETEOPRIO\_HPP}}
+
+\end{DoxyCode}

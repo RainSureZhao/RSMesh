@@ -1,0 +1,259 @@
+\doxysection{FUnif\+Tensorial\+Kernel.\+hpp}
+\hypertarget{_f_unif_tensorial_kernel_8hpp_source}{}\label{_f_unif_tensorial_kernel_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Uniform/FUnifTensorialKernel.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/Uniform/FUnifTensorialKernel.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Keep\ in\ private\ GIT}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#ifndef\ FUNIFTENSORIALKERNEL\_HPP}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ FUNIFTENSORIALKERNEL\_HPP}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FSmartPointer.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}./FAbstractUnifKernel.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}./FUnifM2LHandler.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}./FUnifTensorialM2LHandler.hpp"{}}\ \textcolor{comment}{//PB:\ temporary\ version}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass,\ \ \ \textcolor{keyword}{class}\ MatrixKernelClass,\ \textcolor{keywordtype}{int}\ ORDER,\ \textcolor{keywordtype}{int}\ NVALS\ =\ 1>}
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_unif_tensorial_kernel}{FUnifTensorialKernel}}}
+\DoxyCodeLine{00050\ \ \ \ \ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_unif_kernel}{FAbstractUnifKernel}}<FReal,\ CellClass,\ ContainerClass,\ MatrixKernelClass,\ ORDER,\ NVALS>}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{enum}\ \{nRhs\ =\ MatrixKernelClass::NRHS,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ nLhs\ =\ MatrixKernelClass::NLHS,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ nPot\ =\ MatrixKernelClass::NPOT,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ nPV\ =\ MatrixKernelClass::NPV\};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{protected}:\textcolor{comment}{//PB:\ for\ OptiDis}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{//\ private\ types}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_unif_tensorial_m2_l_handler}{FUnifTensorialM2LHandler<FReal,\ ORDER,MatrixKernelClass,MatrixKernelClass::Type>}}\ \mbox{\hyperlink{class_f_unif_tensorial_m2_l_handler}{M2LHandlerClass}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ using\ from}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_abstract_unif_kernel}{FAbstractUnifKernel<\ FReal,\ CellClass,\ ContainerClass,\ MatrixKernelClass,\ ORDER,\ NVALS>}}}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_f_abstract_unif_kernel}{AbstractBaseClass}};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_unif_tensorial_m2_l_handler}{M2LHandlerClass}}\ \mbox{\hyperlink{class_f_unif_tensorial_kernel_a646a406956c7fb744ea9e54a465047c9}{M2LHandler}};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_unif_tensorial_kernel_a6c6a64574ad62a2fcfd9800233b9bdbf}{LeafLevelSeparationCriterion}};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_f_unif_tensorial_kernel_ab1daa69f5784c126e28e100e73747225}{FUnifTensorialKernel}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ inBoxWidth,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inBoxCenter,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ inMatrixKernel,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ inBoxWidthExtension,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLeafLevelSeparationCriterion\ =\ 1)}
+\DoxyCodeLine{00087\ \ \ \ \ :\ \mbox{\hyperlink{class_f_abstract_unif_kernel}{FAbstractUnifKernel}}<\ FReal,\ CellClass,\ ContainerClass,\ MatrixKernelClass,\ ORDER,\ NVALS>(inTreeHeight,inBoxWidth,inBoxCenter,inBoxWidthExtension),}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}}(inMatrixKernel),}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \mbox{\hyperlink{class_f_unif_tensorial_kernel_a646a406956c7fb744ea9e54a465047c9}{M2LHandler}}(\mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}},}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inTreeHeight,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inBoxWidth,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inBoxWidthExtension,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inLeafLevelSeparationCriterion),\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \mbox{\hyperlink{class_f_unif_tensorial_kernel_a6c6a64574ad62a2fcfd9800233b9bdbf}{LeafLevelSeparationCriterion}}(inLeafLevelSeparationCriterion)}
+\DoxyCodeLine{00095\ \ \ \ \ \{\ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ P2M(CellClass*\ \textcolor{keyword}{const}\ LeafCell,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ SourceParticles)}
+\DoxyCodeLine{00100\ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ LeafCellCenter(\mbox{\hyperlink{class_f_abstract_unif_kernel_ae782a8f6445eb06ef6a64056e0d15505}{AbstractBaseClass::getLeafCellCenter}}(LeafCell-\/>getCoordinate()));}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ ExtendedLeafCellWidth(\mbox{\hyperlink{class_f_abstract_unif_kernel_ae1392395ded4feb98ed6accf5cadc9b6}{AbstractBaseClass::BoxWidthLeaf}}\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \mbox{\hyperlink{class_f_abstract_unif_kernel_a138e3c5beffad58f666992037bdbf94e}{AbstractBaseClass::BoxWidthExtension}});}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxV\ =\ 0\ ;\ idxV\ <\ NVALS\ ;\ ++idxV)\{}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1)\ apply\ Sy}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_unif_kernel_aaae189e6d0e79353caca92223c994fdd}{AbstractBaseClass::Interpolator}}-\/>applyP2M(LeafCellCenter,\ ExtendedLeafCellWidth,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LeafCell-\/>getMultipole(idxV*nRhs),\ SourceParticles);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxRhs\ =\ 0\ ;\ idxRhs\ <\ nRhs\ ;\ ++idxRhs)\{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ multipole\ index}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxMul\ =\ idxV*nRhs\ +\ idxRhs;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2)\ apply\ Discrete\ Fourier\ Transform}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_unif_tensorial_kernel_a646a406956c7fb744ea9e54a465047c9}{M2LHandler}}.applyZeroPaddingAndDFT(LeafCell-\/>getMultipole(idxMul),\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LeafCell-\/>getTransformedMultipole(idxMul));}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ NVALS}}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ M2M(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ ParentCell,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\textcolor{keyword}{const}\ FRestrict\ *\textcolor{keyword}{const}\ FRestrict\ ChildCells,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ TreeLevel)}
+\DoxyCodeLine{00127\ \ \ \ \ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxV\ =\ 0\ ;\ idxV\ <\ NVALS\ ;\ ++idxV)\{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxRhs\ =\ 0\ ;\ idxRhs\ <\ nRhs\ ;\ ++idxRhs)\{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ multipole\ index}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxMul\ =\ idxV*nRhs\ +\ idxRhs;}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1)\ apply\ Sy}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FBlas::scal(AbstractBaseClass::nnodes,\ FReal(0.),\ ParentCell-\/>getMultipole(idxMul));}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ChildIndex=0;\ ChildIndex\ <\ 8;\ ++ChildIndex)\{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChildCells[ChildIndex])\{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_unif_kernel_aaae189e6d0e79353caca92223c994fdd}{AbstractBaseClass::Interpolator}}-\/>applyM2M(ChildIndex,\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChildCells[ChildIndex]-\/>getMultipole(idxMul),}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ParentCell-\/>getMultipole(idxMul),\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TreeLevel\textcolor{comment}{/*Cell\ width\ extension\ specific*/});}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2)\ Apply\ Discete\ Fourier\ Transform}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_unif_tensorial_kernel_a646a406956c7fb744ea9e54a465047c9}{M2LHandler}}.applyZeroPaddingAndDFT(ParentCell-\/>getMultipole(idxMul),\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ParentCell-\/>getTransformedMultipole(idxMul));}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ NVALS}}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{void}\ M2L(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ TargetCell,\ \textcolor{keyword}{const}\ CellClass*\ SourceCells[],}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighborPositions[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inSize,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ TreeLevel)\textcolor{keyword}{\ \ override\ }\{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ CellWidth(\mbox{\hyperlink{class_f_abstract_unif_kernel_a9ef05da990af17200577acd8168ab7de}{AbstractBaseClass::BoxWidth}}\ /\ FReal(\mbox{\hyperlink{struct_f_math_a29fd39b5d729c7e4118b4559548f5d1f}{FMath::pow}}(2,\ TreeLevel)));}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ ExtendedCellWidth(CellWidth\ +\ \mbox{\hyperlink{class_f_abstract_unif_kernel_a138e3c5beffad58f666992037bdbf94e}{AbstractBaseClass::BoxWidthExtension}});}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ scale(\mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}}-\/>getScaleFactor(ExtendedCellWidth));}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxV\ =\ 0\ ;\ idxV\ <\ NVALS\ ;\ ++idxV)\{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ idxLhs=0;\ idxLhs\ <\ nLhs;\ ++idxLhs)\{}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ local\ index}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLoc\ =\ idxV*nLhs\ +\ idxLhs;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ load\ transformed\ local\ expansion}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}\ *\textcolor{keyword}{const}\ TransformedLocalExpansion\ =\ TargetCell-\/>getTransformedLocal(idxLoc);}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ idxRhs}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxRhs\ =\ idxLhs\ \%\ nPV;\ }
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ update\ multipole\ index}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxMul\ =\ idxV*nRhs\ +\ idxRhs;}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ index\ in\ matrix\ kernel}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ d\ =\ \mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}}-\/>getPosition(idxLhs);}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxExistingNeigh\ =\ 0\ ;\ idxExistingNeigh\ <\ inSize\ ;\ ++idxExistingNeigh)\{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idx\ =\ neighborPositions[idxExistingNeigh];}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_unif_tensorial_kernel_a646a406956c7fb744ea9e54a465047c9}{M2LHandler}}.applyFC(idx,\ TreeLevel,\ scale,\ d,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SourceCells[idxExistingNeigh]-\/>getTransformedMultipole(idxMul),}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TransformedLocalExpansion);}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ NLHS=NPOT*NPV}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ NVALS}}
+\DoxyCodeLine{00185\ \ \ \ \ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordtype}{void}\ L2L(\textcolor{keyword}{const}\ CellClass*\ \textcolor{keyword}{const}\ FRestrict\ ParentCell,}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ FRestrict\ *\textcolor{keyword}{const}\ FRestrict\ ChildCells,}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ TreeLevel)}
+\DoxyCodeLine{00191\ \ \ \ \ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxV\ =\ 0\ ;\ idxV\ <\ NVALS\ ;\ ++idxV)\{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLhs\ =\ 0\ ;\ idxLhs\ <\ nLhs\ ;\ ++idxLhs)\{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLoc\ =\ idxV*nLhs\ +\ idxLhs;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1)\ Apply\ Inverse\ Discete\ Fourier\ Transform}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_unif_tensorial_kernel_a646a406956c7fb744ea9e54a465047c9}{M2LHandler}}.unapplyZeroPaddingAndDFT(ParentCell-\/>getTransformedLocal(idxLoc),}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const\_cast<}CellClass*\textcolor{keyword}{>}(ParentCell)-\/>getLocal(idxLoc));}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2)\ apply\ Sx}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ChildIndex=0;\ ChildIndex\ <\ 8;\ ++ChildIndex)\{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ChildCells[ChildIndex])\{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_unif_kernel_aaae189e6d0e79353caca92223c994fdd}{AbstractBaseClass::Interpolator}}-\/>applyL2L(ChildIndex,\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ParentCell-\/>getLocal(idxLoc),\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChildCells[ChildIndex]-\/>getLocal(idxLoc),}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TreeLevel\textcolor{comment}{/*Cell\ width\ extension\ specific*/});}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ NVALS}}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{void}\ L2P(\textcolor{keyword}{const}\ CellClass*\ \textcolor{keyword}{const}\ LeafCell,}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ TargetParticles)}
+\DoxyCodeLine{00213\ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ LeafCellCenter(\mbox{\hyperlink{class_f_abstract_unif_kernel_ae782a8f6445eb06ef6a64056e0d15505}{AbstractBaseClass::getLeafCellCenter}}(LeafCell-\/>getCoordinate()));}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ ExtendedLeafCellWidth(\mbox{\hyperlink{class_f_abstract_unif_kernel_ae1392395ded4feb98ed6accf5cadc9b6}{AbstractBaseClass::BoxWidthLeaf}}\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \mbox{\hyperlink{class_f_abstract_unif_kernel_a138e3c5beffad58f666992037bdbf94e}{AbstractBaseClass::BoxWidthExtension}});}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxV\ =\ 0\ ;\ idxV\ <\ NVALS\ ;\ ++idxV)\{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLhs\ =\ 0\ ;\ idxLhs\ <\ nLhs\ ;\ ++idxLhs)\{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLoc\ =\ idxV*nLhs\ +\ idxLhs;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1)\ \ Apply\ Inverse\ Discete\ Fourier\ Transform}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_unif_tensorial_kernel_a646a406956c7fb744ea9e54a465047c9}{M2LHandler}}.unapplyZeroPaddingAndDFT(LeafCell-\/>getTransformedLocal(idxLoc),\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const\_cast<}CellClass*\textcolor{keyword}{>}(LeafCell)-\/>getLocal(idxLoc));}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2.a)\ apply\ Sx}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_unif_kernel_aaae189e6d0e79353caca92223c994fdd}{AbstractBaseClass::Interpolator}}-\/>applyL2P(LeafCellCenter,\ ExtendedLeafCellWidth,}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LeafCell-\/>getLocal(idxV*nLhs),\ TargetParticles);}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2.b)\ apply\ Px\ (grad\ Sx)}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_unif_kernel_aaae189e6d0e79353caca92223c994fdd}{AbstractBaseClass::Interpolator}}-\/>applyL2PGradient(LeafCellCenter,\ ExtendedLeafCellWidth,}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LeafCell-\/>getLocal(idxV*nLhs),\ TargetParticles);}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ NVALS}}
+\DoxyCodeLine{00236\ \ \ \ \ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordtype}{void}\ P2P(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ inPosition,}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inSources,}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighborPositions[],}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inSize)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Standard\ FMM\ separation\ criterion,\ i.e.\ max\ 27\ neighbor\ clusters\ per\ leaf}}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_f_unif_tensorial_kernel_a6c6a64574ad62a2fcfd9800233b9bdbf}{LeafLevelSeparationCriterion}}==1)\ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inTargets\ ==\ inSources)\{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ P2POuter(inPosition,\ inTargets,\ inNeighbors,\ neighborPositions,\ inSize);}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_interaction_computer}{DirectInteractionComputer<FReal,\ MatrixKernelClass::NCMP,\ NVALS>::P2PInner}}(inTargets,\mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}});}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ srcPtr[1]\ =\ \{inSources\};}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_interaction_computer}{DirectInteractionComputer<FReal,\ MatrixKernelClass::NCMP,\ NVALS>::P2PRemote}}(inTargets,srcPtr,1,\mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}});}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_interaction_computer}{DirectInteractionComputer<FReal,\ MatrixKernelClass::NCMP,\ NVALS>::P2PRemote}}(inTargets,inNeighbors,inSize,\mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}});}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Nearfield\ interactions\ are\ only\ computed\ within\ the\ target\ leaf}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_f_unif_tensorial_kernel_a6c6a64574ad62a2fcfd9800233b9bdbf}{LeafLevelSeparationCriterion}}==0)\{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_interaction_computer}{DirectInteractionComputer<FReal,MatrixKernelClass::NCMP,\ NVALS>::P2PRemote}}(inTargets,inNeighbors,inSize,\mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}});}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ criterion\ equals\ -\/1\ then\ no\ P2P\ need\ to\ be\ performed.}}
+\DoxyCodeLine{00259\ \ \ \ \ \}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordtype}{void}\ P2POuter(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \textcolor{comment}{/*inLeafPosition*/},}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighborPositions[],}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inSize)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nbNeighborsToCompute\ =\ 0;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(nbNeighborsToCompute\ <\ inSize}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ neighborPositions[nbNeighborsToCompute]\ <\ 14)\{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ nbNeighborsToCompute\ +=\ 1;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_interaction_computer}{DirectInteractionComputer<FReal,\ MatrixKernelClass::NCMP,\ NVALS>::P2P}}(inTargets,inNeighbors,nbNeighborsToCompute,\mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}});}
+\DoxyCodeLine{00271\ \ \ \ \ \}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \textcolor{keywordtype}{void}\ P2PRemote(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \textcolor{comment}{/*inPosition*/},}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*inSources*/},}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*neighborPositions*/}[],}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inSize)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Standard\ FMM\ separation\ criterion,\ i.e.\ max\ 27\ neighbor\ clusters\ per\ leaf}}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_f_unif_tensorial_kernel_a6c6a64574ad62a2fcfd9800233b9bdbf}{LeafLevelSeparationCriterion}}==1)\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_interaction_computer}{DirectInteractionComputer<FReal,\ MatrixKernelClass::NCMP,\ NVALS>::P2PRemote}}(inTargets,inNeighbors,inSize,\mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}});}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Nearfield\ interactions\ are\ only\ computed\ within\ the\ target\ leaf}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_f_unif_tensorial_kernel_a6c6a64574ad62a2fcfd9800233b9bdbf}{LeafLevelSeparationCriterion}}==0)\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_direct_interaction_computer}{DirectInteractionComputer<FReal,\ MatrixKernelClass::NCMP,\ NVALS>::P2PRemote}}(inTargets,inNeighbors,0,\mbox{\hyperlink{class_f_unif_tensorial_kernel_aadf37eb43ee5a0e015def6f4fa5c041f}{MatrixKernel}});}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ criterion\ equals\ -\/1\ then\ no\ P2P\ need\ to\ be\ performed.\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00285\ \ \ \ \ \}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \};}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FUNIFTENSORIALKERNEL\_HPP}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \textcolor{comment}{//\ [-\/-\/END-\/-\/]}}
+
+\end{DoxyCode}

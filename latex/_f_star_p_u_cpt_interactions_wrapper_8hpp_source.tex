@@ -1,0 +1,677 @@
+\doxysection{FStar\+PUCpt\+Interactions\+Wrapper.\+hpp}
+\hypertarget{_f_star_p_u_cpt_interactions_wrapper_8hpp_source}{}\label{_f_star_p_u_cpt_interactions_wrapper_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/StarPUUtils/FStarPUCptInteractionsWrapper.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/StarPUUtils/FStarPUCptInteractionsWrapper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FSTARPUCPTINTERACTIONSWRAPPER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FSTARPUCPTINTERACTIONSWRAPPER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../../Core/FCoreCommon.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FQuickSort.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../../Containers/FTreeCoordinate.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FLog.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FTic.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FAssert.hpp"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../Core/FOutOfBlockInteraction.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_USE\_MPI}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FMpi.hpp"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <omp.h>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//extern\ "{}C"{}\{}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <starpu.h>}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#if\ defined(STARPU\_USE\_MPI)\ \&\&\ defined(SCALFMM\_USE\_MPI)}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//extern\ "{}C"{}\{}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <starpu\_mpi.h>}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}FStarPUUtils.hpp"{}}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FTaskTimer.hpp"{}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }CellClass,\ \textcolor{keyword}{class\ }KernelClass,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }ParticleContainerClass>}
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper}{FStarPUCptInteractionsWrapper}}\ \{}
+\DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{enum}\ InterTypeEnum\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ INTER\_P2M\ =\ 0,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ INTER\_M2M,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ INTER\_M2L,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ INTER\_M2L\_EXT,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ INTER\_M2L\_MPI,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ INTER\_L2L,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ INTER\_L2P,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ INTER\_P2P,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ INTER\_P2P\_EXT,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ INTER\_P2P\_MPI,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ INTER\_NB}
+\DoxyCodeLine{00053\ \ \ \ \ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper}{FStarPUCptInteractionsWrapper<CellContainerClass,\ CellClass,\ KernelClass,\ ParticleGroupClass,\ ParticleContainerClass>}}\ \mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper}{ThisClass}};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ treeHeight;}
+\DoxyCodeLine{00059\ \ \ \ \ KernelClass*\ kernels[STARPU\_MAXCPUS];\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ kernels}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_star_p_u_cpt_interactions_wrapper_1_1_stats}{Stats}}\{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_star_p_u_cpt_interactions_wrapper_1_1_stats}{Stats}}()}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ :\ nbCalls(0),\ nbInteractionsTotal(0),\ timeTotal(0),\ bestSpeed(std::numeric\_limits<double>::max()),\ interactionBestSpeed(0)\{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ addExecution(\textcolor{keyword}{const}\ FSize\ inNbInteractions,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ inExecTime)\{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ nbCalls\ +=\ 1;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractionsTotal\ +=\ inNbInteractions;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ timeTotal\ +=\ inExecTime;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keywordtype}{double}(inNbInteractions)/inExecTime\ <\ bestSpeed)\{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bestSpeed\ =\ double(inNbInteractions)/inExecTime;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interactionBestSpeed\ =\ inNbInteractions;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ FSize\ nbCalls;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ FSize\ nbInteractionsTotal;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ timeTotal;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ bestSpeed;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ FSize\ interactionBestSpeed;}
+\DoxyCodeLine{00081\ \ \ \ \ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{struct_f_star_p_u_cpt_interactions_wrapper_1_1_stats}{Stats}}\ stats[STARPU\_MAXCPUS][INTER\_NB];}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{bool}\ computeForReal;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ GetWorkerId()\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_f_math_ada359f2b021ce4b999c0fd7a6e9daae6}{FMath::Max}}(0,\ starpu\_worker\_get\_id());}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_TIME\_OMPTASKS}}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{class_f_task_timer}{FTaskTimer}}\ taskTimeRecorder;}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ FSize\ getNbInteractions(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ workerId,\ \textcolor{keyword}{const}\ InterTypeEnum\ operation)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ stats[workerId][operation].nbInteractionsTotal;}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper}{FStarPUCptInteractionsWrapper}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight)}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ :\ treeHeight(inTreeHeight),\ computeForReal(false)}
+\DoxyCodeLine{00101\ \#ifdef\ SCALFMM\_TIME\_OMPTASKS}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ ,\ taskTimeRecorder(STARPU\_MAXCPUS)}
+\DoxyCodeLine{00103\ \#endif}
+\DoxyCodeLine{00104\ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a005b2bd1925d50a688606ed5877c5aec}{memset}}(kernels,\ 0,\ \textcolor{keyword}{sizeof}(KernelClass*)*STARPU\_MAXCPUS);}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{bool}\ compute()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ computeForReal;}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ compute(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ inComputeForReal)\{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ computeForReal\ =\ inComputeForReal;}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ KernelClass*\ getKernel(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ workerId)\{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ kernels[workerId];}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{const}\ KernelClass*\ getKernel(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ workerId)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ kernels[workerId];}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ initKernel(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ workerId,\ KernelClass*\ originalKernel)\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ FAssertLF(kernels[workerId]\ ==\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ kernels[workerId]\ =\ \textcolor{keyword}{new}\ KernelClass(*originalKernel);}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_TIME\_OMPTASKS}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ taskTimeRecorder.init(GetWorkerId());}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ releaseKernel(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ workerId)\{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ kernels[workerId];}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ kernels[workerId]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper}{\string~FStarPUCptInteractionsWrapper}}()\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxKernel\ =\ 0\ ;\ idxKernel\ <\ STARPU\_MAXCPUS\ ;\ ++idxKernel\ )\{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(kernels[idxKernel]\ ==\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ bottomPassCallback(\textcolor{keywordtype}{void}\ *buffers[],\ \textcolor{keywordtype}{void}\ *cl\_arg)\{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ CellContainerClass\ leafCells((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[0]),}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[0]),}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[1]),}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ ParticleGroupClass\ containers((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[2]),}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[2]),}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ worker\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ intervalSize;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ starpu\_codelet\_unpack\_args(cl\_arg,\ \&worker,\ \&intervalSize);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ worker-\/>get<ThisClass>(FSTARPU\_CPU\_IDX)-\/>bottomPassPerform(\&leafCells,\ \&containers);}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{void}\ bottomPassPerform(CellContainerClass*\ leafCells,\ ParticleGroupClass*\ containers)\{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ FTIME\_TASKS(\mbox{\hyperlink{class_f_task_timer_1_1_scope_event}{FTaskTimer::ScopeEvent}}\ taskTime(GetWorkerId(),\ \&taskTimeRecorder,\ leafCells-\/>getStartingIndex()\ *\ 20\ *\ 8,\ \textcolor{stringliteral}{"{}P2M"{}}));}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ FAssertLF(leafCells-\/>getNumberOfCellsInBlock()\ ==\ containers-\/>getNumberOfLeavesInBlock());}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ KernelClass*\textcolor{keyword}{const}\ kernel\ =\ kernels[GetWorkerId()];}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ Stats\&\ currentStat\ =\ stats[GetWorkerId()][INTER\_P2M];}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ FSize\ nbInteractions\ =\ 0;}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ leafIdx\ =\ 0\ ;\ leafIdx\ <\ leafCells-\/>getNumberOfCellsInBlock()\ ;\ ++leafIdx)\{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ cell\ =\ leafCells-\/>getUpCell(leafIdx);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass\ particles\ =\ containers-\/>template\ getLeaf<ParticleContainerClass>(leafIdx);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(leafCells-\/>getCellMortonIndex(leafIdx)\ ==\ containers-\/>getLeafMortonIndex(leafIdx));}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>P2M(\&cell,\ \&particles);}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractions\ +=\ particles.getNbParticles();}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ currentStat.addExecution(nbInteractions,\ timer.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}());}
+\DoxyCodeLine{00175\ \ \ \ \ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper_a3dbf4d2b9b38cc6d5c2e9cb41e80f708}{upwardPassCallback}}(\textcolor{keywordtype}{void}\ *buffers[],\ \textcolor{keywordtype}{void}\ *cl\_arg)\{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ CellContainerClass\ currentCells((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[0]),}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[0]),}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[1]),}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ worker\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLevel\ =\ 0;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ intervalSize;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ starpu\_codelet\_unpack\_args(cl\_arg,\ \&worker,\ \&idxLevel,\ \&intervalSize);}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ CellContainerClass\ subCellGroup(}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[2]),}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[2]),}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[3]),}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ worker-\/>get<\mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper}{ThisClass}}>(FSTARPU\_CPU\_IDX)-\/>upwardPassPerform(\&currentCells,\ \&subCellGroup,\ idxLevel);}
+\DoxyCodeLine{00199\ \ \ \ \ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{void}\ upwardPassPerform(CellContainerClass*\textcolor{keyword}{const}\ currentCells,}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellContainerClass*\ subCellGroup,}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLevel)\{}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ KernelClass*\textcolor{keyword}{const}\ kernel\ =\ kernels[GetWorkerId()];}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ Stats\&\ currentStat\ =\ stats[GetWorkerId()][INTER\_M2M];}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ FSize\ nbInteractions\ =\ 0;}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ firstParent\ =\ \mbox{\hyperlink{struct_f_math_ada359f2b021ce4b999c0fd7a6e9daae6}{FMath::Max}}(currentCells-\/>getStartingIndex(),\ subCellGroup-\/>getStartingIndex()>>3);}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ lastParent\ =\ \mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(currentCells-\/>getEndingIndex()-\/1,\ (subCellGroup-\/>getEndingIndex()-\/1)>>3);}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ FTIME\_TASKS(\mbox{\hyperlink{class_f_task_timer_1_1_scope_event}{FTaskTimer::ScopeEvent}}\ taskTime(GetWorkerId(),\ \&taskTimeRecorder,\ ((lastParent\ *\ 20)\ +\ idxLevel)\ *\ 8\ +\ 1,\ \textcolor{stringliteral}{"{}M2M"{}}));}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxParentCell\ =\ currentCells-\/>getCellIndex(firstParent);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ FAssertLF(idxParentCell\ !=\ -\/1);}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxChildCell\ =\ subCellGroup-\/>getFistChildIdx(firstParent);}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ FAssertLF(idxChildCell\ !=\ -\/1);}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ CellClass\ childData[8];}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\textcolor{keyword}{true})\{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ cell\ =\ currentCells-\/>getUpCell(idxParentCell);}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(cell.getMortonIndex()\ ==\ currentCells-\/>getCellMortonIndex(idxParentCell));}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ child[8]\ =\ \{\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(cell.getMortonIndex()\ ==\ (subCellGroup-\/>getCellMortonIndex(idxChildCell)>>3));}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxChild\ =\ ((subCellGroup-\/>getCellMortonIndex(idxChildCell))\ \&\ 7);}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(child[idxChild]\ ==\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ childData[idxChild]\ =\ subCellGroup-\/>getUpCell(idxChildCell);}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(subCellGroup-\/>getCellMortonIndex(idxChildCell)\ ==\ childData[idxChild].getMortonIndex());}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ child[idxChild]\ =\ \&childData[idxChild];}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxChildCell\ +=\ 1;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractions\ +=\ 1;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{while}(idxChildCell\ !=\ subCellGroup-\/>getNumberOfCellsInBlock()\ \&\&\ cell.getMortonIndex()\ ==\ (subCellGroup-\/>getCellMortonIndex(idxChildCell)>>3));}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>M2M(\&cell,\ child,\ idxLevel);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(currentCells-\/>getCellMortonIndex(idxParentCell)\ ==\ lastParent)\{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ idxParentCell\ +=\ 1;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ currentStat.addExecution(nbInteractions,\ timer.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}());}
+\DoxyCodeLine{00248\ \ \ \ \ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#if\ defined(STARPU\_USE\_MPI)\ \&\&\ defined(SCALFMM\_USE\_MPI)}}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ transferInoutPassCallbackMpi(\textcolor{keywordtype}{void}\ *buffers[],\ \textcolor{keywordtype}{void}\ *cl\_arg)\{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ CellContainerClass\ currentCells((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[0]),}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[0]),}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[1]));}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ CellContainerClass\ externalCells((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[2]),}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[2]),}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[3]),}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ worker\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLevel\ =\ 0;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<OutOfBlockInteraction>*\ outsideInteractions;}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ intervalSize;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ starpu\_codelet\_unpack\_args(cl\_arg,\ \&worker,\ \&idxLevel,\ \&outsideInteractions,\ \&intervalSize);}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ worker-\/>get<ThisClass>(FSTARPU\_CPU\_IDX)-\/>transferInoutPassPerformMpi(\&currentCells,\ \&externalCells,\ idxLevel,\ outsideInteractions);}
+\DoxyCodeLine{00272\ \ \ \ \ \}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordtype}{void}\ transferInoutPassPerformMpi(CellContainerClass*\textcolor{keyword}{const}\ currentCells,}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellContainerClass*\textcolor{keyword}{const}\ cellsOther,}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLevel,}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<OutOfBlockInteraction>*\ outsideInteractions)\{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ KernelClass*\textcolor{keyword}{const}\ kernel\ =\ kernels[GetWorkerId()];}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ Stats\&\ currentStat\ =\ stats[GetWorkerId()][INTER\_M2L\_MPI];}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ FSize\ nbInteractions\ =\ 0;}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ outInterIdx\ =\ 0\ ;\ outInterIdx\ <\ int(outsideInteractions-\/>size())\ ;\ ++outInterIdx)\{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cellPos\ =\ cellsOther-\/>getCellIndex((*outsideInteractions)[outInterIdx].outIndex);}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cellPos\ !=\ -\/1)\{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ interCell\ =\ cellsOther-\/>getUpCell(cellPos);}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(interCell.getMortonIndex()\ ==\ (*outsideInteractions)[outInterIdx].outIndex);}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ cell\ =\ currentCells-\/>getDownCell((*outsideInteractions)[outInterIdx].insideIdxInBlock);}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(cell.getMortonIndex()\ ==\ (*outsideInteractions)[outInterIdx].insideIndex);}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ ptCell\ =\ \&interCell;}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>M2L(\ \&cell\ ,\ \&ptCell,\ \&(*outsideInteractions)[outInterIdx].relativeOutPosition,\ 1,\ idxLevel);}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractions\ +=\ 1;}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ currentStat.addExecution(nbInteractions,\ timer.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}());}
+\DoxyCodeLine{00298\ \ \ \ \ \}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper_aee0c0d9260b74b513ce2944dc8f093e6}{transferInPassCallback}}(\textcolor{keywordtype}{void}\ *buffers[],\ \textcolor{keywordtype}{void}\ *cl\_arg)\{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ CellContainerClass\ currentCells((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[0]),}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[0]),}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[1]),}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[2]));}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ worker\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLevel\ =\ 0;}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ intervalSize;}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ starpu\_codelet\_unpack\_args(cl\_arg,\ \&worker,\ \&idxLevel,\ \&intervalSize);}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ worker-\/>get<\mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper}{ThisClass}}>(FSTARPU\_CPU\_IDX)-\/>transferInPassPerform(\&currentCells,\ idxLevel);}
+\DoxyCodeLine{00316\ \ \ \ \ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{void}\ transferInPassPerform(CellContainerClass*\textcolor{keyword}{const}\ currentCells,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLevel)\{}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ FTIME\_TASKS(\mbox{\hyperlink{class_f_task_timer_1_1_scope_event}{FTaskTimer::ScopeEvent}}\ taskTime(GetWorkerId(),\ \&taskTimeRecorder,\ ((currentCells-\/>getStartingIndex()\ *20)\ +\ idxLevel\ )\ *\ 8\ +\ 2,\ \textcolor{stringliteral}{"{}M2L"{}}));}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ blockStartIdx\ =\ currentCells-\/>getStartingIndex();}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ blockEndIdx\ =\ currentCells-\/>getEndingIndex();}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ KernelClass*\textcolor{keyword}{const}\ kernel\ =\ kernels[GetWorkerId()];}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ Stats\&\ currentStat\ =\ stats[GetWorkerId()][INTER\_M2L];}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ FSize\ nbInteractions\ =\ 0;}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ interactions[189];}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ CellClass\ interactionsData[189];}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ cellIdx\ =\ 0\ ;\ cellIdx\ <\ currentCells-\/>getNumberOfCellsInBlock()\ ;\ ++cellIdx)\{}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ cell\ =\ currentCells-\/>getDownCell(cellIdx);}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(cell.getMortonIndex()\ ==\ currentCells-\/>getCellMortonIndex(cellIdx));}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ interactionsIndexes[189];}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ interactionsPosition[189];}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coord(cell.getCoordinate());}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counter\ =\ coord.getInteractionNeighbors(idxLevel,interactionsIndexes,interactionsPosition);}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counterExistingCell\ =\ 0;}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxInter\ =\ 0\ ;\ idxInter\ <\ counter\ ;\ ++idxInter)\{}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ blockStartIdx\ <=\ interactionsIndexes[idxInter]\ \&\&\ interactionsIndexes[idxInter]\ <\ blockEndIdx\ )\{}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ cellPos\ =\ currentCells-\/>getCellIndex(interactionsIndexes[idxInter]);}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cellPos\ !=\ -\/1)\{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ interCell\ =\ currentCells-\/>getUpCell(cellPos);}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(interCell.getMortonIndex()\ ==\ interactionsIndexes[idxInter]);}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interactionsPosition[counterExistingCell]\ =\ interactionsPosition[idxInter];}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interactionsData[counterExistingCell]\ =\ interCell;}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interactions[counterExistingCell]\ =\ \&interactionsData[counterExistingCell];}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ counterExistingCell\ +=\ 1;}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>M2L(\ \&cell\ ,\ interactions,\ interactionsPosition,\ counterExistingCell,\ idxLevel);}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractions\ +=\ counterExistingCell;}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ currentStat.addExecution(nbInteractions,\ timer.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}());}
+\DoxyCodeLine{00360\ \ \ \ \ \}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ transferInoutPassCallback(\textcolor{keywordtype}{void}\ *buffers[],\ \textcolor{keywordtype}{void}\ *cl\_arg)\{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ CellContainerClass\ currentCells((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[0]),}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[0]),}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[1]));}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ CellContainerClass\ externalCells((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[2]),}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[2]),}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[3]),}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ worker\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLevel\ =\ 0;}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<OutOfBlockInteraction>*\ outsideInteractions;}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ intervalSize;}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ mode\ =\ 0;}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ starpu\_codelet\_unpack\_args(cl\_arg,\ \&worker,\ \&idxLevel,\ \&outsideInteractions,\ \&intervalSize,\ \&mode);}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ worker-\/>get<ThisClass>(FSTARPU\_CPU\_IDX)-\/>transferInoutPassPerform(\&currentCells,\ \&externalCells,\ idxLevel,\ outsideInteractions,\ mode);}
+\DoxyCodeLine{00380\ \ \ \ \ \}}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keywordtype}{void}\ transferInoutPassPerform(CellContainerClass*\textcolor{keyword}{const}\ currentCells,}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellContainerClass*\textcolor{keyword}{const}\ cellsOther,}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLevel,}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<OutOfBlockInteraction>*\ outsideInteractions,}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ mode)\{}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ KernelClass*\textcolor{keyword}{const}\ kernel\ =\ kernels[GetWorkerId()];}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ Stats\&\ currentStat\ =\ stats[GetWorkerId()][INTER\_M2L\_EXT];}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ FSize\ nbInteractions\ =\ int(outsideInteractions-\/>size());}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(mode\ ==\ 1)\{}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ FTIME\_TASKS(\mbox{\hyperlink{class_f_task_timer_1_1_scope_event}{FTaskTimer::ScopeEvent}}\ taskTime(GetWorkerId(),\ \&taskTimeRecorder,\ (((currentCells-\/>getStartingIndex()+1)\ *\ (cellsOther-\/>getStartingIndex()+2))\ *\ 20\ +\ idxLevel)\ *\ 8\ +\ 3,\ \textcolor{stringliteral}{"{}M2L-\/ext"{}}));}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ outInterIdx\ =\ 0\ ;\ outInterIdx\ <\ int(outsideInteractions-\/>size())\ ;\ ++outInterIdx)\{}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ interCell\ =\ cellsOther-\/>getUpCell((*outsideInteractions)[outInterIdx].outsideIdxInBlock);}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(interCell.getMortonIndex()\ ==\ (*outsideInteractions)[outInterIdx].outIndex);}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ cell\ =\ currentCells-\/>getDownCell((*outsideInteractions)[outInterIdx].insideIdxInBlock);}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(cell.getMortonIndex()\ ==\ (*outsideInteractions)[outInterIdx].insideIndex);}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ ptCell\ =\ \&interCell;}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>M2L(\ \&cell\ ,\ \&ptCell,\ \&(*outsideInteractions)[outInterIdx].relativeOutPosition,\ 1,\ idxLevel);}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ FTIME\_TASKS(\mbox{\hyperlink{class_f_task_timer_1_1_scope_event}{FTaskTimer::ScopeEvent}}\ taskTime(GetWorkerId(),\ \&taskTimeRecorder,\ (((currentCells-\/>getStartingIndex()+1)\ *\ (cellsOther-\/>getStartingIndex()+1))\ *\ 20\ +\ idxLevel)\ *\ 8\ +\ 3,\ \textcolor{stringliteral}{"{}M2L-\/ext"{}}));}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ outInterIdx\ =\ 0\ ;\ outInterIdx\ <\ int(outsideInteractions-\/>size())\ ;\ ++outInterIdx)\{}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ cell\ =\ cellsOther-\/>getUpCell((*outsideInteractions)[outInterIdx].insideIdxInBlock);}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(cell.getMortonIndex()\ ==\ (*outsideInteractions)[outInterIdx].insideIndex);}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ interCell\ =\ currentCells-\/>getDownCell((*outsideInteractions)[outInterIdx].outsideIdxInBlock);}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(interCell.getMortonIndex()\ ==\ (*outsideInteractions)[outInterIdx].outIndex);}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ otherPos\ =\ getOppositeInterIndex((*outsideInteractions)[outInterIdx].relativeOutPosition);}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ ptCell\ =\ \&cell;}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>M2L(\ \&interCell\ ,\ \&ptCell,\ \&otherPos,\ 1,\ idxLevel);}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ currentStat.addExecution(nbInteractions,\ timer.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}());}
+\DoxyCodeLine{00420\ \ \ \ \ \}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper_a88c023cca3191b304ca53d38fb154cc5}{downardPassCallback}}(\textcolor{keywordtype}{void}\ *buffers[],\ \textcolor{keywordtype}{void}\ *cl\_arg)\{}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ CellContainerClass\ currentCells((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[0]),}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[0]),}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[1]));}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ worker\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLevel\ =\ 0;}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ intervalSize;}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ starpu\_codelet\_unpack\_args(cl\_arg,\ \&worker,\ \&idxLevel,\ \&intervalSize);}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ CellContainerClass\ subCellGroup(}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[2]),}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[2]),}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[3]));}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ worker-\/>get<\mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper}{ThisClass}}>(FSTARPU\_CPU\_IDX)-\/>downardPassPerform(\&currentCells,\ \&subCellGroup,\ idxLevel);}
+\DoxyCodeLine{00443\ \ \ \ \ \}}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00445\ \ \ \ \ \textcolor{keywordtype}{void}\ downardPassPerform(CellContainerClass*\textcolor{keyword}{const}\ currentCells,}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellContainerClass*\ subCellGroup,}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxLevel)\{}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ KernelClass*\textcolor{keyword}{const}\ kernel\ =\ kernels[GetWorkerId()];}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ Stats\&\ currentStat\ =\ stats[GetWorkerId()][INTER\_L2L];}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ FSize\ nbInteractions\ =\ 0;}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ firstParent\ =\ \mbox{\hyperlink{struct_f_math_ada359f2b021ce4b999c0fd7a6e9daae6}{FMath::Max}}(currentCells-\/>getStartingIndex(),\ subCellGroup-\/>getStartingIndex()>>3);}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ lastParent\ =\ \mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(currentCells-\/>getEndingIndex()-\/1,\ (subCellGroup-\/>getEndingIndex()-\/1)>>3);}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ FTIME\_TASKS(\mbox{\hyperlink{class_f_task_timer_1_1_scope_event}{FTaskTimer::ScopeEvent}}\ taskTime(GetWorkerId(),\ \&taskTimeRecorder,\ ((lastParent\ *\ 20)\ +\ idxLevel)\ *\ 8\ +\ 4,\ \textcolor{stringliteral}{"{}L2L"{}}));}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxParentCell\ =\ currentCells-\/>getCellIndex(firstParent);}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ FAssertLF(idxParentCell\ !=\ -\/1);}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxChildCell\ =\ subCellGroup-\/>getFistChildIdx(firstParent);}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ FAssertLF(idxChildCell\ !=\ -\/1);}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ CellClass\ childData[8];}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\textcolor{keyword}{true})\{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ cell\ =\ currentCells-\/>getDownCell(idxParentCell);}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(cell.getMortonIndex()\ ==\ currentCells-\/>getCellMortonIndex(idxParentCell));}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ child[8]\ =\ \{\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(cell.getMortonIndex()\ ==\ (subCellGroup-\/>getCellMortonIndex(idxChildCell)>>3));}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxChild\ =\ ((subCellGroup-\/>getCellMortonIndex(idxChildCell))\ \&\ 7);}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(child[idxChild]\ ==\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ childData[idxChild]\ =\ subCellGroup-\/>getDownCell(idxChildCell);}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(subCellGroup-\/>getCellMortonIndex(idxChildCell)\ ==\ childData[idxChild].getMortonIndex());}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ child[idxChild]\ =\ \&childData[idxChild];}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxChildCell\ +=\ 1;}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractions\ +=\ 1;}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{while}(idxChildCell\ !=\ subCellGroup-\/>getNumberOfCellsInBlock()\ \&\&\ cell.getMortonIndex()\ ==\ (subCellGroup-\/>getCellMortonIndex(idxChildCell)>>3));}
+\DoxyCodeLine{00481\ }
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>L2L(\&cell,\ child,\ idxLevel);}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(currentCells-\/>getCellMortonIndex(idxParentCell)\ ==\ lastParent)\{}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ idxParentCell\ +=\ 1;}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ currentStat.addExecution(nbInteractions,\ timer.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}());}
+\DoxyCodeLine{00492\ \ \ \ \ \}}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \textcolor{preprocessor}{\#if\ defined(STARPU\_USE\_MPI)\ \&\&\ defined(SCALFMM\_USE\_MPI)}}
+\DoxyCodeLine{00499\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ directInoutPassCallbackMpi(\textcolor{keywordtype}{void}\ *buffers[],\ \textcolor{keywordtype}{void}\ *cl\_arg)\{}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ ParticleGroupClass\ containers((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[0]),}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[0]),}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[1]));}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ ParticleGroupClass\ externalContainers((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[2]),}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[2]),}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ worker\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<OutOfBlockInteraction>*\ outsideInteractions\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ intervalSize;}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ starpu\_codelet\_unpack\_args(cl\_arg,\ \&worker,\ \&outsideInteractions,\ \&intervalSize);}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ worker-\/>get<ThisClass>(FSTARPU\_CPU\_IDX)-\/>directInoutPassPerformMpi(\&containers,\ \&externalContainers,\ outsideInteractions);}
+\DoxyCodeLine{00513\ \ \ \ \ \}}
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{keywordtype}{void}\ directInoutPassPerformMpi(ParticleGroupClass*\ containers,\ ParticleGroupClass*\ containersOther,}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<OutOfBlockInteraction>*\ outsideInteractions)\{}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ KernelClass*\textcolor{keyword}{const}\ kernel\ =\ kernels[GetWorkerId()];}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ Stats\&\ currentStat\ =\ stats[GetWorkerId()][INTER\_P2P\_MPI];}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ FSize\ nbInteractions\ =\ 0;}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ outInterIdx\ =\ 0\ ;\ outInterIdx\ <\ int(outsideInteractions-\/>size())\ ;\ ++outInterIdx)\{}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ leafPos\ =\ containersOther-\/>getLeafIndex((*outsideInteractions)[outInterIdx].outIndex);}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leafPos\ !=\ -\/1)\{}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass\ interParticles\ =\ containersOther-\/>template\ getLeaf<ParticleContainerClass>(leafPos);}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(containersOther-\/>getLeafMortonIndex(leafPos)\ ==\ (*outsideInteractions)[outInterIdx].outIndex);}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass\ particles\ =\ containers-\/>template\ getLeaf<ParticleContainerClass>((*outsideInteractions)[outInterIdx].insideIdxInBlock);}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(containers-\/>getLeafMortonIndex((*outsideInteractions)[outInterIdx].insideIdxInBlock)\ ==\ (*outsideInteractions)[outInterIdx].insideIndex,}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ containers-\/>getLeafMortonIndex((*outsideInteractions)[outInterIdx].insideIdxInBlock),\ \textcolor{stringliteral}{"{}\ !=\ "{}},\ (*outsideInteractions)[outInterIdx].insideIndex);}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass*\ ptrLeaf\ =\ \&interParticles;}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>P2PRemote(\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}((*outsideInteractions)[outInterIdx].insideIndex,\ treeHeight-\/1),\ \&particles,\ \&particles\ ,}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&ptrLeaf,\ \&(*outsideInteractions)[outInterIdx].relativeOutPosition,\ 1);}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractions\ +=\ particles.getNbParticles()\ *\ ptrLeaf.getNbParticles();}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ currentStat.addExecution(nbInteractions,\ timer.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}());}
+\DoxyCodeLine{00537\ \ \ \ \ \}}
+\DoxyCodeLine{00538\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00543\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper_a1109b367be35c7bb4d4dbc613bb734a8}{directInPassCallback}}(\textcolor{keywordtype}{void}\ *buffers[],\ \textcolor{keywordtype}{void}\ *cl\_arg)\{}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ ParticleGroupClass\ containers((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[0]),}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[0]),}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[1]));}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ worker\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ intervalSize;}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ starpu\_codelet\_unpack\_args(cl\_arg,\ \&worker,\ \&intervalSize);}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ worker-\/>get<\mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper}{ThisClass}}>(FSTARPU\_CPU\_IDX)-\/>directInPassPerform(\&containers);}
+\DoxyCodeLine{00552\ \ \ \ \ \}}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ \ \ \ \ \textcolor{keywordtype}{void}\ directInPassPerform(ParticleGroupClass*\ containers)\{}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ FTIME\_TASKS(\mbox{\hyperlink{class_f_task_timer_1_1_scope_event}{FTaskTimer::ScopeEvent}}\ taskTime(GetWorkerId(),\ \&taskTimeRecorder,\ containers-\/>getStartingIndex()*20*8\ +\ 5,\ \textcolor{stringliteral}{"{}P2P"{}}));}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ blockStartIdx\ =\ containers-\/>getStartingIndex();}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ blockEndIdx\ =\ containers-\/>getEndingIndex();}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ KernelClass*\textcolor{keyword}{const}\ kernel\ =\ kernels[GetWorkerId()];}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ Stats\&\ currentStat\ =\ stats[GetWorkerId()][INTER\_P2P];}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ FSize\ nbInteractions\ =\ 0;}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ leafIdx\ =\ 0\ ;\ leafIdx\ <\ containers-\/>getNumberOfLeavesInBlock()\ ;\ ++leafIdx)\{}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass\ particles\ =\ containers-\/>template\ getLeaf<ParticleContainerClass>(leafIdx);}
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ interactionsIndexes[26];}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ interactionsPosition[26];}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coord(containers-\/>getLeafMortonIndex(leafIdx),\ treeHeight-\/1);}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counter\ =\ coord.getNeighborsIndexes(treeHeight,interactionsIndexes,interactionsPosition);}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass\ interactionsObjects[26];}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass*\ interactions[26];}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counterExistingCell\ =\ 0;}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxInter\ =\ 0\ ;\ idxInter\ <\ counter\ ;\ ++idxInter)\{}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ blockStartIdx\ <=\ interactionsIndexes[idxInter]\ \&\&\ interactionsIndexes[idxInter]\ <\ blockEndIdx\ )\{}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ leafPos\ =\ containers-\/>getLeafIndex(interactionsIndexes[idxInter]);}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leafPos\ !=\ -\/1)\{}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interactionsObjects[counterExistingCell]\ =\ containers-\/>template\ getLeaf<ParticleContainerClass>(leafPos);}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interactionsPosition[counterExistingCell]\ =\ interactionsPosition[idxInter];}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interactions[counterExistingCell]\ =\ \&interactionsObjects[counterExistingCell];}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractions\ +=\ particles.getNbParticles()\ *\ interactionsObjects[counterExistingCell].getNbParticles();}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ counterExistingCell\ +=\ 1;}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractions\ +=\ particles.getNbParticles()\ *\ (particles.getNbParticles()-\/1);}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>P2P(\ coord,\ \&particles,\ \&particles\ ,\ interactions,\ interactionsPosition,\ counterExistingCell);}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00591\ }
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ currentStat.addExecution(nbInteractions,\ timer.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}());}
+\DoxyCodeLine{00593\ \ \ \ \ \}}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ directInoutPassCallback(\textcolor{keywordtype}{void}\ *buffers[],\ \textcolor{keywordtype}{void}\ *cl\_arg)\{}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ ParticleGroupClass\ containers((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[0]),}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[0]),}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[1]));}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ ParticleGroupClass\ externalContainers((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[2]),}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[2]),}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[3]));}
+\DoxyCodeLine{00602\ }
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ worker\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<OutOfBlockInteraction>*\ outsideInteractions\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ intervalSize;}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ starpu\_codelet\_unpack\_args(cl\_arg,\ \&worker,\ \&outsideInteractions,\ \&intervalSize);}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ worker-\/>get<ThisClass>(FSTARPU\_CPU\_IDX)-\/>directInoutPassPerform(\&containers,\ \&externalContainers,\ outsideInteractions);}
+\DoxyCodeLine{00609\ \ \ \ \ \}}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ \ \ \ \ \textcolor{keywordtype}{void}\ directInoutPassPerform(ParticleGroupClass*\ containers,\ ParticleGroupClass*\ containersOther,}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<OutOfBlockInteraction>*\ outsideInteractions)\{}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ FTIME\_TASKS(\mbox{\hyperlink{class_f_task_timer_1_1_scope_event}{FTaskTimer::ScopeEvent}}\ taskTime(GetWorkerId(),\ \&taskTimeRecorder,\ ((containersOther-\/>getStartingIndex()+1)\ *\ (containers-\/>getStartingIndex()+1))*20*8\ +\ 6,\ \textcolor{stringliteral}{"{}P2P-\/ext"{}}));}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ KernelClass*\textcolor{keyword}{const}\ kernel\ =\ kernels[GetWorkerId()];}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ Stats\&\ currentStat\ =\ stats[GetWorkerId()][INTER\_P2P\_EXT];}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ FSize\ nbInteractions\ =\ 0;}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ outInterIdx\ =\ 0\ ;\ outInterIdx\ <\ int(outsideInteractions-\/>size())\ ;\ ++outInterIdx)\{}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass\ interParticles\ =\ containersOther-\/>template\ getLeaf<ParticleContainerClass>((*outsideInteractions)[outInterIdx].outsideIdxInBlock);}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass\ particles\ =\ containers-\/>template\ getLeaf<ParticleContainerClass>((*outsideInteractions)[outInterIdx].insideIdxInBlock);}
+\DoxyCodeLine{00621\ }
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(containersOther-\/>getLeafMortonIndex((*outsideInteractions)[outInterIdx].outsideIdxInBlock)\ ==\ (*outsideInteractions)[outInterIdx].outIndex);}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(containers-\/>getLeafMortonIndex((*outsideInteractions)[outInterIdx].insideIdxInBlock)\ ==\ (*outsideInteractions)[outInterIdx].insideIndex);}
+\DoxyCodeLine{00624\ }
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass*\ ptrLeaf\ =\ \&interParticles;}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>P2POuter(\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}((*outsideInteractions)[outInterIdx].insideIndex,\ treeHeight-\/1),}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&particles\ ,\ \&ptrLeaf,\ \&(*outsideInteractions)[outInterIdx].relativeOutPosition,\ 1);}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ otherPosition\ =\ getOppositeNeighIndex((*outsideInteractions)[outInterIdx].relativeOutPosition);}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ \ \ ptrLeaf\ =\ \&particles;}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>P2POuter(\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}((*outsideInteractions)[outInterIdx].outIndex,\ treeHeight-\/1),}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&interParticles\ ,\ \&ptrLeaf,\ \&otherPosition,\ 1);}
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractions\ +=\ 2\ *\ interParticles.getNbParticles()\ *\ ptrLeaf.getNbParticles();}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ currentStat.addExecution(nbInteractions,\ timer.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}());}
+\DoxyCodeLine{00637\ \ \ \ \ \}}
+\DoxyCodeLine{00638\ }
+\DoxyCodeLine{00642\ }
+\DoxyCodeLine{00643\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper_ad5138794febdc5ae9a33e63476839750}{mergePassCallback}}(\textcolor{keywordtype}{void}\ *buffers[],\ \textcolor{keywordtype}{void}\ *cl\_arg)\{}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ CellContainerClass\ leafCells((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[0]),}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[0]),}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[1]));}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ ParticleGroupClass\ containers((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[2]),}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STARPU\_VARIABLE\_GET\_ELEMSIZE(buffers[2]),}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)STARPU\_VARIABLE\_GET\_PTR(buffers[3]));}
+\DoxyCodeLine{00651\ }
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStarPUPtrInterface}}*\ worker\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ intervalSize;}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ starpu\_codelet\_unpack\_args(cl\_arg,\ \&worker,\ \&intervalSize);}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ worker-\/>get<\mbox{\hyperlink{class_f_star_p_u_cpt_interactions_wrapper}{ThisClass}}>(FSTARPU\_CPU\_IDX)-\/>mergePassPerform(\&leafCells,\ \&containers);}
+\DoxyCodeLine{00656\ \ \ \ \ \}}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00658\ \ \ \ \ \textcolor{keywordtype}{void}\ mergePassPerform(CellContainerClass*\ leafCells,\ ParticleGroupClass*\ containers)\{}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ FTIME\_TASKS(\mbox{\hyperlink{class_f_task_timer_1_1_scope_event}{FTaskTimer::ScopeEvent}}\ taskTime(GetWorkerId(),\ \&taskTimeRecorder,\ (leafCells-\/>getStartingIndex()*20*8)\ +\ 7,\ \textcolor{stringliteral}{"{}L2P"{}}));}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ FAssertLF(leafCells-\/>getNumberOfCellsInBlock()\ ==\ containers-\/>getNumberOfLeavesInBlock());}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ KernelClass*\textcolor{keyword}{const}\ kernel\ =\ kernels[GetWorkerId()];}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ Stats\&\ currentStat\ =\ stats[GetWorkerId()][INTER\_L2P];}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ timer;}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ FSize\ nbInteractions\ =\ 0;}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ cellIdx\ =\ 0\ ;\ cellIdx\ <\ leafCells-\/>getNumberOfCellsInBlock()\ ;\ ++cellIdx)\{}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \ \ \ \ CellClass\ cell\ =\ leafCells-\/>getDownCell(cellIdx);}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(cell.getMortonIndex()\ ==\ leafCells-\/>getCellMortonIndex(cellIdx));}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \ \ \ \ ParticleContainerClass\ particles\ =\ containers-\/>template\ getLeaf<ParticleContainerClass>(cellIdx);}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(leafCells-\/>getCellMortonIndex(cellIdx)\ ==\ containers-\/>getLeafMortonIndex(cellIdx));}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(computeForReal)\ kernel-\/>L2P(\&cell,\ \&particles);}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ nbInteractions\ +=\ particles.getNbParticles();}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ currentStat.addExecution(nbInteractions,\ timer.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}());}
+\DoxyCodeLine{00676\ \ \ \ \ \}}
+\DoxyCodeLine{00677\ }
+\DoxyCodeLine{00678\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ getOppositeNeighIndex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index)\ \{}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ((idxX+1)*3\ +\ (idxY+1))\ *\ 3\ +\ (idxZ+1)}}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 27-\/index-\/1;}
+\DoxyCodeLine{00681\ \ \ \ \ \}}
+\DoxyCodeLine{00682\ }
+\DoxyCodeLine{00683\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ getOppositeInterIndex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index)\ \{}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (((\ (xdiff+3)\ *\ 7)\ +\ (ydiff+3)))\ *\ 7\ +\ zdiff\ +\ 3}}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 343-\/index-\/1;}
+\DoxyCodeLine{00686\ \ \ \ \ \}}
+\DoxyCodeLine{00687\ \};}
+\DoxyCodeLine{00688\ }
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ }
+\DoxyCodeLine{00691\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FSTARPUCPTINTERACTIONSWRAPPER\_HPP}}
+\DoxyCodeLine{00692\ }
+
+\end{DoxyCode}

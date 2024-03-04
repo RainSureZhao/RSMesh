@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/23.
+// Created by RainSure on 2024/2/23.
 //
 
 #ifndef RSMESH_DENSE_UNDIRECTED_GRAPH_H

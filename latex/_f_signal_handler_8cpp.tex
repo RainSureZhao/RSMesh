@@ -1,0 +1,25 @@
+\doxysection{third\+\_\+party/\+Scal\+FMM/src/\+Utils/\+FSignal\+Handler.cpp 文件参考}
+\hypertarget{_f_signal_handler_8cpp}{}\label{_f_signal_handler_8cpp}\index{third\_party/ScalFMM/src/Utils/FSignalHandler.cpp@{third\_party/ScalFMM/src/Utils/FSignalHandler.cpp}}
+{\ttfamily \#include $<$Scal\+FMM/\+Utils/\+FGlobal.\+hpp$>$}\newline
+{\ttfamily \#include $<$Scal\+FMM/\+Utils/\+FSignal\+Handler.\+h$>$}\newline
+\doxysubsubsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_f_signal_handler_8cpp_aa0eba7ba00ef208233c8405e70f2ca9e}\label{_f_signal_handler_8cpp_aa0eba7ba00ef208233c8405e70f2ca9e} 
+void {\bfseries f\+\_\+sig\+\_\+handler} (int)
+\item 
+bool \mbox{\hyperlink{_f_signal_handler_8cpp_ac78944ec4ba4e5ffa4f02bcac46a8531}{f\+\_\+install\+\_\+signal\+\_\+handler}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+This file contains the signal handler core functions. It installs handlers and catch signals. If backtrace is set to on during compilation then the trace is print when a signal is caught. 
+
+\doxysubsection{函数说明}
+\Hypertarget{_f_signal_handler_8cpp_ac78944ec4ba4e5ffa4f02bcac46a8531}\label{_f_signal_handler_8cpp_ac78944ec4ba4e5ffa4f02bcac46a8531} 
+\index{FSignalHandler.cpp@{FSignalHandler.cpp}!f\_install\_signal\_handler@{f\_install\_signal\_handler}}
+\index{f\_install\_signal\_handler@{f\_install\_signal\_handler}!FSignalHandler.cpp@{FSignalHandler.cpp}}
+\doxysubsubsection{\texorpdfstring{f\_install\_signal\_handler()}{f\_install\_signal\_handler()}}
+{\footnotesize\ttfamily bool f\+\_\+install\+\_\+signal\+\_\+handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+We protect almost every thing if SCALFMM\+\_\+\+USE\+\_\+\+SIGNALS is undef because is failled to compile with Clang. 

@@ -1,0 +1,341 @@
+\doxysection{FPoint.\+hpp}
+\hypertarget{_f_point_8hpp_source}{}\label{_f_point_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FPoint.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FPoint.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ FPOINT\_HPP}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ FPOINT\_HPP}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <iterator>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <ostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <istream>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}FMath.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}FConstFuncs.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ \_Real,\ std::\textcolor{keywordtype}{size\_t}\ \_Dim\ =\ 3>}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_point}{FPoint}}\ :\ \textcolor{keyword}{public}\ std::array<\_Real,\ \_Dim>\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ =\ \_Real;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::size\_t\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}}\ =\ \_Dim;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{using\ }must\_be\_arithmetic\ =\ \textcolor{keyword}{typename}\ std::enable\_if<std::is\_arithmetic<T>::value>::type*;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{using\ }must\_be\_floating\ =\ \textcolor{keyword}{typename}\ std::enable\_if<std::is\_floating\_point<T>::value>::type*;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{using\ }must\_be\_integral\ =\ \textcolor{keyword}{typename}\ std::enable\_if<std::is\_integral<T>::value>::type*;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ A\ =\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}},\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \_fill\_data(\textcolor{keyword}{const}\ A\&\ arg,\ \textcolor{keyword}{const}\ Args...\ args)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ this-\/>data()[\mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}}-\/\textcolor{keyword}{sizeof}...(args)-\/1]\ =\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}(arg);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \_fill\_data(args...);}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ A\ =\ FReal>}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \_fill\_data(\textcolor{keyword}{const}\ A\&\ arg)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ this-\/>data()[\mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}}-\/1]\ =\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}(arg);}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{class_f_point_aa5ca88ea065f9c71e38da8ef784ca546}{FPoint}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_f_point_add3eb5d72a544c2d136a3ad711a858d6}{FPoint}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint}}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ A,\ must\_be\_arithmetic<A>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_f_point_a6c3faef80050466f4ae1a309e461a49e}{FPoint}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<A,\ Dim>}}\&\ other)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>data()[i]\ =\ other.data()[i];}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{class_f_point_af9a3dd56af70c8cafd107bb351550789}{FPoint}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ array\_[\mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}}])\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>data()[i]\ =\ array\_[i];}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ A\ =\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}},\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{class_f_point_a01ca00aee9086b0c84c3c1f92c2979a1}{FPoint}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\&\ arg,\ \textcolor{keyword}{const}\ Args...\ args)\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}...(args)+1\ ==\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}},\ \textcolor{stringliteral}{"{}FPoint\ argument\ list\ isn't\ the\ right\ length."{}});}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \_fill\_data(arg,\ args...);}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{class_f_point_accf46adceb3166429feb4f4c2d5d2945}{FPoint}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint}}\&\ other,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ add\_value)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>data()[i]\ =\ other.data()[i]\ +\ add\_value;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_point_a3ddb34b536d46703a1d85095d4c5d410}{copy}}(\textcolor{keyword}{const}\ T\&\ other)\ \{}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ other\_it\ =\ other.begin();}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ this\_it\ \ =\ this-\/>begin();}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i,\ ++this\_it,\ ++other\_it)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ *this\_it\ =\ *other\_it;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\&\ \mbox{\hyperlink{class_f_point_a8199bf512204ce82961124e72c220870}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<T,\ Dim>}}\&\ other)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_f_point_a3ddb34b536d46703a1d85095d4c5d410}{copy}}(other);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00117\ \ \ \ \ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ A\ =\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}},\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\&\ X,\ \textcolor{keyword}{const}\ Args...\ YandZ)\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}...(YandZ)+1\ ==\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}},\ \textcolor{stringliteral}{"{}FPoint\ argument\ list\ isn't\ the\ right\ length."{}});}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \_fill\_data(X,\ YandZ...);}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ \mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>data()[0];}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ \mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>data()[1];}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00146\ \ \ \ \ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ \mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>data()[2];}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ inX)\{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ this-\/>data()[0]\ =\ inX;}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ inY)\{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ this-\/>data()[1]\ =\ inY;}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ inZ)\{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ this-\/>data()[2]\ =\ inZ;}
+\DoxyCodeLine{00172\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_point_ad7d661a769ccb78f36da734b3945b533}{incX}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ inX)\{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ this-\/>data()[0]\ +=\ inX;}
+\DoxyCodeLine{00180\ \ \ \ \ \}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_point_aca6c651616ef93f0920aa80e7fe6f19a}{incY}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ inY)\{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ this-\/>data()[1]\ +=\ inY;}
+\DoxyCodeLine{00188\ \ \ \ \ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_point_af5f37e83b43e85706b3ccc72dbb63afa}{incZ}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ inZ)\{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ this-\/>data()[2]\ +=\ inZ;}
+\DoxyCodeLine{00196\ \ \ \ \ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00201\ \ \ \ \ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ *\ \mbox{\hyperlink{class_f_point_ad05c497fe0a0acb04a783eab4c76ff36}{getDataValue}}()\{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>data()\ ;}
+\DoxyCodeLine{00203\ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ *\ \ \mbox{\hyperlink{class_f_point_a95a557604c04f32e2f54e4df553f66e6}{getDataValue}}()\textcolor{keyword}{\ \ const}\{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>data()\ ;}
+\DoxyCodeLine{00210\ \ \ \ \ \}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00215\ \ \ \ \ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ \mbox{\hyperlink{class_f_point_aeb4ede7b5949b0b491455ee3f3da671c}{norm}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(\mbox{\hyperlink{class_f_point_a13f3fa46b8af935cafd8281880232c15}{norm2}}())\ ;}
+\DoxyCodeLine{00217\ \ \ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00222\ \ \ \ \ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ \mbox{\hyperlink{class_f_point_a13f3fa46b8af935cafd8281880232c15}{norm2}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}\ square\_sum\ =\ 0;}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ square\_sum\ +=\ this-\/>data()[i]*this-\/>data()[i];}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ square\_sum;}
+\DoxyCodeLine{00228\ \ \ \ \ \}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00233\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint}}\&\ \mbox{\hyperlink{class_f_point_a1a730b13c57ad593ebd86ea34f831056}{operator\ +=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<T,\ Dim>}}\&\ other)\ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ other\_it\ =\ other.begin();}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ this\_it\ \ =\ this-\/>begin();}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i,\ ++this\_it,\ ++other\_it)\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ *this\_it\ +=\ *other\_it;}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00241\ \ \ \ \ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ \mbox{\hyperlink{class_f_point_ab0698799bfd5c52e5dbe8caeafa010d6}{operator+}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<T,\ Dim>}}\&\ rhs)\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ lhs\ +=\ rhs;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs;}
+\DoxyCodeLine{00248\ \ \ \ \ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00252\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint}}\&\ \mbox{\hyperlink{class_f_point_ac7e57298d155e71b4abd078c218b7e1f}{operator+=}}(\textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>data()[i]\ +=\ val;}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00257\ \ \ \ \ \}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ \mbox{\hyperlink{class_f_point_adfab88b13a3582251799a3fa44464a9c}{operator+}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ lhs,\ \textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ lhs\ +=\ val;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs;}
+\DoxyCodeLine{00264\ \ \ \ \ \}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00268\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint}}\&\ \mbox{\hyperlink{class_f_point_a8ff649b6e3aba75e5df8c908b98fd73a}{operator\ -\/=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<T,\ Dim>}}\&\ other)\ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ other\_it\ =\ other.begin();}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ this\_it\ \ =\ this-\/>begin();}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ i++,\ ++this\_it,\ ++other\_it)\ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ *this\_it\ -\/=\ *other\_it;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00275\ \ \ \ \ \}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ \mbox{\hyperlink{class_f_point_a2d01863d81ccf1de741a3e8adb99ff40}{operator-\/}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<T,\ Dim>}}\&\ rhs)\ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ lhs\ -\/=\ rhs;}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs;}
+\DoxyCodeLine{00282\ \ \ \ \ \}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00286\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint}}\&\ \mbox{\hyperlink{class_f_point_a76c4348bcd1fa3c6394d55804e8d341e}{operator-\/=}}(\textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>data()[i]\ -\/=\ val;}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00291\ \ \ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ \mbox{\hyperlink{class_f_point_aa56117a8d46a934b5f2430cc1b3d4b58}{operator-\/}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ lhs,\ \textcolor{keyword}{const}\ T\&\ rhs)\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ lhs\ -\/=\ rhs;}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs;}
+\DoxyCodeLine{00298\ \ \ \ \ \}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00303\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\&\ \mbox{\hyperlink{class_f_point_a56a0358e96718da6c19337d55fabbd66}{operator\ *=}}(\textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>data()[i]\ *=\ val;}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00308\ \ \ \ \ \}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ \mbox{\hyperlink{class_f_point_abe23e3a42cd3fd1a691580b171123a3d}{operator*}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ lhs,\ \textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ lhs\ *=\ val;}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs;}
+\DoxyCodeLine{00315\ \ \ \ \ \}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ \mbox{\hyperlink{class_f_point_a62734c1c8e7ee9ea381712984d92eae9}{operator*}}(\textcolor{keyword}{const}\ T\&\ val,\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ rhs)\ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ rhs\ *=\ val;}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rhs;}
+\DoxyCodeLine{00322\ \ \ \ \ \}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00326\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\&\ \mbox{\hyperlink{class_f_point_ab8c018fabb2821c27a12ae24adf9cdb6}{operator\ /=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<T,\ Dim>}}\&\ other)\ \{}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>data()[i]\ *=\ other.data()[i];}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00331\ \ \ \ \ \}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ \mbox{\hyperlink{class_f_point_a611040529dab484f79076ef502a849c0}{operator/}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\&\ rhs)\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ lhs\ /=\ rhs;}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs;}
+\DoxyCodeLine{00338\ \ \ \ \ \}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00342\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\&\ \mbox{\hyperlink{class_f_point_ab8c018fabb2821c27a12ae24adf9cdb6}{operator\ /=}}(\textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ this\_it\ \ =\ this-\/>begin();}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ i++,\ ++this\_it)\ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ *this\_it\ /=\ val;}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00349\ \ \ \ \ \}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ \mbox{\hyperlink{class_f_point_a1b6bf9cb17107d2776a01f1f2a7d323c}{operator/}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\ lhs,\ \textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ lhs\ /=\ val;}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs;}
+\DoxyCodeLine{00356\ \ \ \ \ \}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_\textcolor{keywordtype}{int}egral<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_point_a4b7b10ed7077d4b071f5d806478c8787}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<T,\ Dim>}}\&\ rhs)\ \{}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lhs\_it\ =\ lhs.begin(),\ rhs\_it\ \ =\ rhs.begin();}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ i++,\ ++lhs\_it,\ ++rhs\_it)\ \{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ *lhs\_it\ !=\ *rhs\_it)\ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00368\ \ \ \ \ \}}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_\textcolor{keywordtype}{float}ing<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_point_a4b7b10ed7077d4b071f5d806478c8787}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<T,\ Dim>}}\&\ rhs)\ \{}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lhs\_it\ =\ lhs.begin(),\ rhs\_it\ \ =\ rhs.begin();}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ i++,\ ++lhs\_it,\ ++rhs\_it)\ \{}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\ Ffeq(*lhs\_it,\ *rhs\_it))\ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00380\ \ \ \ \ \}}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T,\ must\_be\_arithmetic<T>\ =\ \textcolor{keywordtype}{nullptr}>}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_point_a47bda5c61b52c6810adf5a21cc343f50}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<T,\ Dim>}}\&\ rhs)\ \{}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !\ (lhs\ ==\ rhs);}
+\DoxyCodeLine{00386\ \ \ \ \ \}}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\&\ \mbox{\hyperlink{class_f_point_ac18f0ae66ee867b2ecd16f79dfd156f3}{operator<<}}(std::ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\&\ pos)\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}["{}};}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ it\ =\ pos.begin();\ it\ !=\ pos.end()-\/1;\ it++)}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ os\ <<\ *it\ <<\ \textcolor{stringliteral}{"{},\ "{}};}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ os\ <<\ pos.back()\ <<\ \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00395\ \ \ \ \ \}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00398\ \ \ \ \ \textcolor{keyword}{friend}\ std::istream\&\ \mbox{\hyperlink{class_f_point_a7928b47b7e3587847f4d4ad505fe355f}{operator>>}}(std::istream\&\ is,\ \mbox{\hyperlink{class_f_point}{FPoint<FReal,\ Dim>}}\&\ pos)\ \{}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ c;}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ is\ >>\ c;\ \textcolor{comment}{//\ opening\ '['}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ +\ 1\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ is\ >>\ pos.data()[i];}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ is\ >>\ c;\ \textcolor{comment}{//\ get\ coma\ ','}}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ is\ >>\ pos.data()[\mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}}-\/1];}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ is\ >>\ c;\ \textcolor{comment}{//\ closing\ ']'}}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ is;}
+\DoxyCodeLine{00408\ \ \ \ \ \}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00411\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferWriterClass>}
+\DoxyCodeLine{00412\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_point_a6937a56faa6b1c735c541f465e233faa}{save}}(BufferWriterClass\&\ buffer)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ buffer\ <<\ this-\/>data()[i];}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00416\ \ \ \ \ \}}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferReaderClass>}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_point_aee1d5c3459851e223a069956511e96b2}{restore}}(BufferReaderClass\&\ buffer)\ \{}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}};\ ++i)\ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ buffer\ >>\ this-\/>data()[i];}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00424\ \ \ \ \ \}}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \};}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

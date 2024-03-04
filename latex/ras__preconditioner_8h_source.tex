@@ -1,0 +1,73 @@
+\doxysection{ras\+\_\+preconditioner.\+h}
+\hypertarget{ras__preconditioner_8h_source}{}\label{ras__preconditioner_8h_source}\index{include/preconditioner/ras\_preconditioner.h@{include/preconditioner/ras\_preconditioner.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/14.}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_RAS\_PRECONDITIONER\_H}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_RAS\_PRECONDITIONER\_H}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}krylov/linear\_operator.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}interpolation/rbf\_evaluator.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}model.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}interpolation/rbf\_symmetric\_evaluator.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}fine\_grid.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}coarse\_grid.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00017}00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1preconditioner}{rsmesh::preconditioner}}\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00018}\mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1ras__preconditioner}{00018}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1ras__preconditioner}{ras\_preconditioner}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrsmesh_1_1krylov_1_1linear__operator}{krylov::linear\_operator}}\{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ kRecomputeAndClear\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ kReportResidual\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ Order\ =\ 6;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{double}\ coarse\_ratio\ =\ 0.125;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ index\_t\ n\_coarsest\_points\ =\ 1024;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classrsmesh_1_1interpolation_1_1rbf__evaluator}{Evaluator}}\ =\ \mbox{\hyperlink{classrsmesh_1_1interpolation_1_1rbf__evaluator}{interpolation::rbf\_evaluator<Order>}};}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00027}00027\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1ras__preconditioner}{ras\_preconditioner}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1model}{model}}\&\ \mbox{\hyperlink{classrsmesh_1_1model}{model}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ points);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1ras__preconditioner}{ras\_preconditioner}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1model}{model}}\&\ \mbox{\hyperlink{classrsmesh_1_1model}{model}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ points,}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ grad\_points);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ valuesd\ operator()(\textcolor{keyword}{const}\ valuesd\&\ v)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ index\_t\ size()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00037}00037\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}...\ Args>}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ add\_evaluator(\textcolor{keywordtype}{int}\ from\_level,\ \textcolor{keywordtype}{int}\ to\_level,\ Args\&\&...\ args)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ evaluator\_.emplace(std::piecewise\_construct,\ std::forward\_as\_tuple(from\_level,\ to\_level),}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::forward\_as\_tuple(std::forward<Args>(args)...));}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1interpolation_1_1rbf__evaluator}{Evaluator}}\&\ evaluator(\textcolor{keywordtype}{int}\ from\_level,\ \textcolor{keywordtype}{int}\ to\_level)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ evaluator\_.at(\{from\_level,\ to\_level\});}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1model}{model}}\ model\_without\_poly\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\ points\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\ grad\_points\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ index\_t\ n\_points\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ index\_t\ n\_grad\_points\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ index\_t\ n\_poly\_basis\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::unique\_ptr<interpolation::rbf\_symmetric\_evaluator<Order>>\ finest\_evaluator\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ lagrange\_pt\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\_levels\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ std::vector<std::vector<index\_t>>\ point\_idcs\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ std::vector<std::vector<index\_t>>\ grad\_point\_idcs\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{mutable}\ std::vector<std::vector<fine\_grid>>\ fine\_grids\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ std::unique\_ptr<coarse\_grid>\ coarse\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{mutable}\ std::map<std::pair<int,\ int>,\ \mbox{\hyperlink{classrsmesh_1_1interpolation_1_1rbf__evaluator}{Evaluator}}>\ evaluator\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ p\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ ap\_;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00065}00065\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00066}00066\ \}\ \textcolor{comment}{//\ rsmesh::preconditioner}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8h_source_l00067}00067\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_RAS\_PRECONDITIONER\_H}}
+
+\end{DoxyCode}

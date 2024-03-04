@@ -1,0 +1,109 @@
+\doxysection{FUnif\+Roots\texorpdfstring{$<$}{<} FReal, ORDER \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{struct_f_unif_roots}{}\label{struct_f_unif_roots}\index{FUnifRoots$<$ FReal, ORDER $>$@{FUnifRoots$<$ FReal, ORDER $>$}}
+
+
+{\ttfamily \#include $<$FUnif\+Roots.\+hpp$>$}
+
+类 FUnif\+Roots\texorpdfstring{$<$}{<} FReal, ORDER \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_f_unif_roots}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_f_unif_roots_af3848928146ff8dfb3264b057e95995a}\label{struct_f_unif_roots_af3848928146ff8dfb3264b057e95995a} 
+enum \{ {\bfseries order} = ORDER
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+static FReal \mbox{\hyperlink{struct_f_unif_roots_a6eebbab212e497f8202bb65518c4753f}{L}} (const unsigned int n, FReal x)
+\item 
+static FReal \mbox{\hyperlink{struct_f_unif_roots_ab8e3f4b60328306e820b70ab491ee4db}{dL}} (const unsigned int n, FReal x)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::array$<$ FReal, ORDER $>$ \mbox{\hyperlink{struct_f_unif_roots_a36e0093f545ab14ba91838992ed8ae27}{roots}} = \mbox{\hyperlink{struct_f_unif_roots_core}{FUnif\+Roots\+Core}}$<$ORDER$>$\+::template Build$<$FReal$>$()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_no_copyable}{FNo\+Copyable}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_no_copyable_af6c8508f3d9c89baf58d70f6b2fb0a9d}{FNo\+Copyable}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, int ORDER$>$\newline
+class FUnif\+Roots$<$ FReal, ORDER $>$}
+\begin{DoxyAuthor}{作者}
+Pierre Blanchard (\href{mailto:pierre.blanchard@inria.fr}{\texttt{ pierre.\+blanchard@inria.\+fr}}) Please read the license
+\end{DoxyAuthor}
+The class {\ttfamily \doxylink{struct_f_unif_roots}{FUnif\+Roots}} provides the equispaced roots of order $\ell$ and the Lagrange polynomials $L_n(x)$.
+
+
+\begin{DoxyTemplParams}{模板参数}
+{\em ORDER} & interpolation order $\ell$ \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{struct_f_unif_roots_ab8e3f4b60328306e820b70ab491ee4db}\label{struct_f_unif_roots_ab8e3f4b60328306e820b70ab491ee4db} 
+\index{FUnifRoots$<$ FReal, ORDER $>$@{FUnifRoots$<$ FReal, ORDER $>$}!dL@{dL}}
+\index{dL@{dL}!FUnifRoots$<$ FReal, ORDER $>$@{FUnifRoots$<$ FReal, ORDER $>$}}
+\doxysubsubsection{\texorpdfstring{dL()}{dL()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER$>$ \\
+static FReal \mbox{\hyperlink{struct_f_unif_roots}{FUnif\+Roots}}$<$ FReal, ORDER $>$\+::dL (\begin{DoxyParamCaption}\item[{const unsigned int}]{n,  }\item[{FReal}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+For the derivation of the Lagrange polynomials $ \frac{\mathrm{d} L_n(x)}{\mathrm{d}x} = ... $
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em n} & index \\
+\hline
+\mbox{\texttt{ in}}  & {\em x} & coordinate in \mbox{[}-\/1,1\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+function value 
+\end{DoxyReturn}
+\Hypertarget{struct_f_unif_roots_a6eebbab212e497f8202bb65518c4753f}\label{struct_f_unif_roots_a6eebbab212e497f8202bb65518c4753f} 
+\index{FUnifRoots$<$ FReal, ORDER $>$@{FUnifRoots$<$ FReal, ORDER $>$}!L@{L}}
+\index{L@{L}!FUnifRoots$<$ FReal, ORDER $>$@{FUnifRoots$<$ FReal, ORDER $>$}}
+\doxysubsubsection{\texorpdfstring{L()}{L()}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER$>$ \\
+static FReal \mbox{\hyperlink{struct_f_unif_roots}{FUnif\+Roots}}$<$ FReal, ORDER $>$\+::L (\begin{DoxyParamCaption}\item[{const unsigned int}]{n,  }\item[{FReal}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Lagrange polynomials $ L_n(x) = \Pi_{m=0 \atop m\neq n}^{\ell-1} \frac{x-\bar x_m}{\bar x_n-\bar x_m} $ Expression with reduced roundoff errors\+: $ L_n(x) = \frac{(-1)^(\ell-n-1)(\ell-1)^(\ell-1)}{(2h)^(\ell-1)n!(\ell-n-1)!} \Pi_{m=0 \atop m\neq n}^{\ell-1} (x-\bar x_m) $
+
+
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em n} & index \\
+\hline
+\mbox{\texttt{ in}}  & {\em x} & coordinate in \mbox{[}-\/1,1\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+function value 
+\end{DoxyReturn}
+
+
+\doxysubsection{类成员变量说明}
+\Hypertarget{struct_f_unif_roots_a36e0093f545ab14ba91838992ed8ae27}\label{struct_f_unif_roots_a36e0093f545ab14ba91838992ed8ae27} 
+\index{FUnifRoots$<$ FReal, ORDER $>$@{FUnifRoots$<$ FReal, ORDER $>$}!roots@{roots}}
+\index{roots@{roots}!FUnifRoots$<$ FReal, ORDER $>$@{FUnifRoots$<$ FReal, ORDER $>$}}
+\doxysubsubsection{\texorpdfstring{roots}{roots}}
+{\footnotesize\ttfamily template$<$class FReal , int ORDER$>$ \\
+const std\+::array$<$ FReal, ORDER $>$ \mbox{\hyperlink{struct_f_unif_roots}{FUnif\+Roots}}$<$ FReal, ORDER $>$\+::roots = \mbox{\hyperlink{struct_f_unif_roots_core}{FUnif\+Roots\+Core}}$<$ORDER$>$\+::template Build$<$FReal$>$()\hspace{0.3cm}{\ttfamily [static]}}
+
+Lagrange roots in \mbox{[}-\/1,1\mbox{]} computed as $\bar x_n =
+-1 + 2\frac{n-1}{\ell}$ for $n=1,\dots,\ell$ 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Uniform/FUnif\+Roots.\+hpp\end{DoxyCompactItemize}

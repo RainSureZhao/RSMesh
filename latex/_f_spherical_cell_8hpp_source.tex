@@ -1,0 +1,181 @@
+\doxysection{FSpherical\+Cell.\+hpp}
+\hypertarget{_f_spherical_cell_8hpp_source}{}\label{_f_spherical_cell_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Spherical/FSphericalCell.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/Spherical/FSphericalCell.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FSPHERICALCELL\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FSPHERICALCELL\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FComplex.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FMemUtils.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../../Extensions/FExtendCellType.hpp"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../../Components/FBasicCell.hpp"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_basic_cell}{FBasicCell}},\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_sendable}{FAbstractSendable}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ DevP;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ LocalSize;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ PoleSize;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ UseBlas;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ multipole\_exp;\ \textcolor{comment}{//<\ For\ multipole\ extenssion}}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ local\_exp;\ \ \ \ \ \textcolor{comment}{//<\ For\ local\ extenssion}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Init(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDevP,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ inUseBlas\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ DevP\ \ =\ inDevP;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ExpP\ \ =\ int((inDevP+1)\ *\ (inDevP+2)\ *\ 0.5);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ NExpP\ =\ (inDevP+1)\ *\ (inDevP+1);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ LocalSize\ =\ ExpP;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inUseBlas)\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ PoleSize\ =\ NExpP;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ PoleSize\ =\ ExpP;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetLocalSize()\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ LocalSize;}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetPoleSize()\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PoleSize;}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_f_spherical_cell_a5164d57ad28409fc09291ea4b1a84878}{FSphericalCell}}()}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ :\ multipole\_exp(nullptr),\ local\_exp(nullptr)\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ multipole\_exp\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[PoleSize];}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ local\_exp\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[LocalSize];}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_f_spherical_cell_a45d367c015c06a99fd90d345a2f45563}{FSphericalCell}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell<FReal>}}\&\ other)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ :\ multipole\_exp(nullptr),\ local\_exp(nullptr)\{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ multipole\_exp\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[PoleSize];}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ local\_exp\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[LocalSize];}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ (*this)\ =\ other;}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_spherical_cell_aedcbdb82e4b7bb3779202386537d5149}{\string~FSphericalCell}}()\{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ multipole\_exp;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ local\_exp;}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell<FReal>}}\&\ \mbox{\hyperlink{class_f_spherical_cell_addb8a4393a012c42961a596455a10365}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell<FReal>}}\&\ other)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a85a4b506a3e71e70cfb0c4e38320182e}{FMemUtils::copyall}}(multipole\_exp,\ other.multipole\_exp,\ PoleSize);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a85a4b506a3e71e70cfb0c4e38320182e}{FMemUtils::copyall}}(local\_exp,\ other.local\_exp,\ LocalSize);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \mbox{\hyperlink{class_f_spherical_cell_a0d2e33d95d1f3b5a794715bc11ea121a}{getMultipole}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ multipole\_exp;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \mbox{\hyperlink{class_f_spherical_cell_ae7c9daeccbf37239d6595a88ba98ec9d}{getLocal}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ local\_exp;}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00087\ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \mbox{\hyperlink{class_f_spherical_cell_ac9f8ef3170947aa850fb69d6e4222719}{getMultipole}}()\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ multipole\_exp;}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \mbox{\hyperlink{class_f_spherical_cell_a082d0875a7590704cfed94e744ec0dc8}{getLocal}}()\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ local\_exp;}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_cell_a68c5ff1a0539d5fed662606447d9c7cc}{resetToInitialState}}()\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ PoleSize\ ;\ ++idx)\{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ multipole\_exp[idx].\mbox{\hyperlink{class_f_complex_a0a39bf6c1f122ffcfc8da36c13952013}{setRealImag}}(FReal(0.0),\ FReal(0.0));}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ LocalSize\ ;\ ++idx)\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ local\_exp[idx].\mbox{\hyperlink{class_f_complex_a0a39bf6c1f122ffcfc8da36c13952013}{setRealImag}}(FReal(0.0),\ FReal(0.0));}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{comment}{//\ to\ extend\ FAbstractSendable}}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferWriterClass>}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ serializeUp(BufferWriterClass\&\ buffer)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ buffer.write(multipole\_exp,\ PoleSize);}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferReaderClass>}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ deserializeUp(BufferReaderClass\&\ buffer)\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ buffer.fillArray(multipole\_exp,\ PoleSize);}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferWriterClass>}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{void}\ serializeDown(BufferWriterClass\&\ buffer)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ buffer.write(local\_exp,\ LocalSize);}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferReaderClass>}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ deserializeDown(BufferReaderClass\&\ buffer)\{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ buffer.fillArray(local\_exp,\ LocalSize);}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{//\ to\ extend\ Serializable}}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferWriterClass>}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ save(BufferWriterClass\&\ buffer)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_basic_cell_a3dc6668a1c58e990a97361fcbe11253a}{FBasicCell::save}}(buffer);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ buffer.write(multipole\_exp,\ PoleSize);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ buffer.write(local\_exp,\ LocalSize);}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferReaderClass>}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{void}\ restore(BufferReaderClass\&\ buffer)\{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_basic_cell_ace2456e7d5cb4d0888e19e14e565597b}{FBasicCell::restore}}(buffer);}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ buffer.fillArray(multipole\_exp,\ PoleSize);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ buffer.fillArray(local\_exp,\ LocalSize);}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ FSize\ getSavedSize()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((FSize)\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}))\ *\ (PoleSize+LocalSize)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ FBasicCell::getSavedSize();}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ FSize\ getSavedSizeUp()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((FSize)\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}))\ *\ (PoleSize);}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ FSize\ getSavedSizeDown()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((FSize)\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}))\ *\ (LocalSize);}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00157\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell<FReal>::DevP}}(-\/1);}
+\DoxyCodeLine{00158\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00159\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell<FReal>::LocalSize}}(-\/1);}
+\DoxyCodeLine{00160\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00161\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell<FReal>::PoleSize}}(-\/1);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00167\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00168\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_typed_spherical_cell}{FTypedSphericalCell}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell}}<FReal>,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_extend_cell_type}{FExtendCellType}}\ \{}
+\DoxyCodeLine{00169\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferWriterClass>}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{void}\ save(BufferWriterClass\&\ buffer)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell<FReal>::save}}(buffer);}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_extend_cell_type_a5e26d5bd235506ca2dcc325bf9acb462}{FExtendCellType::save}}(buffer);}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BufferReaderClass>}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{void}\ restore(BufferReaderClass\&\ buffer)\{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell<FReal>::restore}}(buffer);}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_extend_cell_type_a7a9c26cb5487da3fbd9501d4110ae1f0}{FExtendCellType::restore}}(buffer);}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordtype}{void}\ resetToInitialState()\{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_cell_a68c5ff1a0539d5fed662606447d9c7cc}{FSphericalCell<FReal>::resetToInitialState}}();}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_extend_cell_type_a1b892b60715a4437c54db8e234a5b55b}{FExtendCellType::resetToInitialState}}();}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ FSize\ getSavedSize()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FExtendCellType::getSavedSize()\ +\ \mbox{\hyperlink{class_f_spherical_cell}{FSphericalCell<FReal>::getSavedSize}}();}
+\DoxyCodeLine{00187\ \ \ \ \ \}}
+\DoxyCodeLine{00188\ \};}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FSPHERICALCELL\_HPP}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ }
+
+\end{DoxyCode}

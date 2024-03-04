@@ -1,0 +1,95 @@
+\doxysection{rbf\+\_\+base.\+h}
+\hypertarget{rbf__base_8h_source}{}\label{rbf__base_8h_source}\index{include/rbf/rbf\_base.h@{include/rbf/rbf\_base.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/1/31.}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_RBF\_BASE\_H}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_RBF\_BASE\_H}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include<memory>}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include"{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include<stdexcept>}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include<string>}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include<vector>}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00014}00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1rbf}{rsmesh::rbf}}\{}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00015}\mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{00015}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }matrix3d\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_ab2282312283d04b4a391a1c6523b13b3}{geometry::matrix3d}};}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }vector3d\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{geometry::vector3d}};}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{\string~rbf\_base}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}(\mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}\&\ operator=(\mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a72e45be83081efde821fab26fdbdaae3}{geometry::linear\_transformation3d}}\&\ anisotropy()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ aniso\_;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ std::unique\_ptr<rbf\_base>\ clone()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ cpd\_order()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{double}\ evaluate(\textcolor{keyword}{const}\ vector3d\&\ diff)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ a\_diff\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a48974d1e3db5a23c6025e7d53d595a13}{geometry::transform\_vector}}(aniso\_,\ diff);}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ evaluate\_isotropic(a\_diff);}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ [[nodiscard]]\ vector3d\ evaluate\_gradient(\textcolor{keyword}{const}\ vector3d\&\ diff)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ a\_diff\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a48974d1e3db5a23c6025e7d53d595a13}{geometry::transform\_vector}}(aniso\_,\ diff);}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ evaluate\_gradient\_isotropic(a\_diff);}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ [[nodiscard]]\ matrix3d\ evaluate\_hessian(\textcolor{keyword}{const}\ vector3d\&\ diff)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ a\_diff\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a48974d1e3db5a23c6025e7d53d595a13}{geometry::transform\_vector}}(aniso\_,\ diff);}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ aniso\_.transpose()\ *\ evaluate\_hessian\_isotropic(a\_diff)\ *\ aniso\_;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{double}\ evaluate\_isotropic(\textcolor{keyword}{const}\ vector3d\&\ diff)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ vector3d\ evaluate\_gradient\_isotropic(\textcolor{keyword}{const}\ vector3d\&\ diff)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ matrix3d\ evaluate\_hessian\_isotropic(\textcolor{keyword}{const}\ vector3d\&\ diff)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ num\_parameters()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ std::vector<double>\&\ parameter\_lower\_bounds()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ std::vector<double>\&\ parameter\_upper\_bounds()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{const}\ std::vector<double>\&\ parameters()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ params\_;\}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_anisotropy(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a72e45be83081efde821fab26fdbdaae3}{geometry::linear\_transformation3d}}\&\ aniso)\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(aniso.determinant()\ <=\ 0.0)\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}aniso\ must\ have\ a\ position\ determinant"{}});}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ aniso\_\ =\ aniso;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_parameters(\textcolor{keyword}{const}\ std::vector<double>\&\ params)\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(params.size())\ !=\ num\_parameters())\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}params.size()\ must\ have\ "{}}\ +\ std::to\_string(num\_parameters())\ +\ \textcolor{stringliteral}{"{}\ elements."{}});}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ params\_\ =\ params;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00078}00078\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}()\ :\ aniso\_(geometry::linear\_transformation3d::Identity())\ \{\}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00081}00081\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00083}00083\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ std::vector<double>\ params\_;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00085}00085\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a72e45be83081efde821fab26fdbdaae3}{geometry::linear\_transformation3d}}\ aniso\_;}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00086}00086\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00087}00087\ \}\ \textcolor{comment}{//\ rsmesh::rbf}}
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{rbf__base_8h_source_l00089}00089\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_RBF\_BASE\_H}}
+
+\end{DoxyCode}

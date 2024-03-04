@@ -1,0 +1,76 @@
+\doxysection{FMpi\+Fma\+Generic\+Loader.\+hpp}
+\hypertarget{_f_mpi_fma_generic_loader_8hpp_source}{}\label{_f_mpi_fma_generic_loader_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Files/FMpiFmaGenericLoader.hpp@{third\_party/ScalFMM/include/ScalFMM/Files/FMpiFmaGenericLoader.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ ====\ CMAKE\ =====}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ @FUSE\_MPI}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ ================}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ FMPIFMAGENERICLOADER\_HPP}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ FMPIFMAGENERICLOADER\_HPP}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}Utils/FMpi.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}Files/FFmaGenericLoader.hpp"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_mpi_fma_generic_loader}{FMpiFmaGenericLoader}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_fma_generic_loader}{FFmaGenericLoader}}<FReal>\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_f_fma_generic_loader}{FFmaGenericLoader}}<FReal>\mbox{\hyperlink{class_f_fma_generic_loader_a15e0c5871e71baa6bd2df6599f3716d2}{::nbParticles}};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_f_fma_generic_loader}{FFmaGenericLoader}}<FReal>\mbox{\hyperlink{class_f_fma_generic_loader_aedb4cabfc1b3b0c7745edb8f30c7962c}{::file}};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_f_fma_generic_loader}{FFmaGenericLoader}}<FReal>\mbox{\hyperlink{class_f_fma_generic_loader_a98149a2dd710f54bbcd45dc75588b658}{::typeData}};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ FSize\ myNbOfParticles;\ \ \ \ \ \textcolor{comment}{//Number\ of\ particles\ that\ the\ calling\ process\ will\ manage}}
+\DoxyCodeLine{00023\ \ \ MPI\_Offset\ idxParticles;\ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00024\ \ \ FSize\ start;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ my\ first\ parts\ in\ file}}
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordtype}{size\_t}\ headerSize;}
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_fma_generic_loader}{FMpiFmaGenericLoader}}(\textcolor{keyword}{const}\ std::string\ inFilename,\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ comm,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \textcolor{comment}{/*useMpiIO*/}\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_f_fma_generic_loader}{FFmaGenericLoader<FReal>}}(inFilename),myNbOfParticles(0),idxParticles(0),headerSize(0)}
+\DoxyCodeLine{00029\ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ FSize\ startPart\ =\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a5047688378c76e3f8e5be04fec58d013}{getLeft}}(\mbox{\hyperlink{class_f_fma_generic_loader_a15e0c5871e71baa6bd2df6599f3716d2}{nbParticles}});}
+\DoxyCodeLine{00031\ \ \ \ \ FSize\ endPart\ \ \ =\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a6977b20abe28c7a0efd75d3e50e5450f}{getRight}}(\mbox{\hyperlink{class_f_fma_generic_loader_a15e0c5871e71baa6bd2df6599f3716d2}{nbParticles}});}
+\DoxyCodeLine{00032\ \ \ \ \ this-\/>start\ =\ startPart;}
+\DoxyCodeLine{00033\ \ \ \ \ this-\/>myNbOfParticles\ =\ endPart-\/startPart;}
+\DoxyCodeLine{00034\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ startPart\ "{}}<<\ startPart\ <<\ \textcolor{stringliteral}{"{}\ endPart\ "{}}\ <<\ endPart<<std::endl;}
+\DoxyCodeLine{00035\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Proc\ "{}}\ <<\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ <<\ \textcolor{stringliteral}{"{}\ will\ hold\ "{}}\ <<\ myNbOfParticles\ <<\ std::endl;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>\mbox{\hyperlink{class_f_fma_generic_loader_a5bf519e53fa524bec9e237b57a24f797}{binaryFile}})\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//This\ is\ header\ size\ in\ bytes}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ MEANING\ :\ \ \ \ \ \ sizeof(FReal)+nbAttr,\ nb\ of\ parts,\ boxWidth+boxCenter}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ headerSize\ =\ \textcolor{keyword}{sizeof}(int)*2\ +\ \textcolor{keyword}{sizeof}(FSize)\ +\ \textcolor{keyword}{sizeof}(FReal)*4;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{//To\ this\ header\ size,\ we\ had\ the\ parts\ that\ belongs\ to\ proc\ on\ my\ left}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_fma_generic_loader_aedb4cabfc1b3b0c7745edb8f30c7962c}{file}}-\/>seekg(headerSize\ +\ startPart*\mbox{\hyperlink{class_f_fma_generic_loader_a98149a2dd710f54bbcd45dc75588b658}{typeData}}[1]*\textcolor{keyword}{sizeof}(FReal));}
+\DoxyCodeLine{00043\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First\ finish\ to\ read\ the\ current\ line}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_fma_generic_loader_aedb4cabfc1b3b0c7745edb8f30c7962c}{file}}-\/>ignore(std::numeric\_limits<std::streamsize>::max(),\ \textcolor{charliteral}{'\(\backslash\)n'});}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ startPart;\ ++i)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_fma_generic_loader_aedb4cabfc1b3b0c7745edb8f30c7962c}{file}}-\/>ignore(std::numeric\_limits<std::streamsize>::max(),\ \textcolor{charliteral}{'\(\backslash\)n'});}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{class_f_mpi_fma_generic_loader}{\string~FMpiFmaGenericLoader}}()\{}
+\DoxyCodeLine{00053\ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ FSize\ getMyNumberOfParticles()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ myNbOfParticles;}
+\DoxyCodeLine{00057\ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ FSize\ getStart()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{return}\ start;}
+\DoxyCodeLine{00061\ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_mpi_fma_generic_loader_acd9faffde75d0bc7101e64a0e7d3edfb}{fill1Particle}}(FReal*datas,FSize\ indexInFile)\{}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{class_f_fma_generic_loader_aedb4cabfc1b3b0c7745edb8f30c7962c}{file}}-\/>seekg(headerSize+(\textcolor{keywordtype}{int}(indexInFile)*\mbox{\hyperlink{class_f_fma_generic_loader}{FFmaGenericLoader<FReal>::getNbRecordPerline}}()*\textcolor{keyword}{sizeof}(FReal)));}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_f_fma_generic_loader_aedb4cabfc1b3b0c7745edb8f30c7962c}{file}}-\/>read((\textcolor{keywordtype}{char}*)\ datas,\mbox{\hyperlink{class_f_fma_generic_loader}{FFmaGenericLoader<FReal>::getNbRecordPerline}}()*\textcolor{keyword}{sizeof}(FReal));}
+\DoxyCodeLine{00069\ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FMPIFMAGENERICLOADER\_HPP}}
+
+\end{DoxyCode}

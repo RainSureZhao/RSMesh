@@ -1,0 +1,84 @@
+\doxysection{surface.\+h}
+\hypertarget{surface_8h_source}{}\label{surface_8h_source}\index{include/isosurface/surface.h@{include/isosurface/surface.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/23.}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_SURFACE\_H}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_SURFACE\_H}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}numeric/roundtrip\_string.h"{}}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00016}00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1isosurface}{rsmesh::isosurface}}\ \{}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00017}\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1surface}{00017}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1isosurface_1_1surface}{surface}}\ \{}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }vertices\_type\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}};}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }face\_type\ =\ Eigen::Matrix<index\_t,\ 1,\ 3>;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }faces\_type\ =\ Eigen::Matrix<index\_t,\ Eigen::Dynamic,\ 3,\ Eigen::RowMajor>;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1isosurface_1_1surface}{surface}}(\textcolor{keyword}{const}\ vertices\_type\&\ vertices,\ \textcolor{keyword}{const}\ faces\_type\&\ faces)}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ vertices\_(vertices.rows(),\ 3),\ faces\_(faces.rows(),\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<index\_t>\ vi\_map(vertices.rows(),\ -\/1);}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ face\_type\ new\_face;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ v\_it\ =\ vertices\_.rowwise().begin();}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ f\_it\ =\ faces\_.rowwise().begin();}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ index\_t\ n\_vertices\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ index\_t\ n\_faces\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ face\ :\ faces.rowwise())\ \{}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ <\ 3;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ vi\ =\ vi\_map.at(face(i));}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (vi\ ==\ -\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vi\ =\ n\_vertices;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *v\_it++\ =\ vertices.row(face(i));}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_vertices++;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_face(i)\ =\ vi;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *f\_it++\ =\ new\_face;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_faces++;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ vertices\_.conservativeResize(n\_vertices,\ 3);}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ faces\_.conservativeResize(n\_faces,\ 3);}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ export\_obj(\textcolor{keyword}{const}\ std::string\&\ filename)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ std::ofstream\ ofs(filename);}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ofs)\ \{}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Failed\ to\ open\ file\ '"{}}\ +\ filename\ +\ \textcolor{stringliteral}{"{}'."{}});}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ v\ :\ vertices\_.rowwise())\ \{}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ofs\ <<\ \textcolor{stringliteral}{"{}v\ "{}}\ <<\ numeric::to\_string(v(0))\ <<\ \textcolor{charliteral}{'\ '}\ <<\ numeric::to\_string(v(1))\ <<\ \textcolor{charliteral}{'\ '}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ numeric::to\_string(v(2))\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ f\ :\ faces\_.rowwise())\ \{}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ofs\ <<\ \textcolor{stringliteral}{"{}f\ "{}}\ <<\ f(0)\ +\ 1\ <<\ \textcolor{charliteral}{'\ '}\ <<\ f(1)\ +\ 1\ <<\ \textcolor{charliteral}{'\ '}\ <<\ f(2)\ +\ 1\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00065}00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ faces\_type\&\ faces()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ faces\_;\ \}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vertices\_type\&\ vertices()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ vertices\_;\ \}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00071}00071\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ vertices\_type\ vertices\_;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ faces\_type\ faces\_;}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00074}00074\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00075}00075\ \}\ \textcolor{comment}{//\ namespace\ rsmesh::isosurface}}
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{surface_8h_source_l00078}00078\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_SURFACE\_H}}
+
+\end{DoxyCode}

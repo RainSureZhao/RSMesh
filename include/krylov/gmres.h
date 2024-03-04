@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/13.
+// Created by RainSure on 2024/2/13.
 //
 
 #ifndef RSMESH_GMRES_H

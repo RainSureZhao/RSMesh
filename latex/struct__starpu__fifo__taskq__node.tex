@@ -1,0 +1,61 @@
+\doxysection{\+\_\+starpu\+\_\+fifo\+\_\+taskq\+\_\+node结构体 参考}
+\hypertarget{struct__starpu__fifo__taskq__node}{}\label{struct__starpu__fifo__taskq__node}\index{\_starpu\_fifo\_taskq\_node@{\_starpu\_fifo\_taskq\_node}}
+
+
+Heteroprio  
+
+
+
+
+{\ttfamily \#include $<$FStar\+PUHeteoprio.\+hpp$>$}
+
+\doxysubsubsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct__starpu__fifo__taskq__node_a3df4c93dfc1834ebfb0c9003bf5d35e5}\label{struct__starpu__fifo__taskq__node_a3df4c93dfc1834ebfb0c9003bf5d35e5} 
+struct \mbox{\hyperlink{struct__starpu__fifo__taskq__node}{\+\_\+starpu\+\_\+fifo\+\_\+taskq\+\_\+node}} \texorpdfstring{$\ast$}{*} {\bfseries next}
+\item 
+\Hypertarget{struct__starpu__fifo__taskq__node_a561a287f5ccdb6ccf5d55282abedb00c}\label{struct__starpu__fifo__taskq__node_a561a287f5ccdb6ccf5d55282abedb00c} 
+struct starpu\+\_\+task \texorpdfstring{$\ast$}{*} {\bfseries task}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+Heteroprio 
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+Heteroprio is a scheduler wich support different priorities for the different architectures and with a critical end management based on the speedup of one architecture over the others. However the user needs to provide some information using a callback\+: initialize\+\_\+heteroprio\+\_\+center\+\_\+policy\+\_\+callback (this callbacj should set before any scheduler creation) The scheduler proposes also prefetching and work stealing.
+
+The scheduler has HETEROPRIO\+\_\+\+MAX\+\_\+\+PRIO different buckets. A bucket (\doxylink{struct__starpu__heteroprio__bucket}{\+\_\+starpu\+\_\+heteroprio\+\_\+bucket}) here is a n-\/uple of priorities, and has a queue of tasks. The architectures that access a bucket must be flaged in valide\+\_\+archs. And any task pushed to a bucket must be computable by these architectures. For example this is not allowed \+: a\+\_\+bucket.\+valide\+\_\+archs = STARPU\+\_\+\+CPU \texorpdfstring{$\vert$}{|} STARPU\+\_\+\+CUDA and push a task to this bucket that does not support STARPU\+\_\+\+CUDA. But it is possible to push a task that may be computed by more architecture, like pushing a task that has a support on STARPU\+\_\+\+CPU \texorpdfstring{$\vert$}{|} STARPU\+\_\+\+CUDA \texorpdfstring{$\vert$}{|} STARPU\+\_\+\+OPENCL.
+
+To enable the critical end support on a bucket, the user should say which architecture is the fastest by setting factor\+\_\+base\+\_\+arch\+\_\+index. For example factor\+\_\+base\+\_\+arch\+\_\+index = STARPU\+\_\+\+CPU Then for all the architectures related to this bucket (valide\+\_\+archs) the user should tell how slow are each architecture compare to the fastest one in slow\+\_\+factors\+\_\+per\+\_\+index. For example slow\+\_\+factors\+\_\+per\+\_\+index\mbox{[}FSTARPU\+\_\+\+CUDA\+\_\+\+IDX\mbox{]} = 10.\+0f if it is 10 times slower. Then Heteroprio may forbid some tasks if the worker that requested it may not be the best one to compute it.
+
+The mapping between priorities of the different architectures\+: the prio\+\_\+mapping\+\_\+per\+\_\+arch\+\_\+index array should contains the mapping for the priorities and nb\+\_\+prio\+\_\+per\+\_\+arch\+\_\+index should tells how many priorities there are per architectures.
+
+Finally Heteroprio is prefetching HETEROPRIO\+\_\+\+MAX\+\_\+\+PREFETCH tasks per worker. Remark if HETEROPRIO\+\_\+\+MAX\+\_\+\+PREFETCH=1 then there is no prefetching because the single task will be consummed directly. When no tasks are found a worker will try to steal one but this will happen only on the worker of the same type. For example, Cuda workers will steal work to Cuda workers only.
+
+Example of callback function that set the correct variables\+: \#include "{}../../\+Src/\+Group\+Tree/\+Star\+PUUtils/\+FStar\+PUHeteoprio.\+hpp"{}
+
+void init\+Scheduler\+Callback(unsigned sched\+\_\+ctx\+\_\+id,     struct \+\_\+starpu\+\_\+heteroprio\+\_\+center\+\_\+policy\+\_\+heteroprio \texorpdfstring{$\ast$}{*}heteroprio)\{ // CPU uses 3 buckets starpu\+\_\+heteroprio\+\_\+set\+\_\+nb\+\_\+prios(heteroprio, FSTARPU\+\_\+\+CPU\+\_\+\+IDX, 3); // It uses direct mapping idx =\texorpdfstring{$>$}{>} idx for(unsigned idx = 0 ; idx \texorpdfstring{$<$}{<} 3 ; ++idx)\{ starpu\+\_\+heteroprio\+\_\+set\+\_\+mapping(heteroprio, FSTARPU\+\_\+\+CPU\+\_\+\+IDX, idx, idx); starpu\+\_\+heteroprio\+\_\+set\+\_\+faster\+\_\+arch(heteroprio, FSTARPU\+\_\+\+CPU\+\_\+\+IDX, idx); \} \#ifdef STARPU\+\_\+\+USE\+\_\+\+OPENCL // Open\+CL is enabled and uses 2 buckets starpu\+\_\+heteroprio\+\_\+set\+\_\+nb\+\_\+prios(heteroprio, FSTARPU\+\_\+\+OPENCL\+\_\+\+IDX, 2); // Open\+CL will first look to priority 2 starpu\+\_\+heteroprio\+\_\+set\+\_\+mapping(heteroprio, FSTARPU\+\_\+\+OPENCL\+\_\+\+IDX, 0, 2); // For this bucket Open\+CL is the fastest starpu\+\_\+heteroprio\+\_\+set\+\_\+faster\+\_\+arch(heteroprio, FSTARPU\+\_\+\+OPENCL\+\_\+\+IDX, 2); // And CPU is 4 times slower starpu\+\_\+heteroprio\+\_\+set\+\_\+arch\+\_\+slow\+\_\+factor(heteroprio, FSTARPU\+\_\+\+CPU\+\_\+\+IDX, 2, 4.\+0f);
+
+starpu\+\_\+heteroprio\+\_\+set\+\_\+mapping(heteroprio, FSTARPU\+\_\+\+OPENCL\+\_\+\+IDX, 1, 1); // We let the CPU as the fastest and tell that Open\+CL is 1.\+7 times slower starpu\+\_\+heteroprio\+\_\+set\+\_\+arch\+\_\+slow\+\_\+factor(heteroprio, FSTARPU\+\_\+\+OPENCL\+\_\+\+IDX, 1, 1.\+7f); \#endif \}
+
+In this example, the CPU can compute 3 buckets and its mapping is \{0,1,2\} =\texorpdfstring{$>$}{>} \{0,1,2\} so nb\+\_\+prio\+\_\+per\+\_\+arch\+\_\+index = 3 So it will compute the tasks with priority 0, then with 1, and finally with 2. We inform that the CPU is involve in these buckets by setting valide\+\_\+archs.
+
+The Opencl workers use 2 buckets (numbers 1 and 2). So the mapping is \{0,1\} =\texorpdfstring{$>$}{>} \{2,1\}, the opencl workers will compute first the tasks with priority 2 and then 1. We set valide\+\_\+archs to tell that Open\+CL workers use these buckets. We say that for the bucket with index 2, the Open\+CL is faster\+: heteroprio-\/\texorpdfstring{$>$}{>}buckets\mbox{[}2\mbox{]}.factor\+\_\+base\+\_\+arch\+\_\+index = FSTARPU\+\_\+\+OPENCL\+\_\+\+IDX; And we say that the CPU is 4 times slower. For the bucket one we keep the CPU has being the fastest but tell that the Open\+CL is 1.\+7 slower.
+
+It is advised to run the scheduler in debug first (to enable assert) since an important number of checks are done and a wrong configuration or priorities is directly fired to the user.
+
+In case of using this code outside Scal\+FMM, notice that we use\+: enum FStar\+PUTypes\{ // First will be zero \#ifdef STARPU\+\_\+\+USE\+\_\+\+CPU FSTARPU\+\_\+\+CPU\+\_\+\+IDX, // = 0 \#endif \#ifdef STARPU\+\_\+\+USE\+\_\+\+CUDA FSTARPU\+\_\+\+CUDA\+\_\+\+IDX, \#endif \#ifdef STARPU\+\_\+\+USE\+\_\+\+OPENCL FSTARPU\+\_\+\+OPENCL\+\_\+\+IDX, \#endif // This will be the number of archs FSTARPU\+\_\+\+NB\+\_\+\+TYPES \};
+
+const unsigned FStar\+PUTypes\+To\+Arch\mbox{[}FSTARPU\+\_\+\+NB\+\_\+\+TYPES+1\mbox{]} = \{ \#ifdef STARPU\+\_\+\+USE\+\_\+\+CPU STARPU\+\_\+\+CPU, \#endif \#ifdef STARPU\+\_\+\+USE\+\_\+\+CUDA STARPU\+\_\+\+CUDA, \#endif \#ifdef STARPU\+\_\+\+USE\+\_\+\+OPENCL STARPU\+\_\+\+OPENCL, \#endif 0 \};
+
+The test to let a worker taking a task from a bucket is \+: // There is at least one task in the list (\+\_\+starpu\+\_\+fifo\+\_\+empty(bucket-\/\texorpdfstring{$>$}{>}tasks\+\_\+queue) == 0 // And the worker has not taken all the task he needs \&\& nb\+\_\+tasks\+\_\+to\+\_\+prefetch // And no faster arch has been set \&\& (bucket-\/\texorpdfstring{$>$}{>}factor\+\_\+base\+\_\+arch\+\_\+index == 0 // Or the worker is the faster arch \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} worker-\/\texorpdfstring{$>$}{>}arch\+\_\+index == bucket-\/\texorpdfstring{$>$}{>}factor\+\_\+base\+\_\+arch\+\_\+index // OR the number of task/ number of faster worker \texorpdfstring{$>$}{>}= slow factor (float(\+\_\+starpu\+\_\+fifo\+\_\+size(bucket-\/\texorpdfstring{$>$}{>}tasks\+\_\+queue))/float(heteroprio-\/\texorpdfstring{$>$}{>}nb\+\_\+workers\+\_\+per\+\_\+arch\+\_\+index\mbox{[}bucket-\/\texorpdfstring{$>$}{>}factor\+\_\+base\+\_\+arch\+\_\+index\mbox{]}) \texorpdfstring{$>$}{>}= bucket-\/\texorpdfstring{$>$}{>}slow\+\_\+factors\+\_\+per\+\_\+index\mbox{[}worker-\/\texorpdfstring{$>$}{>}arch\+\_\+index\mbox{]})))
+
+For example there is n task, w faster worker, and the slow factor is s\+: n = 10, w = 3 =\texorpdfstring{$>$}{>} 10/3 = 3.\+33 \texorpdfstring{$>$}{>}= s (so a task will be given if s is no more than 3 times slower) 
+
+该结构体的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Star\+PUUtils/FStar\+PUHeteoprio.\+hpp\end{DoxyCompactItemize}

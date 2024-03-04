@@ -1,0 +1,76 @@
+\doxysection{FParticle\+Typed\+Indexed\+Mover.\+hpp}
+\hypertarget{_f_particle_typed_indexed_mover_8hpp_source}{}\label{_f_particle_typed_indexed_mover_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Arranger/FParticleTypedIndexedMover.hpp@{third\_party/ScalFMM/include/ScalFMM/Arranger/FParticleTypedIndexedMover.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FPARTICULETYPEDINDEXEDMOVER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FPARTICULETYPEDINDEXEDMOVER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}FAbstractMover.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Containers/FVector.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ OctreeClass,\ \textcolor{keyword}{class}\ ContainerClass\ >}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_particle_typed_indexed_mover}{FParticleTypedIndexedMover}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_mover}{FAbstractMover}}<FReal,\ OctreeClass,\ ContainerClass>\{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00014\ \ \ \ \ ContainerClass\ toStoreRemovedSourceParts;}
+\DoxyCodeLine{00015\ \ \ \ \ ContainerClass\ toStoreRemovedTargetParts;}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_f_particle_typed_indexed_mover}{FParticleTypedIndexedMover}}()\{}
+\DoxyCodeLine{00019\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_particle_typed_indexed_mover}{\string~FParticleTypedIndexedMover}}()\{}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_particle_typed_indexed_mover_aff6d74478e47e86e23cd1809b4622a65}{getParticlePosition}}(ContainerClass*\ lf,\ \textcolor{keyword}{const}\ FSize\ idxPart,\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}*\ particlePos)\{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ (*particlePos)\ =\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(lf-\/>getPositions()[0][idxPart],lf-\/>getPositions()[1][idxPart],lf-\/>getPositions()[2][idxPart]);}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_particle_typed_indexed_mover_a180b3cfdac84d45746c8d0628d622bdb}{removeFromLeafAndKeep}}(ContainerClass*\ lf,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ particlePos,\ \textcolor{keyword}{const}\ FSize\ idxPart,\ FParticleType\ type)\{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::array<typename\ ContainerClass::AttributesClass,\ ContainerClass::NbAttributes>\ particleValues;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxAttr\ =\ 0\ ;\ idxAttr\ <\ ContainerClass::NbAttributes\ ;\ ++idxAttr)\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ particleValues[idxAttr]\ =\ lf-\/>getAttribute(idxAttr)[idxPart];}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(type\ ==\ FParticleType::FParticleTypeTarget)\{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ toStoreRemovedTargetParts.push(particlePos,FParticleType::FParticleTypeTarget,lf-\/>getIndexes()[idxPart],particleValues);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ toStoreRemovedSourceParts.push(particlePos,FParticleType::FParticleTypeSource,lf-\/>getIndexes()[idxPart],particleValues);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ lf-\/>removeParticles(\&idxPart,1);}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_particle_typed_indexed_mover_a582b356c3d7c59ac0bfa43664d0ef89e}{insertAllParticles}}(OctreeClass*\ tree)\{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::array<typename\ ContainerClass::AttributesClass,\ ContainerClass::NbAttributes>\ particleValues;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxToInsert\ =\ 0;\ idxToInsert<toStoreRemovedSourceParts.getNbParticles()\ ;\ ++idxToInsert)\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxAttr\ =\ 0\ ;\ idxAttr\ <\ ContainerClass::NbAttributes\ ;\ ++idxAttr)\{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particleValues[idxAttr]\ =\ toStoreRemovedSourceParts.getAttribute(idxAttr)[idxToInsert];}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ particlePos(toStoreRemovedSourceParts.getPositions()[0][idxToInsert],}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ toStoreRemovedSourceParts.getPositions()[1][idxToInsert],}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ toStoreRemovedSourceParts.getPositions()[2][idxToInsert]);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ tree-\/>insert(particlePos,\ FParticleType::FParticleTypeSource,\ toStoreRemovedSourceParts.getIndexes()[idxToInsert],\ particleValues);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxToInsert\ =\ 0;\ idxToInsert<toStoreRemovedTargetParts.getNbParticles()\ ;\ ++idxToInsert)\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxAttr\ =\ 0\ ;\ idxAttr\ <\ ContainerClass::NbAttributes\ ;\ ++idxAttr)\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particleValues[idxAttr]\ =\ toStoreRemovedTargetParts.getAttribute(idxAttr)[idxToInsert];}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ particlePos(toStoreRemovedTargetParts.getPositions()[0][idxToInsert],}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ toStoreRemovedTargetParts.getPositions()[1][idxToInsert],}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ toStoreRemovedTargetParts.getPositions()[2][idxToInsert]);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ tree-\/>insert(particlePos,\ FParticleType::FParticleTypeTarget,\ toStoreRemovedTargetParts.getIndexes()[idxToInsert],\ particleValues);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ toStoreRemovedSourceParts.clear();}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ toStoreRemovedTargetParts.clear();}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FPARTICULETYPEDINDEXEDMOVER\_HPP}}
+
+\end{DoxyCode}

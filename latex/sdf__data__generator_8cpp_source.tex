@@ -1,0 +1,93 @@
+\doxysection{sdf\+\_\+data\+\_\+generator.\+cpp}
+\hypertarget{sdf__data__generator_8cpp_source}{}\label{sdf__data__generator_8cpp_source}\index{src/point\_cloud/sdf\_data\_generator.cpp@{src/point\_cloud/sdf\_data\_generator.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2023/11/8.}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}point\_cloud/sdf\_data\_generator.h"{}}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}point\_cloud/kdtree.h"{}}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00008}00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh}{rsmesh}}\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{namespace\ }point\_cloud\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00010}00010\ \ \ \ \ \ \ \ \ sdf\_data\_generator::sdf\_data\_generator(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\ \&points,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a20da587d2d750d8fdf5a15d2171aaaa4}{geometry::vectors3d}}\ \&normals,}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ min\_distance,\ \textcolor{keywordtype}{double}\ max\_distance,\ \textcolor{keywordtype}{double}\ multiplication)\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00012}00012\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(normals.rows()\ !=\ points.rows())\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}normals.rows()\ must\ be\ equal\ to\ points.rows()"{}});}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(min\_distance\ >\ max\_distance)\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}min\_distance\ must\ be\ less\ than\ or\ equal\ to\ max\_distance"{}});}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(multiplication\ <=\ 1.0\ ||\ multiplication\ >\ 3.0)\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}multiplication\ must\ be\ within\ the\ range\ (1.0,\ 3.0]"{}});}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ kdtree\ tree(points,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_points\ =\ points.rows();}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_reduced\_points\ =\ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(((multiplication\ -\/\ 1.0)\ /\ 2.0\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(n\_points)));}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_max\_sdf\_points\ =\ n\_points\ +\ 2\ *\ n\_reduced\_points;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_sdf\_points\ =\ n\_points;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ sdf\_points\_\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}(n\_max\_sdf\_points,\ 3);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ sdf\_points\_.topRows(n\_points)\ =\ points;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ sdf\_values\_\ =\ valuesd::Zero(n\_max\_sdf\_points);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ sign\ :\ \{1.0,\ -\/1.0\})\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ n\_reduced\_points;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ points.row(i);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ normals.row(i);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(n\ ==\ geometry::vector3d::Zero())\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ d\ =\ max\_distance;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a5a8298c925fa95dd2345ab74c96efaf8}{geometry::point3d}}\ q\ =\ p\ +\ sign\ *\ d\ *\ n;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [nn\_indices,\ nn\_distances]\ =\ tree.knn\_search(q,\ 1);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_nearest\ =\ nn\_indices.at(0);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(i\_nearest\ !=\ i)\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\_nearest\ =\ points.row(i\_nearest);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ r\ =\ (p\_nearest\ -\/\ p).norm()\ /\ 2.0;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cos\ =\ (q\ -\/\ p).normalized().dot((p\_nearest\ -\/\ p).normalized());}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\ =\ 0.99\ *\ r\ /\ cos;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ q\ =\ p\ +\ sign\ *\ d\ *\ n;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(d\ <\ min\_distance)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::tie(nn\_indices,\ nn\_distances)\ =\ \ tree.knn\_search(q,\ 1);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\_nearest\ =\ nn\_indices.at(0);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(d\ <\ min\_distance)\ \{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sdf\_points\_.row(n\_sdf\_points)\ =\ q;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sdf\_values\_(n\_sdf\_points)\ =\ sign\ *\ d;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_sdf\_points\ ++;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ sdf\_points\_.conservativeResize(n\_sdf\_points,\ 3);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ sdf\_values\_.conservativeResize(n\_sdf\_points);}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\ \&sdf\_data\_generator::sdf\_points()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sdf\_points\_;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ valuesd\ \&sdf\_data\_generator::sdf\_values()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sdf\_values\_;}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00086}00086\ \ \ \ \ \}\ \textcolor{comment}{//\ rsmesh}}
+\DoxyCodeLine{\Hypertarget{sdf__data__generator_8cpp_source_l00087}00087\ \}\ \textcolor{comment}{//\ point\_cloud}}
+
+\end{DoxyCode}

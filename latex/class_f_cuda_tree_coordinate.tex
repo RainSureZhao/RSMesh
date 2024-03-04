@@ -1,0 +1,50 @@
+\doxysection{FCuda\+Tree\+Coordinate类 参考}
+\hypertarget{class_f_cuda_tree_coordinate}{}\label{class_f_cuda_tree_coordinate}\index{FCudaTreeCoordinate@{FCudaTreeCoordinate}}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_cuda_tree_coordinate_a787cdf6063a9a9d328d3a39d0a7f95ae}\label{class_f_cuda_tree_coordinate_a787cdf6063a9a9d328d3a39d0a7f95ae} 
+static \+\_\+\+\_\+device\+\_\+\+\_\+ int3 {\bfseries Convert\+Coordinate} (const int coordinate\mbox{[}3\mbox{]})
+\item 
+\Hypertarget{class_f_cuda_tree_coordinate_a050c601baa427552aca4537c011b232e}\label{class_f_cuda_tree_coordinate_a050c601baa427552aca4537c011b232e} 
+static \+\_\+\+\_\+device\+\_\+\+\_\+ int3 {\bfseries Get\+Position\+From\+Morton} (Morton\+Index in\+Index, const int in\+Level)
+\item 
+static \+\_\+\+\_\+device\+\_\+\+\_\+ Morton\+Index \mbox{\hyperlink{class_f_cuda_tree_coordinate_a6423e27b3584a7e5960afaa1dbfc11e6}{Get\+Morton\+Index}} (const int3 coord, const int in\+Level)
+\item 
+\Hypertarget{class_f_cuda_tree_coordinate_ac4d52262423f820c60fadad1ad58528b}\label{class_f_cuda_tree_coordinate_ac4d52262423f820c60fadad1ad58528b} 
+static \+\_\+\+\_\+device\+\_\+\+\_\+ int {\bfseries Get\+Neighbors\+Indexes} (const int3 coord, const int Octree\+Height, Morton\+Index indexes\mbox{[}26\mbox{]}, int index\+In\+Array\mbox{[}26\mbox{]})
+\item 
+\Hypertarget{class_f_cuda_tree_coordinate_a865a4b3329def94f32aa030e97997dc1}\label{class_f_cuda_tree_coordinate_a865a4b3329def94f32aa030e97997dc1} 
+static \+\_\+\+\_\+device\+\_\+\+\_\+ int {\bfseries Get\+Interaction\+Neighbors} (const int3 coord, const int in\+Level, Morton\+Index in\+Neighbors\mbox{[}189\mbox{]}, int in\+Neighbors\+Position\mbox{[}189\mbox{]})
+\item 
+\Hypertarget{class_f_cuda_tree_coordinate_a92ae2d44ab758cd46c509bde040cda39}\label{class_f_cuda_tree_coordinate_a92ae2d44ab758cd46c509bde040cda39} 
+{\footnotesize template$<$class Num\+Type $>$ }\\static \+\_\+\+\_\+device\+\_\+\+\_\+ bool {\bfseries Between} (const Num\+Type in\+Value, const Num\+Type in\+Min, const Num\+Type in\+Max)
+\item 
+\Hypertarget{class_f_cuda_tree_coordinate_ac3973523420f7076b56a104066896cd8}\label{class_f_cuda_tree_coordinate_ac3973523420f7076b56a104066896cd8} 
+static \+\_\+\+\_\+device\+\_\+\+\_\+ int {\bfseries pow2} (const int power)
+\item 
+\Hypertarget{class_f_cuda_tree_coordinate_afa80c5eac1b18c2b00985115b822edfb}\label{class_f_cuda_tree_coordinate_afa80c5eac1b18c2b00985115b822edfb} 
+{\footnotesize template$<$class Num\+Type $>$ }\\static \+\_\+\+\_\+device\+\_\+\+\_\+ Num\+Type {\bfseries Abs} (const Num\+Type inV)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_cuda_tree_coordinate_a6423e27b3584a7e5960afaa1dbfc11e6}\label{class_f_cuda_tree_coordinate_a6423e27b3584a7e5960afaa1dbfc11e6} 
+\index{FCudaTreeCoordinate@{FCudaTreeCoordinate}!GetMortonIndex@{GetMortonIndex}}
+\index{GetMortonIndex@{GetMortonIndex}!FCudaTreeCoordinate@{FCudaTreeCoordinate}}
+\doxysubsubsection{\texorpdfstring{GetMortonIndex()}{GetMortonIndex()}}
+{\footnotesize\ttfamily static \+\_\+\+\_\+device\+\_\+\+\_\+ Morton\+Index FCuda\+Tree\+Coordinate\+::\+Get\+Morton\+Index (\begin{DoxyParamCaption}\item[{const int3}]{coord,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+To get the morton index of the current position @complexity in\+Level 
+\begin{DoxyParams}{参数}
+{\em in\+Level} & the level of the component \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+morton index 
+\end{DoxyReturn}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Cuda/FCuda\+Tree\+Coordinate.\+hpp\end{DoxyCompactItemize}

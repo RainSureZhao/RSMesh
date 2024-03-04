@@ -1,0 +1,220 @@
+\doxysection{FSmart\+Pointer\texorpdfstring{$<$}{<} Class\+Type, Memory\+Type \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_smart_pointer}{}\label{class_f_smart_pointer}\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+
+
+{\ttfamily \#include $<$FSmart\+Pointer.\+hpp$>$}
+
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_smart_pointer_a2896ff4f65ce02ee44ea7f1cae898d9a}\label{class_f_smart_pointer_a2896ff4f65ce02ee44ea7f1cae898d9a} 
+typedef Class\+Type {\bfseries Value\+Type}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_smart_pointer_afb60847d3b5304eff81edc7cf2bcd726}{FSmart\+Pointer}} ()
+\item 
+\mbox{\hyperlink{class_f_smart_pointer_aacaf977e25b72c30a0672343a9d99ccb}{FSmart\+Pointer}} (Class\+Type \texorpdfstring{$\ast$}{*}const in\+Pointer)
+\item 
+\mbox{\hyperlink{class_f_smart_pointer_aa12079d12c27d90e33748983d8b2660c}{FSmart\+Pointer}} (const \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}} \&in\+Pointer)
+\item 
+\mbox{\hyperlink{class_f_smart_pointer_ab12c3eee39918958792c0ee6dbd3795e}{\texorpdfstring{$\sim$}{\string~}\+FSmart\+Pointer}} ()
+\item 
+void \mbox{\hyperlink{class_f_smart_pointer_a3746d14dcf6a96ffcf6b6507e802f083}{operator=}} (Class\+Type \texorpdfstring{$\ast$}{*}const in\+Pointer)
+\item 
+void \mbox{\hyperlink{class_f_smart_pointer_aba9863892fd481fc45267bb427bcc9ef}{operator=}} (const \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}} \&in\+Pointer)
+\item 
+void \mbox{\hyperlink{class_f_smart_pointer_af5bae1fec3163b39f8e57ae82be1e1bd}{assign}} (Class\+Type \texorpdfstring{$\ast$}{*}const in\+Pointer)
+\item 
+void \mbox{\hyperlink{class_f_smart_pointer_a57a5ab81786e4e3f56bda0ce19b53a17}{assign}} (const \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}} \&in\+Pointer)
+\item 
+void \mbox{\hyperlink{class_f_smart_pointer_ad1e5b7ec99efac7643c520dcf3f9afdb}{release}} ()
+\item 
+bool \mbox{\hyperlink{class_f_smart_pointer_a0e5b8463d3dd13e9ba2f1dd25088b38b}{is\+Assigned}} () const
+\item 
+bool \mbox{\hyperlink{class_f_smart_pointer_a459476d73cfce7884ad33e3ddd879876}{is\+Last}} () const
+\item 
+Class\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_smart_pointer_a82a013f34ea6809b1d72da35daff374c}{get\+Ptr}} ()
+\item 
+const Class\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_smart_pointer_a5e287441428004b23e09d2e911a0d61c}{get\+Ptr}} () const
+\item 
+Class\+Type \& \mbox{\hyperlink{class_f_smart_pointer_a9ecca55a93c123110e5c139dcb7974be}{operator\mbox{[}$\,$\mbox{]}}} (const int \&index)
+\item 
+const Class\+Type \& \mbox{\hyperlink{class_f_smart_pointer_a9d4bcbd976847bd519ea7695fb9e6e9a}{operator\mbox{[}$\,$\mbox{]}}} (const int \&index) const
+\item 
+Class\+Type \& \mbox{\hyperlink{class_f_smart_pointer_ac67e8b4d77b4050fd8c7a2a5bd3d8179}{operator\texorpdfstring{$\ast$}{*}}} ()
+\item 
+const Class\+Type \& \mbox{\hyperlink{class_f_smart_pointer_aeafae9052c75f569eb967dc851455871}{operator\texorpdfstring{$\ast$}{*}}} () const
+\item 
+Class\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_smart_pointer_a5d4487c258876d495fa3e7ef7425745c}{operator-\/$>$}} ()
+\item 
+const Class\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_smart_pointer_ab07dc863f3a8a08154ff0467065bd502}{operator-\/$>$}} () const
+\item 
+\mbox{\hyperlink{class_f_smart_pointer_ad3a66a10b0351869d81e29a69720d66f}{operator const Class\+Type \texorpdfstring{$\ast$}{*}}} () const
+\item 
+\mbox{\hyperlink{class_f_smart_pointer_aaca5430e4edc3a7402052a1d41972d34}{operator Class\+Type \texorpdfstring{$\ast$}{*}}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class Class\+Type, FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$\newline
+class FSmart\+Pointer$<$ Class\+Type, Memory\+Type $>$}
+This class is a basic smart pointer class Use as FSmart\+Pointer$<$int$>$ array = new int\mbox{[}5\mbox{]}; FSmart\+Pointer$<$int, Pointer\+Memory$>$ pt = new int; 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_smart_pointer_afb60847d3b5304eff81edc7cf2bcd726}\label{class_f_smart_pointer_afb60847d3b5304eff81edc7cf2bcd726} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!FSmartPointer@{FSmartPointer}}
+\index{FSmartPointer@{FSmartPointer}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{FSmartPointer()}{FSmartPointer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\mbox{\hyperlink{class_f_smart_pointer}{\+::\+FSmart\+Pointer}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Empty constructor \Hypertarget{class_f_smart_pointer_aacaf977e25b72c30a0672343a9d99ccb}\label{class_f_smart_pointer_aacaf977e25b72c30a0672343a9d99ccb} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!FSmartPointer@{FSmartPointer}}
+\index{FSmartPointer@{FSmartPointer}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{FSmartPointer()}{FSmartPointer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\mbox{\hyperlink{class_f_smart_pointer}{\+::\+FSmart\+Pointer}} (\begin{DoxyParamCaption}\item[{Class\+Type \texorpdfstring{$\ast$}{*}const}]{in\+Pointer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor from the memory pointer \Hypertarget{class_f_smart_pointer_aa12079d12c27d90e33748983d8b2660c}\label{class_f_smart_pointer_aa12079d12c27d90e33748983d8b2660c} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!FSmartPointer@{FSmartPointer}}
+\index{FSmartPointer@{FSmartPointer}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{FSmartPointer()}{FSmartPointer()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\mbox{\hyperlink{class_f_smart_pointer}{\+::\+FSmart\+Pointer}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$ \&}]{in\+Pointer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor from a smart pointer \Hypertarget{class_f_smart_pointer_ab12c3eee39918958792c0ee6dbd3795e}\label{class_f_smart_pointer_ab12c3eee39918958792c0ee6dbd3795e} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!````~FSmartPointer@{\texorpdfstring{$\sim$}{\string~}FSmartPointer}}
+\index{````~FSmartPointer@{\texorpdfstring{$\sim$}{\string~}FSmartPointer}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FSmartPointer()}{\string~FSmartPointer()}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Destructor, same as release 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_smart_pointer_af5bae1fec3163b39f8e57ae82be1e1bd}\label{class_f_smart_pointer_af5bae1fec3163b39f8e57ae82be1e1bd} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!assign@{assign}}
+\index{assign@{assign}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{assign()}{assign()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+void \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::assign (\begin{DoxyParamCaption}\item[{Class\+Type \texorpdfstring{$\ast$}{*}const}]{in\+Pointer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Point to a new pointer, release if needed \Hypertarget{class_f_smart_pointer_a57a5ab81786e4e3f56bda0ce19b53a17}\label{class_f_smart_pointer_a57a5ab81786e4e3f56bda0ce19b53a17} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!assign@{assign}}
+\index{assign@{assign}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{assign()}{assign()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+void \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::assign (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$ \&}]{in\+Pointer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Point to a new pointer, release if needed \Hypertarget{class_f_smart_pointer_a82a013f34ea6809b1d72da35daff374c}\label{class_f_smart_pointer_a82a013f34ea6809b1d72da35daff374c} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!getPtr@{getPtr}}
+\index{getPtr@{getPtr}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{getPtr()}{getPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+Class\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::get\+Ptr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the direct pointer \Hypertarget{class_f_smart_pointer_a5e287441428004b23e09d2e911a0d61c}\label{class_f_smart_pointer_a5e287441428004b23e09d2e911a0d61c} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!getPtr@{getPtr}}
+\index{getPtr@{getPtr}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{getPtr()}{getPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+const Class\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::get\+Ptr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the direct pointer \Hypertarget{class_f_smart_pointer_a0e5b8463d3dd13e9ba2f1dd25088b38b}\label{class_f_smart_pointer_a0e5b8463d3dd13e9ba2f1dd25088b38b} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!isAssigned@{isAssigned}}
+\index{isAssigned@{isAssigned}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{isAssigned()}{isAssigned()}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+bool \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::is\+Assigned (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if the smart pointer is pointing to a memory \Hypertarget{class_f_smart_pointer_a459476d73cfce7884ad33e3ddd879876}\label{class_f_smart_pointer_a459476d73cfce7884ad33e3ddd879876} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!isLast@{isLast}}
+\index{isLast@{isLast}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{isLast()}{isLast()}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+bool \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::is\+Last (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Is last =\texorpdfstring{$>$}{>} counter == 0 \Hypertarget{class_f_smart_pointer_aaca5430e4edc3a7402052a1d41972d34}\label{class_f_smart_pointer_aaca5430e4edc3a7402052a1d41972d34} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!operator ClassType \texorpdfstring{$\ast$}{*}@{operator ClassType \texorpdfstring{$\ast$}{*}}}
+\index{operator ClassType \texorpdfstring{$\ast$}{*}@{operator ClassType \texorpdfstring{$\ast$}{*}}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{operator ClassType \texorpdfstring{$\ast$}{*}()}{operator ClassType *()}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::operator Class\+Type \texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To cast to class type pointer \Hypertarget{class_f_smart_pointer_ad3a66a10b0351869d81e29a69720d66f}\label{class_f_smart_pointer_ad3a66a10b0351869d81e29a69720d66f} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!operator const ClassType \texorpdfstring{$\ast$}{*}@{operator const ClassType \texorpdfstring{$\ast$}{*}}}
+\index{operator const ClassType \texorpdfstring{$\ast$}{*}@{operator const ClassType \texorpdfstring{$\ast$}{*}}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{operator const ClassType \texorpdfstring{$\ast$}{*}()}{operator const ClassType *()}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::operator const Class\+Type \texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To cast to class type pointer \Hypertarget{class_f_smart_pointer_ac67e8b4d77b4050fd8c7a2a5bd3d8179}\label{class_f_smart_pointer_ac67e8b4d77b4050fd8c7a2a5bd3d8179} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+Class\+Type \& \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Operator \texorpdfstring{$\ast$}{*} return a reference to the pointer object \Hypertarget{class_f_smart_pointer_aeafae9052c75f569eb967dc851455871}\label{class_f_smart_pointer_aeafae9052c75f569eb967dc851455871} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+const Class\+Type \& \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Operator \texorpdfstring{$\ast$}{*} return a reference to the pointer object \Hypertarget{class_f_smart_pointer_a5d4487c258876d495fa3e7ef7425745c}\label{class_f_smart_pointer_a5d4487c258876d495fa3e7ef7425745c} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!operator-\/$>$@{operator-\/$>$}}
+\index{operator-\/$>$@{operator-\/$>$}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{operator-\/$>$()}{operator->()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+Class\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::operator-\/$>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the pointing address \Hypertarget{class_f_smart_pointer_ab07dc863f3a8a08154ff0467065bd502}\label{class_f_smart_pointer_ab07dc863f3a8a08154ff0467065bd502} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!operator-\/$>$@{operator-\/$>$}}
+\index{operator-\/$>$@{operator-\/$>$}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{operator-\/$>$()}{operator->()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+const Class\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::operator-\/$>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the pointing address \Hypertarget{class_f_smart_pointer_a3746d14dcf6a96ffcf6b6507e802f083}\label{class_f_smart_pointer_a3746d14dcf6a96ffcf6b6507e802f083} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+void \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{Class\+Type \texorpdfstring{$\ast$}{*}const}]{in\+Pointer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Assign operator, same as assign \Hypertarget{class_f_smart_pointer_aba9863892fd481fc45267bb427bcc9ef}\label{class_f_smart_pointer_aba9863892fd481fc45267bb427bcc9ef} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+void \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$ \&}]{in\+Pointer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Assign operator, same as assign \Hypertarget{class_f_smart_pointer_a9ecca55a93c123110e5c139dcb7974be}\label{class_f_smart_pointer_a9ecca55a93c123110e5c139dcb7974be} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+Class\+Type \& \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const int \&}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Operator \mbox{[}\mbox{]} \Hypertarget{class_f_smart_pointer_a9d4bcbd976847bd519ea7695fb9e6e9a}\label{class_f_smart_pointer_a9d4bcbd976847bd519ea7695fb9e6e9a} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+const Class\+Type \& \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const int \&}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Operator \mbox{[}\mbox{]} \Hypertarget{class_f_smart_pointer_ad1e5b7ec99efac7643c520dcf3f9afdb}\label{class_f_smart_pointer_ad1e5b7ec99efac7643c520dcf3f9afdb} 
+\index{FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}!release@{release}}
+\index{release@{release}!FSmartPointer$<$ ClassType, MemoryType $>$@{FSmartPointer$<$ ClassType, MemoryType $>$}}
+\doxysubsubsection{\texorpdfstring{release()}{release()}}
+{\footnotesize\ttfamily template$<$class Class\+Type , FSmart\+Pointer\+Type Memory\+Type = FSmart\+Array\+Memory$>$ \\
+void \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ Class\+Type, Memory\+Type $>$\+::release (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Dec counter and Release the memory last 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Utils/FSmart\+Pointer.\+hpp\end{DoxyCompactItemize}

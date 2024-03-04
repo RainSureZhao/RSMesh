@@ -1,0 +1,100 @@
+\doxysection{FMem\+Utils.\+hpp}
+\hypertarget{_f_mem_utils_8hpp_source}{}\label{_f_mem_utils_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FMemUtils.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FMemUtils.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FMEMUTILS\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FMEMUTILS\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ To\ get\ memcpy}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <climits>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_f_mem_utils}{FMemUtils}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ FSize\ MaxSize\_t\ =\ UINT\_MAX;\ \textcolor{comment}{//std::numeric\_limits<std::size\_t>::max();}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{namespace_f_mem_utils_afba06a533855d38cf96cddbec48f155a}{memcpy}}(\textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ dest,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ source,\ \textcolor{keyword}{const}\ FSize\ nbBytes)\{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ nbBytes\ <\ MaxSize\_t)\{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ return\ ::memcpy(dest,\ source,\ \textcolor{keywordtype}{size\_t}(nbBytes));}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}*\ iterDest\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(dest);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ iterSource\ \ =\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(source);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idx\ =\ 0\ ;\ idx\ <\ nbBytes\ -\/\ MaxSize\_t\ ;\ idx\ +=\ MaxSize\_t\ )\{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_afba06a533855d38cf96cddbec48f155a}{::memcpy}}(iterDest,\ iterSource,\ \textcolor{keywordtype}{size\_t}(MaxSize\_t));}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iterDest\ +=\ MaxSize\_t;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iterSource\ +=\ MaxSize\_t;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_afba06a533855d38cf96cddbec48f155a}{::memcpy}}(iterDest,\ iterSource,\ \textcolor{keywordtype}{size\_t}(nbBytes\%MaxSize\_t));}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dest;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{namespace_f_mem_utils_a005b2bd1925d50a688606ed5877c5aec}{memset}}(\textcolor{keywordtype}{void}*\ \textcolor{keyword}{const}\ dest,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ val,\ \textcolor{keyword}{const}\ FSize\ nbBytes)\{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ nbBytes\ <\ MaxSize\_t)\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ return\ ::memset(dest,\ val,\ \textcolor{keywordtype}{size\_t}(nbBytes));}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}*\ iterDest\ \ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(dest);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idx\ =\ 0\ ;\ idx\ <\ nbBytes\ -\/\ MaxSize\_t\ ;\ idx\ +=\ MaxSize\_t\ )\{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a005b2bd1925d50a688606ed5877c5aec}{::memset}}(iterDest,\ val,\ \textcolor{keywordtype}{size\_t}(MaxSize\_t));}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iterDest\ +=\ MaxSize\_t;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a005b2bd1925d50a688606ed5877c5aec}{::memset}}(iterDest,\ val,\ \textcolor{keywordtype}{size\_t}(nbBytes\%MaxSize\_t));}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dest;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ TypeClass>}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_f_mem_utils_a85a4b506a3e71e70cfb0c4e38320182e}{copyall}}(TypeClass*\ dest,\ \textcolor{keyword}{const}\ TypeClass*\ source,\ \textcolor{keywordtype}{int}\ nbElements)\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(;\ 0\ <\ nbElements\ ;\ -\/-\/nbElements)\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ (*dest++)\ =\ (*source++);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ TypeClass>}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_f_mem_utils_a5120d91235543eec7ee0ff0fc4bccebe}{addall}}(TypeClass*\ dest,\ \textcolor{keyword}{const}\ TypeClass*\ source,\ \textcolor{keywordtype}{int}\ nbElements)\{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(;\ 0\ <\ nbElements\ ;\ -\/-\/nbElements)\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ (*dest++)\ +=\ (*source++);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ TypeClass>}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_f_mem_utils_aba85f46562a9dc576bca7d39ce202159}{setall}}(TypeClass*\ dest,\ \textcolor{keyword}{const}\ TypeClass\&\ source,\ \textcolor{keywordtype}{int}\ nbElements)\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(;\ 0\ <\ nbElements\ ;\ -\/-\/nbElements)\{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ (*dest++)\ =\ source;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ TypeClass>}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_f_mem_utils_ab322e04bcb895846b134e732e5d30c3d}{swap}}(TypeClass\&\ a,\ TypeClass\&\ b)\{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ TypeClass\ c(a);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ a=b;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ b=c;}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ TypeClass>}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_f_mem_utils_a17fae6253fc1995fc0aeb7b1bc2bef7c}{DeleteAllArray}}(TypeClass*\textcolor{keyword}{const}\ array[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size)\{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ size\ ;\ ++idx)\{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ array[idx];}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ TypeClass>}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_f_mem_utils_abef8083c2dc66cb77562c2638468445c}{DeleteAll}}(TypeClass*\textcolor{keyword}{const}\ array[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size)\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ size\ ;\ ++idx)\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ array[idx];}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FMEMUTILS\_HPP}}
+
+\end{DoxyCode}

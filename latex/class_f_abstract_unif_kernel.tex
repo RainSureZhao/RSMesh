@@ -1,0 +1,158 @@
+\doxysection{FAbstract\+Unif\+Kernel\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_abstract_unif_kernel}{}\label{class_f_abstract_unif_kernel}\index{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+
+
+This kernels implement the Lagrange interpolation based FMM operators. It implements all interfaces (P2P, P2M, M2M, M2L, L2L, L2P) which are required by the \doxylink{class_f_fmm_algorithm}{FFmm\+Algorithm} and \doxylink{class_f_fmm_algorithm_thread}{FFmm\+Algorithm\+Thread}.  
+
+
+
+
+{\ttfamily \#include $<$FAbstract\+Unif\+Kernel.\+hpp$>$}
+
+类 FAbstract\+Unif\+Kernel\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.985916cm]{class_f_abstract_unif_kernel}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_abstract_unif_kernel_a4e6a0473bc1af07e46621cfbf6b70a4c}{FAbstract\+Unif\+Kernel}} (const int in\+Tree\+Height, const FReal in\+Box\+Width, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Box\+Center, const FReal in\+Box\+Width\+Extension=0.\+0)
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_a3f4dfb7879c81319f4fdceae59cdfb69}\label{class_f_abstract_unif_kernel_a3f4dfb7879c81319f4fdceae59cdfb69} 
+const \mbox{\hyperlink{class_f_unif_interpolator}{Interpolator\+Class}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Ptr\+To\+Interpolator} () const
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_a428dc428f2a218d9664acc6f40473633}\label{class_f_abstract_unif_kernel_a428dc428f2a218d9664acc6f40473633} 
+virtual void {\bfseries P2M} (Cell\+Class \texorpdfstring{$\ast$}{*}const Leaf\+Cell, const Container\+Class \texorpdfstring{$\ast$}{*}const Source\+Particles)=0
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_aa7c9689e5b32e0f09c75b3b1f6302cee}\label{class_f_abstract_unif_kernel_aa7c9689e5b32e0f09c75b3b1f6302cee} 
+virtual void {\bfseries M2M} (Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict Parent\+Cell, const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict \texorpdfstring{$\ast$}{*}const FRestrict Child\+Cells, const int Tree\+Level)=0
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_aceea48c1d0b80aaaf56af20f65c5b3bc}\label{class_f_abstract_unif_kernel_aceea48c1d0b80aaaf56af20f65c5b3bc} 
+virtual void {\bfseries M2L} (Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict Target\+Cell, const Cell\+Class \texorpdfstring{$\ast$}{*}Source\+Cells\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size, const int Tree\+Level)=0
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_a4cc01081fc37bf17ac513361885bfa98}\label{class_f_abstract_unif_kernel_a4cc01081fc37bf17ac513361885bfa98} 
+virtual void {\bfseries L2L} (const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict Parent\+Cell, Cell\+Class \texorpdfstring{$\ast$}{*}FRestrict \texorpdfstring{$\ast$}{*}const FRestrict Child\+Cells, const int Tree\+Level)=0
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_af4cb79464556d49f2675a531c4a273bc}\label{class_f_abstract_unif_kernel_af4cb79464556d49f2675a531c4a273bc} 
+virtual void {\bfseries L2P} (const Cell\+Class \texorpdfstring{$\ast$}{*}const Leaf\+Cell, Container\+Class \texorpdfstring{$\ast$}{*}const Target\+Particles)=0
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_a67347b78f360d0743798f16e247609bc}\label{class_f_abstract_unif_kernel_a67347b78f360d0743798f16e247609bc} 
+virtual void {\bfseries P2P} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict Target\+Particles, const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict, Container\+Class \texorpdfstring{$\ast$}{*}const Neighbor\+Source\+Particles\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int)=0
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_a0a380f03a51a9763eadf779d66071a80}\label{class_f_abstract_unif_kernel_a0a380f03a51a9763eadf779d66071a80} 
+virtual void {\bfseries P2\+PRemote} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Targets, const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict, const Container\+Class \texorpdfstring{$\ast$}{*}const in\+Neighbors\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int)=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_ab31f3e12d8b4e00464eff756d6675862}\label{class_f_abstract_unif_kernel_ab31f3e12d8b4e00464eff756d6675862} 
+enum \{ {\bfseries nnodes} = Tensor\+Traits\texorpdfstring{$<$}{<}ORDER\texorpdfstring{$>$}{>}\+::nnodes
+ \}
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_acb9a63135d15735e8638d4201f9d6544}\label{class_f_abstract_unif_kernel_acb9a63135d15735e8638d4201f9d6544} 
+typedef \mbox{\hyperlink{class_f_unif_interpolator}{FUnif\+Interpolator}}$<$ FReal, ORDER, Matrix\+Kernel\+Class, NVALS $>$ {\bfseries Interpolator\+Class}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_abstract_unif_kernel_ae782a8f6445eb06ef6a64056e0d15505}{get\+Leaf\+Cell\+Center}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&Coordinate) const
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_abstract_unif_kernel_a47d5b64ea111bc5441ab7f870437048e}{get\+Cell\+Center}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} coordinate, int in\+Level)
+\begin{DoxyCompactList}\small\item\em Return the position of the center of a cell from its tree coordinate \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_abstract_unif_kernel_aaae189e6d0e79353caca92223c994fdd}\label{class_f_abstract_unif_kernel_aaae189e6d0e79353caca92223c994fdd} 
+const \mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ \mbox{\hyperlink{class_f_unif_interpolator}{Interpolator\+Class}}, FSmart\+Pointer\+Memory $>$ {\bfseries Interpolator}
+\begin{DoxyCompactList}\small\item\em Needed for P2M, M2M, L2L and L2P operators \end{DoxyCompactList}\item 
+\Hypertarget{class_f_abstract_unif_kernel_a2bdcb8418a455ad8448d6a697d0002f8}\label{class_f_abstract_unif_kernel_a2bdcb8418a455ad8448d6a697d0002f8} 
+const unsigned int {\bfseries Tree\+Height}
+\begin{DoxyCompactList}\small\item\em Height of the entire oct-\/tree \end{DoxyCompactList}\item 
+\Hypertarget{class_f_abstract_unif_kernel_a33867a6b58b3b329cb50f1549bb2ef8f}\label{class_f_abstract_unif_kernel_a33867a6b58b3b329cb50f1549bb2ef8f} 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries Box\+Corner}
+\begin{DoxyCompactList}\small\item\em Corner of oct-\/tree box \end{DoxyCompactList}\item 
+\Hypertarget{class_f_abstract_unif_kernel_a9ef05da990af17200577acd8168ab7de}\label{class_f_abstract_unif_kernel_a9ef05da990af17200577acd8168ab7de} 
+const FReal {\bfseries Box\+Width}
+\begin{DoxyCompactList}\small\item\em Width of oct-\/tree box \end{DoxyCompactList}\item 
+\Hypertarget{class_f_abstract_unif_kernel_ae1392395ded4feb98ed6accf5cadc9b6}\label{class_f_abstract_unif_kernel_ae1392395ded4feb98ed6accf5cadc9b6} 
+const FReal {\bfseries Box\+Width\+Leaf}
+\begin{DoxyCompactList}\small\item\em Width of a leaf cell box \end{DoxyCompactList}\item 
+\Hypertarget{class_f_abstract_unif_kernel_a138e3c5beffad58f666992037bdbf94e}\label{class_f_abstract_unif_kernel_a138e3c5beffad58f666992037bdbf94e} 
+const FReal {\bfseries Box\+Width\+Extension}
+\begin{DoxyCompactList}\small\item\em Extension of the box width ( same for all level! ) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Cell\+Class, class Container\+Class, class Matrix\+Kernel\+Class, int ORDER, int NVALS = 1$>$\newline
+class FAbstract\+Unif\+Kernel$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$}
+This kernels implement the Lagrange interpolation based FMM operators. It implements all interfaces (P2P, P2M, M2M, M2L, L2L, L2P) which are required by the \doxylink{class_f_fmm_algorithm}{FFmm\+Algorithm} and \doxylink{class_f_fmm_algorithm_thread}{FFmm\+Algorithm\+Thread}. 
+
+\begin{DoxyAuthor}{作者}
+Pierre Blanchard (\href{mailto:pierre.blanchard@inria.fr}{\texttt{ pierre.\+blanchard@inria.\+fr}})
+\end{DoxyAuthor}
+
+
+
+\begin{DoxyTemplParams}{模板参数}
+{\em Cell\+Class} & Type of cell \\
+\hline
+{\em Container\+Class} & Type of container to store particles \\
+\hline
+{\em Matrix\+Kernel\+Class} & Type of matrix kernel function \\
+\hline
+{\em ORDER} & Lagrange interpolation order\\
+\hline
+\end{DoxyTemplParams}
+Related publications\+: Fast hierarchical algorithms for generating Gaussian random fields (\href{https://hal.inria.fr/hal-01228519}{\texttt{ https\+://hal.\+inria.\+fr/hal-\/01228519}}) 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_abstract_unif_kernel_a4e6a0473bc1af07e46621cfbf6b70a4c}\label{class_f_abstract_unif_kernel_a4e6a0473bc1af07e46621cfbf6b70a4c} 
+\index{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!FAbstractUnifKernel@{FAbstractUnifKernel}}
+\index{FAbstractUnifKernel@{FAbstractUnifKernel}!FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{FAbstractUnifKernel()}{FAbstractUnifKernel()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+\mbox{\hyperlink{class_f_abstract_unif_kernel}{FAbstract\+Unif\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\mbox{\hyperlink{class_f_abstract_unif_kernel}{\+::\+FAbstract\+Unif\+Kernel}} (\begin{DoxyParamCaption}\item[{const int}]{in\+Tree\+Height,  }\item[{const FReal}]{in\+Box\+Width,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Box\+Center,  }\item[{const FReal}]{in\+Box\+Width\+Extension = {\ttfamily 0.0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+The constructor initializes all constant attributes and it reads the precomputed and compressed M2L operators from a binary file (an runtime\+\_\+error is thrown if the required file is not valid). 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_abstract_unif_kernel_a47d5b64ea111bc5441ab7f870437048e}\label{class_f_abstract_unif_kernel_a47d5b64ea111bc5441ab7f870437048e} 
+\index{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!getCellCenter@{getCellCenter}}
+\index{getCellCenter@{getCellCenter}!FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{getCellCenter()}{getCellCenter()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_abstract_unif_kernel}{FAbstract\+Unif\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\+::get\+Cell\+Center (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}}}]{coordinate,  }\item[{int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Return the position of the center of a cell from its tree coordinate 
+
+
+\begin{DoxyParams}{参数}
+{\em \doxylink{class_f_tree_coordinate}{FTree\+Coordinate}} & \\
+\hline
+{\em in\+Level} & the current level of Cell \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_abstract_unif_kernel_ae782a8f6445eb06ef6a64056e0d15505}\label{class_f_abstract_unif_kernel_ae782a8f6445eb06ef6a64056e0d15505} 
+\index{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}!getLeafCellCenter@{getLeafCellCenter}}
+\index{getLeafCellCenter@{getLeafCellCenter}!FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$@{FAbstractUnifKernel$<$ FReal, CellClass, ContainerClass, MatrixKernelClass, ORDER, NVALS $>$}}
+\doxysubsubsection{\texorpdfstring{getLeafCellCenter()}{getLeafCellCenter()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Matrix\+Kernel\+Class , int ORDER, int NVALS = 1$>$ \\
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_abstract_unif_kernel}{FAbstract\+Unif\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class, Matrix\+Kernel\+Class, ORDER, NVALS $>$\+::get\+Leaf\+Cell\+Center (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{Coordinate }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Compute center of leaf cell from its tree coordinate. 
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in}}  & {\em Coordinate} & tree coordinate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+center of leaf cell 
+\end{DoxyReturn}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Uniform/FAbstract\+Unif\+Kernel.\+hpp\end{DoxyCompactItemize}

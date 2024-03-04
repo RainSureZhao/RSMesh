@@ -1,0 +1,303 @@
+\doxysection{FFmm\+Algorithm\+Thread\+Balance\texorpdfstring{$<$}{<} Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_fmm_algorithm_thread_balance}{}\label{class_f_fmm_algorithm_thread_balance}\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+
+
+Implements an FMM algorithm threaded using Open\+MP.  
+
+
+
+
+{\ttfamily \#include $<$FFmm\+Algorithm\+Thread\+Balance.\+hpp$>$}
+
+类 FFmm\+Algorithm\+Thread\+Balance\texorpdfstring{$<$}{<} Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.796586cm]{class_f_fmm_algorithm_thread_balance}
+\end{center}
+\end{figure}
+\doxysubsubsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_leaf_data}{Leaf\+Data}}
+\item 
+struct \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload}{Workload}}
+\item 
+struct \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload_temp}{Workload\+Temp}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_a1a25be0eb8b394135039e76acc658cfa}{FFmm\+Algorithm\+Thread\+Balance}} (Octree\+Class \texorpdfstring{$\ast$}{*}const in\+Tree, Kernel\+Class \texorpdfstring{$\ast$}{*}const in\+Kernels, const int in\+Leaf\+Level\+Seperation\+Criteria=1)
+\item 
+virtual \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_a2ead12a7c86856a94b2a08d7b324987b}{\texorpdfstring{$\sim$}{\string~}\+FFmm\+Algorithm\+Thread\+Balance}} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_a22e60e7874ffe2306cb98085d1ff88b2}{execute\+Core}} (const unsigned operations\+To\+Proceed) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries execute} (const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm for given levels. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} () final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed, const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute only some FMM operations for given levels. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed) final
+\begin{DoxyCompactList}\small\item\em Execute only some steps. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries FAlgorithm\+Timers} ()=default
+\begin{DoxyCompactList}\small\item\em Constructor\+: resets all timers \end{DoxyCompactList}\item 
+{\bfseries FAlgorithm\+Timers} (const \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}} \&)=default
+\begin{DoxyCompactList}\small\item\em Default copy contructor \end{DoxyCompactList}\item 
+{\bfseries FAlgorithm\+Timers} (\mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}} \&\&)=default
+\begin{DoxyCompactList}\small\item\em Default move contructor \end{DoxyCompactList}\item 
+double {\bfseries get\+Time} (std\+::string Timer\+Name) const
+\begin{DoxyCompactList}\small\item\em Elapsed time between last \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{FTic\+::tic()} and \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{FTic\+::tac()} for given timer. \end{DoxyCompactList}\item 
+double {\bfseries get\+Cumulated\+Time} (std\+::string Timer\+Name) const
+\begin{DoxyCompactList}\small\item\em Cumulated time between all \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{FTic\+::tic()} and \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{FTic\+::tac()} for given timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_a6424066558475d91f025c9ae9995b6a0}{generate\+Interval\+From\+Workload}} (std\+::vector$<$ \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload}{Workload}} $>$ \texorpdfstring{$\ast$}{*}intervals, const FSize total\+Work, \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload_temp}{Workload\+Temp}} \texorpdfstring{$\ast$}{*}work\+Per\+Element, const FSize nb\+Elements) const
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_a0692ad5fe5f0c6fc3de1ab2ee565b3df}{build\+Thread\+Intervals}} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_ad21e5d3f5c60d146bfc0cd0757e06a40}{bottom\+Pass}} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_aa12738be359bb536b864a4968d57224a}{upward\+Pass}} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_a6045edb4f7124448d19b8545829185e7}{transfer\+Pass}} ()
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_balance_a0abeb0a6206438cbd67cedc2810fc3ed}\label{class_f_fmm_algorithm_thread_balance_a0abeb0a6206438cbd67cedc2810fc3ed} 
+void {\bfseries transfer\+Pass\+With\+Finalize} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_a6ebd79b191dd3ec24f497039199d3ecd}{downard\+Pass}} ()
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_balance_ad9799aaee577125c4eec49d1880d6f1d}\label{class_f_fmm_algorithm_thread_balance_ad9799aaee577125c4eec49d1880d6f1d} 
+void {\bfseries L2P} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_a75d51e7595ab0cdc3dc6f194fd28e125}{direct\+Pass}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries set\+Nb\+Levels\+In\+Tree} (const int in\+Nb\+Levels\+In\+Tree)
+\item 
+void {\bfseries validate\+Levels} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_balance_a76af01b16a8ffcc6a5203ebc70230405}\label{class_f_fmm_algorithm_thread_balance_a76af01b16a8ffcc6a5203ebc70230405} 
+std\+::vector$<$ \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload}{Workload}} $>$ {\bfseries workload\+P2M}
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_balance_ae9da92b165d41b016cc52447dcc7ebc9}\label{class_f_fmm_algorithm_thread_balance_ae9da92b165d41b016cc52447dcc7ebc9} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload}{Workload}} $>$ $>$ {\bfseries workload\+M2M}
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_balance_a69945502c8cefb84348ee5079c72936c}\label{class_f_fmm_algorithm_thread_balance_a69945502c8cefb84348ee5079c72936c} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload}{Workload}} $>$ $>$ {\bfseries workload\+M2L}
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_balance_a6ba8a60029cdbdf3d9c69dc080979abc}\label{class_f_fmm_algorithm_thread_balance_a6ba8a60029cdbdf3d9c69dc080979abc} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload}{Workload}} $>$ $>$ {\bfseries workload\+L2L}
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_balance_ac98aefac3fbd847d3a491115212af2e1}\label{class_f_fmm_algorithm_thread_balance_ac98aefac3fbd847d3a491115212af2e1} 
+std\+::vector$<$ \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload}{Workload}} $>$ {\bfseries workload\+L2P}
+\item 
+\Hypertarget{class_f_fmm_algorithm_thread_balance_a4880ca67e0a67c60cc15e59796aeb021}\label{class_f_fmm_algorithm_thread_balance_a4880ca67e0a67c60cc15e59796aeb021} 
+std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ {\bfseries workload\+P2P}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_leaf_data}{Leaf\+Data}}\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_abe6979a970dcdd99558331a3fff8b2c1}{leafs\+Data\+Array}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries upper\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to start the work \end{DoxyCompactList}\item 
+int {\bfseries lower\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to end the work (exclusive) \end{DoxyCompactList}\item 
+int {\bfseries nb\+Levels\+In\+Tree}
+\begin{DoxyCompactList}\small\item\em Height of the tree \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{Public 类型 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_algorithm_timers_a476fc8777d5054203af69ac36b8026af}\label{class_f_algorithm_timers_a476fc8777d5054203af69ac36b8026af} 
+enum \{ {\bfseries nb\+Timers} = 9
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 属性 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+FTimer\+Map {\bfseries Timers}
+\begin{DoxyCompactList}\small\item\em Timers \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries P2\+MTimer} = "{}P2\+M"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries M2\+MTimer} = "{}M2\+M"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries M2\+LTimer} = "{}M2\+L"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries L2\+LTimer} = "{}L2\+L"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries L2\+PTimer} = "{}L2\+P"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries P2\+PTimer} = "{}P2\+P"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries M2\+PTimer} = "{}M2\+P"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries P2\+LTimer} = "{}P2\+L"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries Near\+Timer} = "{}Near"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class Octree\+Class, class Cell\+Class, class Container\+Class, class Kernel\+Class, class Leaf\+Class, class P2\+PExclusion\+Class = FP2\+PMiddle\+Exclusion$>$\newline
+class FFmm\+Algorithm\+Thread\+Balance$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}
+Implements an FMM algorithm threaded using Open\+MP. 
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}}) 
+\end{DoxyAuthor}
+Please read the license
+
+This class runs a threaded FMM algorithm. It balance the execution between threads.
+
+When using this algorithm the P2P is thread safe.
+
+This class does not deallocate pointers given to its constructor. 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_fmm_algorithm_thread_balance_a1a25be0eb8b394135039e76acc658cfa}\label{class_f_fmm_algorithm_thread_balance_a1a25be0eb8b394135039e76acc658cfa} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!FFmmAlgorithmThreadBalance@{FFmmAlgorithmThreadBalance}}
+\index{FFmmAlgorithmThreadBalance@{FFmmAlgorithmThreadBalance}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{FFmmAlgorithmThreadBalance()}{FFmmAlgorithmThreadBalance()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+\mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{\+::\+FFmm\+Algorithm\+Thread\+Balance}} (\begin{DoxyParamCaption}\item[{Octree\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Tree,  }\item[{Kernel\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Kernels,  }\item[{const int}]{in\+Leaf\+Level\+Seperation\+Criteria = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Class constructor
+
+The constructor needs the octree and the kernels used for computation. 
+\begin{DoxyParams}{参数}
+{\em in\+Tree} & the octree to work on. \\
+\hline
+{\em in\+Kernels} & the kernels to call. \\
+\hline
+{\em in\+User\+Chunck\+Size} & To specify the chunck size in the loops (-\/1 is static, 0 is N/p\texorpdfstring{$^\wedge$}{\string^}2, otherwise it directly used as the number of item to proceed together), default is 10\\
+\hline
+\end{DoxyParams}
+\textbackslash{}except An exception is thrown if one of the arguments is NULL. \Hypertarget{class_f_fmm_algorithm_thread_balance_a2ead12a7c86856a94b2a08d7b324987b}\label{class_f_fmm_algorithm_thread_balance_a2ead12a7c86856a94b2a08d7b324987b} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!````~FFmmAlgorithmThreadBalance@{\texorpdfstring{$\sim$}{\string~}FFmmAlgorithmThreadBalance}}
+\index{````~FFmmAlgorithmThreadBalance@{\texorpdfstring{$\sim$}{\string~}FFmmAlgorithmThreadBalance}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FFmmAlgorithmThreadBalance()}{\string~FFmmAlgorithmThreadBalance()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+virtual \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Default destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_fmm_algorithm_thread_balance_ad21e5d3f5c60d146bfc0cd0757e06a40}\label{class_f_fmm_algorithm_thread_balance_ad21e5d3f5c60d146bfc0cd0757e06a40} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!bottomPass@{bottomPass}}
+\index{bottomPass@{bottomPass}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{bottomPass()}{bottomPass()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::bottom\+Pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Runs the P2M kernel. \Hypertarget{class_f_fmm_algorithm_thread_balance_a0692ad5fe5f0c6fc3de1ab2ee565b3df}\label{class_f_fmm_algorithm_thread_balance_a0692ad5fe5f0c6fc3de1ab2ee565b3df} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!buildThreadIntervals@{buildThreadIntervals}}
+\index{buildThreadIntervals@{buildThreadIntervals}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{buildThreadIntervals()}{buildThreadIntervals()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::build\+Thread\+Intervals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} P2\+M\+:\textbackslash{}n"{});
+
+FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} L2\+P\+:\textbackslash{}n"{});
+
+FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} M2\+L\+:\textbackslash{}n"{});
+
+FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} \textbackslash{}t level "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} idx\+Level \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\+:\textbackslash{}n"{});
+
+FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} M2\+M L2\+L\+:\textbackslash{}n"{});
+
+FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} \textbackslash{}t level "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} idx\+Level \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\+:\textbackslash{}n"{});\Hypertarget{class_f_fmm_algorithm_thread_balance_a75d51e7595ab0cdc3dc6f194fd28e125}\label{class_f_fmm_algorithm_thread_balance_a75d51e7595ab0cdc3dc6f194fd28e125} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!directPass@{directPass}}
+\index{directPass@{directPass}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{directPass()}{directPass()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::direct\+Pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Runs the P2P kernel.
+
+
+\begin{DoxyParams}{参数}
+{\em p2p\+Enabled} & Run the P2P kernel. \\
+\hline
+{\em l2p\+Enabled} & Run the L2P kernel. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_fmm_algorithm_thread_balance_a6ebd79b191dd3ec24f497039199d3ecd}\label{class_f_fmm_algorithm_thread_balance_a6ebd79b191dd3ec24f497039199d3ecd} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!downardPass@{downardPass}}
+\index{downardPass@{downardPass}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{downardPass()}{downardPass()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::downard\+Pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Runs the L2L kernel. \Hypertarget{class_f_fmm_algorithm_thread_balance_a22e60e7874ffe2306cb98085d1ff88b2}\label{class_f_fmm_algorithm_thread_balance_a22e60e7874ffe2306cb98085d1ff88b2} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!executeCore@{executeCore}}
+\index{executeCore@{executeCore}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{executeCore()}{executeCore()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::execute\+Core (\begin{DoxyParamCaption}\item[{const unsigned}]{operations\+To\+Proceed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Runs the complete algorithm. 
+
+实现了 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}.
+
+\Hypertarget{class_f_fmm_algorithm_thread_balance_a6424066558475d91f025c9ae9995b6a0}\label{class_f_fmm_algorithm_thread_balance_a6424066558475d91f025c9ae9995b6a0} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!generateIntervalFromWorkload@{generateIntervalFromWorkload}}
+\index{generateIntervalFromWorkload@{generateIntervalFromWorkload}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{generateIntervalFromWorkload()}{generateIntervalFromWorkload()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::generate\+Interval\+From\+Workload (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload}{Workload}} $>$ \texorpdfstring{$\ast$}{*}}]{intervals,  }\item[{const FSize}]{total\+Work,  }\item[{\mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_workload_temp}{Workload\+Temp}} \texorpdfstring{$\ast$}{*}}]{work\+Per\+Element,  }\item[{const FSize}]{nb\+Elements }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+From a vector of work (work\+Per\+Element) generate the interval FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} ideal\+Work "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} ideal\+Work \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\textbackslash{}n"{});
+
+FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} idx\+Element "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} work\+Per\+Element\mbox{[}idx\+Element\mbox{]}.amount\+Of\+Work \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\textbackslash{}n"{}); FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} assign\+Work "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} assign\+Work \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\textbackslash{}n"{});
+
+FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} Shape Thread "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} idx\+Thread \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{} goes from "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} (\texorpdfstring{$\ast$}{*}intervals)\mbox{[}idx\+Thread\mbox{]}.iterator.\+get\+Current\+Global\+Index() \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{} nb "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} (\texorpdfstring{$\ast$}{*}intervals)\mbox{[}idx\+Thread\mbox{]}.nb\+Elements \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}/"{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} nb\+Elements \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\textbackslash{}n"{});
+
+FLOG(FLog\+::\+Controller \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\mbox{[}\+Balance\mbox{]} Shape Thread "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} idx\+Thread \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{} goes from "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} (\texorpdfstring{$\ast$}{*}intervals)\mbox{[}idx\+Thread\mbox{]}.iterator.\+get\+Current\+Global\+Index() \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{} nb "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} (\texorpdfstring{$\ast$}{*}intervals)\mbox{[}idx\+Thread\mbox{]}.nb\+Elements \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}/"{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} nb\+Elements \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\textbackslash{}n"{});\Hypertarget{class_f_fmm_algorithm_thread_balance_a6045edb4f7124448d19b8545829185e7}\label{class_f_fmm_algorithm_thread_balance_a6045edb4f7124448d19b8545829185e7} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!transferPass@{transferPass}}
+\index{transferPass@{transferPass}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{transferPass()}{transferPass()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::transfer\+Pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Runs the M2L kernel. M2L ~\newline
+ \Hypertarget{class_f_fmm_algorithm_thread_balance_aa12738be359bb536b864a4968d57224a}\label{class_f_fmm_algorithm_thread_balance_aa12738be359bb536b864a4968d57224a} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!upwardPass@{upwardPass}}
+\index{upwardPass@{upwardPass}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{upwardPass()}{upwardPass()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::upward\+Pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Runs the M2M kernel. 
+
+\doxysubsection{类成员变量说明}
+\Hypertarget{class_f_fmm_algorithm_thread_balance_abe6979a970dcdd99558331a3fff8b2c1}\label{class_f_fmm_algorithm_thread_balance_abe6979a970dcdd99558331a3fff8b2c1} 
+\index{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!leafsDataArray@{leafsDataArray}}
+\index{leafsDataArray@{leafsDataArray}!FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmThreadBalance$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{leafsDataArray}{leafsDataArray}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{struct_f_fmm_algorithm_thread_balance_1_1_leaf_data}{Leaf\+Data}}\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance}{FFmm\+Algorithm\+Thread\+Balance}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::leafs\+Data\+Array\hspace{0.3cm}{\ttfamily [protected]}}
+
+Direct access to the data for the P2P 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Core/FFmm\+Algorithm\+Thread\+Balance.\+hpp\end{DoxyCompactItemize}

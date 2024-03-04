@@ -1,0 +1,61 @@
+\doxysection{FAbstract\+Serializable类 参考}
+\hypertarget{class_f_abstract_serializable}{}\label{class_f_abstract_serializable}\index{FAbstractSerializable@{FAbstractSerializable}}
+
+
+{\ttfamily \#include $<$FAbstract\+Serializable.\+hpp$>$}
+
+类 FAbstract\+Serializable 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.701357cm]{class_f_abstract_serializable}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Buffer\+Writer\+Class $>$ }\\void \mbox{\hyperlink{class_f_abstract_serializable_a45fdedf0656ebbfbe53b0d17b6ccece5}{save}} (Buffer\+Writer\+Class \&) const
+\item 
+{\footnotesize template$<$class Buffer\+Reader\+Class $>$ }\\void \mbox{\hyperlink{class_f_abstract_serializable_ab11ebf8e05ea24fd43723cb6f14a39c9}{restore}} (Buffer\+Reader\+Class \&)
+\item 
+virtual FSize \mbox{\hyperlink{class_f_abstract_serializable_a19a78b679ccd059ea91be2848e25a3d2}{get\+Saved\+Size}} () const =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+This proposes an interface to save and restore a class.
+
+To make your container are usable in the mpi fmm, they must provide this interface. This class is mainly called by the Sendable classes in order to store the attributes. 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_abstract_serializable_a19a78b679ccd059ea91be2848e25a3d2}\label{class_f_abstract_serializable_a19a78b679ccd059ea91be2848e25a3d2} 
+\index{FAbstractSerializable@{FAbstractSerializable}!getSavedSize@{getSavedSize}}
+\index{getSavedSize@{getSavedSize}!FAbstractSerializable@{FAbstractSerializable}}
+\doxysubsubsection{\texorpdfstring{getSavedSize()}{getSavedSize()}}
+{\footnotesize\ttfamily virtual FSize FAbstract\+Serializable\+::get\+Saved\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+在 \mbox{\hyperlink{class_f_basic_particle_container_ac424fa275c906b82878c2a4f9cd78426}{FBasic\+Particle\+Container$<$ FReal, Nb\+Attributes\+Per\+Particle, Attribute\+Class $>$}}, \mbox{\hyperlink{class_f_basic_particle_container_ac424fa275c906b82878c2a4f9cd78426}{FBasic\+Particle\+Container$<$ FReal, 1 \texorpdfstring{$\ast$}{*}(1+4 \texorpdfstring{$\ast$}{*}1), FReal $>$}}, \mbox{\hyperlink{class_f_basic_particle_container_ac424fa275c906b82878c2a4f9cd78426}{FBasic\+Particle\+Container$<$ FReal, 1 $>$}}, \mbox{\hyperlink{class_f_basic_particle_container_ac424fa275c906b82878c2a4f9cd78426}{FBasic\+Particle\+Container$<$ FReal, 1, long long int $>$}}, \mbox{\hyperlink{class_f_basic_particle_container_ac424fa275c906b82878c2a4f9cd78426}{FBasic\+Particle\+Container$<$ FReal, 5 $>$}}, \mbox{\hyperlink{class_f_basic_particle_container_ac424fa275c906b82878c2a4f9cd78426}{FBasic\+Particle\+Container$<$ FReal, NVALS \texorpdfstring{$\ast$}{*}(\+NRHS+4 \texorpdfstring{$\ast$}{*}\+NLHS), FReal $>$}} , 以及 \mbox{\hyperlink{class_f_tree_coordinate_a7b36ce7fc354a3489db59d2a8889c054}{FTree\+Coordinate}} 内被实现.
+
+\Hypertarget{class_f_abstract_serializable_ab11ebf8e05ea24fd43723cb6f14a39c9}\label{class_f_abstract_serializable_ab11ebf8e05ea24fd43723cb6f14a39c9} 
+\index{FAbstractSerializable@{FAbstractSerializable}!restore@{restore}}
+\index{restore@{restore}!FAbstractSerializable@{FAbstractSerializable}}
+\doxysubsubsection{\texorpdfstring{restore()}{restore()}}
+{\footnotesize\ttfamily template$<$class Buffer\+Reader\+Class $>$ \\
+void FAbstract\+Serializable\+::restore (\begin{DoxyParamCaption}\item[{Buffer\+Reader\+Class \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Should restore all the native data from the buffer Warning! It should be done in the same order! and with the same size! \Hypertarget{class_f_abstract_serializable_a45fdedf0656ebbfbe53b0d17b6ccece5}\label{class_f_abstract_serializable_a45fdedf0656ebbfbe53b0d17b6ccece5} 
+\index{FAbstractSerializable@{FAbstractSerializable}!save@{save}}
+\index{save@{save}!FAbstractSerializable@{FAbstractSerializable}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily template$<$class Buffer\+Writer\+Class $>$ \\
+void FAbstract\+Serializable\+::save (\begin{DoxyParamCaption}\item[{Buffer\+Writer\+Class \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Should save all the native data into the buffer 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Components/FAbstract\+Serializable.\+hpp\end{DoxyCompactItemize}

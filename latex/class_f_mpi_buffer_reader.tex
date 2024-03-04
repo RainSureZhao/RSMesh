@@ -1,0 +1,175 @@
+\doxysection{FMpi\+Buffer\+Reader类 参考}
+\hypertarget{class_f_mpi_buffer_reader}{}\label{class_f_mpi_buffer_reader}\index{FMpiBufferReader@{FMpiBufferReader}}
+
+
+{\ttfamily \#include $<$FMpi\+Buffer\+Reader.\+hpp$>$}
+
+类 FMpi\+Buffer\+Reader 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_mpi_buffer_reader}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_mpi_buffer_reader_a424114af7f37ab92f21bc9b3ce07c12d}\label{class_f_mpi_buffer_reader_a424114af7f37ab92f21bc9b3ce07c12d} 
+{\bfseries FMpi\+Buffer\+Reader} (const FSize in\+Default\+Capacity=512)
+\item 
+void \mbox{\hyperlink{class_f_mpi_buffer_reader_acba450343ec567400e8d466337cb9db3}{clean\+And\+Resize}} (const FSize new\+Capacity)
+\item 
+virtual \mbox{\hyperlink{class_f_mpi_buffer_reader_ab04131d01b5b5ff380b967b3b4068805}{\texorpdfstring{$\sim$}{\string~}\+FMpi\+Buffer\+Reader}} ()
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_mpi_buffer_reader_aafcbe5cbd8a2e8434426959b4aba2c97}{data}} () override
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_mpi_buffer_reader_a85189ddcadd5e24c63b80614927f00a9}{data}} () const override
+\item 
+FSize \mbox{\hyperlink{class_f_mpi_buffer_reader_abf7be319a03927f87c977d858a0e3ab4}{get\+Size}} () const override
+\item 
+FSize \mbox{\hyperlink{class_f_mpi_buffer_reader_a96e01fc77c8c5aab78772de5d69e18ad}{get\+Capacity}} () const
+\item 
+void \mbox{\hyperlink{class_f_mpi_buffer_reader_a9ea55066fda1b31f13c1c175b39f1f64}{seek}} (const FSize in\+Index) override
+\item 
+FSize \mbox{\hyperlink{class_f_mpi_buffer_reader_a5a5cef9b49b77fb16da9427d608f06ee}{tell}} () const override
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\Class\+Type \mbox{\hyperlink{class_f_mpi_buffer_reader_a01aad3fc19caaa54f3ef538184a7a6bf}{get\+Value}} ()
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\Class\+Type \mbox{\hyperlink{class_f_mpi_buffer_reader_a4112e8b58a9d5eca875d8e16e1c1846d}{get\+Value}} (const FSize ind)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void \mbox{\hyperlink{class_f_mpi_buffer_reader_ac35e6aabde2ab5006d8e7cdf6043266f}{fill\+Value}} (Class\+Type \texorpdfstring{$\ast$}{*}const in\+Value)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void \mbox{\hyperlink{class_f_mpi_buffer_reader_a707b91dbdbb37f3e59fd014906d5905e}{fill\+Array}} (Class\+Type \texorpdfstring{$\ast$}{*}const in\+Array, const FSize in\+Size)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\\mbox{\hyperlink{class_f_mpi_buffer_reader}{FMpi\+Buffer\+Reader}} \& \mbox{\hyperlink{class_f_mpi_buffer_reader_aed9d711aee6e2fb015b2993f0247c7a0}{operator$>$$>$}} (Class\+Type \&object)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_buffer_reader}{FAbstract\+Buffer\+Reader}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\Class\+Type {\bfseries get\+Value} ()
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void {\bfseries fill\+Value} (Class\+Type \texorpdfstring{$\ast$}{*}const)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\void {\bfseries fill\+Array} (Class\+Type \texorpdfstring{$\ast$}{*}const, const FSize)
+\item 
+{\footnotesize template$<$class Class\+Type $>$ }\\\mbox{\hyperlink{class_f_abstract_buffer_reader}{FAbstract\+Buffer\+Reader}} \& {\bfseries operator$>$$>$} (Class\+Type \&)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\begin{DoxyAuthor}{作者}
+Cyrille Piacibello, Berenger Bramas This class provide the same features as \doxylink{class_f_buffer_writer}{FBuffer\+Writer}
+\end{DoxyAuthor}
+Put some data then insert back if needed finally use data pointer as you like 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_mpi_buffer_reader_ab04131d01b5b5ff380b967b3b4068805}\label{class_f_mpi_buffer_reader_ab04131d01b5b5ff380b967b3b4068805} 
+\index{FMpiBufferReader@{FMpiBufferReader}!````~FMpiBufferReader@{\texorpdfstring{$\sim$}{\string~}FMpiBufferReader}}
+\index{````~FMpiBufferReader@{\texorpdfstring{$\sim$}{\string~}FMpiBufferReader}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FMpiBufferReader()}{\string~FMpiBufferReader()}}
+{\footnotesize\ttfamily virtual FMpi\+Buffer\+Reader\+::\texorpdfstring{$\sim$}{\string~}\+FMpi\+Buffer\+Reader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_mpi_buffer_reader_acba450343ec567400e8d466337cb9db3}\label{class_f_mpi_buffer_reader_acba450343ec567400e8d466337cb9db3} 
+\index{FMpiBufferReader@{FMpiBufferReader}!cleanAndResize@{cleanAndResize}}
+\index{cleanAndResize@{cleanAndResize}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{cleanAndResize()}{cleanAndResize()}}
+{\footnotesize\ttfamily void FMpi\+Buffer\+Reader\+::clean\+And\+Resize (\begin{DoxyParamCaption}\item[{const FSize}]{new\+Capacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To change the capacity (but reset the head to 0) \Hypertarget{class_f_mpi_buffer_reader_a85189ddcadd5e24c63b80614927f00a9}\label{class_f_mpi_buffer_reader_a85189ddcadd5e24c63b80614927f00a9} 
+\index{FMpiBufferReader@{FMpiBufferReader}!data@{data}}
+\index{data@{data}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} FMpi\+Buffer\+Reader\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get allocated memory pointer 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_reader}{FAbstract\+Buffer\+Reader}}.
+
+\Hypertarget{class_f_mpi_buffer_reader_aafcbe5cbd8a2e8434426959b4aba2c97}\label{class_f_mpi_buffer_reader_aafcbe5cbd8a2e8434426959b4aba2c97} 
+\index{FMpiBufferReader@{FMpiBufferReader}!data@{data}}
+\index{data@{data}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} FMpi\+Buffer\+Reader\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get allocated memory pointer 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_reader}{FAbstract\+Buffer\+Reader}}.
+
+\Hypertarget{class_f_mpi_buffer_reader_a707b91dbdbb37f3e59fd014906d5905e}\label{class_f_mpi_buffer_reader_a707b91dbdbb37f3e59fd014906d5905e} 
+\index{FMpiBufferReader@{FMpiBufferReader}!fillArray@{fillArray}}
+\index{fillArray@{fillArray}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{fillArray()}{fillArray()}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+void FMpi\+Buffer\+Reader\+::fill\+Array (\begin{DoxyParamCaption}\item[{Class\+Type \texorpdfstring{$\ast$}{*}const}]{in\+Array,  }\item[{const FSize}]{in\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Fill one/many value(s) with memcpy \Hypertarget{class_f_mpi_buffer_reader_ac35e6aabde2ab5006d8e7cdf6043266f}\label{class_f_mpi_buffer_reader_ac35e6aabde2ab5006d8e7cdf6043266f} 
+\index{FMpiBufferReader@{FMpiBufferReader}!fillValue@{fillValue}}
+\index{fillValue@{fillValue}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{fillValue()}{fillValue()}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+void FMpi\+Buffer\+Reader\+::fill\+Value (\begin{DoxyParamCaption}\item[{Class\+Type \texorpdfstring{$\ast$}{*}const}]{in\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Fill a value with memory cast \Hypertarget{class_f_mpi_buffer_reader_a96e01fc77c8c5aab78772de5d69e18ad}\label{class_f_mpi_buffer_reader_a96e01fc77c8c5aab78772de5d69e18ad} 
+\index{FMpiBufferReader@{FMpiBufferReader}!getCapacity@{getCapacity}}
+\index{getCapacity@{getCapacity}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{getCapacity()}{getCapacity()}}
+{\footnotesize\ttfamily FSize FMpi\+Buffer\+Reader\+::get\+Capacity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Size of the memory initialized \Hypertarget{class_f_mpi_buffer_reader_abf7be319a03927f87c977d858a0e3ab4}\label{class_f_mpi_buffer_reader_abf7be319a03927f87c977d858a0e3ab4} 
+\index{FMpiBufferReader@{FMpiBufferReader}!getSize@{getSize}}
+\index{getSize@{getSize}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily FSize FMpi\+Buffer\+Reader\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+get the filled space 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_reader}{FAbstract\+Buffer\+Reader}}.
+
+\Hypertarget{class_f_mpi_buffer_reader_a01aad3fc19caaa54f3ef538184a7a6bf}\label{class_f_mpi_buffer_reader_a01aad3fc19caaa54f3ef538184a7a6bf} 
+\index{FMpiBufferReader@{FMpiBufferReader}!getValue@{getValue}}
+\index{getValue@{getValue}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{getValue()}{getValue()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+Class\+Type FMpi\+Buffer\+Reader\+::get\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get a value with memory cast \Hypertarget{class_f_mpi_buffer_reader_a4112e8b58a9d5eca875d8e16e1c1846d}\label{class_f_mpi_buffer_reader_a4112e8b58a9d5eca875d8e16e1c1846d} 
+\index{FMpiBufferReader@{FMpiBufferReader}!getValue@{getValue}}
+\index{getValue@{getValue}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{getValue()}{getValue()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+Class\+Type FMpi\+Buffer\+Reader\+::get\+Value (\begin{DoxyParamCaption}\item[{const FSize}]{ind }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get a value with memory cast at a specified index \Hypertarget{class_f_mpi_buffer_reader_aed9d711aee6e2fb015b2993f0247c7a0}\label{class_f_mpi_buffer_reader_aed9d711aee6e2fb015b2993f0247c7a0} 
+\index{FMpiBufferReader@{FMpiBufferReader}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}}
+{\footnotesize\ttfamily template$<$class Class\+Type $>$ \\
+\mbox{\hyperlink{class_f_mpi_buffer_reader}{FMpi\+Buffer\+Reader}} \& FMpi\+Buffer\+Reader\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{Class\+Type \&}]{object }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Same as fill\+Value \Hypertarget{class_f_mpi_buffer_reader_a9ea55066fda1b31f13c1c175b39f1f64}\label{class_f_mpi_buffer_reader_a9ea55066fda1b31f13c1c175b39f1f64} 
+\index{FMpiBufferReader@{FMpiBufferReader}!seek@{seek}}
+\index{seek@{seek}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{seek()}{seek()}}
+{\footnotesize\ttfamily void FMpi\+Buffer\+Reader\+::seek (\begin{DoxyParamCaption}\item[{const FSize}]{in\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Move the read index to a position 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_reader}{FAbstract\+Buffer\+Reader}}.
+
+\Hypertarget{class_f_mpi_buffer_reader_a5a5cef9b49b77fb16da9427d608f06ee}\label{class_f_mpi_buffer_reader_a5a5cef9b49b77fb16da9427d608f06ee} 
+\index{FMpiBufferReader@{FMpiBufferReader}!tell@{tell}}
+\index{tell@{tell}!FMpiBufferReader@{FMpiBufferReader}}
+\doxysubsubsection{\texorpdfstring{tell()}{tell()}}
+{\footnotesize\ttfamily FSize FMpi\+Buffer\+Reader\+::tell (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Get the read position 
+
+实现了 \mbox{\hyperlink{class_f_abstract_buffer_reader}{FAbstract\+Buffer\+Reader}}.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Containers/FMpi\+Buffer\+Reader.\+hpp\end{DoxyCompactItemize}

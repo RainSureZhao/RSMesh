@@ -1,0 +1,171 @@
+\doxysection{FMpi类 参考}
+\hypertarget{class_f_mpi}{}\label{class_f_mpi}\index{FMpi@{FMpi}}
+
+
+MPI context management  
+
+
+
+
+{\ttfamily \#include $<$FMpi.\+hpp$>$}
+
+\doxysubsubsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FComm}}
+\begin{DoxyCompactList}\small\item\em MPI comunicator abstraction \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_mpi_a8728c45bf29e276cc97ee8b991d96a6b}\label{class_f_mpi_a8728c45bf29e276cc97ee8b991d96a6b} 
+enum {\bfseries FMpi\+Tag} \{ \newline
+{\bfseries Tag\+Exchange\+Indexs} = 100
+, {\bfseries Tag\+Splitted\+Leaf} = 200
+, {\bfseries Tag\+Exchange\+Nb\+Leafs} = 300
+, {\bfseries Tag\+Sand\+Settling} = 400
+, \newline
+{\bfseries Tag\+Quick\+Sort} = 500
+, {\bfseries Tag\+Fmm\+M2M} = 1000
+, {\bfseries Tag\+Fmm\+M2\+MSize} = 1500
+, {\bfseries Tag\+Fmm\+L2L} = 2000
+, \newline
+{\bfseries Tag\+Fmm\+L2\+LSize} = 2500
+, {\bfseries Tag\+Fmm\+P2P} = 3000
+, {\bfseries Tag\+Bitonic\+Min} = 4000
+, {\bfseries Tag\+Bitonic\+Max} = 5000
+, \newline
+{\bfseries Tag\+Bitonic\+Min\+Mess} = 6000
+, {\bfseries Tag\+Bitonic\+Max\+Mess} = 7000
+, {\bfseries Tag\+Last} = 8000
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_mpi_af3698f4f9b0b230c8e2309e2460c2cca}{FMpi}} ()
+\begin{DoxyCompactList}\small\item\em Constructor \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_ac241c993b989a087e4201bd882215b7e}\label{class_f_mpi_ac241c993b989a087e4201bd882215b7e} 
+{\bfseries FMpi} (int in\+Argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}in\+Argv)
+\begin{DoxyCompactList}\small\item\em Constructor \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_a831ecaab7d42c7bc5339c339990cef5b}\label{class_f_mpi_a831ecaab7d42c7bc5339c339990cef5b} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+FMpi} ()
+\begin{DoxyCompactList}\small\item\em Delete the communicator and call {\ttfamily MPI\+\_\+\+Finalize} \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_a73d7961c53d98f2eef58f5c2ac39e528}\label{class_f_mpi_a73d7961c53d98f2eef58f5c2ac39e528} 
+const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FComm}} \& {\bfseries global} ()
+\begin{DoxyCompactList}\small\item\em Get the global communicator \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}\label{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee} 
+static MPI\+\_\+\+Datatype {\bfseries Get\+Type} (const long long \&)
+\begin{DoxyCompactList}\small\item\em Get the MPI datatype corresponding to a variable. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_ae8b4b66e5a7cd71a640a75719b4c54db}\label{class_f_mpi_ae8b4b66e5a7cd71a640a75719b4c54db} 
+static int {\bfseries Get\+Type\+Count} (const long long \&)
+\item 
+\Hypertarget{class_f_mpi_a57e0551efb1157245b2f3c5c0525a70e}\label{class_f_mpi_a57e0551efb1157245b2f3c5c0525a70e} 
+static MPI\+\_\+\+Datatype {\bfseries Get\+Type} (const long int \&)
+\begin{DoxyCompactList}\small\item\em Get the MPI datatype corresponding to a variable. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_a75d0580fce8b3c8eb56237ff94c9cb3c}\label{class_f_mpi_a75d0580fce8b3c8eb56237ff94c9cb3c} 
+static int {\bfseries Get\+Type\+Count} (const long int \&)
+\item 
+\Hypertarget{class_f_mpi_abd49726f52eed709ce1bec8c2ac5b63a}\label{class_f_mpi_abd49726f52eed709ce1bec8c2ac5b63a} 
+static MPI\+\_\+\+Datatype {\bfseries Get\+Type} (const double \&)
+\begin{DoxyCompactList}\small\item\em Get the MPI datatype corresponding to a variable. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_a10afbdfa5fa86a86ef2e640dd6b94d96}\label{class_f_mpi_a10afbdfa5fa86a86ef2e640dd6b94d96} 
+static int {\bfseries Get\+Type\+Count} (const double \&)
+\item 
+\Hypertarget{class_f_mpi_a00224d47b7157b00c16261ea28e84b71}\label{class_f_mpi_a00224d47b7157b00c16261ea28e84b71} 
+static MPI\+\_\+\+Datatype {\bfseries Get\+Type} (const float \&)
+\begin{DoxyCompactList}\small\item\em Get the MPI datatype corresponding to a variable. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_adb3d1c803094a161317dcd80eb12dfa4}\label{class_f_mpi_adb3d1c803094a161317dcd80eb12dfa4} 
+static int {\bfseries Get\+Type\+Count} (const float \&)
+\item 
+\Hypertarget{class_f_mpi_a931a33de11251940fc50647de8adf615}\label{class_f_mpi_a931a33de11251940fc50647de8adf615} 
+static MPI\+\_\+\+Datatype {\bfseries Get\+Type} (const int \&)
+\begin{DoxyCompactList}\small\item\em Get the MPI datatype corresponding to a variable. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_a279517871d1c850f71a536329fa9d672}\label{class_f_mpi_a279517871d1c850f71a536329fa9d672} 
+static int {\bfseries Get\+Type\+Count} (const int \&)
+\item 
+\Hypertarget{class_f_mpi_a167c459227373079d95a1cf45e517ea4}\label{class_f_mpi_a167c459227373079d95a1cf45e517ea4} 
+static MPI\+\_\+\+Datatype {\bfseries Get\+Type} (const char \&)
+\begin{DoxyCompactList}\small\item\em Get the MPI datatype corresponding to a variable. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_a420ccf0f55522a78a41d1ac922325ba8}\label{class_f_mpi_a420ccf0f55522a78a41d1ac922325ba8} 
+static int {\bfseries Get\+Type\+Count} (const char \&)
+\item 
+\Hypertarget{class_f_mpi_ac516021e64ef64488fd461b361f3f11d}\label{class_f_mpi_ac516021e64ef64488fd461b361f3f11d} 
+static MPI\+\_\+\+Datatype {\bfseries Get\+Type} (const unsigned char \&)
+\begin{DoxyCompactList}\small\item\em Get the MPI datatype corresponding to a variable. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_a52af3e3c3706f6ee436ad0f07519e7b8}\label{class_f_mpi_a52af3e3c3706f6ee436ad0f07519e7b8} 
+static int {\bfseries Get\+Type\+Count} (const unsigned char \&)
+\item 
+\Hypertarget{class_f_mpi_add6d667bb33c39cc18f9029b9bd327d6}\label{class_f_mpi_add6d667bb33c39cc18f9029b9bd327d6} 
+{\footnotesize template$<$class FReal $>$ }\\static MPI\+\_\+\+Datatype {\bfseries Get\+Type} (const \mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \&a)
+\begin{DoxyCompactList}\small\item\em Get the MPI datatype corresponding to a variable. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_a88077af66567e8637d96f7af47cc600c}\label{class_f_mpi_a88077af66567e8637d96f7af47cc600c} 
+{\footnotesize template$<$class FReal $>$ }\\static int {\bfseries Get\+Type\+Count} (const \mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \&a)
+\item 
+\Hypertarget{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}\label{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba} 
+static void {\bfseries Assert} (const int test, const unsigned line, const char \texorpdfstring{$\ast$}{*}const message=nullptr)
+\begin{DoxyCompactList}\small\item\em Generic mpi assert function \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_aa76168b1eaab4e13e07e27c4dc854b18}\label{class_f_mpi_aa76168b1eaab4e13e07e27c4dc854b18} 
+{\footnotesize template$<$class T $>$ }\\static T {\bfseries Get\+Left} (const T in\+Size, const int in\+Id\+Proc, const int in\+Nb\+Proc)
+\begin{DoxyCompactList}\small\item\em Compute a left index from data \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_a7a4b75fdac85d6309e38b3e10c1cb538}\label{class_f_mpi_a7a4b75fdac85d6309e38b3e10c1cb538} 
+{\footnotesize template$<$class T $>$ }\\static T {\bfseries Get\+Right} (const T in\+Size, const int in\+Id\+Proc, const int in\+Nb\+Proc)
+\begin{DoxyCompactList}\small\item\em Compute a right index from data \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_ab98ea114cd15e711b1d676c4a2d7b27c}\label{class_f_mpi_ab98ea114cd15e711b1d676c4a2d7b27c} 
+{\footnotesize template$<$class T $>$ }\\static int {\bfseries Get\+Proc} (const T position, const T in\+Size, const int in\+Nb\+Proc)
+\begin{DoxyCompactList}\small\item\em Compute a proc id from index \& data \texorpdfstring{$\ast$}{*}/ \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}\label{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33} 
+static void {\bfseries Mpi\+Assert} (const int test, const unsigned line, const char \texorpdfstring{$\ast$}{*}const message=nullptr)
+\begin{DoxyCompactList}\small\item\em assert if mpi error \texorpdfstring{$\ast$}{*}/ \end{DoxyCompactList}\item 
+\Hypertarget{class_f_mpi_ad21b879bcbfc7c5bcd66a32bbd604fe6}\label{class_f_mpi_ad21b879bcbfc7c5bcd66a32bbd604fe6} 
+{\footnotesize template$<$class Object\+Type , class Vector\+Type $>$ }\\static int {\bfseries ISend\+Split} (const Object\+Type to\+Send\mbox{[}$\,$\mbox{]}, const size\+\_\+t nb\+Items, const int dest, const int tag\+Base, const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} \&communicator, Vector\+Type \texorpdfstring{$\ast$}{*}request\+Vector)
+\item 
+\Hypertarget{class_f_mpi_ae93dc4bcb521373bcb695423358ebadb}\label{class_f_mpi_ae93dc4bcb521373bcb695423358ebadb} 
+{\footnotesize template$<$class Object\+Type , class Vector\+Type $>$ }\\static int {\bfseries IRecv\+Split} (Object\+Type to\+Recv\mbox{[}$\,$\mbox{]}, const size\+\_\+t nb\+Items, const int source, const int tag\+Base, const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} \&communicator, Vector\+Type \texorpdfstring{$\ast$}{*}request\+Vector)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_mpi_a9f0567d369d5cb5ddb8eee1eecab267a}\label{class_f_mpi_a9f0567d369d5cb5ddb8eee1eecab267a} 
+static const size\+\_\+t {\bfseries Max\+Bytes\+Per\+Div\+Mess} = 20000000
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+MPI context management 
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+This class manages the initialization and destruction of the MPI context. It also gives access to the main communicator via its {\ttfamily const \doxylink{class_f_mpi_1_1_f_comm}{FComm}\& \doxylink{class_f_mpi_a73d7961c53d98f2eef58f5c2ac39e528}{global()}} member.
+
+\begin{DoxyWarning}{警告}
+Do not create more that one instance of this class for the whole program lifetime. MPI does not support multiple initializations.
+\end{DoxyWarning}
+Please read the license. 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_mpi_af3698f4f9b0b230c8e2309e2460c2cca}\label{class_f_mpi_af3698f4f9b0b230c8e2309e2460c2cca} 
+\index{FMpi@{FMpi}!FMpi@{FMpi}}
+\index{FMpi@{FMpi}!FMpi@{FMpi}}
+\doxysubsubsection{\texorpdfstring{FMpi()}{FMpi()}}
+{\footnotesize\ttfamily FMpi\+::\+FMpi (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor 
+
+We use {\ttfamily MPI\+\_\+\+Init\+\_\+thread} because of an openmpi error\+: \begin{DoxyVerb}[fourmi062:15896] [[13237,0],1]-[[13237,1],1] mca_oob_tcp_msg_recv: readv failed: Connection reset by peer (104)
+[fourmi056:04597] [[13237,0],3]-[[13237,1],3] mca_oob_tcp_msg_recv: readv failed: Connection reset by peer (104)
+[fourmi053:08571] [[13237,0],5]-[[13237,1],5] mca_oob_tcp_msg_recv: readv failed: Connection reset by peer (104)
+\end{DoxyVerb}
+ Error for process 1\+: \begin{DoxyVerb}[[13237,1],1][btl_openib_component.c:3227:handle_wc] from fourmi062 to: fourmi056 error polling LP CQ with status LOCAL LENGTH ERROR status number 1 for wr_id 7134664 opcode 0  vendor error 105 qp_idx 3
+           ^
+\end{DoxyVerb}
+ All processes raise the same error, the second 1 (see caret) is replaced by the rank. 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Utils/FMpi.\+hpp\end{DoxyCompactItemize}

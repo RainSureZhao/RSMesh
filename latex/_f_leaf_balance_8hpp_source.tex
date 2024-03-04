@@ -1,0 +1,35 @@
+\doxysection{FLeaf\+Balance.\+hpp}
+\hypertarget{_f_leaf_balance_8hpp_source}{}\label{_f_leaf_balance_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FLeafBalance.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FLeafBalance.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ FLEAFBALANCE\_H}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ FLEAFBALANCE\_H}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}./FAbstractBalanceAlgorithm.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Utils/FMath.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_leaf_balance}{FLeafBalance}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_balance_algorithm}{FAbstractBalanceAlgorithm}}\{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ FSize\ \mbox{\hyperlink{class_f_leaf_balance_a8332ff60015d3bc8c8d02c6ceb9a17a5}{getRight}}(\textcolor{keyword}{const}\ FSize\ numberOfLeaves,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ numberOfProc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxOfProc)\{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ step\ =\ (double(numberOfLeaves)\ /\ double(numberOfProc));}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{const}\ FSize\ res\ =\ FSize(\mbox{\hyperlink{struct_f_math_aa08cb73d8007e11deade2717340f7f35}{FMath::Ceil}}(step\ *\ \textcolor{keywordtype}{double}(idxOfProc+1)));}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{if}(res\ >\ numberOfLeaves)\ \textcolor{keywordflow}{return}\ numberOfLeaves;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00029\ \ \ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00035\ \ \ FSize\ \mbox{\hyperlink{class_f_leaf_balance_afd1354d97721f1c3d82d2e02598b77fd}{getLeft}}(\textcolor{keyword}{const}\ FSize\ numberOfLeaves,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ numberOfProc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxOfProc)\{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ step\ =\ (double(numberOfLeaves)\ /\ double(numberOfProc));}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{return}\ FSize(\mbox{\hyperlink{struct_f_math_aa08cb73d8007e11deade2717340f7f35}{FMath::Ceil}}(step\ *\ \textcolor{keywordtype}{double}(idxOfProc)));}
+\DoxyCodeLine{00039\ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FLEAFBALANCE\_H}}
+
+\end{DoxyCode}

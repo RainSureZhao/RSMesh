@@ -1,0 +1,163 @@
+\doxysection{FSpherical\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_spherical}{}\label{class_f_spherical}\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+
+
+Spherical coordinate system  
+
+
+
+
+{\ttfamily \#include $<$FSpherical.\+hpp$>$}
+
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_spherical_a3cdf6bc92e7a9c30076fd5a50c2609bc}{FSpherical}} ()
+\item 
+\mbox{\hyperlink{class_f_spherical_a9166d1b97b557cda1da7176ef8bb5aa3}{FSpherical}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Vector)
+\item 
+FReal \mbox{\hyperlink{class_f_spherical_afe70b334deb1d5feae782bda8851056d}{getR}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_spherical_a8901493cf4910374e3aabc62fb984ffd}{get\+Theta}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_spherical_adf0db5a2f069c50c9c55be96457dd41d}{get\+Phi}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_spherical_a142b6af5616618a154c76983acdab34f}{get\+Inclination}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_spherical_ac47e9ee1557ed6e700cc985c9031a02b}{get\+Phi\+Zero2\+Pi}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_spherical_a7f3ca3427a17cf1b9e114aa1ed7049a3}{get\+Cos\+Theta}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_spherical_accff4b45e34fd2b215715563a68a412f}{get\+Sin\+Theta}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{友元}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Stream\+Class $>$ }\\Stream\+Class \& \mbox{\hyperlink{class_f_spherical_aa0ae9915740a4d3f375ac79f1bcd8006}{operator$<$$<$}} (Stream\+Class \&output, const \mbox{\hyperlink{class_f_spherical}{FSpherical}} \&in\+Position)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal$>$\newline
+class FSpherical$<$ FReal $>$}
+Spherical coordinate system 
+
+This class is a Spherical position
+
+We consider the spherical coordinate system $(r, \theta, \varphi)$ commonly used in physics. r is the radial distance, $\theta$ the polar/inclination angle and $\varphi$ the azimuthal angle.~\newline
+ The {\bfseries{radial distance}} is the Euclidean distance from the origin O to P.~\newline
+ The {\bfseries{inclination (or polar angle) }}is the angle between the zenith direction and the line segment OP.~\newline
+ The {\bfseries{azimuth (or azimuthal angle)}} is the signed angle measured from the azimuth reference direction to the orthogonal projection of the line segment OP on the reference plane.~\newline
+
+
+The spherical coordinates of a point can be obtained from its Cartesian coordinates (x, y, z) by the formulae $ \displaystyle r = \sqrt{x^2 + y^2 + z^2}$~\newline
+ $ \displaystyle \theta = \displaystyle\arccos\left(\frac{z}{r}\right) $~\newline
+ $ \displaystyle \varphi = \displaystyle\arctan\left(\frac{y}{x}\right) $~\newline
+ and $\varphi\in[0,2\pi[ $ $ \theta\in[0,\pi]$~\newline
+
+
+The spherical coordinate system is retrieved from the the spherical coordinates by ~\newline
+ $x = r \sin(\theta) \cos(\varphi)$ ~\newline
+ $y = r \sin(\theta) \sin(\varphi)$ ~\newline
+ $z = r \cos(\theta) $~\newline
+ with $\varphi\in[-\pi,\pi[ $ $ \theta\in[0,\pi]$~\newline
+
+
+This system is defined in p 872 of the paper of Epton and Dembart, SIAM J Sci Comput 1995.~\newline
+
+
+Even if it can look different from usual expression (where theta and phi are inversed), such expression is used to match the SH expression. See \href{http://en.wikipedia.org/wiki/Spherical_coordinate_system}{\texttt{ http\+://en.\+wikipedia.\+org/wiki/\+Spherical\+\_\+coordinate\+\_\+system}} 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_spherical_a3cdf6bc92e7a9c30076fd5a50c2609bc}\label{class_f_spherical_a3cdf6bc92e7a9c30076fd5a50c2609bc} 
+\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}!FSpherical@{FSpherical}}
+\index{FSpherical@{FSpherical}!FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{FSpherical()}{FSpherical()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\mbox{\hyperlink{class_f_spherical}{FSpherical}}$<$ FReal $>$\mbox{\hyperlink{class_f_spherical}{\+::\+FSpherical}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Default Constructor, set attributes to 0 \Hypertarget{class_f_spherical_a9166d1b97b557cda1da7176ef8bb5aa3}\label{class_f_spherical_a9166d1b97b557cda1da7176ef8bb5aa3} 
+\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}!FSpherical@{FSpherical}}
+\index{FSpherical@{FSpherical}!FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{FSpherical()}{FSpherical()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\mbox{\hyperlink{class_f_spherical}{FSpherical}}$<$ FReal $>$\mbox{\hyperlink{class_f_spherical}{\+::\+FSpherical}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+From now, we just need a constructor based on a 3D position 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_spherical_a7f3ca3427a17cf1b9e114aa1ed7049a3}\label{class_f_spherical_a7f3ca3427a17cf1b9e114aa1ed7049a3} 
+\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}!getCosTheta@{getCosTheta}}
+\index{getCosTheta@{getCosTheta}!FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getCosTheta()}{getCosTheta()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_spherical}{FSpherical}}$<$ FReal $>$\+::get\+Cos\+Theta (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the cos of theta = z / r \Hypertarget{class_f_spherical_a142b6af5616618a154c76983acdab34f}\label{class_f_spherical_a142b6af5616618a154c76983acdab34f} 
+\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}!getInclination@{getInclination}}
+\index{getInclination@{getInclination}!FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getInclination()}{getInclination()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_spherical}{FSpherical}}$<$ FReal $>$\+::get\+Inclination (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the inclination angle \mbox{[}0, pi\mbox{]} \Hypertarget{class_f_spherical_adf0db5a2f069c50c9c55be96457dd41d}\label{class_f_spherical_adf0db5a2f069c50c9c55be96457dd41d} 
+\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}!getPhi@{getPhi}}
+\index{getPhi@{getPhi}!FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getPhi()}{getPhi()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_spherical}{FSpherical}}$<$ FReal $>$\+::get\+Phi (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the azimuth angle phi = atan2(y,x) \mbox{[}-\/pi,pi\mbox{]} \Hypertarget{class_f_spherical_ac47e9ee1557ed6e700cc985c9031a02b}\label{class_f_spherical_ac47e9ee1557ed6e700cc985c9031a02b} 
+\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}!getPhiZero2Pi@{getPhiZero2Pi}}
+\index{getPhiZero2Pi@{getPhiZero2Pi}!FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getPhiZero2Pi()}{getPhiZero2Pi()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_spherical}{FSpherical}}$<$ FReal $>$\+::get\+Phi\+Zero2\+Pi (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the azimuth angle \mbox{[}0,2pi\mbox{]}. You should use this method in order to obtain (x,y,z) \Hypertarget{class_f_spherical_afe70b334deb1d5feae782bda8851056d}\label{class_f_spherical_afe70b334deb1d5feae782bda8851056d} 
+\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}!getR@{getR}}
+\index{getR@{getR}!FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getR()}{getR()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_spherical}{FSpherical}}$<$ FReal $>$\+::getR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the radius \Hypertarget{class_f_spherical_accff4b45e34fd2b215715563a68a412f}\label{class_f_spherical_accff4b45e34fd2b215715563a68a412f} 
+\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}!getSinTheta@{getSinTheta}}
+\index{getSinTheta@{getSinTheta}!FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getSinTheta()}{getSinTheta()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_spherical}{FSpherical}}$<$ FReal $>$\+::get\+Sin\+Theta (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the sin of theta = sqrt(x2y2) / r \Hypertarget{class_f_spherical_a8901493cf4910374e3aabc62fb984ffd}\label{class_f_spherical_a8901493cf4910374e3aabc62fb984ffd} 
+\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}!getTheta@{getTheta}}
+\index{getTheta@{getTheta}!FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getTheta()}{getTheta()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_spherical}{FSpherical}}$<$ FReal $>$\+::get\+Theta (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the inclination angle theta = acos(z/r) \mbox{[}0, pi\mbox{]} 
+
+\doxysubsection{友元及相关函数文档}
+\Hypertarget{class_f_spherical_aa0ae9915740a4d3f375ac79f1bcd8006}\label{class_f_spherical_aa0ae9915740a4d3f375ac79f1bcd8006} 
+\index{FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!FSpherical$<$ FReal $>$@{FSpherical$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+template$<$class Stream\+Class $>$ \\
+Stream\+Class \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Stream\+Class \&}]{output,  }\item[{const \mbox{\hyperlink{class_f_spherical}{FSpherical}}$<$ FReal $>$ \&}]{in\+Position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Operator stream \doxylink{class_f_point}{FPoint$<$\+FReal$>$} to std\+::ostream This can be used to simpldata\mbox{[}1\mbox{]} write out a position 
+\begin{DoxyParams}[1]{参数}
+\mbox{\texttt{ in,out}}  & {\em output} & where to write the position \\
+\hline
+\mbox{\texttt{ in}}  & {\em in\+Position} & the position to write out \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the output for multiple \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} operators 
+\end{DoxyReturn}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Utils/FSpherical.\+hpp\end{DoxyCompactItemize}

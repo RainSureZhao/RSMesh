@@ -1,0 +1,131 @@
+\doxysection{rsmesh\+::interpolant类 参考}
+\hypertarget{classrsmesh_1_1interpolant}{}\label{classrsmesh_1_1interpolant}\index{rsmesh::interpolant@{rsmesh::interpolant}}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrsmesh_1_1interpolant_afcf0d1b1bcd43c2d4e3bc5423eee97e5}{interpolant}} (\mbox{\hyperlink{classrsmesh_1_1model}{model}} \mbox{\hyperlink{classrsmesh_1_1model}{model}})
+\item 
+const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \& \mbox{\hyperlink{classrsmesh_1_1interpolant_aa1de5a05575a03f38f69345cdd79d9c8}{centers}} () const
+\item 
+valuesd \mbox{\hyperlink{classrsmesh_1_1interpolant_aaeb385731fb559a55292cdedae0c608f}{evaluate}} (const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&points)
+\item 
+valuesd \mbox{\hyperlink{classrsmesh_1_1interpolant_aff80f92fb1f7ef532111a07be8b5c441}{evaluate\+\_\+impl}} (const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&points) const
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1interpolant_acc3dd0859953c38b9e17c4a34c71d565}{fit}} (const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&points, const valuesd \&values, double absolute\+\_\+tolerance, int max\+\_\+iter=32)
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1interpolant_ad0190d376e3fc5eb238e57e747a713c3}{fit\+\_\+incrementally}} (const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&points, const valuesd \&values, double absolute\+\_\+tolerance, int max\+\_\+iter=32)
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1interpolant_af4c652ae7e0c7934d528a3c10e5852f3}{fit\+\_\+inequality}} (const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&points, const valuesd \&values, const valuesd \&values\+\_\+lb, const valuesd \&values\+\_\+ub, double absolute\+\_\+tolerance, int max\+\_\+iter=32)
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1interpolant_a3ddf9bb935bd4f0a46f55af858b0bdaf}{set\+\_\+evaluation\+\_\+bbox\+\_\+impl}} (const \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry\+::bbox3d}} \&bbox)
+\item 
+const valuesd \& \mbox{\hyperlink{classrsmesh_1_1interpolant_a661c3541f4adfaf7ca8bd9a4b051081d}{weights}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+
+
+在文件 \mbox{\hyperlink{interpolant_8h_source}{interpolant.\+h}} 第 \mbox{\hyperlink{interpolant_8h_source_l00025}{25}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{classrsmesh_1_1interpolant_afcf0d1b1bcd43c2d4e3bc5423eee97e5}\label{classrsmesh_1_1interpolant_afcf0d1b1bcd43c2d4e3bc5423eee97e5} 
+\index{rsmesh::interpolant@{rsmesh::interpolant}!interpolant@{interpolant}}
+\index{interpolant@{interpolant}!rsmesh::interpolant@{rsmesh::interpolant}}
+\doxysubsubsection{\texorpdfstring{interpolant()}{interpolant()}}
+{\footnotesize\ttfamily rsmesh\+::interpolant\+::interpolant (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classrsmesh_1_1model}{model}}}]{model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+在文件 \mbox{\hyperlink{interpolant_8h_source}{interpolant.\+h}} 第 \mbox{\hyperlink{interpolant_8h_source_l00027}{27}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{classrsmesh_1_1interpolant_aa1de5a05575a03f38f69345cdd79d9c8}\label{classrsmesh_1_1interpolant_aa1de5a05575a03f38f69345cdd79d9c8} 
+\index{rsmesh::interpolant@{rsmesh::interpolant}!centers@{centers}}
+\index{centers@{centers}!rsmesh::interpolant@{rsmesh::interpolant}}
+\doxysubsubsection{\texorpdfstring{centers()}{centers()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \& rsmesh\+::interpolant\+::centers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{interpolant_8h_source}{interpolant.\+h}} 第 \mbox{\hyperlink{interpolant_8h_source_l00029}{29}} 行定义.
+
+\Hypertarget{classrsmesh_1_1interpolant_aaeb385731fb559a55292cdedae0c608f}\label{classrsmesh_1_1interpolant_aaeb385731fb559a55292cdedae0c608f} 
+\index{rsmesh::interpolant@{rsmesh::interpolant}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!rsmesh::interpolant@{rsmesh::interpolant}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily valuesd rsmesh\+::interpolant\+::evaluate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&}]{points }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{interpolant_8h_source}{interpolant.\+h}} 第 \mbox{\hyperlink{interpolant_8h_source_l00037}{37}} 行定义.
+
+\Hypertarget{classrsmesh_1_1interpolant_aff80f92fb1f7ef532111a07be8b5c441}\label{classrsmesh_1_1interpolant_aff80f92fb1f7ef532111a07be8b5c441} 
+\index{rsmesh::interpolant@{rsmesh::interpolant}!evaluate\_impl@{evaluate\_impl}}
+\index{evaluate\_impl@{evaluate\_impl}!rsmesh::interpolant@{rsmesh::interpolant}}
+\doxysubsubsection{\texorpdfstring{evaluate\_impl()}{evaluate\_impl()}}
+{\footnotesize\ttfamily valuesd rsmesh\+::interpolant\+::evaluate\+\_\+impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&}]{points }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{interpolant_8h_source}{interpolant.\+h}} 第 \mbox{\hyperlink{interpolant_8h_source_l00046}{46}} 行定义.
+
+\Hypertarget{classrsmesh_1_1interpolant_acc3dd0859953c38b9e17c4a34c71d565}\label{classrsmesh_1_1interpolant_acc3dd0859953c38b9e17c4a34c71d565} 
+\index{rsmesh::interpolant@{rsmesh::interpolant}!fit@{fit}}
+\index{fit@{fit}!rsmesh::interpolant@{rsmesh::interpolant}}
+\doxysubsubsection{\texorpdfstring{fit()}{fit()}}
+{\footnotesize\ttfamily void rsmesh\+::interpolant\+::fit (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&}]{points,  }\item[{const valuesd \&}]{values,  }\item[{double}]{absolute\+\_\+tolerance,  }\item[{int}]{max\+\_\+iter = {\ttfamily 32} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{interpolant_8h_source}{interpolant.\+h}} 第 \mbox{\hyperlink{interpolant_8h_source_l00054}{54}} 行定义.
+
+\Hypertarget{classrsmesh_1_1interpolant_ad0190d376e3fc5eb238e57e747a713c3}\label{classrsmesh_1_1interpolant_ad0190d376e3fc5eb238e57e747a713c3} 
+\index{rsmesh::interpolant@{rsmesh::interpolant}!fit\_incrementally@{fit\_incrementally}}
+\index{fit\_incrementally@{fit\_incrementally}!rsmesh::interpolant@{rsmesh::interpolant}}
+\doxysubsubsection{\texorpdfstring{fit\_incrementally()}{fit\_incrementally()}}
+{\footnotesize\ttfamily void rsmesh\+::interpolant\+::fit\+\_\+incrementally (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&}]{points,  }\item[{const valuesd \&}]{values,  }\item[{double}]{absolute\+\_\+tolerance,  }\item[{int}]{max\+\_\+iter = {\ttfamily 32} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{interpolant_8h_source}{interpolant.\+h}} 第 \mbox{\hyperlink{interpolant_8h_source_l00080}{80}} 行定义.
+
+\Hypertarget{classrsmesh_1_1interpolant_af4c652ae7e0c7934d528a3c10e5852f3}\label{classrsmesh_1_1interpolant_af4c652ae7e0c7934d528a3c10e5852f3} 
+\index{rsmesh::interpolant@{rsmesh::interpolant}!fit\_inequality@{fit\_inequality}}
+\index{fit\_inequality@{fit\_inequality}!rsmesh::interpolant@{rsmesh::interpolant}}
+\doxysubsubsection{\texorpdfstring{fit\_inequality()}{fit\_inequality()}}
+{\footnotesize\ttfamily void rsmesh\+::interpolant\+::fit\+\_\+inequality (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry\+::points3d}} \&}]{points,  }\item[{const valuesd \&}]{values,  }\item[{const valuesd \&}]{values\+\_\+lb,  }\item[{const valuesd \&}]{values\+\_\+ub,  }\item[{double}]{absolute\+\_\+tolerance,  }\item[{int}]{max\+\_\+iter = {\ttfamily 32} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{interpolant_8h_source}{interpolant.\+h}} 第 \mbox{\hyperlink{interpolant_8h_source_l00107}{107}} 行定义.
+
+\Hypertarget{classrsmesh_1_1interpolant_a3ddf9bb935bd4f0a46f55af858b0bdaf}\label{classrsmesh_1_1interpolant_a3ddf9bb935bd4f0a46f55af858b0bdaf} 
+\index{rsmesh::interpolant@{rsmesh::interpolant}!set\_evaluation\_bbox\_impl@{set\_evaluation\_bbox\_impl}}
+\index{set\_evaluation\_bbox\_impl@{set\_evaluation\_bbox\_impl}!rsmesh::interpolant@{rsmesh::interpolant}}
+\doxysubsubsection{\texorpdfstring{set\_evaluation\_bbox\_impl()}{set\_evaluation\_bbox\_impl()}}
+{\footnotesize\ttfamily void rsmesh\+::interpolant\+::set\+\_\+evaluation\+\_\+bbox\+\_\+impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrsmesh_1_1geometry_1_1bbox3d}{geometry\+::bbox3d}} \&}]{bbox }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{interpolant_8h_source}{interpolant.\+h}} 第 \mbox{\hyperlink{interpolant_8h_source_l00148}{148}} 行定义.
+
+\Hypertarget{classrsmesh_1_1interpolant_a661c3541f4adfaf7ca8bd9a4b051081d}\label{classrsmesh_1_1interpolant_a661c3541f4adfaf7ca8bd9a4b051081d} 
+\index{rsmesh::interpolant@{rsmesh::interpolant}!weights@{weights}}
+\index{weights@{weights}!rsmesh::interpolant@{rsmesh::interpolant}}
+\doxysubsubsection{\texorpdfstring{weights()}{weights()}}
+{\footnotesize\ttfamily const valuesd \& rsmesh\+::interpolant\+::weights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{interpolant_8h_source}{interpolant.\+h}} 第 \mbox{\hyperlink{interpolant_8h_source_l00159}{159}} 行定义.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+include/interpolant.\+h\end{DoxyCompactItemize}

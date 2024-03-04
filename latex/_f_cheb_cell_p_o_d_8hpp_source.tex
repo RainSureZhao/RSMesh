@@ -1,0 +1,108 @@
+\doxysection{FCheb\+Cell\+POD.\+hpp}
+\hypertarget{_f_cheb_cell_p_o_d_8hpp_source}{}\label{_f_cheb_cell_p_o_d_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/Chebyshev/FChebCellPOD.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/Chebyshev/FChebCellPOD.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FCHEBCELLPOD\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FCHEBCELLPOD\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Core/FBasicCellPOD.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../StarPUUtils/FStarPUDefaultAlign.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../../Kernels/Chebyshev/FChebTensor.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_f_basic_cell_p_o_d}{FBasicCellPOD}}\ \mbox{\hyperlink{struct_f_basic_cell_p_o_d}{FChebCellPODCore}};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER,\ \textcolor{keywordtype}{int}\ NRHS\ =\ 1,\ \textcolor{keywordtype}{int}\ NLHS\ =\ 1,\ \textcolor{keywordtype}{int}\ NVALS\ =\ 1>}
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }\textcolor{keyword}{alignas}(FStarPUDefaultAlign::StructAlign)\ \mbox{\hyperlink{struct_f_cheb_cell_p_o_d_pole}{FChebCellPODPole}}\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ VectorSize\ =\ \mbox{\hyperlink{struct_tensor_traits}{TensorTraits<ORDER>::nnodes}}\ *\ 2;}
+\DoxyCodeLine{00014\ \ \ \ \ FReal\ multipole\_exp[NRHS\ *\ NVALS\ *\ VectorSize];}
+\DoxyCodeLine{00015\ \};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER,\ \textcolor{keywordtype}{int}\ NRHS\ =\ 1,\ \textcolor{keywordtype}{int}\ NLHS\ =\ 1,\ \textcolor{keywordtype}{int}\ NVALS\ =\ 1>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{struct\ }\textcolor{keyword}{alignas}(FStarPUDefaultAlign::StructAlign)\ \mbox{\hyperlink{struct_f_cheb_cell_p_o_d_local}{FChebCellPODLocal}}\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ VectorSize\ =\ \mbox{\hyperlink{struct_tensor_traits}{TensorTraits<ORDER>::nnodes}}\ *\ 2;}
+\DoxyCodeLine{00020\ \ \ \ \ FReal\ local\_exp[NLHS\ *\ NVALS\ *\ VectorSize];\ \textcolor{comment}{//<\ Local\ expansion}}
+\DoxyCodeLine{00021\ \};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER,\ \textcolor{keywordtype}{int}\ NRHS\ =\ 1,\ \textcolor{keywordtype}{int}\ NLHS\ =\ 1,\ \textcolor{keywordtype}{int}\ NVALS\ =\ 1>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_cheb_cell_p_o_d}{FChebCellPOD}}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ nnodes\ =\ ORDER\string^3}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ we\ multiply\ by\ 2\ because\ we\ store\ the\ \ Multipole\ expansion\ end\ the\ compressed\ one.}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ VectorSize\ =\ \mbox{\hyperlink{struct_tensor_traits}{TensorTraits<ORDER>::nnodes}}\ *\ 2;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{struct_f_basic_cell_p_o_d}{FChebCellPODCore}}*\ symb;}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{struct_f_cheb_cell_p_o_d_pole}{FChebCellPODPole<FReal,\ ORDER,NRHS,NLHS,NVALS>}}*\ up;}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{struct_f_cheb_cell_p_o_d_local}{FChebCellPODLocal<FReal,\ ORDER,NRHS,NLHS,NVALS>}}*\ down;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_f_cheb_cell_p_o_d}{FChebCellPOD}}(\mbox{\hyperlink{struct_f_basic_cell_p_o_d}{FChebCellPODCore}}*\ inSymb,\ \mbox{\hyperlink{struct_f_cheb_cell_p_o_d_pole}{FChebCellPODPole<FReal,\ ORDER,NRHS,NLHS,NVALS>}}*\ inUp,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_cheb_cell_p_o_d_local}{FChebCellPODLocal<FReal,\ ORDER,NRHS,NLHS,NVALS>}}*\ inDown):\ symb(inSymb),\ up(inUp),\ down(inDown)\{}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_f_cheb_cell_p_o_d}{FChebCellPOD}}()}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ :\ symb(\textcolor{keyword}{nullptr}),\ up(\textcolor{keyword}{nullptr}),\ down(\textcolor{keyword}{nullptr})\{}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00045\ \ \ \ \ MortonIndex\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_a7ab4cd83c90046309fa0f84e56dbfaaf}{getMortonIndex}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ symb-\/>mortonIndex;}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_a6fd491bf701e4001ba825b973ea5e6e6}{setMortonIndex}}(\textcolor{keyword}{const}\ MortonIndex\ inMortonIndex)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ symb-\/>mortonIndex\ =\ inMortonIndex;}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_a7ae56104077699946119f4d93ec57f98}{getLevel}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ symb-\/>level;}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_a122b5eb3b6c917d544edd941a5c71970}{setLevel}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ level)\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ symb-\/>level\ =\ level;}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_a60867f14d98b53ad916a668ca3c83979}{getCoordinate}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}(symb-\/>coordinates[0],}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ symb-\/>coordinates[1],\ symb-\/>coordinates[2]);}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_ae36f2151f01e126bc8ff81b0e567d3d9}{setCoordinate}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ inCoordinate)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ symb-\/>coordinates[0]\ =\ inCoordinate.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}();}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ symb-\/>coordinates[1]\ =\ inCoordinate.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}();}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ symb-\/>coordinates[2]\ =\ inCoordinate.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}();}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_a42aeb6f1ff68fc569ddbfacf7369ca8c}{setCoordinate}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inX,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inY,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inZ)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ symb-\/>coordinates[0]\ =\ inX;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ symb-\/>coordinates[1]\ =\ inY;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ symb-\/>coordinates[2]\ =\ inZ;}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_a4add53a9bdf5710c6891399ff32682a6}{getMultipole}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inRhs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00086\ \textcolor{keyword}{\ \ \ \ }\{\ \ \ \textcolor{keywordflow}{return}\ up-\/>multipole\_exp\ +\ inRhs*VectorSize;}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_ae103138a33ee9c6b084c0172e66bd15d}{getLocal}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inRhs)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ down-\/>local\_exp\ +\ inRhs*VectorSize;}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00094\ \ \ \ \ FReal*\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_a326b173696cafb3039f264f9bfd0a22c}{getMultipole}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inRhs)\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ up-\/>multipole\_exp\ +\ inRhs*VectorSize;}
+\DoxyCodeLine{00096\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ FReal*\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_a46559171257fb5fec79cb992254d276d}{getLocal}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inRhs)\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ down-\/>local\_exp\ +\ inRhs*VectorSize;}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_a6c5bfd7c04899616ed6565255f77cf66}{getVectorSize}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ VectorSize;}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_cell_p_o_d_ac19a715ce9426c5ec900bf1bb76a5b57}{resetToInitialState}}()\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ memset(up-\/>multipole\_exp,\ 0,\ \textcolor{keyword}{sizeof}(FReal)\ *\ NRHS\ *\ NVALS\ *\ VectorSize);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ memset(down-\/>local\_exp,\ \ \ \ \ \ \ \ \ 0,\ \textcolor{keyword}{sizeof}(FReal)\ *\ NLHS\ *\ NVALS\ *\ VectorSize);}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FCHEBCELLPOD\_HPP}}
+
+\end{DoxyCode}

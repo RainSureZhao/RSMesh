@@ -1,0 +1,129 @@
+\doxysection{FPar\+For\+Each\+Octree.\+hpp}
+\hypertarget{_f_par_for_each_octree_8hpp_source}{}\label{_f_par_for_each_octree_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Containers/FParForEachOctree.hpp@{third\_party/ScalFMM/include/ScalFMM/Containers/FParForEachOctree.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FPARFOREACHOCTREE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FPARFOREACHOCTREE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}FOctree.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }FParForEachOctree\ \{}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Lambda\ function\ to\ apply\ to\ all\ member}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{template}<\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{class}\ LeafClass,\ \textcolor{keyword}{class}\ CellAllocatorClass\ >\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_octree}{FOctree}},}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }FReal,\ \textcolor{keyword}{class\ }CellClass,\ \textcolor{keyword}{class\ }ContainerClass,\ \textcolor{keyword}{class\ }LeafClass,\ \textcolor{keyword}{class\ }CellAllocatorClass,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }FunctionTemplate>}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ forEachLeaf(\mbox{\hyperlink{class_f_octree}{FOctree<FReal,\ CellClass,ContainerClass,LeafClass,CellAllocatorClass>}}*\ tree,\ FunctionTemplate\ function)\{}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ omp\ parallel}}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ single}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{class_f_octree_1_1_iterator}{FOctree<FReal,\ CellClass,ContainerClass,LeafClass,CellAllocatorClass>::Iterator}}\ octreeIterator(tree);}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LeafClass*\ lf\ =\ octreeIterator.getCurrentLeaf();}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#pragma\ omp\ task\ firstprivate(lf)}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ function(lf);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#pragma\ omp\ taskwait}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{template}<\ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{class}\ LeafClass,\ \textcolor{keyword}{class}\ CellAllocatorClass\ >\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_octree}{FOctree}},}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }FReal,\ \textcolor{keyword}{class\ }CellClass,\ \textcolor{keyword}{class\ }ContainerClass,\ \textcolor{keyword}{class\ }LeafClass,\ \textcolor{keyword}{class\ }CellAllocatorClass,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }FunctionTemplate>}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ forEachCell(\mbox{\hyperlink{class_f_octree}{FOctree<FReal,\ CellClass,ContainerClass,LeafClass,CellAllocatorClass>}}*\ tree,\ FunctionTemplate\ function)\{}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ omp\ parallel}}
+\DoxyCodeLine{00051\ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ single}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{class_f_octree_1_1_iterator}{FOctree<FReal,\ CellClass,ContainerClass,LeafClass,CellAllocatorClass>::Iterator}}\ octreeIterator(tree);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{class_f_octree_1_1_iterator}{FOctree<FReal,\ CellClass,ContainerClass,LeafClass,CellAllocatorClass>::Iterator}}\ avoidGoLeft(octreeIterator);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ tree-\/>\mbox{\hyperlink{class_f_octree_ad3ab30c6c96970df4502219e7c21da58}{getHeight}}()-\/1\ ;\ idx\ >=\ 1\ ;\ -\/-\/idx\ )\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ cell\ =\ octreeIterator.getCurrentCell();}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#pragma\ omp\ task\ firstprivate(cell)}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ function(cell);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ avoidGoLeft.moveUp();}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGoLeft;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#pragma\ omp\ taskwait}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{template}<\ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{class}\ LeafClass,\ \textcolor{keyword}{class}\ CellAllocatorClass\ >\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_octree}{FOctree}},}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }FReal,\ \textcolor{keyword}{class\ }CellClass,\ \textcolor{keyword}{class\ }ContainerClass,\ \textcolor{keyword}{class\ }LeafClass,\ \textcolor{keyword}{class\ }CellAllocatorClass,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }FunctionTemplate>}
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{void}\ forEachCellWithLevel(\mbox{\hyperlink{class_f_octree}{FOctree<FReal,\ CellClass,ContainerClass,LeafClass,CellAllocatorClass>}}*\ tree,\ FunctionTemplate\ function)\{}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ omp\ parallel}}
+\DoxyCodeLine{00085\ \ \ \ \ \{}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ single}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{class_f_octree_1_1_iterator}{FOctree<FReal,\ CellClass,ContainerClass,LeafClass,CellAllocatorClass>::Iterator}}\ octreeIterator(tree);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{class_f_octree_1_1_iterator}{FOctree<FReal,\ CellClass,ContainerClass,LeafClass,CellAllocatorClass>::Iterator}}\ avoidGoLeft(octreeIterator);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ tree-\/>\mbox{\hyperlink{class_f_octree_ad3ab30c6c96970df4502219e7c21da58}{getHeight}}()-\/1\ ;\ idx\ >=\ 1\ ;\ -\/-\/idx\ )\{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ cell\ =\ octreeIterator.getCurrentCell();}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#pragma\ omp\ task\ firstprivate(cell,\ idx)}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ function(cell,idx);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ avoidGoLeft.moveUp();}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator\ =\ avoidGoLeft;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#pragma\ omp\ taskwait}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{template}<\ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass,\ \textcolor{keyword}{class}\ LeafClass,\ \textcolor{keyword}{class}\ CellAllocatorClass\ >\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_octree}{FOctree}},}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }FReal,\ \textcolor{keyword}{class\ }CellClass,\ \textcolor{keyword}{class\ }ContainerClass,\ \textcolor{keyword}{class\ }LeafClass,\ \textcolor{keyword}{class\ }CellAllocatorClass,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }FunctionTemplate>}
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}\ forEachCellLeaf(\mbox{\hyperlink{class_f_octree}{FOctree<FReal,\ CellClass,ContainerClass,LeafClass,CellAllocatorClass>}}*\ tree,\ FunctionTemplate\ function)\{}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ omp\ parallel}}
+\DoxyCodeLine{00119\ \ \ \ \ \{}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ single}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ \mbox{\hyperlink{class_f_octree_1_1_iterator}{FOctree<FReal,\ CellClass,ContainerClass,LeafClass,CellAllocatorClass>::Iterator}}\ octreeIterator(tree);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ cell\ =\ octreeIterator.getCurrentCell();}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LeafClass*\ lf\ =\ octreeIterator.getCurrentLeaf();}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#pragma\ omp\ task\ firstprivate(cell,\ lf)}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ function(cell,lf);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#pragma\ omp\ taskwait}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FPARFOREACHOCTREE\_HPP}}
+
+\end{DoxyCode}

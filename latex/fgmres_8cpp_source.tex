@@ -1,0 +1,38 @@
+\doxysection{fgmres.\+cpp}
+\hypertarget{fgmres_8cpp_source}{}\label{fgmres_8cpp_source}\index{src/krylov/fgmres.cpp@{src/krylov/fgmres.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/13.}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}krylov/fgmres.h"{}}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00006}00006\ \textcolor{keyword}{namespace\ }rsmesh::krylov\ \{}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00007}00007\ \ \ \ \ fgmres::fgmres(\textcolor{keyword}{const}\ linear\_operator\&\ op,\ \textcolor{keyword}{const}\ valuesd\&\ rhs,\ index\_t\ max\_iter)}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00008}00008\ \ \ \ \ \ \ \ \ \ \ \ \ :\ gmres(op,\ rhs,\ max\_iter)\ \{\}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00010}00010\ \ \ \ \ valuesd\ fgmres::solution\_vector()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ r\ is\ an\ upper\ triangular\ matrix.}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00012}00012\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ backward\ substitution\ to\ solve\ r\ y\ ==\ g\ for\ y.}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ valuesd\ y\ =\ valuesd::Zero(iter\_);}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ j\ =\ iter\_\ -\/\ 1;\ j\ >=\ 0;\ j-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ y(j)\ =\ g\_(j);}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ j\ +\ 1;\ i\ <=\ iter\_\ -\/\ 1;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y(j)\ -\/=\ r\_(j,\ i)\ *\ y(i);}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ y(j)\ /=\ r\_(j,\ j);}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ valuesd\ x\ =\ x0\_;}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ iter\_;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ x\ +=\ y(i)\ *\ zs\_.at(i);}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x;}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00028}00028\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00030}00030\ \ \ \ \ \textcolor{keywordtype}{void}\ fgmres::add\_preconditioned\_krylov\_basis(\textcolor{keyword}{const}\ valuesd\&\ z)\ \{\ zs\_.push\_back(z);\ \}}
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{fgmres_8cpp_source_l00032}00032\ \}}
+
+\end{DoxyCode}

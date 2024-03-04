@@ -1,0 +1,19 @@
+\doxysection{rbf\+\_\+fitter.\+cpp}
+\hypertarget{rbf__fitter_8cpp_source}{}\label{rbf__fitter_8cpp_source}\index{src/interpolation/rbf\_fitter.cpp@{src/interpolation/rbf\_fitter.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/3.}}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}interpolation/rbf\_fitter.h"{}}}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}interpolation/rbf\_solver.h"{}}}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00006}00006\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1interpolation}{rsmesh::interpolation}}\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00007}00007\ \ \ \ \ rbf\_fitter::rbf\_fitter(\textcolor{keyword}{const}\ model\&\ model,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ points)\ :\ model\_(model),\ points\_(points)\ \{\};}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00009}00009\ \ \ \ \ valuesd\ rbf\_fitter::fit(\textcolor{keyword}{const}\ rsmesh::valuesd\ \&values,\ \textcolor{keywordtype}{double}\ absolute\_tolerance,\ \textcolor{keywordtype}{int}\ max\_iter)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00010}00010\ \ \ \ \ \ \ \ \ rbf\_solver\ solver(model\_,\ points\_);}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ solver.solve(values,\ absolute\_tolerance,\ max\_iter);}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00012}00012\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__fitter_8cpp_source_l00013}00013\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,88 @@
+\doxysection{FEnv.\+hpp}
+\hypertarget{_f_env_8hpp_source}{}\label{_f_env_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FEnv.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FEnv.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FENV\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FENV\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}FGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }FEnv\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ VariableType>}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ VariableType\ \mbox{\hyperlink{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d}{StrToOther}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ str,\ \textcolor{keyword}{const}\ VariableType\&\ defaultValue\ =\ VariableType())\{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ std::istringstream\ iss(str,std::istringstream::in);}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ VariableType\ value;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ iss\ >>\ value;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \textcolor{comment}{/*iss.tellg()*/}\ iss.eof()\ )\ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ defaultValue;}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ VariableIsDefine(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ inVarName[])\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ getenv(inVarName)\ !=\ 0;}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ VariableType>}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ VariableType\ GetValue(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ inVarName[],\ \textcolor{keyword}{const}\ VariableType\ defaultValue\ =\ VariableType())\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const}\ value\ =\ getenv(inVarName);}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!value)\{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ defaultValue;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d}{StrToOther}}(value,defaultValue);}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ GetBool(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ inVarName[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ defaultValue\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const}\ value\ =\ getenv(inVarName);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!value)\{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ defaultValue;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (strcmp(value,\textcolor{stringliteral}{"{}TRUE"{}})\ ==\ 0)\ ||\ (strcmp(value,\textcolor{stringliteral}{"{}true"{}})\ ==\ 0)\ ||\ (strcmp(value,\textcolor{stringliteral}{"{}1"{}})\ ==\ 0);}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ GetStr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ inVarName[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ defaultValue\ =\ 0)\{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const}\ value\ =\ getenv(inVarName);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!value)\{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ defaultValue;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ VariableType,\ \textcolor{keyword}{class}\ ArrayType>}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetValueInArray(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ inVarName[],\ \textcolor{keyword}{const}\ ArrayType\&\ possibleValues,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbPossibleValues,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ defaultIndex\ =\ -\/1)\{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const}\ value\ =\ getenv(inVarName);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(value)\{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxPossible\ =\ 0\ ;\ idxPossible\ <\ nbPossibleValues\ ;\ ++idxPossible)\{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d}{StrToOther}}(value,VariableType())\ ==\ possibleValues[idxPossible]\ )\{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxPossible;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ defaultIndex;}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ArrayType>}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetStrInArray(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ inVarName[],\ \textcolor{keyword}{const}\ ArrayType\&\ possibleValues,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbPossibleValues,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ defaultIndex\ =\ -\/1)\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const}\ value\ =\ getenv(inVarName);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(value)\{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxPossible\ =\ 0\ ;\ idxPossible\ <\ nbPossibleValues\ ;\ ++idxPossible)\{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ strcmp(value,possibleValues[idxPossible])\ ==\ 0\ )\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxPossible;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ defaultIndex;}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FENV\_HPP}}
+\DoxyCodeLine{00118\ }
+
+\end{DoxyCode}

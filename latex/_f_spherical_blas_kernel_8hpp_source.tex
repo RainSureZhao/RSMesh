@@ -1,0 +1,245 @@
+\doxysection{FSpherical\+Blas\+Kernel.\+hpp}
+\hypertarget{_f_spherical_blas_kernel_8hpp_source}{}\label{_f_spherical_blas_kernel_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Spherical/FSphericalBlasKernel.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/Spherical/FSphericalBlasKernel.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FSPHERICALBLASKERNEL\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FSPHERICALBLASKERNEL\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}FAbstractSphericalKernel.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Utils/FMemUtils.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}Utils/FBlas.hpp"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_spherical_blas_kernel}{FSphericalBlasKernel}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstractSphericalKernel}}<FReal,CellClass,ContainerClass>\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstractSphericalKernel<FReal,CellClass,ContainerClass>}}\ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{Parent}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ FF\_MATRIX\_ROW\_DIM;\ \ \ \ \ \textcolor{comment}{//<\ The\ blas\ matrix\ number\ of\ rows}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ FF\_MATRIX\_COLUMN\_DIM;\ \ \textcolor{comment}{//<\ The\ blas\ matrix\ number\ of\ columns}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ FF\_MATRIX\_SIZE;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ blas\ matrix\ size}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ temporaryMultiSource;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ To\ perform\ the\ M2L\ without\ allocating\ at\ each\ call}}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_f_smart_pointer}{FSmartPointer<FComplex<FReal>}}**>\ preM2LTransitions;\ \ \ \textcolor{comment}{//<\ The\ pre-\/computation\ for\ the\ M2L\ based\ on\ the\ level\ and\ the\ 189\ possibilities}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_spherical_blas_kernel_ac91ed87e64d428de46d895fba616a4fa}{indexM2LTransition}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxX,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxY,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxZ)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((\ (\ ((idxX+3)\ *\ 7)\ +\ (idxY+3))*7\ )\ +\ (idxZ+3));}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_blas_kernel_a30545bab7b895e1f862050c037f18c06}{allocAndInit}}()\{}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_f_harmonic}{FHarmonic<FReal>}}\ blasHarmonic(Parent::devP\ *\ 2);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ Matrix\ to\ fill\ and\ then\ transposed}}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\textcolor{keyword}{const}\ workMatrix\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[FF\_MATRIX\_SIZE];}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ M2L\ transfer,\ there\ is\ a\ maximum\ of\ 3\ neighbors\ in\ each\ direction,}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ so\ 6\ in\ each\ dimension}}
+\DoxyCodeLine{00041\ \ \ \ \ FReal\ treeWidthAtLevel\ =\ Parent::boxWidth;}
+\DoxyCodeLine{00042\ \ \ \ \ preM2LTransitions\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}**[Parent::treeHeight];}
+\DoxyCodeLine{00043\ \ \ \ \ memset(preM2LTransitions.\mbox{\hyperlink{class_f_smart_pointer_a82a013f34ea6809b1d72da35daff374c}{getPtr}}(),\ 0,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}**)\ *\ (Parent::treeHeight));}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 0\ ;\ idxLevel\ <\ Parent::treeHeight\ ;\ ++idxLevel\ )\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ preM2LTransitions[idxLevel]\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*[(7\ *\ 7\ *\ 7)];}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ memset(preM2LTransitions[idxLevel],\ 0,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*)\ *\ (7*7*7));}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/3\ ;\ idxX\ <=\ 3\ ;\ ++idxX\ )\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/3\ ;\ idxY\ <=\ 3\ ;\ ++idxY\ )\{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/3\ ;\ idxZ\ <=\ 3\ ;\ ++idxZ\ )\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxX)\ >\ 1\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxY)\ >\ 1\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxZ)\ >\ 1)\{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ harmonic}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ relativePos(\ FReal(-\/idxX)\ *\ treeWidthAtLevel\ ,\ FReal(-\/idxY)\ *\ treeWidthAtLevel\ ,\ FReal(-\/idxZ)\ *\ treeWidthAtLevel\ );}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blasHarmonic.computeOuter(\mbox{\hyperlink{class_f_spherical}{FSpherical<FReal>}}(relativePos));}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reset\ Matrix}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FMemUtils::setall<FComplex<FReal>>(workMatrix,\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}(),\ FF\_MATRIX\_SIZE);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ FRestrict\ fillTransfer\ =\ workMatrix;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ M\ =\ 0\ ;\ M\ <=\ Parent::devP\ ;\ ++M)\{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ m\ =\ 0\ ;\ \ m\ <=\ M\ ;\ ++m)\{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ N\ =\ 0\ ;\ N\ <=\ Parent::devP\ ;\ ++N)\{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ n\ =\ 0\ ;\ n\ <=\ 2*N\ ;\ \ ++n,\ ++fillTransfer)\{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ k\ =\ N-\/n-\/m;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (k\ <\ 0)\{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ pow\_of\_minus\_1\ =\ FReal((k\&1)\ ?\ -\/1\ :\ 1);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fillTransfer-\/>setReal(\ pow\_of\_minus\_1\ *\ blasHarmonic.result()[blasHarmonic.getPreExpRedirJ(M+N)-\/k].getReal());}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fillTransfer-\/>setImag((-\/pow\_of\_minus\_1)\ *\ blasHarmonic.result()[blasHarmonic.getPreExpRedirJ(M+N)-\/k].getImag());}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*fillTransfer)\ =\ blasHarmonic.result()[blasHarmonic.getPreExpRedirJ(M+N)+k];}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Transpose\ and\ copy\ result}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\textcolor{keyword}{const}\ matrix\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[FF\_MATRIX\_SIZE];}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxRow\ =\ 0\ ;\ idxRow\ <\ FF\_MATRIX\_ROW\_DIM\ ;\ ++idxRow)\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxCol\ =\ 0\ ;\ idxCol\ <\ FF\_MATRIX\_COLUMN\_DIM\ ;\ ++idxCol)\{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matrix[idxCol\ *\ FF\_MATRIX\_ROW\_DIM\ +\ idxRow]\ =\ workMatrix[idxCol\ +\ idxRow\ *\ FF\_MATRIX\_COLUMN\_DIM];}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ Single\ Layer}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl\ ;}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}\ Czero(0.,0.);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxRow\ =\ \ \ 0\ ;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =0\ ;\ j<=\ Parent::devP\ \ ;\ ++j\ )\{\ \textcolor{comment}{//\ Row}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k=0;\ \ \ \ k<=j\ \ ;\ ++k)\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Row}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxCol\ =\ 0\ ;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ n\ =0\ ;\ n<=\ Parent::devP\ \ ;\ ++n)\{\ \textcolor{comment}{//\ Col}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ l=-\/n;\ l<=n\ ;\ ++l)\{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ "{}\ j\ "{}\ <<\ j\ <<\ "{}\ k\ "{}\ <<\ k\ <<\ "{}\ n\ "{}\ <<n\ <<\ "{}\ ,j+n\ \ "{}\ <<\ j+n\ \ <<\ "{}\ l\ "{}\ <<\ l\ \ \ \ \ \ \ \ \ <<\ "{}\ idxRow\ "{}\ <<\ idxRow\ \ \ \ \ \ \ \ \ <<\ "{}\ idxCol\ "{}\ <<\ idxCol\ \ \ \ \ \ \ <<\ std::endl;}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ j+n\ <=Parent::devP)\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Col}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxCol;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ matrix[idxCol\ *\ FF\_MATRIX\_ROW\_DIM\ +\ idxRow]\ =\ Czero;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxCol;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxRow\ \ ;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ preM2LTransitions[idxLevel][\mbox{\hyperlink{class_f_spherical_blas_kernel_ac91ed87e64d428de46d895fba616a4fa}{indexM2LTransition}}(idxX,idxY,idxZ)]\ =\ matrix;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ treeWidthAtLevel\ /=\ 2;}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//\ Clean}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{delete}[]\ workMatrix;}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00133\ \ \ \ \ \mbox{\hyperlink{class_f_spherical_blas_kernel_a27bb89532ae9219b2a5c48260ac35ab5}{FSphericalBlasKernel}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDevP,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight,\ \textcolor{keyword}{const}\ FReal\ inBoxWidth,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inBoxCenter)}
+\DoxyCodeLine{00134\ :\ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{Parent}}(inDevP,\ inTreeHeight,\ inBoxWidth,\ inBoxCenter),}
+\DoxyCodeLine{00135\ \ \ FF\_MATRIX\_ROW\_DIM(\mbox{\hyperlink{class_f_abstract_spherical_kernel}{Parent}}::harmonic.getExpSize()),\ FF\_MATRIX\_COLUMN\_DIM(\mbox{\hyperlink{class_f_abstract_spherical_kernel}{Parent}}::harmonic.getNExpSize()),}
+\DoxyCodeLine{00136\ \ \ FF\_MATRIX\_SIZE(FF\_MATRIX\_ROW\_DIM\ *\ FF\_MATRIX\_COLUMN\_DIM),}
+\DoxyCodeLine{00137\ \ \ temporaryMultiSource(new\ \mbox{\hyperlink{class_f_complex}{FComplex}}<FReal>[FF\_MATRIX\_COLUMN\_DIM]),}
+\DoxyCodeLine{00138\ \ \ preM2LTransitions(nullptr)\{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_blas_kernel_a30545bab7b895e1f862050c037f18c06}{allocAndInit}}();}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00143\ \ \ \ \ \mbox{\hyperlink{class_f_spherical_blas_kernel_a3c41dd84ece93418d3735db21ca4ff32}{FSphericalBlasKernel}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_spherical_blas_kernel}{FSphericalBlasKernel}}\&\ other)}
+\DoxyCodeLine{00144\ \ \ \ \ :\ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{Parent}}(other),}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ FF\_MATRIX\_ROW\_DIM(other.FF\_MATRIX\_ROW\_DIM),\ FF\_MATRIX\_COLUMN\_DIM(other.FF\_MATRIX\_COLUMN\_DIM),}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ FF\_MATRIX\_SIZE(other.FF\_MATRIX\_SIZE),}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ temporaryMultiSource(new\ \mbox{\hyperlink{class_f_complex}{FComplex}}<FReal>[FF\_MATRIX\_COLUMN\_DIM]),}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ preM2LTransitions(other.preM2LTransitions)\ \{}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00153\ \ \ \ \ \mbox{\hyperlink{class_f_spherical_blas_kernel_aafde432fc28b39ad423db0a4795a3df1}{\string~FSphericalBlasKernel}}()\{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ temporaryMultiSource;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(preM2LTransitions.\mbox{\hyperlink{class_f_smart_pointer_a459476d73cfce7884ad33e3ddd879876}{isLast}}())\{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 0\ ;\ idxLevel\ <\ Parent::treeHeight\ ;\ ++idxLevel\ )\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/3\ ;\ idxX\ <=\ 3\ ;\ ++idxX\ )\{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/3\ ;\ idxY\ <=\ 3\ ;\ ++idxY\ )\{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/3\ ;\ idxZ\ <=\ 3\ ;\ ++idxZ\ )\{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ preM2LTransitions[idxLevel][\mbox{\hyperlink{class_f_spherical_blas_kernel_ac91ed87e64d428de46d895fba616a4fa}{indexM2LTransition}}(idxX,idxY,idxZ)];}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a17fae6253fc1995fc0aeb7b1bc2bef7c}{FMemUtils::DeleteAllArray}}(preM2LTransitions.\mbox{\hyperlink{class_f_smart_pointer_a82a013f34ea6809b1d72da35daff374c}{getPtr}}(),\ Parent::treeHeight);}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_blas_kernel_a6fe10e2779e554cfac300466f0aacc60}{M2L}}(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ inLocal,\ \textcolor{keyword}{const}\ CellClass*\ distantNeighbors[],}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighborPositions[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inSize,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ \ override\ }\{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ all\ neighbors\ compute\ M2L}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxExistingNeigh\ =\ 0\ ;\ idxExistingNeigh\ <\ inSize\ ;\ ++idxExistingNeigh)\{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxNeigh\ =\ neighborPositions[idxExistingNeigh];}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ transitionVector\ =\ preM2LTransitions[inLevel][idxNeigh];}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_blas_kernel_a169526249164916607f349d35d9a0502}{multipoleToLocal}}(inLocal-\/>getLocal(),\ distantNeighbors[idxExistingNeigh]-\/>getMultipole(),\ transitionVector);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_blas_kernel_af36ea7ab4ffee565ab2359f38f5789b8}{preExpNExp}}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ exp)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ Parent::devP;\ j>=\ 0\ ;\ -\/-\/j)\{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Position\ in\ 'exp':\ \ (j*(j+1)*0.5)\ +\ k}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Position\ in\ 'nexp':\ \ j*(j+1)\ \ \ \ \ \ +\ k}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ j\_j1\ \ \ \ \ \ \ =\ j*(j+1);}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ j\_j1\_div\_2\ =\ int(j\_j1\ *\ 0.5);}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Positive\ (or\ null)\ orders:}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ j\ ;\ k\ >=\ 0;\ -\/-\/k)\{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exp[j\_j1\ +\ k]\ =\ exp[j\_j1\_div\_2\ +\ k];}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Negative\ orders:}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ minus\_1\_pow\_k\ =\ FReal(\ j\&1\ ?\ -\/1\ :\ 1);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ -\/j\ ;\ k\ <\ 0\ ;\ ++k\ )\{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exp[j\_j1\ +\ k].\mbox{\hyperlink{class_f_complex_a90e023a82c09162825a558891a04efc8}{setReal}}(minus\_1\_pow\_k\ *\ exp[j\_j1\ +\ (-\/k)].\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}());}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exp[j\_j1\ +\ k].\mbox{\hyperlink{class_f_complex_ade3956cf9301b1d4fae51c78143fddc5}{setImag}}((-\/minus\_1\_pow\_k)\ *\ exp[j\_j1\ +\ (-\/k)].getImag());}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minus\_1\_pow\_k\ =\ -\/minus\_1\_pow\_k;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_blas_kernel_a169526249164916607f349d35d9a0502}{multipoleToLocal}}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\textcolor{keyword}{const}\ FRestrict\ local\_exp,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ FRestrict\ multipole\_exp\_src,}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ FRestrict\ M2L\_Outer\_transfer)\{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Copy\ original\ vector\ and\ compute\ exp2nexp}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ FMemUtils::copyall<FComplex<FReal>>(temporaryMultiSource,\ multipole\_exp\_src,\ CellClass::GetPoleSize());}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ a\ computable\ vector}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_blas_kernel_af36ea7ab4ffee565ab2359f38f5789b8}{preExpNExp}}(temporaryMultiSource);}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ one[2]\ =\ \{1.0\ ,\ 0.0\};}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ FBlas::c\_gemva(}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FF\_MATRIX\_ROW\_DIM,}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FF\_MATRIX\_COLUMN\_DIM,}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ one,}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>::ToFReal}}(M2L\_Outer\_transfer),}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>::ToFReal}}(temporaryMultiSource),}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>::ToFReal}}(local\_exp));}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{comment}{//\ \#ifdef\ DEBUG\_SPHERICAL\_M2L}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ "{}\(\backslash\)n\ ======\ Multipole\ expansion\ ======\ \(\backslash\)n"{}<<std::endl;}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{comment}{//\ \ \ \ \ \ for(int\ idxCol\ =0\ ;idxCol<\ FF\_MATRIX\_COLUMN\_DIM\ ;\ ++idxCol\ )\{\ //\ Col}}
+\DoxyCodeLine{00251\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ std::cout\ <<\ temporaryMultiSource[idxCol]\ <<"{}\ "{};}}
+\DoxyCodeLine{00252\ \textcolor{comment}{//\ \ \ \ \ \ \}}}
+\DoxyCodeLine{00253\ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ std::endl\ ;}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ "{}\(\backslash\)n\ ======\ MultipolToLocal\ MatrixTransfer\ ======\ \(\backslash\)n"{}<<std::endl;}}
+\DoxyCodeLine{00256\ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ "{}\ \ \ \ FF\_MATRIX\_ROW\_DIM:\ \ \ \ \ \ \ \ "{}\ <<\ FF\_MATRIX\_ROW\_DIM<<std::endl;}}
+\DoxyCodeLine{00257\ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ "{}\ \ \ \ FF\_MATRIX\_COLUMN\_DIM:\ "{}\ <<\ FF\_MATRIX\_COLUMN\_DIM<<std::endl;}}
+\DoxyCodeLine{00258\ \textcolor{comment}{//\ \ \ \ \ \ for(int\ idxRow\ =0\ ;idxRow<\ FF\_MATRIX\_ROW\_DIM\ ;\ ++idxRow\ )\{\ //\ Row}}
+\DoxyCodeLine{00259\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ std::cout\ <<\ "{}Row="{}<<idxRow<<"{}\ :\ "{}\ ;}}
+\DoxyCodeLine{00260\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ for(int\ idxCol\ =0\ ;idxCol<\ FF\_MATRIX\_COLUMN\_DIM\ ;\ ++idxCol\ )\{\ //\ Col}}
+\DoxyCodeLine{00261\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ M2L\_Outer\_transfer[idxCol\ *\ FF\_MATRIX\_ROW\_DIM\ +\ idxRow]\ <<"{}\ "{};}}
+\DoxyCodeLine{00262\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00263\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl\ ;}}
+\DoxyCodeLine{00264\ \textcolor{comment}{//\ \ \ \ \ \ \}}}
+\DoxyCodeLine{00265\ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ std::endl\ ;}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ "{}\(\backslash\)n\ ======\ Local\ expansion\ ======\ \(\backslash\)n"{}<<std::endl;}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{comment}{//\ \ \ \ \ \ for(int\ idxCol\ =0\ ;idxCol<\ FF\_MATRIX\_ROW\_DIM\ ;\ ++idxCol\ )\{\ //\ Col}}
+\DoxyCodeLine{00270\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ std::cout\ <<\ local\_exp[idxCol]\ <<"{}\ "{};}}
+\DoxyCodeLine{00271\ \textcolor{comment}{//\ \ \ \ \ \ \}}}
+\DoxyCodeLine{00272\ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ std::endl\ ;}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ "{}============================\ \(\backslash\)n"{}<<std::endl;}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{comment}{//\ \#endif}}
+\DoxyCodeLine{00277\ \ \ \ \ \}}
+\DoxyCodeLine{00278\ \};}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FSPHERICALBLASKERNEL\_HPP}}
+
+\end{DoxyCode}

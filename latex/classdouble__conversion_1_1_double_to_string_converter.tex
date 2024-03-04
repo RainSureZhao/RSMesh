@@ -1,0 +1,88 @@
+\doxysection{double\+\_\+conversion\+::Double\+To\+String\+Converter类 参考}
+\hypertarget{classdouble__conversion_1_1_double_to_string_converter}{}\label{classdouble__conversion_1_1_double_to_string_converter}\index{double\_conversion::DoubleToStringConverter@{double\_conversion::DoubleToStringConverter}}
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_ac9c23db30cb4589647e556d3e3e60ac5}\label{classdouble__conversion_1_1_double_to_string_converter_ac9c23db30cb4589647e556d3e3e60ac5} 
+enum {\bfseries Flags} \{ \newline
+{\bfseries NO\+\_\+\+FLAGS} = 0
+, {\bfseries EMIT\+\_\+\+POSITIVE\+\_\+\+EXPONENT\+\_\+\+SIGN} = 1
+, {\bfseries EMIT\+\_\+\+TRAILING\+\_\+\+DECIMAL\+\_\+\+POINT} = 2
+, {\bfseries EMIT\+\_\+\+TRAILING\+\_\+\+ZERO\+\_\+\+AFTER\+\_\+\+POINT} = 4
+, \newline
+{\bfseries UNIQUE\+\_\+\+ZERO} = 8
+, {\bfseries NO\+\_\+\+TRAILING\+\_\+\+ZERO} = 16
+, {\bfseries EMIT\+\_\+\+TRAILING\+\_\+\+DECIMAL\+\_\+\+POINT\+\_\+\+IN\+\_\+\+EXPONENTIAL} = 32
+, {\bfseries EMIT\+\_\+\+TRAILING\+\_\+\+ZERO\+\_\+\+AFTER\+\_\+\+POINT\+\_\+\+IN\+\_\+\+EXPONENTIAL} = 64
+ \}
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a5e5a815a4ce72d8d8096b73a88492bd3}\label{classdouble__conversion_1_1_double_to_string_converter_a5e5a815a4ce72d8d8096b73a88492bd3} 
+enum {\bfseries Dtoa\+Mode} \{ {\bfseries SHORTEST}
+, {\bfseries SHORTEST\+\_\+\+SINGLE}
+, {\bfseries FIXED}
+, {\bfseries PRECISION}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a38be8cc215af565fbe5f985ea331c5dc}\label{classdouble__conversion_1_1_double_to_string_converter_a38be8cc215af565fbe5f985ea331c5dc} 
+{\bfseries Double\+To\+String\+Converter} (int flags, const char \texorpdfstring{$\ast$}{*}infinity\+\_\+symbol, const char \texorpdfstring{$\ast$}{*}nan\+\_\+symbol, char exponent\+\_\+character, int decimal\+\_\+in\+\_\+shortest\+\_\+low, int decimal\+\_\+in\+\_\+shortest\+\_\+high, int max\+\_\+leading\+\_\+padding\+\_\+zeroes\+\_\+in\+\_\+precision\+\_\+mode, int max\+\_\+trailing\+\_\+padding\+\_\+zeroes\+\_\+in\+\_\+precision\+\_\+mode, int min\+\_\+exponent\+\_\+width=0)
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_ae7154ead7d6991e53e22c81282272d36}\label{classdouble__conversion_1_1_double_to_string_converter_ae7154ead7d6991e53e22c81282272d36} 
+bool {\bfseries To\+Shortest} (double value, \mbox{\hyperlink{classdouble__conversion_1_1_string_builder}{String\+Builder}} \texorpdfstring{$\ast$}{*}result\+\_\+builder) const
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a02f96dbe930d5a6c2e9959928db93129}\label{classdouble__conversion_1_1_double_to_string_converter_a02f96dbe930d5a6c2e9959928db93129} 
+bool {\bfseries To\+Shortest\+Single} (float value, \mbox{\hyperlink{classdouble__conversion_1_1_string_builder}{String\+Builder}} \texorpdfstring{$\ast$}{*}result\+\_\+builder) const
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a1f4ef9697d1a8fc94aa9033555542710}\label{classdouble__conversion_1_1_double_to_string_converter_a1f4ef9697d1a8fc94aa9033555542710} 
+bool {\bfseries To\+Fixed} (double value, int requested\+\_\+digits, \mbox{\hyperlink{classdouble__conversion_1_1_string_builder}{String\+Builder}} \texorpdfstring{$\ast$}{*}result\+\_\+builder) const
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a371de8bcb2a0c3cdca193a96648d5542}\label{classdouble__conversion_1_1_double_to_string_converter_a371de8bcb2a0c3cdca193a96648d5542} 
+bool {\bfseries To\+Exponential} (double value, int requested\+\_\+digits, \mbox{\hyperlink{classdouble__conversion_1_1_string_builder}{String\+Builder}} \texorpdfstring{$\ast$}{*}result\+\_\+builder) const
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_af51f9d9535b4daed89bf937679fbb549}\label{classdouble__conversion_1_1_double_to_string_converter_af51f9d9535b4daed89bf937679fbb549} 
+bool {\bfseries To\+Precision} (double value, int precision, \mbox{\hyperlink{classdouble__conversion_1_1_string_builder}{String\+Builder}} \texorpdfstring{$\ast$}{*}result\+\_\+builder) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a22324eeef0b43f5780bd24fef896f4da}\label{classdouble__conversion_1_1_double_to_string_converter_a22324eeef0b43f5780bd24fef896f4da} 
+static const \mbox{\hyperlink{classdouble__conversion_1_1_double_to_string_converter}{Double\+To\+String\+Converter}} \& {\bfseries Ecma\+Script\+Converter} ()
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a636aa4fb6a3bee10bc784f42eb3ea6fd}\label{classdouble__conversion_1_1_double_to_string_converter_a636aa4fb6a3bee10bc784f42eb3ea6fd} 
+static void {\bfseries Double\+To\+Ascii} (double v, Dtoa\+Mode mode, int requested\+\_\+digits, char \texorpdfstring{$\ast$}{*}buffer, int buffer\+\_\+length, bool \texorpdfstring{$\ast$}{*}sign, int \texorpdfstring{$\ast$}{*}length, int \texorpdfstring{$\ast$}{*}point)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a3f2f70cf718ff577329b95f3b8de2375}\label{classdouble__conversion_1_1_double_to_string_converter_a3f2f70cf718ff577329b95f3b8de2375} 
+static const int {\bfseries k\+Max\+Fixed\+Digits\+Before\+Point} = 60
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a1e0a61262e4277a213e3076dff0de8a7}\label{classdouble__conversion_1_1_double_to_string_converter_a1e0a61262e4277a213e3076dff0de8a7} 
+static const int {\bfseries k\+Max\+Fixed\+Digits\+After\+Point} = 100
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_af05a3e2ea40c5deb8db7d17f5363b31d}\label{classdouble__conversion_1_1_double_to_string_converter_af05a3e2ea40c5deb8db7d17f5363b31d} 
+static const int {\bfseries k\+Max\+Exponential\+Digits} = 120
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a49052275a0e31cd9219f645b92e0fda8}\label{classdouble__conversion_1_1_double_to_string_converter_a49052275a0e31cd9219f645b92e0fda8} 
+static const int {\bfseries k\+Min\+Precision\+Digits} = 1
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a7fd15aba1b4cc7dc1f630e6ce5f88f4e}\label{classdouble__conversion_1_1_double_to_string_converter_a7fd15aba1b4cc7dc1f630e6ce5f88f4e} 
+static const int {\bfseries k\+Max\+Precision\+Digits} = 120
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_ae2c96a663b04b018b25edc5237977795}\label{classdouble__conversion_1_1_double_to_string_converter_ae2c96a663b04b018b25edc5237977795} 
+static const int {\bfseries k\+Base10\+Maximal\+Length} = 17
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a19152338f0765858d10f3750cc21d87a}\label{classdouble__conversion_1_1_double_to_string_converter_a19152338f0765858d10f3750cc21d87a} 
+static const int {\bfseries k\+Base10\+Maximal\+Length\+Single} = 9
+\item 
+\Hypertarget{classdouble__conversion_1_1_double_to_string_converter_a1f2eff4fcdccfca8d5c694684e3aa7c3}\label{classdouble__conversion_1_1_double_to_string_converter_a1f2eff4fcdccfca8d5c694684e3aa7c3} 
+static const int {\bfseries k\+Max\+Chars\+Ecma\+Script\+Shortest} = 25
+\end{DoxyCompactItemize}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/double-\/conversion-\/3.\+3.\+0/double-\/conversion/double-\/to-\/string.\+h\item 
+third\+\_\+party/double-\/conversion-\/3.\+3.\+0/double-\/conversion/double-\/to-\/string.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,65 @@
+\doxysection{FAbstract\+Particle\+Container\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_abstract_particle_container}{}\label{class_f_abstract_particle_container}\index{FAbstractParticleContainer$<$ FReal $>$@{FAbstractParticleContainer$<$ FReal $>$}}
+
+
+Please read the license  
+
+
+
+
+{\ttfamily \#include $<$FAbstract\+Particle\+Container.\+hpp$>$}
+
+类 FAbstract\+Particle\+Container\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.844646cm]{class_f_abstract_particle_container}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_f_abstract_particle_container_a8cd42d4e38b0edc96047ff60f632c6af}{\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Particle\+Container}} ()
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{class_f_abstract_particle_container_afb694b82282bb6bc64a93320ef1d5fb1}{push}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&, Args ...)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal$>$\newline
+class FAbstract\+Particle\+Container$<$ FReal $>$}
+Please read the license 
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}}) 
+\end{DoxyAuthor}
+This class define the method that every particle container has to implement.
+
+\begin{DoxyWarning}{警告}
+Inherit from this class when implement a specific particle type 
+\end{DoxyWarning}
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_abstract_particle_container_a8cd42d4e38b0edc96047ff60f632c6af}\label{class_f_abstract_particle_container_a8cd42d4e38b0edc96047ff60f632c6af} 
+\index{FAbstractParticleContainer$<$ FReal $>$@{FAbstractParticleContainer$<$ FReal $>$}!````~FAbstractParticleContainer@{\texorpdfstring{$\sim$}{\string~}FAbstractParticleContainer}}
+\index{````~FAbstractParticleContainer@{\texorpdfstring{$\sim$}{\string~}FAbstractParticleContainer}!FAbstractParticleContainer$<$ FReal $>$@{FAbstractParticleContainer$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FAbstractParticleContainer()}{\string~FAbstractParticleContainer()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+virtual \mbox{\hyperlink{class_f_abstract_particle_container}{FAbstract\+Particle\+Container}}$<$ FReal $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_abstract_particle_container}{FAbstract\+Particle\+Container}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Default destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_abstract_particle_container_afb694b82282bb6bc64a93320ef1d5fb1}\label{class_f_abstract_particle_container_afb694b82282bb6bc64a93320ef1d5fb1} 
+\index{FAbstractParticleContainer$<$ FReal $>$@{FAbstractParticleContainer$<$ FReal $>$}!push@{push}}
+\index{push@{push}!FAbstractParticleContainer$<$ FReal $>$@{FAbstractParticleContainer$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+template$<$typename... Args$>$ \\
+void \mbox{\hyperlink{class_f_abstract_particle_container}{FAbstract\+Particle\+Container}}$<$ FReal $>$\+::push (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{,  }\item[{Args ...}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This method should be inherited (or your leaf will do nothing) the point is coming from the tree and is followed by what let the leaf pass through its push method. 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Components/FAbstract\+Particle\+Container.\+hpp\end{DoxyCompactItemize}

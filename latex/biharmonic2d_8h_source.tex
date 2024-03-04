@@ -1,0 +1,76 @@
+\doxysection{biharmonic2d.\+h}
+\hypertarget{biharmonic2d_8h_source}{}\label{biharmonic2d_8h_source}\index{include/rbf/biharmonic2d.h@{include/rbf/biharmonic2d.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/22.}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_BIHARMONIC2D\_H}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_BIHARMONIC2D\_H}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}rbf\_base.h"{}}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00014}00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1rbf}{rsmesh::rbf}}\ \{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00015}\mbox{\hyperlink{classrsmesh_1_1rbf_1_1biharmonic2d}{00015}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1rbf_1_1biharmonic2d}{biharmonic2d}}\ final\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\_base}}\ \{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }rbf\_base::rbf\_base;}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1biharmonic2d}{biharmonic2d}}(\textcolor{keyword}{const}\ std::vector<double>\&\ params)\ \{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ set\_parameters(params);}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ [[nodiscard]]\ std::unique\_ptr<rbf\_base>\ clone()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_unique<biharmonic2d>(*\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{int}\ cpd\_order()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2;}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{double}\ evaluate\_isotropic(\textcolor{keyword}{const}\ vector3d\&\ diff)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ slope\ =\ parameters().at(0);}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ r\ =\ diff.norm();}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(r\ ==\ 0.0)\ \{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0.0;}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ slope\ *\ r\ *\ r\ *\ std::log(r);}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ [[nodiscard]]\ vector3d\ evaluate\_gradient\_isotropic(\textcolor{keyword}{const}\ vector3d\&\ diff)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ slope\ =\ parameters().at(0);}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ r\ =\ diff.norm();}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(r\ ==\ 0.0)\ \{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vector3d::Zero();}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ coeff\ =\ slope\ *\ (1.0\ +\ 2.0\ *\ std::log(r));}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ coeff\ *\ diff;}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ [[nodiscard]]\ matrix3d\ evaluate\_hessian\_isotropic(\textcolor{keyword}{const}\ vector3d\&\ )\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Hessian\ of\ biharmonic2d\ is\ not\ implemented"{}});}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{int}\ num\_parameters()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{const}\ std::vector<double>\&\ parameter\_lower\_bounds()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::vector<double>\ lower\_bounds\{0.0\};}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lower\_bounds;}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{const}\ std::vector<double>\&\ parameter\_upper\_bounds()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::vector<double>\ upper\_bounds\{std::numeric\_limits<double>::infinity()\};}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ upper\_bounds;}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00070}00070\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00072}00072\ \}\ \textcolor{comment}{//\ namespace\ rsmesh::rbf}}
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{biharmonic2d_8h_source_l00074}00074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_BIHARMONIC2D\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,166 @@
+\doxysection{FInterp\+Matrix\+Kernel\+\_\+\+Covariance.\+hpp}
+\hypertarget{_f_interp_matrix_kernel___covariance_8hpp_source}{}\label{_f_interp_matrix_kernel___covariance_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Interpolation/FInterpMatrixKernel\_Covariance.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/Interpolation/FInterpMatrixKernel\_Covariance.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ @SCALFMM\_PRIVATE}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ FINTERPMATRIXKERNEL\_COVARIANCE\_HPP}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ FINTERPMATRIXKERNEL\_COVARIANCE\_HPP}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <cmath>}\ \textcolor{comment}{//\ for\ exp}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ ScalFMM\ includes}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}Utils/FNoCopyable.hpp"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}Utils/FMath.hpp"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}Utils/FPoint.hpp"{}}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ for\ identifiers\ and\ types}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}Kernels/Interpolation/FInterpMatrixKernel.hpp"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ not\ extendable}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{enum}\ CORRELATION\_SUPPORT\_EXTENSION\{INFINITE,FINITE\};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ TOADD}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ bounded\ support\ correlation\ functions:}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ *\ power\ model}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ hole\ effect\ correlation\ (nonstrictly\ decreasing)}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ Whittle\ model?\ (slow\ decay\ =>\ important\ constraint\ on\ size\ of\ grid\ /\ length)}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00035\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_abstract_correlation_kernel}{FAbstractCorrelationKernel}}\ :\ \mbox{\hyperlink{class_f_no_copyable}{FNoCopyable}}}
+\DoxyCodeLine{00036\ \{\ }
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{struct_f_abstract_correlation_kernel}{\string~FAbstractCorrelationKernel}}()\{\}}
+\DoxyCodeLine{00038\ \ \ \textcolor{keyword}{virtual}\ FReal\ evaluate(\textcolor{keyword}{const}\ FReal*,\ \textcolor{keyword}{const}\ FReal*)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00065\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_interp_matrix_kernel_gauss}{FInterpMatrixKernelGauss}}\ :\ \mbox{\hyperlink{struct_f_abstract_correlation_kernel}{FAbstractCorrelationKernel}}<FReal>}
+\DoxyCodeLine{00066\ \{}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ KERNEL\_FUNCTION\_TYPE\ Type\ =\ NON\_HOMOGENEOUS;}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ CORRELATION\_SUPPORT\_EXTENSION\ Extension\ =\ INFINITE;}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ NCMP\ =\ 1;\ \textcolor{comment}{//<\ number\ of\ components}}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ NPV\ \ =\ 1;\ \textcolor{comment}{//<\ dim\ of\ physical\ values}}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ NPOT\ =\ 1;\ \textcolor{comment}{//<\ dim\ of\ potentials}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ NRHS\ =\ 1;\ \textcolor{comment}{//<\ dim\ of\ mult\ exp}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ NLHS\ =\ 1;\ \textcolor{comment}{//<\ dim\ of\ loc\ exp}}
+\DoxyCodeLine{00074\ \ \ FReal\ lengthScale\_;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{struct_f_interp_matrix_kernel_gauss}{FInterpMatrixKernelGauss}}(\textcolor{keyword}{const}\ FReal\ lengthScale\ =\ FReal(1.))}
+\DoxyCodeLine{00077\ \ \ :\ lengthScale\_(lengthScale)}
+\DoxyCodeLine{00078\ \ \ \{\}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{comment}{//\ copy\ ctor}}
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{struct_f_interp_matrix_kernel_gauss}{FInterpMatrixKernelGauss}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_interp_matrix_kernel_gauss}{FInterpMatrixKernelGauss}}\&\ other)}
+\DoxyCodeLine{00082\ \ \ :\ lengthScale\_(other.lengthScale\_)}
+\DoxyCodeLine{00083\ \ \ \{\}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ ID\ accessor}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ getID()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}GAUSS"{}};\ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ printInfo()\ \{\ std::cout\ <<\ \textcolor{stringliteral}{"{}K(x,y)=exp(-\/0.5*(r\_i/l*r\_i/l))\ with\ r=|x-\/y|"{}}\ <<\ std::endl;\ \}}
+\DoxyCodeLine{00089\ \ \ }
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ returns\ position\ in\ reduced\ storage}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{int}\ getPosition(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00092\ \textcolor{keyword}{\ \ }\{\textcolor{keywordflow}{return}\ 0;\}}
+\DoxyCodeLine{00093\ \ \ }
+\DoxyCodeLine{00094\ \ \ \textcolor{comment}{//\ returns\ coefficient\ of\ mutual\ interaction}}
+\DoxyCodeLine{00095\ \ \ \textcolor{comment}{//\ 1\ for\ symmetric\ kernels}}
+\DoxyCodeLine{00096\ \ \ \textcolor{comment}{//\ -\/1\ for\ antisymmetric\ kernels}}
+\DoxyCodeLine{00097\ \ \ \textcolor{comment}{//\ somethings\ else\ if\ other\ property\ of\ symmetry}}
+\DoxyCodeLine{00098\ \ \ FReal\ getMutualCoefficient()\textcolor{keyword}{\ const}\{\ \textcolor{keywordflow}{return}\ FReal(1.);\ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ \ \ *\ r(x)=exp(-\/(|x|/l)\string^2)}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00103\ \ \ FReal\ evaluate(\textcolor{keyword}{const}\ FReal*\ x,\ \textcolor{keyword}{const}\ FReal*\ y)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00104\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00105\ \ \ \ \ FReal\ dist2\ =\ FReal(0.0);}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ d=0;\ d<3;\ ++d)\{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ FReal\ distX\ =\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(x[d]-\/y[d])\ /\ lengthScale\_;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ dist2\ +=\ distX*distX;}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ FReal\ res\ =\ \mbox{\hyperlink{struct_f_math_ab87042325d5c82fd7006569ca51675e1}{FMath::Exp}}(FReal(-\/0.5)*dist2);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00114\ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{comment}{//\ evaluate\ interaction}}
+\DoxyCodeLine{00117\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ValueClass>}
+\DoxyCodeLine{00118\ \ \ ValueClass\ evaluate(\textcolor{keyword}{const}\ ValueClass\&\ x1,\ \textcolor{keyword}{const}\ ValueClass\&\ y1,\ \textcolor{keyword}{const}\ ValueClass\&\ z1,}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ValueClass\&\ x2,\ \textcolor{keyword}{const}\ ValueClass\&\ y2,\ \textcolor{keyword}{const}\ ValueClass\&\ z2)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00120\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{const}\ ValueClass\ diff[3]\ =\ \{(x1-\/x2),(y1-\/y2),(z1-\/z2)\};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ ValueClass\ dist2\ =\ FMath::Zero<ValueClass>();}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ d=0;\ d<3;\ ++d)\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \textcolor{keyword}{const}\ ValueClass\ distX\ =\ diff[d]\ /\ FMath::ConvertTo<ValueClass,FReal>(lengthScale\_);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ dist2\ +=\ distX*distX;}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_f_math_ab87042325d5c82fd7006569ca51675e1}{FMath::Exp}}(FMath::ConvertTo<ValueClass,FReal>(-\/0.5)*dist2);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \textcolor{comment}{//\ evaluate\ interaction\ (blockwise)}}
+\DoxyCodeLine{00134\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ValueClass>}
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordtype}{void}\ evaluateBlock(\textcolor{keyword}{const}\ ValueClass\&\ x1,\ \textcolor{keyword}{const}\ ValueClass\&\ y1,\ \textcolor{keyword}{const}\ ValueClass\&\ z1,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ValueClass\&\ x2,\ \textcolor{keyword}{const}\ ValueClass\&\ y2,\ \textcolor{keyword}{const}\ ValueClass\&\ z2,\ ValueClass*\ block)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00137\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00138\ \ \ \ \ block[0]=this-\/>evaluate(x1,y1,z1,x2,y2,z2);}
+\DoxyCodeLine{00139\ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{//\ evaluate\ interaction\ and\ derivative\ (blockwise)}}
+\DoxyCodeLine{00142\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ValueClass>}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{void}\ evaluateBlockAndDerivative(\textcolor{keyword}{const}\ ValueClass\&\ x1,\ \textcolor{keyword}{const}\ ValueClass\&\ y1,\ \textcolor{keyword}{const}\ ValueClass\&\ z1,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ValueClass\&\ x2,\ \textcolor{keyword}{const}\ ValueClass\&\ y2,\ \textcolor{keyword}{const}\ ValueClass\&\ z2,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ValueClass\ block[1],\ ValueClass\ blockDerivative[3])\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00146\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00147\ \ \ \ \ block[0]=this-\/>evaluate(x1,y1,z1,x2,y2,z2);}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{const}\ ValueClass\ lengthScaleOpt\ =\ FMath::ConvertTo<ValueClass,FReal>(-\/1/(lengthScale\_*lengthScale\_));}
+\DoxyCodeLine{00149\ \ \ \ \ blockDerivative[0]\ =\ block[0]*(x1-\/x2)\ *\ lengthScaleOpt;}
+\DoxyCodeLine{00150\ \ \ \ \ blockDerivative[1]\ =\ block[0]*(y1-\/y2)\ *\ lengthScaleOpt;}
+\DoxyCodeLine{00151\ \ \ \ \ blockDerivative[2]\ =\ block[0]*(z1-\/z2)\ *\ lengthScaleOpt;}
+\DoxyCodeLine{00152\ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ *\ scaling\ (for\ ScalFMM)}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00157\ \ \ FReal\ getScaleFactor(\textcolor{keyword}{const}\ FReal,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00158\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{comment}{//\ return\ 1\ because\ non\ homogeneous\ kernel\ functions\ cannot\ be\ scaled!!!}}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{return}\ FReal(1.);}
+\DoxyCodeLine{00161\ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ FReal\ getScaleFactor(\textcolor{keyword}{const}\ FReal)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00164\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{comment}{//\ return\ 1\ because\ non\ homogeneous\ kernel\ functions\ cannot\ be\ scaled!!!}}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{return}\ FReal(1.);}
+\DoxyCodeLine{00167\ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ FReal\ evaluate(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ p1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ p2)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordflow}{return}\ evaluate<FReal>(p1.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),\ p1.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),\ p1.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}(),\ p2.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),\ p2.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),\ p2.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}());}
+\DoxyCodeLine{00171\ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \textcolor{keywordtype}{void}\ evaluateBlock(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ p1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ p2,\ FReal*\ block)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00173\ \ \ \ \ evaluateBlock<FReal>(p1.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),\ p1.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),\ p1.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}(),\ p2.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),\ p2.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),\ p2.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}(),\ block);}
+\DoxyCodeLine{00174\ \ \ \}}
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordtype}{void}\ evaluateBlockAndDerivative(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ p1,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ p2,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ block[1],\ FReal\ blockDerivative[3])\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00177\ \ \ \ \ evaluateBlockAndDerivative<FReal>(p1.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),\ p1.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),\ p1.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}(),\ p2.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),\ p2.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),\ p2.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}(),\ block,\ blockDerivative);}
+\DoxyCodeLine{00178\ \ \ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ FINTERPMATRIXKERNEL\_COVARIANCE\_HPP\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

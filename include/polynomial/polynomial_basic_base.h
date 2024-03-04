@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/1/21.
+// Created by RainSure on 2024/1/21.
 //
 
 #ifndef RSMESH_POLYNOMIAL_BASIC_BASE_H

@@ -1,0 +1,181 @@
+\doxysection{FFma\+Scanf\+Loader\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_fma_scanf_loader}{}\label{class_f_fma_scanf_loader}\index{FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}}
+
+
+{\ttfamily \#include $<$FFma\+Scanf\+Loader.\+hpp$>$}
+
+类 FFma\+Scanf\+Loader\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_fma_scanf_loader}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_fma_scanf_loader_a121c0b2f794fc26c6798d21f19ee120c}{FFma\+Scanf\+Loader}} (const char \texorpdfstring{$\ast$}{*}const filename)
+\item 
+virtual \mbox{\hyperlink{class_f_fma_scanf_loader_a40adaac106b806af4fedd27bea397e00}{\texorpdfstring{$\sim$}{\string~}\+FFma\+Scanf\+Loader}} ()
+\item 
+bool \mbox{\hyperlink{class_f_fma_scanf_loader_a89b955ea78d310507767c42ac9283244}{is\+Open}} () const
+\item 
+FSize \mbox{\hyperlink{class_f_fma_scanf_loader_a2de8b4eeb5ff26a35d755c93392260bd}{get\+Number\+Of\+Particles}} () const
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_fma_scanf_loader_a8a5ca63456c4647bc02b666346c1ceb7}{get\+Center\+Of\+Box}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_fma_scanf_loader_a04f34ccaa87e3e6addf6fdd4c9e06bfd}{get\+Box\+Width}} () const
+\item 
+void \mbox{\hyperlink{class_f_fma_scanf_loader_af5270dd4a2016f05408f4af5b249cf81}{fill\+Particle}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const in\+Particle\+Positions, FReal \texorpdfstring{$\ast$}{*}const in\+Physical\+Value)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_loader}{FAbstract\+Loader$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_f_abstract_loader_a50fdd33c7eac1ec0733b79ed1bd4b4e8}{\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Loader}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_fma_scanf_loader_acd417ed4033dba59dc256f6abbffa82f}\label{class_f_fma_scanf_loader_acd417ed4033dba59dc256f6abbffa82f} 
+FILE \texorpdfstring{$\ast$}{*} {\bfseries file}
+\item 
+\Hypertarget{class_f_fma_scanf_loader_a5813bbf7796a1e1edaccb7d7a841f2fd}\label{class_f_fma_scanf_loader_a5813bbf7796a1e1edaccb7d7a841f2fd} 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries center\+Of\+Box}
+\item 
+\Hypertarget{class_f_fma_scanf_loader_a457eed611e640ca5fed7b3859d0b0c53}\label{class_f_fma_scanf_loader_a457eed611e640ca5fed7b3859d0b0c53} 
+FReal {\bfseries box\+Width}
+\item 
+\Hypertarget{class_f_fma_scanf_loader_aff4761cf3e4bd1e5b3930220ede7fa59}\label{class_f_fma_scanf_loader_aff4761cf3e4bd1e5b3930220ede7fa59} 
+FSize {\bfseries nb\+Particles}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal$>$\newline
+class FFma\+Scanf\+Loader$<$ FReal $>$}
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+Please read the license
+
+Load a file with a format like \+: NB\+\_\+particles Box\+\_\+width Box\+\_\+X Box\+\_\+Y Box\+\_\+Z // init X Y Z // one particle by line .... 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \mbox{\hyperlink{class_f_fma_scanf_loader}{FFmaScanfLoader<FBasicParticle>}}\ loader(\textcolor{stringliteral}{"{}../Adir/Tests/particles.basic.txt"{}});\ <br>}
+\DoxyCodeLine{\ \ \ \textcolor{keywordflow}{if}(!loader.isOpen())\{\ <br>}
+\DoxyCodeLine{\ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Loader\ Error\(\backslash\)n"{}};\ <br>}
+\DoxyCodeLine{\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;\ <br>}
+\DoxyCodeLine{\ \ \ \}\ <br>}
+\DoxyCodeLine{<br>}
+\DoxyCodeLine{\ \ \ \mbox{\hyperlink{class_f_octree}{FOctree<FBasicParticle,\ TestCell,\ FSimpleLeaf>}}\ tree(loader.getBoxWidth(),loader.getCenterOfBox());\ <br>}
+\DoxyCodeLine{<br>}
+\DoxyCodeLine{\ \ \ \textcolor{keywordflow}{for}(FSize\ r.getNumberOfParticles()\ ;\ ++idx)\{\ <br>}
+\DoxyCodeLine{\ \ \ \ \ \ \ FBasicParticle*\ \textcolor{keyword}{const}\ part\ =\ \textcolor{keyword}{new}\ FBasicParticle();\ <br>}
+\DoxyCodeLine{\ \ \ \ \ \ \ loader.fillParticle(part);\ <br>}
+\DoxyCodeLine{\ \ \ \ \ \ \ tree.insert(part);\ <br>}
+\DoxyCodeLine{\ \ \ \}\ <br>}
+
+\end{DoxyCode}
+
+
+Particle has to extend \{FExtend\+Physical\+Value,FExtend\+Position\} 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_fma_scanf_loader_a121c0b2f794fc26c6798d21f19ee120c}\label{class_f_fma_scanf_loader_a121c0b2f794fc26c6798d21f19ee120c} 
+\index{FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}!FFmaScanfLoader@{FFmaScanfLoader}}
+\index{FFmaScanfLoader@{FFmaScanfLoader}!FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{FFmaScanfLoader()}{FFmaScanfLoader()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\mbox{\hyperlink{class_f_fma_scanf_loader}{FFma\+Scanf\+Loader}}$<$ FReal $>$\mbox{\hyperlink{class_f_fma_scanf_loader}{\+::\+FFma\+Scanf\+Loader}} (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}const}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+The constructor need the file name 
+\begin{DoxyParams}{参数}
+{\em filename} & the name of the file to open you can test if file is successfuly open by calling has\+Not\+Finished() \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_fma_scanf_loader_a40adaac106b806af4fedd27bea397e00}\label{class_f_fma_scanf_loader_a40adaac106b806af4fedd27bea397e00} 
+\index{FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}!````~FFmaScanfLoader@{\texorpdfstring{$\sim$}{\string~}FFmaScanfLoader}}
+\index{````~FFmaScanfLoader@{\texorpdfstring{$\sim$}{\string~}FFmaScanfLoader}!FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FFmaScanfLoader()}{\string~FFmaScanfLoader()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+virtual \mbox{\hyperlink{class_f_fma_scanf_loader}{FFma\+Scanf\+Loader}}$<$ FReal $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_fma_scanf_loader}{FFma\+Scanf\+Loader}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Default destructor, simply close the file 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_fma_scanf_loader_af5270dd4a2016f05408f4af5b249cf81}\label{class_f_fma_scanf_loader_af5270dd4a2016f05408f4af5b249cf81} 
+\index{FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}!fillParticle@{fillParticle}}
+\index{fillParticle@{fillParticle}!FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{fillParticle()}{fillParticle()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+void \mbox{\hyperlink{class_f_fma_scanf_loader}{FFma\+Scanf\+Loader}}$<$ FReal $>$\+::fill\+Particle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const}]{in\+Particle\+Positions,  }\item[{FReal \texorpdfstring{$\ast$}{*}const}]{in\+Physical\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Fill a particle \begin{DoxyWarning}{警告}
+to work with the loader, particles has to expose a set\+Position method 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{参数}
+{\em the} & particle to fill \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_fma_scanf_loader_a04f34ccaa87e3e6addf6fdd4c9e06bfd}\label{class_f_fma_scanf_loader_a04f34ccaa87e3e6addf6fdd4c9e06bfd} 
+\index{FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}!getBoxWidth@{getBoxWidth}}
+\index{getBoxWidth@{getBoxWidth}!FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getBoxWidth()}{getBoxWidth()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_fma_scanf_loader}{FFma\+Scanf\+Loader}}$<$ FReal $>$\+::get\+Box\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+The box width from the simulation file opened by the loader \begin{DoxyReturn}{返回}
+box width 
+\end{DoxyReturn}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_a2cbf052128fb47a1072fe556e1b37a3e}{FAbstract\+Loader$<$ FReal $>$}}.
+
+\Hypertarget{class_f_fma_scanf_loader_a8a5ca63456c4647bc02b666346c1ceb7}\label{class_f_fma_scanf_loader_a8a5ca63456c4647bc02b666346c1ceb7} 
+\index{FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}!getCenterOfBox@{getCenterOfBox}}
+\index{getCenterOfBox@{getCenterOfBox}!FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getCenterOfBox()}{getCenterOfBox()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_fma_scanf_loader}{FFma\+Scanf\+Loader}}$<$ FReal $>$\+::get\+Center\+Of\+Box (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+The center of the box from the simulation file opened by the loader \begin{DoxyReturn}{返回}
+box center 
+\end{DoxyReturn}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_ad3b312747bb0063d23477ea2706ccd5b}{FAbstract\+Loader$<$ FReal $>$}}.
+
+\Hypertarget{class_f_fma_scanf_loader_a2de8b4eeb5ff26a35d755c93392260bd}\label{class_f_fma_scanf_loader_a2de8b4eeb5ff26a35d755c93392260bd} 
+\index{FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}!getNumberOfParticles@{getNumberOfParticles}}
+\index{getNumberOfParticles@{getNumberOfParticles}!FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getNumberOfParticles()}{getNumberOfParticles()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FSize \mbox{\hyperlink{class_f_fma_scanf_loader}{FFma\+Scanf\+Loader}}$<$ FReal $>$\+::get\+Number\+Of\+Particles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+To get the number of particles from this loader 
+\begin{DoxyParams}{参数}
+{\em the} & number of particles the loader can fill \\
+\hline
+\end{DoxyParams}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_aa2e8ad65f225d66660fede162fe2765b}{FAbstract\+Loader$<$ FReal $>$}}.
+
+\Hypertarget{class_f_fma_scanf_loader_a89b955ea78d310507767c42ac9283244}\label{class_f_fma_scanf_loader_a89b955ea78d310507767c42ac9283244} 
+\index{FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}!isOpen@{isOpen}}
+\index{isOpen@{isOpen}!FFmaScanfLoader$<$ FReal $>$@{FFmaScanfLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{isOpen()}{isOpen()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+bool \mbox{\hyperlink{class_f_fma_scanf_loader}{FFma\+Scanf\+Loader}}$<$ FReal $>$\+::is\+Open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+To know if file is open and ready to read \begin{DoxyReturn}{返回}
+true if loader can work 
+\end{DoxyReturn}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_ad1c647e0fb2ae0de47c1cfab4ad6d811}{FAbstract\+Loader$<$ FReal $>$}}.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Files/FFma\+Scanf\+Loader.\+hpp\end{DoxyCompactItemize}

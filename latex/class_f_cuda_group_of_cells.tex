@@ -1,0 +1,187 @@
+\doxysection{FCuda\+Group\+Of\+Cells\texorpdfstring{$<$}{<} Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_cuda_group_of_cells}{}\label{class_f_cuda_group_of_cells}\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+
+
+The \doxylink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells} class manages the cells in block allocation.  
+
+
+
+
+{\ttfamily \#include $<$FCuda\+Group\+Of\+Cells.\+hpp$>$}
+
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_cuda_group_of_cells_a5be828b0f42876690d1f1c54d5ae5127}\label{class_f_cuda_group_of_cells_a5be828b0f42876690d1f1c54d5ae5127} 
+typedef \mbox{\hyperlink{struct_f_cuda_composite_cell}{FCuda\+Composite\+Cell}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$ {\bfseries Complete\+Cell\+Class}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_cuda_group_of_cells_a769868c59f69ed878546eeb84339eb15}\label{class_f_cuda_group_of_cells_a769868c59f69ed878546eeb84339eb15} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void {\bfseries reset} (unsigned char \texorpdfstring{$\ast$}{*}in\+Buffer, const size\+\_\+t in\+Allocated\+Memory\+In\+Byte, unsigned char \texorpdfstring{$\ast$}{*}in\+Cell\+Multipoles, unsigned char \texorpdfstring{$\ast$}{*}in\+Cell\+Locals)
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ \mbox{\hyperlink{class_f_cuda_group_of_cells_ac65948352aad84953402b142d17f247d}{FCuda\+Group\+Of\+Cells}} (unsigned char \texorpdfstring{$\ast$}{*}in\+Buffer, const size\+\_\+t in\+Allocated\+Memory\+In\+Byte, unsigned char \texorpdfstring{$\ast$}{*}in\+Cell\+Multipoles, unsigned char \texorpdfstring{$\ast$}{*}in\+Cell\+Locals)
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ Morton\+Index \mbox{\hyperlink{class_f_cuda_group_of_cells_a33ffe62e72021836295375b1d5ef7434}{get\+Starting\+Index}} () const
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ Morton\+Index \mbox{\hyperlink{class_f_cuda_group_of_cells_a889aa19f474530779801d3b00465e98f}{get\+Ending\+Index}} () const
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ int \mbox{\hyperlink{class_f_cuda_group_of_cells_a0c497de50691af55fa5765a11dc65301}{get\+Number\+Of\+Cells\+In\+Block}} () const
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_cuda_group_of_cells_a60d34b77eb1fb852d1b2887982f20c7a}{get\+Size\+Of\+Interval}} () const
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ bool \mbox{\hyperlink{class_f_cuda_group_of_cells_a4b10bd6daaaa8178469838b47e8d111a}{is\+Inside}} (const Morton\+Index in\+Index) const
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ Morton\+Index \mbox{\hyperlink{class_f_cuda_group_of_cells_aa46ccd4b3f726557f4fd510b2308bd08}{get\+Cell\+Morton\+Index}} (const int cell\+Pos) const
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ int \mbox{\hyperlink{class_f_cuda_group_of_cells_a4e37cd01f6e8385c0a943f30bae81fb6}{get\+Fist\+Child\+Idx}} (const Morton\+Index parent\+Idx) const
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ int \mbox{\hyperlink{class_f_cuda_group_of_cells_a5a3c8ed72503dcf9fbca2e6dc53766b2}{get\+Cell\+Index}} (const Morton\+Index cell\+Idx) const
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ bool \mbox{\hyperlink{class_f_cuda_group_of_cells_a1eb7977b1bc38454f23845a7970deef2}{exists}} (const Morton\+Index in\+Index) const
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ \mbox{\hyperlink{struct_f_cuda_composite_cell}{Complete\+Cell\+Class}} \mbox{\hyperlink{class_f_cuda_group_of_cells_a5dc522c2cb66049a162a83c7d967bf5a}{get\+Complete\+Cell}} (const int cell\+Pos)
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ \mbox{\hyperlink{struct_f_cuda_composite_cell}{Complete\+Cell\+Class}} \mbox{\hyperlink{class_f_cuda_group_of_cells_a69e70643dd044664a5951e743281140d}{get\+Up\+Cell}} (const int cell\+Pos)
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ \mbox{\hyperlink{struct_f_cuda_composite_cell}{Complete\+Cell\+Class}} \mbox{\hyperlink{class_f_cuda_group_of_cells_a9965aa71c7840d37cc71f744c1666948}{get\+Down\+Cell}} (const int cell\+Pos)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_cuda_group_of_cells_ad6d5d73faef98ff2c30edb8c4a82e9d8}\label{class_f_cuda_group_of_cells_ad6d5d73faef98ff2c30edb8c4a82e9d8} 
+size\+\_\+t {\bfseries allocated\+Memory\+In\+Byte}
+\item 
+\Hypertarget{class_f_cuda_group_of_cells_aea9d57a9202ac831937f601dee132789}\label{class_f_cuda_group_of_cells_aea9d57a9202ac831937f601dee132789} 
+unsigned char \texorpdfstring{$\ast$}{*} {\bfseries memory\+Buffer}
+\item 
+\Hypertarget{class_f_cuda_group_of_cells_afc9fc48803b9c09e73beb603ebb7a9fe}\label{class_f_cuda_group_of_cells_afc9fc48803b9c09e73beb603ebb7a9fe} 
+Block\+Header \texorpdfstring{$\ast$}{*} {\bfseries block\+Header}
+\item 
+\Hypertarget{class_f_cuda_group_of_cells_ad1a6c01110defb8419b63838536f2fc0}\label{class_f_cuda_group_of_cells_ad1a6c01110defb8419b63838536f2fc0} 
+Morton\+Index \texorpdfstring{$\ast$}{*} {\bfseries cell\+Indexes}
+\item 
+\Hypertarget{class_f_cuda_group_of_cells_a91add0c5afaee3bd20735ab392dbd7fc}\label{class_f_cuda_group_of_cells_a91add0c5afaee3bd20735ab392dbd7fc} 
+Symbole\+Cell\+Class \texorpdfstring{$\ast$}{*} {\bfseries block\+Cells}
+\item 
+\Hypertarget{class_f_cuda_group_of_cells_aa35a955dd2b6d49ec2c017d9625adc9a}\label{class_f_cuda_group_of_cells_aa35a955dd2b6d49ec2c017d9625adc9a} 
+Pole\+Cell\+Class \texorpdfstring{$\ast$}{*} {\bfseries cell\+Multipoles}
+\item 
+\Hypertarget{class_f_cuda_group_of_cells_acbd9039ad2b8c9cfdcbdb052d5e7fd8b}\label{class_f_cuda_group_of_cells_acbd9039ad2b8c9cfdcbdb052d5e7fd8b} 
+Local\+Cell\+Class \texorpdfstring{$\ast$}{*} {\bfseries cell\+Locals}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class Symbole\+Cell\+Class, class Pole\+Cell\+Class, class Local\+Cell\+Class$>$\newline
+class FCuda\+Group\+Of\+Cells$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$}
+The \doxylink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells} class manages the cells in block allocation. 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_cuda_group_of_cells_ac65948352aad84953402b142d17f247d}\label{class_f_cuda_group_of_cells_ac65948352aad84953402b142d17f247d} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!FCudaGroupOfCells@{FCudaGroupOfCells}}
+\index{FCudaGroupOfCells@{FCudaGroupOfCells}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{FCudaGroupOfCells()}{FCudaGroupOfCells()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\mbox{\hyperlink{class_f_cuda_group_of_cells}{\+::\+FCuda\+Group\+Of\+Cells}} (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{in\+Buffer,  }\item[{const size\+\_\+t}]{in\+Allocated\+Memory\+In\+Byte,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{in\+Cell\+Multipoles,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{in\+Cell\+Locals }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Init from a given buffer 
+\begin{DoxyParams}{参数}
+{\em in\+Buffer} & \\
+\hline
+{\em in\+Allocated\+Memory\+In\+Byte} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_cuda_group_of_cells_a1eb7977b1bc38454f23845a7970deef2}\label{class_f_cuda_group_of_cells_a1eb7977b1bc38454f23845a7970deef2} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!exists@{exists}}
+\index{exists@{exists}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{exists()}{exists()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ bool \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::exists (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return true if in\+Index is located in the current block and is not empty \Hypertarget{class_f_cuda_group_of_cells_a5a3c8ed72503dcf9fbca2e6dc53766b2}\label{class_f_cuda_group_of_cells_a5a3c8ed72503dcf9fbca2e6dc53766b2} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getCellIndex@{getCellIndex}}
+\index{getCellIndex@{getCellIndex}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getCellIndex()}{getCellIndex()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ int \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Cell\+Index (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{cell\+Idx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Check if a cell exist (by binary search) and return it index \Hypertarget{class_f_cuda_group_of_cells_aa46ccd4b3f726557f4fd510b2308bd08}\label{class_f_cuda_group_of_cells_aa46ccd4b3f726557f4fd510b2308bd08} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getCellMortonIndex@{getCellMortonIndex}}
+\index{getCellMortonIndex@{getCellMortonIndex}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getCellMortonIndex()}{getCellMortonIndex()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ Morton\+Index \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Cell\+Morton\+Index (\begin{DoxyParamCaption}\item[{const int}]{cell\+Pos }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the idx in array of the cell \Hypertarget{class_f_cuda_group_of_cells_a5dc522c2cb66049a162a83c7d967bf5a}\label{class_f_cuda_group_of_cells_a5dc522c2cb66049a162a83c7d967bf5a} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getCompleteCell@{getCompleteCell}}
+\index{getCompleteCell@{getCompleteCell}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getCompleteCell()}{getCompleteCell()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ \mbox{\hyperlink{struct_f_cuda_composite_cell}{Complete\+Cell\+Class}} \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Complete\+Cell (\begin{DoxyParamCaption}\item[{const int}]{cell\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the address of the cell if it exists (or NULL) \Hypertarget{class_f_cuda_group_of_cells_a9965aa71c7840d37cc71f744c1666948}\label{class_f_cuda_group_of_cells_a9965aa71c7840d37cc71f744c1666948} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getDownCell@{getDownCell}}
+\index{getDownCell@{getDownCell}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getDownCell()}{getDownCell()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ \mbox{\hyperlink{struct_f_cuda_composite_cell}{Complete\+Cell\+Class}} \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Down\+Cell (\begin{DoxyParamCaption}\item[{const int}]{cell\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the address of the cell if it exists (or NULL) \Hypertarget{class_f_cuda_group_of_cells_a889aa19f474530779801d3b00465e98f}\label{class_f_cuda_group_of_cells_a889aa19f474530779801d3b00465e98f} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getEndingIndex@{getEndingIndex}}
+\index{getEndingIndex@{getEndingIndex}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getEndingIndex()}{getEndingIndex()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ Morton\+Index \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Ending\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The index of the last cell + 1 (set from the constructor) \Hypertarget{class_f_cuda_group_of_cells_a4e37cd01f6e8385c0a943f30bae81fb6}\label{class_f_cuda_group_of_cells_a4e37cd01f6e8385c0a943f30bae81fb6} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getFistChildIdx@{getFistChildIdx}}
+\index{getFistChildIdx@{getFistChildIdx}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getFistChildIdx()}{getFistChildIdx()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ int \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Fist\+Child\+Idx (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{parent\+Idx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Check if a cell exist (by binary search) and return it index \Hypertarget{class_f_cuda_group_of_cells_a0c497de50691af55fa5765a11dc65301}\label{class_f_cuda_group_of_cells_a0c497de50691af55fa5765a11dc65301} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getNumberOfCellsInBlock@{getNumberOfCellsInBlock}}
+\index{getNumberOfCellsInBlock@{getNumberOfCellsInBlock}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getNumberOfCellsInBlock()}{getNumberOfCellsInBlock()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ int \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Number\+Of\+Cells\+In\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The number of cell (set from the constructor) \Hypertarget{class_f_cuda_group_of_cells_a60d34b77eb1fb852d1b2887982f20c7a}\label{class_f_cuda_group_of_cells_a60d34b77eb1fb852d1b2887982f20c7a} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getSizeOfInterval@{getSizeOfInterval}}
+\index{getSizeOfInterval@{getSizeOfInterval}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getSizeOfInterval()}{getSizeOfInterval()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+Morton\+Index \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Size\+Of\+Interval (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The size of the interval ending\+Index-\/starting\+Index (set from the constructor) \Hypertarget{class_f_cuda_group_of_cells_a33ffe62e72021836295375b1d5ef7434}\label{class_f_cuda_group_of_cells_a33ffe62e72021836295375b1d5ef7434} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getStartingIndex@{getStartingIndex}}
+\index{getStartingIndex@{getStartingIndex}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getStartingIndex()}{getStartingIndex()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ Morton\+Index \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Starting\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The index of the fist cell (set from the constructor) \Hypertarget{class_f_cuda_group_of_cells_a69e70643dd044664a5951e743281140d}\label{class_f_cuda_group_of_cells_a69e70643dd044664a5951e743281140d} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!getUpCell@{getUpCell}}
+\index{getUpCell@{getUpCell}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{getUpCell()}{getUpCell()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ \mbox{\hyperlink{struct_f_cuda_composite_cell}{Complete\+Cell\+Class}} \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::get\+Up\+Cell (\begin{DoxyParamCaption}\item[{const int}]{cell\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the address of the cell if it exists (or NULL) \Hypertarget{class_f_cuda_group_of_cells_a4b10bd6daaaa8178469838b47e8d111a}\label{class_f_cuda_group_of_cells_a4b10bd6daaaa8178469838b47e8d111a} 
+\index{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}!isInside@{isInside}}
+\index{isInside@{isInside}!FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$@{FCudaGroupOfCells$<$ SymboleCellClass, PoleCellClass, LocalCellClass $>$}}
+\doxysubsubsection{\texorpdfstring{isInside()}{isInside()}}
+{\footnotesize\ttfamily template$<$class Symbole\+Cell\+Class , class Pole\+Cell\+Class , class Local\+Cell\+Class $>$ \\
+\+\_\+\+\_\+device\+\_\+\+\_\+ bool \mbox{\hyperlink{class_f_cuda_group_of_cells}{FCuda\+Group\+Of\+Cells}}$<$ Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class $>$\+::is\+Inside (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return true if in\+Index should be located in the current block 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Cuda/FCuda\+Group\+Of\+Cells.\+hpp\end{DoxyCompactItemize}

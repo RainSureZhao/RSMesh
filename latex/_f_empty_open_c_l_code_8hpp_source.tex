@@ -1,0 +1,97 @@
+\doxysection{FEmpty\+Open\+CLCode.\+hpp}
+\hypertarget{_f_empty_open_c_l_code_8hpp_source}{}\label{_f_empty_open_c_l_code_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/OpenCl/FEmptyOpenCLCode.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/OpenCl/FEmptyOpenCLCode.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FEMPTYOPENCLCODE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FEMPTYOPENCLCODE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ Return\ the\ same\ thing\ as\ FEmptyKernel.cl}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../StarPUUtils/FStarPUDefaultAlign.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }FEmptyOpenCLCode\{}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ FEmptyOpenCLCode()\{}
+\DoxyCodeLine{00012\ \ \ \ \ \}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ getKernelCode(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*inDevId*/})\{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ kernelcode\ =}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}typedef\ long\ long\ int\ MortonIndex;\ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#define\ DefaultStructAlign\ "{}}\ FStarPUDefaultAlignStr\ \textcolor{stringliteral}{"{}\(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00019\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ struct\ OutOfBlockInteraction\{\(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ outIndex;\(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ insideIndex;\(\backslash\)}}
+\DoxyCodeLine{00022\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ relativeOutPosition;\(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ insideIdxInBlock;\(\backslash\)}}
+\DoxyCodeLine{00024\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ outsideIdxInBlock;\(\backslash\)}}
+\DoxyCodeLine{00025\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \_\_attribute\_\_\ ((aligned\ (DefaultStructAlign)));\(\backslash\)}}
+\DoxyCodeLine{00026\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_kernel\ void\ FOpenCL\_\_bottomPassPerform(\_\_global\ unsigned\ char*\ leafCellsPtr,\ size\_t\ leafCellsSize,\_\_global\ unsigned\ char*\ leafCellsUpPtr,\(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ containersPtr,\ size\_t\ containersSize,\(\backslash\)}}
+\DoxyCodeLine{00028\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ void*\ userkernel\ )\{\(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_kernel\ void\ FOpenCL\_\_upwardPassPerform(\_\_global\ unsigned\ char*\ currentCellsPtr,\ size\_t\ currentCellsSize,\ \_\_global\ unsigned\ char*\ currentCellsUpPtr,\(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ childCellsPtr,\ size\_t\ childCellsSize,\ \_\_global\ unsigned\ char*\ childCellsUpPtr,\(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ idxLevel,\ \_\_global\ void*\ userkernel)\{\(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_kernel\ \ void\ FOpenCL\_\_transferInoutPassPerformMpi(\_\_global\ unsigned\ char*\ currentCellsPtr,\ size\_t\ currentCellsSize,\ \_\_global\ unsigned\ char*\ currentCellsDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ externalCellsPtr,\ size\_t\ externalCellsSize,\ \_\_global\ unsigned\ char*\ externalCellsUpPtr,\(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ idxLevel,\ const\ \_\_global\ struct\ OutOfBlockInteraction*\ outsideInteractions,\(\backslash\)}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_t\ nbOutsideInteractions,\ \_\_global\ void*\ userkernel)\{\(\backslash\)}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_kernel\ \ void\ FOpenCL\_\_transferInPassPerform(\_\_global\ unsigned\ char*\ currentCellsPtr,\ size\_t\ currentCellsSize,\(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ currentCellsUpPtr,\ \_\_global\ unsigned\ char*\ currentCellsDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ idxLevel,\ \_\_global\ void*\ userkernel)\{\(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_kernel\ void\ FOpenCL\_\_transferInoutPassPerform(\_\_global\ unsigned\ char*\ currentCellsPtr,\ size\_t\ currentCellsSize,\(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ \ currentCellsUpPtr,\(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ externalCellsPtr,\ size\_t\ externalCellsSize,\(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ externalCellsDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ idxLevel,\ int\ mode,\ const\ \_\_global\ struct\ OutOfBlockInteraction*\ outsideInteractions,\(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_t\ nbOutsideInteractions,\ \_\_global\ void*\ userkernel)\{\(\backslash\)}}
+\DoxyCodeLine{00049\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_kernel\ void\ FOpenCL\_\_downardPassPerform(\_\_global\ unsigned\ char*\ currentCellsPtr,\ size\_t\ currentCellsSize,\ \_\_global\ unsigned\ char*\ currentCellsDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ childCellsPtr,\ size\_t\ childCellsSize,\ \_\_global\ unsigned\ char*\ childCellsDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int\ idxLevel,\ \_\_global\ void*\ userkernel)\{\(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_kernel\ void\ FOpenCL\_\_directInoutPassPerformMpi(\_\_global\ unsigned\ char*\ containersPtr,\ size\_t\ containersSize,\ \_\_global\ unsigned\ char*\ containersDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ externalContainersPtr,\ size\_t\ externalContainersSize,\ \_\_global\ unsigned\ char*\ outsideInteractionsCl,\(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ \_\_global\ struct\ OutOfBlockInteraction*\ outsideInteractions,\(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_t\ nbOutsideInteractions,\ const\ int\ treeHeight,\ \_\_global\ void*\ userkernel)\{\(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_kernel\ void\ FOpenCL\_\_directInPassPerform(\_\_global\ unsigned\ char*\ containersPtr,\ size\_t\ containersSize,\ \_\_global\ unsigned\ char*\ containersDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ int\ treeHeight,\ \_\_global\ void*\ userkernel)\{\(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_kernel\ void\ FOpenCL\_\_directInoutPassPerform(\_\_global\ unsigned\ char*\ containersPtr,\ size\_t\ containersSize,\ \_\_global\ unsigned\ char*\ containersDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ externalContainersPtr,\ size\_t\ externalContainersSize,\ \_\_global\ unsigned\ char*\ externalContainersDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ const\ \_\_global\ struct\ OutOfBlockInteraction*\ outsideInteractions,\(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\_t\ nbOutsideInteractions,\ const\ int\ treeHeight,\ \_\_global\ void*\ userkernel)\{\(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_kernel\ void\ FOpenCL\_\_mergePassPerform(\_\_global\ unsigned\ char*\ leafCellsPtr,\ size\_t\ leafCellsSize,\ \_\_global\ unsigned\ char*\ leafCellsDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ unsigned\ char*\ containersPtr,\ size\_t\ containersSize,\ \_\_global\ unsigned\ char*\ containersDownPtr,\(\backslash\)}}
+\DoxyCodeLine{00069\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_\_global\ void*\ userkernel)\{\(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}"{}};}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ kernelcode;}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ releaseKernelCode()\{}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getNbDims()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}*\ getNbGroups(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*inSizeInterval*/})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}*\ getGroupSize()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FEMPTYOPENCLCODE\_HPP}}
+\DoxyCodeLine{00091\ }
+
+\end{DoxyCode}

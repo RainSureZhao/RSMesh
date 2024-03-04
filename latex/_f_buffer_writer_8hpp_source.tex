@@ -1,0 +1,64 @@
+\doxysection{FBuffer\+Writer.\+hpp}
+\hypertarget{_f_buffer_writer_8hpp_source}{}\label{_f_buffer_writer_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Containers/FBufferWriter.hpp@{third\_party/ScalFMM/include/ScalFMM/Containers/FBufferWriter.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FBUFFERWRITER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FBUFFERWRITER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}FVector.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}FAbstractBuffer.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_buffer_writer}{FBufferWriter}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_buffer_writer}{FAbstractBufferWriter}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_f_vector}{FVector<char>}}\ buffer;\ \textcolor{comment}{//<\ The\ buffer}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_f_buffer_writer_a6b3832218c7f8948049466e5aa37f285}{FBufferWriter}}(\textcolor{keyword}{const}\ FSize\ inCapacity\ =\ 512)\ :\ buffer(inCapacity)\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_buffer_writer_a6da90a628d152cb9098ebb0e1a73279a}{\string~FBufferWriter}}()\{}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{class_f_buffer_writer_a6a9be83a2405c1b86f9ad3d9481e0113}{data}}()\{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ buffer.\mbox{\hyperlink{class_f_vector_a7609237a1fe28ddad0d24b032d1c0d41}{data}}();}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{class_f_buffer_writer_a4a26e5f797f34ad23b0c1600af8dbdf2}{data}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ buffer.\mbox{\hyperlink{class_f_vector_a7609237a1fe28ddad0d24b032d1c0d41}{data}}();}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00039\ \ \ \ \ FSize\ \mbox{\hyperlink{class_f_buffer_writer_a98858aad316cb7af567e08c8d01f3c19}{getSize}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ buffer.\mbox{\hyperlink{class_f_vector_ae27a83b0b3e11851c9b3f5991937e3f2}{getSize}}();}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ClassType>}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_buffer_writer_a952d0248e89c49ebae8d7ffca798cfa9}{write}}(\textcolor{keyword}{const}\ ClassType\&\ \textcolor{keywordtype}{object})\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ buffer.\mbox{\hyperlink{class_f_vector_a3fe7095863dd96a1fc8fb4b096466831}{memocopy}}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(\&\textcolor{keywordtype}{object}),\ FSize(\textcolor{keyword}{sizeof}(ClassType)));}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ClassType>}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_buffer_writer_af641ea184d95cb055ea8c9acd84d5a70}{writeAt}}(\textcolor{keyword}{const}\ FSize\ position,\ \textcolor{keyword}{const}\ ClassType\&\ \textcolor{keywordtype}{object})\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ (*\textcolor{keyword}{reinterpret\_cast<}ClassType*\textcolor{keyword}{>}(\&buffer[position]))\ =\ object;}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ClassType>}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_buffer_writer_ab79162c61c6c0f431870d0a40f4553db}{write}}(\textcolor{keyword}{const}\ ClassType*\ \textcolor{keyword}{const}\ objects,\ \textcolor{keyword}{const}\ FSize\ inSize)\{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ buffer.\mbox{\hyperlink{class_f_vector_a3fe7095863dd96a1fc8fb4b096466831}{memocopy}}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(objects),\ FSize(\textcolor{keyword}{sizeof}(ClassType))\ *\ inSize);}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ClassType>}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_f_buffer_writer}{FBufferWriter}}\&\ \mbox{\hyperlink{class_f_buffer_writer_a625dc6c0dfbc56e7e34065a1617d59b6}{operator<<}}(\textcolor{keyword}{const}\ ClassType\&\ \textcolor{keywordtype}{object})\{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_buffer_writer_a952d0248e89c49ebae8d7ffca798cfa9}{write}}(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_buffer_writer_af44d4b83026115a302e91634d5acd757}{reset}}()\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ buffer.\mbox{\hyperlink{class_f_vector_a2170b11fb4c60ab9660884a210e9fa6f}{clear}}();}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FBUFFERWRITER\_HPP}}
+
+\end{DoxyCode}

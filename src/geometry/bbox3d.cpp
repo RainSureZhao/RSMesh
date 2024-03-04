@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2023/10/26.
+// Created by RainSure on 2023/10/26.
 //
 
 #include "geometry/bbox3d.h"
@@ -8,20 +8,43 @@
 
 namespace rsmesh {
     namespace geometry {
+        /**
+         * \brief bbox3d类的默认构造函数
+         *
+         * 主要实现逻辑是将min_初始化为无穷大，max_初始化为负无穷大
+         */
         bbox3d::bbox3d() : min_(std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity()), 
             max_(-std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity()){}
-            
+
+        /**
+         * \brief bbox3d类的构造函数，根据传入的左下角的点和右上角的点来构造包围盒
+         * @param min 传入的包围盒的左下角点
+         * @param max 传入的包围盒的右上角点
+         */
         bbox3d::bbox3d(const point3d &min, const point3d &max) : min_(min), max_(max){
         }
-
+        /**
+         * \brief 重载了==运算符，用于判断两个bbox3d是否相等
+         * @param rhs 比较的另一个bbox3d
+         * @return
+         */
         bool bbox3d::operator==(const bbox3d &rhs) const {
             return min_ == rhs.min_ and max_ == rhs.max_;   
         }
 
+        /**
+         * \brief 返回包围盒的中心点
+         * @return
+         */
         point3d bbox3d::center() const {
             return min_ + size() / 2.0;
         }
 
+        /**
+         * 判断包围盒是否包含某个点
+         * @param p 判断的点
+         * @return
+         */
         bool bbox3d::contains(const point3d &p) const {
             return 
             p[0] >= min_[0] and p[0] <= max_[0] and 
@@ -29,6 +52,11 @@ namespace rsmesh {
             p[2] >= min_[2] and p[2] <= max_[2];
         }
 
+        /**
+         * 计算该包围盒和另一个包围盒的凸包
+         * @param other
+         * @return
+         */
         bbox3d bbox3d::convex_hull(const bbox3d& other) const {
             return {min_.cwiseMin(other.min_), max_.cwiseMax(other.max_)};
         }

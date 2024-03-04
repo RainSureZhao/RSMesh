@@ -1,0 +1,305 @@
+\doxysection{FAbstract\+Sub\+Octree\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_abstract_sub_octree}{}\label{class_f_abstract_sub_octree}\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+
+
+{\ttfamily \#include $<$FSub\+Octree.\+hpp$>$}
+
+类 FAbstract\+Sub\+Octree\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.044776cm]{class_f_abstract_sub_octree}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_abstract_sub_octree_a515d55d96f3760560d1826866f618eff}{FAbstract\+Sub\+Octree}} (\mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}} \texorpdfstring{$\ast$}{*}const in\+Parent, const int in\+Index\+In\+Parent, const int in\+Sub\+Octree\+Height, const int in\+Sub\+Octree\+Position, const bool in\+Is\+Leaf\+Subtree)
+\item 
+virtual \mbox{\hyperlink{class_f_abstract_sub_octree_a27cf32745a2164a3be2331b47050e0ce}{\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Sub\+Octree}} ()
+\item 
+virtual bool \mbox{\hyperlink{class_f_abstract_sub_octree_ac7f182a25b647bc54b21d663be54bdfd}{remove\+Leaf}} (const Morton\+Index index, const int in\+Tree\+Height)=0
+\item 
+int \mbox{\hyperlink{class_f_abstract_sub_octree_ad9f3abf46b21de91bcad5a2d37fadf53}{get\+Sub\+Octree\+Height}} () const
+\item 
+int \mbox{\hyperlink{class_f_abstract_sub_octree_ae4a0b99836c592fe29aa4beb790ef67a}{get\+Sub\+Octree\+Position}} () const
+\item 
+int \mbox{\hyperlink{class_f_abstract_sub_octree_a236da7fc2c05843766d6886943b11294}{get\+Left\+Leaf\+Index}} () const
+\item 
+int \mbox{\hyperlink{class_f_abstract_sub_octree_a63a17e493316d4783dff0f364f29dc7f}{get\+Right\+Leaf\+Index}} () const
+\item 
+Cell\+Class \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_abstract_sub_octree_a050cd28487c6de247f43754e4704d4f9}{cells\+At}} (const int level) const
+\item 
+bool \mbox{\hyperlink{class_f_abstract_sub_octree_ae4463c8521a998faea5ef22881eaaab2}{has\+Parent}} () const
+\item 
+\mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_abstract_sub_octree_aecf661b9a25c2ba8e900d746bd9925f8}{get\+Parent}} ()
+\item 
+const \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_abstract_sub_octree_a1006838e9ccf9915596759f51b4ad4bd}{get\+Parent}} () const
+\item 
+int \mbox{\hyperlink{class_f_abstract_sub_octree_a247a065649be7bbda0b4a95bffbded68}{get\+Index\+In\+Parent}} () const
+\item 
+bool \mbox{\hyperlink{class_f_abstract_sub_octree_a421a3044968d532b28a3ac6c5ad61948}{is\+Leaf\+Part}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_abstract_sub_octree_a2e6f0fbaf44bffd7750bf8693616be37}{get\+Leaf\+Index}} (const Morton\+Index index, const int in\+Tree\+Height) const
+\item 
+void \mbox{\hyperlink{class_f_abstract_sub_octree_a76762507d25c257b44d2750aaf316c4f}{create\+Previous\+Cells}} (Morton\+Index array\+Index, Morton\+Index in\+Leaf\+Cell\+Index, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&tree\+Position)
+\item 
+void \mbox{\hyperlink{class_f_abstract_sub_octree_a13e167390ab62e103952b37e97e45338}{new\+Leaf\+Inserted}} (const int array\+Index, const Morton\+Index in\+Leaf\+Cell\+Index, const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&host)
+\item 
+bool \mbox{\hyperlink{class_f_abstract_sub_octree_a0a25af8c62187c430a4360f3e1465159}{remove\+Cells\+From\+Leaf}} (int array\+Index)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_abstract_sub_octree_a7aff463fcbb625c0828adfaf7b691f11}\label{class_f_abstract_sub_octree_a7aff463fcbb625c0828adfaf7b691f11} 
+Cell\+Class \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} {\bfseries cells}
+\item 
+\Hypertarget{class_f_abstract_sub_octree_a25a5d5f15a91937ced3aa0cca1f9faaa}\label{class_f_abstract_sub_octree_a25a5d5f15a91937ced3aa0cca1f9faaa} 
+\mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}} \texorpdfstring{$\ast$}{*}const {\bfseries parent}
+\item 
+\Hypertarget{class_f_abstract_sub_octree_a35a956754573a99577a48a7ab22204c3}\label{class_f_abstract_sub_octree_a35a956754573a99577a48a7ab22204c3} 
+const int {\bfseries index\+In\+Parent}
+\item 
+\Hypertarget{class_f_abstract_sub_octree_af6efe1bdbc3ed07da3c569b60a3db5aa}\label{class_f_abstract_sub_octree_af6efe1bdbc3ed07da3c569b60a3db5aa} 
+int {\bfseries left\+Leaf\+Index}
+\item 
+\Hypertarget{class_f_abstract_sub_octree_a83d4f121d62844bbe496626a16b69fc4}\label{class_f_abstract_sub_octree_a83d4f121d62844bbe496626a16b69fc4} 
+int {\bfseries right\+Leaf\+Index}
+\item 
+\Hypertarget{class_f_abstract_sub_octree_a6ee31852ee79227eb04f6ede11e5baf4}\label{class_f_abstract_sub_octree_a6ee31852ee79227eb04f6ede11e5baf4} 
+const int {\bfseries sub\+Octree\+Height}
+\item 
+\Hypertarget{class_f_abstract_sub_octree_a7942a60ee0d508c27e2284d509591055}\label{class_f_abstract_sub_octree_a7942a60ee0d508c27e2284d509591055} 
+const int {\bfseries sub\+Octree\+Position}
+\item 
+\Hypertarget{class_f_abstract_sub_octree_a55c75670223554909beb43e3f7867d65}\label{class_f_abstract_sub_octree_a55c75670223554909beb43e3f7867d65} 
+const bool {\bfseries is\+Leaf\+Subtree}
+\item 
+\Hypertarget{class_f_abstract_sub_octree_aa9986a4e6ff32afeb31b7113ea5c8725}\label{class_f_abstract_sub_octree_aa9986a4e6ff32afeb31b7113ea5c8725} 
+Cell\+Allocator\+Class {\bfseries cell\+Allocator}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Cell\+Class, class Container\+Class, class Leaf\+Class, class Cell\+Allocator\+Class$>$\newline
+class FAbstract\+Sub\+Octree$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$}
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+Please read the license
+
+This class is a sub-\/octree container. This class is the main component of the octree.
+
+This class does not have a main root. In fact, the root is contained in the parent sub-\/octree.
+
+If the sub-\/octree is a middle suboctree, the leaf level is pointers on other suboctrees.
+
+If the sub-\/octree is a bottom subtree then the leaf level is pointers on lists$<$particle$>$
+
+This two situations are implemented in two different classes that inherite of \doxylink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}.
+
+Please refere to test\+Octree.\+cpp to see an example \begin{DoxyWarning}{警告}
+Give the particle\+Class \& cell\+Class 
+\end{DoxyWarning}
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_abstract_sub_octree_a515d55d96f3760560d1826866f618eff}\label{class_f_abstract_sub_octree_a515d55d96f3760560d1826866f618eff} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!FAbstractSubOctree@{FAbstractSubOctree}}
+\index{FAbstractSubOctree@{FAbstractSubOctree}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{FAbstractSubOctree()}{FAbstractSubOctree()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+\mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\mbox{\hyperlink{class_f_abstract_sub_octree}{\+::\+FAbstract\+Sub\+Octree}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$ \texorpdfstring{$\ast$}{*}const}]{in\+Parent,  }\item[{const int}]{in\+Index\+In\+Parent,  }\item[{const int}]{in\+Sub\+Octree\+Height,  }\item[{const int}]{in\+Sub\+Octree\+Position,  }\item[{const bool}]{in\+Is\+Leaf\+Subtree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor Allocate the cells arrays to be able to create every potential cells 
+\begin{DoxyParams}{参数}
+{\em in\+Parent} & the Sub\+Octree parent (0 if node) \\
+\hline
+{\em in\+Sub\+Octree\+Height} & Height of this suboctree \\
+\hline
+{\em in\+Sub\+Octree\+Position} & Level of the current suboctree in the global tree (1 if upper tree) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_abstract_sub_octree_a27cf32745a2164a3be2331b47050e0ce}\label{class_f_abstract_sub_octree_a27cf32745a2164a3be2331b47050e0ce} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!````~FAbstractSubOctree@{\texorpdfstring{$\sim$}{\string~}FAbstractSubOctree}}
+\index{````~FAbstractSubOctree@{\texorpdfstring{$\sim$}{\string~}FAbstractSubOctree}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FAbstractSubOctree()}{\string~FAbstractSubOctree()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+virtual \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Destructor Delete cells arrays and allocated cells 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_abstract_sub_octree_a050cd28487c6de247f43754e4704d4f9}\label{class_f_abstract_sub_octree_a050cd28487c6de247f43754e4704d4f9} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!cellsAt@{cellsAt}}
+\index{cellsAt@{cellsAt}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{cellsAt()}{cellsAt()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+Cell\+Class \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::cells\+At (\begin{DoxyParamCaption}\item[{const int}]{level }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the array of cells at a specious index 
+\begin{DoxyParams}{参数}
+{\em level} & the level to access cells array (must be \texorpdfstring{$<$}{<} sub\+Octree\+Height) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+cells\mbox{[}level\mbox{]} 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_sub_octree_a76762507d25c257b44d2750aaf316c4f}\label{class_f_abstract_sub_octree_a76762507d25c257b44d2750aaf316c4f} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!createPreviousCells@{createPreviousCells}}
+\index{createPreviousCells@{createPreviousCells}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{createPreviousCells()}{createPreviousCells()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::create\+Previous\+Cells (\begin{DoxyParamCaption}\item[{Morton\+Index}]{array\+Index,  }\item[{Morton\+Index}]{in\+Leaf\+Cell\+Index,  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{tree\+Position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+This function creates all the intermediates cells between a leaf and the root. It is used after inserting a new leaf to have cells from leaf to root when computing 
+\begin{DoxyParams}{参数}
+{\em array\+Index} & the index at the leaf index of the new element \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_abstract_sub_octree_a247a065649be7bbda0b4a95bffbded68}\label{class_f_abstract_sub_octree_a247a065649be7bbda0b4a95bffbded68} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getIndexInParent@{getIndexInParent}}
+\index{getIndexInParent@{getIndexInParent}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getIndexInParent()}{getIndexInParent()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+int \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Index\+In\+Parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get the index of the current suboctree in the parent leafs array This index can is part of the morton index of the cells contains in this suboctree \begin{DoxyReturn}{返回}
+index\+In\+Parent 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_sub_octree_a2e6f0fbaf44bffd7750bf8693616be37}\label{class_f_abstract_sub_octree_a2e6f0fbaf44bffd7750bf8693616be37} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getLeafIndex@{getLeafIndex}}
+\index{getLeafIndex@{getLeafIndex}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getLeafIndex()}{getLeafIndex()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+Morton\+Index \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Leaf\+Index (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{index,  }\item[{const int}]{in\+Tree\+Height }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+This function compute the morton index for the last level of this suboctree. suppose we have an index like \+: 000.\+010.\+111.\+001.\+101.\+110 and now considere that suboctree\textquotesingle{}s height is 2, the morton index have to be cut as \+: \mbox{[}000.\+010\mbox{]}.\mbox{[}111.\+001\mbox{]}.\mbox{[}101.\+110\mbox{]} each part correspond to a morton index a leaf level for the different suboctrees. This is why depending on the level of the octree we need to remove extra part on the left and on the right. \Hypertarget{class_f_abstract_sub_octree_a236da7fc2c05843766d6886943b11294}\label{class_f_abstract_sub_octree_a236da7fc2c05843766d6886943b11294} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getLeftLeafIndex@{getLeftLeafIndex}}
+\index{getLeftLeafIndex@{getLeftLeafIndex}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getLeftLeafIndex()}{getLeftLeafIndex()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+int \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Left\+Leaf\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the more left leaf index the smallest index on the leafs array \begin{DoxyReturn}{返回}
+left\+Leaf\+Index 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_sub_octree_aecf661b9a25c2ba8e900d746bd9925f8}\label{class_f_abstract_sub_octree_aecf661b9a25c2ba8e900d746bd9925f8} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getParent@{getParent}}
+\index{getParent@{getParent}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getParent()}{getParent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+\mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get access to the parent suboctree \begin{DoxyReturn}{返回}
+parent 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_sub_octree_a1006838e9ccf9915596759f51b4ad4bd}\label{class_f_abstract_sub_octree_a1006838e9ccf9915596759f51b4ad4bd} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getParent@{getParent}}
+\index{getParent@{getParent}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getParent()}{getParent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+const \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get access to the parent suboctree (const version) \begin{DoxyReturn}{返回}
+parent 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_sub_octree_a63a17e493316d4783dff0f364f29dc7f}\label{class_f_abstract_sub_octree_a63a17e493316d4783dff0f364f29dc7f} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getRightLeafIndex@{getRightLeafIndex}}
+\index{getRightLeafIndex@{getRightLeafIndex}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getRightLeafIndex()}{getRightLeafIndex()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+int \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Right\+Leaf\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the more right leaf index the biggest index on the leafs array \begin{DoxyReturn}{返回}
+right\+Leaf\+Index 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_sub_octree_ad9f3abf46b21de91bcad5a2d37fadf53}\label{class_f_abstract_sub_octree_ad9f3abf46b21de91bcad5a2d37fadf53} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getSubOctreeHeight@{getSubOctreeHeight}}
+\index{getSubOctreeHeight@{getSubOctreeHeight}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getSubOctreeHeight()}{getSubOctreeHeight()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+int \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Sub\+Octree\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Suboctree height accessor (leaf level + 1) \begin{DoxyReturn}{返回}
+sub\+Octree\+Height 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_sub_octree_ae4a0b99836c592fe29aa4beb790ef67a}\label{class_f_abstract_sub_octree_ae4a0b99836c592fe29aa4beb790ef67a} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!getSubOctreePosition@{getSubOctreePosition}}
+\index{getSubOctreePosition@{getSubOctreePosition}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{getSubOctreePosition()}{getSubOctreePosition()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+int \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::get\+Sub\+Octree\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Suboctree position in the real tree \begin{DoxyReturn}{返回}
+sub\+Octree\+Position 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_sub_octree_ae4463c8521a998faea5ef22881eaaab2}\label{class_f_abstract_sub_octree_ae4463c8521a998faea5ef22881eaaab2} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!hasParent@{hasParent}}
+\index{hasParent@{hasParent}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{hasParent()}{hasParent()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+bool \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::has\+Parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if it is the root suboctree \begin{DoxyReturn}{返回}
+true if has parent otherwise return false 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_sub_octree_a421a3044968d532b28a3ac6c5ad61948}\label{class_f_abstract_sub_octree_a421a3044968d532b28a3ac6c5ad61948} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!isLeafPart@{isLeafPart}}
+\index{isLeafPart@{isLeafPart}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{isLeafPart()}{isLeafPart()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+bool \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::is\+Leaf\+Part (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if this class has been inherited by a leaf subtree or middle subtree Of course we can do a virtual method to do that but virtual method are slower if we point to parent class to call the method \Hypertarget{class_f_abstract_sub_octree_a13e167390ab62e103952b37e97e45338}\label{class_f_abstract_sub_octree_a13e167390ab62e103952b37e97e45338} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!newLeafInserted@{newLeafInserted}}
+\index{newLeafInserted@{newLeafInserted}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{newLeafInserted()}{newLeafInserted()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::new\+Leaf\+Inserted (\begin{DoxyParamCaption}\item[{const int}]{array\+Index,  }\item[{const Morton\+Index}]{in\+Leaf\+Cell\+Index,  }\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{host }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+This function is initializing variables when a new leaf is inserted in the tree for example it updates the leaf array marges and calls \doxylink{class_f_abstract_sub_octree_a76762507d25c257b44d2750aaf316c4f}{create\+Previous\+Cells()} 
+\begin{DoxyParams}{参数}
+{\em array\+Index} & the position of the new leaf in the leafs array \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_abstract_sub_octree_a0a25af8c62187c430a4360f3e1465159}\label{class_f_abstract_sub_octree_a0a25af8c62187c430a4360f3e1465159} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!removeCellsFromLeaf@{removeCellsFromLeaf}}
+\index{removeCellsFromLeaf@{removeCellsFromLeaf}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{removeCellsFromLeaf()}{removeCellsFromLeaf()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+bool \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::remove\+Cells\+From\+Leaf (\begin{DoxyParamCaption}\item[{int}]{array\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Remove every cells from the array index the leaf cell is removed, then we go upper and test, does the upper cell do no have any more child, if tree remove this cell too and go upper, etc. \begin{DoxyReturn}{返回}
+true if there is no more cells in this tree 
+\end{DoxyReturn}
+\Hypertarget{class_f_abstract_sub_octree_ac7f182a25b647bc54b21d663be54bdfd}\label{class_f_abstract_sub_octree_ac7f182a25b647bc54b21d663be54bdfd} 
+\index{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}!removeLeaf@{removeLeaf}}
+\index{removeLeaf@{removeLeaf}!FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$@{FAbstractSubOctree$<$ FReal, CellClass, ContainerClass, LeafClass, CellAllocatorClass $>$}}
+\doxysubsubsection{\texorpdfstring{removeLeaf()}{removeLeaf()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class , class Leaf\+Class , class Cell\+Allocator\+Class $>$ \\
+virtual bool \mbox{\hyperlink{class_f_abstract_sub_octree}{FAbstract\+Sub\+Octree}}$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$\+::remove\+Leaf (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{index,  }\item[{const int}]{in\+Tree\+Height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Insert a particle on the subtree 
+\begin{DoxyParams}{参数}
+{\em index} & the Morton index of the particle to insert \\
+\hline
+{\em in\+Particle} & the particle to insert (must inherit from FAbstract\+Particle) \\
+\hline
+{\em in\+Particle} & the in\+Tree\+Height the height of the tree Remove a leaf and every cells if needed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+true if the subtree does not contains any more cells 
+\end{DoxyReturn}
+
+
+在 \mbox{\hyperlink{class_f_sub_octree_with_leafs_ab57adb129b6c2789504c438fbce182ce}{FSub\+Octree\+With\+Leafs$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$}} , 以及 \mbox{\hyperlink{class_f_sub_octree_a14a964b5d0612bf643941e025202e26a}{FSub\+Octree$<$ FReal, Cell\+Class, Container\+Class, Leaf\+Class, Cell\+Allocator\+Class $>$}} 内被实现.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Containers/FSub\+Octree.\+hpp\end{DoxyCompactItemize}

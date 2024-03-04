@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/19.
+// Created by RainSure on 2024/2/19.
 //
 
 #ifndef RSMESH_CLOSED_NORMALS_H
@@ -15,6 +15,10 @@
 #include <exception>
 #include <iostream>
 
+/**
+ * \namespace rsmesh::examples
+ * \brief examples命名空间，包含一些使用RSMesh库的示例
+ */
 namespace rsmesh::examples {
     struct ClosedNormalsParameters {
         std::string input;

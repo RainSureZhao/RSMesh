@@ -1,0 +1,116 @@
+\doxysection{FBool\+Array.\+hpp}
+\hypertarget{_f_bool_array_8hpp_source}{}\label{_f_bool_array_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Containers/FBoolArray.hpp@{third\_party/ScalFMM/include/ScalFMM/Containers/FBoolArray.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FBOOLARRAY\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FBOOLARRAY\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Utils/FAssert.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ To\ get\ memcpy}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_bool_array}{FBoolArray}}\{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{static}\ FSize\ BytesInBlock\ =\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ long);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{static}\ FSize\ SizeOfBlock\ =\ BytesInBlock\ *\ 8;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}*\ array;}
+\DoxyCodeLine{00027\ \ \ \ \ FSize\ memSize;}
+\DoxyCodeLine{00029\ \ \ \ \ FSize\ size;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00032\ \ \ \ \ FSize\ LongFromSize(\textcolor{keyword}{const}\ FSize\ inSize)\{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((inSize\ +\ SizeOfBlock\ -\/\ 1)\ /\ SizeOfBlock);}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *\ AllocArray(\textcolor{keyword}{const}\ FSize\ inSize)\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}[LongFromSize(inSize)];}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ public\ :}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_f_bool_array_a4d5ed368c3225373799750ae4c104602}{FBoolArray}}(\textcolor{keyword}{const}\ FSize\ inSize\ =\ 0)\ :\ array(AllocArray(inSize)),\ memSize(LongFromSize(inSize)*BytesInBlock),\ size(inSize)\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_bool_array_a6c8519acd21f00f99ce0dd34b4154358}{setToZeros}}();}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{class_f_bool_array_a751dd019b60fe52cbc4d3ca8c024d99c}{FBoolArray}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_bool_array}{FBoolArray}}\&\ other):\ array(AllocArray(other.size)),\ memSize(other.memSize),\ size(other.size)\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ other;}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_f_bool_array_a0e7d5d3579d8d7f5f99d722908628a6f}{FBoolArray}}(\mbox{\hyperlink{class_f_bool_array}{FBoolArray}}\&\&\ other):\ array(nullptr),\ memSize(0),\ size(0)\{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ array\ \ \ =\ other.array;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ memSize\ =\ other.memSize;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ size\ \ \ \ =\ other.size;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ other.array\ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ other.memSize\ =\ 0;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ other.size\ \ \ \ =\ 0;}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_bool_array_aca7f6cd8c9dacd9c0d60a380d3bfd84e}{reset}}(\textcolor{keyword}{const}\ FSize\ inSize)\{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ array;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ array\ \ \ =\ (AllocArray(inSize));}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ memSize\ =\ (LongFromSize(inSize)*BytesInBlock);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ size\ \ \ \ =\ (inSize);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_bool_array_a6c8519acd21f00f99ce0dd34b4154358}{setToZeros}}();}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{class_f_bool_array_aa29e9ddc5f07829d0c4ac23ce19f2a18}{\string~FBoolArray}}()\{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ array;}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{class_f_bool_array}{FBoolArray}}\&\ \mbox{\hyperlink{class_f_bool_array_ae1adf802cd42c9ca582299c3768e6fcf}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_bool_array}{FBoolArray}}\&\ other)\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ FAssertLF(size\ ==\ other.size);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ memcpy(array,\ other.array,\ memSize);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{class_f_bool_array}{FBoolArray}}\&\ \mbox{\hyperlink{class_f_bool_array_afba1a45efd31897b2de8462ad9a382b0}{operator=}}(\mbox{\hyperlink{class_f_bool_array}{FBoolArray}}\&\&\ other)\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ []\ array;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ array\ \ \ =\ other.array;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ memSize\ =\ other.memSize;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ size\ \ \ \ =\ other.size;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ other.array\ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ other.memSize\ =\ 0;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ other.size\ \ \ \ =\ 0;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_bool_array_a59b8696002201850eeb51f5e82b7b6f8}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_bool_array}{FBoolArray}}\&\ other)\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ memcmp(array,\ other.array,\ memSize)\ ==\ 0;}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_bool_array_a7ca192bfa5f60509ccb642435907f661}{operator!=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_bool_array}{FBoolArray}}\&\ other)\{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(*\textcolor{keyword}{this}\ ==\ other);}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_bool_array_a3ae5009b7fff6b703b60775cc8f53fd6}{get}}(\textcolor{keyword}{const}\ FSize\ inPos)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ posInArray\ =\ inPos\ /\ SizeOfBlock;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ bytePosition\ =\ inPos\ -\/\ (posInArray\ *\ 8);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (array[posInArray]\ >>\ bytePosition)\ \&\ 1;}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_bool_array_a391f0a8e3f0d923365d22304fda28fef}{set}}(\textcolor{keyword}{const}\ FSize\ inPos,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ inVal)\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ posInArray\ =\ inPos\ /\ SizeOfBlock;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ bytePosition\ =\ inPos\ -\/\ (posInArray\ *\ 8);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inVal)\ array[posInArray]\ |=\ (1UL\ <<\ bytePosition);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ array[posInArray]\ \&=\ \string~(1UL\ <<\ bytePosition);}
+\DoxyCodeLine{00129\ \ \ \ \ \}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00132\ \ \ \ \ FSize\ \mbox{\hyperlink{class_f_bool_array_a75e5d78dee069dbb2da7d2a090018273}{getSize}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ size;}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_bool_array_a6c8519acd21f00f99ce0dd34b4154358}{setToZeros}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ memset(\ array,\ 0,\ memSize);}
+\DoxyCodeLine{00139\ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_bool_array_a5fe8baeb0740bc2889407eca6162d5ec}{setToOnes}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ memset(\ array,\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char})0xFF,\ memSize);}
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \};}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FBOOLARRAY\_HPP}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+
+\end{DoxyCode}

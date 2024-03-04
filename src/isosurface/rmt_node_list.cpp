@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/29.
+// Created by RainSure on 2024/2/29.
 //
 #include "isosurface/rmt_node_list.h"
 

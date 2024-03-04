@@ -1,0 +1,59 @@
+\doxysection{FOctree\+Arranger\texorpdfstring{$<$}{<} FReal, Octree\+Class, Container\+Class, Mover\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_octree_arranger}{}\label{class_f_octree_arranger}\index{FOctreeArranger$<$ FReal, OctreeClass, ContainerClass, MoverClass $>$@{FOctreeArranger$<$ FReal, OctreeClass, ContainerClass, MoverClass $>$}}
+
+
+This class is an arranger, it moves the particles that need to be hosted in a different leaf.  
+
+
+
+
+{\ttfamily \#include $<$FOctree\+Arranger.\+hpp$>$}
+
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_octree_arranger_a96d063fbab2ca341a552dd62086bdea2}{FOctree\+Arranger}} (Octree\+Class \texorpdfstring{$\ast$}{*}const in\+Tree)
+\item 
+\Hypertarget{class_f_octree_arranger_a247026986c071a6bd844e1d57b66968a}\label{class_f_octree_arranger_a247026986c071a6bd844e1d57b66968a} 
+virtual void {\bfseries check\+Position} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&particle\+Pos)
+\item 
+\Hypertarget{class_f_octree_arranger_a332646b39329f53ab57beefaee080d00}\label{class_f_octree_arranger_a332646b39329f53ab57beefaee080d00} 
+void {\bfseries rearrange} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_octree_arranger_aa61913e681b6373b55dba11b35f79412}\label{class_f_octree_arranger_aa61913e681b6373b55dba11b35f79412} 
+FReal {\bfseries box\+Width}
+\item 
+\Hypertarget{class_f_octree_arranger_ab0ab3821927c4d17b88ca2a44a11c50f}\label{class_f_octree_arranger_ab0ab3821927c4d17b88ca2a44a11c50f} 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries Min\+Box}
+\item 
+\Hypertarget{class_f_octree_arranger_af4f0f849f78e1c01db11e2d8582eef03}\label{class_f_octree_arranger_af4f0f849f78e1c01db11e2d8582eef03} 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries Max\+Box}
+\item 
+\Hypertarget{class_f_octree_arranger_a7967f6c9eaa9a39e065b091764810860}\label{class_f_octree_arranger_a7967f6c9eaa9a39e065b091764810860} 
+Mover\+Class \texorpdfstring{$\ast$}{*} {\bfseries interface}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Octree\+Class, class Container\+Class, class Mover\+Class$>$\newline
+class FOctree\+Arranger$<$ FReal, Octree\+Class, Container\+Class, Mover\+Class $>$}
+This class is an arranger, it moves the particles that need to be hosted in a different leaf. 
+
+For example, if a simulation has been executed and the position of the particles have been changed, then it may be better to move the particles in the tree instead of building a new tree. 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_octree_arranger_a96d063fbab2ca341a552dd62086bdea2}\label{class_f_octree_arranger_a96d063fbab2ca341a552dd62086bdea2} 
+\index{FOctreeArranger$<$ FReal, OctreeClass, ContainerClass, MoverClass $>$@{FOctreeArranger$<$ FReal, OctreeClass, ContainerClass, MoverClass $>$}!FOctreeArranger@{FOctreeArranger}}
+\index{FOctreeArranger@{FOctreeArranger}!FOctreeArranger$<$ FReal, OctreeClass, ContainerClass, MoverClass $>$@{FOctreeArranger$<$ FReal, OctreeClass, ContainerClass, MoverClass $>$}}
+\doxysubsubsection{\texorpdfstring{FOctreeArranger()}{FOctreeArranger()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Container\+Class , class Mover\+Class $>$ \\
+\mbox{\hyperlink{class_f_octree_arranger}{FOctree\+Arranger}}$<$ FReal, Octree\+Class, Container\+Class, Mover\+Class $>$\mbox{\hyperlink{class_f_octree_arranger}{\+::\+FOctree\+Arranger}} (\begin{DoxyParamCaption}\item[{Octree\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Tree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+Basic constructor 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Arranger/FOctree\+Arranger.\+hpp\end{DoxyCompactItemize}

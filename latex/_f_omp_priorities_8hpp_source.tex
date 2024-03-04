@@ -1,0 +1,151 @@
+\doxysection{FOmp\+Priorities.\+hpp}
+\hypertarget{_f_omp_priorities_8hpp_source}{}\label{_f_omp_priorities_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/StarPUUtils/FOmpPriorities.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/StarPUUtils/FOmpPriorities.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FOMPPRIORITIES\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FOMPPRIORITIES\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FEnv.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_omp_priorities}{FOmpPriorities}}\{}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionP2M;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionM2M;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionP2MSend;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionM2MSend;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionM2L;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionM2LExtern;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionM2LLastLevel;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionL2L;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionL2P;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionP2P;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ insertionPositionP2PExtern;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ treeHeight;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ maxprio;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{bool}\ inversePriorities;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ scalePrio(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inPrio)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (inversePriorities?\ maxprio-\/1-\/inPrio\ :\ inPrio);}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_f_omp_priorities}{FOmpPriorities}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight)\ :}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ insertionPositionP2M(0),\ insertionPositionM2M(0),\ insertionPositionP2MSend(0),}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ insertionPositionM2MSend(0),\ insertionPositionM2L(0),\ insertionPositionM2LExtern(0),}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ insertionPositionM2LLastLevel(0),\ insertionPositionL2L(0),\ insertionPositionL2P(0),\ insertionPositionP2P(0),}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ insertionPositionP2PExtern(0),\ treeHeight(inTreeHeight)\ ,\ maxprio(0),}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ inversePriorities(FEnv::GetBool(\textcolor{stringliteral}{"{}SCALFMM\_INVERSE\_PRIO"{}},\ \textcolor{keyword}{false}))\{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inTreeHeight\ >\ 2)\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ incPrio\ =\ 0;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}Buckets:\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionP2MSend\ =\ incPrio++;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ P2M\ Send\ "{}}\ \ <<\ insertionPositionP2MSend\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionP2M\ \ \ \ \ =\ incPrio++;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ P2M\ "{}}\ \ <<\ insertionPositionP2M\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionM2MSend\ =\ incPrio++;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ M2M\ Send\ "{}}\ \ <<\ insertionPositionM2MSend\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionM2M\ \ \ \ \ =\ incPrio++;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ M2M\ "{}}\ \ <<\ insertionPositionM2M\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionP2P\ \ \ \ \ \ \ =\ incPrio++;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ P2P\ "{}}\ \ <<\ insertionPositionP2P\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionM2L\ \ \ \ \ =\ incPrio++;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ M2L\ "{}}\ \ <<\ insertionPositionM2L\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionM2LExtern\ =\ incPrio++;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ M2L\ Outer\ "{}}\ \ <<\ insertionPositionM2LExtern\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionL2L\ \ \ \ \ =\ incPrio++;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ L2L\ "{}}\ \ <<\ insertionPositionL2L\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ incPrio\ +=\ (treeHeight-\/3)\ -\/\ 1;\ \ \ \textcolor{comment}{//\ M2L\ is\ done\ treeHeight-\/2\ times}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ incPrio\ +=\ (treeHeight-\/3)\ -\/\ 1;\ \ \ \textcolor{comment}{//\ M2L\ is\ done\ treeHeight-\/2\ times}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ incPrio\ +=\ (treeHeight-\/3)\ -\/\ 1;\ \ \ \textcolor{comment}{//\ L2L\ is\ done\ treeHeight-\/3\ times}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionP2PExtern\ =\ incPrio++;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ P2P\ Outer\ "{}}\ \ <<\ insertionPositionP2PExtern\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionM2LLastLevel\ =\ incPrio++;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ M2L\ last\ "{}}\ \ <<\ insertionPositionM2LLastLevel\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionL2P\ \ \ \ \ =\ incPrio++;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ L2P\ "{}}\ \ <<\ insertionPositionL2P\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ assert(incPrio\ ==\ 8\ +\ (treeHeight-\/3)\ +\ (treeHeight-\/3)\ +\ (treeHeight-\/3));}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ maxprio\ =\ incPrio;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ incPrio\ =\ 0;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionP2MSend\ =\ -\/1;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionP2M\ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionM2MSend\ =\ -\/1;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionM2M\ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionM2L\ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionM2LExtern\ =\ -\/1;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionM2LLastLevel\ =\ -\/1;}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionL2L\ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionP2P\ \ \ \ \ =\ incPrio++;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionP2PExtern\ =\ insertionPositionP2P;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ insertionPositionL2P\ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ assert(incPrio\ ==\ 1);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ maxprio\ =\ incPrio;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inversePriorities)\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}FOmpPriorities\ -\/-\/\ priorities\ are\ inversed\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}FOmpPriorities\ -\/-\/\ the\ higher\ the\ more\ prioritized\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}FOmpPriorities\ -\/-\/\ priorities\ are\ made\ for\ heteroprio\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ FLOG(\ FLog::Controller\ <<\ \textcolor{stringliteral}{"{}FOmpPriorities\ -\/-\/\ can\ be\ seen\ as\ the\ lower\ the\ more\ prioritized\(\backslash\)n"{}}\ );}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{int}\ getMaxPrio()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ maxprio;}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{int}\ getInsertionPosP2M()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalePrio(insertionPositionP2M);}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{int}\ getInsertionPosM2M(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*inLevel*/})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalePrio(insertionPositionM2M);}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{int}\ getInsertionPosM2L(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalePrio(inLevel==treeHeight-\/1?\ insertionPositionM2LLastLevel\ :\ insertionPositionM2L\ +\ (inLevel\ -\/\ 2)*3);}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{int}\ getInsertionPosM2LExtern(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalePrio(inLevel==treeHeight-\/1?\ insertionPositionM2LLastLevel\ :\ insertionPositionM2LExtern\ +\ (inLevel\ -\/\ 2)*3);}
+\DoxyCodeLine{00129\ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{int}\ getInsertionPosL2L(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalePrio(insertionPositionL2L\ +\ (inLevel\ -\/\ 2)*3);}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{int}\ getInsertionPosL2P()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalePrio(insertionPositionL2P);}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{int}\ getInsertionPosP2P()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalePrio(insertionPositionP2P);}
+\DoxyCodeLine{00138\ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{int}\ getInsertionPosP2PExtern()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalePrio(insertionPositionP2PExtern);}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FOMPPRIORITIES\_HPP}}
+\DoxyCodeLine{00145\ }
+
+\end{DoxyCode}

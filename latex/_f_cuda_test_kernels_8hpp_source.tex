@@ -1,0 +1,152 @@
+\doxysection{FCuda\+Test\+Kernels.\+hpp}
+\hypertarget{_f_cuda_test_kernels_8hpp_source}{}\label{_f_cuda_test_kernels_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/TestKernel/FCudaTestKernels.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/TestKernel/FCudaTestKernels.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FCUDATESTKERNEL\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FCUDATESTKERNEL\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Cuda/FCudaGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Cuda/FCudaGroupAttachedLeaf.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Cuda/FCudaCompositeCell.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ We\ need\ to\ describe\ this\ cell}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}FTestCellPOD.hpp"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_test_cuda_kernels}{FTestCudaKernels}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{FCudaCompositeCell<FTestCellPODCore,\ FTestCellPODData,\ FTestCellPODData>}}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}};}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{FCudaGroupAttachedLeaf<FReal,\ 0,\ 1,\ long\ long\ int>}}\ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00017\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_test_cuda_kernels_a3f54320e4b8829af7a275429b8f43050}{P2M}}(\mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ pole,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ particles)\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ pole\ represents\ all\ particles\ under}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadIdx.x\ ==\ 0)\{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ *pole.up\ +=\ particles-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}();}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00025\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_test_cuda_kernels_a1bf09b21ad053d1da273ac519ba48e1b}{M2M}}(\mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \ pole,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \ child[8],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*level*/})\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadIdx.x\ ==\ 0)\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ A\ parent\ represents\ the\ sum\ of\ the\ child}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ 8\ ;\ ++idx)\{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(child[idx].symb)\{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *pole.up\ +=\ *child[idx].up;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00037\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_test_cuda_kernels_a450de7ba949b50c7dd5dc8b8168784a0}{M2L}}(\mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \ local,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}*\ distantNeighbors,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ \textcolor{comment}{/*neighPositions*/},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*level*/})\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadIdx.x\ ==\ 0)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ pole\ is\ impacted\ by\ what\ represent\ other\ poles}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ size\ ;\ ++idx)\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *local.down\ +=\ *distantNeighbors[idx].up;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00048\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_test_cuda_kernels_a941f39c4652b1e95a7d0d8da7882c429}{L2L}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ local,\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ \ child[8],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*level*/})\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadIdx.x\ ==\ 0)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Each\ child\ is\ impacted\ by\ the\ father}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ 8\ ;\ ++idx)\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(child[idx].symb)\{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *child[idx].down\ +=\ *local.down;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00060\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_test_cuda_kernels_a5fa67623bd1330079cfaf85ca50cc508}{L2P}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_cuda_composite_cell}{CellClass}}\ local,\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\textcolor{keyword}{const}\ particles)\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadIdx.x\ ==\ 0)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ particles\ is\ impacted\ by\ the\ parent\ cell}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}*\textcolor{keyword}{const}\ particlesAttributes\ =\ particles-\/>template\ getAttribute<0>();}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ particles-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlesAttributes[idxPart]\ +=\ *local.down;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00072\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_test_cuda_kernels_aa7ce5cd48cf91b0d5427d41f45213ab3}{P2P}}(\textcolor{keyword}{const}\ int3\&\ ,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ \ targets,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ \ sources,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ directNeighborsParticles,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ \textcolor{comment}{/*neighborPositions*/},}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counter)\{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadIdx.x\ ==\ 0)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Each\ particles\ targeted\ is\ impacted\ by\ the\ particles\ sources}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ inc\ =\ sources-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}();}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(targets\ ==\ sources)\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inc\ -\/=\ 1;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ counter\ ;\ ++idx)\{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inc\ +=\ directNeighborsParticles[idx].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}();}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}*\textcolor{keyword}{const}\ particlesAttributes\ =\ targets-\/>template\ getAttribute<0>();}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlesAttributes[idxPart]\ +=\ inc;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00095\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_test_cuda_kernels_ab2c2bfb3b242c253d52e2da7515cebaf}{P2PRemote}}(\textcolor{keyword}{const}\ int3\&\ ,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ \ targets,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ \ sources,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cuda_group_attached_leaf}{ContainerClass}}*\ \textcolor{keyword}{const}\ directNeighborsParticles,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ \textcolor{comment}{/*neighborPositions*/},}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counter)\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadIdx.x\ ==\ 0)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Each\ particles\ targeted\ is\ impacted\ by\ the\ particles\ sources}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ inc\ =\ 0;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ counter\ ;\ ++idx)\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inc\ +=\ directNeighborsParticles[idx].\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}();}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}*\textcolor{keyword}{const}\ particlesAttributes\ =\ targets-\/>template\ getAttribute<0>();}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ targets-\/>\mbox{\hyperlink{class_f_cuda_group_attached_leaf_a4ed25fd18f5450d3d1d254c5f12c980f}{getNbParticles}}()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlesAttributes[idxPart]\ +=\ inc;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{void}\ P2POuter(\textcolor{keyword}{const}\ int3\&\ ,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ \ targets,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ directNeighborsParticles,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ \textcolor{comment}{/*neighborPositions*/},}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counter)\{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(threadIdx.x\ ==\ 0)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Each\ particles\ targeted\ is\ impacted\ by\ the\ particles\ sources}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ inc\ =\ 0;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ counter\ ;\ ++idx)\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inc\ +=\ directNeighborsParticles[idx].getNbParticles();}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}*\textcolor{keyword}{const}\ particlesAttributes\ =\ targets-\/>template\ getAttribute<0>();}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ targets-\/>getNbParticles()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlesAttributes[idxPart]\ +=\ inc;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \_\_host\_\_\ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_f_test_cuda_kernels}{FTestCudaKernels}}*\ InitKernelKernel(\textcolor{keywordtype}{void}*)\{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \_\_host\_\_\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ReleaseKernel(\mbox{\hyperlink{class_f_test_cuda_kernels}{FTestCudaKernels}}*\ \textcolor{comment}{/*todealloc*/})\{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ nothing\ to\ do}}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \_\_host\_\_\ \textcolor{keyword}{static}\ dim3\ GetGridSize(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*intervalSize*/})\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \_\_host\_\_\ \textcolor{keyword}{static}\ dim3\ GetBlocksSize()\{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FCUDATESTKERNEL\_HPP}}
+\DoxyCodeLine{00153\ }
+
+\end{DoxyCode}

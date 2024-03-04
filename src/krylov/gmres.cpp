@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/14.
+// Created by RainSure on 2024/2/14.
 //
 #include <cmath>
 #include "krylov/gmres.h"

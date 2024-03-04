@@ -1,0 +1,78 @@
+\doxysection{FEqualize.\+hpp}
+\hypertarget{_f_equalize_8hpp_source}{}\label{_f_equalize_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FEqualize.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FEqualize.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FEQUALIZE\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FEQUALIZE\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Utils/FAssert.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../Utils/FMath.hpp"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_equalize}{FEqualize}}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ Just\ return\ the\ min}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ Min(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ v1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ v2)\{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v1\ <\ v2\ ?\ v1\ :\ v2;}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_equalize_1_1_package}{Package}}\{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idProc;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ elementFrom;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ elementTo;}
+\DoxyCodeLine{00034\ \ \ \ \ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<Package>\ \mbox{\hyperlink{class_f_equalize_af733fe2b9521dda9ef1205f2bf8bdeb2}{GetPackToSend}}(\textcolor{keyword}{const}\ std::pair<size\_t,\ size\_t>\ myCurrentInterval,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<\ std::pair<size\_t,size\_t>\ >\&\ allObjectives)\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::vector<Package>\ packToSend;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ idxProc\ =\ 0;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ first\ proc\ to\ send\ to}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ idxProc\ !=\ allObjectives.size()}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ allObjectives[idxProc].second\ <\ myCurrentInterval.first)\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ idxProc\ +=\ 1;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ will\ from\ the\ first\ element\ for\ sure}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ currentElement\ =\ 0;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ each\ proc\ to\ send\ to}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ idxProc\ !=\ allObjectives.size()}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ allObjectives[idxProc].first\ <\ myCurrentInterval.second)\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_equalize_1_1_package}{Package}}\ pack;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ pack.idProc\ =\ idxProc;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ current\ element\ must\ start\ where\ the\ previous\ one\ end}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(allObjectives[idxProc].first\ <\ myCurrentInterval.first}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ currentElement\ ==\ allObjectives[idxProc].first\ -\/\ myCurrentInterval.first\ );}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ pack.elementFrom\ =\ currentElement;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ pack.elementTo\ \ \ =\ Min(allObjectives[idxProc].second\ ,\ myCurrentInterval.second)\ -\/\ myCurrentInterval.first;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Next\ time\ give\ from\ the\ previous\ end}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ currentElement\ \ \ =\ pack.elementTo;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pack.elementTo\ -\/\ pack.elementFrom\ !=\ 0)\{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ packToSend.push\_back(pack);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Progress}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ idxProc\ +=\ 1;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ FAssertLF(currentElement\ ==\ myCurrentInterval.second\ -\/\ myCurrentInterval.first);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ packToSend;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<Package>\ \mbox{\hyperlink{class_f_equalize_afaabbdebef4e6615062dc59df4fcfc23}{GetPackToRecv}}(\textcolor{keyword}{const}\ std::pair<size\_t,\ size\_t>\ myObjectiveInterval,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<\ std::pair<size\_t,size\_t>\ >\&\ allCurrentIntervals)\{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_equalize_af733fe2b9521dda9ef1205f2bf8bdeb2}{GetPackToSend}}(myObjectiveInterval,allCurrentIntervals);}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FEQUALIZE\_HPP}}
+
+\end{DoxyCode}

@@ -1,0 +1,154 @@
+\doxysection{FBasic\+Cell类 参考}
+\hypertarget{class_f_basic_cell}{}\label{class_f_basic_cell}\index{FBasicCell@{FBasicCell}}
+
+
+This class is used in the \doxylink{class_f_test_kernels}{FTest\+Kernels}, please look at this class to know how to customize a cell.  
+
+
+
+
+{\ttfamily \#include $<$FBasic\+Cell.\+hpp$>$}
+
+类 FBasic\+Cell 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=10.275229cm]{class_f_basic_cell}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_basic_cell_aa480833943dc33766ae8a6b2f51bfbff}{FBasic\+Cell}} ()
+\item 
+virtual \mbox{\hyperlink{class_f_basic_cell_afd4e5209baf262deef7daeaf2e1ec014}{\texorpdfstring{$\sim$}{\string~}\+FBasic\+Cell}} ()
+\item 
+\Hypertarget{class_f_basic_cell_add52d8afe3a023aef782530f10aba498}\label{class_f_basic_cell_add52d8afe3a023aef782530f10aba498} 
+std\+::size\+\_\+t {\bfseries get\+Level} () const
+\item 
+\Hypertarget{class_f_basic_cell_a67200d21ab32d5ae0b466bd86666dc5b}\label{class_f_basic_cell_a67200d21ab32d5ae0b466bd86666dc5b} 
+void {\bfseries set\+Level} (std\+::size\+\_\+t in\+Level)
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_basic_cell_ae5c9343c2c978ef93cbca34cadf999cb}{get\+Morton\+Index}} () const
+\item 
+void \mbox{\hyperlink{class_f_basic_cell_aa77a0f5eb1217c62698b729a0c08baff}{set\+Morton\+Index}} (const Morton\+Index in\+Morton\+Index)
+\item 
+const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \& \mbox{\hyperlink{class_f_basic_cell_abfe4b59f7e7131dd40853169ab7d02f2}{get\+Coordinate}} () const
+\item 
+void \mbox{\hyperlink{class_f_basic_cell_a4af5f33aba8ab0877e0edcc83ea3f63b}{set\+Coordinate}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&in\+Coordinate)
+\item 
+void \mbox{\hyperlink{class_f_basic_cell_ac64d9215bdaa1d64cd4b9231ecc71e00}{set\+Coordinate}} (const int inX, const int inY, const int inZ)
+\item 
+{\footnotesize template$<$class Buffer\+Writer\+Class $>$ }\\void \mbox{\hyperlink{class_f_basic_cell_a3dc6668a1c58e990a97361fcbe11253a}{save}} (Buffer\+Writer\+Class \&buffer) const
+\item 
+{\footnotesize template$<$class Buffer\+Reader\+Class $>$ }\\void \mbox{\hyperlink{class_f_basic_cell_ace2456e7d5cb4d0888e19e14e565597b}{restore}} (Buffer\+Reader\+Class \&buffer)
+\item 
+FSize \mbox{\hyperlink{class_f_basic_cell_ada0f542e80e2c3de809a46eb56becb0f}{get\+Saved\+Size}} () const
+\item 
+void \mbox{\hyperlink{class_f_basic_cell_a0da529ab6c72f185b7889b6f816cb8a0}{reset\+To\+Initial\+State}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_serializable}{FAbstract\+Serializable}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Buffer\+Writer\+Class $>$ }\\void \mbox{\hyperlink{class_f_abstract_serializable_a45fdedf0656ebbfbe53b0d17b6ccece5}{save}} (Buffer\+Writer\+Class \&) const
+\item 
+{\footnotesize template$<$class Buffer\+Reader\+Class $>$ }\\void \mbox{\hyperlink{class_f_abstract_serializable_ab11ebf8e05ea24fd43723cb6f14a39c9}{restore}} (Buffer\+Reader\+Class \&)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+This class is used in the \doxylink{class_f_test_kernels}{FTest\+Kernels}, please look at this class to know how to customize a cell. 
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+This class defines a basic cell used for examples. It extends the mininum, only what is needed by \doxylink{class_f_octree}{FOctree} and \doxylink{class_f_fmm_algorithm}{FFmm\+Algorithm} to make the things working. By using this extension it will implement the \doxylink{class_f_abstract_cell}{FAbstract\+Cell} without inheriting from it.
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+
+
+This cell simply store the data when up/down. It also shows how to be restored and saved, etc. 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_basic_cell_aa480833943dc33766ae8a6b2f51bfbff}\label{class_f_basic_cell_aa480833943dc33766ae8a6b2f51bfbff} 
+\index{FBasicCell@{FBasicCell}!FBasicCell@{FBasicCell}}
+\index{FBasicCell@{FBasicCell}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{FBasicCell()}{FBasicCell()}}
+{\footnotesize\ttfamily FBasic\+Cell\+::\+FBasic\+Cell (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Default constructor \Hypertarget{class_f_basic_cell_afd4e5209baf262deef7daeaf2e1ec014}\label{class_f_basic_cell_afd4e5209baf262deef7daeaf2e1ec014} 
+\index{FBasicCell@{FBasicCell}!````~FBasicCell@{\texorpdfstring{$\sim$}{\string~}FBasicCell}}
+\index{````~FBasicCell@{\texorpdfstring{$\sim$}{\string~}FBasicCell}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FBasicCell()}{\string~FBasicCell()}}
+{\footnotesize\ttfamily virtual FBasic\+Cell\+::\texorpdfstring{$\sim$}{\string~}\+FBasic\+Cell (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Default destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_basic_cell_abfe4b59f7e7131dd40853169ab7d02f2}\label{class_f_basic_cell_abfe4b59f7e7131dd40853169ab7d02f2} 
+\index{FBasicCell@{FBasicCell}!getCoordinate@{getCoordinate}}
+\index{getCoordinate@{getCoordinate}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{getCoordinate()}{getCoordinate()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \& FBasic\+Cell\+::get\+Coordinate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get the position \Hypertarget{class_f_basic_cell_ae5c9343c2c978ef93cbca34cadf999cb}\label{class_f_basic_cell_ae5c9343c2c978ef93cbca34cadf999cb} 
+\index{FBasicCell@{FBasicCell}!getMortonIndex@{getMortonIndex}}
+\index{getMortonIndex@{getMortonIndex}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{getMortonIndex()}{getMortonIndex()}}
+{\footnotesize\ttfamily Morton\+Index FBasic\+Cell\+::get\+Morton\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get the morton index \Hypertarget{class_f_basic_cell_ada0f542e80e2c3de809a46eb56becb0f}\label{class_f_basic_cell_ada0f542e80e2c3de809a46eb56becb0f} 
+\index{FBasicCell@{FBasicCell}!getSavedSize@{getSavedSize}}
+\index{getSavedSize@{getSavedSize}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{getSavedSize()}{getSavedSize()}}
+{\footnotesize\ttfamily FSize FBasic\+Cell\+::get\+Saved\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_serializable}{FAbstract\+Serializable}}.
+
+\Hypertarget{class_f_basic_cell_a0da529ab6c72f185b7889b6f816cb8a0}\label{class_f_basic_cell_a0da529ab6c72f185b7889b6f816cb8a0} 
+\index{FBasicCell@{FBasicCell}!resetToInitialState@{resetToInitialState}}
+\index{resetToInitialState@{resetToInitialState}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{resetToInitialState()}{resetToInitialState()}}
+{\footnotesize\ttfamily void FBasic\+Cell\+::reset\+To\+Initial\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Do nothing \Hypertarget{class_f_basic_cell_ace2456e7d5cb4d0888e19e14e565597b}\label{class_f_basic_cell_ace2456e7d5cb4d0888e19e14e565597b} 
+\index{FBasicCell@{FBasicCell}!restore@{restore}}
+\index{restore@{restore}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{restore()}{restore()}}
+{\footnotesize\ttfamily template$<$class Buffer\+Reader\+Class $>$ \\
+void FBasic\+Cell\+::restore (\begin{DoxyParamCaption}\item[{Buffer\+Reader\+Class \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Restore the current cell from a buffer \Hypertarget{class_f_basic_cell_a3dc6668a1c58e990a97361fcbe11253a}\label{class_f_basic_cell_a3dc6668a1c58e990a97361fcbe11253a} 
+\index{FBasicCell@{FBasicCell}!save@{save}}
+\index{save@{save}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily template$<$class Buffer\+Writer\+Class $>$ \\
+void FBasic\+Cell\+::save (\begin{DoxyParamCaption}\item[{Buffer\+Writer\+Class \&}]{buffer }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Save the current cell in a buffer \Hypertarget{class_f_basic_cell_a4af5f33aba8ab0877e0edcc83ea3f63b}\label{class_f_basic_cell_a4af5f33aba8ab0877e0edcc83ea3f63b} 
+\index{FBasicCell@{FBasicCell}!setCoordinate@{setCoordinate}}
+\index{setCoordinate@{setCoordinate}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{setCoordinate()}{setCoordinate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void FBasic\+Cell\+::set\+Coordinate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{in\+Coordinate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To set the position \Hypertarget{class_f_basic_cell_ac64d9215bdaa1d64cd4b9231ecc71e00}\label{class_f_basic_cell_ac64d9215bdaa1d64cd4b9231ecc71e00} 
+\index{FBasicCell@{FBasicCell}!setCoordinate@{setCoordinate}}
+\index{setCoordinate@{setCoordinate}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{setCoordinate()}{setCoordinate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void FBasic\+Cell\+::set\+Coordinate (\begin{DoxyParamCaption}\item[{const int}]{inX,  }\item[{const int}]{inY,  }\item[{const int}]{inZ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To set the position from 3 FReals \Hypertarget{class_f_basic_cell_aa77a0f5eb1217c62698b729a0c08baff}\label{class_f_basic_cell_aa77a0f5eb1217c62698b729a0c08baff} 
+\index{FBasicCell@{FBasicCell}!setMortonIndex@{setMortonIndex}}
+\index{setMortonIndex@{setMortonIndex}!FBasicCell@{FBasicCell}}
+\doxysubsubsection{\texorpdfstring{setMortonIndex()}{setMortonIndex()}}
+{\footnotesize\ttfamily void FBasic\+Cell\+::set\+Morton\+Index (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Morton\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To set the morton index 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Components/FBasic\+Cell.\+hpp\end{DoxyCompactItemize}

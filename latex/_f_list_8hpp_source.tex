@@ -1,0 +1,199 @@
+\doxysection{FList.\+hpp}
+\hypertarget{_f_list_8hpp_source}{}\label{_f_list_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Containers/FList.hpp@{third\_party/ScalFMM/include/ScalFMM/Containers/FList.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FLIST\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FLIST\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ Object\ >}
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_list}{FList}}\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{struct\ }Node\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ Object\ target;\ \ \textcolor{comment}{//<\ Object\ of\ the\ node}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ Node*\ next;\ \textcolor{comment}{//<\ Next\ node}}
+\DoxyCodeLine{00025\ \ \ \ \ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ Node*\ root;\ \textcolor{comment}{//<\ Root\ node,\ nullptr\ if\ size\ is\ 0}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ size;\ \ \ \textcolor{comment}{//<\ Elements\ in\ the\ list}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ copy(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_list}{FList}}\&\ other)\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ on\ iterator\ on\ the\ current\ list,\ another\ for\ the\ original\ list}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Node*\ FRestrict\ \ otherRoot\ =\ other.root;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ Node\ *\ FRestrict\ *\ myRoot\ =\ \&this-\/>root;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ create,\ copy\ and\ progress}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(otherRoot)\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ (*myRoot)\ =\ \textcolor{keyword}{new}\ Node;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ (*myRoot)-\/>target\ =\ otherRoot-\/>target;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ myRoot\ =\ \&(*myRoot)-\/>next;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ otherRoot\ =\ otherRoot-\/>next;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ End\ with\ null}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ *myRoot\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ this-\/>size\ =\ other.size;}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{typedef}\ Object\ \mbox{\hyperlink{class_f_list_a9f9f1ffdc5ee25d14389f50a249d4f7e}{ValueType}};\ }
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_f_list_a9e76e505f7b05b18c4c39886f8938442}{FList}}()\ :\ root(nullptr)\ ,\ size(0)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_list_a336f23c9e66e64ac8bd036e0715cde10}{\string~FList}}()\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_list_a021218cb94abaaeba1cfabf9c8ca3b8a}{clear}}();}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{class_f_list}{FList}}\&\ \mbox{\hyperlink{class_f_list_a3104b05d761c56a7ad3387022a45272a}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_list}{FList}}\&\ other)\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{this}\ !=\ \&other)\{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_list_a021218cb94abaaeba1cfabf9c8ca3b8a}{clear}}();}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ copy(other);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_f_list_aef99a45bf0cefbffa8ce833dc035cd23}{FList}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_list}{FList}}\&\ other):\ root(nullptr)\ ,\ size(0)\ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ copy(other);}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{class_f_list}{FList}}\&\ \mbox{\hyperlink{class_f_list_a327811794cb4763abee423f839afa881}{operator=}}(\mbox{\hyperlink{class_f_list}{FList}}\&\&\ other)\{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\&other\ !=\ \textcolor{keyword}{this})\{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_list_a021218cb94abaaeba1cfabf9c8ca3b8a}{clear}}();}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ root\ =\ other.root;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ size\ =\ other.size;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ other.root\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ other.size\ =\ 0;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{class_f_list_acd61b90341e491b4be4a80019e0251f6}{FList}}(\mbox{\hyperlink{class_f_list}{FList}}\&\&\ other):\ root(nullptr)\ ,\ size(0)\ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ root\ =\ other.root;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ size\ =\ other.size;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ other.root\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ other.size\ =\ 0;}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_list_a021218cb94abaaeba1cfabf9c8ca3b8a}{clear}}()\{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(this-\/>root)\{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ Node*\textcolor{keyword}{const}\ FRestrict\ next\ =\ this-\/>root-\/>next;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ this-\/>root;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>root\ =\ next;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ this-\/>size\ =\ 0;}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_list_ae5f7de3cb2fb9e838414ed27f3a6cf3b}{push}}(\textcolor{keyword}{const}\ Object\&\ inObject)\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ Node*\ newNode\ \ \ =\ \textcolor{keyword}{new}\ Node;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ newNode-\/>target\ =\ inObject;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ newNode-\/>next\ \ \ =\ this-\/>root;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ this-\/>root\ \ =\ newNode;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ ++this-\/>size;}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_list_aa15b89bcb28a86efa536f9041b94f2a8}{pushEmpty}}()\{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ Node*\ newNode\ \ \ =\ \textcolor{keyword}{new}\ Node;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ newNode-\/>next\ \ \ =\ this-\/>root;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ this-\/>root\ \ =\ newNode;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ ++this-\/>size;}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00159\ \ \ \ \ Object\&\ \mbox{\hyperlink{class_f_list_aad9714eef6859fd5c5c79afd9c46ae16}{head}}(\textcolor{comment}{/*Object\&\ defaultValue\ =\ Object()*/})\{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>root-\/>target;}
+\DoxyCodeLine{00161\ \ \ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{const}\ Object\&\ \mbox{\hyperlink{class_f_list_abfe0f678c35f2889d06e2a4b47a8aae9}{head}}(\textcolor{comment}{/*const\ Object\&\ defaultValue\ =\ Object()*/})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>root-\/>target;}
+\DoxyCodeLine{00172\ \ \ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_list_a6590f8721f73e3ccb7913094466f56f8}{pop}}()\{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ -\/-\/this-\/>size;}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ Node*\textcolor{keyword}{const}\ FRestrict\ headNode\ \ =\ this-\/>root;}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ this-\/>root\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ this-\/>root-\/>next;}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ headNode;}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_list_aeb0c66fc7bc0649cc4570ccc8d9c82db}{getSize}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>size;}
+\DoxyCodeLine{00191\ \ \ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_list_1_1_basic_iterator}{BasicIterator}}\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ Node**\ iter;\ \textcolor{comment}{//<\ current\ node\ on\ the\ list}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a01cae628a4b8b1933ac61996caced6a6}{BasicIterator}}(\mbox{\hyperlink{class_f_list}{FList}}\&\ list)\ :\ iter(\&list.root)\ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a668277138575fde58f361b486345e12a}{gotoNext}}()\{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a8e479f8f4b53aa1ccc04e2ccf21ae3dd}{hasNotFinished}}()\ )\{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iter\ =\ \&((*iter)-\/>next);}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ (*iter)-\/>next\ )\ Prefetch\_Write0(\ (*iter)-\/>next-\/>next);}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ Object\&\ \mbox{\hyperlink{class_f_list_1_1_basic_iterator_abb495ca0c19c0a127d9e204fd628e606}{data}}()\{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*iter)-\/>target;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Object\&\ \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a64a668a6376b69a762093012200393fc}{data}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*iter)-\/>target;}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_list_1_1_basic_iterator_af76f38be75ab29f51ef7a3173799785a}{setData}}(\textcolor{keyword}{const}\ Object\&\ inData)\{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ (*iter)-\/>target\ =\ inData;}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a8e479f8f4b53aa1ccc04e2ccf21ae3dd}{hasNotFinished}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*iter)\ !=\ 0;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a3153d65cdcf299404146afe67d3ae902}{remove}}()\ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{class_f_list_1_1_basic_iterator_a8e479f8f4b53aa1ccc04e2ccf21ae3dd}{hasNotFinished}}()\ )\{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Node*\ temp\ =\ (*iter)-\/>next;}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ (*iter);}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*iter)\ =\ temp;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \};}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_list_1_1_const_basic_iterator}{ConstBasicIterator}}\ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Node*\ iter;\ \textcolor{comment}{//<\ current\ node\ on\ the\ list}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_f_list_1_1_const_basic_iterator_abc9326b91a8bbfc5d1aa5679ca366b36}{ConstBasicIterator}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_list}{FList}}\&\ list)\ :\ iter(list.root)\{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_list_1_1_const_basic_iterator_a611190cf7d4d4e548b3fe998eb785806}{gotoNext}}()\{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>iter)\{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>iter\ =\ this-\/>iter-\/>next;}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>iter)\ Prefetch\_Read0(this-\/>iter-\/>next);}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ Object\ \mbox{\hyperlink{class_f_list_1_1_const_basic_iterator_a6e0744b5a67ebab54019b5b9fb175dd9}{data}}()\{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>iter-\/>target;}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Object\&\ \mbox{\hyperlink{class_f_list_1_1_const_basic_iterator_ab3eafe7454c75a1f1f5854fb50f00a5c}{data}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>iter-\/>target;}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_list_1_1_const_basic_iterator_ad6511f2b745f4d1de856bec3a3c7ae49}{hasNotFinished}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ iter;}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00325\ \ \ \ \ \};}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \};}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FLIST\_HPP}}
+\DoxyCodeLine{00330\ }
+
+\end{DoxyCode}

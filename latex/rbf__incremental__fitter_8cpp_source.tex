@@ -1,0 +1,133 @@
+\doxysection{rbf\+\_\+incremental\+\_\+fitter.\+cpp}
+\hypertarget{rbf__incremental__fitter_8cpp_source}{}\label{rbf__incremental__fitter_8cpp_source}\index{src/interpolation/rbf\_incremental\_fitter.cpp@{src/interpolation/rbf\_incremental\_fitter.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/29.}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}interpolation/rbf\_incremental\_fitter.h"{}}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}point\_cloud/distance\_filter.h"{}}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}boost/range/irange.hpp"{}}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}common/zip\_sort.h"{}}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}fmm/fmm\_tree\_height.h"{}}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}interpolation/rbf\_incremental\_fitter.h"{}}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}interpolation/rbf\_solver.h"{}}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <iterator>}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00018}00018\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1interpolation}{rsmesh::interpolation}}\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00019}00019\ \ \ \ \ rbf\_incremental\_fitter::rbf\_incremental\_fitter(\textcolor{keyword}{const}\ model\&\ model,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ points)}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ :\ model\_(model),}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ points\_(points),}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_points\_(points.rows()),}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_poly\_basis\_(model.poly\_basis\_size()),}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bbox\_(geometry::bbox3d::from\_points(points))\ \{\}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00026}00026\ \ \ \ \ std::pair<std::vector<index\_t>,\ valuesd>\ rbf\_incremental\_fitter::fit(}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ valuesd\&\ values,\ \textcolor{keywordtype}{double}\ absolute\_tolerance,\ \textcolor{keywordtype}{int}\ max\_iter)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ filtering\_distance\ =\ bbox\_.size().mean()\ /\ 4.0;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ centers\ =\ point\_cloud::distance\_filter(points\_,\ filtering\_distance).filtered\_indices();}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_centers\ =\ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(centers.size());}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ valuesd\ center\_weights\ =\ valuesd::Zero(n\_centers\ +\ n\_poly\_basis\_);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ std::unique\_ptr<rbf\_solver>\ solver;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ std::unique\_ptr<rbf\_evaluator<>>\ res\_eval;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ last\_tree\_height\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ RBF\ centers:\ "{}}\ <<\ n\_centers\ <<\ \textcolor{stringliteral}{"{}\ /\ "{}}\ <<\ n\_points\_\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tree\_height\ =\ fmm::fmm\_tree\_height(n\_centers);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tree\_height\ !=\ last\_tree\_height)\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solver\ =\ std::make\_unique<rbf\_solver>(model\_,\ tree\_height,\ bbox\_);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res\_eval\ =\ std::make\_unique<rbf\_evaluator<>>(model\_,\ tree\_height,\ bbox\_);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ last\_tree\_height\ =\ tree\_height;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ geometry::points3d\ center\_points\ =\ points\_(centers,\ Eigen::all);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ solver-\/>set\_points(center\_points);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ center\_weights\ =}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solver-\/>solve(values(centers,\ Eigen::all),\ absolute\_tolerance,\ max\_iter,\ center\_weights);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\_centers\ ==\ n\_points\_)\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Evaluate\ residuals\ at\ remaining\ points.}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ c\_centers\ =\ complementary\_indices(centers);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ geometry::points3d\ c\_center\_points\ =\ points\_(c\_centers,\ Eigen::all);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ res\_eval-\/>set\_source\_points(center\_points);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ res\_eval-\/>set\_weights(center\_weights);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ c\_values\_fit\ =\ res\_eval-\/>evaluate(c\_center\_points);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ valuesd\ c\_values\ =\ values(c\_centers,\ Eigen::all);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ c\_residuals(c\_centers.size());}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ valuesd::Map(c\_residuals.data(),\ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(c\_centers.size()))\ =}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (c\_values\_fit\ -\/\ c\_values).cwiseAbs();}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sort\ remaining\ points\ by\ their\ residuals.}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ common::zip\_sort(c\_centers.begin(),\ c\_centers.end(),\ c\_residuals.begin(),\ c\_residuals.end(),}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ a,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ b)\ \{\ return\ a.second\ <\ b.second;\ \});}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ points\ with\ residuals\ larger\ than\ absolute\_tolerance.}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lb\ =\ std::lower\_bound(c\_residuals.begin(),\ c\_residuals.end(),\ absolute\_tolerance);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_points\_need\_fitting\ =\ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(std::distance(lb,\ c\_residuals.end()));}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ points\ to\ fit:\ "{}}\ <<\ n\_points\_need\_fitting\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\_points\_need\_fitting\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Append\ points\ with\ the\ largest\ residuals.}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_last\_centers\ =\ n\_centers;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<index\_t>\ indices(centers);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ std::copy(c\_centers.rbegin(),\ c\_centers.rend(),\ std::back\_inserter(indices));}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ point\_cloud::distance\_filter\ filter(points\_,\ filtering\_distance,\ indices);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ std::unordered\_set<index\_t>\ filtered\_indices(filter.filtered\_indices().begin(),}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filter.filtered\_indices().end());}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ c\_centers.rbegin();\ it\ !=\ c\_centers.rbegin()\ +\ n\_points\_need\_fitting;\ ++it)\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (filtered\_indices.contains(*it))\ \{}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ centers.push\_back(*it);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ n\_centers\ =\ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(centers.size());}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ last\_center\_weights\ =\ center\_weights;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ center\_weights\ =\ valuesd::Zero(n\_centers\ +\ n\_poly\_basis\_);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ center\_weights.head(n\_last\_centers)\ =\ last\_center\_weights.head(n\_last\_centers);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ center\_weights.tail(n\_poly\_basis\_)\ =\ last\_center\_weights.tail(n\_poly\_basis\_);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ filtering\_distance\ *=\ 0.5;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{std::move(centers),\ std::move(center\_weights)\};}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00114}00114\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00116}00116\ \ \ \ \ std::vector<index\_t>\ rbf\_incremental\_fitter::complementary\_indices(}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<index\_t>\&\ indices)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ std::vector<index\_t>\ c\_idcs(n\_points\_\ -\/\ indices.size());}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ universe\ =\ boost::irange<index\_t>(index\_t\{0\},\ n\_points\_);}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ idcs\ =\ indices;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ std::sort(idcs.begin(),\ idcs.end());}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ std::set\_difference(universe.begin(),\ universe.end(),\ idcs.begin(),\ idcs.end(),\ c\_idcs.begin());}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ c\_idcs;}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00126}00126\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{rbf__incremental__fitter_8cpp_source_l00127}00127\ \}}
+
+\end{DoxyCode}

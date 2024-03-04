@@ -1,0 +1,158 @@
+\doxysection{bignum.\+h}
+\hypertarget{bignum_8h_source}{}\label{bignum_8h_source}\index{third\_party/double-\/conversion-\/3.3.0/double-\/conversion/bignum.h@{third\_party/double-\/conversion-\/3.3.0/double-\/conversion/bignum.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2010\ the\ V8\ project\ authors.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ met:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ \ \ \ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ \ \ \ \ \ \ copyright\ notice,\ this\ list\ of\ conditions\ and\ the\ following}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ \ \ \ \ \ \ disclaimer\ in\ the\ documentation\ and/or\ other\ materials\ provided}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ \ \ \ \ \ \ with\ the\ distribution.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ \ \ \ \ *\ Neither\ the\ name\ of\ Google\ Inc.\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ \ \ \ \ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ \ \ \ \ \ \ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifndef\ DOUBLE\_CONVERSION\_BIGNUM\_H\_}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ DOUBLE\_CONVERSION\_BIGNUM\_H\_}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}utils.h"{}}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{namespace\ }double\_conversion\ \{}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\ \{}
+\DoxyCodeLine{00036\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \textcolor{comment}{//\ 3584\ =\ 128\ *\ 28.\ We\ can\ represent\ 2\string^3584\ >\ 10\string^1000\ accurately.}}
+\DoxyCodeLine{00038\ \ \ \textcolor{comment}{//\ This\ bignum\ can\ encode\ much\ bigger\ numbers,\ since\ it\ contains\ an}}
+\DoxyCodeLine{00039\ \ \ \textcolor{comment}{//\ exponent.}}
+\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ kMaxSignificantBits\ =\ 3584;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}()\ :\ used\_bigits\_(0),\ exponent\_(0)\ \{\}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ AssignUInt16(\textcolor{keyword}{const}\ uint16\_t\ value);}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{void}\ AssignUInt64(uint64\_t\ value);}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{void}\ AssignBignum(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ other);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{void}\ AssignDecimalString(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_vector}{Vector<const\ char>}}\ value);}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{void}\ AssignHexString(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_vector}{Vector<const\ char>}}\ value);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{void}\ AssignPowerUInt16(uint16\_t\ base,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ exponent);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{void}\ AddUInt64(\textcolor{keyword}{const}\ uint64\_t\ operand);}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{void}\ AddBignum(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ other);}
+\DoxyCodeLine{00055\ \ \ \textcolor{comment}{//\ Precondition:\ this\ >=\ other.}}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ SubtractBignum(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ other);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ Square();}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{void}\ ShiftLeft(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ shift\_amount);}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{void}\ MultiplyByUInt32(\textcolor{keyword}{const}\ uint32\_t\ factor);}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ MultiplyByUInt64(\textcolor{keyword}{const}\ uint64\_t\ factor);}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ MultiplyByPowerOfTen(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ exponent);}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{void}\ Times10()\ \{\ \textcolor{keywordflow}{return}\ MultiplyByUInt32(10);\ \}}
+\DoxyCodeLine{00064\ \ \ \textcolor{comment}{//\ Pseudocode:}}
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{//\ \ int\ result\ =\ this\ /\ other;}}
+\DoxyCodeLine{00066\ \ \ \textcolor{comment}{//\ \ this\ =\ this\ \%\ other;}}
+\DoxyCodeLine{00067\ \ \ \textcolor{comment}{//\ In\ the\ worst\ case\ this\ function\ is\ in\ O(this/other).}}
+\DoxyCodeLine{00068\ \ \ uint16\_t\ DivideModuloIntBignum(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ other);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ ToHexString(\textcolor{keywordtype}{char}*\ buffer,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ buffer\_size)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{//\ Returns}}
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{//\ \ -\/1\ if\ a\ <\ b,}}
+\DoxyCodeLine{00074\ \ \ \textcolor{comment}{//\ \ \ 0\ if\ a\ ==\ b,\ and}}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ \ +1\ if\ a\ >\ b.}}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ Compare(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ b);}
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ Equal(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ b)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ Compare(a,\ b)\ ==\ 0;}
+\DoxyCodeLine{00079\ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ LessEqual(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ b)\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{return}\ Compare(a,\ b)\ <=\ 0;}
+\DoxyCodeLine{00082\ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ Less(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ b)\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ Compare(a,\ b)\ <\ 0;}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ Returns\ Compare(a\ +\ b,\ c);}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ PlusCompare(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ b,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ c);}
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ Returns\ a\ +\ b\ ==\ c}}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ PlusEqual(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ b,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ c)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{return}\ PlusCompare(a,\ b,\ c)\ ==\ 0;}
+\DoxyCodeLine{00091\ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \textcolor{comment}{//\ Returns\ a\ +\ b\ <=\ c}}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ PlusLessEqual(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ b,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ c)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{return}\ PlusCompare(a,\ b,\ c)\ <=\ 0;}
+\DoxyCodeLine{00095\ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \textcolor{comment}{//\ Returns\ a\ +\ b\ <\ c}}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ PlusLess(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ b,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ c)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{return}\ PlusCompare(a,\ b,\ c)\ <\ 0;}
+\DoxyCodeLine{00099\ \ \ \}}
+\DoxyCodeLine{00100\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00101\ \ \ \textcolor{keyword}{typedef}\ uint32\_t\ Chunk;}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{typedef}\ uint64\_t\ DoubleChunk;}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ kChunkSize\ =\ \textcolor{keyword}{sizeof}(Chunk)\ *\ 8;}
+\DoxyCodeLine{00105\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ kDoubleChunkSize\ =\ \textcolor{keyword}{sizeof}(DoubleChunk)\ *\ 8;}
+\DoxyCodeLine{00106\ \ \ \textcolor{comment}{//\ With\ bigit\ size\ of\ 28\ we\ loose\ some\ bits,\ but\ a\ double\ still\ fits\ easily}}
+\DoxyCodeLine{00107\ \ \ \textcolor{comment}{//\ into\ two\ chunks,\ and\ more\ importantly\ we\ can\ use\ the\ Comba\ multiplication.}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ kBigitSize\ =\ 28;}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ Chunk\ kBigitMask\ =\ (1\ <<\ kBigitSize)\ -\/\ 1;}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ Every\ instance\ allocates\ kBigitLength\ chunks\ on\ the\ stack.\ Bignums\ cannot}}
+\DoxyCodeLine{00111\ \ \ \textcolor{comment}{//\ grow.\ There\ are\ no\ checks\ if\ the\ stack-\/allocated\ space\ is\ sufficient.}}
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ kBigitCapacity\ =\ kMaxSignificantBits\ /\ kBigitSize;}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ EnsureCapacity(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ >\ kBigitCapacity)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ DOUBLE\_CONVERSION\_UNREACHABLE();}
+\DoxyCodeLine{00117\ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \}}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{void}\ Align(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ other);}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{void}\ Clamp();}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{bool}\ IsClamped()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{return}\ used\_bigits\_\ ==\ 0\ ||\ RawBigit(used\_bigits\_\ -\/\ 1)\ !=\ 0;}
+\DoxyCodeLine{00123\ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{void}\ Zero()\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ used\_bigits\_\ =\ 0;}
+\DoxyCodeLine{00126\ \ \ \ \ exponent\_\ =\ 0;}
+\DoxyCodeLine{00127\ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \textcolor{comment}{//\ Requires\ this\ to\ have\ enough\ capacity\ (no\ tests\ done).}}
+\DoxyCodeLine{00129\ \ \ \textcolor{comment}{//\ Updates\ used\_bigits\_\ if\ necessary.}}
+\DoxyCodeLine{00130\ \ \ \textcolor{comment}{//\ shift\_amount\ must\ be\ <\ kBigitSize.}}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{void}\ BigitsShiftLeft(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ shift\_amount);}
+\DoxyCodeLine{00132\ \ \ \textcolor{comment}{//\ BigitLength\ includes\ the\ "{}hidden"{}\ bigits\ encoded\ in\ the\ exponent.}}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{int}\ BigitLength()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ used\_bigits\_\ +\ exponent\_;\ \}}
+\DoxyCodeLine{00134\ \ \ Chunk\&\ RawBigit(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{const}\ Chunk\&\ RawBigit(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00136\ \ \ Chunk\ BigitOrZero(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{void}\ SubtractTimes(\textcolor{keyword}{const}\ \mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}}\&\ other,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ factor);}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{comment}{//\ The\ Bignum's\ value\ is\ value(bigits\_buffer\_)\ *\ 2\string^(exponent\_\ *\ kBigitSize),}}
+\DoxyCodeLine{00140\ \ \ \textcolor{comment}{//\ where\ the\ value\ of\ the\ buffer\ consists\ of\ the\ lower\ kBigitSize\ bits\ of}}
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{//\ the\ first\ used\_bigits\_\ Chunks\ in\ bigits\_buffer\_,\ first\ chunk\ has\ lowest}}
+\DoxyCodeLine{00142\ \ \ \textcolor{comment}{//\ significant\ bits.}}
+\DoxyCodeLine{00143\ \ \ int16\_t\ used\_bigits\_;}
+\DoxyCodeLine{00144\ \ \ int16\_t\ exponent\_;}
+\DoxyCodeLine{00145\ \ \ Chunk\ bigits\_buffer\_[kBigitCapacity];}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ DOUBLE\_CONVERSION\_DISALLOW\_COPY\_AND\_ASSIGN(\mbox{\hyperlink{classdouble__conversion_1_1_bignum}{Bignum}});}
+\DoxyCodeLine{00148\ \};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \}\ \ \textcolor{comment}{//\ namespace\ double\_conversion}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ DOUBLE\_CONVERSION\_BIGNUM\_H\_}}
+
+\end{DoxyCode}

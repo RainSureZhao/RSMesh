@@ -1,0 +1,80 @@
+\doxysection{FQuick\+Sort\texorpdfstring{$<$}{<} Sort\+Type, Index\+Type \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_quick_sort}{}\label{class_f_quick_sort}\index{FQuickSort$<$ SortType, IndexType $>$@{FQuickSort$<$ SortType, IndexType $>$}}
+
+
+{\ttfamily \#include $<$FQuick\+Sort.\+hpp$>$}
+
+类 FQuick\+Sort\texorpdfstring{$<$}{<} Sort\+Type, Index\+Type \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_quick_sort}
+\end{center}
+\end{figure}
+\doxysubsubsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_f_quick_sort_1_1_task_interval}{Task\+Interval}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_quick_sort_a08fbc77c91ce689d15222f7caff66f04}\label{class_f_quick_sort_a08fbc77c91ce689d15222f7caff66f04} 
+static void {\bfseries Qs\+Sequential} (Sort\+Type array\mbox{[}$\,$\mbox{]}, const Index\+Type size, const inf\+Or\+Equal\+Ptr inf\+Or\+Equal)
+\item 
+\Hypertarget{class_f_quick_sort_a4d13f4c280c8d59d457df07266646776}\label{class_f_quick_sort_a4d13f4c280c8d59d457df07266646776} 
+static void {\bfseries Qs\+Sequential} (Sort\+Type array\mbox{[}$\,$\mbox{]}, const Index\+Type size)
+\item 
+\Hypertarget{class_f_quick_sort_abe91aa60c19e1471b011ae580f099c3c}\label{class_f_quick_sort_abe91aa60c19e1471b011ae580f099c3c} 
+static void {\bfseries Qs\+Omp} (Sort\+Type elements\mbox{[}$\,$\mbox{]}, const int nb\+Elements, const inf\+Or\+Equal\+Ptr inf\+Or\+Equal)
+\item 
+\Hypertarget{class_f_quick_sort_a2d5edf1c976cb4cc83e7c5a91668559e}\label{class_f_quick_sort_a2d5edf1c976cb4cc83e7c5a91668559e} 
+static void {\bfseries Qs\+Omp} (Sort\+Type array\mbox{[}$\,$\mbox{]}, const Index\+Type size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_quick_sort_a9b382615f3d7f838cfd00c47b182c4f3}\label{class_f_quick_sort_a9b382615f3d7f838cfd00c47b182c4f3} 
+typedef bool(\texorpdfstring{$\ast$}{*} {\bfseries inf\+Or\+Equal\+Ptr}) (const Sort\+Type \&, const Sort\+Type \&)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Num\+Type $>$ }\\static void \mbox{\hyperlink{class_f_quick_sort_ab11ef0a23709e79f8e63f2c993f9c368}{Swap}} (Num\+Type \&value, Num\+Type \&other)
+\item 
+\Hypertarget{class_f_quick_sort_a93ddd90deea3f92bf9284e7a6cad3b72}\label{class_f_quick_sort_a93ddd90deea3f92bf9284e7a6cad3b72} 
+static Index\+Type {\bfseries Qs\+Partition} (Sort\+Type array\mbox{[}$\,$\mbox{]}, Index\+Type left, Index\+Type right, const inf\+Or\+Equal\+Ptr inf\+Or\+Equal)
+\item 
+\Hypertarget{class_f_quick_sort_ab6c2d016b0601afc4f0fcbe470432232}\label{class_f_quick_sort_ab6c2d016b0601afc4f0fcbe470432232} 
+static void {\bfseries Qs\+Sequential\+Step} (Sort\+Type array\mbox{[}$\,$\mbox{]}, const Index\+Type left, const Index\+Type right, const inf\+Or\+Equal\+Ptr inf\+Or\+Equal)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class Sort\+Type, class Index\+Type = size\+\_\+t$>$\newline
+class FQuick\+Sort$<$ Sort\+Type, Index\+Type $>$}
+This class is parallel quick sort It hold a mpi version
+\begin{DoxyItemize}
+\item 2 openmp versions (one on tasks and the other like mpi)
+\item a sequential version
+\end{DoxyItemize}
+
+The task based algorithm is easy to undestand, for the mpi/openmp2nd please see Introduction to parallel computing (Grama Gupta Karypis Kumar)
+
+In the previous version Intel Compiler was not using the QS with task defined(\+\_\+\+\_\+\+ICC) \texorpdfstring{$\vert$}{|}\texorpdfstring{$\vert$}{|} defined(\+\_\+\+\_\+\+INTEL\+\_\+\+COMPILER) defined the FQS\+\_\+\+TASKS\+\_\+\+ARE\+\_\+\+DISABLED
+
+If needed one can define FQS\+\_\+\+FORCE\+\_\+\+NO\+\_\+\+TASKS to ensure that the no task version is used. 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_quick_sort_ab11ef0a23709e79f8e63f2c993f9c368}\label{class_f_quick_sort_ab11ef0a23709e79f8e63f2c993f9c368} 
+\index{FQuickSort$<$ SortType, IndexType $>$@{FQuickSort$<$ SortType, IndexType $>$}!Swap@{Swap}}
+\index{Swap@{Swap}!FQuickSort$<$ SortType, IndexType $>$@{FQuickSort$<$ SortType, IndexType $>$}}
+\doxysubsubsection{\texorpdfstring{Swap()}{Swap()}}
+{\footnotesize\ttfamily template$<$class Sort\+Type , class Index\+Type  = size\+\_\+t$>$ \\
+template$<$class Num\+Type $>$ \\
+static void \mbox{\hyperlink{class_f_quick_sort}{FQuick\+Sort}}$<$ Sort\+Type, Index\+Type $>$\+::\+Swap (\begin{DoxyParamCaption}\item[{Num\+Type \&}]{value,  }\item[{Num\+Type \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [protected]}}
+
+swap to value 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Utils/FQuick\+Sort.\+hpp\end{DoxyCompactItemize}

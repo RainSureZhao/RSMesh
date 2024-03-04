@@ -1,0 +1,127 @@
+\doxysection{FParameters 命名空间参考}
+\hypertarget{namespace_f_parameters}{}\label{namespace_f_parameters}\index{FParameters@{FParameters}}
+\doxysubsubsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Variable\+Type $>$ }\\const Variable\+Type \mbox{\hyperlink{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d}{Str\+To\+Other}} (const char \texorpdfstring{$\ast$}{*}const str, const Variable\+Type \&default\+Value=Variable\+Type(), bool \texorpdfstring{$\ast$}{*}has\+Worked=nullptr)
+\item 
+char \mbox{\hyperlink{namespace_f_parameters_af753d5d1780b1894c313fbc568ffe8f9}{to\+Lower}} (const char c)
+\item 
+bool \mbox{\hyperlink{namespace_f_parameters_ae0ff75e54ab6c6f0ec8e82201a0ddaf2}{are\+Chars\+Equals}} (const char c1, const char c2, const bool case\+Sensible=false)
+\item 
+bool \mbox{\hyperlink{namespace_f_parameters_ab75c4efdf5409e41c2c0ecdfc284436e}{are\+Str\+Equals}} (const char \texorpdfstring{$\ast$}{*}const in\+Str1, const char \texorpdfstring{$\ast$}{*}const in\+Str2, const bool case\+Sensible=false)
+\item 
+int \mbox{\hyperlink{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc}{find\+Parameter}} (const int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const argv, const char \texorpdfstring{$\ast$}{*}const in\+Name, const bool case\+Sensible=false)
+\item 
+bool \mbox{\hyperlink{namespace_f_parameters_a37adc4be98584af20ba7d86c5628b8c1}{exist\+Parameter}} (const int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const argv, const char \texorpdfstring{$\ast$}{*}const in\+Name, const bool case\+Sensible=false)
+\item 
+{\footnotesize template$<$class Variable\+Type $>$ }\\const Variable\+Type \mbox{\hyperlink{namespace_f_parameters_aa8fab4d534a877bfd279ab709ef93194}{get\+Value}} (const int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const argv, const char \texorpdfstring{$\ast$}{*}const in\+Name, const Variable\+Type \&default\+Value=Variable\+Type(), const bool case\+Sensible=false)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespace_f_parameters_a1a4b4266ecd99b789b3df2709e376745}{get\+Str}} (const int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const argv, const char \texorpdfstring{$\ast$}{*}const in\+Name, const char \texorpdfstring{$\ast$}{*}const in\+Default, const bool case\+Sensible=false)
+\item 
+int \mbox{\hyperlink{namespace_f_parameters_a46f76a7463cd965573a8dd5f2484d7af}{find\+Parameter}} (const int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const argv, const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \&in\+Names, const bool case\+Sensible=false)
+\item 
+bool \mbox{\hyperlink{namespace_f_parameters_abea5f8e633a90b3284322860ac860265}{exist\+Parameter}} (const int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const argv, const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \&in\+Names, const bool case\+Sensible=false)
+\item 
+{\footnotesize template$<$class Variable\+Type $>$ }\\const Variable\+Type \mbox{\hyperlink{namespace_f_parameters_aad2e187efaf5c17604d6dd41ec52223e}{get\+Value}} (const int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const argv, const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \&in\+Names, const Variable\+Type \&default\+Value=Variable\+Type(), const bool case\+Sensible=false)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespace_f_parameters_a5499826d7caf8b58ad32072eb70a4f92}{get\+Str}} (const int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const argv, const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \&in\+Names, const char \texorpdfstring{$\ast$}{*}const in\+Default, const bool case\+Sensible=false)
+\item 
+\Hypertarget{namespace_f_parameters_a6628eadde29a042c60711688336557a6}\label{namespace_f_parameters_a6628eadde29a042c60711688336557a6} 
+{\footnotesize template$<$class Value\+Type $>$ }\\\mbox{\hyperlink{class_f_vector}{FVector}}$<$ Value\+Type $>$ {\bfseries get\+List\+Of\+Values} (const int argc, const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const argv, const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \&in\+Names, const char separator=\textquotesingle{};\textquotesingle{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+This file proposes some methods to work with user input parameters. 
+
+\doxysubsection{函数说明}
+\Hypertarget{namespace_f_parameters_ae0ff75e54ab6c6f0ec8e82201a0ddaf2}\label{namespace_f_parameters_ae0ff75e54ab6c6f0ec8e82201a0ddaf2} 
+\index{FParameters@{FParameters}!areCharsEquals@{areCharsEquals}}
+\index{areCharsEquals@{areCharsEquals}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{areCharsEquals()}{areCharsEquals()}}
+{\footnotesize\ttfamily bool FParameters\+::are\+Chars\+Equals (\begin{DoxyParamCaption}\item[{const char}]{c1,  }\item[{const char}]{c2,  }\item[{const bool}]{case\+Sensible = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if two char are equals \Hypertarget{namespace_f_parameters_ab75c4efdf5409e41c2c0ecdfc284436e}\label{namespace_f_parameters_ab75c4efdf5409e41c2c0ecdfc284436e} 
+\index{FParameters@{FParameters}!areStrEquals@{areStrEquals}}
+\index{areStrEquals@{areStrEquals}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{areStrEquals()}{areStrEquals()}}
+{\footnotesize\ttfamily bool FParameters\+::are\+Str\+Equals (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}const}]{in\+Str1,  }\item[{const char \texorpdfstring{$\ast$}{*}const}]{in\+Str2,  }\item[{const bool}]{case\+Sensible = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if two str are equals \Hypertarget{namespace_f_parameters_a37adc4be98584af20ba7d86c5628b8c1}\label{namespace_f_parameters_a37adc4be98584af20ba7d86c5628b8c1} 
+\index{FParameters@{FParameters}!existParameter@{existParameter}}
+\index{existParameter@{existParameter}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{existParameter()}{existParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool FParameters\+::exist\+Parameter (\begin{DoxyParamCaption}\item[{const int}]{argc,  }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const}]{argv,  }\item[{const char \texorpdfstring{$\ast$}{*}const}]{in\+Name,  }\item[{const bool}]{case\+Sensible = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if a parameter exist from user format char parameters \Hypertarget{namespace_f_parameters_abea5f8e633a90b3284322860ac860265}\label{namespace_f_parameters_abea5f8e633a90b3284322860ac860265} 
+\index{FParameters@{FParameters}!existParameter@{existParameter}}
+\index{existParameter@{existParameter}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{existParameter()}{existParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool FParameters\+::exist\+Parameter (\begin{DoxyParamCaption}\item[{const int}]{argc,  }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const}]{argv,  }\item[{const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \&}]{in\+Names,  }\item[{const bool}]{case\+Sensible = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if a parameter exist from user format char parameters \Hypertarget{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc}\label{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc} 
+\index{FParameters@{FParameters}!findParameter@{findParameter}}
+\index{findParameter@{findParameter}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{findParameter()}{findParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily int FParameters\+::find\+Parameter (\begin{DoxyParamCaption}\item[{const int}]{argc,  }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const}]{argv,  }\item[{const char \texorpdfstring{$\ast$}{*}const}]{in\+Name,  }\item[{const bool}]{case\+Sensible = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To find a parameters from user format char parameters \Hypertarget{namespace_f_parameters_a46f76a7463cd965573a8dd5f2484d7af}\label{namespace_f_parameters_a46f76a7463cd965573a8dd5f2484d7af} 
+\index{FParameters@{FParameters}!findParameter@{findParameter}}
+\index{findParameter@{findParameter}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{findParameter()}{findParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily int FParameters\+::find\+Parameter (\begin{DoxyParamCaption}\item[{const int}]{argc,  }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const}]{argv,  }\item[{const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \&}]{in\+Names,  }\item[{const bool}]{case\+Sensible = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To find a parameters from user format char parameters \Hypertarget{namespace_f_parameters_a1a4b4266ecd99b789b3df2709e376745}\label{namespace_f_parameters_a1a4b4266ecd99b789b3df2709e376745} 
+\index{FParameters@{FParameters}!getStr@{getStr}}
+\index{getStr@{getStr}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{getStr()}{getStr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} FParameters\+::get\+Str (\begin{DoxyParamCaption}\item[{const int}]{argc,  }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const}]{argv,  }\item[{const char \texorpdfstring{$\ast$}{*}const}]{in\+Name,  }\item[{const char \texorpdfstring{$\ast$}{*}const}]{in\+Default,  }\item[{const bool}]{case\+Sensible = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get a str from argv \Hypertarget{namespace_f_parameters_a5499826d7caf8b58ad32072eb70a4f92}\label{namespace_f_parameters_a5499826d7caf8b58ad32072eb70a4f92} 
+\index{FParameters@{FParameters}!getStr@{getStr}}
+\index{getStr@{getStr}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{getStr()}{getStr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} FParameters\+::get\+Str (\begin{DoxyParamCaption}\item[{const int}]{argc,  }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const}]{argv,  }\item[{const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \&}]{in\+Names,  }\item[{const char \texorpdfstring{$\ast$}{*}const}]{in\+Default,  }\item[{const bool}]{case\+Sensible = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get a str from argv \Hypertarget{namespace_f_parameters_aa8fab4d534a877bfd279ab709ef93194}\label{namespace_f_parameters_aa8fab4d534a877bfd279ab709ef93194} 
+\index{FParameters@{FParameters}!getValue@{getValue}}
+\index{getValue@{getValue}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{getValue()}{getValue()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Variable\+Type $>$ \\
+const Variable\+Type FParameters\+::get\+Value (\begin{DoxyParamCaption}\item[{const int}]{argc,  }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const}]{argv,  }\item[{const char \texorpdfstring{$\ast$}{*}const}]{in\+Name,  }\item[{const Variable\+Type \&}]{default\+Value = {\ttfamily VariableType()},  }\item[{const bool}]{case\+Sensible = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get a value like \+: get\+Value(argc,argv, "{}\+Toto"{}, 0, false); will return 55 if the command contains \+: -\/Toto 55 else 0 \Hypertarget{namespace_f_parameters_aad2e187efaf5c17604d6dd41ec52223e}\label{namespace_f_parameters_aad2e187efaf5c17604d6dd41ec52223e} 
+\index{FParameters@{FParameters}!getValue@{getValue}}
+\index{getValue@{getValue}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{getValue()}{getValue()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Variable\+Type $>$ \\
+const Variable\+Type FParameters\+::get\+Value (\begin{DoxyParamCaption}\item[{const int}]{argc,  }\item[{const char \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const}]{argv,  }\item[{const std\+::vector$<$ const char \texorpdfstring{$\ast$}{*} $>$ \&}]{in\+Names,  }\item[{const Variable\+Type \&}]{default\+Value = {\ttfamily VariableType()},  }\item[{const bool}]{case\+Sensible = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get a value like \+: get\+Value(argc,argv, "{}\+Toto"{}, 0, false); will return 55 if the command contains \+: -\/Toto 55 else 0 \Hypertarget{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d}\label{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d} 
+\index{FParameters@{FParameters}!StrToOther@{StrToOther}}
+\index{StrToOther@{StrToOther}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{StrToOther()}{StrToOther()}}
+{\footnotesize\ttfamily template$<$class Variable\+Type $>$ \\
+const Variable\+Type FParameters\+::\+Str\+To\+Other (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}const}]{str,  }\item[{const Variable\+Type \&}]{default\+Value = {\ttfamily VariableType()},  }\item[{bool \texorpdfstring{$\ast$}{*}}]{has\+Worked = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function gives a parameter in a standart type 
+\begin{DoxyParams}{参数}
+{\em str} & string of chars to be converted from \\
+\hline
+{\em default\+Value} & the value to be converted to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+argv\mbox{[}in\+Arg\mbox{]} in the template Variable\+Type form 
+\end{DoxyReturn}
+\begin{DoxyWarning}{警告}
+Variable\+Type need to work with istream \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} operator {\ttfamily  const int arg\+Int = user\+Paremeters\+At$<$int$>$(1,-\/1); } 
+\end{DoxyWarning}
+\Hypertarget{namespace_f_parameters_af753d5d1780b1894c313fbc568ffe8f9}\label{namespace_f_parameters_af753d5d1780b1894c313fbc568ffe8f9} 
+\index{FParameters@{FParameters}!toLower@{toLower}}
+\index{toLower@{toLower}!FParameters@{FParameters}}
+\doxysubsubsection{\texorpdfstring{toLower()}{toLower()}}
+{\footnotesize\ttfamily char FParameters\+::to\+Lower (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To put a char into lower format 

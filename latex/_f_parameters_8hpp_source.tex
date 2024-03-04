@@ -1,0 +1,182 @@
+\doxysection{FParameters.\+hpp}
+\hypertarget{_f_parameters_8hpp_source}{}\label{_f_parameters_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FParameters.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FParameters.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FPARAMETERS\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FPARAMETERS\_H}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}../Containers/FVector.hpp"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}FAssert.hpp"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_f_parameters}{FParameters}}\{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ NotFound\ =\ -\/1;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ VariableType>}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ VariableType\ \mbox{\hyperlink{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d}{StrToOther}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ str,\ \textcolor{keyword}{const}\ VariableType\&\ defaultValue\ =\ VariableType(),\ \textcolor{keywordtype}{bool}*\ hasWorked\ =\ \textcolor{keyword}{nullptr})\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::istringstream\ iss(str,std::istringstream::in);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ VariableType\ value\ =\ defaultValue;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ iss\ >>\ value;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ FAssertLF(iss.eof());}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(hasWorked)\ (*hasWorked)\ =\ bool(iss.eof());}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \textcolor{comment}{/*iss.tellg()*/}\ iss.eof()\ )\ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ defaultValue;}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{namespace_f_parameters_af753d5d1780b1894c313fbc568ffe8f9}{toLower}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ c)\{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ char(\textcolor{charliteral}{'A'}\ <=\ c\ \&\&\ c\ <=\ \textcolor{charliteral}{'Z'}\ ?\ (c\ -\/\ \textcolor{charliteral}{'A'})\ +\ \textcolor{charliteral}{'a'}\ :\ c);}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_f_parameters_ae0ff75e54ab6c6f0ec8e82201a0ddaf2}{areCharsEquals}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ c1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ c2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ caseSensible\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (caseSensible\ \&\&\ c1\ ==\ c2)\ ||\ (!caseSensible\ \&\&\ \mbox{\hyperlink{namespace_f_parameters_af753d5d1780b1894c313fbc568ffe8f9}{toLower}}(c1)\ ==\ \mbox{\hyperlink{namespace_f_parameters_af753d5d1780b1894c313fbc568ffe8f9}{toLower}}(c2));}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_f_parameters_ab75c4efdf5409e41c2c0ecdfc284436e}{areStrEquals}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ inStr1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ inStr2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ caseSensible\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxStr\ =\ 0;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(inStr1[idxStr]\ !=\ \textcolor{charliteral}{'\(\backslash\)0'}\ \&\&\ inStr2[idxStr]\ !=\ \textcolor{charliteral}{'\(\backslash\)0'})\{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{namespace_f_parameters_ae0ff75e54ab6c6f0ec8e82201a0ddaf2}{areCharsEquals}}(inStr1[idxStr]\ ,inStr2[idxStr],caseSensible))\{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ ++idxStr;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inStr1[idxStr]\ ==\ inStr2[idxStr];}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc}{findParameter}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ *\ \textcolor{keyword}{const}\ argv,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ inName,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ caseSensible\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxArg\ =\ 0;\ idxArg\ <\ argc\ ;\ ++idxArg)\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_f_parameters_ab75c4efdf5409e41c2c0ecdfc284436e}{areStrEquals}}(inName,\ argv[idxArg],\ caseSensible))\{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxArg;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NotFound;}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_f_parameters_a37adc4be98584af20ba7d86c5628b8c1}{existParameter}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ *\ \textcolor{keyword}{const}\ argv,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ inName,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ caseSensible\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NotFound\ !=\ \mbox{\hyperlink{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc}{findParameter}}(\ argc,\ argv,\ inName,\ caseSensible);}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ VariableType>}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ VariableType\ \mbox{\hyperlink{namespace_f_parameters_aa8fab4d534a877bfd279ab709ef93194}{getValue}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ *\ \textcolor{keyword}{const}\ argv,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ inName,\ \textcolor{keyword}{const}\ VariableType\&\ defaultValue\ =\ VariableType(),\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ caseSensible\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ position\ =\ \mbox{\hyperlink{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc}{findParameter}}(argc,argv,inName,caseSensible);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ FAssertLF(position\ ==\ NotFound\ ||\ position\ !=\ argc\ -\/\ 1);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(position\ ==\ NotFound\ ||\ position\ ==\ argc\ -\/\ 1)\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ defaultValue;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d}{StrToOther}}(argv[position+1],defaultValue);}
+\DoxyCodeLine{00103\ \ \ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespace_f_parameters_a1a4b4266ecd99b789b3df2709e376745}{getStr}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ *\ \textcolor{keyword}{const}\ argv,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ inName,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ inDefault,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ caseSensible\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ position\ =\ \mbox{\hyperlink{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc}{findParameter}}(argc,argv,inName,caseSensible);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ FAssertLF(position\ ==\ NotFound\ ||\ position\ !=\ argc\ -\/\ 1);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(position\ ==\ NotFound\ ||\ position\ ==\ argc\ -\/\ 1)\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inDefault;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ argv[position+1];}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc}{findParameter}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ *\ \textcolor{keyword}{const}\ argv,\ \textcolor{keyword}{const}\ std::vector<const\ char*>\&\ inNames,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ caseSensible\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name\ :\ inNames)\{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ res\ =\ \mbox{\hyperlink{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc}{findParameter}}(argc,\ argv,\ name,\ caseSensible);}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(res\ !=\ NotFound)\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NotFound;}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_f_parameters_a37adc4be98584af20ba7d86c5628b8c1}{existParameter}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ *\ \textcolor{keyword}{const}\ argv,\ \textcolor{keyword}{const}\ std::vector<const\ char*>\&\ inNames,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ caseSensible\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name\ :\ inNames)\{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_f_parameters_a37adc4be98584af20ba7d86c5628b8c1}{existParameter}}(argc,\ argv,\ name,\ caseSensible))\{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ VariableType>}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ VariableType\ \mbox{\hyperlink{namespace_f_parameters_aa8fab4d534a877bfd279ab709ef93194}{getValue}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ *\ \textcolor{keyword}{const}\ argv,\ \textcolor{keyword}{const}\ std::vector<const\ char*>\&\ inNames,\ \textcolor{keyword}{const}\ VariableType\&\ defaultValue\ =\ VariableType(),\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ caseSensible\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name\ :\ inNames)\{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ position\ =\ \mbox{\hyperlink{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc}{findParameter}}(argc,\ argv,\ name,\ caseSensible);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(position\ ==\ NotFound\ ||\ position\ !=\ argc\ -\/\ 1,\ \textcolor{stringliteral}{"{}Could\ no\ find\ a\ value\ for\ argument:\ "{}},name,\ \textcolor{stringliteral}{"{}.\ "{}}\ );}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(position\ !=\ NotFound\ \&\&\ position\ !=\ argc\ -\/\ 1)\{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d}{StrToOther}}(argv[position+1],defaultValue);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ defaultValue;}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{namespace_f_parameters_a1a4b4266ecd99b789b3df2709e376745}{getStr}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ *\ \textcolor{keyword}{const}\ argv,\ \textcolor{keyword}{const}\ std::vector<const\ char*>\&\ inNames,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ inDefault,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ caseSensible\ =\ \textcolor{keyword}{false})\{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name\ :\ inNames)\{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ position\ =\ \mbox{\hyperlink{namespace_f_parameters_a3fe205aa7cc035990e036757a905befc}{findParameter}}(argc,\ argv,\ name,\ caseSensible);}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(position\ ==\ NotFound\ ||\ position\ !=\ argc\ -\/\ 1,\ \textcolor{stringliteral}{"{}Could\ no\ find\ a\ value\ for\ argument:\ "{}},name,\ \textcolor{stringliteral}{"{}.\ "{}});}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(position\ !=\ NotFound\ \&\&\ position\ !=\ argc\ -\/\ 1)\{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ argv[position+1];}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inDefault;}
+\DoxyCodeLine{00170\ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ValueType>}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_f_vector}{FVector<ValueType>}}\ getListOfValues(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ argc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ *\ \textcolor{keyword}{const}\ argv,\ \textcolor{keyword}{const}\ std::vector<const\ char*>\&\ inNames,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ separator\ =\ \textcolor{charliteral}{';'})\{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ valuesStr\ =\ \mbox{\hyperlink{namespace_f_parameters_a1a4b4266ecd99b789b3df2709e376745}{getStr}}(\ argc,\ argv,\ inNames,\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(valuesStr\ ==\ \textcolor{keyword}{nullptr})\{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_vector}{FVector<ValueType>}}();}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_vector}{FVector<char>}}\ word;}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_vector}{FVector<ValueType>}}\ res;}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxCharStart\ =\ 0;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxCharEnd\ =\ 0;}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(valuesStr[idxCharEnd]\ !=\ \textcolor{charliteral}{'\(\backslash\)0'})\{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(valuesStr[idxCharEnd]\ ==\ separator)\{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ lengthWord\ =\ idxCharEnd-\/idxCharStart;}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(lengthWord)\{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ word.\mbox{\hyperlink{class_f_vector_a2170b11fb4c60ab9660884a210e9fa6f}{clear}}();}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ word.\mbox{\hyperlink{class_f_vector_a3fe7095863dd96a1fc8fb4b096466831}{memocopy}}(\&valuesStr[idxCharStart],\ lengthWord);}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ word.\mbox{\hyperlink{class_f_vector_a0474667853d9c574c79c19a8f2a9dc2b}{push}}(\textcolor{charliteral}{'\(\backslash\)0'});}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ hasWorked;}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ValueType\ val\ =\ \mbox{\hyperlink{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d}{StrToOther}}(word.\mbox{\hyperlink{class_f_vector_a7609237a1fe28ddad0d24b032d1c0d41}{data}}(),\ ValueType(),\ \&hasWorked);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(hasWorked)\{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res.\mbox{\hyperlink{class_f_vector_a0474667853d9c574c79c19a8f2a9dc2b}{push}}(val);}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxCharEnd\ \ +=\ 1;}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxCharStart\ =\ idxCharEnd;}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxCharEnd\ \ +=\ 1;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ lengthWord\ =\ idxCharEnd-\/idxCharStart;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(lengthWord)\{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ word.\mbox{\hyperlink{class_f_vector_a2170b11fb4c60ab9660884a210e9fa6f}{clear}}();}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ word.\mbox{\hyperlink{class_f_vector_a3fe7095863dd96a1fc8fb4b096466831}{memocopy}}(\&valuesStr[idxCharStart],\ lengthWord);}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ word.\mbox{\hyperlink{class_f_vector_a0474667853d9c574c79c19a8f2a9dc2b}{push}}(\textcolor{charliteral}{'\(\backslash\)0'});}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ hasWorked;}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ValueType\ val\ =\ \mbox{\hyperlink{namespace_f_parameters_acf246990f8109749f856c37f3bdc0f4d}{StrToOther}}(word.\mbox{\hyperlink{class_f_vector_a7609237a1fe28ddad0d24b032d1c0d41}{data}}(),\ ValueType(),\ \&hasWorked);}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(hasWorked)\{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res.\mbox{\hyperlink{class_f_vector_a0474667853d9c574c79c19a8f2a9dc2b}{push}}(val);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00219\ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FPARAMETERS\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,134 @@
+\doxysection{FAbstract\+Cheb\+Kernel.\+hpp}
+\hypertarget{_f_abstract_cheb_kernel_8hpp_source}{}\label{_f_abstract_cheb_kernel_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Chebyshev/FAbstractChebKernel.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/Chebyshev/FAbstractChebKernel.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FABSTRACTCHEBKERNEL\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FABSTRACTCHEBKERNEL\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FSmartPointer.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../../Components/FAbstractKernels.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../Interpolation/FInterpP2PKernels.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}./FChebInterpolator.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}../../Containers/FTreeCoordinate.hpp"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{template}\ <\ \textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ CellClass,\ \ \ \ \textcolor{keyword}{class}\ ContainerClass,\ \ \ \textcolor{keyword}{class}\ MatrixKernelClass,\ \textcolor{keywordtype}{int}\ ORDER,\ \textcolor{keywordtype}{int}\ NVALS\ =\ 1>}
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_abstract_cheb_kernel}{FAbstractChebKernel}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_kernels}{FAbstractKernels}}<\ CellClass,\ ContainerClass>}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{enum}\ \{nnodes\ =\ \mbox{\hyperlink{struct_tensor_traits}{TensorTraits<ORDER>::nnodes}}\};}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_cheb_interpolator}{FChebInterpolator<FReal,\ ORDER,MatrixKernelClass,NVALS>}}\ \mbox{\hyperlink{class_f_cheb_interpolator}{InterpolatorClass}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_smart_pointer}{FSmartPointer<InterpolatorClass,FSmartPointerMemory>}}\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_af955284daad25daea271b4382fb88b05}{Interpolator}};}
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_a146e282fbe4e3c48786b1c79bebb4572}{TreeHeight}};}
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_aff89fa9a60111b72c40091cbcf95a999}{BoxCorner}};}
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{const}\ FReal\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_ab4ffad9e8de0dfbf65de79e72da2b47a}{BoxWidth}};\ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \textcolor{keyword}{const}\ FReal\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_a4d5f2c54264bdf5b5339901f129e4049}{BoxWidthLeaf}};}
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{const}\ FReal\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_a239735a4f77b2d13dd5538cfc95ebc0b}{BoxWidthExtension}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_af57d7784efc2307a362e8546fbf6e0c2}{getLeafCellCenter}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ Coordinate)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(\mbox{\hyperlink{class_f_abstract_cheb_kernel_aff89fa9a60111b72c40091cbcf95a999}{BoxCorner}}.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ (FReal(Coordinate.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}())\ +\ FReal(.5))\ *\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_a4d5f2c54264bdf5b5339901f129e4049}{BoxWidthLeaf}},}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_cheb_kernel_aff89fa9a60111b72c40091cbcf95a999}{BoxCorner}}.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ (FReal(Coordinate.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}())\ +\ FReal(.5))\ *\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_a4d5f2c54264bdf5b5339901f129e4049}{BoxWidthLeaf}},}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_cheb_kernel_aff89fa9a60111b72c40091cbcf95a999}{BoxCorner}}.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ (FReal(Coordinate.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}())\ +\ FReal(.5))\ *\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_a4d5f2c54264bdf5b5339901f129e4049}{BoxWidthLeaf}});}
+\DoxyCodeLine{00059\ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00067\ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_aeada2f69df8dc8850541d246efa0c0d6}{getCellCenter}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coordinate,\ \textcolor{keywordtype}{int}\ inLevel)}
+\DoxyCodeLine{00068\ \ \ \{}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{//Set\ the\ boxes\ width\ needed}}
+\DoxyCodeLine{00071\ \ \ \ \ FReal\ widthAtCurrentLevel\ =\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_a4d5f2c54264bdf5b5339901f129e4049}{BoxWidthLeaf}}*FReal(1\ <<\ (\mbox{\hyperlink{class_f_abstract_cheb_kernel_a146e282fbe4e3c48786b1c79bebb4572}{TreeHeight}}-\/(inLevel+1)));\ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ FReal\ widthAtCurrentLevelDiv2\ =\ widthAtCurrentLevel/FReal(2.);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//Set\ the\ center\ real\ coordinates\ from\ box\ corner\ and\ widths.}}
+\DoxyCodeLine{00075\ \ \ \ \ FReal\ X\ =\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_aff89fa9a60111b72c40091cbcf95a999}{BoxCorner}}.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()\ +\ FReal(coordinate.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}())*widthAtCurrentLevel\ +\ widthAtCurrentLevelDiv2;}
+\DoxyCodeLine{00076\ \ \ \ \ FReal\ Y\ =\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_aff89fa9a60111b72c40091cbcf95a999}{BoxCorner}}.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()\ +\ FReal(coordinate.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}())*widthAtCurrentLevel\ +\ widthAtCurrentLevelDiv2;}
+\DoxyCodeLine{00077\ \ \ \ \ FReal\ Z\ =\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_aff89fa9a60111b72c40091cbcf95a999}{BoxCorner}}.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()\ +\ FReal(coordinate.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}())*widthAtCurrentLevel\ +\ widthAtCurrentLevelDiv2;}
+\DoxyCodeLine{00078\ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(X,Y,Z);}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{class_f_abstract_cheb_kernel_aca6c0bbd63564632cfb655fdcf2c1db3}{FAbstractChebKernel}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ inBoxWidth,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inBoxCenter,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ inBoxWidthExtension\ =\ 0.0)}
+\DoxyCodeLine{00092\ \ \ \ \ :\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_af955284daad25daea271b4382fb88b05}{Interpolator}}(new\ \mbox{\hyperlink{class_f_cheb_interpolator}{InterpolatorClass}}(inTreeHeight,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inBoxWidth,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inBoxWidthExtension)),}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_cheb_kernel_a146e282fbe4e3c48786b1c79bebb4572}{TreeHeight}}(inTreeHeight),}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_cheb_kernel_aff89fa9a60111b72c40091cbcf95a999}{BoxCorner}}(inBoxCenter\ -\/\ inBoxWidth\ /\ FReal(2.)),}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_cheb_kernel_ab4ffad9e8de0dfbf65de79e72da2b47a}{BoxWidth}}(inBoxWidth),}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_cheb_kernel_a4d5f2c54264bdf5b5339901f129e4049}{BoxWidthLeaf}}(\mbox{\hyperlink{class_f_abstract_cheb_kernel_ab4ffad9e8de0dfbf65de79e72da2b47a}{BoxWidth}}\ /\ FReal(\mbox{\hyperlink{struct_f_math}{FMath}}::pow(2,\ inTreeHeight\ -\/\ 1))),}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \mbox{\hyperlink{class_f_abstract_cheb_kernel_a239735a4f77b2d13dd5538cfc95ebc0b}{BoxWidthExtension}}(inBoxWidthExtension)}
+\DoxyCodeLine{00100\ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{comment}{/*\ empty\ */}}
+\DoxyCodeLine{00102\ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_abstract_cheb_kernel}{\string~FAbstractChebKernel}}()\{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{comment}{//\ should\ not\ be\ used}}
+\DoxyCodeLine{00106\ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{const}\ InterpolatorClass\ *\ getPtrToInterpolator()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00109\ \textcolor{keyword}{\ \ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_abstract_cheb_kernel_af955284daad25daea271b4382fb88b05}{Interpolator}}.getPtr();\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ P2M(CellClass*\ \textcolor{keyword}{const}\ LeafCell,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ SourceParticles)\ =\ 0;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ M2M(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ ParentCell,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\textcolor{keyword}{const}\ FRestrict\ *\textcolor{keyword}{const}\ FRestrict\ ChildCells,}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ TreeLevel)\ =\ 0;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ M2L(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ TargetCell,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ CellClass*\ SourceCells[],}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SourcePositions[],}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ NumSourceCells,}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ TreeLevel)\ =\ 0;}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ L2L(\textcolor{keyword}{const}\ CellClass*\ \textcolor{keyword}{const}\ FRestrict\ ParentCell,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ CellClass*\ FRestrict\ *\textcolor{keyword}{const}\ FRestrict\ ChildCells,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ TreeLevel)\ =\ 0;}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ L2P(\textcolor{keyword}{const}\ CellClass*\ \textcolor{keyword}{const}\ LeafCell,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ TargetParticles)\ =\ 0;}
+\DoxyCodeLine{00135\ \ \ \ \ }
+\DoxyCodeLine{00136\ \ \ \ \ }
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ P2P(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \textcolor{comment}{/*\ LeafCellCoordinate\ */},\ \textcolor{comment}{//\ needed\ for\ periodic\ boundary\ conditions}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ TargetParticles,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*SourceParticles*/},}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ NeighborSourceParticles[],}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SourcePositions[],}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*\ size\ */})\ =\ 0;}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ P2POuter(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ inLeafPosition,}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ targets,}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ directNeighborsParticles[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighborPositions[],}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ size)\ =\ 0;}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ P2PRemote(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \textcolor{comment}{/*inPosition*/},}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ inTargets,\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*inSources*/},}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ inNeighbors[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SourcePositions[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*inSize*/})\ =\ 0;}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \};}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FCHEBKERNELS\_HPP}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{//\ [-\/-\/END-\/-\/]}}
+
+\end{DoxyCode}

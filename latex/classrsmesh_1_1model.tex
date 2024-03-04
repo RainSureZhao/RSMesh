@@ -1,0 +1,209 @@
+\doxysection{rsmesh\+::model类 参考}
+\hypertarget{classrsmesh_1_1model}{}\label{classrsmesh_1_1model}\index{rsmesh::model@{rsmesh::model}}
+
+
+描述了一个插值模型  
+
+
+
+
+{\ttfamily \#include $<$model.\+h$>$}
+
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrsmesh_1_1model_a88b7ba77b2ab1de27e6abbcf153bc5aa}{model}} (const \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\+::rbf\+\_\+base}} \&rbf, int poly\+\_\+dimension, int poly\+\_\+degree)
+\item 
+\mbox{\hyperlink{classrsmesh_1_1model_a404f221c949b39220fa04027c1121676}{model}} (const \mbox{\hyperlink{classrsmesh_1_1model}{model}} \&\mbox{\hyperlink{classrsmesh_1_1model}{model}})
+\item 
+\Hypertarget{classrsmesh_1_1model_a30354d3fb3328850230aefb217ee9a39}\label{classrsmesh_1_1model_a30354d3fb3328850230aefb217ee9a39} 
+{\bfseries model} (\mbox{\hyperlink{classrsmesh_1_1model}{model}} \&\&\mbox{\hyperlink{classrsmesh_1_1model}{model}})=default
+\item 
+\Hypertarget{classrsmesh_1_1model_a8fb20244fa84a5d012e1f65817be4903}\label{classrsmesh_1_1model_a8fb20244fa84a5d012e1f65817be4903} 
+\mbox{\hyperlink{classrsmesh_1_1model}{model}} \& {\bfseries operator=} (const \mbox{\hyperlink{classrsmesh_1_1model}{model}} \&)=delete
+\item 
+\Hypertarget{classrsmesh_1_1model_a6df2140d1bf12631d1d4c23c14e65047}\label{classrsmesh_1_1model_a6df2140d1bf12631d1d4c23c14e65047} 
+\mbox{\hyperlink{classrsmesh_1_1model}{model}} \& {\bfseries operator=} (\mbox{\hyperlink{classrsmesh_1_1model}{model}} \&\&)=delete
+\item 
+double \mbox{\hyperlink{classrsmesh_1_1model_aa039336ddf35c46ffd3801bf2d1a6908}{nugget}} () const
+\item 
+int \mbox{\hyperlink{classrsmesh_1_1model_ab24607c9d5e8219da5176defa3a118f6}{num\+\_\+parameters}} () const
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classrsmesh_1_1model_a5a113d2fb1c71cfdea9a09e34a5a1911}{parameter\+\_\+lower\+\_\+bounds}} () const
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classrsmesh_1_1model_a501f3a34aecfa3b911b5d3ea7a4490fb}{parameter\+\_\+upper\+\_\+bounds}} () const
+\item 
+std\+::vector$<$ double $>$ \mbox{\hyperlink{classrsmesh_1_1model_a34f1d7447ac128ec377a7257f56d6b48}{parameters}} () const
+\item 
+index\+\_\+t \mbox{\hyperlink{classrsmesh_1_1model_a555cfb0aa4e746c3c70632dfa2ec1880}{poly\+\_\+basis\+\_\+size}} () const
+\item 
+int \mbox{\hyperlink{classrsmesh_1_1model_aa166425173178ba15b796fc3410cee48}{poly\+\_\+degree}} () const
+\item 
+int \mbox{\hyperlink{classrsmesh_1_1model_acad7d883eca0af1d94381240d40a0f31}{poly\+\_\+dimension}} () const
+\item 
+const \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\+::rbf\+\_\+base}} \& \mbox{\hyperlink{classrsmesh_1_1model_ab003e00f0c59183dfabb71a9482068c8}{rbf}} () const
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1model_ac194535817de6d9ba6886e4fd9c4f264}{set\+\_\+nugget}} (double nugget)
+\item 
+void \mbox{\hyperlink{classrsmesh_1_1model_a5b58c5c4c94e7b7a2a86cf47469db539}{set\+\_\+parameters}} (const std\+::vector$<$ double $>$ \&params)
+\item 
+\mbox{\hyperlink{classrsmesh_1_1model}{model}} \mbox{\hyperlink{classrsmesh_1_1model_a61c33a2e9a35dbedf15578c322c4e6be}{without\+\_\+poly}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+描述了一个插值模型 
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00021}{21}} 行定义.
+
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{classrsmesh_1_1model_a88b7ba77b2ab1de27e6abbcf153bc5aa}\label{classrsmesh_1_1model_a88b7ba77b2ab1de27e6abbcf153bc5aa} 
+\index{rsmesh::model@{rsmesh::model}!model@{model}}
+\index{model@{model}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{model()}{model()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily rsmesh\+::model\+::model (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\+::rbf\+\_\+base}} \&}]{rbf,  }\item[{int}]{poly\+\_\+dimension,  }\item[{int}]{poly\+\_\+degree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00023}{23}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_a404f221c949b39220fa04027c1121676}\label{classrsmesh_1_1model_a404f221c949b39220fa04027c1121676} 
+\index{rsmesh::model@{rsmesh::model}!model@{model}}
+\index{model@{model}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{model()}{model()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily rsmesh\+::model\+::model (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classrsmesh_1_1model}{model}} \&}]{model }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00035}{35}} 行定义.
+
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{classrsmesh_1_1model_aa039336ddf35c46ffd3801bf2d1a6908}\label{classrsmesh_1_1model_aa039336ddf35c46ffd3801bf2d1a6908} 
+\index{rsmesh::model@{rsmesh::model}!nugget@{nugget}}
+\index{nugget@{nugget}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{nugget()}{nugget()}}
+{\footnotesize\ttfamily double rsmesh\+::model\+::nugget (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00043}{43}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_ab24607c9d5e8219da5176defa3a118f6}\label{classrsmesh_1_1model_ab24607c9d5e8219da5176defa3a118f6} 
+\index{rsmesh::model@{rsmesh::model}!num\_parameters@{num\_parameters}}
+\index{num\_parameters@{num\_parameters}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{num\_parameters()}{num\_parameters()}}
+{\footnotesize\ttfamily int rsmesh\+::model\+::num\+\_\+parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00045}{45}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_a5a113d2fb1c71cfdea9a09e34a5a1911}\label{classrsmesh_1_1model_a5a113d2fb1c71cfdea9a09e34a5a1911} 
+\index{rsmesh::model@{rsmesh::model}!parameter\_lower\_bounds@{parameter\_lower\_bounds}}
+\index{parameter\_lower\_bounds@{parameter\_lower\_bounds}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{parameter\_lower\_bounds()}{parameter\_lower\_bounds()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ rsmesh\+::model\+::parameter\+\_\+lower\+\_\+bounds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00047}{47}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_a501f3a34aecfa3b911b5d3ea7a4490fb}\label{classrsmesh_1_1model_a501f3a34aecfa3b911b5d3ea7a4490fb} 
+\index{rsmesh::model@{rsmesh::model}!parameter\_upper\_bounds@{parameter\_upper\_bounds}}
+\index{parameter\_upper\_bounds@{parameter\_upper\_bounds}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{parameter\_upper\_bounds()}{parameter\_upper\_bounds()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ rsmesh\+::model\+::parameter\+\_\+upper\+\_\+bounds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00053}{53}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_a34f1d7447ac128ec377a7257f56d6b48}\label{classrsmesh_1_1model_a34f1d7447ac128ec377a7257f56d6b48} 
+\index{rsmesh::model@{rsmesh::model}!parameters@{parameters}}
+\index{parameters@{parameters}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{parameters()}{parameters()}}
+{\footnotesize\ttfamily std\+::vector$<$ double $>$ rsmesh\+::model\+::parameters (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00059}{59}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_a555cfb0aa4e746c3c70632dfa2ec1880}\label{classrsmesh_1_1model_a555cfb0aa4e746c3c70632dfa2ec1880} 
+\index{rsmesh::model@{rsmesh::model}!poly\_basis\_size@{poly\_basis\_size}}
+\index{poly\_basis\_size@{poly\_basis\_size}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{poly\_basis\_size()}{poly\_basis\_size()}}
+{\footnotesize\ttfamily index\+\_\+t rsmesh\+::model\+::poly\+\_\+basis\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00065}{65}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_aa166425173178ba15b796fc3410cee48}\label{classrsmesh_1_1model_aa166425173178ba15b796fc3410cee48} 
+\index{rsmesh::model@{rsmesh::model}!poly\_degree@{poly\_degree}}
+\index{poly\_degree@{poly\_degree}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{poly\_degree()}{poly\_degree()}}
+{\footnotesize\ttfamily int rsmesh\+::model\+::poly\+\_\+degree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00069}{69}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_acad7d883eca0af1d94381240d40a0f31}\label{classrsmesh_1_1model_acad7d883eca0af1d94381240d40a0f31} 
+\index{rsmesh::model@{rsmesh::model}!poly\_dimension@{poly\_dimension}}
+\index{poly\_dimension@{poly\_dimension}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{poly\_dimension()}{poly\_dimension()}}
+{\footnotesize\ttfamily int rsmesh\+::model\+::poly\+\_\+dimension (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00073}{73}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_ab003e00f0c59183dfabb71a9482068c8}\label{classrsmesh_1_1model_ab003e00f0c59183dfabb71a9482068c8} 
+\index{rsmesh::model@{rsmesh::model}!rbf@{rbf}}
+\index{rbf@{rbf}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{rbf()}{rbf()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf\+::rbf\+\_\+base}} \& rsmesh\+::model\+::rbf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00077}{77}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_ac194535817de6d9ba6886e4fd9c4f264}\label{classrsmesh_1_1model_ac194535817de6d9ba6886e4fd9c4f264} 
+\index{rsmesh::model@{rsmesh::model}!set\_nugget@{set\_nugget}}
+\index{set\_nugget@{set\_nugget}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{set\_nugget()}{set\_nugget()}}
+{\footnotesize\ttfamily void rsmesh\+::model\+::set\+\_\+nugget (\begin{DoxyParamCaption}\item[{double}]{nugget }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00079}{79}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_a5b58c5c4c94e7b7a2a86cf47469db539}\label{classrsmesh_1_1model_a5b58c5c4c94e7b7a2a86cf47469db539} 
+\index{rsmesh::model@{rsmesh::model}!set\_parameters@{set\_parameters}}
+\index{set\_parameters@{set\_parameters}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{set\_parameters()}{set\_parameters()}}
+{\footnotesize\ttfamily void rsmesh\+::model\+::set\+\_\+parameters (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{params }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00087}{87}} 行定义.
+
+\Hypertarget{classrsmesh_1_1model_a61c33a2e9a35dbedf15578c322c4e6be}\label{classrsmesh_1_1model_a61c33a2e9a35dbedf15578c322c4e6be} 
+\index{rsmesh::model@{rsmesh::model}!without\_poly@{without\_poly}}
+\index{without\_poly@{without\_poly}!rsmesh::model@{rsmesh::model}}
+\doxysubsubsection{\texorpdfstring{without\_poly()}{without\_poly()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classrsmesh_1_1model}{model}} rsmesh\+::model\+::without\+\_\+poly (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+在文件 \mbox{\hyperlink{model_8h_source}{model.\+h}} 第 \mbox{\hyperlink{model_8h_source_l00095}{95}} 行定义.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+include/model.\+h\end{DoxyCompactItemize}

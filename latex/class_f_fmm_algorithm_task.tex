@@ -1,0 +1,206 @@
+\doxysection{FFmm\+Algorithm\+Task\texorpdfstring{$<$}{<} Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_fmm_algorithm_task}{}\label{class_f_fmm_algorithm_task}\index{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+
+
+Please read the license  
+
+
+
+
+{\ttfamily \#include $<$FFmm\+Algorithm\+Task.\+hpp$>$}
+
+类 FFmm\+Algorithm\+Task\texorpdfstring{$<$}{<} Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.870918cm]{class_f_fmm_algorithm_task}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_fmm_algorithm_task_a3822f9b3b9a6ea5ae1967716a6a1d9db}{FFmm\+Algorithm\+Task}} (Octree\+Class \texorpdfstring{$\ast$}{*}const in\+Tree, Kernel\+Class \texorpdfstring{$\ast$}{*}const in\+Kernels, const int in\+Leaf\+Level\+Seperation\+Criteria=1)
+\item 
+virtual \mbox{\hyperlink{class_f_fmm_algorithm_task_a506d7bf7b8080f38854f8472a0808dbf}{\texorpdfstring{$\sim$}{\string~}\+FFmm\+Algorithm\+Task}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries execute} (const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm for given levels. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} () final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed, const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute only some FMM operations for given levels. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed) final
+\begin{DoxyCompactList}\small\item\em Execute only some steps. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries FAlgorithm\+Timers} ()=default
+\begin{DoxyCompactList}\small\item\em Constructor\+: resets all timers \end{DoxyCompactList}\item 
+{\bfseries FAlgorithm\+Timers} (const \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}} \&)=default
+\begin{DoxyCompactList}\small\item\em Default copy contructor \end{DoxyCompactList}\item 
+{\bfseries FAlgorithm\+Timers} (\mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}} \&\&)=default
+\begin{DoxyCompactList}\small\item\em Default move contructor \end{DoxyCompactList}\item 
+double {\bfseries get\+Time} (std\+::string Timer\+Name) const
+\begin{DoxyCompactList}\small\item\em Elapsed time between last \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{FTic\+::tic()} and \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{FTic\+::tac()} for given timer. \end{DoxyCompactList}\item 
+double {\bfseries get\+Cumulated\+Time} (std\+::string Timer\+Name) const
+\begin{DoxyCompactList}\small\item\em Cumulated time between all \doxylink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{FTic\+::tic()} and \doxylink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{FTic\+::tac()} for given timer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_task_accf5716cfa0f7ac8c0d38c0c862faea8}{execute\+Core}} (const unsigned operations\+To\+Proceed) override
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_task_ac52acc67255f68614463db606c3a4e76}{bottom\+Pass}} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_task_a5d6172fae3263e3c1c47af76d1e3ac23}{upward\+Pass}} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_task_ad2fa7847ac75027e66a227f4ba7e3400}{transfer\+Pass}} ()
+\item 
+\Hypertarget{class_f_fmm_algorithm_task_a5dc44e7900a48fa3af6974e00268aff2}\label{class_f_fmm_algorithm_task_a5dc44e7900a48fa3af6974e00268aff2} 
+void {\bfseries transfer\+Pass\+Without\+Finalize} ()
+\item 
+\Hypertarget{class_f_fmm_algorithm_task_a7fdea72342f2317efe7109d6a599e17f}\label{class_f_fmm_algorithm_task_a7fdea72342f2317efe7109d6a599e17f} 
+void {\bfseries transfer\+Pass\+With\+Finalize} ()
+\item 
+\Hypertarget{class_f_fmm_algorithm_task_a06cbd2e819da4c74bc1b46e42028ba14}\label{class_f_fmm_algorithm_task_a06cbd2e819da4c74bc1b46e42028ba14} 
+void {\bfseries downard\+Pass} ()
+\item 
+void \mbox{\hyperlink{class_f_fmm_algorithm_task_ae58478570676be3838a8905d4b8bde75}{direct\+Pass}} (const bool p2p\+Enabled, const bool l2p\+Enabled)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries set\+Nb\+Levels\+In\+Tree} (const int in\+Nb\+Levels\+In\+Tree)
+\item 
+void {\bfseries validate\+Levels} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{额外继承的成员函数}
+\doxysubsection*{Public 类型 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_algorithm_timers_a476fc8777d5054203af69ac36b8026af}\label{class_f_algorithm_timers_a476fc8777d5054203af69ac36b8026af} 
+enum \{ {\bfseries nb\+Timers} = 9
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 属性 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+FTimer\+Map {\bfseries Timers}
+\begin{DoxyCompactList}\small\item\em Timers \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{静态 Public 属性 继承自 \mbox{\hyperlink{class_f_algorithm_timers}{FAlgorithm\+Timers}}}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries P2\+MTimer} = "{}P2\+M"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries M2\+MTimer} = "{}M2\+M"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries M2\+LTimer} = "{}M2\+L"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries L2\+LTimer} = "{}L2\+L"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries L2\+PTimer} = "{}L2\+P"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries P2\+PTimer} = "{}P2\+P"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries M2\+PTimer} = "{}M2\+P"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries P2\+LTimer} = "{}P2\+L"{}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries Near\+Timer} = "{}Near"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries upper\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to start the work \end{DoxyCompactList}\item 
+int {\bfseries lower\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to end the work (exclusive) \end{DoxyCompactList}\item 
+int {\bfseries nb\+Levels\+In\+Tree}
+\begin{DoxyCompactList}\small\item\em Height of the tree \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class Octree\+Class, class Cell\+Class, class Container\+Class, class Kernel\+Class, class Leaf\+Class, class P2\+PExclusion\+Class = FP2\+PMiddle\+Exclusion$>$\newline
+class FFmm\+Algorithm\+Task$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}
+Please read the license 
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+
+
+This class is a basic FMM algorithm It just iterates on a tree and call the kernels with good arguments.
+
+Of course this class does not deallocate pointer given in arguements. 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_fmm_algorithm_task_a3822f9b3b9a6ea5ae1967716a6a1d9db}\label{class_f_fmm_algorithm_task_a3822f9b3b9a6ea5ae1967716a6a1d9db} 
+\index{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!FFmmAlgorithmTask@{FFmmAlgorithmTask}}
+\index{FFmmAlgorithmTask@{FFmmAlgorithmTask}!FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{FFmmAlgorithmTask()}{FFmmAlgorithmTask()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+\mbox{\hyperlink{class_f_fmm_algorithm_task}{FFmm\+Algorithm\+Task}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\mbox{\hyperlink{class_f_fmm_algorithm_task}{\+::\+FFmm\+Algorithm\+Task}} (\begin{DoxyParamCaption}\item[{Octree\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Tree,  }\item[{Kernel\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Kernels,  }\item[{const int}]{in\+Leaf\+Level\+Seperation\+Criteria = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+The constructor need the octree and the kernels used for computation 
+\begin{DoxyParams}{参数}
+{\em in\+Tree} & the octree to work on \\
+\hline
+{\em in\+Kernels} & the kernels to call An assert is launched if one of the arguments is null \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_fmm_algorithm_task_a506d7bf7b8080f38854f8472a0808dbf}\label{class_f_fmm_algorithm_task_a506d7bf7b8080f38854f8472a0808dbf} 
+\index{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!````~FFmmAlgorithmTask@{\texorpdfstring{$\sim$}{\string~}FFmmAlgorithmTask}}
+\index{````~FFmmAlgorithmTask@{\texorpdfstring{$\sim$}{\string~}FFmmAlgorithmTask}!FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FFmmAlgorithmTask()}{\string~FFmmAlgorithmTask()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+virtual \mbox{\hyperlink{class_f_fmm_algorithm_task}{FFmm\+Algorithm\+Task}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_fmm_algorithm_task}{FFmm\+Algorithm\+Task}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Default destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_fmm_algorithm_task_ac52acc67255f68614463db606c3a4e76}\label{class_f_fmm_algorithm_task_ac52acc67255f68614463db606c3a4e76} 
+\index{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!bottomPass@{bottomPass}}
+\index{bottomPass@{bottomPass}!FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{bottomPass()}{bottomPass()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_task}{FFmm\+Algorithm\+Task}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::bottom\+Pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+P2M \Hypertarget{class_f_fmm_algorithm_task_ae58478570676be3838a8905d4b8bde75}\label{class_f_fmm_algorithm_task_ae58478570676be3838a8905d4b8bde75} 
+\index{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!directPass@{directPass}}
+\index{directPass@{directPass}!FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{directPass()}{directPass()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_task}{FFmm\+Algorithm\+Task}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::direct\+Pass (\begin{DoxyParamCaption}\item[{const bool}]{p2p\+Enabled,  }\item[{const bool}]{l2p\+Enabled }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+P2P \Hypertarget{class_f_fmm_algorithm_task_accf5716cfa0f7ac8c0d38c0c862faea8}\label{class_f_fmm_algorithm_task_accf5716cfa0f7ac8c0d38c0c862faea8} 
+\index{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!executeCore@{executeCore}}
+\index{executeCore@{executeCore}!FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{executeCore()}{executeCore()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_task}{FFmm\+Algorithm\+Task}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::execute\+Core (\begin{DoxyParamCaption}\item[{const unsigned}]{operations\+To\+Proceed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+To execute the fmm algorithm Call this function to run the complete algorithm 
+
+实现了 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}.
+
+\Hypertarget{class_f_fmm_algorithm_task_ad2fa7847ac75027e66a227f4ba7e3400}\label{class_f_fmm_algorithm_task_ad2fa7847ac75027e66a227f4ba7e3400} 
+\index{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!transferPass@{transferPass}}
+\index{transferPass@{transferPass}!FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{transferPass()}{transferPass()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_task}{FFmm\+Algorithm\+Task}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::transfer\+Pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+M2L ~\newline
+ \Hypertarget{class_f_fmm_algorithm_task_a5d6172fae3263e3c1c47af76d1e3ac23}\label{class_f_fmm_algorithm_task_a5d6172fae3263e3c1c47af76d1e3ac23} 
+\index{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}!upwardPass@{upwardPass}}
+\index{upwardPass@{upwardPass}!FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$@{FFmmAlgorithmTask$<$ OctreeClass, CellClass, ContainerClass, KernelClass, LeafClass, P2PExclusionClass $>$}}
+\doxysubsubsection{\texorpdfstring{upwardPass()}{upwardPass()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Class , class Container\+Class , class Kernel\+Class , class Leaf\+Class , class P2\+PExclusion\+Class  = FP2\+PMiddle\+Exclusion$>$ \\
+void \mbox{\hyperlink{class_f_fmm_algorithm_task}{FFmm\+Algorithm\+Task}}$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$\+::upward\+Pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+M2M 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Core/FFmm\+Algorithm\+Task.\+hpp\end{DoxyCompactItemize}

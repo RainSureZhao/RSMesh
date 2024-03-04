@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/3.
+// Created by RainSure on 2024/2/3.
 //
 
 #ifndef RSMESH_RBF_DIRECT_EVALUATOR_H
@@ -13,6 +13,10 @@
 #include"polynomial/polynomial_evaluator.h"
 #include"types.h"
 
+/**
+ * \namespace rsmesh::interpolation
+ * \brief 该命名空间下主要定义了插值相关的类和函数
+ */
 namespace rsmesh::interpolation {
     class rbf_direct_evaluator {
         using PolynomialEvaluator = polynomial::polynomial_evaluator<polynomial::monomial_basis>;

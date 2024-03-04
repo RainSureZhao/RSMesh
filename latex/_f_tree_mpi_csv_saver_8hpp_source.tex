@@ -1,0 +1,147 @@
+\doxysection{FTree\+Mpi\+Csv\+Saver.\+hpp}
+\hypertarget{_f_tree_mpi_csv_saver_8hpp_source}{}\label{_f_tree_mpi_csv_saver_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Files/FTreeMpiCsvSaver.hpp@{third\_party/ScalFMM/include/ScalFMM/Files/FTreeMpiCsvSaver.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FTREEMPICSVSAVER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FTREEMPICSVSAVER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Utils/FMpi.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ OctreeClass,\ \textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_tree_mpi_csv_saver}{FTreeMpiCsvSaver}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\ comm;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Communicator}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ includeHeader;\ \ \ \textcolor{comment}{//<\ To\ include\ a\ line\ of\ header}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ nbFrames;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ current\ frame}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{char}\ basefile[512];\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ base\ file\ name\ like\ "{}\string~/OUT/simulation\%d.csv"{}}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{char}\ lineFormat[512];\ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ line\ format}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{char}\ header[512];\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ header\ line}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{char}\ defaultLine[512];\ \ \ \ \ \ \textcolor{comment}{//<\ The\ default\ line}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SizeOfHeader\ =\ 8;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SizeOfLine\ =\ 56;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_f_tree_mpi_csv_saver_a175c80fe6694a2c18be894f487db2e71}{FTreeMpiCsvSaver}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ inBasefile[],\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ communicator,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ inIncludeHeader\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ :\ comm(communicator.getComm()),\ includeHeader(inIncludeHeader),\ nbFrames(0)\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ strcpy(basefile,\ inBasefile);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ strcpy(lineFormat,\ \textcolor{stringliteral}{"{}\%+12.6e,\%+12.6e,\%+12.6e,\%+12.6e\(\backslash\)n"{}});\ \textcolor{comment}{//\ 56\ =\ 4\ x\ 14\ chars}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ strcpy(header,\ \textcolor{stringliteral}{"{}x,y,z,v\(\backslash\)n"{}});\ \textcolor{comment}{//\ 8\ chars}}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_tree_mpi_csv_saver_a18f46b271ff5d4396fe562a0d12b8bdb}{\string~FTreeMpiCsvSaver}}()\{}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_tree_mpi_csv_saver_a6370a58d53940d2aa6ca6b65c992bca6}{getNbFrames}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nbFrames;}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_tree_mpi_csv_saver_a0f98968e05659ca7c8571b30957abded}{exportTree}}(OctreeClass*\textcolor{keyword}{const}\ tree)\{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ currentFilename[512];}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ sprintf(currentFilename,\ basefile,\ nbFrames++);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Erase\ existing\ file}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ ==\ 0)\{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ FILE*\ fd\ =\ fopen(currentFilename,\ \textcolor{stringliteral}{"{}w"{}});}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(fd)\ fclose(fd);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ MPI\_Barrier(comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}());}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ All\ procs\ open\ the\ file}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ MPI\_File\ file;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ fileIsOpen\ =\ MPI\_File\_open(\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ currentFilename,\ MPI\_MODE\_WRONLY\ |\ MPI\_MODE\_CREATE,\ MPI\_INFO\_NULL,\ \&file\ );}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Is\ it\ open?}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(fileIsOpen\ !=\ MPI\_SUCCESS)\{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Cannot\ create\ parallel\ file,\ exportTree\ abort."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ MPI\_Offset\ disp\ =\ 0;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Each\ procs\ count\ its\ particles}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ mypart\ =\ 0;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mypart\ +=\ octreeIterator.getCurrentListTargets()-\/>getNbParticles();}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ isUsingTsm\ =\ (octreeIterator.getCurrentListTargets()\ !=\ octreeIterator.getCurrentListSrc());}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ isUsingTsm\ )\ mypart\ +=\ octreeIterator.getCurrentListSrc()-\/>getNbParticles();}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Gather\ particles\ number}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ FSize*\textcolor{keyword}{const}\ particlesPerProcs\ =\ \textcolor{keyword}{new}\ FSize[comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()];}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Allgather(\&mypart,\ 1,\ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{FMpi::GetType}}(mypart),\ particlesPerProcs,\ 1,\ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{FMpi::GetType}}(mypart),\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}()),\ \_\_LINE\_\_);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ FSize\ previousPart\ =\ 0;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;\ idxProc\ <\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ previousPart\ +=\ particlesPerProcs[idxProc];}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ particlesPerProcs;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ How\ many\ particle\ before\ me\ *\ size\ of\ particle\ in\ file}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ disp\ =\ previousPart\ *\ SizeOfLine;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(includeHeader\ \&\&\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ !=\ 0)\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ disp\ +=\ SizeOfHeader;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ view}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ native\ =\ \textcolor{stringliteral}{"{}native"{}};}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ MPI\_File\_set\_view(\ file,\ disp,\ MPI\_BYTE,\ MPI\_BYTE,\ \textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(native),\ MPI\_INFO\_NULL);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Write\ header\ if\ needed}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ MPI\_Offset\ offset\ =\ 0;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(includeHeader\ \&\&\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\ ==\ 0)\{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_File\_write\_at(\ file,\ 0,\ header,\ SizeOfHeader,\ MPI\_BYTE,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ offset\ +=\ SizeOfHeader;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Write\ particle}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ line[SizeOfLine+1];}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ OctreeClass::Iterator\ octreeIterator(tree);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ octreeIterator.gotoBottomLeft();}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ container\ =\ octreeIterator.getCurrentListTargets();}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ container-\/>getNbParticles()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ values[4];}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ container-\/>fillToCsv(idxPart,\ values);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(line,\ lineFormat,\ values[0],values[1],}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ values[2],values[3]);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_File\_write\_at(\ file,\ offset,\ line,\ SizeOfLine,\ MPI\_BYTE,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset\ +=\ SizeOfLine;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ isUsingTsm\ =\ (octreeIterator.getCurrentListTargets()\ !=\ octreeIterator.getCurrentListSrc());}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ isUsingTsm\ )\{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ container\ =\ octreeIterator.getCurrentListSrc();}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ container-\/>getNbParticles()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ values[4];}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ container-\/>fillToCsv(idxPart,\ values);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(line,\ lineFormat,\ values[0],values[1],}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ values[2],values[3]);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_File\_write\_at(\ file,\ offset,\ line,\ SizeOfLine,\ MPI\_BYTE,\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ offset\ +=\ SizeOfLine;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}(octreeIterator.moveRight());}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ MPI\_File\_close(\ \&file\ );}
+\DoxyCodeLine{00151\ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FTREEMPICSVSAVER\_HPP}}
+
+\end{DoxyCode}

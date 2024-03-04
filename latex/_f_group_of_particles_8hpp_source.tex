@@ -1,0 +1,359 @@
+\doxysection{FGroup\+Of\+Particles.\+hpp}
+\hypertarget{_f_group_of_particles_8hpp_source}{}\label{_f_group_of_particles_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/Core/FGroupOfParticles.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/Core/FGroupOfParticles.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Keep\ in\ private\ GIT}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ FGROUPOFPARTICLES\_HPP}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ FGROUPOFPARTICLES\_HPP}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FAssert.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../../Containers/FTreeCoordinate.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FAlignedMemory.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../StarPUUtils/FStarPUDefaultAlign.hpp"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{unsigned}\ NbSymbAttributes,\ \textcolor{keywordtype}{unsigned}\ NbAttributesPerParticle,\ \textcolor{keyword}{class}\ AttributeClass\ =\ FReal>}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_group_of_particles}{FGroupOfParticles}}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{struct\ }\textcolor{keyword}{alignas}(FStarPUDefaultAlign::StructAlign)\ BlockHeader\{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ MortonIndex\ startingIndex;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ MortonIndex\ endingIndex;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numberOfLeavesInBlock;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ real\ number\ of\ particles\ allocated}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ FSize\ nbParticlesAllocatedInGroup;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Starting\ point\ of\ position}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offsetPosition;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Bytes\ difference/offset\ between\ position}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ positionsLeadingDim;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Bytes\ difference/offset\ between\ attributes}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ attributeLeadingDim;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ total\ number\ of\ particles\ in\ the\ group}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ FSize\ nbParticlesInGroup;}
+\DoxyCodeLine{00038\ \ \ \ \ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{struct\ }\textcolor{keyword}{alignas}(FStarPUDefaultAlign::StructAlign)\ LeafHeader\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ MortonIndex\ mindex;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ FSize\ nbParticles;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offSet;}
+\DoxyCodeLine{00045\ \ \ \ \ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MemoryAlignementBytes\ \ \ \ \ =\ FP2PDefaultAlignement;}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MemoryAlignementParticles\ =\ MemoryAlignementBytes/\textcolor{keyword}{sizeof}(FReal);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ NumClass>}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{static}\ NumClass\ \mbox{\hyperlink{class_f_group_of_particles_a46751c12dc35e9c3d0aa5867b9829f98}{RoundToUpperParticles}}(\textcolor{keyword}{const}\ NumClass\&\ nbParticles)\{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nbParticles\ +\ (MemoryAlignementParticles\ -\/\ (nbParticles\%MemoryAlignementParticles));}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//<\ The\ size\ of\ memoryBuffer\ in\ byte}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ allocatedMemoryInByte;}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//<\ Pointer\ to\ a\ block\ memory}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ memoryBuffer;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//<\ Pointer\ to\ the\ header\ inside\ the\ block\ memory}}
+\DoxyCodeLine{00068\ \ \ \ \ BlockHeader*\ \ \ \ blockHeader;}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//<\ Pointer\ to\ leaves\ information}}
+\DoxyCodeLine{00070\ \ \ \ \ LeafHeader*\ \ \ \ \ leafHeader;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//<\ Pointers\ to\ particle\ position\ x,\ y,\ z}}
+\DoxyCodeLine{00073\ \ \ \ \ FReal*\ particlePosition[3];}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//<\ Pointers\ to\ the\ particles\ data\ inside\ the\ block\ memory}}
+\DoxyCodeLine{00076\ \ \ \ \ AttributeClass*\ attributesBuffer;}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#ifndef\ SCALFMM\_SIMGRID\_NODATA}}
+\DoxyCodeLine{00078\ \ \ \ \ AttributeClass*\ particleAttributes[NbSymbAttributes+NbAttributesPerParticle];}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00080\ \ \ \ \ AttributeClass*\ particleAttributes[NbSymbAttributes];}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_group_of_particles_adadb403c2a16c4292d88d4a633f0ee4d}{deleteBuffer}};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{typedef}\ AttributeClass\ ParticleDataType;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{class_f_group_of_particles_ab582ce7fdec5c67761e5b531cb1e4372}{FGroupOfParticles}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ inBuffer,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ inAllocatedMemoryInByte,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ inAttributes)}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ :\ allocatedMemoryInByte(inAllocatedMemoryInByte),\ memoryBuffer(inBuffer),}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ blockHeader(nullptr),\ leafHeader(nullptr),}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ attributesBuffer(nullptr),\ \mbox{\hyperlink{class_f_group_of_particles_adadb403c2a16c4292d88d4a633f0ee4d}{deleteBuffer}}(false)\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ the\ pointers\ to\ the\ correct\ position}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ blockHeader\ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{reinterpret\_cast<}BlockHeader*\textcolor{keyword}{>}(inBuffer);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ inBuffer\ +=\ \textcolor{keyword}{sizeof}(BlockHeader);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ leafHeader\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{reinterpret\_cast<}LeafHeader*\textcolor{keyword}{>}(inBuffer);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ particle\ pointers}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ FAssertLF(\ blockHeader-\/>positionsLeadingDim\ ==\ (\textcolor{keyword}{sizeof}(FReal)\ *\ blockHeader-\/>nbParticlesAllocatedInGroup)\ );}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ particlePosition[0]\ =\ \textcolor{keyword}{reinterpret\_cast<}FReal*\textcolor{keyword}{>}(memoryBuffer\ +\ blockHeader-\/>offsetPosition);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ particlePosition[1]\ =\ (particlePosition[0]\ +\ blockHeader-\/>nbParticlesAllocatedInGroup);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ particlePosition[2]\ =\ (particlePosition[1]\ +\ blockHeader-\/>nbParticlesAllocatedInGroup);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirect\ pointer\ to\ data}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ FAssertLF(blockHeader-\/>attributeLeadingDim\ ==\ (\textcolor{keyword}{sizeof}(AttributeClass)\ *\ blockHeader-\/>nbParticlesAllocatedInGroup));}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ AttributeClass*\ symAttributes\ =\ (AttributeClass*)(\&particlePosition[2][blockHeader-\/>nbParticlesAllocatedInGroup]);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbSymbAttributes\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ particleAttributes[idxAttribute]\ =\ symAttributes;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ symAttributes\ +=\ blockHeader-\/>nbParticlesAllocatedInGroup;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#ifndef\ SCALFMM\_SIMGRID\_NODATA}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inAttributes)\{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ attributesBuffer\ =\ (AttributeClass*)inAttributes;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbAttributesPerParticle\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particleAttributes[idxAttribute+NbSymbAttributes]\ =\ \&attributesBuffer[idxAttribute*blockHeader-\/>nbParticlesAllocatedInGroup];}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00133\ \ \ \ \ \mbox{\hyperlink{class_f_group_of_particles_a57170d37a48ce78d2b293a5fe4eccacb}{FGroupOfParticles}}(\textcolor{keyword}{const}\ MortonIndex\ inStartingIndex,\ \textcolor{keyword}{const}\ MortonIndex\ inEndingIndex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inNumberOfLeaves,\ \textcolor{keyword}{const}\ FSize\ inNbParticles)}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ :\ allocatedMemoryInByte(0),\ memoryBuffer(nullptr),\ blockHeader(nullptr),\ leafHeader(nullptr),}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_group_of_particles_adadb403c2a16c4292d88d4a633f0ee4d}{deleteBuffer}}(true)\{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ memset(particlePosition,\ 0,\ \textcolor{keyword}{sizeof}(particlePosition));}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ memset(particleAttributes,\ 0,\ \textcolor{keyword}{sizeof}(particleAttributes));}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbParticlesAllocatedInGroup\ =\ \mbox{\hyperlink{class_f_group_of_particles_a46751c12dc35e9c3d0aa5867b9829f98}{RoundToUpperParticles}}(inNbParticles+(MemoryAlignementParticles-\/1)*inNumberOfLeaves);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ number\ of\ leaf\ to\ allocate\ in\ the\ blocks}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ FAssertLF((inEndingIndex-\/inStartingIndex)\ >=\ MortonIndex(inNumberOfLeaves));}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Total\ number\ of\ bytes\ in\ the\ block}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ sizeOfOneParticle\ =\ (3*\textcolor{keyword}{sizeof}(FReal)\ +\ NbSymbAttributes*\textcolor{keyword}{sizeof}(AttributeClass));}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ memoryToAlloc\ =\ \textcolor{keyword}{sizeof}(BlockHeader)}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ (inNumberOfLeaves*\textcolor{keyword}{sizeof}(MortonIndex))}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ (inNumberOfLeaves*\textcolor{keyword}{sizeof}(LeafHeader))}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ nbParticlesAllocatedInGroup*sizeOfOneParticle;}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Allocate}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ FAssertLF(0\ <=\ \textcolor{keywordtype}{int}(memoryToAlloc)\ \&\&\ \textcolor{keywordtype}{int}(memoryToAlloc)\ <\ std::numeric\_limits<int>::max());}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ allocatedMemoryInByte\ =\ memoryToAlloc;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ memoryBuffer\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)FAlignedMemory::AllocateBytes<MemoryAlignementBytes>(memoryToAlloc);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ FAssertLF(memoryBuffer);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ memset(memoryBuffer,\ 0,\ memoryToAlloc);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ the\ pointers\ to\ the\ correct\ position}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ bufferPtr\ =\ memoryBuffer;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ blockHeader\ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{reinterpret\_cast<}BlockHeader*\textcolor{keyword}{>}(bufferPtr);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ bufferPtr\ +=\ \textcolor{keyword}{sizeof}(BlockHeader);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ leafHeader\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{reinterpret\_cast<}LeafHeader*\textcolor{keyword}{>}(bufferPtr);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ header}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ blockHeader-\/>startingIndex\ =\ inStartingIndex;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ blockHeader-\/>endingIndex\ \ \ =\ inEndingIndex;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ blockHeader-\/>numberOfLeavesInBlock\ \ =\ inNumberOfLeaves;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ blockHeader-\/>nbParticlesAllocatedInGroup\ =\ nbParticlesAllocatedInGroup;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ blockHeader-\/>nbParticlesInGroup\ =\ inNbParticles;}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ particle\ pointers}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ blockHeader-\/>positionsLeadingDim\ =\ (\textcolor{keyword}{sizeof}(FReal)\ *\ nbParticlesAllocatedInGroup);}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ particlePosition[0]\ =\ \textcolor{keyword}{reinterpret\_cast<}FReal*\textcolor{keyword}{>}((\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(leafHeader\ +\ inNumberOfLeaves)}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +MemoryAlignementBytes-\/1)\ \&\ \string~(MemoryAlignementBytes-\/1));}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ particlePosition[1]\ =\ (particlePosition[0]\ +\ nbParticlesAllocatedInGroup);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ particlePosition[2]\ =\ (particlePosition[1]\ +\ nbParticlesAllocatedInGroup);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ blockHeader-\/>offsetPosition\ =\ size\_t(particlePosition[0])\ -\/\ size\_t(memoryBuffer);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirect\ pointer\ to\ data}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ blockHeader-\/>attributeLeadingDim\ =\ (\textcolor{keyword}{sizeof}(AttributeClass)\ *\ nbParticlesAllocatedInGroup);}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ AttributeClass*\ symAttributes\ =\ (AttributeClass*)(\&particlePosition[2][blockHeader-\/>nbParticlesAllocatedInGroup]);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbSymbAttributes\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ particleAttributes[idxAttribute]\ =\ symAttributes;}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ symAttributes\ +=\ blockHeader-\/>nbParticlesAllocatedInGroup;}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#ifndef\ SCALFMM\_SIMGRID\_NODATA}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ attributesBuffer\ =\ (AttributeClass*)FAlignedMemory::AllocateBytes<MemoryAlignementBytes>(blockHeader-\/>attributeLeadingDim*NbAttributesPerParticle);}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ memset(attributesBuffer,\ 0,\ blockHeader-\/>attributeLeadingDim*NbAttributesPerParticle);}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbAttributesPerParticle\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ particleAttributes[idxAttribute+NbSymbAttributes]\ =\ \&attributesBuffer[idxAttribute*nbParticlesAllocatedInGroup];}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ attributesBuffer\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ all\ index\ to\ not\ used}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLeafPtr\ =\ 0\ ;\ idxLeafPtr\ <\ inNumberOfLeaves\ ;\ ++idxLeafPtr)\{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ leafHeader[idxLeafPtr].mindex\ =\ -\/1;}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00204\ \ \ \ \ \mbox{\hyperlink{class_f_group_of_particles_aa929deecc9a6629a2e2be9dd86775c36}{\string~FGroupOfParticles}}()\{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_f_group_of_particles_adadb403c2a16c4292d88d4a633f0ee4d}{deleteBuffer}})\{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ FAlignedMemory::DeallocBytes(memoryBuffer);}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ FAlignedMemory::DeallocBytes(attributesBuffer);}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{class_f_group_of_particles_a3d7f859b6e51503beb897828e43668b5}{getRawBuffer}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ memoryBuffer;}
+\DoxyCodeLine{00214\ \ \ \ \ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_f_group_of_particles_a9ac8f4799b83c24f14276e1f36b0088c}{getBufferSizeInByte}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ allocatedMemoryInByte;}
+\DoxyCodeLine{00219\ \ \ \ \ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{class_f_group_of_particles_a6379aaf0e7c9047c6f79e0ab36411a36}{getRawAttributesBuffer}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(attributesBuffer);}
+\DoxyCodeLine{00224\ \ \ \ \ \}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{class_f_group_of_particles_a7f38dbf5b86fd966d2d15be02c67faba}{getRawAttributesBuffer}}()\{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(attributesBuffer);}
+\DoxyCodeLine{00229\ \ \ \ \ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_f_group_of_particles_aaa94840472204484c80cbf4e5c0b563f}{getAttributesBufferSizeInByte}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>attributeLeadingDim*NbAttributesPerParticle;}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_group_of_particles_a377795ec81b06a5facec2ade5b151007}{getDeleteMemory}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_group_of_particles_adadb403c2a16c4292d88d4a633f0ee4d}{deleteBuffer}};}
+\DoxyCodeLine{00239\ \ \ \ \ \}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00242\ \ \ \ \ MortonIndex\ \mbox{\hyperlink{class_f_group_of_particles_ae0a7d7c851d3593aef91b9bee109ac11}{getStartingIndex}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>startingIndex;}
+\DoxyCodeLine{00244\ \ \ \ \ \}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00247\ \ \ \ \ MortonIndex\ \mbox{\hyperlink{class_f_group_of_particles_aec6cc44a96cc77e6f338724e27173a0c}{getEndingIndex}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>endingIndex;}
+\DoxyCodeLine{00249\ \ \ \ \ \}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_group_of_particles_af7a8e8ab8558b0934c4f70d2a26dbcac}{getNumberOfLeavesInBlock}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>numberOfLeavesInBlock;}
+\DoxyCodeLine{00254\ \ \ \ \ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00257\ \ \ \ \ FSize\ \mbox{\hyperlink{class_f_group_of_particles_a5bf1edb380c2ccf552d63684b48c187b}{getNbParticlesInGroup}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>nbParticlesInGroup;}
+\DoxyCodeLine{00259\ \ \ \ \ \}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00262\ \ \ \ \ MortonIndex\ \mbox{\hyperlink{class_f_group_of_particles_a7d290305aefe81fbcbb8f52b0e88ebcc}{getSizeOfInterval}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (blockHeader-\/>endingIndex-\/blockHeader-\/>startingIndex);}
+\DoxyCodeLine{00264\ \ \ \ \ \}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_group_of_particles_af2952964e0b83f8cd66d130edd70d84e}{isInside}}(\textcolor{keyword}{const}\ MortonIndex\ inIndex)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>startingIndex\ <=\ inIndex\ \&\&\ inIndex\ <\ blockHeader-\/>endingIndex;}
+\DoxyCodeLine{00269\ \ \ \ \ \}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00272\ \ \ \ \ MortonIndex\ \mbox{\hyperlink{class_f_group_of_particles_a1782ce131901bba2d3121472a1ef86ec}{getLeafMortonIndex}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ FAssertLF(id\ <\ blockHeader-\/>numberOfLeavesInBlock);}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ leafHeader[id].mindex;}
+\DoxyCodeLine{00275\ \ \ \ \ \}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_group_of_particles_a6a7d179ce8ad3102f99a220108750c30}{getLeafIndex}}(\textcolor{keyword}{const}\ MortonIndex\ leafIdx)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLeft\ =\ 0;}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxRight\ =\ blockHeader-\/>numberOfLeavesInBlock-\/1;}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(idxLeft\ <=\ idxRight)\{}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxMiddle\ =\ (idxLeft+idxRight)/2;}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leafHeader[idxMiddle].mindex\ ==\ leafIdx)\{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxMiddle;}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leafIdx\ <\ leafHeader[idxMiddle].mindex)\{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxRight\ =\ idxMiddle-\/1;}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxLeft\ =\ idxMiddle+1;}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00294\ \ \ \ \ \}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_group_of_particles_a87a325b03a1cbf59be7cf9fbe13085da}{exists}}(\textcolor{keyword}{const}\ MortonIndex\ inIndex)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_group_of_particles_af2952964e0b83f8cd66d130edd70d84e}{isInside}}(inIndex)\ \&\&\ (\mbox{\hyperlink{class_f_group_of_particles_a6a7d179ce8ad3102f99a220108750c30}{getLeafIndex}}(inIndex)\ !=\ -\/1);}
+\DoxyCodeLine{00299\ \ \ \ \ \}}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_f_group_of_particles_a2d34d6e981b5a0084028490c9db0157c}{newLeaf}}(\textcolor{keyword}{const}\ MortonIndex\ inIndex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ FSize\ nbParticles,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ offsetInGroup)\{}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ FAssertLF(\mbox{\hyperlink{class_f_group_of_particles_af2952964e0b83f8cd66d130edd70d84e}{isInside}}(inIndex));}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ FAssertLF(!\mbox{\hyperlink{class_f_group_of_particles_a87a325b03a1cbf59be7cf9fbe13085da}{exists}}(inIndex));}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ FAssertLF(id\ <\ blockHeader-\/>numberOfLeavesInBlock);}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ FAssertLF(offsetInGroup\ <\ \textcolor{keywordtype}{size\_t}(blockHeader-\/>nbParticlesAllocatedInGroup));}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ leafHeader[id].nbParticles\ =\ nbParticles;}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ leafHeader[id].offSet\ =\ offsetInGroup;}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ leafHeader[id].mindex\ =\ inIndex;}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nextLeafOffsetInGroup\ =\ \mbox{\hyperlink{class_f_group_of_particles_a46751c12dc35e9c3d0aa5867b9829f98}{RoundToUpperParticles}}(offsetInGroup+nbParticles);}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ FAssertLF(nextLeafOffsetInGroup\ <=\ \textcolor{keywordtype}{size\_t}(blockHeader-\/>nbParticlesAllocatedInGroup\ +\ MemoryAlignementParticles));}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nextLeafOffsetInGroup;}
+\DoxyCodeLine{00314\ \ \ \ \ \}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ ParticlesAttachedClass>}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_group_of_particles_ab401cbec8c5cf097545509ba21a05500}{forEachLeaf}}(std::function<\textcolor{keywordtype}{void}(ParticlesAttachedClass*)>\ function)\{}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLeafPtr\ =\ 0\ ;\ idxLeafPtr\ <\ blockHeader-\/>numberOfLeavesInBlock\ ;\ ++idxLeafPtr)\{}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ ParticlesAttachedClass\ leaf(leafHeader[idxLeafPtr].nbParticles,}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlePosition[0]\ +\ leafHeader[idxLeafPtr].offSet,}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockHeader-\/>positionsLeadingDim,}
+\DoxyCodeLine{00323\ \#ifndef\ SCALFMM\_SIMGRID\_NODATA}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (attributesBuffer?particleAttributes[NbSymbAttributes]\ +\ leafHeader[idxLeafPtr].offSet:\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00325\ \#\textcolor{keywordflow}{else}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00327\ \#endif}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockHeader-\/>attributeLeadingDim);}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ function(\&leaf);}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00331\ \ \ \ \ \}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ ParticlesAttachedClass>}
+\DoxyCodeLine{00336\ \ \ \ \ ParticlesAttachedClass\ \mbox{\hyperlink{class_f_group_of_particles_ae0bfcd7c9ca71686c269e0f6358c02f7}{getLeaf}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\{}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ FAssertLF(id\ <\ blockHeader-\/>numberOfLeavesInBlock);}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ParticlesAttachedClass(leafHeader[\textcolor{keywordtype}{id}].nbParticles,}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlePosition[0]\ +\ leafHeader[\textcolor{keywordtype}{id}].offSet,}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockHeader-\/>positionsLeadingDim,}
+\DoxyCodeLine{00341\ \#ifndef\ SCALFMM\_SIMGRID\_NODATA}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (attributesBuffer?particleAttributes[NbSymbAttributes]\ +\ leafHeader[\textcolor{keywordtype}{id}].offSet:\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00343\ \#\textcolor{keywordflow}{else}}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00345\ \#endif}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockHeader-\/>attributeLeadingDim);}
+\DoxyCodeLine{00347\ \ \ \ \ \}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_f_group_of_particles_a18a9005d9759f3adb96aa074e1f2b3bc}{getExtractBufferSize}}(\textcolor{keyword}{const}\ std::vector<int>\&\ inLeavesIdxToExtract)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ totalSize\ =\ 0;}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ idxEx\ =\ 0\ ;\ idxEx\ <\ inLeavesIdxToExtract.size()\ ;\ ++idxEx)\{}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idLeaf\ =\ inLeavesIdxToExtract[idxEx];}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ totalSize\ +=\ leafHeader[idLeaf].nbParticles*\textcolor{keyword}{sizeof}(FReal)*NbSymbAttributes;}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ totalSize;}
+\DoxyCodeLine{00359\ \ \ \ \ \}}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keywordtype}{void}\ extractData(\textcolor{keyword}{const}\ std::vector<int>\&\ inLeavesIdxToExtract,}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ outputBuffer,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ outputBufferSize)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ idxValue\ =\ 0;}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ idxEx\ =\ 0\ ;\ idxEx\ <\ inLeavesIdxToExtract.size()\ ;\ ++idxEx)\{}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idLeaf\ =\ inLeavesIdxToExtract[idxEx];}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttr\ =\ 0\ ;\ idxAttr\ <\ NbSymbAttributes\ ;\ ++idxAttr)\{}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ ptrData\ =\ particlePosition[0]\ +\ leafHeader[idLeaf].offSet}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ blockHeader-\/>positionsLeadingDim*idxAttr;}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxPart\ =\ 0\ ;\ idxPart\ <\ leafHeader[idLeaf].nbParticles\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((FReal*)outputBuffer)[idxValue++]\ =\ ptrData[idxPart];}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ FAssertLF(idxValue*\textcolor{keyword}{sizeof}(FReal)\ ==\ outputBufferSize);}
+\DoxyCodeLine{00375\ \ \ \ \ \}}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keywordtype}{void}\ restoreData(\textcolor{keyword}{const}\ std::vector<int>\&\ inLeavesIdxToExtract,}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ intputBuffer,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ inputBufferSize)\{}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ idxValue\ =\ 0;}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ idxEx\ =\ 0\ ;\ idxEx\ <\ inLeavesIdxToExtract.size()\ ;\ ++idxEx)\{}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idLeaf\ =\ inLeavesIdxToExtract[idxEx];}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttr\ =\ 0\ ;\ idxAttr\ <\ NbSymbAttributes\ ;\ ++idxAttr)\{}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ ptrData\ =\ particlePosition[0]\ +\ leafHeader[idLeaf].offSet}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ blockHeader-\/>positionsLeadingDim*idxAttr;}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxPart\ =\ 0\ ;\ idxPart\ <\ leafHeader[idLeaf].nbParticles\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptrData[idxPart]\ =\ ((\textcolor{keyword}{const}\ FReal*)intputBuffer)[idxValue++];}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ FAssertLF(idxValue*\textcolor{keyword}{sizeof}(FReal)\ ==\ inputBufferSize);}
+\DoxyCodeLine{00391\ \ \ \ \ \}}
+\DoxyCodeLine{00392\ \};}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FGROUPOFPARTICLES\_HPP}}
+
+\end{DoxyCode}

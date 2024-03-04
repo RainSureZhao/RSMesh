@@ -1,0 +1,159 @@
+\doxysection{FDlpoly\+Loader\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_dlpoly_loader}{}\label{class_f_dlpoly_loader}\index{FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}}
+
+
+{\ttfamily \#include $<$FDlpoly\+Loader.\+hpp$>$}
+
+类 FDlpoly\+Loader\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_f_dlpoly_loader}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \mbox{\hyperlink{class_f_dlpoly_loader_a9838a0fc9e8c4146cdc4bc82bcc0c9a0}{is\+Open}} () const =0
+\item 
+virtual void \mbox{\hyperlink{class_f_dlpoly_loader_a644f126b9c598e642fab8b994cefcfe7}{fill\+Particle}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}in\+Position, FReal in\+Forces\mbox{[}3\mbox{]}, FReal \texorpdfstring{$\ast$}{*}in\+Physical\+Value, int \texorpdfstring{$\ast$}{*}in\+Index)=0
+\item 
+FSize \mbox{\hyperlink{class_f_dlpoly_loader_ae4d2e8d81e946487155d2bff0f428cfd}{get\+Number\+Of\+Particles}} () const
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_dlpoly_loader_a0352bea3b5bf9d3ac216c991a5ba85e7}{get\+Center\+Of\+Box}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_dlpoly_loader_ab515a75b4d0b4c76f0c9092642de3ef2}{get\+Box\+Width}} () const
+\item 
+\Hypertarget{class_f_dlpoly_loader_ae70cb16e6c2a8203a0332c9b2fb9c046}\label{class_f_dlpoly_loader_ae70cb16e6c2a8203a0332c9b2fb9c046} 
+FReal {\bfseries get\+Energy} () const
+\item 
+\Hypertarget{class_f_dlpoly_loader_afe32d2c1967ff6bb3e45c0cc8a8cca63}\label{class_f_dlpoly_loader_afe32d2c1967ff6bb3e45c0cc8a8cca63} 
+void {\bfseries get\+Physical\+Value} (std\+::string \&type, FReal \&out\+Physical\+Value, int \&out\+Index) const
+\item 
+\Hypertarget{class_f_dlpoly_loader_ad3d866e25be35fe01448ba53231a79d0}\label{class_f_dlpoly_loader_ad3d866e25be35fe01448ba53231a79d0} 
+void {\bfseries get\+Physical\+Value} (char type\mbox{[}2\mbox{]}, FReal \&out\+Physical\+Value, int \&out\+Index) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_loader}{FAbstract\+Loader$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_f_abstract_loader_a50fdd33c7eac1ec0733b79ed1bd4b4e8}{\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Loader}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_dlpoly_loader_a77bbdd42c2570b93f803cbfae4f5915b}\label{class_f_dlpoly_loader_a77bbdd42c2570b93f803cbfae4f5915b} 
+enum {\bfseries Type} \{ \newline
+{\bfseries OW}
+, {\bfseries HW}
+, {\bfseries Na}
+, {\bfseries Cl}
+, \newline
+{\bfseries Undefined}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_dlpoly_loader_aea2c91c723fb07cedfceb81b836ab257}\label{class_f_dlpoly_loader_aea2c91c723fb07cedfceb81b836ab257} 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries center\+Of\+Box}
+\item 
+\Hypertarget{class_f_dlpoly_loader_aad1a7e242c8971a783b9308d88fcb26d}\label{class_f_dlpoly_loader_aad1a7e242c8971a783b9308d88fcb26d} 
+FReal {\bfseries box\+Width}
+\item 
+\Hypertarget{class_f_dlpoly_loader_a9a240ef15bf00f36552bb716beb23ba1}\label{class_f_dlpoly_loader_a9a240ef15bf00f36552bb716beb23ba1} 
+int {\bfseries nb\+Particles}
+\item 
+\Hypertarget{class_f_dlpoly_loader_a6ce3aa8cfb9a29d139aeadfc70a440c7}\label{class_f_dlpoly_loader_a6ce3aa8cfb9a29d139aeadfc70a440c7} 
+int {\bfseries levcfg}
+\item 
+\Hypertarget{class_f_dlpoly_loader_ad96b5ea107a34314d4ef5074941d27fa}\label{class_f_dlpoly_loader_ad96b5ea107a34314d4ef5074941d27fa} 
+FReal {\bfseries energy}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal$>$\newline
+class FDlpoly\+Loader$<$ FReal $>$}
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+Please read the license Particle has to extend \{FExtend\+Physical\+Value,FExtend\+Position\} 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_dlpoly_loader_a644f126b9c598e642fab8b994cefcfe7}\label{class_f_dlpoly_loader_a644f126b9c598e642fab8b994cefcfe7} 
+\index{FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}!fillParticle@{fillParticle}}
+\index{fillParticle@{fillParticle}!FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{fillParticle()}{fillParticle()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+virtual void \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpoly\+Loader}}$<$ FReal $>$\+::fill\+Particle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}}]{in\+Position,  }\item[{FReal}]{in\+Forces\mbox{[}3\mbox{]},  }\item[{FReal \texorpdfstring{$\ast$}{*}}]{in\+Physical\+Value,  }\item[{int \texorpdfstring{$\ast$}{*}}]{in\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+在 \mbox{\hyperlink{class_f_dlpoly_ascii_loader_ab135f774f43ff9c91106f453586bbab4}{FDlpoly\+Ascii\+Loader$<$ FReal $>$}} , 以及 \mbox{\hyperlink{class_f_dlpoly_bin_loader_ae5d9de6bdc09d078021ec5554c3b16e1}{FDlpoly\+Bin\+Loader$<$ FReal $>$}} 内被实现.
+
+\Hypertarget{class_f_dlpoly_loader_ab515a75b4d0b4c76f0c9092642de3ef2}\label{class_f_dlpoly_loader_ab515a75b4d0b4c76f0c9092642de3ef2} 
+\index{FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}!getBoxWidth@{getBoxWidth}}
+\index{getBoxWidth@{getBoxWidth}!FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getBoxWidth()}{getBoxWidth()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpoly\+Loader}}$<$ FReal $>$\+::get\+Box\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+The box width from the simulation file opened by the loader \begin{DoxyReturn}{返回}
+box width 
+\end{DoxyReturn}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_a2cbf052128fb47a1072fe556e1b37a3e}{FAbstract\+Loader$<$ FReal $>$}}.
+
+\Hypertarget{class_f_dlpoly_loader_a0352bea3b5bf9d3ac216c991a5ba85e7}\label{class_f_dlpoly_loader_a0352bea3b5bf9d3ac216c991a5ba85e7} 
+\index{FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}!getCenterOfBox@{getCenterOfBox}}
+\index{getCenterOfBox@{getCenterOfBox}!FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getCenterOfBox()}{getCenterOfBox()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpoly\+Loader}}$<$ FReal $>$\+::get\+Center\+Of\+Box (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+The center of the box from the simulation file opened by the loader \begin{DoxyReturn}{返回}
+box center 
+\end{DoxyReturn}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_ad3b312747bb0063d23477ea2706ccd5b}{FAbstract\+Loader$<$ FReal $>$}}.
+
+\Hypertarget{class_f_dlpoly_loader_ae4d2e8d81e946487155d2bff0f428cfd}\label{class_f_dlpoly_loader_ae4d2e8d81e946487155d2bff0f428cfd} 
+\index{FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}!getNumberOfParticles@{getNumberOfParticles}}
+\index{getNumberOfParticles@{getNumberOfParticles}!FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getNumberOfParticles()}{getNumberOfParticles()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FSize \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpoly\+Loader}}$<$ FReal $>$\+::get\+Number\+Of\+Particles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+To get the number of particles from this loader 
+\begin{DoxyParams}{参数}
+{\em the} & number of particles the loader can fill \\
+\hline
+\end{DoxyParams}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_aa2e8ad65f225d66660fede162fe2765b}{FAbstract\+Loader$<$ FReal $>$}}.
+
+\Hypertarget{class_f_dlpoly_loader_a9838a0fc9e8c4146cdc4bc82bcc0c9a0}\label{class_f_dlpoly_loader_a9838a0fc9e8c4146cdc4bc82bcc0c9a0} 
+\index{FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}!isOpen@{isOpen}}
+\index{isOpen@{isOpen}!FDlpolyLoader$<$ FReal $>$@{FDlpolyLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{isOpen()}{isOpen()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+virtual bool \mbox{\hyperlink{class_f_dlpoly_loader}{FDlpoly\+Loader}}$<$ FReal $>$\+::is\+Open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+To know if the loader is valide (file opened, etc.) \begin{DoxyReturn}{返回}
+true if file is open 
+\end{DoxyReturn}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_ad1c647e0fb2ae0de47c1cfab4ad6d811}{FAbstract\+Loader$<$ FReal $>$}}.
+
+
+
+在 \mbox{\hyperlink{class_f_dlpoly_ascii_loader_a29c7fe3ebbc51995a4d7681aabe44ff4}{FDlpoly\+Ascii\+Loader$<$ FReal $>$}} , 以及 \mbox{\hyperlink{class_f_dlpoly_bin_loader_a1e97d0e5f0ab8ebdfdeab2c323ad7e32}{FDlpoly\+Bin\+Loader$<$ FReal $>$}} 内被实现.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Files/FDlpoly\+Loader.\+hpp\end{DoxyCompactItemize}

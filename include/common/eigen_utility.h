@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2023/10/30.
+// Created by RainSure on 2023/10/30.
 //
 
 #ifndef RSMESH_EIGEN_UTILITY_H
@@ -21,6 +21,10 @@
 
 
 namespace rsmesh {
+    /**
+     * \namespace rsmesh::common
+     * \brief 通用工具函数的命名空间，包括一个detail子命名空间
+     */
     namespace common {
         namespace detail {
             template<class Derived>

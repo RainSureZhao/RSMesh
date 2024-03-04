@@ -1,0 +1,120 @@
+\doxysection{FTic.\+hpp}
+\hypertarget{_f_tic_8hpp_source}{}\label{_f_tic_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FTic.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FTic.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FTIC\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FTIC\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ USE\_STD\_CHRONO}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#if\ defined(USE\_STD\_CHRONO)}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ \#include\ <chrono>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#elif\ defined(\_OPENMP)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \#include\ <omp.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#elif\ defined(WINDOWS)\ }\textcolor{comment}{//\ We\ need\ an\ os\ specific\ function}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ \#include\ <time.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ \#include\ <windows.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \#ifndef\ POSIX}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#warning\ Posix\ used\ withoug\ being\ explicitly\ defined}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ \ \ \#include\ <time.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ \#include\ <sys/time.h>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \#include\ <unistd.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stdint.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_tic}{FTic}}\ \{}
+\DoxyCodeLine{00055\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{double}\ start\ \ \ \ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{double}\ end\ \ \ \ \ \ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{double}\ cumulate\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_f_tic_adafe13542bd0ee700ab193435b70ce78}{FTic}}()\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_f_tic_add8f7cf5d655cb3858f1b93ee6d715a5}{reset}}();}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_f_tic_a1cfdf4faca864f70d876694d782a759a}{FTic}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tic}{FTic}}\&\ other)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{class_f_tic_ab50636b2393cc6051eafd8e97905f4fa}{FTic}}(\mbox{\hyperlink{class_f_tic}{FTic}}\&\&\ other)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\&\ \mbox{\hyperlink{class_f_tic_a560c0e8b9fcec1c13a2f438fa2017e10}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tic}{FTic}}\&\ other)\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ start\ =\ other.start;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ end\ =\ other.end;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ cumulate\ =\ other.cumulate;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tic}{FTic}}\ \mbox{\hyperlink{class_f_tic_ad7ab7978aa7917cc26e8ee9767e3b556}{operator+}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tic}{FTic}}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ res(*\textcolor{keyword}{this});}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ res.cumulate\ +=\ other.cumulate;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_tic_add8f7cf5d655cb3858f1b93ee6d715a5}{reset}}()\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ start\ \ \ \ =\ \mbox{\hyperlink{class_f_tic_a97caf52cd60c5a23ad6fb1af2dd5235d}{FTic::GetTime}}();}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ end\ \ \ \ \ \ =\ start;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ cumulate\ =\ 0;}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}()\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ this-\/>start\ =\ \mbox{\hyperlink{class_f_tic_a97caf52cd60c5a23ad6fb1af2dd5235d}{FTic::GetTime}}();}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_f_tic_aa06d84151d980ca58e34de7809abd9db}{peek}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_tic_a97caf52cd60c5a23ad6fb1af2dd5235d}{FTic::GetTime}}()\ -\/\ this-\/>start;;}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}()\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ this-\/>end\ =\ \mbox{\hyperlink{class_f_tic_a97caf52cd60c5a23ad6fb1af2dd5235d}{FTic::GetTime}}();}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lapse\ =\ this-\/>\mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}();}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ cumulate\ +=\ lapse;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lapse;}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>end\ -\/\ this-\/>start;}
+\DoxyCodeLine{00124\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_f_tic_ac53ed8191e3b5d9dadb88cae3f00a55e}{cumulated}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cumulate;}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic_a3efff71f7c95acd38451bfab08fa4583}{tac}}();}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_tic_a30b9f876fb7188f85b4c2b9d7fd7943e}{elapsed}}();}
+\DoxyCodeLine{00139\ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_f_tic_a97caf52cd60c5a23ad6fb1af2dd5235d}{GetTime}}()\{}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#if\ defined(USE\_STD\_CHRONO)}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }clock\ =\ std::chrono::high\_resolution\_clock;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }duration\ =\ std::chrono::duration<double>;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ duration(clock::now().time\_since\_epoch()).count();}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#elif\ defined(\_OPENMP)}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ omp\_get\_wtime();}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#elif\ defined(WINDOWS)}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(GetTickCount())/1000.0;}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ We\ are\ in\ linux/posix}}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ timeval\ t;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ gettimeofday(\&t,\ NULL);}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ double(t.tv\_sec)\ +\ (double(t.tv\_usec)/1000000.0);}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

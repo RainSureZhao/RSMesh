@@ -1,0 +1,197 @@
+\doxysection{FGroup\+Task\+Star\+PUAlgorithm\texorpdfstring{$<$}{<} Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class, Group\+Container\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_group_task_star_p_u_algorithm}{}\label{class_f_group_task_star_p_u_algorithm}\index{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$@{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$}}
+类 FGroup\+Task\+Star\+PUAlgorithm\texorpdfstring{$<$}{<} Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class, Group\+Container\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.290323cm]{class_f_group_task_star_p_u_algorithm}
+\end{center}
+\end{figure}
+\doxysubsubsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_f_group_task_star_p_u_algorithm_1_1_block_interactions}{Block\+Interactions}}
+\item 
+struct \mbox{\hyperlink{struct_f_group_task_star_p_u_algorithm_1_1_cell_handles}{Cell\+Handles}}
+\item 
+struct \mbox{\hyperlink{struct_f_group_task_star_p_u_algorithm_1_1_particle_handles}{Particle\+Handles}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a1c43bf294f8aaa090c727492e135f22e}\label{class_f_group_task_star_p_u_algorithm_a1c43bf294f8aaa090c727492e135f22e} 
+{\bfseries FGroup\+Task\+Star\+PUAlgorithm} (Octree\+Class \texorpdfstring{$\ast$}{*}const in\+Tree, Kernel\+Class \texorpdfstring{$\ast$}{*}in\+Kernels)
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a69d227793dc517f73c76ccfd7605d85c}\label{class_f_group_task_star_p_u_algorithm_a69d227793dc517f73c76ccfd7605d85c} 
+void {\bfseries build\+Task\+Names} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_ad97152cef6d8ecc2a11d7b97c994727c}\label{class_f_group_task_star_p_u_algorithm_ad97152cef6d8ecc2a11d7b97c994727c} 
+void {\bfseries sync\+Data} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a172b3482a8aafb53814a0517ef00a4f0}\label{class_f_group_task_star_p_u_algorithm_a172b3482a8aafb53814a0517ef00a4f0} 
+void {\bfseries rebuild\+Interactions} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual void {\bfseries execute} (const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm for given levels. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} () final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed, const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute only some FMM operations for given levels. \end{DoxyCompactList}\item 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed) final
+\begin{DoxyCompactList}\small\item\em Execute only some steps. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a60ec1efed59c82876c58edc5a43061d7}\label{class_f_group_task_star_p_u_algorithm_a60ec1efed59c82876c58edc5a43061d7} 
+typedef \mbox{\hyperlink{class_f_group_task_star_p_u_algorithm}{FGroup\+Task\+Star\+PUAlgorithm}}$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class, Group\+Container\+Class $>$ {\bfseries This\+Class}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_f_group_task_star_p_u_algorithm_a2f1de612bd9b981e6eb15f5a782fa183}{execute\+Core}} (const unsigned operations\+To\+Proceed) override
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a12c7688bf0033e16f4e50b44e2e4ebcd}\label{class_f_group_task_star_p_u_algorithm_a12c7688bf0033e16f4e50b44e2e4ebcd} 
+void {\bfseries init\+Codelet} ()
+\item 
+void \mbox{\hyperlink{class_f_group_task_star_p_u_algorithm_a18d2e3d7f77bd86ca36215eb0b6cb875}{clean\+Handle}} ()
+\item 
+void \mbox{\hyperlink{class_f_group_task_star_p_u_algorithm_aa4b5b6461001f3af07447ff9ecad8c5d}{build\+Handles}} ()
+\item 
+void \mbox{\hyperlink{class_f_group_task_star_p_u_algorithm_ac176711c0d4154af9c5dd905e69ba86f}{build\+External\+Interaction\+Vecs}} ()
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a232654dd8053610f2188bd7c0bbce091}\label{class_f_group_task_star_p_u_algorithm_a232654dd8053610f2188bd7c0bbce091} 
+void {\bfseries bottom\+Pass} ()
+\begin{DoxyCompactList}\small\item\em Bottom Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_af45e860f3213015f3792c7402a02694d}\label{class_f_group_task_star_p_u_algorithm_af45e860f3213015f3792c7402a02694d} 
+void {\bfseries upward\+Pass} ()
+\begin{DoxyCompactList}\small\item\em Upward Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a718175b27bcb9009dea5a681f621e265}\label{class_f_group_task_star_p_u_algorithm_a718175b27bcb9009dea5a681f621e265} 
+void {\bfseries transfer\+Pass} (const int from\+Level, const int to\+Level, const bool inner, const bool outer)
+\begin{DoxyCompactList}\small\item\em Transfer Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_ab46d2c06fc74876926c03d010106bc8d}\label{class_f_group_task_star_p_u_algorithm_ab46d2c06fc74876926c03d010106bc8d} 
+void {\bfseries downard\+Pass} ()
+\begin{DoxyCompactList}\small\item\em Downard Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a268a77fbbd6d99c8ed48d2c795bb3273}\label{class_f_group_task_star_p_u_algorithm_a268a77fbbd6d99c8ed48d2c795bb3273} 
+void {\bfseries direct\+Pass} ()
+\begin{DoxyCompactList}\small\item\em Direct Pass \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a498943f7344334509a7e6b98ddfdc7e1}\label{class_f_group_task_star_p_u_algorithm_a498943f7344334509a7e6b98ddfdc7e1} 
+void {\bfseries merge\+Pass} ()
+\begin{DoxyCompactList}\small\item\em Merge Pass \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries set\+Nb\+Levels\+In\+Tree} (const int in\+Nb\+Levels\+In\+Tree)
+\item 
+void {\bfseries validate\+Levels} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a2f440d32975a2f493fb7d93644a651f1}\label{class_f_group_task_star_p_u_algorithm_a2f440d32975a2f493fb7d93644a651f1} 
+std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_algorithm_1_1_block_interactions}{Block\+Interactions}}$<$ Cell\+Container\+Class $>$ $>$ $>$ $>$ {\bfseries external\+Interactions\+All\+Level}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a8300162d362f972f82ba0e2e2417bc6a}\label{class_f_group_task_star_p_u_algorithm_a8300162d362f972f82ba0e2e2417bc6a} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_algorithm_1_1_block_interactions}{Block\+Interactions}}$<$ Particle\+Group\+Class $>$ $>$ $>$ {\bfseries external\+Interactions\+Leaf\+Level}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_ac459b857e0d4b017c58795c679f5998a}\label{class_f_group_task_star_p_u_algorithm_ac459b857e0d4b017c58795c679f5998a} 
+Octree\+Class \texorpdfstring{$\ast$}{*}const {\bfseries tree}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_ad860e65db5a12556a4299013c94bd950}\label{class_f_group_task_star_p_u_algorithm_ad860e65db5a12556a4299013c94bd950} 
+Kernel\+Class \texorpdfstring{$\ast$}{*}const {\bfseries original\+Cpu\+Kernel}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a95e857135d89f0acca9e65a35147869d}\label{class_f_group_task_star_p_u_algorithm_a95e857135d89f0acca9e65a35147869d} 
+std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_algorithm_1_1_cell_handles}{Cell\+Handles}} $>$ \texorpdfstring{$\ast$}{*} {\bfseries cell\+Handles}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_abfb471ef334f81857c4a04f7d5ccda06}\label{class_f_group_task_star_p_u_algorithm_abfb471ef334f81857c4a04f7d5ccda06} 
+std\+::vector$<$ \mbox{\hyperlink{struct_f_group_task_star_p_u_algorithm_1_1_particle_handles}{Particle\+Handles}} $>$ {\bfseries particle\+Handles}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a810044fba06f2f8fff8163c2359661e7}\label{class_f_group_task_star_p_u_algorithm_a810044fba06f2f8fff8163c2359661e7} 
+starpu\+\_\+codelet {\bfseries p2m\+\_\+cl}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_af78dc542431e0debc9b8bb20c6613648}\label{class_f_group_task_star_p_u_algorithm_af78dc542431e0debc9b8bb20c6613648} 
+starpu\+\_\+codelet {\bfseries m2m\+\_\+cl}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a72840766fd36d724850a37c72bfa3452}\label{class_f_group_task_star_p_u_algorithm_a72840766fd36d724850a37c72bfa3452} 
+starpu\+\_\+codelet {\bfseries l2l\+\_\+cl}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a132a62f9d6b7d691b842694a9a3e4ed9}\label{class_f_group_task_star_p_u_algorithm_a132a62f9d6b7d691b842694a9a3e4ed9} 
+starpu\+\_\+codelet {\bfseries l2l\+\_\+cl\+\_\+nocommute}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a998efb87b8585e2aefaa819edb304544}\label{class_f_group_task_star_p_u_algorithm_a998efb87b8585e2aefaa819edb304544} 
+starpu\+\_\+codelet {\bfseries l2p\+\_\+cl}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_abd53aa608c5e8736157f0d0854130d8b}\label{class_f_group_task_star_p_u_algorithm_abd53aa608c5e8736157f0d0854130d8b} 
+starpu\+\_\+codelet {\bfseries m2l\+\_\+cl\+\_\+in}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_ae08315275c9c50e0f9bb323065de6ff6}\label{class_f_group_task_star_p_u_algorithm_ae08315275c9c50e0f9bb323065de6ff6} 
+starpu\+\_\+codelet {\bfseries m2l\+\_\+cl\+\_\+inout}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a18f2a899d7440b2c6b0301a5a6dbbc7b}\label{class_f_group_task_star_p_u_algorithm_a18f2a899d7440b2c6b0301a5a6dbbc7b} 
+starpu\+\_\+codelet {\bfseries p2p\+\_\+cl\+\_\+in}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a329be91de1601fde47f49715467c04d2}\label{class_f_group_task_star_p_u_algorithm_a329be91de1601fde47f49715467c04d2} 
+starpu\+\_\+codelet {\bfseries p2p\+\_\+cl\+\_\+inout}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a6cff4edd0d7d8030fe9c8c9580442fed}\label{class_f_group_task_star_p_u_algorithm_a6cff4edd0d7d8030fe9c8c9580442fed} 
+const bool {\bfseries no\+Commute\+At\+Last\+Level}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a69104e2c99170278af0c3b06080eb65f}\label{class_f_group_task_star_p_u_algorithm_a69104e2c99170278af0c3b06080eb65f} 
+const bool {\bfseries no\+Commute\+Between\+Level}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_a5d4170667a25a671686bc8fed3724b09}\label{class_f_group_task_star_p_u_algorithm_a5d4170667a25a671686bc8fed3724b09} 
+\mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStar\+PUPtr\+Interface}} {\bfseries wrappers}
+\item 
+\Hypertarget{class_f_group_task_star_p_u_algorithm_ad24ee6482b35fc81ffe1dcfb86fc3be5}\label{class_f_group_task_star_p_u_algorithm_ad24ee6482b35fc81ffe1dcfb86fc3be5} 
+\mbox{\hyperlink{class_f_star_p_u_ptr_interface}{FStar\+PUPtr\+Interface}} \texorpdfstring{$\ast$}{*} {\bfseries wrapperptr}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected 属性 继承自 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries upper\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to start the work \end{DoxyCompactList}\item 
+int {\bfseries lower\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to end the work (exclusive) \end{DoxyCompactList}\item 
+int {\bfseries nb\+Levels\+In\+Tree}
+\begin{DoxyCompactList}\small\item\em Height of the tree \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_group_task_star_p_u_algorithm_ac176711c0d4154af9c5dd905e69ba86f}\label{class_f_group_task_star_p_u_algorithm_ac176711c0d4154af9c5dd905e69ba86f} 
+\index{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$@{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$}!buildExternalInteractionVecs@{buildExternalInteractionVecs}}
+\index{buildExternalInteractionVecs@{buildExternalInteractionVecs}!FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$@{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{buildExternalInteractionVecs()}{buildExternalInteractionVecs()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Container\+Class , class Kernel\+Class , class Particle\+Group\+Class , class Star\+PUCpu\+Wrapper\+Class , class Group\+Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_task_star_p_u_algorithm}{FGroup\+Task\+Star\+PUAlgorithm}}$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class, Group\+Container\+Class $>$\+::build\+External\+Interaction\+Vecs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+This function is creating the interactions vector between blocks. It fills external\+Interactions\+All\+Level and external\+Interactions\+Leaf\+Level. Warning, the omp task for now are using the class attributes! \Hypertarget{class_f_group_task_star_p_u_algorithm_aa4b5b6461001f3af07447ff9ecad8c5d}\label{class_f_group_task_star_p_u_algorithm_aa4b5b6461001f3af07447ff9ecad8c5d} 
+\index{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$@{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$}!buildHandles@{buildHandles}}
+\index{buildHandles@{buildHandles}!FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$@{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{buildHandles()}{buildHandles()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Container\+Class , class Kernel\+Class , class Particle\+Group\+Class , class Star\+PUCpu\+Wrapper\+Class , class Group\+Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_task_star_p_u_algorithm}{FGroup\+Task\+Star\+PUAlgorithm}}$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class, Group\+Container\+Class $>$\+::build\+Handles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Reset the handles array and create new ones to define in a starpu way each block of data \Hypertarget{class_f_group_task_star_p_u_algorithm_a18d2e3d7f77bd86ca36215eb0b6cb875}\label{class_f_group_task_star_p_u_algorithm_a18d2e3d7f77bd86ca36215eb0b6cb875} 
+\index{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$@{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$}!cleanHandle@{cleanHandle}}
+\index{cleanHandle@{cleanHandle}!FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$@{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{cleanHandle()}{cleanHandle()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Container\+Class , class Kernel\+Class , class Particle\+Group\+Class , class Star\+PUCpu\+Wrapper\+Class , class Group\+Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_task_star_p_u_algorithm}{FGroup\+Task\+Star\+PUAlgorithm}}$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class, Group\+Container\+Class $>$\+::clean\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+dealloc in a starpu way all the defined handles \Hypertarget{class_f_group_task_star_p_u_algorithm_a2f1de612bd9b981e6eb15f5a782fa183}\label{class_f_group_task_star_p_u_algorithm_a2f1de612bd9b981e6eb15f5a782fa183} 
+\index{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$@{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$}!executeCore@{executeCore}}
+\index{executeCore@{executeCore}!FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$@{FGroupTaskStarPUAlgorithm$<$ OctreeClass, CellContainerClass, KernelClass, ParticleGroupClass, StarPUCpuWrapperClass, GroupContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{executeCore()}{executeCore()}}
+{\footnotesize\ttfamily template$<$class Octree\+Class , class Cell\+Container\+Class , class Kernel\+Class , class Particle\+Group\+Class , class Star\+PUCpu\+Wrapper\+Class , class Group\+Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_task_star_p_u_algorithm}{FGroup\+Task\+Star\+PUAlgorithm}}$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class, Group\+Container\+Class $>$\+::execute\+Core (\begin{DoxyParamCaption}\item[{const unsigned}]{operations\+To\+Proceed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Runs the complete algorithm. 
+
+实现了 \mbox{\hyperlink{class_f_abstract_algorithm}{FAbstract\+Algorithm}}.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Core/FGroup\+Task\+Starpu\+Algorithm.\+hpp\end{DoxyCompactItemize}

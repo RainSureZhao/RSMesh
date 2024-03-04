@@ -1,0 +1,200 @@
+\doxysection{FAbstract\+Spherical\+Kernel\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_abstract_spherical_kernel}{}\label{class_f_abstract_spherical_kernel}\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+
+
+{\ttfamily \#include $<$FAbstract\+Spherical\+Kernel.\+hpp$>$}
+
+类 FAbstract\+Spherical\+Kernel\texorpdfstring{$<$}{<} FReal, Cell\+Class, Container\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.082474cm]{class_f_abstract_spherical_kernel}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_abstract_spherical_kernel_a0b54228b0c735ce7b144b3d8343a73e8}{FAbstract\+Spherical\+Kernel}} (const int in\+DevP, const int in\+Tree\+Height, const FReal in\+Box\+Width, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Box\+Center)
+\item 
+\mbox{\hyperlink{class_f_abstract_spherical_kernel_ad6870ad19bc54634e737844f347874e7}{FAbstract\+Spherical\+Kernel}} (const \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}} \&other)
+\item 
+virtual \mbox{\hyperlink{class_f_abstract_spherical_kernel_a59d56b6e29c28deda9a3e3ac11095ef4}{\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Spherical\+Kernel}} ()
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a99ff8bc846395c53344439b108bda0b8}{P2M}} (Cell\+Class \texorpdfstring{$\ast$}{*}const in\+Pole, const Container\+Class \texorpdfstring{$\ast$}{*}const in\+Particles) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_afcaf811c616b31076b38480c34b90cd3}{M2M}} (Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Pole, const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict \texorpdfstring{$\ast$}{*}const FRestrict in\+Child, const int in\+Level) override
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_spherical_kernel_afbfc38a891e83599b912aa1b5ce6e537}{M2L}} (Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Local, const Cell\+Class \texorpdfstring{$\ast$}{*}in\+Interactions\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size, const int in\+Level)=0
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a60db61f9f00f287c917ead0de7436aed}{L2L}} (const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict pole, Cell\+Class \texorpdfstring{$\ast$}{*}FRestrict \texorpdfstring{$\ast$}{*}const FRestrict child, const int in\+Level) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_ac57a738ac23aa6c99839187d702ad3cc}{L2P}} (const Cell\+Class \texorpdfstring{$\ast$}{*}const local, Container\+Class \texorpdfstring{$\ast$}{*}const in\+Particles) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a81799db940bb9bb063793b5fb3707f51}{P2P}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&in\+Position, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Targets, const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Sources, Container\+Class \texorpdfstring{$\ast$}{*}const in\+Neighbors\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size) override
+\item 
+\Hypertarget{class_f_abstract_spherical_kernel_a1f419a5091351b4f1d1a409948d0c3bc}\label{class_f_abstract_spherical_kernel_a1f419a5091351b4f1d1a409948d0c3bc} 
+void {\bfseries P2\+POuter} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Targets, Container\+Class \texorpdfstring{$\ast$}{*}const in\+Neighbors\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a2840367a75950077714ea2928829251b}{P2\+PRemote}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&, Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Targets, const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict, const Container\+Class \texorpdfstring{$\ast$}{*}const in\+Neighbors\mbox{[}$\,$\mbox{]}, const int neighbor\+Positions\mbox{[}$\,$\mbox{]}, const int in\+Size) override
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a371eaa267f66a73a47c83a5b535ca7f4}{compute\+Velocity}} (Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Particles, const FReal DT)
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_a0e142f8d879c1bdde196f87c400adbf2}{update\+Position}} (Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict in\+Particles, const FReal DT)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel_ac91e7268ab96b0f9d1c0028a732ef0b0}{alloc\+And\+Init}} ()
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_abstract_spherical_kernel_a8e2097d3422b40de21f069da98ba2b6b}{get\+Leaf\+Center}} (const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} coordinate) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_abstract_spherical_kernel_a1aa8a1e46d23a6c1b74a682964b854f6}\label{class_f_abstract_spherical_kernel_a1aa8a1e46d23a6c1b74a682964b854f6} 
+const int {\bfseries devP}
+\item 
+\Hypertarget{class_f_abstract_spherical_kernel_a43adeae6a4e67a125d7a07b63d94a01f}\label{class_f_abstract_spherical_kernel_a43adeae6a4e67a125d7a07b63d94a01f} 
+const FReal {\bfseries box\+Width}
+\item 
+\Hypertarget{class_f_abstract_spherical_kernel_a54cb3ae8e37951fbab5db6c89b89e154}\label{class_f_abstract_spherical_kernel_a54cb3ae8e37951fbab5db6c89b89e154} 
+const int {\bfseries tree\+Height}
+\item 
+\Hypertarget{class_f_abstract_spherical_kernel_a3fef89a675dd53a765d15919eb2b6828}\label{class_f_abstract_spherical_kernel_a3fef89a675dd53a765d15919eb2b6828} 
+const FReal {\bfseries width\+At\+Leaf\+Level}
+\item 
+\Hypertarget{class_f_abstract_spherical_kernel_a47e5dd0292511299a199fb3a8cc3f16f}\label{class_f_abstract_spherical_kernel_a47e5dd0292511299a199fb3a8cc3f16f} 
+const FReal {\bfseries width\+At\+Leaf\+Level\+Div2}
+\item 
+\Hypertarget{class_f_abstract_spherical_kernel_a58c311d1676133571aaec65945f0a84a}\label{class_f_abstract_spherical_kernel_a58c311d1676133571aaec65945f0a84a} 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries box\+Corner}
+\item 
+\Hypertarget{class_f_abstract_spherical_kernel_a7e2427cfb42cebcbf4d6225892d4539b}\label{class_f_abstract_spherical_kernel_a7e2427cfb42cebcbf4d6225892d4539b} 
+\mbox{\hyperlink{class_f_harmonic}{FHarmonic}}$<$ FReal $>$ {\bfseries harmonic}
+\item 
+\Hypertarget{class_f_abstract_spherical_kernel_a49a0298473c17a70f0ca8cce294df11d}\label{class_f_abstract_spherical_kernel_a49a0298473c17a70f0ca8cce294df11d} 
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ \mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*} $>$ {\bfseries pre\+L2\+LTransitions}
+\item 
+\Hypertarget{class_f_abstract_spherical_kernel_a3b71b60e9a435603a346347c8aa27b30}\label{class_f_abstract_spherical_kernel_a3b71b60e9a435603a346347c8aa27b30} 
+\mbox{\hyperlink{class_f_smart_pointer}{FSmart\+Pointer}}$<$ \mbox{\hyperlink{class_f_complex}{FComplex}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*} $>$ {\bfseries pre\+M2\+MTransitions}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Cell\+Class, class Container\+Class$>$\newline
+class FAbstract\+Spherical\+Kernel$<$ FReal, Cell\+Class, Container\+Class $>$}
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}}) This is the abstract spherical harmonic kernel 
+\end{DoxyAuthor}
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_abstract_spherical_kernel_a0b54228b0c735ce7b144b3d8343a73e8}\label{class_f_abstract_spherical_kernel_a0b54228b0c735ce7b144b3d8343a73e8} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!FAbstractSphericalKernel@{FAbstractSphericalKernel}}
+\index{FAbstractSphericalKernel@{FAbstractSphericalKernel}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{FAbstractSphericalKernel()}{FAbstractSphericalKernel()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+\mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\mbox{\hyperlink{class_f_abstract_spherical_kernel}{\+::\+FAbstract\+Spherical\+Kernel}} (\begin{DoxyParamCaption}\item[{const int}]{in\+DevP,  }\item[{const int}]{in\+Tree\+Height,  }\item[{const FReal}]{in\+Box\+Width,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Box\+Center }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Kernel constructor \Hypertarget{class_f_abstract_spherical_kernel_ad6870ad19bc54634e737844f347874e7}\label{class_f_abstract_spherical_kernel_ad6870ad19bc54634e737844f347874e7} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!FAbstractSphericalKernel@{FAbstractSphericalKernel}}
+\index{FAbstractSphericalKernel@{FAbstractSphericalKernel}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{FAbstractSphericalKernel()}{FAbstractSphericalKernel()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+\mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\mbox{\hyperlink{class_f_abstract_spherical_kernel}{\+::\+FAbstract\+Spherical\+Kernel}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Copy constructor \Hypertarget{class_f_abstract_spherical_kernel_a59d56b6e29c28deda9a3e3ac11095ef4}\label{class_f_abstract_spherical_kernel_a59d56b6e29c28deda9a3e3ac11095ef4} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!````~FAbstractSphericalKernel@{\texorpdfstring{$\sim$}{\string~}FAbstractSphericalKernel}}
+\index{````~FAbstractSphericalKernel@{\texorpdfstring{$\sim$}{\string~}FAbstractSphericalKernel}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FAbstractSphericalKernel()}{\string~FAbstractSphericalKernel()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+virtual \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Default destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_abstract_spherical_kernel_ac91e7268ab96b0f9d1c0028a732ef0b0}\label{class_f_abstract_spherical_kernel_ac91e7268ab96b0f9d1c0028a732ef0b0} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!allocAndInit@{allocAndInit}}
+\index{allocAndInit@{allocAndInit}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{allocAndInit()}{allocAndInit()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::alloc\+And\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Alloc and init pre-\/vectors \Hypertarget{class_f_abstract_spherical_kernel_a371eaa267f66a73a47c83a5b535ca7f4}\label{class_f_abstract_spherical_kernel_a371eaa267f66a73a47c83a5b535ca7f4} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!computeVelocity@{computeVelocity}}
+\index{computeVelocity@{computeVelocity}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{computeVelocity()}{computeVelocity()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::compute\+Velocity (\begin{DoxyParamCaption}\item[{Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Particles,  }\item[{const FReal}]{DT }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Update a velocity of a particle \Hypertarget{class_f_abstract_spherical_kernel_a8e2097d3422b40de21f069da98ba2b6b}\label{class_f_abstract_spherical_kernel_a8e2097d3422b40de21f069da98ba2b6b} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!getLeafCenter@{getLeafCenter}}
+\index{getLeafCenter@{getLeafCenter}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{getLeafCenter()}{getLeafCenter()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::get\+Leaf\+Center (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}}}]{coordinate }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Get a leaf real position from its tree coordinate \Hypertarget{class_f_abstract_spherical_kernel_a60db61f9f00f287c917ead0de7436aed}\label{class_f_abstract_spherical_kernel_a60db61f9f00f287c917ead0de7436aed} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!L2L@{L2L}}
+\index{L2L@{L2L}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{L2L()}{L2L()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\+L2L (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{pole,  }\item[{Cell\+Class \texorpdfstring{$\ast$}{*}FRestrict \texorpdfstring{$\ast$}{*}const FRestrict}]{child,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+L2L with a cell and all its child \Hypertarget{class_f_abstract_spherical_kernel_ac57a738ac23aa6c99839187d702ad3cc}\label{class_f_abstract_spherical_kernel_ac57a738ac23aa6c99839187d702ad3cc} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!L2P@{L2P}}
+\index{L2P@{L2P}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{L2P()}{L2P()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\+L2P (\begin{DoxyParamCaption}\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}const}]{local,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Particles }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+L2P with a cell and all its particles \Hypertarget{class_f_abstract_spherical_kernel_afbfc38a891e83599b912aa1b5ce6e537}\label{class_f_abstract_spherical_kernel_afbfc38a891e83599b912aa1b5ce6e537} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!M2L@{M2L}}
+\index{M2L@{M2L}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{M2L()}{M2L()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+virtual void \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\+M2L (\begin{DoxyParamCaption}\item[{Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Local,  }\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}}]{in\+Interactions\mbox{[}$\,$\mbox{]},  }\item[{const int}]{neighbor\+Positions\mbox{[}$\,$\mbox{]},  }\item[{const int}]{in\+Size,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+M2L with a cell and all the existing neighbors 
+
+在 \mbox{\hyperlink{class_f_spherical_blas_kernel_a6fe10e2779e554cfac300466f0aacc60}{FSpherical\+Blas\+Kernel$<$ FReal, Cell\+Class, Container\+Class $>$}}, \mbox{\hyperlink{class_f_spherical_block_blas_kernel_a3b5ccf192974396f66af9c0a0dddca1c}{FSpherical\+Block\+Blas\+Kernel$<$ FReal, Cell\+Class, Container\+Class $>$}}, \mbox{\hyperlink{class_f_spherical_kernel_a9e29490bc444004ad93de06dbae9ab98}{FSpherical\+Kernel$<$ FReal, Cell\+Class, Container\+Class $>$}} , 以及 \mbox{\hyperlink{class_f_spherical_rotation_kernel_a36ec17c71f62998c4e062ca71ed59ae9}{FSpherical\+Rotation\+Kernel$<$ FReal, Cell\+Class, Container\+Class $>$}} 内被实现.
+
+\Hypertarget{class_f_abstract_spherical_kernel_afcaf811c616b31076b38480c34b90cd3}\label{class_f_abstract_spherical_kernel_afcaf811c616b31076b38480c34b90cd3} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!M2M@{M2M}}
+\index{M2M@{M2M}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{M2M()}{M2M()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\+M2M (\begin{DoxyParamCaption}\item[{Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Pole,  }\item[{const Cell\+Class \texorpdfstring{$\ast$}{*}const FRestrict \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Child,  }\item[{const int}]{in\+Level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+M2M with a cell and all its child \Hypertarget{class_f_abstract_spherical_kernel_a99ff8bc846395c53344439b108bda0b8}\label{class_f_abstract_spherical_kernel_a99ff8bc846395c53344439b108bda0b8} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!P2M@{P2M}}
+\index{P2M@{P2M}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{P2M()}{P2M()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\+P2M (\begin{DoxyParamCaption}\item[{Cell\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Pole,  }\item[{const Container\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Particles }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+P2M with a cell and all its particles \Hypertarget{class_f_abstract_spherical_kernel_a81799db940bb9bb063793b5fb3707f51}\label{class_f_abstract_spherical_kernel_a81799db940bb9bb063793b5fb3707f51} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!P2P@{P2P}}
+\index{P2P@{P2P}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{P2P()}{P2P()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\+P2P (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{in\+Position,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Targets,  }\item[{const Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Sources,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Neighbors\mbox{[}$\,$\mbox{]},  }\item[{const int}]{neighbor\+Positions\mbox{[}$\,$\mbox{]},  }\item[{const int}]{in\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+P2P This function proceed the P2P using particles\+Mutual\+Interaction The computation is done for interactions with an index \texorpdfstring{$<$}{<}= 13. (13 means current leaf (x;y;z) = (0;0;0)). Calling this method in multi thread should be done carrefully. \Hypertarget{class_f_abstract_spherical_kernel_a2840367a75950077714ea2928829251b}\label{class_f_abstract_spherical_kernel_a2840367a75950077714ea2928829251b} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!P2PRemote@{P2PRemote}}
+\index{P2PRemote@{P2PRemote}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{P2PRemote()}{P2PRemote()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::\+P2\+PRemote (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_tree_coordinate}{FTree\+Coordinate}} \&}]{,  }\item[{Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Targets,  }\item[{const Container\+Class \texorpdfstring{$\ast$}{*}const}]{FRestrict,  }\item[{const Container\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Neighbors\mbox{[}$\,$\mbox{]},  }\item[{const int}]{neighbor\+Positions\mbox{[}$\,$\mbox{]},  }\item[{const int}]{in\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+Use mutual even if it not useful and call particles\+Mutual\+Interaction \Hypertarget{class_f_abstract_spherical_kernel_a0e142f8d879c1bdde196f87c400adbf2}\label{class_f_abstract_spherical_kernel_a0e142f8d879c1bdde196f87c400adbf2} 
+\index{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}!updatePosition@{updatePosition}}
+\index{updatePosition@{updatePosition}!FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$@{FAbstractSphericalKernel$<$ FReal, CellClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{updatePosition()}{updatePosition()}}
+{\footnotesize\ttfamily template$<$class FReal , class Cell\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstract\+Spherical\+Kernel}}$<$ FReal, Cell\+Class, Container\+Class $>$\+::update\+Position (\begin{DoxyParamCaption}\item[{Container\+Class \texorpdfstring{$\ast$}{*}const FRestrict}]{in\+Particles,  }\item[{const FReal}]{DT }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Update a position of a particle 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Kernels/\+Spherical/FAbstract\+Spherical\+Kernel.\+hpp\end{DoxyCompactItemize}

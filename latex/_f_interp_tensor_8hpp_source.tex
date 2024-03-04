@@ -1,0 +1,98 @@
+\doxysection{FInterp\+Tensor.\+hpp}
+\hypertarget{_f_interp_tensor_8hpp_source}{}\label{_f_interp_tensor_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Interpolation/FInterpTensor.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/Interpolation/FInterpTensor.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FINTERPTENSOR\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FINTERPTENSOR\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FMath.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}./FInterpMapping.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ ORDER>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_tensor_traits}{TensorTraits}}}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{enum}\ \{nnodes\ =\ ORDER*ORDER*ORDER\};}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER,\ \textcolor{keyword}{typename}\ RootsClass>}
+\DoxyCodeLine{00041\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_interp_tensor}{FInterpTensor}}\ :\ \mbox{\hyperlink{class_f_no_copyable}{FNoCopyable}}}
+\DoxyCodeLine{00042\ \{}
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{enum}\ \{nnodes\ =\ \mbox{\hyperlink{struct_tensor_traits}{TensorTraits<ORDER>::nnodes}}\};}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{typedef}\ RootsClass\ BasisType;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_interp_tensor_aeecba74045a1cd16382c87ab3acdb20a}{setNodeIds}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ NodeIds[nnodes][3])}
+\DoxyCodeLine{00056\ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n=0;\ n<nnodes;\ ++n)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ NodeIds[n][0]\ =\ \ n\ \ \ \ \ \ \ \ \ \%\ ORDER;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ NodeIds[n][1]\ =\ (n/\ ORDER)\ \%\ ORDER;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ NodeIds[n][2]\ =\ \ n/(ORDER\ \ *\ ORDER);}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_interp_tensor_ac8107c468326e9c786873c23fe2e8766}{setRoots}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ center,\ \textcolor{keyword}{const}\ FReal\ width,\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ rootPositions[nnodes])}
+\DoxyCodeLine{00076\ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ node\_ids[nnodes][3];}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{class_f_interp_tensor_aeecba74045a1cd16382c87ab3acdb20a}{setNodeIds}}(node\_ids);}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmap__loc__glob}{map\_loc\_glob<FReal>}}\ map(center,\ width);}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ localPosition;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n=0;\ n<nnodes;\ ++n)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ localPosition.\mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}}(FReal(BasisType::roots[node\_ids[n][0]]));}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ localPosition.\mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}}(FReal(BasisType::roots[node\_ids[n][1]]));}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ localPosition.\mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}}(FReal(BasisType::roots[node\_ids[n][2]]));}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ map(localPosition,\ rootPositions[n]);}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_interp_tensor_abc18f0f754049c342b5f808990ba95d0}{setPolynomialsRoots}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ center,\ \textcolor{keyword}{const}\ FReal\ width,\ FReal\ roots[3][ORDER])}
+\DoxyCodeLine{00098\ \ \ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmap__loc__glob}{map\_loc\_glob<FReal>}}\ map(center,\ width);}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ lPos,\ gPos;}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n=0;\ n<ORDER;\ ++n)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ lPos.\mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}}(FReal(BasisType::roots[n]));}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ lPos.\mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}}(FReal(BasisType::roots[n]));}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ lPos.\mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}}(FReal(BasisType::roots[n]));}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ map(lPos,\ gPos);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ roots[0][n]\ =\ gPos.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}();}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ roots[1][n]\ =\ gPos.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}();}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ roots[2][n]\ =\ gPos.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}();}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_interp_tensor_a3e87e6a9c05e36db6e7e902d81ff1e66}{setRelativeChildCenter}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ChildIndex,}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ ChildCenter,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ ExtendedCellRatio=FReal(.5))}
+\DoxyCodeLine{00123\ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ RelativeChildPositions[][3]\ =\ \{\ \{-\/1,\ -\/1,\ -\/1\},}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{-\/1,\ -\/1,\ \ 1\},}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{-\/1,\ \ 1,\ -\/1\},}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{-\/1,\ \ 1,\ \ 1\},}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 1,\ -\/1,\ -\/1\},}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 1,\ -\/1,\ \ 1\},}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 1,\ \ 1,\ -\/1\},}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 1,\ \ 1,\ \ 1\}\ \};}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{comment}{//\ Translate\ center\ if\ cell\ widths\ are\ extended}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{const}\ FReal\ frac\ =\ (FReal(1.)\ -\/\ ExtendedCellRatio);\ }
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ ChildCenter.\mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}}(FReal(RelativeChildPositions[ChildIndex][0])\ *\ frac);}
+\DoxyCodeLine{00136\ \ \ \ \ ChildCenter.\mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}}(FReal(RelativeChildPositions[ChildIndex][1])\ *\ frac);}
+\DoxyCodeLine{00137\ \ \ \ \ ChildCenter.\mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}}(FReal(RelativeChildPositions[ChildIndex][2])\ *\ frac);}
+\DoxyCodeLine{00138\ \ \ \}}
+\DoxyCodeLine{00139\ \};}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*FINTERPTENSOR\_HPP*/}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

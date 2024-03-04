@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/4.
+// Created by RainSure on 2024/2/4.
 //
 
 #ifndef RSMESH_FMM_RBF_KERNEL_H

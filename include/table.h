@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2023/11/11.
+// Created by RainSure on 2023/11/11.
 //
 
 #ifndef RSMESH_TABLE_H
@@ -14,7 +14,10 @@
 #include "numeric/roundtrip_string.h"
 #include "boost/algorithm/string.hpp"
 
-
+/**
+ * \namespace rsmesh
+ * \brief 本系统的主命名空间，包含了common, examples, fmm, geometry, numeric, point_cloud等子命名空间
+ */
 namespace rsmesh {
     using tabled = Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>;
     

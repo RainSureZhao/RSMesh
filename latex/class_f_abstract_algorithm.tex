@@ -1,0 +1,78 @@
+\doxysection{FAbstract\+Algorithm类 参考}
+\hypertarget{class_f_abstract_algorithm}{}\label{class_f_abstract_algorithm}\index{FAbstractAlgorithm@{FAbstractAlgorithm}}
+
+
+Base class of algorithms  
+
+
+
+
+{\ttfamily \#include $<$FCore\+Common.\+hpp$>$}
+
+类 FAbstract\+Algorithm 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.014137cm]{class_f_abstract_algorithm}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_abstract_algorithm_ad7a63872accd27bf737746ad3dd6ce59}\label{class_f_abstract_algorithm_ad7a63872accd27bf737746ad3dd6ce59} 
+virtual void {\bfseries execute} (const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm for given levels. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_abstract_algorithm_a50596bdd3235bc4d2a7b8415f0b6d8d5}\label{class_f_abstract_algorithm_a50596bdd3235bc4d2a7b8415f0b6d8d5} 
+virtual void {\bfseries execute} () final
+\begin{DoxyCompactList}\small\item\em Execute the whole fmm. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_abstract_algorithm_a4fbd7069185281dd3c9ede89c2d030b6}\label{class_f_abstract_algorithm_a4fbd7069185281dd3c9ede89c2d030b6} 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed, const int in\+Upper\+Working\+Level, const int in\+Lower\+Working\+Level) final
+\begin{DoxyCompactList}\small\item\em Execute only some FMM operations for given levels. \end{DoxyCompactList}\item 
+\Hypertarget{class_f_abstract_algorithm_a8c5dc685cb49818bb8c3ad7ca9e9bcea}\label{class_f_abstract_algorithm_a8c5dc685cb49818bb8c3ad7ca9e9bcea} 
+virtual void {\bfseries execute} (const unsigned operations\+To\+Proceed) final
+\begin{DoxyCompactList}\small\item\em Execute only some steps. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_abstract_algorithm_afa60bb68168233ef8a43a81070d5e242}\label{class_f_abstract_algorithm_afa60bb68168233ef8a43a81070d5e242} 
+void {\bfseries set\+Nb\+Levels\+In\+Tree} (const int in\+Nb\+Levels\+In\+Tree)
+\item 
+\Hypertarget{class_f_abstract_algorithm_a7322f6c45d77e17c8e00a7ed83c9b248}\label{class_f_abstract_algorithm_a7322f6c45d77e17c8e00a7ed83c9b248} 
+void {\bfseries validate\+Levels} () const
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_algorithm_acc84cd14f1c92dcc526f94873fc2e450}{execute\+Core}} (const unsigned operations\+To\+Proceed)=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_abstract_algorithm_ade49cb5ede82d078261e576a9d809dc2}\label{class_f_abstract_algorithm_ade49cb5ede82d078261e576a9d809dc2} 
+int {\bfseries upper\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to start the work \end{DoxyCompactList}\item 
+\Hypertarget{class_f_abstract_algorithm_a694b8888186be58e38691ce08b177d46}\label{class_f_abstract_algorithm_a694b8888186be58e38691ce08b177d46} 
+int {\bfseries lower\+Working\+Level}
+\begin{DoxyCompactList}\small\item\em Where to end the work (exclusive) \end{DoxyCompactList}\item 
+\Hypertarget{class_f_abstract_algorithm_af8f5112c47480a494a15ffddd172079a}\label{class_f_abstract_algorithm_af8f5112c47480a494a15ffddd172079a} 
+int {\bfseries nb\+Levels\+In\+Tree}
+\begin{DoxyCompactList}\small\item\em Height of the tree \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+Base class of algorithms 
+
+This class is an abstract algorithm to be able to use the \doxylink{class_f_algorithm_builder}{FAlgorithm\+Builder} and execute from an abstract pointer. 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_abstract_algorithm_acc84cd14f1c92dcc526f94873fc2e450}\label{class_f_abstract_algorithm_acc84cd14f1c92dcc526f94873fc2e450} 
+\index{FAbstractAlgorithm@{FAbstractAlgorithm}!executeCore@{executeCore}}
+\index{executeCore@{executeCore}!FAbstractAlgorithm@{FAbstractAlgorithm}}
+\doxysubsubsection{\texorpdfstring{executeCore()}{executeCore()}}
+{\footnotesize\ttfamily virtual void FAbstract\+Algorithm\+::execute\+Core (\begin{DoxyParamCaption}\item[{const unsigned}]{operations\+To\+Proceed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+在 \mbox{\hyperlink{class_f_fmm_algorithm_acd2de48892c0850b192bc0d48af0f324}{FFmm\+Algorithm$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_omp4_a60521afc136626232a078cc7f795a522}{FFmm\+Algorithm\+Omp4$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_periodic_a2a4040917c958637510c57c1f9762855}{FFmm\+Algorithm\+Periodic$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_section_task_a9f8868b83e97f0eca0f7187903f6064a}{FFmm\+Algorithm\+Section\+Task$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_task_accf5716cfa0f7ac8c0d38c0c862faea8}{FFmm\+Algorithm\+Task$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_thread_ad49e8fb991f705dca0806c03aea669e4}{FFmm\+Algorithm\+Thread$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_thread_balance_a22e60e7874ffe2306cb98085d1ff88b2}{FFmm\+Algorithm\+Thread\+Balance$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_a5f127ed25e3ff5b11c9ca06e74528e36}{FFmm\+Algorithm\+Thread\+Proc$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_periodic_aba55ca07931868790ca33ea7d084b4b6}{FFmm\+Algorithm\+Thread\+Proc\+Periodic$<$ FReal, Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_thread_proc_tsm_a25090d1ef02dd57f63bc97b1c2567a48}{FFmm\+Algorithm\+Thread\+Proc\+Tsm$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class, P2\+PExclusion\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_thread_tsm_a72211b070988b9351dec609f3417e071}{FFmm\+Algorithm\+Thread\+Tsm$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class $>$}}, \mbox{\hyperlink{class_f_fmm_algorithm_tsm_a6fa32f59009bd16033e9f2c5d62c38d4}{FFmm\+Algorithm\+Tsm$<$ Octree\+Class, Cell\+Class, Container\+Class, Kernel\+Class, Leaf\+Class $>$}}, \mbox{\hyperlink{class_f_group_seq_algorithm_a3104b2c5dca757f5073ea109212fdc9f}{FGroup\+Seq\+Algorithm$<$ Octree\+Class, Cell\+Container\+Class, Cell\+Class, Kernel\+Class, Particle\+Group\+Class, Particle\+Container\+Class $>$}}, \mbox{\hyperlink{class_f_group_task_algorithm_a98422d6bfbb39549183262c3436f2c79}{FGroup\+Task\+Algorithm$<$ Octree\+Class, Cell\+Container\+Class, Cell\+Class, Kernel\+Class, Particle\+Group\+Class, Particle\+Container\+Class $>$}}, \mbox{\hyperlink{class_f_group_task_dep_algorithm_a6afc2b0057b7cabcb5fb484fdd4ad7e6}{FGroup\+Task\+Dep\+Algorithm$<$ Octree\+Class, Cell\+Container\+Class, Cell\+Class, Symbole\+Cell\+Class, Pole\+Cell\+Class, Local\+Cell\+Class, Kernel\+Class, Particle\+Group\+Class, Particle\+Container\+Class $>$}}, \mbox{\hyperlink{class_f_group_task_star_p_u_algorithm_a2f1de612bd9b981e6eb15f5a782fa183}{FGroup\+Task\+Star\+PUAlgorithm$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class, Group\+Container\+Class $>$}}, \mbox{\hyperlink{class_f_group_task_star_p_u_implicit_algorithm_a46b7936ac044e89b440dd501aed93871}{FGroup\+Task\+Star\+PUImplicit\+Algorithm$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class $>$}} , 以及 \mbox{\hyperlink{class_f_group_task_star_p_u_mpi_algorithm_a041d36d4ea9e6bb425ed5c9b7ce6e9b0}{FGroup\+Task\+Star\+PUMpi\+Algorithm$<$ Octree\+Class, Cell\+Container\+Class, Kernel\+Class, Particle\+Group\+Class, Star\+PUCpu\+Wrapper\+Class $>$}} 内被实现.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Core/FCore\+Common.\+hpp\end{DoxyCompactItemize}

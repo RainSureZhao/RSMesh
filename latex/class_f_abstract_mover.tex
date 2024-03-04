@@ -1,0 +1,52 @@
+\doxysection{FAbstract\+Mover\texorpdfstring{$<$}{<} FReal, Octree\+Class, Particle\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_abstract_mover}{}\label{class_f_abstract_mover}\index{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$@{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$}}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_mover_a8111d4d078bbd013714ad72b647ee059}{get\+Particle\+Position}} (Particle\+Class \texorpdfstring{$\ast$}{*}lf, const FSize idx\+Part, \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}particle\+Pos)=0
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_mover_aeee7ce18fa638ae477ea4c5bb2e6a71e}{remove\+From\+Leaf\+And\+Keep}} (Particle\+Class \texorpdfstring{$\ast$}{*}lf, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&particle\+Pos, const FSize idx\+Part, FParticle\+Type type)=0
+\item 
+virtual void \mbox{\hyperlink{class_f_abstract_mover_a3ce0e0834bbe9fc85656506b3d53d3d9}{insert\+All\+Particles}} (Octree\+Class \texorpdfstring{$\ast$}{*}tree)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_abstract_mover_a8111d4d078bbd013714ad72b647ee059}\label{class_f_abstract_mover_a8111d4d078bbd013714ad72b647ee059} 
+\index{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$@{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$}!getParticlePosition@{getParticlePosition}}
+\index{getParticlePosition@{getParticlePosition}!FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$@{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$}}
+\doxysubsubsection{\texorpdfstring{getParticlePosition()}{getParticlePosition()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Particle\+Class $>$ \\
+virtual void \mbox{\hyperlink{class_f_abstract_mover}{FAbstract\+Mover}}$<$ FReal, Octree\+Class, Particle\+Class $>$\+::get\+Particle\+Position (\begin{DoxyParamCaption}\item[{Particle\+Class \texorpdfstring{$\ast$}{*}}]{lf,  }\item[{const FSize}]{idx\+Part,  }\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}}]{particle\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+在 \mbox{\hyperlink{class_f_basic_particle_container_indexed_mover_a7c5aa64aa5759ef9ab2dafd7fcc1e5c4}{FBasic\+Particle\+Container\+Indexed\+Mover$<$ FReal, Octree\+Class, Container\+Class $>$}} , 以及 \mbox{\hyperlink{class_f_particle_typed_indexed_mover_aff6d74478e47e86e23cd1809b4622a65}{FParticle\+Typed\+Indexed\+Mover$<$ FReal, Octree\+Class, Container\+Class $>$}} 内被实现.
+
+\Hypertarget{class_f_abstract_mover_a3ce0e0834bbe9fc85656506b3d53d3d9}\label{class_f_abstract_mover_a3ce0e0834bbe9fc85656506b3d53d3d9} 
+\index{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$@{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$}!insertAllParticles@{insertAllParticles}}
+\index{insertAllParticles@{insertAllParticles}!FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$@{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$}}
+\doxysubsubsection{\texorpdfstring{insertAllParticles()}{insertAllParticles()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Particle\+Class $>$ \\
+virtual void \mbox{\hyperlink{class_f_abstract_mover}{FAbstract\+Mover}}$<$ FReal, Octree\+Class, Particle\+Class $>$\+::insert\+All\+Particles (\begin{DoxyParamCaption}\item[{Octree\+Class \texorpdfstring{$\ast$}{*}}]{tree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+在 \mbox{\hyperlink{class_f_basic_particle_container_indexed_mover_ad4d119778261031d0db9f3ae6d15c05c}{FBasic\+Particle\+Container\+Indexed\+Mover$<$ FReal, Octree\+Class, Container\+Class $>$}} , 以及 \mbox{\hyperlink{class_f_particle_typed_indexed_mover_a582b356c3d7c59ac0bfa43664d0ef89e}{FParticle\+Typed\+Indexed\+Mover$<$ FReal, Octree\+Class, Container\+Class $>$}} 内被实现.
+
+\Hypertarget{class_f_abstract_mover_aeee7ce18fa638ae477ea4c5bb2e6a71e}\label{class_f_abstract_mover_aeee7ce18fa638ae477ea4c5bb2e6a71e} 
+\index{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$@{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$}!removeFromLeafAndKeep@{removeFromLeafAndKeep}}
+\index{removeFromLeafAndKeep@{removeFromLeafAndKeep}!FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$@{FAbstractMover$<$ FReal, OctreeClass, ParticleClass $>$}}
+\doxysubsubsection{\texorpdfstring{removeFromLeafAndKeep()}{removeFromLeafAndKeep()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Particle\+Class $>$ \\
+virtual void \mbox{\hyperlink{class_f_abstract_mover}{FAbstract\+Mover}}$<$ FReal, Octree\+Class, Particle\+Class $>$\+::remove\+From\+Leaf\+And\+Keep (\begin{DoxyParamCaption}\item[{Particle\+Class \texorpdfstring{$\ast$}{*}}]{lf,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{particle\+Pos,  }\item[{const FSize}]{idx\+Part,  }\item[{FParticle\+Type}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+在 \mbox{\hyperlink{class_f_particle_typed_indexed_mover_a180b3cfdac84d45746c8d0628d622bdb}{FParticle\+Typed\+Indexed\+Mover$<$ FReal, Octree\+Class, Container\+Class $>$}} , 以及 \mbox{\hyperlink{class_f_basic_particle_container_indexed_mover_a0a419925afad309e1332e67bcb0fdae9}{FBasic\+Particle\+Container\+Indexed\+Mover$<$ FReal, Octree\+Class, Container\+Class $>$}} 内被实现.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Arranger/FAbstract\+Mover.\+hpp\end{DoxyCompactItemize}

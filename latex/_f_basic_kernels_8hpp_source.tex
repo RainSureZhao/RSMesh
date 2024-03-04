@@ -1,0 +1,67 @@
+\doxysection{FBasic\+Kernels.\+hpp}
+\hypertarget{_f_basic_kernels_8hpp_source}{}\label{_f_basic_kernels_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Components/FBasicKernels.hpp@{third\_party/ScalFMM/include/ScalFMM/Components/FBasicKernels.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FBASICKERNELS\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FBASICKERNELS\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}FAbstractKernels.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_basic_kernels}{FBasicKernels}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_kernels}{FAbstractKernels}}<CellClass,ContainerClass>\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_basic_kernels_a440808776c8af4f890b6d8f07da308f2}{\string~FBasicKernels}}()\{}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_basic_kernels_a879dc26a794be4af572f2152a81d2130}{P2M}}(CellClass*\ \textcolor{keyword}{const}\ \textcolor{comment}{/*targetCell*/},\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ \textcolor{comment}{/*sourceParticles*/})\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_basic_kernels_a6f96065da1878c9cb13bfd85bd69c26c}{M2M}}(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*parentCell*/},\ \textcolor{keyword}{const}\ CellClass*\textcolor{keyword}{const}\ FRestrict\ *\textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*children*/},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*level*/})\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_basic_kernels_a7b24e06fd077e3d1fdfb58c3a61ebc6b}{M2L}}(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*targetLocal*/},\ \textcolor{keyword}{const}\ CellClass*\ \textcolor{comment}{/*sourceMultipoles*/}[],}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*relativePostions*/}[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*nbInteractions*/},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*level*/})\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_basic_kernels_a127c1eeba3f8136acbec94c6345652e8}{L2L}}(\textcolor{keyword}{const}\ CellClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*parentCell*/},\ CellClass*\ FRestrict\ *\textcolor{keyword}{const}\ FRestrict\ \ \textcolor{comment}{/*children*/},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*level*/})\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_basic_kernels_acb78ed38f1e842f0e38f93cb9f9e3bcd}{L2P}}(\textcolor{keyword}{const}\ CellClass*\ \textcolor{keyword}{const}\ \textcolor{comment}{/*sourceCell*/},\ ContainerClass*\ \textcolor{keyword}{const}\ \textcolor{comment}{/*targetPaticles*/})\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_basic_kernels_a1b9ed389e151656dd59fc17b81c1932b}{P2P}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \textcolor{comment}{/*treeCoord*/},}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*targetParticles*/},\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*sourceParticles*/},}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ \textcolor{comment}{/*neigbhorsParticles*/}[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*neighborPositions*/}[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*nbNeighbors*/})\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_basic_kernels_ac32ec59a9c668fe1b825571c1dffebf2}{P2POuter}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \textcolor{comment}{/*inLeafPosition*/},}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*targets*/},}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ \textcolor{comment}{/*directNeighborsParticles*/}[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*neighborPositions*/}[],}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*size*/})\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_basic_kernels_aaf2ffe294fbdb03d51e0c1478b0e8883}{P2PRemote}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ \textcolor{comment}{/*treeCoord*/},}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*targetParticles*/},\ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ FRestrict\ \textcolor{comment}{/*sourceParticles*/},}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ContainerClass*\ \textcolor{keyword}{const}\ \textcolor{comment}{/*neigbhorsParticles*/}[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*neighborPositions*/}[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{comment}{/*nbNeighbors*/})\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FBASICKERNELS\_HPP}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+
+\end{DoxyCode}

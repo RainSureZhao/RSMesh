@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/20.
+// Created by RainSure on 2024/2/20.
 //
 
 #ifndef RSMESH_RECONSTRUCT_SURFACE_H
@@ -17,7 +17,7 @@
 #include "isosurface/isosurface.h"
 #include "isosurface/rbf_field_function.h"
 
-namespace rsmesh::example {
+namespace rsmesh::examples {
     struct ReconstructionParameters {
         std::string input;
         std::string output;

@@ -1,0 +1,102 @@
+\doxysection{FSse.\+hpp}
+\hypertarget{_f_sse_8hpp_source}{}\label{_f_sse_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FSse.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FSse.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FSSE\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FSSE\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ SCALFMM\_USE\_SSE}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#error\ The\ SSE\ header\ is\ included\ while\ SCALFMM\_USE\_SSE\ is\ turned\ OFF}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <xmmintrin.h>}\ \ \textcolor{comment}{//\ SSE}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <emmintrin.h>}\ \ \textcolor{comment}{//SSE2}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <pmmintrin.h>}\ \textcolor{comment}{//SSE3}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ \_\_SSSE3\_\_}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <tmmintrin.h>}\ \ \textcolor{comment}{//SSSE3}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifdef\ \_\_SSSE4\_1\_\_}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <smmintrin.h>}\ \textcolor{comment}{//\ SSE4}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifndef\ \_mm\_set\_pd1}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ Looks\ like\ clang's\ emmintrin.h\ doesn't\ have\ this\ alternate\ name.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ But\ \_mm\_set1\_pd\ is\ an\ equivalent\ to\ \_mm\_set\_pd1.}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ \_mm\_set\_pd1\ \_mm\_set1\_pd}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ \_\_SSEPE\_INTEL\_COMPILER}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{inline}\ \_\_m128d\&\ operator+=(\_\_m128d\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128d\&\ v2)\{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{return}\ (v1\ =\ \_mm\_add\_pd(v1,\ v2));}
+\DoxyCodeLine{00032\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{inline}\ \_\_m128d\&\ operator-\/=(\_\_m128d\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128d\&\ v2)\{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{return}\ (v1\ =\ \_mm\_sub\_pd(v1,\ v2));}
+\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{inline}\ \_\_m128d\&\ operator*=(\_\_m128d\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128d\&\ v2)\{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ (v1\ =\ \_mm\_mul\_pd(v1,\ v2));}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{inline}\ \_\_m128d\&\ operator/=(\_\_m128d\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128d\&\ v2)\{}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{return}\ (v1\ =\ \_mm\_div\_pd(v1,\ v2));}
+\DoxyCodeLine{00044\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{inline}\ \_\_m128d\ operator+(\textcolor{keyword}{const}\ \_\_m128d\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128d\&\ v2)\{}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_add\_pd(v1,\ v2);}
+\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{inline}\ \_\_m128d\ operator-\/(\textcolor{keyword}{const}\ \_\_m128d\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128d\&\ v2)\{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_sub\_pd(v1,\ v2);}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{inline}\ \_\_m128d\ operator*(\textcolor{keyword}{const}\ \_\_m128d\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128d\&\ v2)\{}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_mul\_pd(v1,\ v2);}
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{inline}\ \_\_m128d\ operator/(\textcolor{keyword}{const}\ \_\_m128d\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128d\&\ v2)\{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_div\_pd(v1,\ v2);}
+\DoxyCodeLine{00060\ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{inline}\ \_\_m128\&\ operator+=(\_\_m128\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128\&\ v2)\{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{return}\ (v1\ =\ \_mm\_add\_ps(v1,\ v2));}
+\DoxyCodeLine{00064\ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{inline}\ \_\_m128\&\ operator-\/=(\_\_m128\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128\&\ v2)\{}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{return}\ (v1\ =\ \_mm\_sub\_ps(v1,\ v2));}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{inline}\ \_\_m128\&\ operator*=(\_\_m128\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128\&\ v2)\{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{return}\ (v1\ =\ \_mm\_mul\_ps(v1,\ v2));}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{inline}\ \_\_m128\&\ operator/=(\_\_m128\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128\&\ v2)\{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ (v1\ =\ \_mm\_div\_ps(v1,\ v2));}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{inline}\ \_\_m128\ operator+(\textcolor{keyword}{const}\ \_\_m128\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128\&\ v2)\{}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_add\_ps(v1,\ v2);}
+\DoxyCodeLine{00080\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{inline}\ \_\_m128\ operator-\/(\textcolor{keyword}{const}\ \_\_m128\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128\&\ v2)\{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_sub\_ps(v1,\ v2);}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{inline}\ \_\_m128\ operator*(\textcolor{keyword}{const}\ \_\_m128\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128\&\ v2)\{}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_mul\_ps(v1,\ v2);}
+\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{inline}\ \_\_m128\ operator/(\textcolor{keyword}{const}\ \_\_m128\&\ v1,\ \textcolor{keyword}{const}\ \_\_m128\&\ v2)\{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_div\_ps(v1,\ v2);}
+\DoxyCodeLine{00092\ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FSSE\_HPP}}
+
+\end{DoxyCode}

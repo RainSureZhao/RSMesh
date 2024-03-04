@@ -1,0 +1,192 @@
+\doxysection{FStar\+PUKernel\+Capacities.\+hpp}
+\hypertarget{_f_star_p_u_kernel_capacities_8hpp_source}{}\label{_f_star_p_u_kernel_capacities_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/StarPUUtils/FStarPUKernelCapacities.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/StarPUUtils/FStarPUKernelCapacities.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FSTARPUKERNELCAPACITIES\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FSTARPUKERNELCAPACITIES\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}FStarPUUtils.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_star_p_u_kernel_capacities}{FStarPUKernelCapacities}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ supportP2M(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ supportM2M(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ supportM2L(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ supportM2LExtern(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ supportL2L(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ supportL2P(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ supportP2P(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ supportP2PExtern(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ supportM2LMpi(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ supportP2PMpi(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_star_p_u_abstract_capacities}{FStarPUAbstractCapacities}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_star_p_u_kernel_capacities}{FStarPUKernelCapacities}}\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ check(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportP2M(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ check(inPu);}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportM2M(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ check(inPu);}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportM2L(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ check(inPu);}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportM2LExtern(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ check(inPu);}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportL2L(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ check(inPu);}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportL2P(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ check(inPu);}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportP2P(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ check(inPu);}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportP2PExtern(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ check(inPu);}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportM2LMpi(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ check(inPu);}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportP2PMpi(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ check(inPu);}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BaseClass>}
+\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_star_p_u_all_yes_capacities}{FStarPUAllYesCapacities}}\ :\ \textcolor{keyword}{public}\ BaseClass,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_star_p_u_abstract_capacities}{FStarPUAbstractCapacities}}\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ check(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override}\{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{using\ }BaseClass::BaseClass;}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BaseClass>}
+\DoxyCodeLine{00075\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_star_p_u_all_cpu_capacities}{FStarPUAllCpuCapacities}}\ :\ \textcolor{keyword}{public}\ BaseClass,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_star_p_u_abstract_capacities}{FStarPUAbstractCapacities}}\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{bool}\ check(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override}\{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX;}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{using\ }BaseClass::BaseClass;}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_ENABLE\_CUDA\_KERNEL}}
+\DoxyCodeLine{00084\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BaseClass>}
+\DoxyCodeLine{00085\ \textcolor{keyword}{class\ }FStarPUAllCudaCapacities\ :\ \textcolor{keyword}{public}\ BaseClass,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_star_p_u_abstract_capacities}{FStarPUAbstractCapacities}}\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{bool}\ check(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override}\{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{using\ }BaseClass::BaseClass;}
+\DoxyCodeLine{00091\ \};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BaseClass>}
+\DoxyCodeLine{00094\ \textcolor{keyword}{class\ }FStarPUAllCpuCudaCapacities\ :\ \textcolor{keyword}{public}\ BaseClass,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_star_p_u_abstract_capacities}{FStarPUAbstractCapacities}}\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{bool}\ check(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override}\{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{using\ }BaseClass::BaseClass;}
+\DoxyCodeLine{00100\ \};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BaseClass>}
+\DoxyCodeLine{00103\ \textcolor{keyword}{class\ }FStarPUCudaP2PCapacities\ :\ \textcolor{keyword}{public}\ BaseClass,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_star_p_u_abstract_capacities}{FStarPUAbstractCapacities}}\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{bool}\ check(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override}\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX;}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{using\ }BaseClass::BaseClass;}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportP2P(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportP2PExtern(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportP2PMpi(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BaseClass>}
+\DoxyCodeLine{00122\ \textcolor{keyword}{class\ }FStarPUCudaP2PM2LCapacities\ :\ \textcolor{keyword}{public}\ BaseClass,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_star_p_u_abstract_capacities}{FStarPUAbstractCapacities}}\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{bool}\ check(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override}\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX;}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{using\ }BaseClass::BaseClass;}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportP2P(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportP2PExtern(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportP2PMpi(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportM2L(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportM2LExtern(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00144\ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportM2LMpi(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BaseClass>}
+\DoxyCodeLine{00151\ \textcolor{keyword}{class\ }FStarPUCudaM2LCapacities\ :\ \textcolor{keyword}{public}\ BaseClass,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_star_p_u_abstract_capacities}{FStarPUAbstractCapacities}}\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{bool}\ check(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override}\{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX;}
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{using\ }BaseClass::BaseClass;}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportM2L(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportM2LExtern(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00163\ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{bool}\ supportM2LMpi(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_CUDA\_IDX;}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_ENABLE\_OPENCL\_KERNEL}}
+\DoxyCodeLine{00172\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BaseClass>}
+\DoxyCodeLine{00173\ \textcolor{keyword}{class\ }FStarPUAllOpenCLCapacities\ :\ \textcolor{keyword}{public}\ BaseClass,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_star_p_u_abstract_capacities}{FStarPUAbstractCapacities}}\ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{bool}\ check(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override}\{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_OPENCL\_IDX;}
+\DoxyCodeLine{00176\ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{using\ }BaseClass::BaseClass;}
+\DoxyCodeLine{00179\ \};}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ BaseClass>}
+\DoxyCodeLine{00182\ \textcolor{keyword}{class\ }FStarPUAllCpuOpenCLCapacities\ :\ \textcolor{keyword}{public}\ BaseClass,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_star_p_u_abstract_capacities}{FStarPUAbstractCapacities}}\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{bool}\ check(\textcolor{keyword}{const}\ FStarPUTypes\ inPu)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inPu\ ==\ FSTARPU\_CPU\_IDX\ ||\ inPu\ ==\ FSTARPU\_OPENCL\_IDX;}
+\DoxyCodeLine{00185\ \ \ \ \ \}}
+\DoxyCodeLine{00186\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{using\ }BaseClass::BaseClass;}
+\DoxyCodeLine{00188\ \};}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FSTARPUKERNELCAPACITIES\_HPP}}
+\DoxyCodeLine{00193\ }
+
+\end{DoxyCode}

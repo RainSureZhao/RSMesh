@@ -1,0 +1,296 @@
+\doxysection{FPartitions\+Mapping.\+hpp}
+\hypertarget{_f_partitions_mapping_8hpp_source}{}\label{_f_partitions_mapping_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FPartitionsMapping.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FPartitionsMapping.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FPARTITIONSMAPPING\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FPARTITIONSMAPPING\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Utils/FMpi.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Containers/FVector.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}FLeafBalance.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Files/FMpiTreeBuilder.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_partitions_mapping}{FPartitionsMapping}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\ comm;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00017\ \ \ \ \ FSize\ \mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}};}
+\DoxyCodeLine{00019\ \ \ \ \ FSize\ \mbox{\hyperlink{class_f_partitions_mapping_a7c495b5cc6db0ec2f8fd8aa051f650e3}{nbParticlesWorking}};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ std::unique\_ptr<FSize[]>\ nbParticlesSentToOthers;}
+\DoxyCodeLine{00022\ \ \ \ \ std::unique\_ptr<FSize[]>\ offsetNbParticlesSentToOthers;}
+\DoxyCodeLine{00023\ \ \ \ \ std::unique\_ptr<FSize[]>\ nbParticlesRecvFromOthers;}
+\DoxyCodeLine{00024\ \ \ \ \ std::unique\_ptr<FSize[]>\ offsetNbParticlesRecvFromOthers;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ std::unique\_ptr<FSize[]>\ mappingToOthers;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_f_partitions_mapping}{FPartitionsMapping}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ inComm)}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ :\ comm(inComm),\ \mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}(0),\ \mbox{\hyperlink{class_f_partitions_mapping_a7c495b5cc6db0ec2f8fd8aa051f650e3}{nbParticlesWorking}}(0)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ setComm(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ inComm)\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ comm\ =\ inComm;}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keywordtype}{int}\ NbPhysicalValuesPerPart>}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_partitions_mapping_1_1_test_particle}{TestParticle}}\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ position;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::array<FReal,\ NbPhysicalValuesPerPart>\ physicalValues;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ FSize\ localIndex;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ initialProcOwner;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ getPosition()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ position;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keywordtype}{int}\ NbPhysicalValuesPerPart,\ \textcolor{keyword}{class}\ FillerClass>}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{class_f_vector}{FVector<TestParticle<NbPhysicalValuesPerPart>}}>\ distributeParticles(\textcolor{keyword}{const}\ FSize\ inNbParticles,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ centerOfBox,\ \textcolor{keyword}{const}\ FReal\ boxWidth,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ TreeHeight,\ FillerClass\ filler)\{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}\ =\ inNbParticles;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ std::unique\_ptr<TestParticle<NbPhysicalValuesPerPart>[]>\ initialParticles(\textcolor{keyword}{new}\ \mbox{\hyperlink{struct_f_partitions_mapping_1_1_test_particle}{TestParticle<NbPhysicalValuesPerPart>}}[inNbParticles]);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ the\ array\ to\ distribute}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxPart\ =\ 0\ ;\ idxPart\ <\ \mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ filler(idxPart,\ \&initialParticles[idxPart].position,\ \&initialParticles[idxPart].physicalValues);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ initialParticles[idxPart].localIndex\ =\ idxPart;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ initialParticles[idxPart].initialProcOwner\ =\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}();}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_vector}{FVector<TestParticle<NbPhysicalValuesPerPart>}}>\ finalParticles;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_leaf_balance}{FLeafBalance}}\ balancer;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_tree_builder}{FMpiTreeBuilder<\ FReal,TestParticle<NbPhysicalValuesPerPart>}}\ >::DistributeArrayToContainer(comm,initialParticles.get(),}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}},}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ centerOfBox,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boxWidth,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TreeHeight,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&finalParticles,\ \&balancer);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_quick_sort}{FQuickSort<TestParticle<NbPhysicalValuesPerPart>}},FSize>::QsOmp(finalParticles.\mbox{\hyperlink{class_f_vector_a7609237a1fe28ddad0d24b032d1c0d41}{data}}(),\ finalParticles.\mbox{\hyperlink{class_f_vector_ae27a83b0b3e11851c9b3f5991937e3f2}{getSize}}(),}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ TestParticle<NbPhysicalValuesPerPart>\&\ p1,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ TestParticle<NbPhysicalValuesPerPart>\&\ p2)\{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ return\ p1.initialProcOwner\ <\ p2.initialProcOwner}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ (p1.initialProcOwner\ ==\ p2.initialProcOwner}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ p1.localIndex\ <\ p2.localIndex);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_partitions_mapping_a7c495b5cc6db0ec2f8fd8aa051f650e3}{nbParticlesWorking}}\ =\ finalParticles.\mbox{\hyperlink{class_f_vector_ae27a83b0b3e11851c9b3f5991937e3f2}{getSize}}();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ nbParticlesRecvFromOthers.reset(\textcolor{keyword}{new}\ FSize[comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()]);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ memset(nbParticlesRecvFromOthers.get(),\ 0\ ,\ \textcolor{keyword}{sizeof}(FSize)*comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}());}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ finalParticles.\mbox{\hyperlink{class_f_vector_ae27a83b0b3e11851c9b3f5991937e3f2}{getSize}}()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Count\ the\ particles\ received\ from\ each\ proc}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesRecvFromOthers[finalParticles[idxPart].initialProcOwner]\ +=\ 1;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ offsetNbParticlesRecvFromOthers.reset(\textcolor{keyword}{new}\ FSize[comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()+1]);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ offsetNbParticlesRecvFromOthers[0]\ =\ 0;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;\ idxProc\ <\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ offsetNbParticlesRecvFromOthers[idxProc+1]\ =\ offsetNbParticlesRecvFromOthers[idxProc]}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ nbParticlesRecvFromOthers[idxProc];}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ std::unique\_ptr<FSize[]>\ nbParticlesRecvFromOthersAllAll(\textcolor{keyword}{new}\ FSize[comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()*comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()]);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Exchange\ how\ many\ each\ proc\ receive\ from\ aother}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{FMpi::MpiAssert}}(\ MPI\_Allgather(\ nbParticlesRecvFromOthers.get(),\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}(),\ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{FMpi::GetType}}(FSize()),}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesRecvFromOthersAllAll.get(),\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}(),}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{FMpi::GetType}}(FSize()),\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}()),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ nbParticlesSentToOthers.reset(\textcolor{keyword}{new}\ FSize[comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()]);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ FSize\ checkerSent\ =\ 0;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ offsetNbParticlesSentToOthers.reset(\textcolor{keyword}{new}\ FSize[comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()+1]);}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ offsetNbParticlesSentToOthers[0]\ =\ 0;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;\ idxProc\ <\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ nbParticlesSentToOthers[idxProc]\ =\ nbParticlesRecvFromOthersAllAll[comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()*idxProc\ +\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()];}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ checkerSent\ +=\ nbParticlesSentToOthers[idxProc];}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ offsetNbParticlesSentToOthers[idxProc+1]\ =\ offsetNbParticlesSentToOthers[idxProc]}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ nbParticlesSentToOthers[idxProc];}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ I\ must\ have\ send\ what\ I\ was\ owning\ at\ the\ beginning}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ FAssertLF(checkerSent\ ==\ \mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}});}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ std::unique\_ptr<FSize[]>\ localIdsRecvOrdered(\textcolor{keyword}{new}\ FSize[\mbox{\hyperlink{class_f_partitions_mapping_a7c495b5cc6db0ec2f8fd8aa051f650e3}{nbParticlesWorking}}]);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ list\ the\ local\ id\ in\ order\ of\ the\ different\ proc}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0\ ;\ idxPart\ <\ finalParticles.\mbox{\hyperlink{class_f_vector_ae27a83b0b3e11851c9b3f5991937e3f2}{getSize}}()\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ procOwner\ =\ finalParticles[idxPart].initialProcOwner;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ localIdsRecvOrdered[idxPart]\ =\ finalParticles[idxPart].localIndex;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(offsetNbParticlesRecvFromOthers[procOwner]\ <=\ idxPart}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ idxPart\ <\ offsetNbParticlesRecvFromOthers[procOwner+1]);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ std::unique\_ptr<FSize[]>\ localIdsSendOrdered(\textcolor{keyword}{new}\ FSize[\mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}]);}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ std::unique\_ptr<MPI\_Request[]>\ requests(\textcolor{keyword}{new}\ MPI\_Request[comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()*2]);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ iterRequest\ =\ 0;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;\ idxProc\ <\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(idxProc\ ==\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}())\{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(nbParticlesRecvFromOthers[idxProc]\ ==\ nbParticlesSentToOthers[idxProc]);}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_afba06a533855d38cf96cddbec48f155a}{memcpy}}(\&localIdsSendOrdered[offsetNbParticlesSentToOthers[idxProc]],}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&localIdsRecvOrdered[offsetNbParticlesRecvFromOthers[idxProc]],}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(FSize)*nbParticlesRecvFromOthers[idxProc]);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbRecvFromProc\ =\ nbParticlesRecvFromOthers[idxProc];}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nbRecvFromProc)\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{FMpi::MpiAssert}}(\ MPI\_Isend(\&localIdsRecvOrdered[offsetNbParticlesRecvFromOthers[idxProc]],}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}(nbRecvFromProc),}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{FMpi::GetType}}(FSize()),\ idxProc,}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 99,\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ \&requests[iterRequest++]),\ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbSendToProc\ =\ nbParticlesSentToOthers[idxProc];}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nbSendToProc)\{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{FMpi::MpiAssert}}(\ MPI\_Irecv(\&localIdsSendOrdered[offsetNbParticlesSentToOthers[idxProc]],}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}(nbSendToProc),}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{FMpi::GetType}}(FSize()),\ idxProc,}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 99,\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ \&requests[iterRequest++]),\ \_\_LINE\_\_\ \ );}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{FMpi::MpiAssert}}(\ MPI\_Waitall(\ iterRequest,\ requests.get(),\ MPI\_STATUSES\_IGNORE),\ \_\_LINE\_\_\ \ );}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ mappingToOthers.reset(\textcolor{keyword}{new}\ FSize[\mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}]);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0;\ idxPart\ <\ \mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ mappingToOthers[localIdsSendOrdered[idxPart]]\ =\ idxPart;}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(finalParticles);}
+\DoxyCodeLine{00182\ \ \ \ \ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{comment}{//\ physicalValues\ must\ be\ of\ size\ nbParticlesInitial}}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keywordtype}{int}\ NbPhysicalValuesPerPart>}
+\DoxyCodeLine{00188\ \ \ \ \ std::unique\_ptr<std::array<FReal,\ NbPhysicalValuesPerPart>[]>\ distributeData(}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::array<FReal,\ NbPhysicalValuesPerPart>\ physicalValues[])\{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ std::unique\_ptr<std::array<FReal,\ NbPhysicalValuesPerPart>[]>\ physicalValuesRorder(}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ std::array<FReal,\ NbPhysicalValuesPerPart>[\mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}]);}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0;\ idxPart\ <\ \mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ physicalValuesRorder[mappingToOthers[idxPart]]\ =\ physicalValues[idxPart];}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Allocate\ the\ array\ to\ store\ the\ physical\ values\ of\ my\ working\ interval}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ std::unique\_ptr<std::array<FReal,\ NbPhysicalValuesPerPart>[]>\ recvPhysicalValues(\textcolor{keyword}{new}\ std::array<FReal,\ NbPhysicalValuesPerPart>[\mbox{\hyperlink{class_f_partitions_mapping_a7c495b5cc6db0ec2f8fd8aa051f650e3}{nbParticlesWorking}}]);}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ std::unique\_ptr<MPI\_Request[]>\ requests(\textcolor{keyword}{new}\ MPI\_Request[comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()*2]);}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ iterRequest\ =\ 0;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;\ idxProc\ <\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(idxProc\ ==\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}())\{}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(nbParticlesRecvFromOthers[idxProc]\ ==\ nbParticlesSentToOthers[idxProc]);}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_afba06a533855d38cf96cddbec48f155a}{memcpy}}(\&recvPhysicalValues[offsetNbParticlesRecvFromOthers[idxProc]],}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&physicalValuesRorder[offsetNbParticlesSentToOthers[idxProc]],}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(std::array<FReal,\ NbPhysicalValuesPerPart>)*nbParticlesRecvFromOthers[idxProc]);}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbSendToProc\ =\ nbParticlesSentToOthers[idxProc];}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nbSendToProc)\{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{FMpi::MpiAssert}}(\ MPI\_Isend(}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const\_cast<}std::array<FReal,\ NbPhysicalValuesPerPart>*\textcolor{keyword}{>}(\&physicalValuesRorder[offsetNbParticlesSentToOthers[idxProc]]),}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}(nbSendToProc*\textcolor{keyword}{sizeof}(std::array<FReal,\ NbPhysicalValuesPerPart>)),}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_BYTE,\ idxProc,}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2222,\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ \&requests[iterRequest++]),\ \_\_LINE\_\_\ \ );;}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbRecvFromProc\ =\ nbParticlesRecvFromOthers[idxProc];}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nbRecvFromProc)\{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{FMpi::MpiAssert}}(\ MPI\_Irecv(}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{void}*)\&recvPhysicalValues[offsetNbParticlesRecvFromOthers[idxProc]],}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}(nbRecvFromProc*\textcolor{keyword}{sizeof}(std::array<FReal,\ NbPhysicalValuesPerPart>)),}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_INT,\ idxProc,}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2222,\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ \&requests[iterRequest++]),\ \_\_LINE\_\_\ \ );;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{FMpi::MpiAssert}}(\ MPI\_Waitall(\ iterRequest,\ requests.get(),\ MPI\_STATUSES\_IGNORE),\ \_\_LINE\_\_\ \ );}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(recvPhysicalValues);}
+\DoxyCodeLine{00232\ \ \ \ \ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{comment}{//\ resValues\ must\ be\ of\ size\ nbParticlesWorking}}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keywordtype}{int}\ NbResValuesPerPart>}
+\DoxyCodeLine{00238\ \ \ \ \ std::unique\_ptr<std::array<FReal,\ NbResValuesPerPart>[]>\ getResultingData(}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::array<FReal,\ NbResValuesPerPart>\ resValues[])\{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First\ allocate\ the\ array\ to\ store\ the\ result}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ std::unique\_ptr<std::array<FReal,\ NbResValuesPerPart>[]>\ recvPhysicalValues(}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ std::array<FReal,\ NbResValuesPerPart>[\mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}]);}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ std::unique\_ptr<MPI\_Request[]>\ requests(\textcolor{keyword}{new}\ MPI\_Request[comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()*2]);}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ iterRequest\ =\ 0;}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;\ idxProc\ <\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(idxProc\ ==\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}())\{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(nbParticlesRecvFromOthers[idxProc]\ ==\ nbParticlesSentToOthers[idxProc]);}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_afba06a533855d38cf96cddbec48f155a}{memcpy}}(\&recvPhysicalValues[offsetNbParticlesSentToOthers[idxProc]],}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&resValues[offsetNbParticlesRecvFromOthers[idxProc]],}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(std::array<FReal,\ NbResValuesPerPart>)*nbParticlesRecvFromOthers[idxProc]);}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ I\ originaly\ receive\ nbRecvFromProc,\ so\ I\ should}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ send\ nbRecvFromProc\ back\ to\ the\ real\ owner}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbRecvFromProc\ =\ nbParticlesRecvFromOthers[idxProc];}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nbRecvFromProc)\{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{FMpi::MpiAssert}}(\ MPI\_Isend(}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const\_cast<}std::array<FReal,\ NbResValuesPerPart>*\textcolor{keyword}{>}(\&resValues[offsetNbParticlesRecvFromOthers[idxProc]]),}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}(nbRecvFromProc*\textcolor{keyword}{sizeof}(std::array<FReal,\ NbResValuesPerPart>)),}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_BYTE,\ idxProc,}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1111,\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ \&requests[iterRequest++]),\ \_\_LINE\_\_\ \ );;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ I\ sent\ nbSendToProc\ to\ idxProc,}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ so\ I\ should\ receive\ nbSendToProc\ in\ my\ interval}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FSize\ nbSendToProc\ =\ nbParticlesSentToOthers[idxProc];}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nbSendToProc)\{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{FMpi::MpiAssert}}(\ MPI\_Irecv(}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&recvPhysicalValues[offsetNbParticlesSentToOthers[idxProc]],}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}(nbSendToProc*\textcolor{keyword}{sizeof}(std::array<FReal,\ NbResValuesPerPart>)),}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_BYTE,\ idxProc,}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1111,\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ \&requests[iterRequest++]),\ \_\_LINE\_\_\ \ );;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{FMpi::MpiAssert}}(\ MPI\_Waitall(\ iterRequest,\ requests.get(),\ MPI\_STATUSES\_IGNORE),\ \_\_LINE\_\_\ \ );}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ std::unique\_ptr<std::array<FReal,\ NbResValuesPerPart>[]>\ recvPhysicalValuesOrder(}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ std::array<FReal,\ NbResValuesPerPart>[\mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}]);}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(FSize\ idxPart\ =\ 0;\ idxPart\ <\ \mbox{\hyperlink{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}{nbParticlesInitial}}\ ;\ ++idxPart)\{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ recvPhysicalValuesOrder[idxPart]\ =\ recvPhysicalValues[mappingToOthers[idxPart]];}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(recvPhysicalValuesOrder);}
+\DoxyCodeLine{00288\ \ \ \ \ \}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ FSize\ getNbParticlesWorking()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_partitions_mapping_a7c495b5cc6db0ec2f8fd8aa051f650e3}{nbParticlesWorking}};}
+\DoxyCodeLine{00294\ \ \ \ \ \}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \ \ FSize\ getMappingResultToLocal(\textcolor{keyword}{const}\ FSize\ inIdx)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mappingToOthers[inIdx];}
+\DoxyCodeLine{00298\ \ \ \ \ \}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \};}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

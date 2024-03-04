@@ -1,0 +1,116 @@
+\doxysection{FCuda\+Device\+Wrapper.\+hpp}
+\hypertarget{_f_cuda_device_wrapper_8hpp_source}{}\label{_f_cuda_device_wrapper_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/Cuda/FCudaDeviceWrapper.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/Cuda/FCudaDeviceWrapper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FCUDADEVICEWRAPPER\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FCUDADEVICEWRAPPER\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Core/FOutOfBlockInteraction.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}FCudaStructParams.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }ParticleContainerGroupClass,\ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }CudaKernelClass>}
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{void}\ FCuda\_\_bottomPassCallback(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ leafCellsPtr,\ std::size\_t\ leafCellsSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ leafCellsUpPtr,}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ containersPtr,\ std::size\_t\ containersSize,}
+\DoxyCodeLine{00013\ \ \ \ \ CudaKernelClass*\ kernel,\ cudaStream\_t\ \ \ currentStream,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dim3\ inGridSize,\ \textcolor{keyword}{const}\ dim3\ inBlocksSize);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }ParticleContainerGroupClass,\ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }CudaKernelClass>}
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{void}\ FCuda\_\_upwardPassCallback(}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsPtr,\ std::size\_t\ currentCellsSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsUpPtr,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ childCellsPtr,\ std::size\_t\ childCellsSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ childCellsUpPtr,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLevel,\ CudaKernelClass*\ kernel,\ cudaStream\_t\ \ \ \ currentStream,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dim3\ inGridSize,\ \textcolor{keyword}{const}\ dim3\ inBlocksSize);}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_USE\_MPI}}
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }ParticleContainerGroupClass,\ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }CudaKernelClass>}
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{void}\ FCuda\_\_transferInoutPassCallbackMpi(}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsPtr,\ std::size\_t\ currentCellsSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsDownPtr,}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ externalCellsPtr,\ std::size\_t\ externalCellsSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ externalCellsUpPtr,}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ idxLevel,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_out_of_block_interaction}{OutOfBlockInteraction}}*\ outsideInteractions,}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{int}\ nbOutsideInteractions,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ safeInteractions,\ \textcolor{keywordtype}{int}\ nbSafeInteractions,\ CudaKernelClass*\ kernel,\ cudaStream\_t\ \ \ currentStream,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dim3\ inGridSize,\ \textcolor{keyword}{const}\ dim3\ inBlocksSize);}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }ParticleContainerGroupClass,\ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }CudaKernelClass>}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ FCuda\_\_transferInPassCallback(}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsPtr,\ std::size\_t\ currentCellsSize,}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsUpPtr,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsDownPtr,}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ idxLevel,\ CudaKernelClass*\ kernel,\ cudaStream\_t\ \ \ \ \ currentStream,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dim3\ inGridSize,\ \textcolor{keyword}{const}\ dim3\ inBlocksSize);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }ParticleContainerGroupClass,\ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }CudaKernelClass>}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ FCuda\_\_transferInoutPassCallback(}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsPtr,\ std::size\_t\ currentCellsSize,}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsUpPtr,}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ externalCellsPtr,\ std::size\_t\ externalCellsSize,}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ externalCellsDownPtr,}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{int}\ idxLevel,\ \textcolor{keywordtype}{int}\ mode,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_out_of_block_interaction}{OutOfBlockInteraction}}*\ outsideInteractions,}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{int}\ nbOutsideInteractions,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}*\ safeInteractions,\ \textcolor{keywordtype}{int}\ nbSafeInteractions,\ CudaKernelClass*\ kernel,\ cudaStream\_t\ \ currentStream,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dim3\ inGridSize,\ \textcolor{keyword}{const}\ dim3\ inBlocksSize);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }ParticleContainerGroupClass,\ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }CudaKernelClass>}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{void}\ FCuda\_\_downardPassCallback(}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsPtr,\ std::size\_t\ currentCellsSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ currentCellsDownPtr,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ childCellsPtr,\ std::size\_t\ childCellsSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ childCellsDownPtr,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLevel,\ CudaKernelClass*\ kernel,\ cudaStream\_t\ \ \ \ \ currentStream,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dim3\ inGridSize,\ \textcolor{keyword}{const}\ dim3\ inBlocksSize);}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifdef\ SCALFMM\_USE\_MPI}}
+\DoxyCodeLine{00061\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }ParticleContainerGroupClass,\ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }CudaKernelClass>}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{void}\ FCuda\_\_directInoutPassCallbackMpi(}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ containersPtr,\ std::size\_t\ containersSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ containersDownPtr,}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ externalContainersPtr,\ std::size\_t\ externalContainersSize,}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_out_of_block_interaction}{OutOfBlockInteraction}}*\ outsideInteractions,}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ nbOutsideInteractions,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ safeOuterInteractions[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counterOuterCell,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ treeHeight,\ CudaKernelClass*\ kernel,\ cudaStream\_t\ \ \ \ \ currentStream,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dim3\ inGridSize,\ \textcolor{keyword}{const}\ dim3\ inBlocksSize);}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00071\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }ParticleContainerGroupClass,\ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }CudaKernelClass>}
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ FCuda\_\_directInPassCallback(}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ containersPtr,\ std::size\_t\ containersSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ containersDownPtr,}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ treeHeight,\ CudaKernelClass*\ kernel,\ cudaStream\_t\ \ \ \ \ currentStream,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dim3\ inGridSize,\ \textcolor{keyword}{const}\ dim3\ inBlocksSize);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }ParticleContainerGroupClass,\ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }CudaKernelClass>}
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ FCuda\_\_directInoutPassCallback(}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ containersPtr,\ std::size\_t\ containersSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ containersDownPtr,}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ externalContainersPtr,\ std::size\_t\ externalContainersSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ externalContainersDownPtr,}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_out_of_block_interaction}{OutOfBlockInteraction}}*\ outsideInteractions,\ \textcolor{keywordtype}{int}\ nbOutsideInteractions,}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \ \ \ \ safeOuterInteractions[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counterOuterCell,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_out_of_block_interaction}{OutOfBlockInteraction}}*\ insideInteractions,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \ \ \ \ safeInnterInteractions[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ counterInnerCell,}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ treeHeight,\ CudaKernelClass*\ kernel,\ cudaStream\_t\ \ \ \ \ currentStream,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dim3\ inGridSize,\ \textcolor{keyword}{const}\ dim3\ inBlocksSize);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }SymboleCellClass,\ \textcolor{keyword}{class\ }PoleCellClass,\ \textcolor{keyword}{class\ }LocalCellClass,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }CellContainerClass,\ \textcolor{keyword}{class\ }ParticleContainerGroupClass,\ \textcolor{keyword}{class\ }ParticleGroupClass,\ \textcolor{keyword}{class\ }CudaKernelClass>}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{void}\ FCuda\_\_mergePassCallback(}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ leafCellsPtr,\ std::size\_t\ leafCellsSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ leafCellsDownPtr,}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ containersPtr,\ std::size\_t\ containersSize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ containersDownPtr,}
+\DoxyCodeLine{00095\ \ \ \ \ CudaKernelClass*\ kernel,\ cudaStream\_t\ \ \ currentStream,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dim3\ inGridSize,\ \textcolor{keyword}{const}\ dim3\ inBlocksSize);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ CudaKernelClass>}
+\DoxyCodeLine{00099\ CudaKernelClass*\ FCuda\_\_BuildCudaKernel(\textcolor{keywordtype}{void}*);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ CudaKernelClass>}
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ FCuda\_\_ReleaseCudaKernel(CudaKernelClass*);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ CudaKernelClass>}
+\DoxyCodeLine{00105\ dim3\ FCuda\_\_GetGridSize(CudaKernelClass*\ kernel,\ \textcolor{keywordtype}{int}\ intervalSize);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ CudaKernelClass>}
+\DoxyCodeLine{00108\ dim3\ FCuda\_\_GetBlockSize(CudaKernelClass*\ kernel);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

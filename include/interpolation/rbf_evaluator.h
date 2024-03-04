@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2024/2/12.
+// Created by RainSure on 2024/2/12.
 //
 
 #ifndef RSMESH_RBF_EVALUATOR_H

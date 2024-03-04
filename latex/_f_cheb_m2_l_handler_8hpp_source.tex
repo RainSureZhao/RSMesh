@@ -1,0 +1,432 @@
+\doxysection{FCheb\+M2\+LHandler.\+hpp}
+\hypertarget{_f_cheb_m2_l_handler_8hpp_source}{}\label{_f_cheb_m2_l_handler_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Chebyshev/FChebM2LHandler.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/Chebyshev/FChebM2LHandler.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FCHEBM2LHANDLER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FCHEBM2LHANDLER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <numeric>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <typeinfo>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FBlas.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FTic.hpp"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}FChebTensor.hpp"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FSvd.hpp"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER>}
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ Compress(\textcolor{keyword}{const}\ FReal\ epsilon,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ninteractions,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ \&U,\ \ FReal*\ \&C,\ FReal*\ \&B);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER,\ \textcolor{keyword}{class}\ MatrixKernelClass>}
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_cheb_m2_l_handler}{FChebM2LHandler}}\ :\ \mbox{\hyperlink{class_f_no_copyable}{FNoCopyable}}}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{enum}\ \{order\ =\ ORDER,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nnodes\ =\ \mbox{\hyperlink{struct_tensor_traits}{TensorTraits<ORDER>::nnodes}},}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ninteractions\ =\ 316\};\ \textcolor{comment}{//\ 7\string^3\ -\/\ 3\string^3\ (max\ num\ cells\ in\ far-\/field)}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ MatrixKernel;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ FReal\ *U,\ *C,\ *B;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{const}\ FReal\ epsilon;\ \textcolor{comment}{//<!\ accuracy\ which\ determines\ trucation\ of\ SVD}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ rank;\ \ \ \textcolor{comment}{//<!\ truncation\ rank,\ satisfies\ @p\ epsilon}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ getFileName(FReal\ epsilon)}
+\DoxyCodeLine{00068\ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ precision\_type\ =\ (\textcolor{keyword}{typeid}(FReal)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{double})\ ?\ \textcolor{charliteral}{'d'}\ :\ \textcolor{charliteral}{'f'});}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ std::stringstream\ stream;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ stream\ <<\ \textcolor{stringliteral}{"{}m2l\_k"{}}<<\ MatrixKernelClass::getID()\ <<\ \textcolor{stringliteral}{"{}\_"{}}\ <<\ precision\_type}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\_o"{}}\ <<\ order\ <<\ \textcolor{stringliteral}{"{}\_e"{}}\ <<\ epsilon\ <<\ \textcolor{stringliteral}{"{}.bin"{}};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ stream.str();}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{class_f_cheb_m2_l_handler}{FChebM2LHandler}}(\textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ inMatrixKernel,\ \textcolor{keyword}{const}\ FReal\ \_epsilon)}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ :\ MatrixKernel(inMatrixKernel),\ U(\textcolor{keyword}{nullptr}),\ C(\textcolor{keyword}{nullptr}),\ B(\textcolor{keyword}{nullptr}),\ epsilon(\_epsilon),\ rank(0)}
+\DoxyCodeLine{00080\ \ \ \ \ \{\}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{class_f_cheb_m2_l_handler}{\string~FChebM2LHandler}}()}
+\DoxyCodeLine{00083\ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (U\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ []\ U;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (B\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ []\ B;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (C\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ []\ C;}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_acbd171865c6efd661f208f1f94d32a34}{ComputeAndCompressAndSet}}()}
+\DoxyCodeLine{00093\ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ measure\ time}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ time;\ time.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}();}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ aready\ set}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (U||C||B)\ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Compressed\ M2L\ operator\ already\ set"{}});}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ rank\ =\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_ab6281c59de16ca5b764e73137a8e7e42}{ComputeAndCompress}}(MatrixKernel,\ epsilon,\ U,\ C,\ B);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ sizeM2L\ =\ 343*rank*rank*\textcolor{keyword}{sizeof}(FReal);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ write\ info}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Compressed\ and\ set\ M2L\ operators\ ("{}}\ <<\ long(sizeM2L)\ <<\ \textcolor{stringliteral}{"{}\ B)\ in\ "{}}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ time.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}sec."{}}\ \ <<\ std::endl;}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a96d77431183165d82f4c858f6b724021}{ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet}}()}
+\DoxyCodeLine{00111\ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a2fcf5d2a0cba740c8db39001e52b0b44}{FChebM2LHandler<FReal,\ ORDER,MatrixKernelClass>::ComputeAndCompressAndStoreInBinaryFile}}(epsilon);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_f_cheb_m2_l_handler_a247ce5b02f0812e8a459acf1db9ffa24}{ReadFromBinaryFileAndSet}}();}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_ab6281c59de16ca5b764e73137a8e7e42}{ComputeAndCompress}}(\textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ MatrixKernel,\ \textcolor{keyword}{const}\ FReal\ epsilon,\ FReal*\ \&U,\ FReal*\ \&C,\ FReal*\ \&B);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a2fcf5d2a0cba740c8db39001e52b0b44}{ComputeAndCompressAndStoreInBinaryFile}}(\textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ MatrixKernel,\ \textcolor{keyword}{const}\ FReal\ epsilon);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a247ce5b02f0812e8a459acf1db9ffa24}{ReadFromBinaryFileAndSet}}();}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_ad4fa32bd50ecc34a35919d8a0b3a523c}{getRank}}()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ rank;\}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a9725b744399d14f29267268d55e6a6ef}{applyU}}(\textcolor{keyword}{const}\ FReal\ *\textcolor{keyword}{const}\ X,\ FReal\ *\textcolor{keyword}{const}\ x)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00151\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00152\ \ \ \ \ FBlas::gemva(nnodes,\ rank,\ 1.,\ U,\ \textcolor{keyword}{const\_cast<}FReal*\textcolor{keyword}{>}(X),\ x);}
+\DoxyCodeLine{00153\ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a0463cee2a593beadc1640d7fcfa084a1}{applyC}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ transfer[3],\ FReal\ CellWidth,}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ *\textcolor{keyword}{const}\ Y,\ FReal\ *\textcolor{keyword}{const}\ X)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00168\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ idx}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ =\ (transfer[0]+3)*7*7\ +\ (transfer[1]+3)*7\ +\ (transfer[2]+3);}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{const}\ FReal\ scale(MatrixKernel-\/>getScaleFactor(CellWidth));}
+\DoxyCodeLine{00172\ \ \ \ \ FBlas::gemva(rank,\ rank,\ scale,\ C\ +\ idx*rank*rank,\ \textcolor{keyword}{const\_cast<}FReal*\textcolor{keyword}{>}(Y),\ X);}
+\DoxyCodeLine{00173\ \ \ \}}
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a0463cee2a593beadc1640d7fcfa084a1}{applyC}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ idx,\ FReal\ CellWidth,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ *\textcolor{keyword}{const}\ Y,\ FReal\ *\textcolor{keyword}{const}\ X)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00176\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{const}\ FReal\ scale(MatrixKernel-\/>getScaleFactor(CellWidth));}
+\DoxyCodeLine{00178\ \ \ \ \ FBlas::gemva(rank,\ rank,\ scale,\ C\ +\ idx*rank*rank,\ \textcolor{keyword}{const\_cast<}FReal*\textcolor{keyword}{>}(Y),\ X);}
+\DoxyCodeLine{00179\ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a0463cee2a593beadc1640d7fcfa084a1}{applyC}}(FReal\ CellWidth,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ *\textcolor{keyword}{const}\ Y,\ FReal\ *\textcolor{keyword}{const}\ X)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00182\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keyword}{const}\ FReal\ scale(MatrixKernel-\/>getScaleFactor(CellWidth));}
+\DoxyCodeLine{00184\ \ \ \ \ FBlas::gemva(rank,\ rank\ *\ 343,\ scale,\ C,\ \textcolor{keyword}{const\_cast<}FReal*\textcolor{keyword}{>}(Y),\ X);}
+\DoxyCodeLine{00185\ \ \ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a4408d1c4afd8fd489768092aa885d074}{applyB}}(FReal\ *\textcolor{keyword}{const}\ y,\ FReal\ *\textcolor{keyword}{const}\ Y)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00195\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00196\ \ \ \ \ FBlas::gemtv(nnodes,\ rank,\ 1.,\ B,\ y,\ Y);}
+\DoxyCodeLine{00197\ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \};}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00208\ \textcolor{comment}{//\ definition\ ////////////////////////////////////////////////////////}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER,\ \textcolor{keyword}{class}\ MatrixKernelClass>}
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00218\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_ab6281c59de16ca5b764e73137a8e7e42}{FChebM2LHandler<FReal,\ ORDER,\ MatrixKernelClass>::ComputeAndCompress}}(\textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ MatrixKernel,}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ epsilon,}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ \&U,}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ \&C,}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ \&B)}
+\DoxyCodeLine{00223\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{comment}{//\ allocate\ memory\ and\ store\ compressed\ M2L\ operators}}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{if}\ (U||C||B)\ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Compressed\ M2L\ operators\ are\ already\ set"{}});}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{comment}{//\ interpolation\ points\ of\ source\ (Y)\ and\ target\ (X)\ cell}}
+\DoxyCodeLine{00228\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ X[nnodes],\ Y[nnodes];}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{comment}{//\ set\ roots\ of\ target\ cell\ (X)}}
+\DoxyCodeLine{00230\ \ \ \ \ \mbox{\hyperlink{class_f_interp_tensor_ac8107c468326e9c786873c23fe2e8766}{FChebTensor<FReal,\ order>::setRoots}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal>}}(0.,0.,0.),\ FReal(2.),\ X);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{comment}{//\ allocate\ memory\ and\ compute\ 316\ m2l\ operators}}
+\DoxyCodeLine{00233\ \ \ \ \ FReal\ *\_U,\ *\_C,\ *\_B;}
+\DoxyCodeLine{00234\ \ \ \ \ \_U\ =\ \_B\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00235\ \ \ \ \ \_C\ =\ \textcolor{keyword}{new}\ FReal\ [nnodes*nnodes\ *\ ninteractions];}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ counter\ =\ 0;}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=-\/3;\ i<=3;\ ++i)\ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j=-\/3;\ j<=3;\ ++j)\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k=-\/3;\ k<=3;\ ++k)\ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (abs(i)>1\ ||\ abs(j)>1\ ||\ abs(k)>1)\ \{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ roots\ of\ source\ cell\ (Y)}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ cy(FReal(2.*i),\ FReal(2.*j),\ FReal(2.*k));}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_interp_tensor_ac8107c468326e9c786873c23fe2e8766}{FChebTensor<FReal,\ order>::setRoots}}(cy,\ FReal(2.),\ Y);}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ evaluate\ m2l\ operator}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n=0;\ n<nnodes;\ ++n)}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ m=0;\ m<nnodes;\ ++m)}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_C[counter*nnodes*nnodes\ +\ n*nnodes\ +\ m]}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ MatrixKernel-\/>evaluate(X[m],\ Y[n]);}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ interaction\ counter}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ counter++;}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00254\ \ \ \ \ \}}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordflow}{if}\ (counter\ !=\ ninteractions)}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Number\ of\ interactions\ must\ correspond\ to\ 316"{}});}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00260\ \ \ \ \ FReal\ weights[nnodes];}
+\DoxyCodeLine{00261\ \ \ \ \ \mbox{\hyperlink{class_f_cheb_tensor_ad6b767c7fcabc179a5d5e808a5540972}{FChebTensor<FReal,\ order>::setRootOfWeights}}(weights);}
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i<316;\ ++i)}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n=0;\ n<nnodes;\ ++n)\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ FBlas::scal(nnodes,\ weights[n],\ \_C+i*nnodes*nnodes\ +\ n,\ \ nnodes);\ \textcolor{comment}{//\ scale\ rows}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ FBlas::scal(nnodes,\ weights[n],\ \_C+i*nnodes*nnodes\ +\ n\ *\ nnodes);\ \textcolor{comment}{//\ scale\ cols}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{comment}{//\ svd\ compression\ of\ M2L}}
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ rank\ =\ Compress<FReal,\ ORDER>(epsilon,\ ninteractions,\ \_U,\ \_C,\ \_B);}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordflow}{if}\ (!(rank>0))\ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Low\ rank\ must\ be\ larger\ then\ 0!"{}});}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \textcolor{comment}{//\ store\ U}}
+\DoxyCodeLine{00275\ \ \ \ \ U\ =\ \textcolor{keyword}{new}\ FReal\ [nnodes\ *\ rank];}
+\DoxyCodeLine{00276\ \ \ \ \ FBlas::copy(rank*nnodes,\ \_U,\ U);}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keyword}{delete}\ []\ \_U;}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{comment}{//\ store\ B}}
+\DoxyCodeLine{00279\ \ \ \ \ B\ =\ \textcolor{keyword}{new}\ FReal\ [nnodes\ *\ rank];}
+\DoxyCodeLine{00280\ \ \ \ \ FBlas::copy(rank*nnodes,\ \_B,\ B);}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keyword}{delete}\ []\ \_B;}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{comment}{//\ store\ C}}
+\DoxyCodeLine{00283\ \ \ \ \ counter\ =\ 0;}
+\DoxyCodeLine{00284\ \ \ \ \ C\ =\ \textcolor{keyword}{new}\ FReal\ [343\ *\ rank*rank];}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=-\/3;\ i<=3;\ ++i)}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j=-\/3;\ j<=3;\ ++j)}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k=-\/3;\ k<=3;\ ++k)\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ idx\ =\ (i+3)*7*7\ +\ (j+3)*7\ +\ (k+3);}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (abs(i)>1\ ||\ abs(j)>1\ ||\ abs(k)>1)\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FBlas::copy(rank*rank,\ \_C\ +\ counter*rank*rank,\ C\ +\ idx*rank*rank);}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ counter++;}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ FBlas::setzero(rank*rank,\ C\ +\ idx*rank*rank);}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keywordflow}{if}\ (counter\ !=\ ninteractions)}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Number\ of\ interactions\ must\ correspond\ to\ 316"{}});}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keyword}{delete}\ []\ \_C;}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n=0;\ n<nnodes;\ ++n)\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ FBlas::scal(rank,\ FReal(1.)\ /\ weights[n],\ U+n,\ nnodes);\ \textcolor{comment}{//\ scale\ rows}}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ FBlas::scal(rank,\ FReal(1.)\ /\ weights[n],\ B+n,\ nnodes);\ \textcolor{comment}{//\ scale\ rows}}
+\DoxyCodeLine{00303\ \ \ \ \ \}}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{comment}{//\ return\ low\ rank}}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{return}\ rank;}
+\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER,\ \textcolor{keyword}{class}\ MatrixKernelClass>}
+\DoxyCodeLine{00317\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00318\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a2fcf5d2a0cba740c8db39001e52b0b44}{FChebM2LHandler<FReal,\ ORDER,\ MatrixKernelClass>::ComputeAndCompressAndStoreInBinaryFile}}(\textcolor{keyword}{const}\ MatrixKernelClass\ *\textcolor{keyword}{const}\ MatrixKernel,\ \textcolor{keyword}{const}\ FReal\ epsilon)}
+\DoxyCodeLine{00319\ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{comment}{//\ measure\ time}}
+\DoxyCodeLine{00321\ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ time;\ time.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}();}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{comment}{//\ start\ computing\ process}}
+\DoxyCodeLine{00323\ \ \ \ \ FReal\ *U,\ *C,\ *B;}
+\DoxyCodeLine{00324\ \ \ \ \ U\ =\ C\ =\ B\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ rank\ =\ ComputeAndCompress(MatrixKernel,\ epsilon,\ U,\ C,\ B);}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{comment}{//\ store\ into\ binary\ file}}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ filename(getFileName(epsilon));}
+\DoxyCodeLine{00328\ \ \ \ \ std::ofstream\ stream(filename.c\_str(),}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ios::out\ |\ std::ios::binary\ |\ std::ios::trunc);}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordflow}{if}\ (stream.good())\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ stream.seekp(0);}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1)\ write\ number\ of\ interpolation\ points\ (int)}}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_nnodes\ =\ nnodes;}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ stream.write(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(\&\_nnodes),\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2)\ write\ low\ rank\ (int)}}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_rank\ =\ rank;}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ stream.write(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(\&\_rank),\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3)\ write\ U\ (rank*nnodes\ *\ FReal)}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ stream.write(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(U),\ \textcolor{keyword}{sizeof}(FReal)*rank*nnodes);}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4)\ write\ B\ (rank*nnodes\ *\ FReal)}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ stream.write(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(B),\ \textcolor{keyword}{sizeof}(FReal)*rank*nnodes);}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 5)\ write\ 343\ C\ (343\ *\ rank*rank\ *\ FReal)}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ stream.write(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(C),\ \textcolor{keyword}{sizeof}(FReal)*rank*rank*343);}
+\DoxyCodeLine{00344\ \ \ \ \ \}\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}File\ could\ not\ be\ opened\ to\ write"{}});}
+\DoxyCodeLine{00345\ \ \ \ \ stream.close();}
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{comment}{//\ free\ memory}}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keywordflow}{if}\ (U\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ []\ U;}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keywordflow}{if}\ (B\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ []\ B;}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keywordflow}{if}\ (C\ !=\ \textcolor{keyword}{nullptr})\ \textcolor{keyword}{delete}\ []\ C;}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{comment}{//\ write\ info}}
+\DoxyCodeLine{00351\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Compressed\ M2L\ operators\ ("{}}<<\ rank\ <<\ \textcolor{stringliteral}{"{})\ stored\ in\ binary\ file\ "{}}\ \ <<\ filename}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ in\ "{}}\ <<\ time.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}sec."{}}\ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00353\ \}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER,\ \textcolor{keyword}{class}\ MatrixKernelClass>}
+\DoxyCodeLine{00357\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00358\ \mbox{\hyperlink{class_f_cheb_m2_l_handler_a247ce5b02f0812e8a459acf1db9ffa24}{FChebM2LHandler<FReal,\ ORDER,\ MatrixKernelClass>::ReadFromBinaryFileAndSet}}()}
+\DoxyCodeLine{00359\ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{comment}{//\ measure\ time}}
+\DoxyCodeLine{00361\ \ \ \ \ \mbox{\hyperlink{class_f_tic}{FTic}}\ time;\ time.\mbox{\hyperlink{class_f_tic_ac0e070e65af128fbe5af711e51033b0a}{tic}}();}
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{comment}{//\ start\ reading\ process}}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keywordflow}{if}\ (U||C||B)\ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Compressed\ M2L\ operator\ already\ set"{}});}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ filename(getFileName(epsilon));}
+\DoxyCodeLine{00365\ \ \ \ \ std::ifstream\ stream(filename.c\_str(),}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ios::in\ |\ std::ios::binary\ |\ std::ios::ate);}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keyword}{const}\ std::ifstream::pos\_type\ size\ =\ stream.tellg();}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordflow}{if}\ (size<=0)\ \{}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Info:\ The\ requested\ binary\ file\ "{}}\ <<\ filename}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ does\ not\ yet\ exist.\ Compute\ it\ now\ ...\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ this-\/>ComputeAndCompressAndStoreInBinaryFileAndReadFromFileAndSet();}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00373\ \ \ \ \ \}\ }
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordflow}{if}\ (stream.good())\ \{}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ stream.seekg(0);}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1)\ read\ number\ of\ interpolation\ points\ (int)}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ npts;}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ stream.read(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(\&npts),\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (npts!=nnodes)\ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}nnodes\ and\ npts\ do\ not\ correspond"{}});}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2)\ read\ low\ rank\ (int)}}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ stream.read(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(\&rank),\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3)\ write\ U\ (rank*nnodes\ *\ FReal)}}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ U\ =\ \textcolor{keyword}{new}\ FReal\ [rank*nnodes];}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ stream.read(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(U),\ \textcolor{keyword}{sizeof}(FReal)*rank*nnodes);}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4)\ write\ B\ (rank*nnodes\ *\ FReal)}}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ B\ =\ \textcolor{keyword}{new}\ FReal\ [rank*nnodes];}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ stream.read(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(B),\ \textcolor{keyword}{sizeof}(FReal)*rank*nnodes);}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 5)\ write\ 343\ C\ (343\ *\ rank*rank\ *\ FReal)}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ C\ =\ \textcolor{keyword}{new}\ FReal\ [343\ *\ rank*rank];}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ stream.read(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(C),\ \textcolor{keyword}{sizeof}(FReal)*rank*rank*343);}
+\DoxyCodeLine{00391\ \ \ \ \ \}\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}File\ could\ not\ be\ opened\ to\ read"{}});}
+\DoxyCodeLine{00392\ \ \ \ \ stream.close();}
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{comment}{//\ write\ info}}
+\DoxyCodeLine{00394\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Compressed\ M2L\ operators\ ("{}}\ <<\ rank\ <<\ \textcolor{stringliteral}{"{})\ read\ from\ binary\ file\ "{}}}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\ in\ "{}}\ <<\ time.\mbox{\hyperlink{class_f_tic_ade3afdb1aa198635ebbc5ee8b7f4f081}{tacAndElapsed}}()\ <<\ \textcolor{stringliteral}{"{}sec."{}}\ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00396\ \}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00399\ \textcolor{comment}{unsigned\ int\ ReadRankFromBinaryFile(const\ std::string\&\ filename)}}
+\DoxyCodeLine{00400\ \textcolor{comment}{\{}}
+\DoxyCodeLine{00401\ \textcolor{comment}{\ \ \ \ //\ start\ reading\ process}}
+\DoxyCodeLine{00402\ \textcolor{comment}{\ \ \ \ std::ifstream\ stream(filename.c\_str(),\ std::ios::in\ |\ std::ios::binary\ |\ std::ios::ate);}}
+\DoxyCodeLine{00403\ \textcolor{comment}{\ \ \ \ const\ std::ifstream::pos\_type\ size\ =\ stream.tellg();}}
+\DoxyCodeLine{00404\ \textcolor{comment}{\ \ \ \ if\ (size<=0)\ throw\ std::runtime\_error("{}The\ requested\ binary\ file\ does\ not\ exist."{});}}
+\DoxyCodeLine{00405\ \textcolor{comment}{\ \ \ \ unsigned\ int\ rank\ =\ -\/1;}}
+\DoxyCodeLine{00406\ \textcolor{comment}{\ \ \ \ if\ (stream.good())\ \{}}
+\DoxyCodeLine{00407\ \textcolor{comment}{\ \ \ \ \ \ \ \ stream.seekg(0);}}
+\DoxyCodeLine{00408\ \textcolor{comment}{\ \ \ \ \ \ \ \ //\ 1)\ read\ number\ of\ interpolation\ points\ (int)}}
+\DoxyCodeLine{00409\ \textcolor{comment}{\ \ \ \ \ \ \ \ int\ npts;}}
+\DoxyCodeLine{00410\ \textcolor{comment}{\ \ \ \ \ \ \ \ stream.read(reinterpret\_cast<char*>(\&npts),\ sizeof(int));}}
+\DoxyCodeLine{00411\ \textcolor{comment}{\ \ \ \ \ \ \ \ //\ 2)\ read\ low\ rank\ (int)}}
+\DoxyCodeLine{00412\ \textcolor{comment}{\ \ \ \ \ \ \ \ stream.read(reinterpret\_cast<char*>(\&rank),\ sizeof(int));}}
+\DoxyCodeLine{00413\ \textcolor{comment}{\ \ \ \ \ \ \ \ return\ rank;}}
+\DoxyCodeLine{00414\ \textcolor{comment}{\ \ \ \ \}\ \ \ else\ throw\ std::runtime\_error("{}File\ could\ not\ be\ opened\ to\ read"{});}}
+\DoxyCodeLine{00415\ \textcolor{comment}{\ \ \ \ stream.close();}}
+\DoxyCodeLine{00416\ \textcolor{comment}{\ \ \ \ return\ rank;}}
+\DoxyCodeLine{00417\ \textcolor{comment}{\}}}
+\DoxyCodeLine{00418\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00437\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{int}\ ORDER>}
+\DoxyCodeLine{00438\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ Compress(\textcolor{keyword}{const}\ FReal\ epsilon,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ ninteractions,}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ \&U,\ \ FReal*\ \&C,\ FReal*\ \&B)}
+\DoxyCodeLine{00440\ \{}
+\DoxyCodeLine{00441\ \ \ \ \ \textcolor{comment}{//\ compile\ time\ constants}}
+\DoxyCodeLine{00442\ \ \ \ \ \textcolor{keyword}{enum}\ \{order\ =\ ORDER,}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nnodes\ =\ \mbox{\hyperlink{struct_tensor_traits}{TensorTraits<ORDER>::nnodes}}\};}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00445\ \ \ \ \ \textcolor{comment}{//\ init\ SVD}}
+\DoxyCodeLine{00446\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ LWORK\ =\ 2\ *\ (3*nnodes\ +\ ninteractions*nnodes);}
+\DoxyCodeLine{00447\ \ \ \ \ FReal\ *\textcolor{keyword}{const}\ WORK\ =\ \textcolor{keyword}{new}\ FReal\ [LWORK];}
+\DoxyCodeLine{00448\ \ \ \ \ }
+\DoxyCodeLine{00449\ \ \ \ \ \textcolor{comment}{//\ K\_col\ ///////////////////////////////////////////////////////////}}
+\DoxyCodeLine{00450\ \ \ \ \ FReal\ *\textcolor{keyword}{const}\ K\_col\ =\ \textcolor{keyword}{new}\ FReal\ [ninteractions\ *\ nnodes*nnodes];\ }
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i<ninteractions;\ ++i)}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j=0;\ j<nnodes;\ ++j)}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ FBlas::copy(nnodes,}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ C\ \ \ \ \ +\ i*nnodes*nnodes\ +\ j*nnodes,}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ K\_col\ +\ j*ninteractions*nnodes\ +\ i*nnodes);}
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{comment}{//\ singular\ value\ decomposition}}
+\DoxyCodeLine{00457\ \ \ \ \ FReal\ *\textcolor{keyword}{const}\ Q\ =\ \textcolor{keyword}{new}\ FReal\ [nnodes*nnodes];}
+\DoxyCodeLine{00458\ \ \ \ \ FReal\ *\textcolor{keyword}{const}\ S\ =\ \textcolor{keyword}{new}\ FReal\ [nnodes];}
+\DoxyCodeLine{00459\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ info\_col}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ =\ FBlas::gesvd(ninteractions*nnodes,\ nnodes,\ K\_col,\ S,\ Q,\ nnodes,}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWORK,\ WORK);}
+\DoxyCodeLine{00462\ \ \ \ \ \textcolor{keywordflow}{if}\ (info\_col!=0)\{}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ std::stringstream\ stream;}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ stream\ <<\ info\_col;}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}SVD\ did\ not\ converge\ with\ "{}}\ +\ stream.str());}
+\DoxyCodeLine{00466\ \ \ \ \ \}}
+\DoxyCodeLine{00467\ \ \ \ \ \textcolor{keyword}{delete}\ []\ K\_col;}
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ k\_col\ =\ FSvd::getRank<FReal,\ ORDER>(S,\ epsilon);}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{comment}{//\ Q'\ -\/>\ B\ }}
+\DoxyCodeLine{00471\ \ \ \ \ B\ =\ \textcolor{keyword}{new}\ FReal\ [nnodes*k\_col];}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i<k\_col;\ ++i)}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ FBlas::copy(nnodes,\ Q+i,\ nnodes,\ B+i*nnodes,\ 1);}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{comment}{//\ K\_row\ //////////////////////////////////////////////////////////////}}
+\DoxyCodeLine{00476\ \ \ \ \ FReal\ *\textcolor{keyword}{const}\ K\_row\ =\ C;}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ info\_row}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ =\ FBlas::gesvdSO(nnodes,\ ninteractions*nnodes,\ K\_row,\ S,\ Q,\ nnodes,}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LWORK,\ WORK);}
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{keywordflow}{if}\ (info\_row!=0)\{}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ std::stringstream\ stream;}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ stream\ <<\ info\_row;}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}SVD\ did\ not\ converge\ with\ "{}}\ +\ stream.str());}
+\DoxyCodeLine{00485\ \ \ \ \ \}}
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ k\_row\ =\ FSvd::getRank<FReal,\ ORDER>(S,\ epsilon);}
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keyword}{delete}\ []\ WORK;}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{comment}{//\ Q\ -\/>\ U}}
+\DoxyCodeLine{00490\ \ \ \ \ U\ =\ Q;}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \ \ \ \ \textcolor{comment}{//\ V'\ -\/>\ V}}
+\DoxyCodeLine{00493\ \ \ \ \ FReal\ *\textcolor{keyword}{const}\ V\ =\ \textcolor{keyword}{new}\ FReal\ [nnodes*ninteractions\ *\ k\_row];}
+\DoxyCodeLine{00494\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i<k\_row;\ ++i)}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ FBlas::copy(nnodes*ninteractions,\ K\_row+i,\ nnodes,}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V+i*nnodes*ninteractions,\ 1);}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \ \ \textcolor{comment}{//\ rank\ k(epsilon)\ /////////////////////////////////////////////////////}}
+\DoxyCodeLine{00499\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ k\ =\ k\_row\ <\ k\_col\ ?\ k\_row\ :\ k\_col;}
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{comment}{//\ C\_row\ ///////////////////////////////////////////////////////////}}
+\DoxyCodeLine{00502\ \ \ \ \ C\ =\ \textcolor{keyword}{new}\ FReal\ [ninteractions\ *\ k*k];}
+\DoxyCodeLine{00503\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i<k;\ ++i)\ \{}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ FBlas::scal(nnodes*ninteractions,\ S[i],\ V\ +\ i*nnodes*ninteractions);}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ m=0;\ m<ninteractions;\ ++m)}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j=0;\ j<k;\ ++j)}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ C[m*k*k\ +\ j*k\ +\ i]}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ FBlas::scpr(nnodes,}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\ +\ i*nnodes*ninteractions\ +\ m*nnodes,}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ B\ +\ j*nnodes);}
+\DoxyCodeLine{00511\ \ \ \ \ \}}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ \ \ \ \ \textcolor{keyword}{delete}\ []\ V;}
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{keyword}{delete}\ []\ S;}
+\DoxyCodeLine{00515\ \ \ \ \ \textcolor{keyword}{delete}\ []\ K\_row;}
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00517\ \ \ \ \ \textcolor{keywordflow}{return}\ k;}
+\DoxyCodeLine{00518\ \}}
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FCHEBM2LHANDLER\_HPP}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \textcolor{comment}{//\ [-\/-\/END-\/-\/]}}
+
+\end{DoxyCode}

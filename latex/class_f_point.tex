@@ -1,0 +1,587 @@
+\doxysection{FPoint\texorpdfstring{$<$}{<} \+\_\+\+Real, \+\_\+\+Dim \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_point}{}\label{class_f_point}\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+
+
+{\ttfamily \#include $<$FPoint.\+hpp$>$}
+
+类 FPoint\texorpdfstring{$<$}{<} \+\_\+\+Real, \+\_\+\+Dim \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_point}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}\label{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b} 
+using {\bfseries FReal} = \+\_\+\+Real
+\begin{DoxyCompactList}\small\item\em Floating number type \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_point_aa5ca88ea065f9c71e38da8ef784ca546}{FPoint}} ()=default
+\item 
+\mbox{\hyperlink{class_f_point_add3eb5d72a544c2d136a3ad711a858d6}{FPoint}} (const \mbox{\hyperlink{class_f_point}{FPoint}} \&)=default
+\item 
+{\footnotesize template$<$typename A , must\+\_\+be\+\_\+arithmetic$<$ A $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point_a6c3faef80050466f4ae1a309e461a49e}{FPoint}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ A, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&other)
+\item 
+\mbox{\hyperlink{class_f_point_af9a3dd56af70c8cafd107bb351550789}{FPoint}} (const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} array\+\_\+\mbox{[}\mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}}\mbox{]})
+\item 
+{\footnotesize template$<$typename A  = FReal, typename... Args$>$ }\\\mbox{\hyperlink{class_f_point_a01ca00aee9086b0c84c3c1f92c2979a1}{FPoint}} (const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \&arg, const Args... args)
+\item 
+\mbox{\hyperlink{class_f_point_accf46adceb3166429feb4f4c2d5d2945}{FPoint}} (const \mbox{\hyperlink{class_f_point}{FPoint}} \&other, const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} add\+\_\+value)
+\item 
+{\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{class_f_point_a3ddb34b536d46703a1d85095d4c5d410}{copy}} (const T \&other)
+\item 
+{\footnotesize template$<$typename T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \& \mbox{\hyperlink{class_f_point_a8199bf512204ce82961124e72c220870}{operator=}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&other)
+\item 
+{\footnotesize template$<$typename A  = FReal, typename... Args$>$ }\\void \mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{set\+Position}} (const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \&X, const Args... YandZ)
+\item 
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}} () const
+\begin{DoxyCompactList}\small\item\em Get x \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}} () const
+\begin{DoxyCompactList}\small\item\em Get y \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}} () const
+\begin{DoxyCompactList}\small\item\em Get z \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}{setX}} (const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} inX)
+\begin{DoxyCompactList}\small\item\em Set x \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_point_a622643561f2dfb77492c45d08db146d9}{setY}} (const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} inY)
+\begin{DoxyCompactList}\small\item\em Set y \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}{setZ}} (const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} inZ)
+\begin{DoxyCompactList}\small\item\em Set z \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_point_ad7d661a769ccb78f36da734b3945b533}{incX}} (const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} inX)
+\begin{DoxyCompactList}\small\item\em Add to the x-\/dimension the inX value \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_point_aca6c651616ef93f0920aa80e7fe6f19a}{incY}} (const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} inY)
+\begin{DoxyCompactList}\small\item\em Add to the y-\/dimension the inY value \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_point_af5f37e83b43e85706b3ccc72dbb63afa}{incZ}} (const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} inZ)
+\begin{DoxyCompactList}\small\item\em Add to z-\/dimension the inZ value \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_point_ad05c497fe0a0acb04a783eab4c76ff36}{get\+Data\+Value}} ()
+\begin{DoxyCompactList}\small\item\em Get a pointer on the coordinate of \doxylink{class_f_point}{FPoint$<$\+FReal$>$} \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_point_a95a557604c04f32e2f54e4df553f66e6}{get\+Data\+Value}} () const
+\begin{DoxyCompactList}\small\item\em Get a pointer on the coordinate of \doxylink{class_f_point}{FPoint$<$\+FReal$>$} \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \mbox{\hyperlink{class_f_point_aeb4ede7b5949b0b491455ee3f3da671c}{norm}} () const
+\begin{DoxyCompactList}\small\item\em Compute the distance to the origin \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \mbox{\hyperlink{class_f_point_a13f3fa46b8af935cafd8281880232c15}{norm2}} () const
+\begin{DoxyCompactList}\small\item\em Compute the distance to the origin \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}} \& \mbox{\hyperlink{class_f_point_a1a730b13c57ad593ebd86ea34f831056}{operator+=}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&other)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}} \& \mbox{\hyperlink{class_f_point_ac7e57298d155e71b4abd078c218b7e1f}{operator+=}} (const T \&val)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}} \& \mbox{\hyperlink{class_f_point_a8ff649b6e3aba75e5df8c908b98fd73a}{operator-\/=}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&other)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}} \& \mbox{\hyperlink{class_f_point_a76c4348bcd1fa3c6394d55804e8d341e}{operator-\/=}} (const T \&val)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \& \mbox{\hyperlink{class_f_point_a56a0358e96718da6c19337d55fabbd66}{operator\texorpdfstring{$\ast$}{*}=}} (const T \&val)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \& \mbox{\hyperlink{class_f_point_ab8c018fabb2821c27a12ae24adf9cdb6}{operator/=}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&other)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \& \mbox{\hyperlink{class_f_point_a9cdf044ff83b05330d22643a62d0b67b}{operator/=}} (const T \&val)
+\item 
+\Hypertarget{class_f_point_a6937a56faa6b1c735c541f465e233faa}\label{class_f_point_a6937a56faa6b1c735c541f465e233faa} 
+{\footnotesize template$<$class Buffer\+Writer\+Class $>$ }\\void {\bfseries save} (Buffer\+Writer\+Class \&buffer) const
+\begin{DoxyCompactList}\small\item\em Save current object \end{DoxyCompactList}\item 
+\Hypertarget{class_f_point_aee1d5c3459851e223a069956511e96b2}\label{class_f_point_aee1d5c3459851e223a069956511e96b2} 
+{\footnotesize template$<$class Buffer\+Reader\+Class $>$ }\\void {\bfseries restore} (Buffer\+Reader\+Class \&buffer)
+\begin{DoxyCompactList}\small\item\em Retrieve current object \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Public 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_point_abe59cd35d83418f915eea5fcebab4a77}\label{class_f_point_abe59cd35d83418f915eea5fcebab4a77} 
+static constexpr const std\+::size\+\_\+t {\bfseries Dim} = \+\_\+\+Dim
+\begin{DoxyCompactList}\small\item\em Space dimension count \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{友元}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \mbox{\hyperlink{class_f_point_ab0698799bfd5c52e5dbe8caeafa010d6}{operator+}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ lhs, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&rhs)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \mbox{\hyperlink{class_f_point_adfab88b13a3582251799a3fa44464a9c}{operator+}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ lhs, const T \&val)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \mbox{\hyperlink{class_f_point_a2d01863d81ccf1de741a3e8adb99ff40}{operator-\/}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ lhs, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&rhs)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \mbox{\hyperlink{class_f_point_aa56117a8d46a934b5f2430cc1b3d4b58}{operator-\/}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ lhs, const T \&rhs)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \mbox{\hyperlink{class_f_point_abe23e3a42cd3fd1a691580b171123a3d}{operator\texorpdfstring{$\ast$}{*}}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ lhs, const T \&val)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \mbox{\hyperlink{class_f_point_a62734c1c8e7ee9ea381712984d92eae9}{operator\texorpdfstring{$\ast$}{*}}} (const T \&val, \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ rhs)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \mbox{\hyperlink{class_f_point_a611040529dab484f79076ef502a849c0}{operator/}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ lhs, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&rhs)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \mbox{\hyperlink{class_f_point_a1b6bf9cb17107d2776a01f1f2a7d323c}{operator/}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ lhs, const T \&val)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+integral$<$ T $>$  = nullptr$>$ }\\bool \mbox{\hyperlink{class_f_point_a4b7b10ed7077d4b071f5d806478c8787}{operator==}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&lhs, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&rhs)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+floating$<$ T $>$  = nullptr$>$ }\\bool \mbox{\hyperlink{class_f_point_a4b7b10ed7077d4b071f5d806478c8787}{operator==}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&lhs, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&rhs)
+\item 
+{\footnotesize template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ }\\bool \mbox{\hyperlink{class_f_point_a47bda5c61b52c6810adf5a21cc343f50}{operator!=}} (const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&lhs, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&rhs)
+\item 
+std\+::ostream \& \mbox{\hyperlink{class_f_point_ac18f0ae66ee867b2ecd16f79dfd156f3}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&pos)
+\item 
+std\+::istream \& \mbox{\hyperlink{class_f_point_a7928b47b7e3587847f4d4ad505fe355f}{operator$>$$>$}} (std\+::istream \&is, \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&pos)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$typename \+\_\+\+Real, std\+::size\+\_\+t \+\_\+\+Dim = 3$>$\newline
+class FPoint$<$ \+\_\+\+Real, \+\_\+\+Dim $>$}
+N-\/dimentional coordinates
+
+\begin{DoxyAuthor}{作者}
+Berenger Bramas \href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}}, Quentin Khan \href{mailto:quentin.khan@inria.fr}{\texttt{ quentin.\+khan@inria.\+fr}}
+\end{DoxyAuthor}
+A fixed size array that represents coordinates in space. This class adds a few convenience operations such as addition, scalar multiplication and division and formated stream output.
+
+
+\begin{DoxyTemplParams}{模板参数}
+{\em \+\_\+\+Real} & The floating number type \\
+\hline
+{\em Dim} & The space dimension \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_point_aa5ca88ea065f9c71e38da8ef784ca546}\label{class_f_point_aa5ca88ea065f9c71e38da8ef784ca546} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!FPoint@{FPoint}}
+\index{FPoint@{FPoint}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{FPoint()}{FPoint()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\mbox{\hyperlink{class_f_point}{\+::\+FPoint}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+Default constructor \Hypertarget{class_f_point_add3eb5d72a544c2d136a3ad711a858d6}\label{class_f_point_add3eb5d72a544c2d136a3ad711a858d6} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!FPoint@{FPoint}}
+\index{FPoint@{FPoint}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{FPoint()}{FPoint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\mbox{\hyperlink{class_f_point}{\+::\+FPoint}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+Copy constructor \Hypertarget{class_f_point_a6c3faef80050466f4ae1a309e461a49e}\label{class_f_point_a6c3faef80050466f4ae1a309e461a49e} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!FPoint@{FPoint}}
+\index{FPoint@{FPoint}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{FPoint()}{FPoint()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$typename A , must\+\_\+be\+\_\+arithmetic$<$ A $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\mbox{\hyperlink{class_f_point}{\+::\+FPoint}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ A, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Copy constructor from other point type \Hypertarget{class_f_point_af9a3dd56af70c8cafd107bb351550789}\label{class_f_point_af9a3dd56af70c8cafd107bb351550789} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!FPoint@{FPoint}}
+\index{FPoint@{FPoint}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{FPoint()}{FPoint()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\mbox{\hyperlink{class_f_point}{\+::\+FPoint}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}}]{array\+\_\+\mbox{[}\+Dim\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor from array \Hypertarget{class_f_point_a01ca00aee9086b0c84c3c1f92c2979a1}\label{class_f_point_a01ca00aee9086b0c84c3c1f92c2979a1} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!FPoint@{FPoint}}
+\index{FPoint@{FPoint}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{FPoint()}{FPoint()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$typename A  = FReal, typename... Args$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\mbox{\hyperlink{class_f_point}{\+::\+FPoint}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \&}]{arg,  }\item[{const Args...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor from args \Hypertarget{class_f_point_accf46adceb3166429feb4f4c2d5d2945}\label{class_f_point_accf46adceb3166429feb4f4c2d5d2945} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!FPoint@{FPoint}}
+\index{FPoint@{FPoint}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{FPoint()}{FPoint()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\mbox{\hyperlink{class_f_point}{\+::\+FPoint}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$ \&}]{other,  }\item[{const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}}]{add\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Additive contructor, same as \doxylink{class_f_point}{FPoint}(other + add\+\_\+value) 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_point_a3ddb34b536d46703a1d85095d4c5d410}\label{class_f_point_a3ddb34b536d46703a1d85095d4c5d410} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!copy@{copy}}
+\index{copy@{copy}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T $>$ \\
+void \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::copy (\begin{DoxyParamCaption}\item[{const T \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Copies \doxylink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim} values from an iterable container
+
+
+\begin{DoxyParams}{参数}
+{\em other} & Container that defines begin() and end() methods. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_point_ad05c497fe0a0acb04a783eab4c76ff36}\label{class_f_point_ad05c497fe0a0acb04a783eab4c76ff36} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!getDataValue@{getDataValue}}
+\index{getDataValue@{getDataValue}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{getDataValue()}{getDataValue()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::get\+Data\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get a pointer on the coordinate of \doxylink{class_f_point}{FPoint$<$\+FReal$>$} 
+
+\begin{DoxyReturn}{返回}
+the data value array 
+\end{DoxyReturn}
+\Hypertarget{class_f_point_a95a557604c04f32e2f54e4df553f66e6}\label{class_f_point_a95a557604c04f32e2f54e4df553f66e6} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!getDataValue@{getDataValue}}
+\index{getDataValue@{getDataValue}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{getDataValue()}{getDataValue()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::get\+Data\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get a pointer on the coordinate of \doxylink{class_f_point}{FPoint$<$\+FReal$>$} 
+
+\begin{DoxyReturn}{返回}
+the data value array 
+\end{DoxyReturn}
+\Hypertarget{class_f_point_a58d3859160347552d6a4a94fbdf883c3}\label{class_f_point_a58d3859160347552d6a4a94fbdf883c3} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!getX@{getX}}
+\index{getX@{getX}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{getX()}{getX()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::getX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get x 
+
+\begin{DoxyReturn}{返回}
+this-\/\texorpdfstring{$>$}{>}data()\mbox{[}0\mbox{]} 
+\end{DoxyReturn}
+\Hypertarget{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}\label{class_f_point_ae4383512b9b8d216775b3fb92325cfc9} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!getY@{getY}}
+\index{getY@{getY}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{getY()}{getY()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::getY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get y 
+
+\begin{DoxyReturn}{返回}
+this-\/\texorpdfstring{$>$}{>}data()\mbox{[}1\mbox{]} 
+\end{DoxyReturn}
+\Hypertarget{class_f_point_a02208d4db50cbafe597adcbfb152b536}\label{class_f_point_a02208d4db50cbafe597adcbfb152b536} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!getZ@{getZ}}
+\index{getZ@{getZ}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{getZ()}{getZ()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::getZ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get z 
+
+\begin{DoxyReturn}{返回}
+this-\/\texorpdfstring{$>$}{>}data()\mbox{[}2\mbox{]} 
+\end{DoxyReturn}
+\Hypertarget{class_f_point_ad7d661a769ccb78f36da734b3945b533}\label{class_f_point_ad7d661a769ccb78f36da734b3945b533} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!incX@{incX}}
+\index{incX@{incX}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{incX()}{incX()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+void \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::incX (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}}]{inX }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add to the x-\/dimension the inX value 
+
+
+\begin{DoxyParams}{参数}
+{\em in\+Xthe} & increment in x \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_point_aca6c651616ef93f0920aa80e7fe6f19a}\label{class_f_point_aca6c651616ef93f0920aa80e7fe6f19a} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!incY@{incY}}
+\index{incY@{incY}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{incY()}{incY()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+void \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::incY (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}}]{inY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add to the y-\/dimension the inY value 
+
+
+\begin{DoxyParams}{参数}
+{\em in$<$$<$$<$$<$$<$$<$y} & the increment in y \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_point_af5f37e83b43e85706b3ccc72dbb63afa}\label{class_f_point_af5f37e83b43e85706b3ccc72dbb63afa} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!incZ@{incZ}}
+\index{incZ@{incZ}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{incZ()}{incZ()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+void \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::incZ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}}]{inZ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add to z-\/dimension the inZ value 
+
+
+\begin{DoxyParams}{参数}
+{\em inZ} & the increment in z \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_point_aeb4ede7b5949b0b491455ee3f3da671c}\label{class_f_point_aeb4ede7b5949b0b491455ee3f3da671c} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!norm@{norm}}
+\index{norm@{norm}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{norm()}{norm()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::norm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compute the distance to the origin 
+
+\begin{DoxyReturn}{返回}
+the norm of the \doxylink{class_f_point}{FPoint} 
+\end{DoxyReturn}
+\Hypertarget{class_f_point_a13f3fa46b8af935cafd8281880232c15}\label{class_f_point_a13f3fa46b8af935cafd8281880232c15} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!norm2@{norm2}}
+\index{norm2@{norm2}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{norm2()}{norm2()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+\mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::norm2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Compute the distance to the origin 
+
+\begin{DoxyReturn}{返回}
+the square norm of the \doxylink{class_f_point}{FPoint} 
+\end{DoxyReturn}
+\Hypertarget{class_f_point_a56a0358e96718da6c19337d55fabbd66}\label{class_f_point_a56a0358e96718da6c19337d55fabbd66} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}}
+\index{operator\texorpdfstring{$\ast$}{*}=@{operator\texorpdfstring{$\ast$}{*}=}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}=()}{operator*=()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \& \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::operator\texorpdfstring{$\ast$}{*}= (\begin{DoxyParamCaption}\item[{const T \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Right scalar multiplication assignment operator \Hypertarget{class_f_point_a1a730b13c57ad593ebd86ea34f831056}\label{class_f_point_a1a730b13c57ad593ebd86ea34f831056} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}} \& \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::operator+= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Addition assignment operator \Hypertarget{class_f_point_ac7e57298d155e71b4abd078c218b7e1f}\label{class_f_point_ac7e57298d155e71b4abd078c218b7e1f} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}} \& \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::operator+= (\begin{DoxyParamCaption}\item[{const T \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Scalar assignment addition \Hypertarget{class_f_point_a8ff649b6e3aba75e5df8c908b98fd73a}\label{class_f_point_a8ff649b6e3aba75e5df8c908b98fd73a} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}} \& \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::operator-\/= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Subtraction assignment operator \Hypertarget{class_f_point_a76c4348bcd1fa3c6394d55804e8d341e}\label{class_f_point_a76c4348bcd1fa3c6394d55804e8d341e} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator-\/=@{operator-\/=}}
+\index{operator-\/=@{operator-\/=}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator-\/=()}{operator-=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}} \& \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::operator-\/= (\begin{DoxyParamCaption}\item[{const T \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Scalar subtraction assignment \Hypertarget{class_f_point_ab8c018fabb2821c27a12ae24adf9cdb6}\label{class_f_point_ab8c018fabb2821c27a12ae24adf9cdb6} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator/=()}{operator/=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \& \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::operator/= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Data to data division assignment \Hypertarget{class_f_point_a9cdf044ff83b05330d22643a62d0b67b}\label{class_f_point_a9cdf044ff83b05330d22643a62d0b67b} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator/=()}{operator/=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \& \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::operator/= (\begin{DoxyParamCaption}\item[{const T \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Right scalar division assignment operator \Hypertarget{class_f_point_a8199bf512204ce82961124e72c220870}\label{class_f_point_a8199bf512204ce82961124e72c220870} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$typename T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \& \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Assignment operator
+
+
+\begin{DoxyParams}{参数}
+{\em other} & A \doxylink{class_f_point}{FPoint} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}\label{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$typename A  = FReal, typename... Args$>$ \\
+void \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::set\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}} \&}]{X,  }\item[{const Args...}]{YandZ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the point value \Hypertarget{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195}\label{class_f_point_ae08932bdb7ad1ea001db52d4cd01d195} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!setX@{setX}}
+\index{setX@{setX}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{setX()}{setX()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+void \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::setX (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}}]{inX }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set x 
+
+
+\begin{DoxyParams}{参数}
+{\em the} & new x \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_point_a622643561f2dfb77492c45d08db146d9}\label{class_f_point_a622643561f2dfb77492c45d08db146d9} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!setY@{setY}}
+\index{setY@{setY}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{setY()}{setY()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+void \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::setY (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}}]{inY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set y 
+
+
+\begin{DoxyParams}{参数}
+{\em the} & new y \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da}\label{class_f_point_a20e63cebc8f4f2a7d1773e606d7b70da} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!setZ@{setZ}}
+\index{setZ@{setZ}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{setZ()}{setZ()}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+void \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \+\_\+\+Real, \+\_\+\+Dim $>$\+::setZ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}}]{inZ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set z 
+
+
+\begin{DoxyParams}{参数}
+{\em the} & new z \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{友元及相关函数文档}
+\Hypertarget{class_f_point_a47bda5c61b52c6810adf5a21cc343f50}\label{class_f_point_a47bda5c61b52c6810adf5a21cc343f50} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator"!=}{operator!=}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+bool operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{lhs,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Non equality test operator \Hypertarget{class_f_point_a62734c1c8e7ee9ea381712984d92eae9}\label{class_f_point_a62734c1c8e7ee9ea381712984d92eae9} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const T \&}]{val,  }\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Left scalar multiplication operator \Hypertarget{class_f_point_abe23e3a42cd3fd1a691580b171123a3d}\label{class_f_point_abe23e3a42cd3fd1a691580b171123a3d} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$}]{lhs,  }\item[{const T \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Right scalar multiplication operator \Hypertarget{class_f_point_ab0698799bfd5c52e5dbe8caeafa010d6}\label{class_f_point_ab0698799bfd5c52e5dbe8caeafa010d6} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator+@{operator+}}
+\index{operator+@{operator+}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator+}{operator+}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ operator+ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$}]{lhs,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Addition operator \Hypertarget{class_f_point_adfab88b13a3582251799a3fa44464a9c}\label{class_f_point_adfab88b13a3582251799a3fa44464a9c} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator+@{operator+}}
+\index{operator+@{operator+}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator+}{operator+}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ operator+ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$}]{lhs,  }\item[{const T \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Scalar addition \Hypertarget{class_f_point_a2d01863d81ccf1de741a3e8adb99ff40}\label{class_f_point_a2d01863d81ccf1de741a3e8adb99ff40} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator-\/}{operator-}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ operator-\/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$}]{lhs,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Subtraction operator \Hypertarget{class_f_point_aa56117a8d46a934b5f2430cc1b3d4b58}\label{class_f_point_aa56117a8d46a934b5f2430cc1b3d4b58} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator-\/}{operator-}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ operator-\/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$}]{lhs,  }\item[{const T \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Scalar subtraction \Hypertarget{class_f_point_a611040529dab484f79076ef502a849c0}\label{class_f_point_a611040529dab484f79076ef502a849c0} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator/@{operator/}}
+\index{operator/@{operator/}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator/}{operator/}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ operator/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$}]{lhs,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Data to data division operator \Hypertarget{class_f_point_a1b6bf9cb17107d2776a01f1f2a7d323c}\label{class_f_point_a1b6bf9cb17107d2776a01f1f2a7d323c} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator/@{operator/}}
+\index{operator/@{operator/}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator/}{operator/}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+arithmetic$<$ T $>$  = nullptr$>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ operator/ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$}]{lhs,  }\item[{const T \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Right scalar division operator \Hypertarget{class_f_point_ac18f0ae66ee867b2ecd16f79dfd156f3}\label{class_f_point_ac18f0ae66ee867b2ecd16f79dfd156f3} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Formated output stream operator \Hypertarget{class_f_point_a4b7b10ed7077d4b071f5d806478c8787}\label{class_f_point_a4b7b10ed7077d4b071f5d806478c8787} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+integral$<$ T $>$  = nullptr$>$ \\
+bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{lhs,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Equality test operator \Hypertarget{class_f_point_a4b7b10ed7077d4b071f5d806478c8787}\label{class_f_point_a4b7b10ed7077d4b071f5d806478c8787} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+template$<$class T , must\+\_\+be\+\_\+floating$<$ T $>$  = nullptr$>$ \\
+bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{lhs,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ T, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Equality test operator \Hypertarget{class_f_point_a7928b47b7e3587847f4d4ad505fe355f}\label{class_f_point_a7928b47b7e3587847f4d4ad505fe355f} 
+\index{FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!FPoint$<$ \_Real, \_Dim $>$@{FPoint$<$ \_Real, \_Dim $>$}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$}{operator>>}}
+{\footnotesize\ttfamily template$<$typename \+\_\+\+Real , std\+::size\+\_\+t \+\_\+\+Dim = 3$>$ \\
+std\+::istream \& operator$>$$>$ (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{is,  }\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ \mbox{\hyperlink{class_f_point_ad696b93b3a3dc0e5d51a8819a3ad2c7b}{FReal}}, \mbox{\hyperlink{class_f_point_abe59cd35d83418f915eea5fcebab4a77}{Dim}} $>$ \&}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Formated input stream operator 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Utils/FPoint.\+hpp\end{DoxyCompactItemize}

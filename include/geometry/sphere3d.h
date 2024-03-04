@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2023/10/25.
+// Created by RainSure on 2023/10/25.
 //
 
 #ifndef RSMESH_SPHERE3D_H

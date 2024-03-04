@@ -1,0 +1,557 @@
+\doxysection{FSpherical\+Rotation\+Kernel.\+hpp}
+\hypertarget{_f_spherical_rotation_kernel_8hpp_source}{}\label{_f_spherical_rotation_kernel_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Kernels/Spherical/FSphericalRotationKernel.hpp@{third\_party/ScalFMM/include/ScalFMM/Kernels/Spherical/FSphericalRotationKernel.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ FSPHERICALROTATIONKERNEL\_HPP}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ FSPHERICALROTATIONKERNEL\_HPP}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}FAbstractSphericalKernel.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Utils/FMemUtils.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{template}<\ \ \textcolor{keyword}{class}\ FReal,\ \textcolor{keyword}{class}\ CellClass,\ \textcolor{keyword}{class}\ ContainerClass>}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_spherical_rotation_kernel}{FSphericalRotationKernel}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstractSphericalKernel}}<FReal,\ CellClass,ContainerClass>\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{FAbstractSphericalKernel<FReal,\ CellClass,ContainerClass>}}\ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{Parent}};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_info}{RotationInfo}}\{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ FReal*\ rotation\_a;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ FReal*\ rotation\_b;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ p\_rot\_multipole\_exp;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ p\_rot\_local\_exp;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_info_a9e9b9365218e6484d57d928946096fb0}{ZAxisExpensionSize}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDevP)\{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int(\ (inDevP\&1)\ ==\ 0\ ?\ ((inDevP+1)\ +\ (inDevP*inDevP)*.25)\ :\ ((inDevP+1)\ +\ (inDevP*inDevP-\/1)*.25));}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_info_a18b88f1fbc445d748acccdd7fc9bebe1}{RotationInfo}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDevP)\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ rotation\_a\ =\ \textcolor{keyword}{new}\ FReal[int(\ ((inDevP)+1)\ *\ ((inDevP)+2)\ *\ 0.5\ )];}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ n\ =\ 0\ ;\ n\ <=\ inDevP\ ;\ ++n)\{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ m\ =\ 0\ ;\ m\ <=\ n\ ;\ ++m)\{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rotation\_a[int(n*(n+1)\ *\ 0.5\ +\ m)]\ =\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(\ FReal((n+1+m)*(n+1-\/m))\ /\ FReal(((2*n+1)*(2*n+3)))\ );}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ rotation\_b\ =\ \textcolor{keyword}{new}\ FReal[(inDevP+1)\ *\ (inDevP+1)];}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ n\ =\ 0\ ;\ n\ <=\ inDevP\ ;\ ++n)\{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ m\ =\ -\/n\ ;\ m\ <\ 0\ ;\ ++m)\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rotation\_b[n*(n+1)\ +\ m]\ =\ -\/\mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(\ FReal((n-\/m-\/1)*(n-\/m))\ /\ FReal(((2*n-\/1)*(2*n+1)))\ );}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ m\ =\ 0\ ;\ m\ <=\ n\ ;\ ++m)\{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rotation\_b[n*(n+1)\ +\ m]\ =\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(\ FReal((n-\/m-\/1)*(n-\/m))\ /\ FReal(((2*n-\/1)*(2*n+1)))\ );}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ z\_size\ =\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_info_a9e9b9365218e6484d57d928946096fb0}{ZAxisExpensionSize}}(inDevP);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ p\_rot\_multipole\_exp\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[z\_size];}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ p\_rot\_local\_exp\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[z\_size];}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_info_ab6d08d8dece2457432759ea9c1552a8d}{\string~RotationInfo}}()\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ rotation\_a;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ rotation\_b;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ p\_rot\_multipole\_exp;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ p\_rot\_local\_exp;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer}{RotationM2LTransfer}}\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ devP;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ expSize;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}**\ rcc\_outer;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}**\ rcc\_inner;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ FReal*\ outer\_array;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_acb62d29e38a2f2aba56bd87c8a97f768}{RotationM2LTransfer}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDevP,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDevM2lP,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inExpSize)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ :\ devP(inDevP),\ expSize(inExpSize)\{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_outer\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*[devP\ +\ 1];}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_inner\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*[devP\ +\ 1];}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keywordtype}{int}\ idxP\ =\ 0\ ;\ idxP\ <=\ devP\ ;\ ++idxP)\{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ rotationSize\ =\ ((idxP+1)*(2*idxP+1));}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_outer[idxP]\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[rotationSize];}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_inner[idxP]\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[rotationSize];}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ outer\_array\ =\ \textcolor{keyword}{new}\ FReal[inDevM2lP\ +\ 1];}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a762e73af14bd359b474eafe21fa34447}{spherical\_harmonic\_Outer\_null\_order\_z\_axis}}(\textcolor{keyword}{const}\ FReal\ r)\{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ inv\_r\ =\ FReal(1.0\ /\ r);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ tmp\ =\ inv\_r;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ l=0}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ outer\_array[0]\ =\ tmp;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ l>0}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ l\ =\ 1\ ;\ l\ <=\ devP\ ;\ ++l)\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tmp\ *=\ inv\_r\ *\ FReal(l);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ outer\_array[l]\ =\ tmp;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_aef9ae1943d353cb92e6b5b31e3a48881}{computeLegendre}}(\textcolor{keyword}{const}\ FReal\ inCosTheta,\ \textcolor{keyword}{const}\ FReal\ inSinTheta,\ FReal\ legendre[])\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ invSinTheta\ =\ -\/inSinTheta;}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ legendre[0]\ =\ 1.0;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ P\_0,0(cosTheta)\ =\ 1}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ legendre[1]\ =\ inCosTheta;\ \textcolor{comment}{//\ P\_1,0(cosTheta)\ =\ cosTheta}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ legendre[2]\ =\ invSinTheta;\textcolor{comment}{//\ P\_1,1(cosTheta)\ =\ -\/sinTheta}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxCurrentLM\ \ =\ 3;\ \textcolor{comment}{//current\ pointer\ on\ P\_l,m}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxCurrentL1M\ =\ 1;\ \textcolor{comment}{//pointer\ on\ P\_\{l-\/1\},m\ =>\ P\_1,0}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxCurrentL2M\ =\ 0;\ \textcolor{comment}{//pointer\ on\ P\_\{l-\/2\},m\ =>\ P\_0,0}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ fact\ =\ 3.0;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ l\ =\ 2;\ l\ <=\ devP\ ;\ ++l\ )\{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ m\ from\ 0\ to\ l\ -\/\ 2}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keywordtype}{int}\ m\ =\ 0;\ m\ <=\ l\ -\/\ 2\ ;\ ++m\ )\{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ legendre[idxCurrentLM]\ =\ (inCosTheta\ *\ FReal(\ 2\ *\ l\ -\/\ 1\ )\ *\ legendre[idxCurrentL1M]}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ FReal(\ l\ +\ m\ -\/\ 1\ )\ *\ legendre[idxCurrentL2M]\ )}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /\ FReal(\ l\ -\/\ m\ );}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ progress}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxCurrentLM;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxCurrentL1M;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxCurrentL2M;}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ P\_l,\{l-\/1\}}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ legendre[idxCurrentLM++]\ =\ inCosTheta\ *\ FReal(\ 2\ *\ l\ -\/\ 1\ )\ *\ legendre[idxCurrentL1M];}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ P\_l,l}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ legendre[idxCurrentLM++]\ =\ fact\ *\ invSinTheta\ *\ legendre[idxCurrentL1M];}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fact\ +=\ FReal(2.0);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++idxCurrentL1M;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nu,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m)\{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ m*(2*n+1)\ +\ (nu+n);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nu,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m)\{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (nu)*(2*(n)+1)\ +\ (m+n);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a4f4865f2b249ec9ba03b1c7229df4d36}{getRotationB}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m)\{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ n*(n+1)\ +\ m;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a1bf47491dc76095731ea7e21ab09e7d6}{getRotationA}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m)\{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int(n*(n+1)\ *\ 0.5\ +\ (\mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(m)));}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ FReal\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a75811138c96466f45cd965cff11835ec}{A\_div\_A}}(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ nu)\{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ m\ =\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(m);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ nu\ =\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(nu);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ min\ =\ \mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(m,\ nu);}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\ =\ \mbox{\hyperlink{struct_f_math_ada359f2b021ce4b999c0fd7a6e9daae6}{FMath::Max}}(m,\ nu);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ i\_stop\ =\ max\ -\/\ min\ -\/\ 1;\ \textcolor{comment}{/*\ =\ n-\/min\ -\/\ (n-\/max+1)\ =\ n+max\ -\/\ (n+min+1)\ */}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ num\ =\ FReal(n-\/max+1);}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ denom\ =\ FReal(n+min+1);}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ A\_min\_max\ =\ 1;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i<=i\_stop;\ ++i,\ ++num,\ ++denom)\{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ A\_min\_max\ *=\ (num/denom);}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nu\ ==\ min)}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(A\_min\_max);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1/\mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(A\_min\_max);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_aa78d1570393d4a5773e0a838bff5ee44}{rotation\_coefficient\_container\_Fill}}(\textcolor{keyword}{const}\ FReal\ omega,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ cos\_gamma,\ \textcolor{keyword}{const}\ FReal\ sin\_gamma,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ chi,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_info}{RotationInfo}}\&\ rotation\_Info)\{}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}**\ rcc\_tmp\_transposed\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*[devP\ +\ 1];}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keywordtype}{int}\ idxP\ =\ 0\ ;\ idxP\ <=\ devP\ ;\ ++idxP)\{}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ rotationSize\ =\ ((idxP+1)*(2*idxP+1));}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_tmp\_transposed[idxP]\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[rotationSize];}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}\ \_pow\_of\_I\_array[7];}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \_pow\_of\_I\_array[0].\mbox{\hyperlink{class_f_complex_a0a39bf6c1f122ffcfc8da36c13952013}{setRealImag}}(0\ ,\ 1\ )\ \textcolor{comment}{/*\ I\string^\{-\/3\}\ */};}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \_pow\_of\_I\_array[1].\mbox{\hyperlink{class_f_complex_a0a39bf6c1f122ffcfc8da36c13952013}{setRealImag}}(-\/1,\ 0\ )\ \textcolor{comment}{/*\ I\string^\{-\/2\}\ */};}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \_pow\_of\_I\_array[2].\mbox{\hyperlink{class_f_complex_a0a39bf6c1f122ffcfc8da36c13952013}{setRealImag}}(0\ ,\ -\/1)\ \textcolor{comment}{/*\ I\string^\{-\/1\}\ */};}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \_pow\_of\_I\_array[3].\mbox{\hyperlink{class_f_complex_a0a39bf6c1f122ffcfc8da36c13952013}{setRealImag}}(1\ ,\ 0\ )\ \textcolor{comment}{/*\ I\string^0\ */};}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \_pow\_of\_I\_array[4].\mbox{\hyperlink{class_f_complex_a0a39bf6c1f122ffcfc8da36c13952013}{setRealImag}}(0\ ,\ 1\ )\ \textcolor{comment}{/*\ I\string^1\ */};}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \_pow\_of\_I\_array[5].\mbox{\hyperlink{class_f_complex_a0a39bf6c1f122ffcfc8da36c13952013}{setRealImag}}(-\/1,\ 0\ )\ \textcolor{comment}{/*\ I\string^2\ */};}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \_pow\_of\_I\_array[6].\mbox{\hyperlink{class_f_complex_a0a39bf6c1f122ffcfc8da36c13952013}{setRealImag}}(0\ ,\ -\/1)\ \textcolor{comment}{/*\ I\string^3\ */};}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ pow\_of\_I\_array\ =\ \_pow\_of\_I\_array\ +\ 3;\ \textcolor{comment}{/*\ points\ on\ I\string^0\ */}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ \_precomputed\_exp\_I\_chi\_array\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[2*devP\ +\ 1];}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ precomputed\_exp\_I\_chi\_array\ =\ \_precomputed\_exp\_I\_chi\_array\ +\ devP;}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ \_precomputed\_exp\_I\_omega\_array\ \ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}[2*devP\ +\ 1];}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ precomputed\_exp\_I\_omega\_array\ =\ \_precomputed\_exp\_I\_omega\_array\ +\ devP;}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cos(x)\ =\ sin(x\ +\ Pi/2)}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ m\ =\ -\/devP\ ;\ m\ <=\ devP\ ;\ ++m)\{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ precomputed\_exp\_I\_chi\_array[m].\mbox{\hyperlink{class_f_complex_a90e023a82c09162825a558891a04efc8}{setReal}}(\mbox{\hyperlink{struct_f_math_a5bdcccf9bf4d10eee66f711044904ace}{FMath::Sin}}(FReal(m)*chi\ +\ FMath::FPiDiv2<FReal>()));}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ precomputed\_exp\_I\_chi\_array[m].\mbox{\hyperlink{class_f_complex_ade3956cf9301b1d4fae51c78143fddc5}{setImag}}(\mbox{\hyperlink{struct_f_math_a5bdcccf9bf4d10eee66f711044904ace}{FMath::Sin}}(FReal(m)*chi));}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ nu\ =\ -\/devP\ ;\ nu\ <=\ devP\ ;\ ++nu)\{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ precomputed\_exp\_I\_omega\_array[nu].\mbox{\hyperlink{class_f_complex_a90e023a82c09162825a558891a04efc8}{setReal}}(\mbox{\hyperlink{struct_f_math_a5bdcccf9bf4d10eee66f711044904ace}{FMath::Sin}}(FReal(nu)*omega\ +\ FMath::FPiDiv2<FReal>()));}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ precomputed\_exp\_I\_omega\_array[nu].\mbox{\hyperlink{class_f_complex_ade3956cf9301b1d4fae51c78143fddc5}{setImag}}(\mbox{\hyperlink{struct_f_math_a5bdcccf9bf4d10eee66f711044904ace}{FMath::Sin}}(FReal(nu)*omega));}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\textcolor{keyword}{const}\ ass\_Legendre\_func\_Array\ =\ \textcolor{keyword}{new}\ FReal[expSize];}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ FReal*\ p\_ass\_Legendre\_func\_Array\ =\ ass\_Legendre\_func\_Array;}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_aef9ae1943d353cb92e6b5b31e3a48881}{computeLegendre}}(cos\_gamma,\ sin\_gamma,\ ass\_Legendre\_func\_Array);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ n\ =\ 0\ ;\ n\ <=\ devP\ ;\ ++n)\{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ nu\ ==\ 0:}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ c\_n\_nu\ =\ 1;}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,0,0)].\mbox{\hyperlink{class_f_complex_a90e023a82c09162825a558891a04efc8}{setReal}}(c\_n\_nu\ *\ (*p\_ass\_Legendre\_func\_Array));}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_ass\_Legendre\_func\_Array;}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ nu\ >\ 0:}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ minus\_1\_pow\_nu\ =\ -\/1;}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ nu\ =\ 1\ ;\ nu\ <=\ n;\ ++nu)\{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c\_n\_nu\ /=\ \mbox{\hyperlink{struct_f_math_a2494d4d6618d79e61324a0dfa372855f}{FMath::Sqrt}}(FReal((n-\/nu+1)*(n+nu)));}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,\ nu,\ 0)].\mbox{\hyperlink{class_f_complex_a90e023a82c09162825a558891a04efc8}{setReal}}(minus\_1\_pow\_nu\ *\ c\_n\_nu\ *\ (*p\_ass\_Legendre\_func\_Array));}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,\ -\/nu,\ 0)]\ =\ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,\ nu,\ 0)];}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minus\_1\_pow\_nu\ =\ -\/minus\_1\_pow\_nu;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_ass\_Legendre\_func\_Array;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ for\ nu}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ m\ =\ 1\ ;\ m\ <=\ n\ ;\ ++m)\{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ nu\ =\ -\/m;\ nu\ <=\ m\ ;\ ++nu)\{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ H\_nu\_minus\_1\ =\ (\ nu-\/1\ <=\ -\/n\ ?}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(0.0)\ :}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (cos\_gamma\ +1)\ *\ rotation\_Info.rotation\_b[\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a4f4865f2b249ec9ba03b1c7229df4d36}{getRotationB}}(n,\ -\/nu)]}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ rcc\_tmp\_transposed[n-\/1][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n-\/1,\ nu-\/1,\ m-\/1)].\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}());}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ H\_nu\_plus\_1\ =\ (\ nu+1\ >=\ n\ ?}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(0.0)\ :}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (cos\_gamma\ -\/1)\ *\ rotation\_Info.rotation\_b[\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a4f4865f2b249ec9ba03b1c7229df4d36}{getRotationB}}(n,\ nu)]}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ rcc\_tmp\_transposed[n-\/1][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n-\/1,\ nu+1,\ m-\/1)].\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}());}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal\ H\_nu\ \ =\ (\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(nu)\ >=\ n\ ?}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal(0.0)\ :}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sin\_gamma\ *\ rotation\_Info.rotation\_a[\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a1bf47491dc76095731ea7e21ab09e7d6}{getRotationA}}(n-\/1,\ nu)]}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ rcc\_tmp\_transposed[n-\/1][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n-\/1,\ nu,\ m-\/1)].\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ );}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,\ nu,\ m)].\mbox{\hyperlink{class_f_complex_a90e023a82c09162825a558891a04efc8}{setReal}}(\ (FReal(0.5)\ *\ (-\/H\_nu\_minus\_1\ -\/\ H\_nu\_plus\_1)\ -\/\ H\_nu)}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /\ rotation\_Info.rotation\_b[\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a4f4865f2b249ec9ba03b1c7229df4d36}{getRotationB}}(n,\ -\/m)]);}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ for\ nu}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ for\ m}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ m\ =\ 1\ ;\ m\ <=\ n\ ;\ ++m)\{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ nu\ =\ -\/n\ ;\ nu\ <=\ -\/m-\/1;\ ++nu)\{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,\ nu,\ m)]\ =\ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,\ -\/m,\ -\/nu)];}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ for\ nu}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ nu\ =\ m+1\ ;\ nu\ <=\ n;\ ++nu)\{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,\ nu,\ m)]\ =\ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,\ m,\ nu)];}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ for\ nu}}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ for\ m}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ for\ n}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ n\ =\ 0\ ;\ n\ <=\ devP\ ;\ ++n)\{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ nu\ =\ 0\ ;\ nu\ <=\ n;\ ++nu)\{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ m\ =\ -\/n;\ m\ <=\ n;\ ++m)\{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ A\_terms\ =\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a75811138c96466f45cd965cff11835ec}{A\_div\_A}}(n,\ m,\ nu);\ \textcolor{comment}{/*\ \ A\_n\string^m\ /\ A\_n\string^nu\ */}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ abs\_m\_minus\_abs\_nu\_mod4\ =\ (\mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(m)\ -\/\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(nu))\ \%\ 4;\ \textcolor{comment}{/*\ can\ be\ negative!\ */}}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}\ p\_H\_tmp\ =\ (\ m\ >=\ 0\ ?}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,\ nu,\ m)]\ :}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_tmp\_transposed[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ae1d37ac1a3c735ed7f2969433049a1e8}{getTranspRotationCoefP}}(n,\ -\/nu,\ -\/m)])\ ;}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /***************\ T\_Outer\_n\string^\{nu,\ m\}(omega,\ gamma,\ chi):\ ***************/}}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_outer[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(n,\ nu,\ m)]\ =\ p\_H\_tmp;}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ H\_n\string^\{nu,\ m\}(gamma)\ =>\ T\_n\string^\{nu,\ m\}(omega,\ gamma,\ chi)\ */}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_outer[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(n,\ nu,\ m)]\ *=\ precomputed\_exp\_I\_chi\_array[\ +\ m];}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_outer[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(n,\ nu,\ m)]\ *=\ precomputed\_exp\_I\_omega\_array[\ -\/\ nu];}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ T\_Outer\_j\string^\{nu,\ k\}(omega,\ gamma,\ chi)\ =\ i\string^\{|k|-\/|nu|\}\ (A\_j\string^nu\ /\ A\_j\string^k)\ T\_j\string^\{nu,\ k\}(omega,\ gamma,\ chi)\ \ \ \ \ (6)\ */}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_outer[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(n,\ nu,\ m)]\ *=\ pow\_of\_I\_array[abs\_m\_minus\_abs\_nu\_mod4];}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_outer[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(n,\ nu,\ m)]\ *=\ (FReal(1.0)\ /\ A\_terms);}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ /***************\ T\_Inner\_n\string^\{nu,\ m\}(chi,\ gamma,\ omega):\ ***************/}}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_inner[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(n,\ nu,\ m)]\ =\ p\_H\_tmp;}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ H\_n\string^\{nu,\ m\}(gamma)\ =>\ T\_n\string^\{nu,\ m\}(chi,\ gamma,\ omega)\ */}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_inner[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(n,\ nu,\ m)]\ *=\ precomputed\_exp\_I\_omega\_array[\ +\ m];}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_inner[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(n,\ nu,\ m)]\ *=\ precomputed\_exp\_I\_chi\_array[\ -\/\ nu];}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ T\_Inner\_j\string^\{nu,\ k\}(omega,\ gamma,\ chi)\ =\ i\string^\{|nu|-\/|k|\}\ (A\_j\string^k\ /\ A\_j\string^nu)\ T\_j\string^\{nu,\ k\}(omega,\ gamma,\ chi)\ \ \ \ (7)\ */}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_inner[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(n,\ nu,\ m)]\ *=\ pow\_of\_I\_array[-\/\ abs\_m\_minus\_abs\_nu\_mod4];}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rcc\_inner[n][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{getRotationCoefP}}(n,\ nu,\ m)]\ *=\ A\_terms;}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ for\ m}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ for\ nu}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ for\ n}}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ (ass\_Legendre\_func\_Array);}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ (\_precomputed\_exp\_I\_chi\_array);}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ (\_precomputed\_exp\_I\_omega\_array);}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a17fae6253fc1995fc0aeb7b1bc2bef7c}{FMemUtils::DeleteAllArray}}(\ rcc\_tmp\_transposed,\ devP);}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ rcc\_tmp\_transposed;}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a52835ab9f7a310593a6f44af79c7f384}{transfer\_M2L\_rotation\_Fill}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_spherical}{FSpherical<FReal>}}\&\ inSphere,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_info}{RotationInfo}}\&\ rotation\_Info)\{}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Computes\ rotation\ coefficients:}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_aa78d1570393d4a5773e0a838bff5ee44}{rotation\_coefficient\_container\_Fill}}(FMath::FPi<FReal>(),\ inSphere.\mbox{\hyperlink{class_f_spherical_a7f3ca3427a17cf1b9e114aa1ed7049a3}{getCosTheta}}(),}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inSphere.\mbox{\hyperlink{class_f_spherical_accff4b45e34fd2b215715563a68a412f}{getSinTheta}}(),\ inSphere.\mbox{\hyperlink{class_f_spherical_adf0db5a2f069c50c9c55be96457dd41d}{getPhi}}(),\ rotation\_Info);}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Computes\ Outer\ terms:}}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_a762e73af14bd359b474eafe21fa34447}{spherical\_harmonic\_Outer\_null\_order\_z\_axis}}(inSphere.\mbox{\hyperlink{class_f_spherical_afe70b334deb1d5feae782bda8851056d}{getR}}());}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer}{\string~RotationM2LTransfer}}()\{}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a17fae6253fc1995fc0aeb7b1bc2bef7c}{FMemUtils::DeleteAllArray}}(\ rcc\_outer,\ devP);}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_f_mem_utils_a17fae6253fc1995fc0aeb7b1bc2bef7c}{FMemUtils::DeleteAllArray}}(\ rcc\_inner,\ devP);}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ rcc\_outer;}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ rcc\_inner;}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ outer\_array;}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00331\ \ \ \ \ \};}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ devM2lP;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ A\ secondary\ P}}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \ \ \ \ \mbox{\hyperlink{class_f_smart_pointer}{FSmartPointer<RotationM2LTransfer*>}}\ preM2LTransitions;\ \ \ \textcolor{comment}{//<\ The\ pre-\/computation\ for\ the\ M2L\ based\ on\ the\ level\ and\ the\ 189\ possibilities}}
+\DoxyCodeLine{00336\ \ \ \ \ RotationInfo\ rotation\_Info;}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_spherical_rotation_kernel_a4c2d9216e0c697b045c4f58d27b89c8f}{indexM2LTransition}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxX,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxY,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxZ)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (((((idxX+3)\ *\ 7)\ +\ (idxY+3))\ *\ 7\ )\ +\ (idxZ+3));}
+\DoxyCodeLine{00341\ \ \ \ \ \}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_rotation_kernel_af6c18f67b77d17e1830ba4fe9a29194c}{allocAndInit}}()\{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ M2L\ transfer,\ there\ is\ a\ maximum\ of\ 3\ neighbors\ in\ each\ direction,}}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ so\ 6\ in\ each\ dimension}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ preM2LTransitions\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer}{RotationM2LTransfer}}*[Parent::treeHeight];}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ memset(preM2LTransitions.\mbox{\hyperlink{class_f_smart_pointer_a82a013f34ea6809b1d72da35daff374c}{getPtr}}(),\ 0,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*)\ *\ (Parent::treeHeight));}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ start\ from\ the\ higher\ level}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ FReal\ treeWidthAtLevel\ =\ Parent::boxWidth;}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 0\ ;\ idxLevel\ <\ Parent::treeHeight\ ;\ ++idxLevel\ )\{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Allocate\ data\ for\ this\ level}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ preM2LTransitions[idxLevel]\ =\ \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer}{RotationM2LTransfer}}*\textcolor{keyword}{>}(\textcolor{keyword}{new}\ \textcolor{keywordtype}{char}[(7\ *\ 7\ *\ 7)\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer}{RotationM2LTransfer}})]);}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Precompute\ transfer\ vector}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxX\ =\ -\/3\ ;\ idxX\ <=\ 3\ ;\ ++idxX\ )\{}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxY\ =\ -\/3\ ;\ idxY\ <=\ 3\ ;\ ++idxY\ )\{}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxZ\ =\ -\/3\ ;\ idxZ\ <=\ 3\ ;\ ++idxZ\ )\{}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ (\&preM2LTransitions[idxLevel][\mbox{\hyperlink{class_f_spherical_rotation_kernel_a4c2d9216e0c697b045c4f58d27b89c8f}{indexM2LTransition}}(idxX,idxY,idxZ)])\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer}{RotationM2LTransfer}}(Parent::devP,devM2lP,Parent::harmonic.getExpSize());}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxX)\ >\ 1\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxY)\ >\ 1\ ||\ \mbox{\hyperlink{struct_f_math_ac005cd270abc850853ba71d1e38a2f28}{FMath::Abs}}(idxZ)\ >\ 1)\{}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ relativePos(\ FReal(-\/idxX)\ *\ treeWidthAtLevel\ ,\ FReal(-\/idxY)\ *\ treeWidthAtLevel\ ,\ FReal(-\/idxZ)\ *\ treeWidthAtLevel\ );}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ preM2LTransitions[idxLevel][\mbox{\hyperlink{class_f_spherical_rotation_kernel_a4c2d9216e0c697b045c4f58d27b89c8f}{indexM2LTransition}}(idxX,idxY,idxZ)].transfer\_M2L\_rotation\_Fill(\mbox{\hyperlink{class_f_spherical}{FSpherical<FReal>}}(relativePos),\ rotation\_Info);}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ divide\ the\ bow\ per\ 2\ when\ we\ go\ down}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ treeWidthAtLevel\ /=\ 2;}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00370\ \ \ \ \ \}}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00380\ \ \ \ \ \mbox{\hyperlink{class_f_spherical_rotation_kernel_a0dfbd028c0888a0ae40201e3b4adf2ec}{FSphericalRotationKernel}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inDevP,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inTreeHeight,\ \textcolor{keyword}{const}\ FReal\ inBoxWidth,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\&\ inBoxCenter)}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{Parent}}(inDevP,\ inTreeHeight,\ inBoxWidth,\ inBoxCenter),}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ devM2lP(int(((inDevP*2)+1)\ *\ ((inDevP*2)+2)\ *\ 0.5)),}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ preM2LTransitions(nullptr),}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ rotation\_Info(inDevP)\ \{}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_rotation_kernel_af6c18f67b77d17e1830ba4fe9a29194c}{allocAndInit}}();}
+\DoxyCodeLine{00386\ \ \ \ \ \}}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00389\ \ \ \ \ \mbox{\hyperlink{class_f_spherical_rotation_kernel_ac09a39eb88386369560304ac91ced685}{FSphericalRotationKernel}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_spherical_rotation_kernel}{FSphericalRotationKernel}}\&\ other)}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_f_abstract_spherical_kernel}{Parent}}(other),\ devM2lP(other.devM2lP),}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ preM2LTransitions(other.preM2LTransitions),}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ rotation\_Info(other.devP)\ \{}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \ \ \}}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00397\ \ \ \ \ \mbox{\hyperlink{class_f_spherical_rotation_kernel_a837600ab85bbd67ba86cc357df86e414}{\string~FSphericalRotationKernel}}()\{}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ preM2LTransitions.\mbox{\hyperlink{class_f_smart_pointer_a459476d73cfce7884ad33e3ddd879876}{isLast}}()\ )\{}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxLevel\ =\ 0\ ;\ idxLevel\ <\ Parent::treeHeight\ ;\ ++idxLevel\ )\{}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0\ ;\ idx\ <\ 7*7*7\ ;\ ++idx\ )\{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ preM2LTransitions[idxLevel][idx].\string~RotationM2LTransfer();}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(preM2LTransitions[idxLevel]);}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00406\ \ \ \ \ \}}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_rotation_kernel_a36ec17c71f62998c4e062ca71ed59ae9}{M2L}}(CellClass*\ \textcolor{keyword}{const}\ FRestrict\ inLocal,\ \textcolor{keyword}{const}\ CellClass*\ distantNeighbors[],}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ neighborPositions[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inSize,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)\textcolor{keyword}{\ \ override\ }\{}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ all\ neighbors\ compute\ M2L}}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxExistingNeigh\ =\ 0\ ;\ idxExistingNeigh\ <\ inSize\ ;\ ++idxExistingNeigh)\{}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxNeigh\ =\ neighborPositions[idxExistingNeigh];}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer}{RotationM2LTransfer}}\&\ transitionVector\ =\ preM2LTransitions[inLevel][idxNeigh];}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_rotation_kernel_acaec7612448216b4622c583b4288392e}{multipoleToLocal}}(inLocal-\/>getLocal(),\ distantNeighbors[idxExistingNeigh]-\/>getMultipole(),\ transitionVector);}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00417\ \ \ \ \ \}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00422\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_rotation_kernel_acaec7612448216b4622c583b4288392e}{multipoleToLocal}}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\textcolor{keyword}{const}\ FRestrict\ local\_exp\_target,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ FRestrict\ multipole\_exp\_src,}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer}{RotationM2LTransfer}}\&\ transfer\_M2L\_rotation)\{}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ memset(rotation\_Info.p\_rot\_multipole\_exp,\ 0,\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_info_a9e9b9365218e6484d57d928946096fb0}{RotationInfo::ZAxisExpensionSize}}(Parent::devP)\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}));}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ memset(rotation\_Info.p\_rot\_local\_exp,\ 0,\ \mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_info_a9e9b9365218e6484d57d928946096fb0}{RotationInfo::ZAxisExpensionSize}}(Parent::devP)\ *\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}));}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_rotation_kernel_a225dc15caa9bdff5e1d53d46f8a052b6}{rotation\_Rotate\_multipole\_expansion\_terms}}(multipole\_exp\_src,\ transfer\_M2L\_rotation.rcc\_outer,\ rotation\_Info.p\_rot\_multipole\_exp);}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_rotation_kernel_af898c17214b611756de6358c6a8fd4dd}{M2L\_z\_axis}}(rotation\_Info.p\_rot\_local\_exp,\ rotation\_Info.p\_rot\_multipole\_exp,\ transfer\_M2L\_rotation.outer\_array);}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_spherical_rotation_kernel_adfc128fb97628714b18e96671bbc4551}{rotation\_Rotate\_local\_expansion\_terms}}(rotation\_Info.p\_rot\_local\_exp,\ transfer\_M2L\_rotation.rcc\_inner,\ local\_exp\_target);}
+\DoxyCodeLine{00433\ \ \ \ \ \}}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00436\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_rotation_kernel_a225dc15caa9bdff5e1d53d46f8a052b6}{rotation\_Rotate\_multipole\_expansion\_terms}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\textcolor{keyword}{const}\ FRestrict\ multipole\_exp,}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ FRestrict\ *\ \textcolor{keyword}{const}\ FRestrict\ rcc\_outer,}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\textcolor{keyword}{const}\ FRestrict\ rot\_multipole\_exp)\{}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ p\_rot\_multipole\_exp\ =\ rot\_multipole\_exp;}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ nu\ =\ 0\ ;\ nu\ <=\ (Parent::devP/2)\ ;\ ++nu)\{}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ nu;\ j\ <=\ (Parent::devP-\/nu)\ ;\ ++j)\{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ p\_rcc\_outer\ =\ \&rcc\_outer[j][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{RotationM2LTransfer::getRotationCoefP}}(j,\ nu,\ j)];}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ p\_multipole\_exp\ =\ \&multipole\_exp[Parent::harmonic.getPreExpRedirJ(j)\ +\ j];}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ minus\_1\_pow\_k\ =\ FReal(j\&1\ ?\ -\/1\ :\ 1);}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ -\/j\ ;\ k\ <\ 0\ ;\ ++k)\{\ \textcolor{comment}{/*\ k\ <\ 0\ */}}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_rot\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_a239af6b36a7a875cf409af96ed286bf8}{incReal}}(\ minus\_1\_pow\_k\ *}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_outer-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}())\ +}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_outer-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()))\ );}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_rot\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_a5da751a7b9af375136091cad0bc8e1d9}{incImag}}(\ minus\_1\_pow\_k\ *}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_outer-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}())\ -\/}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_outer-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()))\ );}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minus\_1\_pow\_k\ =\ -\/minus\_1\_pow\_k;}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/p\_rcc\_outer;}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/p\_multipole\_exp;}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ k\ */}}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <=\ j\ ;\ ++k)\{\ \textcolor{comment}{/*\ k\ >=\ 0\ */}}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_rot\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_a239af6b36a7a875cf409af96ed286bf8}{incReal}}(}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_outer-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}())\ -\/}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_outer-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()))\ );}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_rot\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_a5da751a7b9af375136091cad0bc8e1d9}{incImag}}(}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_outer-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}())\ +}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_outer-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()))\ );}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/p\_rcc\_outer;}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_multipole\_exp;}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ k\ */}}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_rot\_multipole\_exp;}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ j\ */}}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ nu\ */}}
+\DoxyCodeLine{00476\ \ \ \ \ \}}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00479\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_rotation_kernel_af898c17214b611756de6358c6a8fd4dd}{M2L\_z\_axis}}(\mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ FRestrict\ rot\_local\_exp,}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ FRestrict\ rot\_multipole\_exp,}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ \textcolor{keyword}{const}\ outer\_array)\{}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ p\_rot\_local\_exp\ =\ rot\_local\_exp;}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ 0\ ;\ j\ <=\ Parent::devP;\ ++j)\{}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ FReal*\ p\_outer\_array\_j\ =\ outer\_array\ +\ j;}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ stop\_for\_n\ =\ Parent::devP-\/j;}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ min\_j\ =\ \mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(j,\ stop\_for\_n);}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ 0\ ;\ k\ <=\ min\_j\ ;\ ++k)\{}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ p\_rot\_multipole\_exp\ =\ rot\_multipole\_exp\ +\ k\ *\ (Parent::devP\ +\ 2\ -\/\ k);}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ n\ =\ k\ ;\ n\ <=\ stop\_for\_n\ ;\ ++n)\{}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a239af6b36a7a875cf409af96ed286bf8}{incReal}}(p\_rot\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_outer\_array\_j[n]);}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a5da751a7b9af375136091cad0bc8e1d9}{incImag}}(p\_rot\_multipole\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_outer\_array\_j[n]);}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_rot\_multipole\_exp;}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ n\ */}}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_rot\_local\_exp;}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ k\ */}}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ j\ */}}
+\DoxyCodeLine{00498\ \ \ \ \ \}}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_spherical_rotation_kernel_adfc128fb97628714b18e96671bbc4551}{rotation\_Rotate\_local\_expansion\_terms}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\textcolor{keyword}{const}\ rot\_local\_exp,}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\textcolor{keyword}{const}\ FRestrict\ *\textcolor{keyword}{const}\ FRestrict\ rcc\_inner,}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\textcolor{keyword}{const}\ FRestrict\ local\_exp)\{}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ Q\ =\ Parent::devP/2;}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ FRestrict\ p\_local\_exp\ =\ local\_exp;}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ 0\ ;\ j\ <=\ Q\ ;\ ++j)\{}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ min\_j\ =\ j;}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ \textcolor{keyword}{const}\ FRestrict\ p\_rot\_local\_exp\_j\ =\ \&rot\_local\_exp[Parent::harmonic.getPreExpRedirJ(j)\ +\ j];}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ nu\ =\ 0\ ;\ nu\ <=\ j;\ ++nu)\{}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ FRestrict\ p\_rcc\_inner\ =\ \&rcc\_inner[j][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{RotationM2LTransfer::getRotationCoefP}}(j,\ nu,\ -\/min\_j)];}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ FRestrict\ p\_rot\_local\_exp\ =\ p\_rot\_local\_exp\_j;}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ minus\_1\_pow\_k\ =\ FReal(min\_j\&1\ ?\ -\/1\ :\ 1);}
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ -\/min\_j\ ;\ k\ <\ 0\ ;\ ++k)\{\ \ \textcolor{comment}{/*\ k\ <\ 0\ */}}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a239af6b36a7a875cf409af96ed286bf8}{incReal}}(\ minus\_1\_pow\_k\ *}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}())\ +}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}())));}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a5da751a7b9af375136091cad0bc8e1d9}{incImag}}(\ minus\_1\_pow\_k\ *}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}())\ -\/}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}())));}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minus\_1\_pow\_k\ =\ -\/minus\_1\_pow\_k;}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/p\_rot\_local\_exp;}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_rcc\_inner;}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ k\ */}}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <=\ min\_j\ ;\ ++k)\{\ \ \textcolor{comment}{/*\ k\ >=\ 0\ */}}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a239af6b36a7a875cf409af96ed286bf8}{incReal}}(}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}())\ -\/}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}())));}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a5da751a7b9af375136091cad0bc8e1d9}{incImag}}(}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}())\ +}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}())));}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_rot\_local\_exp;}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_rcc\_inner;}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ k\ */}}
+\DoxyCodeLine{00541\ }
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_local\_exp;}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ nu\ */}}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ j\ */}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ FRestrict\ p\_rot\_local\_exp\_j\ =\ \&rot\_local\_exp[Parent::harmonic.getPreExpRedirJ(Q)\ +\ Q];}
+\DoxyCodeLine{00548\ }
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ Q\ +\ 1;\ j\ <=\ Parent::devP\ ;\ ++j)\{}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ p\_rot\_local\_exp\_j\ +=\ Parent::devP\ -\/\ j\ +1;}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ min\_j\ =\ Parent::devP-\/j;}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ nu\ =\ 0\ ;\ nu\ <=\ j;\ ++nu)\{}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ FRestrict\ p\_rcc\_inner\ =\ \&rcc\_inner[j][\mbox{\hyperlink{struct_f_spherical_rotation_kernel_1_1_rotation_m2_l_transfer_ac35024230bea7ba3cb3b5a62889757e5}{RotationM2LTransfer::getRotationCoefP}}(j,\ nu,\ -\/min\_j)];}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}*\ FRestrict\ p\_rot\_local\_exp\ =\ p\_rot\_local\_exp\_j;}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ minus\_1\_pow\_k\ =\ FReal(min\_j\&1\ ?\ -\/1\ :\ 1);}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ -\/min\_j\ ;\ k\ <\ 0;\ ++k)\{\ \ \textcolor{comment}{/*\ k\ <\ 0\ */}}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a239af6b36a7a875cf409af96ed286bf8}{incReal}}(\ minus\_1\_pow\_k\ *}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}())\ +}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}())));}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a5da751a7b9af375136091cad0bc8e1d9}{incImag}}(\ minus\_1\_pow\_k\ *}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}())\ -\/}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}())));}
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minus\_1\_pow\_k\ =\ -\/minus\_1\_pow\_k;}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/-\/p\_rot\_local\_exp;}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_rcc\_inner;}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ k\ */}}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k\ =\ 0;\ k<=min\_j;\ ++k)\{\ \ \textcolor{comment}{/*\ k\ >=\ 0\ */}}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a239af6b36a7a875cf409af96ed286bf8}{incReal}}(}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}())\ -\/}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}())));}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a5da751a7b9af375136091cad0bc8e1d9}{incImag}}(}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}())\ +}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (p\_rot\_local\_exp-\/>\mbox{\hyperlink{class_f_complex_ab4db8e82d8c014c17b06089163a3c204}{getImag}}()\ *\ p\_rcc\_inner-\/>\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}())));}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_rot\_local\_exp;}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_rcc\_inner;}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ k\ */}}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++p\_local\_exp;}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ nu\ */}}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{/*\ for\ j\ */}}
+\DoxyCodeLine{00584\ \ \ \ \ \}}
+\DoxyCodeLine{00585\ \};}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FSPHERICALROTATIONKERNEL\_HPP}}
+
+\end{DoxyCode}

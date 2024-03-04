@@ -1,0 +1,226 @@
+\doxysection{FGroup\+Tree\+Dyn\texorpdfstring{$<$}{<} FReal, Composite\+Cell\+Class, Group\+Attached\+Leaf\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_group_tree_dyn}{}\label{class_f_group_tree_dyn}\index{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}}
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_tree_dyn_a4106cfbd706b42d9525a7e12ebbbedce}\label{class_f_group_tree_dyn_a4106cfbd706b42d9525a7e12ebbbedce} 
+typedef Group\+Attached\+Leaf\+Class {\bfseries Basic\+Attached\+Class}
+\item 
+\Hypertarget{class_f_group_tree_dyn_ad9ef5f66b230693b2209c75637735694}\label{class_f_group_tree_dyn_ad9ef5f66b230693b2209c75637735694} 
+typedef \mbox{\hyperlink{class_f_group_of_particles_dyn}{FGroup\+Of\+Particles\+Dyn}} {\bfseries Particle\+Group\+Class}
+\item 
+\Hypertarget{class_f_group_tree_dyn_a2f364a761ec5410328455f774da19d83}\label{class_f_group_tree_dyn_a2f364a761ec5410328455f774da19d83} 
+typedef \mbox{\hyperlink{class_f_group_of_cells_dyn}{FGroup\+Of\+Cells\+Dyn}}$<$ Composite\+Cell\+Class $>$ {\bfseries Cell\+Group\+Class}
+\item 
+\Hypertarget{class_f_group_tree_dyn_a8b7fcd7cc9df4f089565e36647895bc9}\label{class_f_group_tree_dyn_a8b7fcd7cc9df4f089565e36647895bc9} 
+typedef std\+::vector$<$ \mbox{\hyperlink{class_f_group_of_cells_dyn}{Cell\+Group\+Class}} \texorpdfstring{$\ast$}{*} $>$\+::iterator {\bfseries Cell\+Group\+Iterator}
+\item 
+\Hypertarget{class_f_group_tree_dyn_aa6bfb2cea9706b28e6ae9416717ba5e7}\label{class_f_group_tree_dyn_aa6bfb2cea9706b28e6ae9416717ba5e7} 
+typedef std\+::vector$<$ \mbox{\hyperlink{class_f_group_of_cells_dyn}{Cell\+Group\+Class}} \texorpdfstring{$\ast$}{*} $>$\+::const\+\_\+iterator {\bfseries Cell\+Group\+Const\+Iterator}
+\item 
+\Hypertarget{class_f_group_tree_dyn_a64e8862b2190171a6e51d084e3fbd42f}\label{class_f_group_tree_dyn_a64e8862b2190171a6e51d084e3fbd42f} 
+typedef std\+::vector$<$ \mbox{\hyperlink{class_f_group_of_particles_dyn}{Particle\+Group\+Class}} \texorpdfstring{$\ast$}{*} $>$\+::iterator {\bfseries Particle\+Group\+Iterator}
+\item 
+\Hypertarget{class_f_group_tree_dyn_a6d2fd58fd96a5e11e781e8247799445c}\label{class_f_group_tree_dyn_a6d2fd58fd96a5e11e781e8247799445c} 
+typedef std\+::vector$<$ \mbox{\hyperlink{class_f_group_of_particles_dyn}{Particle\+Group\+Class}} \texorpdfstring{$\ast$}{*} $>$\+::const\+\_\+iterator {\bfseries Particle\+Group\+Const\+Iterator}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Octree\+Class $>$ }\\\mbox{\hyperlink{class_f_group_tree_dyn_af3eccd4813ee7a7c68f1543e902bb636}{FGroup\+Tree\+Dyn}} (const int in\+Tree\+Height, const int in\+Nb\+Elements\+Per\+Block, Octree\+Class \texorpdfstring{$\ast$}{*}const in\+Octree\+Src, const size\+\_\+t in\+Symb\+Size\+Per\+Level\mbox{[}$\,$\mbox{]}, const size\+\_\+t in\+Pole\+Size\+Per\+Level\mbox{[}$\,$\mbox{]}, const size\+\_\+t in\+Local\+Size\+Per\+Level\mbox{[}$\,$\mbox{]}, std\+::function$<$ void(const Morton\+Index, const void \texorpdfstring{$\ast$}{*}, size\+\_\+t \texorpdfstring{$\ast$}{*}, size\+\_\+t \texorpdfstring{$\ast$}{*})$>$ Get\+Size\+Func, std\+::function$<$ void(const Morton\+Index mindex, unsigned char \texorpdfstring{$\ast$}{*}symb\+Buff, const size\+\_\+t symb\+Size, unsigned char \texorpdfstring{$\ast$}{*}up\+Buff, const size\+\_\+t up\+Size, unsigned char \texorpdfstring{$\ast$}{*}down\+Buff, const size\+\_\+t down\+Size, const int level)$>$ Build\+Cell\+Func)
+\item 
+\mbox{\hyperlink{class_f_group_tree_dyn_addba6fa361f7e25c459bcc4ab557fd01}{FGroup\+Tree\+Dyn}} (const int in\+Tree\+Height, const FReal in\+Box\+Width, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Box\+Center, const int in\+Nb\+Elements\+Per\+Block, const size\+\_\+t in\+Symb\+Size\+Per\+Level\mbox{[}$\,$\mbox{]}, const size\+\_\+t in\+Pole\+Size\+Per\+Level\mbox{[}$\,$\mbox{]}, const size\+\_\+t in\+Local\+Size\+Per\+Level\mbox{[}$\,$\mbox{]}, \mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$ in\+Particles\+Container\mbox{[}$\,$\mbox{]}, const FSize nb\+Particles, std\+::function$<$ void(const Morton\+Index, const \mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$\mbox{[}$\,$\mbox{]}, const FSize, size\+\_\+t \texorpdfstring{$\ast$}{*}, size\+\_\+t \texorpdfstring{$\ast$}{*})$>$ Get\+Size\+Func, std\+::function$<$ void(const Morton\+Index, const \mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$\mbox{[}$\,$\mbox{]}, const FSize, unsigned char \texorpdfstring{$\ast$}{*}, const size\+\_\+t, unsigned char \texorpdfstring{$\ast$}{*}, const size\+\_\+t)$>$ Init\+Leaf\+Func, std\+::function$<$ void(const Morton\+Index mindex, unsigned char \texorpdfstring{$\ast$}{*}symb\+Buff, const size\+\_\+t symb\+Size, unsigned char \texorpdfstring{$\ast$}{*}up\+Buff, const size\+\_\+t up\+Size, unsigned char \texorpdfstring{$\ast$}{*}down\+Buff, const size\+\_\+t down\+Size, const int level)$>$ Build\+Cell\+Func, const bool particles\+Are\+Sorted=false, Morton\+Index in\+Left\+Limite=-\/1)
+\item 
+\mbox{\hyperlink{class_f_group_tree_dyn_a1316e4e52756f9b497bdc4a1177df05a}{FGroup\+Tree\+Dyn}} (const int in\+Tree\+Height, const FReal in\+Box\+Width, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Box\+Center, const int in\+Nb\+Elements\+Per\+Block, const size\+\_\+t in\+Symb\+Size\+Per\+Level\mbox{[}$\,$\mbox{]}, const size\+\_\+t in\+Pole\+Size\+Per\+Level\mbox{[}$\,$\mbox{]}, const size\+\_\+t in\+Local\+Size\+Per\+Level\mbox{[}$\,$\mbox{]}, \mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$ in\+Particles\+Container\mbox{[}$\,$\mbox{]}, const FSize nb\+Particles, std\+::function$<$ void(const Morton\+Index, const \mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$\mbox{[}$\,$\mbox{]}, const FSize, size\+\_\+t \texorpdfstring{$\ast$}{*}, size\+\_\+t \texorpdfstring{$\ast$}{*})$>$ Get\+Size\+Func, std\+::function$<$ void(const Morton\+Index, const \mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$\mbox{[}$\,$\mbox{]}, const FSize, unsigned char \texorpdfstring{$\ast$}{*}, const size\+\_\+t, unsigned char \texorpdfstring{$\ast$}{*}, const size\+\_\+t)$>$ Init\+Leaf\+Func, std\+::function$<$ void(const Morton\+Index mindex, unsigned char \texorpdfstring{$\ast$}{*}symb\+Buff, const size\+\_\+t symb\+Size, unsigned char \texorpdfstring{$\ast$}{*}up\+Buff, const size\+\_\+t up\+Size, unsigned char \texorpdfstring{$\ast$}{*}down\+Buff, const size\+\_\+t down\+Size, const int level)$>$ Build\+Cell\+Func, const bool particles\+Are\+Sorted, const bool one\+Parent, const FReal in\+Cover\+Ratio=0.\+0, Morton\+Index in\+Left\+Limite=-\/1)
+\item 
+\mbox{\hyperlink{class_f_group_tree_dyn_ad5baa8bae42b1589f83a720576454265}{\texorpdfstring{$\sim$}{\string~}\+FGroup\+Tree\+Dyn}} ()
+\item 
+{\footnotesize template$<$class Particles\+Attached\+Class $>$ }\\void \mbox{\hyperlink{class_f_group_tree_dyn_acc2d878d7263aeaf034c7996312f94bf}{for\+Each\+Leaf}} (std\+::function$<$ void(Particles\+Attached\+Class \texorpdfstring{$\ast$}{*})$>$ function)
+\begin{DoxyCompactList}\small\item\em for\+Each\+Leaf iterate on the leaf and apply the function \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_group_tree_dyn_a33424b4394bb582b1de35008e7bcf966}{for\+Each\+Cell}} (std\+::function$<$ void(Composite\+Cell\+Class)$>$ function)
+\begin{DoxyCompactList}\small\item\em for\+Each\+Leaf iterate on the cell and apply the function \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_group_tree_dyn_abe0e0af24d53dd1370b7b4d6e5809c8b}{for\+Each\+Cell\+With\+Level}} (std\+::function$<$ void(Composite\+Cell\+Class, const int)$>$ function)
+\begin{DoxyCompactList}\small\item\em for\+Each\+Leaf iterate on the cell and apply the function \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Particles\+Attached\+Class $>$ }\\void \mbox{\hyperlink{class_f_group_tree_dyn_af03edaabacb0d97b1a7365f499ac690a}{for\+Each\+Cell\+Leaf}} (std\+::function$<$ void(Composite\+Cell\+Class, Particles\+Attached\+Class \texorpdfstring{$\ast$}{*})$>$ function)
+\begin{DoxyCompactList}\small\item\em for\+Each\+Leaf iterate on the cell and apply the function \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_tree_dyn_ae8dc6c1f976ce9095301dbe0709a314e}\label{class_f_group_tree_dyn_ae8dc6c1f976ce9095301dbe0709a314e} 
+void {\bfseries print\+Info\+Blocks} ()
+\begin{DoxyCompactList}\small\item\em , for statistic purpose, display each block with number of cell, size of header, starting index, and ending index \end{DoxyCompactList}\item 
+\Hypertarget{class_f_group_tree_dyn_a8b5fb1d63a9480870e600a1e35faeff1}\label{class_f_group_tree_dyn_a8b5fb1d63a9480870e600a1e35faeff1} 
+int {\bfseries get\+Height} () const
+\item 
+\Hypertarget{class_f_group_tree_dyn_af4ce0312ea86cfc0e630c719cb081b38}\label{class_f_group_tree_dyn_af4ce0312ea86cfc0e630c719cb081b38} 
+Cell\+Group\+Iterator {\bfseries cells\+Begin} (const int in\+Level)
+\item 
+\Hypertarget{class_f_group_tree_dyn_a113d10a69eeb5a868a1a2d53bad8988a}\label{class_f_group_tree_dyn_a113d10a69eeb5a868a1a2d53bad8988a} 
+Cell\+Group\+Const\+Iterator {\bfseries cells\+Begin} (const int in\+Level) const
+\item 
+\Hypertarget{class_f_group_tree_dyn_a684845162ade763d5be7e945ad682319}\label{class_f_group_tree_dyn_a684845162ade763d5be7e945ad682319} 
+Cell\+Group\+Iterator {\bfseries cells\+End} (const int in\+Level)
+\item 
+\Hypertarget{class_f_group_tree_dyn_aff58efdbd2ed3e362cbeebd51dbdbb05}\label{class_f_group_tree_dyn_aff58efdbd2ed3e362cbeebd51dbdbb05} 
+Cell\+Group\+Const\+Iterator {\bfseries cells\+End} (const int in\+Level) const
+\item 
+\Hypertarget{class_f_group_tree_dyn_a6764dedfe5f5f09c914e27d664cdbbbf}\label{class_f_group_tree_dyn_a6764dedfe5f5f09c914e27d664cdbbbf} 
+int {\bfseries get\+Nb\+Cell\+Group\+At\+Level} (const int in\+Level) const
+\item 
+\Hypertarget{class_f_group_tree_dyn_a66aac1fe65dd40812f452de42aeedd3f}\label{class_f_group_tree_dyn_a66aac1fe65dd40812f452de42aeedd3f} 
+\mbox{\hyperlink{class_f_group_of_cells_dyn}{Cell\+Group\+Class}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Cell\+Group} (const int in\+Level, const int in\+Idx)
+\item 
+\Hypertarget{class_f_group_tree_dyn_af6f26d6c1ea1445fca80875db167776d}\label{class_f_group_tree_dyn_af6f26d6c1ea1445fca80875db167776d} 
+const \mbox{\hyperlink{class_f_group_of_cells_dyn}{Cell\+Group\+Class}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Cell\+Group} (const int in\+Level, const int in\+Idx) const
+\item 
+\Hypertarget{class_f_group_tree_dyn_a22facb9706c864ba555d3f31af2f389e}\label{class_f_group_tree_dyn_a22facb9706c864ba555d3f31af2f389e} 
+Particle\+Group\+Iterator {\bfseries leaves\+Begin} ()
+\item 
+\Hypertarget{class_f_group_tree_dyn_a594de8725d104e00d2a8ccd23afd950c}\label{class_f_group_tree_dyn_a594de8725d104e00d2a8ccd23afd950c} 
+Particle\+Group\+Const\+Iterator {\bfseries leaves\+Begin} () const
+\item 
+\Hypertarget{class_f_group_tree_dyn_a3d1ee244920488ef107d17dc5224b83d}\label{class_f_group_tree_dyn_a3d1ee244920488ef107d17dc5224b83d} 
+Particle\+Group\+Iterator {\bfseries leaves\+End} ()
+\item 
+\Hypertarget{class_f_group_tree_dyn_ace7ec62ff29c91ef82cdf7927ecdd5f2}\label{class_f_group_tree_dyn_ace7ec62ff29c91ef82cdf7927ecdd5f2} 
+Particle\+Group\+Const\+Iterator {\bfseries leaves\+End} () const
+\item 
+\Hypertarget{class_f_group_tree_dyn_a0a76e42f21dd5fddaecbd28fe5a4d47a}\label{class_f_group_tree_dyn_a0a76e42f21dd5fddaecbd28fe5a4d47a} 
+int {\bfseries get\+Nb\+Particle\+Group} () const
+\item 
+\Hypertarget{class_f_group_tree_dyn_a66ae5c98527ffb8123337b61d6a447c5}\label{class_f_group_tree_dyn_a66ae5c98527ffb8123337b61d6a447c5} 
+\mbox{\hyperlink{class_f_group_of_particles_dyn}{Particle\+Group\+Class}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Particle\+Group} (const int in\+Idx)
+\item 
+\Hypertarget{class_f_group_tree_dyn_a4c73cde2f8fcbcd2762dd6cb142b5184}\label{class_f_group_tree_dyn_a4c73cde2f8fcbcd2762dd6cb142b5184} 
+const \mbox{\hyperlink{class_f_group_of_particles_dyn}{Particle\+Group\+Class}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Particle\+Group} (const int in\+Idx) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_tree_dyn_a51f70568a4fb3b26fba42a7dd09515d0}\label{class_f_group_tree_dyn_a51f70568a4fb3b26fba42a7dd09515d0} 
+const int {\bfseries tree\+Height}
+\item 
+\Hypertarget{class_f_group_tree_dyn_a72f7c2f06fdb42d7c935b00b10222c01}\label{class_f_group_tree_dyn_a72f7c2f06fdb42d7c935b00b10222c01} 
+const int {\bfseries nb\+Elements\+Per\+Block}
+\item 
+\Hypertarget{class_f_group_tree_dyn_aba9933cfcb6cd0d1657ec14d742d3f66}\label{class_f_group_tree_dyn_aba9933cfcb6cd0d1657ec14d742d3f66} 
+std\+::vector$<$ \mbox{\hyperlink{class_f_group_of_cells_dyn}{Cell\+Group\+Class}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*} {\bfseries cell\+Blocks\+Per\+Level}
+\item 
+\Hypertarget{class_f_group_tree_dyn_ae27b17016784df03798c50f4f462b713}\label{class_f_group_tree_dyn_ae27b17016784df03798c50f4f462b713} 
+std\+::vector$<$ \mbox{\hyperlink{class_f_group_of_particles_dyn}{Particle\+Group\+Class}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries particle\+Blocks}
+\item 
+\Hypertarget{class_f_group_tree_dyn_aa156260583c9bda757ef403b6c471e09}\label{class_f_group_tree_dyn_aa156260583c9bda757ef403b6c471e09} 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries box\+Center}
+\item 
+\Hypertarget{class_f_group_tree_dyn_a96d64332865f426c8dbaffc9609290b0}\label{class_f_group_tree_dyn_a96d64332865f426c8dbaffc9609290b0} 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries box\+Corner}
+\item 
+\Hypertarget{class_f_group_tree_dyn_a7634d468d3b801686491613677f8753e}\label{class_f_group_tree_dyn_a7634d468d3b801686491613677f8753e} 
+const FReal {\bfseries box\+Width}
+\item 
+\Hypertarget{class_f_group_tree_dyn_aa8f0785202a3721a949547a47d7a96d9}\label{class_f_group_tree_dyn_aa8f0785202a3721a949547a47d7a96d9} 
+const FReal {\bfseries box\+Width\+At\+Leaf\+Level}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_group_tree_dyn_af3eccd4813ee7a7c68f1543e902bb636}\label{class_f_group_tree_dyn_af3eccd4813ee7a7c68f1543e902bb636} 
+\index{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}!FGroupTreeDyn@{FGroupTreeDyn}}
+\index{FGroupTreeDyn@{FGroupTreeDyn}!FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}}
+\doxysubsubsection{\texorpdfstring{FGroupTreeDyn()}{FGroupTreeDyn()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$class FReal , class Composite\+Cell\+Class , class Group\+Attached\+Leaf\+Class $>$ \\
+template$<$class Octree\+Class $>$ \\
+\mbox{\hyperlink{class_f_group_tree_dyn}{FGroup\+Tree\+Dyn}}$<$ FReal, Composite\+Cell\+Class, Group\+Attached\+Leaf\+Class $>$\mbox{\hyperlink{class_f_group_tree_dyn}{\+::\+FGroup\+Tree\+Dyn}} (\begin{DoxyParamCaption}\item[{const int}]{in\+Tree\+Height,  }\item[{const int}]{in\+Nb\+Elements\+Per\+Block,  }\item[{Octree\+Class \texorpdfstring{$\ast$}{*}const}]{in\+Octree\+Src,  }\item[{const size\+\_\+t}]{in\+Symb\+Size\+Per\+Level\mbox{[}$\,$\mbox{]},  }\item[{const size\+\_\+t}]{in\+Pole\+Size\+Per\+Level\mbox{[}$\,$\mbox{]},  }\item[{const size\+\_\+t}]{in\+Local\+Size\+Per\+Level\mbox{[}$\,$\mbox{]},  }\item[{std\+::function$<$ void(const Morton\+Index, const void \texorpdfstring{$\ast$}{*}, size\+\_\+t \texorpdfstring{$\ast$}{*}, size\+\_\+t \texorpdfstring{$\ast$}{*})$>$}]{Get\+Size\+Func,  }\item[{std\+::function$<$ void(const Morton\+Index mindex, unsigned char \texorpdfstring{$\ast$}{*}symb\+Buff, const size\+\_\+t symb\+Size, unsigned char \texorpdfstring{$\ast$}{*}up\+Buff, const size\+\_\+t up\+Size, unsigned char \texorpdfstring{$\ast$}{*}down\+Buff, const size\+\_\+t down\+Size, const int level)$>$}]{Build\+Cell\+Func }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This constructor create a blocked octree from a usual octree The cell are allocated as in the usual octree (no copy constructor are called!) Once allocated each cell receive its morton index and tree coordinate. No blocks are allocated at level 0. \Hypertarget{class_f_group_tree_dyn_addba6fa361f7e25c459bcc4ab557fd01}\label{class_f_group_tree_dyn_addba6fa361f7e25c459bcc4ab557fd01} 
+\index{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}!FGroupTreeDyn@{FGroupTreeDyn}}
+\index{FGroupTreeDyn@{FGroupTreeDyn}!FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}}
+\doxysubsubsection{\texorpdfstring{FGroupTreeDyn()}{FGroupTreeDyn()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$class FReal , class Composite\+Cell\+Class , class Group\+Attached\+Leaf\+Class $>$ \\
+\mbox{\hyperlink{class_f_group_tree_dyn}{FGroup\+Tree\+Dyn}}$<$ FReal, Composite\+Cell\+Class, Group\+Attached\+Leaf\+Class $>$\mbox{\hyperlink{class_f_group_tree_dyn}{\+::\+FGroup\+Tree\+Dyn}} (\begin{DoxyParamCaption}\item[{const int}]{in\+Tree\+Height,  }\item[{const FReal}]{in\+Box\+Width,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Box\+Center,  }\item[{const int}]{in\+Nb\+Elements\+Per\+Block,  }\item[{const size\+\_\+t}]{in\+Symb\+Size\+Per\+Level\mbox{[}$\,$\mbox{]},  }\item[{const size\+\_\+t}]{in\+Pole\+Size\+Per\+Level\mbox{[}$\,$\mbox{]},  }\item[{const size\+\_\+t}]{in\+Local\+Size\+Per\+Level\mbox{[}$\,$\mbox{]},  }\item[{\mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$}]{in\+Particles\+Container\mbox{[}$\,$\mbox{]},  }\item[{const FSize}]{nb\+Particles,  }\item[{std\+::function$<$ void(const Morton\+Index, const \mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$\mbox{[}$\,$\mbox{]}, const FSize, size\+\_\+t \texorpdfstring{$\ast$}{*}, size\+\_\+t \texorpdfstring{$\ast$}{*})$>$}]{Get\+Size\+Func,  }\item[{std\+::function$<$ void(const Morton\+Index, const \mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$\mbox{[}$\,$\mbox{]}, const FSize, unsigned char \texorpdfstring{$\ast$}{*}, const size\+\_\+t, unsigned char \texorpdfstring{$\ast$}{*}, const size\+\_\+t)$>$}]{Init\+Leaf\+Func,  }\item[{std\+::function$<$ void(const Morton\+Index mindex, unsigned char \texorpdfstring{$\ast$}{*}symb\+Buff, const size\+\_\+t symb\+Size, unsigned char \texorpdfstring{$\ast$}{*}up\+Buff, const size\+\_\+t up\+Size, unsigned char \texorpdfstring{$\ast$}{*}down\+Buff, const size\+\_\+t down\+Size, const int level)$>$}]{Build\+Cell\+Func,  }\item[{const bool}]{particles\+Are\+Sorted = {\ttfamily false},  }\item[{Morton\+Index}]{in\+Left\+Limite = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This constructor create a group tree from a particle container index. The morton index are computed and the particles are sorted in a first stage. Then the leaf level is done. Finally the other leve are proceed one after the other. It should be easy to make it parallel using for and tasks. If no limite give in\+Left\+Limite = -\/1 \Hypertarget{class_f_group_tree_dyn_a1316e4e52756f9b497bdc4a1177df05a}\label{class_f_group_tree_dyn_a1316e4e52756f9b497bdc4a1177df05a} 
+\index{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}!FGroupTreeDyn@{FGroupTreeDyn}}
+\index{FGroupTreeDyn@{FGroupTreeDyn}!FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}}
+\doxysubsubsection{\texorpdfstring{FGroupTreeDyn()}{FGroupTreeDyn()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class FReal , class Composite\+Cell\+Class , class Group\+Attached\+Leaf\+Class $>$ \\
+\mbox{\hyperlink{class_f_group_tree_dyn}{FGroup\+Tree\+Dyn}}$<$ FReal, Composite\+Cell\+Class, Group\+Attached\+Leaf\+Class $>$\mbox{\hyperlink{class_f_group_tree_dyn}{\+::\+FGroup\+Tree\+Dyn}} (\begin{DoxyParamCaption}\item[{const int}]{in\+Tree\+Height,  }\item[{const FReal}]{in\+Box\+Width,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Box\+Center,  }\item[{const int}]{in\+Nb\+Elements\+Per\+Block,  }\item[{const size\+\_\+t}]{in\+Symb\+Size\+Per\+Level\mbox{[}$\,$\mbox{]},  }\item[{const size\+\_\+t}]{in\+Pole\+Size\+Per\+Level\mbox{[}$\,$\mbox{]},  }\item[{const size\+\_\+t}]{in\+Local\+Size\+Per\+Level\mbox{[}$\,$\mbox{]},  }\item[{\mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$}]{in\+Particles\+Container\mbox{[}$\,$\mbox{]},  }\item[{const FSize}]{nb\+Particles,  }\item[{std\+::function$<$ void(const Morton\+Index, const \mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$\mbox{[}$\,$\mbox{]}, const FSize, size\+\_\+t \texorpdfstring{$\ast$}{*}, size\+\_\+t \texorpdfstring{$\ast$}{*})$>$}]{Get\+Size\+Func,  }\item[{std\+::function$<$ void(const Morton\+Index, const \mbox{\hyperlink{struct_unknown_descriptor}{Unknown\+Descriptor}}$<$ FReal $>$\mbox{[}$\,$\mbox{]}, const FSize, unsigned char \texorpdfstring{$\ast$}{*}, const size\+\_\+t, unsigned char \texorpdfstring{$\ast$}{*}, const size\+\_\+t)$>$}]{Init\+Leaf\+Func,  }\item[{std\+::function$<$ void(const Morton\+Index mindex, unsigned char \texorpdfstring{$\ast$}{*}symb\+Buff, const size\+\_\+t symb\+Size, unsigned char \texorpdfstring{$\ast$}{*}up\+Buff, const size\+\_\+t up\+Size, unsigned char \texorpdfstring{$\ast$}{*}down\+Buff, const size\+\_\+t down\+Size, const int level)$>$}]{Build\+Cell\+Func,  }\item[{const bool}]{particles\+Are\+Sorted,  }\item[{const bool}]{one\+Parent,  }\item[{const FReal}]{in\+Cover\+Ratio = {\ttfamily 0.0},  }\item[{Morton\+Index}]{in\+Left\+Limite = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This constructor create a group tree from a particle container index. The morton index are computed and the particles are sorted in a first stage. Then the leaf level is done. Finally the other leve are proceed one after the other. It should be easy to make it parallel using for and tasks. If no limite give in\+Left\+Limite = -\/1 The cover ration is the minimum pourcentage of cell that should exist in a group (0 means no limite, 1 means the block must be dense) one\+Parent should be turned on if it is better to have one block parent per sublock (in case of have the cost of FMM that increase with the level this could be an asset). \Hypertarget{class_f_group_tree_dyn_ad5baa8bae42b1589f83a720576454265}\label{class_f_group_tree_dyn_ad5baa8bae42b1589f83a720576454265} 
+\index{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}!````~FGroupTreeDyn@{\texorpdfstring{$\sim$}{\string~}FGroupTreeDyn}}
+\index{````~FGroupTreeDyn@{\texorpdfstring{$\sim$}{\string~}FGroupTreeDyn}!FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FGroupTreeDyn()}{\string~FGroupTreeDyn()}}
+{\footnotesize\ttfamily template$<$class FReal , class Composite\+Cell\+Class , class Group\+Attached\+Leaf\+Class $>$ \\
+\mbox{\hyperlink{class_f_group_tree_dyn}{FGroup\+Tree\+Dyn}}$<$ FReal, Composite\+Cell\+Class, Group\+Attached\+Leaf\+Class $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_group_tree_dyn}{FGroup\+Tree\+Dyn}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This function dealloc the tree by deleting each block 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_group_tree_dyn_a33424b4394bb582b1de35008e7bcf966}\label{class_f_group_tree_dyn_a33424b4394bb582b1de35008e7bcf966} 
+\index{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}!forEachCell@{forEachCell}}
+\index{forEachCell@{forEachCell}!FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}}
+\doxysubsubsection{\texorpdfstring{forEachCell()}{forEachCell()}}
+{\footnotesize\ttfamily template$<$class FReal , class Composite\+Cell\+Class , class Group\+Attached\+Leaf\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_tree_dyn}{FGroup\+Tree\+Dyn}}$<$ FReal, Composite\+Cell\+Class, Group\+Attached\+Leaf\+Class $>$\+::for\+Each\+Cell (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Composite\+Cell\+Class)$>$}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+for\+Each\+Leaf iterate on the cell and apply the function 
+
+
+\begin{DoxyParams}{参数}
+{\em function} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_group_tree_dyn_af03edaabacb0d97b1a7365f499ac690a}\label{class_f_group_tree_dyn_af03edaabacb0d97b1a7365f499ac690a} 
+\index{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}!forEachCellLeaf@{forEachCellLeaf}}
+\index{forEachCellLeaf@{forEachCellLeaf}!FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}}
+\doxysubsubsection{\texorpdfstring{forEachCellLeaf()}{forEachCellLeaf()}}
+{\footnotesize\ttfamily template$<$class FReal , class Composite\+Cell\+Class , class Group\+Attached\+Leaf\+Class $>$ \\
+template$<$class Particles\+Attached\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_tree_dyn}{FGroup\+Tree\+Dyn}}$<$ FReal, Composite\+Cell\+Class, Group\+Attached\+Leaf\+Class $>$\+::for\+Each\+Cell\+Leaf (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Composite\+Cell\+Class, Particles\+Attached\+Class \texorpdfstring{$\ast$}{*})$>$}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+for\+Each\+Leaf iterate on the cell and apply the function 
+
+
+\begin{DoxyParams}{参数}
+{\em function} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_group_tree_dyn_abe0e0af24d53dd1370b7b4d6e5809c8b}\label{class_f_group_tree_dyn_abe0e0af24d53dd1370b7b4d6e5809c8b} 
+\index{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}!forEachCellWithLevel@{forEachCellWithLevel}}
+\index{forEachCellWithLevel@{forEachCellWithLevel}!FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}}
+\doxysubsubsection{\texorpdfstring{forEachCellWithLevel()}{forEachCellWithLevel()}}
+{\footnotesize\ttfamily template$<$class FReal , class Composite\+Cell\+Class , class Group\+Attached\+Leaf\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_tree_dyn}{FGroup\+Tree\+Dyn}}$<$ FReal, Composite\+Cell\+Class, Group\+Attached\+Leaf\+Class $>$\+::for\+Each\+Cell\+With\+Level (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Composite\+Cell\+Class, const int)$>$}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+for\+Each\+Leaf iterate on the cell and apply the function 
+
+
+\begin{DoxyParams}{参数}
+{\em function} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_group_tree_dyn_acc2d878d7263aeaf034c7996312f94bf}\label{class_f_group_tree_dyn_acc2d878d7263aeaf034c7996312f94bf} 
+\index{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}!forEachLeaf@{forEachLeaf}}
+\index{forEachLeaf@{forEachLeaf}!FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$@{FGroupTreeDyn$<$ FReal, CompositeCellClass, GroupAttachedLeafClass $>$}}
+\doxysubsubsection{\texorpdfstring{forEachLeaf()}{forEachLeaf()}}
+{\footnotesize\ttfamily template$<$class FReal , class Composite\+Cell\+Class , class Group\+Attached\+Leaf\+Class $>$ \\
+template$<$class Particles\+Attached\+Class $>$ \\
+void \mbox{\hyperlink{class_f_group_tree_dyn}{FGroup\+Tree\+Dyn}}$<$ FReal, Composite\+Cell\+Class, Group\+Attached\+Leaf\+Class $>$\+::for\+Each\+Leaf (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Particles\+Attached\+Class \texorpdfstring{$\ast$}{*})$>$}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+for\+Each\+Leaf iterate on the leaf and apply the function 
+
+
+\begin{DoxyParams}{参数}
+{\em function} & \\
+\hline
+\end{DoxyParams}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Core/FGroup\+Tree\+Dyn.\+hpp\end{DoxyCompactItemize}

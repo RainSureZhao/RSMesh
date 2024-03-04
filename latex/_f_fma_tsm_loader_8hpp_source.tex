@@ -1,0 +1,79 @@
+\doxysection{FFma\+Tsm\+Loader.\+hpp}
+\hypertarget{_f_fma_tsm_loader_8hpp_source}{}\label{_f_fma_tsm_loader_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Files/FFmaTsmLoader.hpp@{third\_party/ScalFMM/include/ScalFMM/Files/FFmaTsmLoader.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FFMATSMLOADER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FFMATSMLOADER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}FAbstractLoader.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../Utils/FPoint.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}../Components/FParticleType.hpp"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00042\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_fma_tsm_loader}{FFmaTsmLoader}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_loader}{FAbstractLoader}}<FReal>\ \{}
+\DoxyCodeLine{00043\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00044\ \ \ \ \ std::ifstream\ file;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ file\ to\ read}}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ centerOfBox;\ \ \ \ \textcolor{comment}{//<\ The\ center\ of\ box\ read\ from\ file}}
+\DoxyCodeLine{00046\ \ \ \ \ FReal\ boxWidth;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ the\ box\ width\ read\ from\ file}}
+\DoxyCodeLine{00047\ \ \ \ \ FSize\ nbParticles;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ the\ number\ of\ particles\ read\ from\ file}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_f_fma_tsm_loader_ad4ecf6e0bab6151498caf8ecb61a5303}{FFmaTsmLoader}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ filename):\ file(filename,std::ifstream::in)\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ test\ if\ open}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>file.is\_open())\{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ FReal\ x,y,z;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>file\ >>\ this-\/>nbParticles\ >>\ this-\/>boxWidth\ >>\ x\ >>\ y\ >>\ z;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>centerOfBox.\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(x,y,z);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>boxWidth\ *=\ 2;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>boxWidth\ =\ 0;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>nbParticles\ =\ 0;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_fma_tsm_loader_ae25b1c862001fb0aa421c90c842fa60b}{\string~FFmaTsmLoader}}()\{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ file.close();}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_fma_tsm_loader_a9cc064c7c7e55cddf477e4ee81f7c8a8}{isOpen}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>file.is\_open()\ \&\&\ !this-\/>file.eof();}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00088\ \ \ \ \ FSize\ \mbox{\hyperlink{class_f_fma_tsm_loader_a84dc394cbea347881500c6ad7ad06b7d}{getNumberOfParticles}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FSize(this-\/>nbParticles);}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ \mbox{\hyperlink{class_f_fma_tsm_loader_a000a3ea033f39481c0bb8b79b4affacd}{getCenterOfBox}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>centerOfBox;}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00104\ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_fma_tsm_loader_a31c3879802ae78e6a065fdd39de6e919}{getBoxWidth}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>boxWidth;}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_fma_tsm_loader_a8b256ec54e175991c86f600eaca22526}{fillParticle}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal>}}*\textcolor{keyword}{const}\ inParticlePositions,\ FReal*\textcolor{keyword}{const}\ inPhysicalValue,\ FParticleType*\textcolor{keyword}{const}\ particleType)\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ FReal\ x,y,z,data;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ isTarget;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ this-\/>file\ >>\ x\ >>\ y\ >>\ z\ >>\ data\ >>\ isTarget;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ inParticlePositions-\/>\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(x,y,z);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ *inPhysicalValue\ =\ data;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isTarget)\ (*particleType)\ =\ FParticleType::FParticleTypeTarget;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \ \ \ \ \ \ \ \ (*particleType)\ =\ FParticleType::FParticleTypeSource;}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FFMATSMLOADER\_HPP}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ }
+
+\end{DoxyCode}

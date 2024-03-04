@@ -1,0 +1,68 @@
+\doxysection{coarse\+\_\+grid.\+h}
+\hypertarget{coarse__grid_8h_source}{}\label{coarse__grid_8h_source}\index{include/preconditioner/coarse\_grid.h@{include/preconditioner/coarse\_grid.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/18.}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_COARSE\_GRID\_H}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_COARSE\_GRID\_H}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}Eigen/Cholesky"{}}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}Eigen/Core"{}}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}Eigen/LU"{}}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}model.h"{}}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}preconditioner/domain.h"{}}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00021}00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1preconditioner}{rsmesh::preconditioner}}\ \{}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00022}\mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1coarse__grid}{00022}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1coarse__grid}{coarse\_grid}}\ \{}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1coarse__grid}{coarse\_grid}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1model}{model}}\&\ \mbox{\hyperlink{classrsmesh_1_1model}{model}},\ \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1domain}{domain}}\&\&\ \mbox{\hyperlink{classrsmesh_1_1preconditioner_1_1domain}{domain}});}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clear();}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setup(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ points\_full,\ \textcolor{keyword}{const}\ Eigen::MatrixXd\&\ lagrange\_pt\_full);}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ setup(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ points\_full,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ grad\_points\_full,}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixXd\&\ lagrange\_pt\_full);}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_solution\_to(Eigen::Ref<valuesd>\ weights\_full)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ solve(\textcolor{keyword}{const}\ Eigen::Ref<const\ valuesd>\&\ values\_full);}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1model}{model}}\&\ model\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<index\_t>\ point\_idcs\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<index\_t>\ grad\_point\_idcs\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ index\_t\ dim\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ index\_t\ l\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ index\_t\ mu\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ index\_t\ sigma\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ index\_t\ m\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ index\_t\ mu\_full\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ index\_t\ sigma\_full\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Matrix\ -\/E.}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ me\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cholesky\ decomposition\ of\ matrix\ Q\string^T\ A\ Q.}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ Eigen::LDLT<Eigen::MatrixXd>\ ldlt\_of\_qtaq\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First\ l\ rows\ of\ matrix\ A.}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ a\_top\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ LU\ decomposition\ of\ first\ l\ rows\ of\ matrix\ P.}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ Eigen::FullPivLU<Eigen::MatrixXd>\ lu\_of\_p\_top\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Current\ solution.}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ valuesd\ lambda\_c\_;}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00063}00063\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{coarse__grid_8h_source_l00066}00066\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_COARSE\_GRID\_H}}
+
+\end{DoxyCode}

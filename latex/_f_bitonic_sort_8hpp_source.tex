@@ -1,0 +1,173 @@
+\doxysection{FBitonic\+Sort.\+hpp}
+\hypertarget{_f_bitonic_sort_8hpp_source}{}\label{_f_bitonic_sort_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FBitonicSort.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FBitonicSort.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ BITONICSORT\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ BITONICSORT\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}FMpi.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}FQuickSort.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}FAssert.hpp"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ SortType,\ \textcolor{keyword}{class}\ CompareType,\ \textcolor{keyword}{class}\ IndexType>}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_bitonic_sort}{FBitonicSort}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ Bitonic\ parallel\ sort\ !}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ This\ function\ exchange\ data\ with\ the\ other\ rank,}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ its\ send\ the\ max\ value\ and\ receive\ min\ value}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SendMaxAndGetMin(SortType\ array[],\ \textcolor{keyword}{const}\ IndexType\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ otherRank,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ comm)\{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ IndexType\ left\ \ =\ -\/1;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ IndexType\ right\ =\ size\ -\/\ 1;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ IndexType\ pivot\ =\ left\ +\ (right\ -\/\ left\ +\ 1)/2;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ CompareType\ otherValue\ =\ -\/1;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ CompareType\ tempCompareValue\ =\ CompareType(array[pivot]);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ MPI\_Sendrecv(\&tempCompareValue,\textcolor{keyword}{sizeof}(CompareType),MPI\_BYTE,otherRank,FMpi::TagBitonicMin,\&otherValue,\textcolor{keyword}{sizeof}(CompareType),}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_BYTE,otherRank,FMpi::TagBitonicMax,comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ pivot\ !=\ left\ \&\&\ pivot\ !=\ right\ \ \&\&\ array[pivot]\ !=\ otherValue)\ \{}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ array[pivot]\ <\ otherValue\ )\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ left\ =\ pivot;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ right\ =\ pivot;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ pivot\ =\ left\ +\ (right\ -\/\ left\ +\ 1)/2;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ tempCompareValue\ =\ CompareType(array[pivot]);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Sendrecv(\&tempCompareValue,\textcolor{keyword}{sizeof}(CompareType),MPI\_BYTE,otherRank,FMpi::TagBitonicMin,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&otherValue,\textcolor{keyword}{sizeof}(CompareType),MPI\_BYTE,otherRank,FMpi::TagBitonicMax,comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ otherValue\ <=\ array[pivot]\ )\{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Sendrecv\_replace(\&array[pivot],\ \textcolor{keywordtype}{int}((size\ -\/\ pivot)\ *\ \textcolor{keyword}{sizeof}(SortType))\ ,\ MPI\_BYTE,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherRank,\ FMpi::TagBitonicMinMess,\ otherRank,\ FMpi::TagBitonicMaxMess,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ array[pivot]\ <\ otherValue)\{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pivot\ !=\ size\ -\/\ 1)\{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Sendrecv\_replace(\&array[pivot\ +\ 1],\ \textcolor{keywordtype}{int}((size\ -\/\ pivot\ -\/\ 1)\ *\ \textcolor{keyword}{sizeof}(SortType))\ ,\ MPI\_BYTE,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherRank,\ FMpi::TagBitonicMinMess,\ otherRank,\ FMpi::TagBitonicMaxMess,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{//\ This\ function\ exchange\ data\ with\ the\ other\ rank,}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//\ its\ send\ the\ min\ value\ and\ receive\ max\ value}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SendMinAndGetMax(SortType\ array[],\ \textcolor{keyword}{const}\ IndexType\ size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ otherRank,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ comm)\{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ IndexType\ left\ \ =\ 0;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ IndexType\ right\ =\ size\ ;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ IndexType\ pivot\ =\ left\ +\ (right\ -\/\ left)/2;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ CompareType\ otherValue\ =\ -\/1;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ CompareType\ tempCompareValue\ =\ CompareType(array[pivot]);}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ MPI\_Sendrecv(\&tempCompareValue,\textcolor{keyword}{sizeof}(CompareType),MPI\_BYTE,otherRank,FMpi::TagBitonicMax,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&otherValue,\textcolor{keyword}{sizeof}(CompareType),MPI\_BYTE,otherRank,FMpi::TagBitonicMin,comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\ \ pivot\ !=\ left\ \ \&\&\ array[pivot]\ !=\ otherValue)\ \{}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ array[pivot]\ <\ otherValue\ )\{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ left\ =\ pivot;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ right\ =\ pivot;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ pivot\ =\ left\ +\ (right\ -\/\ left)/2;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ tempCompareValue\ =\ CompareType(array[pivot]);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Sendrecv(\&tempCompareValue,\textcolor{keyword}{sizeof}(CompareType),MPI\_BYTE,otherRank,FMpi::TagBitonicMax,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&otherValue,\textcolor{keyword}{sizeof}(CompareType),MPI\_BYTE,otherRank,FMpi::TagBitonicMin,comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ array[pivot]\ <=\ otherValue\ )\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Sendrecv\_replace(\&array[0],\ \textcolor{keywordtype}{int}((pivot\ +\ 1)\ *\ \textcolor{keyword}{sizeof}(SortType))\ ,\ MPI\_BYTE,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherRank,\ FMpi::TagBitonicMaxMess,\ otherRank,\ FMpi::TagBitonicMinMess,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\ otherValue\ <\ array[pivot])\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pivot\ !=\ 0)\{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Sendrecv\_replace(\&array[0],\ \textcolor{keywordtype}{int}((pivot)\ *\ \textcolor{keyword}{sizeof}(SortType))\ ,\ MPI\_BYTE,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ otherRank,\ FMpi::TagBitonicMaxMess,\ otherRank,\ FMpi::TagBitonicMinMess,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ MPI\_STATUS\_IGNORE);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ From\ :}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ \ http://web.mst.edu/\string~ercal/387/P3/pr-\/proj-\/3.pdf}}
+\DoxyCodeLine{00114\ \textcolor{comment}{}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ \ Parallel\ Bitonic\ Sort\ Algorithm\ for\ processor\ Pk\ (for\ k\ :=\ 0\ .\ .\ .\ P\ −\ 1)}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ \ d:=\ log\ P}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ \ //\ cube\ dimension}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ \ sort(local\ −\ datak\ )\ //\ sequential\ sort}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ \ //\ Bitonic\ Sort\ follows}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ \ for\ i:=1\ to\ d\ do}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ \ \ \ \ \ window-\/id\ =\ Most\ Significant\ (d-\/i)\ bits\ of\ Pk}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ \ \ \ \ \ \ for\ j:=(i-\/1)\ down\ to\ 0\ do}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ if((window-\/id\ is\ even\ AND\ j\ th\ bit\ of\ Pk\ =\ 0)}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ OR\ (window-\/id\ is\ odd\ AND\ j\ th\ bit\ of\ Pk\ =\ 1))}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ then\ call\ CompareLow(j)}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ else}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ call\ CompareHigh(j)}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ endif}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ \ \ \ \ \ endfor}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ \ endfor}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ \ \ \ */}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Sort(SortType\ array[],\ \textcolor{keyword}{const}\ IndexType\ size,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ comm)\{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ np\ =\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}();}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ rank\ =\ comm.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}();}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \{\textcolor{comment}{//\ Work\ only\ for\ power\ of\ 2!}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ flag\ =\ 1;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!(np\ \&\ flag))\ flag\ <<=\ 1;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ FAssert(np\ ==\ flag,\ \textcolor{stringliteral}{"{}Bitonic\ sort\ work\ only\ with\ power\ of\ 2\ for\ now."{}})}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_quick_sort}{FQuickSort<SortType,IndexType>::QsOmp}}(array,\ size,\ [](\textcolor{keyword}{const}\ SortType\&\ v1,\ \textcolor{keyword}{const}\ SortType\&\ v2)\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ CompareType(v1)\ <=\ CompareType(v2);}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ logNp\ =\ int(log2(np));}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ bitIdx\ =\ 1\ ;\ bitIdx\ <=\ logNp\ ;\ ++bitIdx)\{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ window-\/id\ =\ Most\ Significant\ (d-\/i)\ bits\ of\ Pk}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ diBit\ =\ \ (rank\ >>\ bitIdx)\ \&\ 0x1;}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ otherBit\ =\ bitIdx\ -\/\ 1\ ;\ otherBit\ >=\ 0\ ;\ -\/-\/otherBit)\{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if((window-\/id\ is\ even\ AND\ j\ th\ bit\ of\ Pk\ =\ 0)}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ OR\ (window-\/id\ is\ odd\ AND\ j\ th\ bit\ of\ Pk\ =\ 1))}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ myOtherBit\ =\ (rank\ >>\ otherBit)\ \&\ 0x1;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ otherRank\ =\ rank\ \string^\ (1\ <<\ otherBit);}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ diBit\ !=\ myOtherBit\ )\{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SendMinAndGetMax(array,\ size,\ otherRank,\ comm);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SendMaxAndGetMin(array,\ size,\ otherRank,\ comm);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ A\ merge\ sort\ is\ possible\ since\ the\ array\ is\ composed}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ by\ two\ part\ already\ sorted,\ but\ we\ want\ to\ do\ this\ in\ space}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_quick_sort}{FQuickSort<SortType,IndexType>::QsOmp}}(array,\ size,\ [](\textcolor{keyword}{const}\ SortType\&\ v1,\ \textcolor{keyword}{const}\ SortType\&\ v2)\{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ CompareType(v1)\ <=\ CompareType(v2);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ BITONICSORT\_HPP}}
+
+\end{DoxyCode}

@@ -1,0 +1,252 @@
+\doxysection{monomial\+\_\+basis.\+h}
+\hypertarget{monomial__basis_8h_source}{}\label{monomial__basis_8h_source}\index{include/polynomial/monomial\_basis.h@{include/polynomial/monomial\_basis.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/1/21.}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_MONOMIAL\_BASIS\_H}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_MONOMIAL\_BASIS\_H}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}common/macros.h"{}}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}polynomial\_basic\_base.h"{}}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}Eigen/Core"{}}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00014}00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1polynomial}{rsmesh::polynomial}}\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00015}\mbox{\hyperlink{classrsmesh_1_1polynomial_1_1monomial__basis}{00015}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1polynomial_1_1monomial__basis}{monomial\_basis}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classrsmesh_1_1polynomial_1_1polynomial__basis__base}{polynomial\_basis\_base}}\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrsmesh_1_1polynomial_1_1monomial__basis}{monomial\_basis}}(\textcolor{keywordtype}{int}\ dimension,\ \textcolor{keywordtype}{int}\ degree)\ :\ \mbox{\hyperlink{classrsmesh_1_1polynomial_1_1polynomial__basis__base}{polynomial\_basis\_base}}(dimension,\ degree)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ RSMESH\_ASSERT(degree\ >=\ 0\ and\ degree\ <=\ 2);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ DerivedPo\textcolor{keywordtype}{int}s>}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ evaluate(\textcolor{keyword}{const}\ Eigen::MatrixBase<DerivedPoints>\&\ points)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ evaluate(points,\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}(0,\ 3));}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ DerivedPo\textcolor{keywordtype}{int}s,\ \textcolor{keyword}{class}\ DerivedGradPo\textcolor{keywordtype}{int}s>}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ evaluate(\textcolor{keyword}{const}\ Eigen::MatrixBase<DerivedPoints>\ \&points,}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Eigen::MatrixBase<DerivedGradPoints>\&\ grad\_points)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ mu\ =\ points.rows();}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ sigma\ =\ grad\_points.rows();}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ Eigen::MatrixXd\ result(basis\_size(),\ mu\ +\ dimension()\ *\ sigma);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(dimension())\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(degree())\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ mu;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i)\ =\ 1.0;\ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ sigma;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_x\ =\ mu\ +\ i;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ mu;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ points.row(i);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i)\ =\ 1.0;\ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i)\ =\ p(0);\ \textcolor{comment}{//\ x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ sigma;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_x\ =\ mu\ +\ i;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_x)\ =\ 1.0;\ \textcolor{comment}{//\ x\_x\ =\ 1}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ mu;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ points.row(i);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i)\ =\ 1.0;\ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i)\ =\ p(0);\ \textcolor{comment}{//\ x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i)\ =\ p(0)\ *\ p(0);\ \textcolor{comment}{//\ x\string^2}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ sigma;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_x\ =\ i\ +\ mu;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ grad\_points.row(i);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_x)\ =\ 1.0;\ \textcolor{comment}{//\ x\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_x)\ =\ 2.0\ *\ p(0);\ \textcolor{comment}{//\ x\string^2\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RSMESH\_UNREACHABLE();}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(degree())\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ mu;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i)\ =\ 1.0;\ \ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ sigma;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_x\ =\ mu\ +\ 2\ *\ i;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_y\ =\ mu\ +\ 2\ *\ i\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_x)\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_y)\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =0\ ;\ i\ <\ mu;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ points.row(i);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i)\ =\ 1.0;\ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i)\ =\ p(0);\ \textcolor{comment}{//\ x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i)\ =\ p(1);\ \textcolor{comment}{//\ y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ sigma;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_x\ =\ mu\ +\ 2\ *\ i;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_y\ =\ mu\ +\ 2\ *\ i\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_y)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_y;}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_x)\ =\ 1.0;\ \textcolor{comment}{//\ x\_x;}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_y)\ =\ 0.0;\ \textcolor{comment}{//\ x\_y;}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ y\_x;}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_y)\ =\ 1.0;\ \textcolor{comment}{//\ y\_y;}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ mu;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ points.row(i);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i)\ =\ 1.0;\ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i)\ =\ p(0);\ \textcolor{comment}{//\ x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i)\ =\ p(1);\ \textcolor{comment}{//\ y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i)\ =\ p(0)\ *\ p(0);\ \textcolor{comment}{//\ x\string^2}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(4,\ i)\ =\ p(0)\ *\ p(1);\ \textcolor{comment}{//\ xy}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(5,\ i)\ =\ p(1)\ *\ p(1);\ \textcolor{comment}{//\ y*y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ sigma;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ grad\_points.row(i);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_x\ =\ mu\ +\ 2\ *\ i;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_y\ =\ mu\ +\ 2\ *\ i\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_y)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_x)\ =\ 1.0;\ \textcolor{comment}{//\ x\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_y)\ =\ 0.0;\ \textcolor{comment}{//\ x\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ y\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_y)\ =\ 1.0;\ \textcolor{comment}{//\ y\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i\_x)\ =\ 2.0\ *\ p(0);\ \textcolor{comment}{//\ x\string^2\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i\_y)\ =\ 0.0;\ \textcolor{comment}{//\ x\string^2\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(4,\ i\_x)\ =\ p(1);\ \textcolor{comment}{//\ xy\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(4,\ i\_y)\ =\ p(0);\ \textcolor{comment}{//\ xy\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(5,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ y\string^2\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(5,\ i\_y)\ =\ 2.0\ *\ p(1);\ \textcolor{comment}{//\ y\string^2\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RSMESH\_UNREACHABLE();}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(degree())\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ mu;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i)\ =\ 1.0;\ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ sigma;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_x\ =\ mu\ +\ 3\ *\ i;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_y\ =\ mu\ +\ 3\ *\ i\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_z\ =\ mu\ +\ 3\ *\ i\ +\ 2;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_y)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_z)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ mu;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ points.row(i);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i)\ =\ 1.0;\ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i)\ =\ p(0);\ \textcolor{comment}{//\ x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i)\ =\ p(1);\ \textcolor{comment}{//\ y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i)\ =\ p(2);\ \textcolor{comment}{//\ z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ sigma;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_x\ =\ mu\ +\ 3\ *\ i;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_y\ =\ mu\ +\ 3\ *\ i\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_z\ =\ mu\ +\ 3\ *\ i\ +\ 2;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_y)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_z)\ =\ 0.0;\ \textcolor{comment}{//\ 1\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_x)\ =\ 1.0;\ \textcolor{comment}{//\ x\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_y)\ =\ 0.0;\ \textcolor{comment}{//\ x\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_z)\ =\ 0.0;\ \textcolor{comment}{//\ x\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ y\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_y)\ =\ 1.0;\ \textcolor{comment}{//\ y\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_z)\ =\ 0.0;\ \textcolor{comment}{//\ y\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i\_x)\ =\ 0.0;\ \textcolor{comment}{//\ z\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i\_y)\ =\ 0.0;\ \textcolor{comment}{//\ z\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i\_z)\ =\ 1.0;\ \textcolor{comment}{//\ z\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\_t\ i\ =\ 0;\ i\ <\ mu;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ points.row(i);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i)\ =\ 1.0;\ \textcolor{comment}{//\ 1}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i)\ =\ p(0);\ \textcolor{comment}{//\ x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i)\ =\ p(1);\ \textcolor{comment}{//\ y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i)\ =\ p(2);\ \textcolor{comment}{//\ z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(4,\ i)\ =\ p(0)\ *\ p(0);\ \textcolor{comment}{//\ x\string^2}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(5,\ i)\ =\ p(0)\ *\ p(1);\ \textcolor{comment}{//\ xy}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(6,\ i)\ =\ p(0)\ *\ p(2);\ \textcolor{comment}{//\ xz}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(7,\ i)\ =\ p(1)\ *\ p(1);\ \textcolor{comment}{//\ y\string^2}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(8,\ i)\ =\ p(1)\ *\ p(2);\ \textcolor{comment}{//\ yz}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(9,\ i)\ =\ p(2)\ *\ p(2);\ \textcolor{comment}{//\ z\string^2}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ sigma;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ grad\_points.row(i);}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_x\ =\ mu\ +\ 3\ *\ i;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_y\ =\ mu\ +\ 3\ *\ i\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\_z\ =\ mu\ +\ 3\ *\ i\ +\ 2;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_x)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_y)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(0,\ i\_z)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_x)\ =\ 1.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ x\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_y)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ x\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(1,\ i\_z)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ x\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_x)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ y\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_y)\ =\ 1.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ y\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(2,\ i\_z)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ y\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i\_x)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ z\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i\_y)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ z\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(3,\ i\_z)\ =\ 1.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ z\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(4,\ i\_x)\ =\ 2.0\ *\ p(0);\ \ \textcolor{comment}{//\ x\string^2\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(4,\ i\_y)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ x\string^2\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(4,\ i\_z)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ x\string^2\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(5,\ i\_x)\ =\ p(1);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ xy\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(5,\ i\_y)\ =\ p(0);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ xy\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(5,\ i\_z)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ xy\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(6,\ i\_x)\ =\ p(2);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ xz\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(6,\ i\_y)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ xz\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(6,\ i\_z)\ =\ p(0);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ xz\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(7,\ i\_x)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ y\string^2\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(7,\ i\_y)\ =\ 2.0\ *\ p(1);\ \ \textcolor{comment}{//\ y\string^2\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(7,\ i\_z)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ y\string^2\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(8,\ i\_x)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ yz\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(8,\ i\_y)\ =\ p(2);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ yz\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(8,\ i\_z)\ =\ p(1);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ yz\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(9,\ i\_x)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ z\string^2\_x}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(9,\ i\_y)\ =\ 0.0;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ z\string^2\_y}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result(9,\ i\_z)\ =\ 2.0\ *\ p(2);\ \ \textcolor{comment}{//\ z\string^2\_z}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RSMESH\_UNREACHABLE();}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RSMESH\_UNREACHABLE();}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00242}00242\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00243}00243\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00244}00244\ \}}
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{monomial__basis_8h_source_l00246}00246\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_MONOMIAL\_BASIS\_H}}
+
+\end{DoxyCode}

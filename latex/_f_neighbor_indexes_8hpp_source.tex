@@ -1,0 +1,228 @@
+\doxysection{FNeighbor\+Indexes.\+hpp}
+\hypertarget{_f_neighbor_indexes_8hpp_source}{}\label{_f_neighbor_indexes_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Containers/FNeighborIndexes.hpp@{third\_party/ScalFMM/include/ScalFMM/Containers/FNeighborIndexes.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FNEIGHBORINDEXES\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FNEIGHBORINDEXES\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_abstract_neighbor_index}{FAbstractNeighborIndex}}\{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{/*\ will\ return\ -\/1\ or\ 0\ if\ the\ cell\ is\ at\ the\ border\ */}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ minX()\ =\ 0;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{/*\ will\ return\ -\/1\ or\ 0\ if\ the\ cell\ is\ at\ the\ border\ */}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ minY()\ =\ 0;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{/*\ will\ return\ -\/1\ or\ 0\ if\ the\ cell\ is\ at\ the\ border\ */}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ minZ()\ =\ 0;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{/*\ will\ return\ 1\ or\ 0\ if\ the\ cell\ is\ at\ the\ border\ */}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ maxX()\ =\ 0;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{/*\ will\ return\ 1\ or\ 0\ if\ the\ cell\ is\ at\ the\ border\ */}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ maxY()\ =\ 0;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{/*\ will\ return\ 1\ or\ 0\ if\ the\ cell\ is\ at\ the\ border\ */}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ maxZ()\ =\ 0;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{/*\ given\ the\ neighbor\ relative\ position\ returns\ the\ morton\ index\ */}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ MortonIndex\ getIndex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inX,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inY,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inZ)\ =\ 0;}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}FTreeCoordinate.hpp"{}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_coordinate_neighbor_index}{FCoordinateNeighborIndex}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_neighbor_index}{FAbstractNeighborIndex}}\{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMinX;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMinY;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMinZ;}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMaxX;}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMaxY;}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMaxZ;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mindex;}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ level;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\ coord;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_f_coordinate_neighbor_index}{FCoordinateNeighborIndex}}(\textcolor{keyword}{const}\ MortonIndex\ inMindex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ :\ mindex(inMindex),\ level(inLevel),\ coord(mindex)\ \{}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ currentMinX\ =\ (coord.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()==0?\ 0\ :\ -\/1);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ currentMinY\ =\ (coord.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()==0?\ 0\ :\ -\/1);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ currentMinZ\ =\ (coord.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()==0?\ 0\ :\ -\/1);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ limite\ =\ \mbox{\hyperlink{struct_f_math_a26cf6a39b9dd3fb24bb8acafa55a321e}{FMath::pow2}}(level);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ currentMaxX\ =\ (coord.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}()==\ (limite-\/1)?\ 0\ :\ 1);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ currentMaxY\ =\ (coord.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}()==\ (limite-\/1)?\ 0\ :\ 1);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ currentMaxZ\ =\ (coord.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()==\ (limite-\/1)?\ 0\ :\ 1);}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{int}\ minX()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMinX;}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{int}\ minY()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMinY;}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{int}\ minZ()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMinZ;}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ maxX()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMaxX;}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{int}\ maxY()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMaxY;}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{int}\ maxZ()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMaxZ;}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ MortonIndex\ getIndex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inX,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inY,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inZ)\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}(inX+coord.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),\ inY+coord.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),\ inZ+coord.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}()).getMortonIndex();}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_bits_neighbor_index}{FBitsNeighborIndex}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_neighbor_index}{FAbstractNeighborIndex}}\{}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMinX;}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMinY;}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMinZ;}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMaxX;}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMaxY;}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{int}\ currentMaxZ;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ mindex;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ level;}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ flagZ;}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ flagY;}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ flagX;}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ MortonIndex\ mindexes[3];}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ NbBitsFlag\ =\ MaxTreeHeight;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{/*constexpr*/}\ \textcolor{keyword}{static}\ MortonIndex\ BuildFlag()\{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ MortonIndex\ flag\ =\ 0;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counter\ =\ NbBitsFlag;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(counter-\/-\/)\{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ flag\ =\ (flag<<3)\ |\ 1;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ flag;}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{class_f_bits_neighbor_index}{FBitsNeighborIndex}}(\textcolor{keyword}{const}\ MortonIndex\ inMindex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inLevel)}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ :\ mindex(inMindex),\ level(inLevel),}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ flagZ(BuildFlag()),\ flagY(flagZ<<1),\ flagX(flagZ<<2)\{}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ currentMinX\ =\ (((mindex\&flagX)\string^flagX)\ ==\ flagX\ ?\ 0\ :\ -\/1);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ currentMinY\ =\ (((mindex\&flagY)\string^flagY)\ ==\ flagY\ ?\ 0\ :\ -\/1);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ currentMinZ\ =\ (((mindex\&flagZ)\string^flagZ)\ ==\ flagZ\ ?\ 0\ :\ -\/1);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbShiftLimit\ =\ (NbBitsFlag-\/level)*3;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ limiteX\ =\ (flagX>>nbShiftLimit);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ limiteY\ =\ (flagY>>nbShiftLimit);}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ limiteZ\ =\ (flagZ>>nbShiftLimit);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ currentMaxX\ =\ ((mindex\&limiteX)\ ==\ limiteX?\ 0\ :\ 1);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ currentMaxY\ =\ ((mindex\&limiteY)\ ==\ limiteY?\ 0\ :\ 1);}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ currentMaxZ\ =\ ((mindex\&limiteZ)\ ==\ limiteZ?\ 0\ :\ 1);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ mindex\_minus\ =\ mindex;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ flag\_minus\ =\ \ \ (((mindex\&flagX)\string^flagX)\ ==\ flagX\ ?\ 0\ :\ 4)}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ (((mindex\&flagY)\string^flagY)\ ==\ flagY\ ?\ 0\ :\ 2)}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ (((mindex\&flagZ)\string^flagZ)\ ==\ flagZ\ ?\ 0\ :\ 1);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(flag\_minus)\{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ prevflag\_minus\ =\ flag\_minus;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flag\_minus\ =\ (flag\_minus\&\ \string~mindex\_minus)<<3;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mindex\_minus\ =\ (mindex\_minus\string^prevflag\_minus);}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ mindexes[0]\ =\ mindex\_minus;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ mindex\_plus\ =\ mindex;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ flag\_plus\ =\ \ \ ((mindex\&limiteX)\ ==\ limiteX?\ 0\ :\ 4)}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ ((mindex\&limiteY)\ ==\ limiteY?\ 0\ :\ 2)}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ ((mindex\&limiteZ)\ ==\ limiteZ?\ 0\ :\ 1);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(flag\_plus)\{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ prevflag\_plus\ =\ flag\_plus;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ flag\_plus\ =\ (flag\_plus\&\ mindex\_plus)<<3;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mindex\_plus\ =\ (mindex\_plus\string^prevflag\_plus);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ mindexes[2]\ =\ mindex\_plus;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ mindexes[1]\ =\ mindex;}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{int}\ minX()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMinX;}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{int}\ minY()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMinY;}
+\DoxyCodeLine{00180\ \ \ \ \ \}}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{int}\ minZ()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMinZ;}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{int}\ maxX()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMaxX;}
+\DoxyCodeLine{00187\ \ \ \ \ \}}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordtype}{int}\ maxY()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMaxY;}
+\DoxyCodeLine{00190\ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{int}\ maxZ()\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ currentMaxZ;}
+\DoxyCodeLine{00193\ \ \ \ \ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ MortonIndex\ getIndex(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inX,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inY,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inZ)\textcolor{keyword}{\ override}\{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (mindexes[inX+1]\&flagX)\ |\ (mindexes[inY+1]\&flagY)\ |\ (mindexes[inZ+1]\&flagZ);}
+\DoxyCodeLine{00197\ \ \ \ \ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordtype}{bool}\ areNeighbors(\textcolor{keyword}{const}\ MortonIndex\ mv1,\ \textcolor{keyword}{const}\ MortonIndex\ mv2)\{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ cellsAreNeighbor\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ flags[3]\ =\ \{\ flagX,\ flagY,\ flagZ\ \};}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idx\ =\ 0;\ idx\ <\ 3;\ ++idx)\{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ v1\ =\ (mv1\ \&\ flags[idx]);}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ v2\ =\ (mv2\ \&\ flags[idx]);}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ (v1\ ==\ v2)\ ||\ ((v1\string^v2)\ ==\ 1)\ )\{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Are\ neighbor}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MortonIndex\ firstBit\ =\ 0;}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{asm}(\textcolor{stringliteral}{"{}bsf\ \%1,\%0"{}}\ :\ \textcolor{stringliteral}{"{}=r"{}}(firstBit)\ :\ \textcolor{stringliteral}{"{}r"{}}(\mbox{\hyperlink{struct_f_math_ada359f2b021ce4b999c0fd7a6e9daae6}{FMath::Max}}(v1,v2)));}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ highMask\ =\ ((((\string~MortonIndex(0))>>(firstBit+1))<<(firstBit+1))\ \&\ flags[idx]);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((v1\&highMask)\ !=\ (v2\&highMask))\{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellsAreNeighbor\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ MortonIndex\ lowMask\ =\ ((\string~((\string~MortonIndex(0))<<firstBit))\ \&\ flags[idx]);}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((\mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(v1,v2)\&lowMask)\ !=\ lowMask)\{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellsAreNeighbor\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Are\ neighbors}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cellsAreNeighbor;}
+\DoxyCodeLine{00232\ \ \ \ \ \}}
+\DoxyCodeLine{00233\ \};}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FNEIGHBORINDEXES\_HPP}}
+
+\end{DoxyCode}

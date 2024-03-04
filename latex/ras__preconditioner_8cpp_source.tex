@@ -1,0 +1,280 @@
+\doxysection{ras\+\_\+preconditioner.\+cpp}
+\hypertarget{ras__preconditioner_8cpp_source}{}\label{ras__preconditioner_8cpp_source}\index{src/preconditioner/ras\_preconditioner.cpp@{src/preconditioner/ras\_preconditioner.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/2/14.}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}preconditioner/ras\_preconditioner.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}common/macros.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}common/orthonormalize.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}geometry/bbox3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}polynomial/monomial\_basis.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}polynomial/unisolvent\_point\_set.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}preconditioner/domain.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}preconditioner/domain\_divider.h"{}}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <numeric>}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00021}00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1preconditioner}{rsmesh::preconditioner}}\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00022}00022\ \ \ \ \ ras\_preconditioner::ras\_preconditioner(\textcolor{keyword}{const}\ model\&\ model,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{geometry::points3d}}\&\ points)}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ :\ ras\_preconditioner(model,\ points,\ geometry::\mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{points3d}}(0,\ 3))\ \{\}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00025}00025\ \ \ \ \ ras\_preconditioner::ras\_preconditioner(\textcolor{keyword}{const}\ model\&\ model,\ \textcolor{keyword}{const}\ geometry::points3d\&\ points,}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ geometry::points3d\&\ grad\_points)}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ :\ model\_without\_poly\_(model.without\_poly()),}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ points\_(points),}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_points\_(points.rows()),}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_grad\_points\_(grad\_points.rows()),}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\_poly\_basis\_(model.poly\_basis\_size()),}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ finest\_evaluator\_(}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kReportResidual}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ std::make\_unique<interpolation::rbf\_symmetric\_evaluator<Order>>(model,\ points\_)}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ nullptr)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_fine\_levels\ =\ std::max(}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(std::ceil(std::log(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(n\_points\_\ +\ n\_grad\_points\_)\ /}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(n\_coarsest\_points))\ /}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ log(1.0\ /\ coarse\_ratio))));}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ n\_levels\_\ =\ n\_fine\_levels\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ point\_idcs\_.resize(n\_levels\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ grad\_point\_idcs\_.resize(n\_levels\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ std::vector<index\_t>\ poly\_point\_idcs;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ level\ =\ n\_levels\_\ -\/\ 1;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\_poly\_basis\_\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ polynomial::unisolvent\_point\_set\ ups(points\_,\ model.poly\_dimension(),\ model.poly\_degree());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ poly\_point\_idcs\ =\ ups.point\_indices();}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ polynomial::lagrange\_basis\ lagrange\_basis(model.poly\_dimension(),\ model.poly\_degree(),}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ points\_(poly\_point\_idcs,\ Eigen::all));}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lagrange\_pt\_\ =\ lagrange\_basis.evaluate(points\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ point\_idcs\_.at(level)\ =\ poly\_point\_idcs;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ point\_idcs\_.at(level).reserve(n\_points\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ n\_points\_;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!std::binary\_search(poly\_point\_idcs.begin(),\ poly\_point\_idcs.end(),\ i))\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ point\_idcs\_.at(level).push\_back(i);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ point\_idcs\_.at(level).resize(n\_points\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::iota(point\_idcs\_.at(level).begin(),\ point\_idcs\_.at(level).end(),\ 0);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ grad\_point\_idcs\_.at(level).resize(n\_grad\_points\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ std::iota(grad\_point\_idcs\_.at(level).begin(),\ grad\_point\_idcs\_.at(level).end(),\ 0);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ fine\_grids\_.resize(n\_levels\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::setw(8)\ <<\ \textcolor{stringliteral}{"{}level"{}}\ <<\ std::setw(16)\ <<\ \textcolor{stringliteral}{"{}n\_domains"{}}\ <<\ std::setw(16)}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}n\_points"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ level\ =\ n\_levels\_\ -\/\ 1;\ level\ >=\ 1;\ level-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_mixed\_points\ =}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(point\_idcs\_.at(level).size()\ +\ grad\_point\_idcs\_.at(level).size());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ divider\ =\ std::make\_unique<domain\_divider>(points\_,\ grad\_points\_,\ point\_idcs\_.at(level),}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grad\_point\_idcs\_.at(level),\ poly\_point\_idcs);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ratio\ =\ level\ ==\ 1}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ?\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(n\_coarsest\_points)\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(n\_mixed\_points)}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ coarse\_ratio;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ std::tie(point\_idcs\_.at(level\ -\/\ 1),\ grad\_point\_idcs\_.at(level\ -\/\ 1))\ =}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ divider-\/>choose\_coarse\_points(ratio);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\&\ d\ :\ divider-\/>into\_domains())\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fine\_grids\_.at(level).emplace\_back(model,\ std::move(d));}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_grids\ =\ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(fine\_grids\_.at(level).size());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!kRecomputeAndClear)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00097}00097\ \textcolor{preprocessor}{\#pragma\ omp\ parallel\ for}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ n\_grids;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ fine\ =\ fine\_grids\_.at(level).at(i);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fine.setup(points\_,\ lagrange\_pt\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::setw(8)\ <<\ level\ <<\ std::setw(16)\ <<\ n\_grids\ <<\ std::setw(16)}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ n\_mixed\_points\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_mixed\_points\ =}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(point\_idcs\_.at(0).size()\ +\ grad\_point\_idcs\_.at(0).size());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ domain\ coarse\_domain;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ coarse\_domain.point\_indices\ =\ point\_idcs\_.at(0);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ coarse\_domain.grad\_point\_indices\ =\ grad\_point\_idcs\_.at(0);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ coarse\_\ =\ std::make\_unique<coarse\_grid>(model,\ std::move(coarse\_domain));}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ coarse\_-\/>setup(points\_,\ grad\_points\_,\ lagrange\_pt\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::setw(8)\ <<\ 0\ <<\ std::setw(16)\ <<\ 1\ <<\ std::setw(16)\ <<\ n\_mixed\_points}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\_levels\_\ ==\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ bbox\ =\ geometry::bbox3d::from\_points(points\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ level\ =\ 1;\ level\ <\ n\_levels\_;\ level++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (level\ ==\ n\_levels\_\ -\/\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ add\_evaluator(level,\ level\ -\/\ 1,\ model\_without\_poly\_,\ points\_,\ bbox);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ add\_evaluator(level,\ level\ -\/\ 1,\ model\_without\_poly\_,}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ points\_(point\_idcs\_.at(level),\ Eigen::all),\ bbox);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ evaluator(level,\ level\ -\/\ 1).set\_field\_points(points\_(point\_idcs\_.at(level\ -\/\ 1),\ Eigen::all));}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ level\ =\ 1;\ level\ <\ n\_levels\_\ -\/\ 1;\ level++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ add\_evaluator(0,\ level,\ model,\ points\_(point\_idcs\_.at(0),\ Eigen::all),\ bbox);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ evaluator(0,\ level).set\_field\_points(points\_(point\_idcs\_.at(level),\ Eigen::all));}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\_poly\_basis\_\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ polynomial::monomial\_basis\ poly(model.poly\_dimension(),\ model.poly\_degree());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ p\_\ =\ poly.evaluate(points\_).transpose();}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ common::orthonormalize\_cols(p\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ ap\_\ =\ Eigen::MatrixXd(p\_.rows(),\ p\_.cols());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ finest\_evaluator\ =}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interpolation::rbf\_symmetric\_evaluator<Order>(model\_without\_poly\_,\ points\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_cols\ =\ p\_.cols();}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ n\_cols;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ finest\_evaluator.set\_weights(p\_.col(i));}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ap\_.col(i)\ =\ finest\_evaluator.evaluate();}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00158}00158\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00160}00160\ \ \ \ \ valuesd\ ras\_preconditioner::operator()(\textcolor{keyword}{const}\ valuesd\&\ v)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ RSMESH\_ASSERT(v.rows()\ ==\ size());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ valuesd\ residuals\ =\ v.head(n\_points\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ valuesd\ weights\_total\ =\ valuesd::Zero(size());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\_levels\_\ ==\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ coarse\_-\/>solve(residuals);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ coarse\_-\/>set\_solution\_to(weights\_total);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ weights\_total;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (kReportResidual)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Initial\ residual:\ "{}}\ <<\ residuals.norm()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ level\ =\ n\_levels\_\ -\/\ 1;\ level\ >=\ 1;\ level-\/-\/)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valuesd\ weights\ =\ valuesd::Zero(n\_points\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Solve\ on\ level\ \`{}level`.}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_grids\ =\ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(fine\_grids\_.at(level).size());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00181}00181\ \textcolor{preprocessor}{\#pragma\ omp\ parallel\ for\ schedule(guided)}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ n\_grids;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ fine\ =\ fine\_grids\_.at(level).at(i);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (kRecomputeAndClear)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fine.setup(points\_,\ lagrange\_pt\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fine.solve(residuals);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fine.set\_solution\_to(weights);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (kRecomputeAndClear)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fine.clear();}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Evaluate\ residuals\ on\ level\ \`{}level`\ -\/\ 1.}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (level\ <\ n\_levels\_\ -\/\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ finer\_indices\ =\ point\_idcs\_.at(level);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_finer\_points\ =\ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(finer\_indices.size());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valuesd\ finer\_weights(n\_finer\_points);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ n\_finer\_points;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ finer\_weights(i)\ =\ weights(finer\_indices.at(i));}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ evaluator(level,\ level\ -\/\ 1).set\_weights(finer\_weights);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ evaluator(level,\ level\ -\/\ 1).set\_weights(weights);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ fit\ =\ evaluator(level,\ level\ -\/\ 1).evaluate();}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ indices\ =\ point\_idcs\_.at(level\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_points\ =\ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(indices.size());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ n\_points;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ residuals(indices.at(i))\ -\/=\ fit(i);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\_poly\_basis\_\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Orthogonalize\ weights\ against\ P.}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_cols\ =\ p\_.cols();}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ n\_cols;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ dot\ =\ p\_.col(i).dot(weights);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights\ -\/=\ dot\ *\ p\_.col(i);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ residuals\ +=\ dot\ *\ ap\_.col(i);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights\_total.head(n\_points\_)\ +=\ weights;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00225}00225\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (kReportResidual)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ finest\_evaluator\_-\/>set\_weights(weights\_total);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valuesd\ test\_residuals\ =\ v.head(n\_points\_)\ -\/\ finest\_evaluator\_-\/>evaluate();}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Residual\ after\ level\ "{}}\ <<\ level\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ test\_residuals.norm()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valuesd\ weights\ =\ valuesd::Zero(n\_points\_\ +\ n\_poly\_basis\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Solve\ on\ level\ 0.}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coarse\_-\/>solve(residuals);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coarse\_-\/>set\_solution\_to(weights);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ residuals\ on\ level\ \`{}level`\ -\/\ 1.}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (level\ >\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ coarse\_indices\ =\ point\_idcs\_.at(0);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_coarse\_points\ =\ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(coarse\_indices.size());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valuesd\ coarse\_weights(n\_coarse\_points\ +\ n\_poly\_basis\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ n\_coarse\_points;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coarse\_weights(i)\ =\ weights(coarse\_indices.at(i));}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ coarse\_weights.tail(n\_poly\_basis\_)\ =\ weights.tail(n\_poly\_basis\_);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ evaluator(0,\ level\ -\/\ 1).set\_weights(coarse\_weights);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ fit\ =\ evaluator(0,\ level\ -\/\ 1).evaluate();}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ indices\ =\ point\_idcs\_.at(level\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_points\ =\ \textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(indices.size());}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (index\_t\ i\ =\ 0;\ i\ <\ n\_points;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ residuals(indices.at(i))\ -\/=\ fit(i);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weights\_total\ +=\ weights;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (kReportResidual)\ \{}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ finest\_evaluator\_-\/>set\_weights(weights\_total);}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ valuesd\ test\_residuals\ =\ v.head(n\_points\_)\ -\/\ finest\_evaluator\_-\/>evaluate();}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Residual\ after\ level\ 0:\ "{}}\ <<\ test\_residuals.norm()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00268}00268\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00269}00269\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00270}00270\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ weights\_total;}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00271}00271\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00273}00273\ \ \ \ \ index\_t\ ras\_preconditioner::size()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ n\_points\_\ +\ n\_poly\_basis\_;\ \}}
+\DoxyCodeLine{\Hypertarget{ras__preconditioner_8cpp_source_l00274}00274\ \}\ \textcolor{comment}{//\ namespace\ rsmesh::preconditioner}}
+
+\end{DoxyCode}

@@ -1,0 +1,76 @@
+\doxysection{zip\+\_\+sort.\+h}
+\hypertarget{zip__sort_8h_source}{}\label{zip__sort_8h_source}\index{include/common/zip\_sort.h@{include/common/zip\_sort.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2023/11/11.}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_ZIP\_SORT\_H}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_ZIP\_SORT\_H}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <iterator>}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <common/macros.h>}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <numeric>}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00015}00015\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh}{rsmesh}}\ \{}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{namespace\ }common\ \{}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{namespace\ }detail\ \{}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }RandomAccessIterator,\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{class\ }D\ =\ \textcolor{keyword}{typename}\ std::iterator\_traits<RandomAccessIterator>::difference\_type>}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ inverse\_permute(RandomAccessIterator\ begin,\ RandomAccessIterator\ end,}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<D>\&\ p)\ \{}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }std::swap;}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ size\ =\ std::distance(begin,\ end);}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<bool>\ done(size);}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(D\ i\ =\ 0;\ i\ <\ size;\ i\ ++)\ \{}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(done.at(i))\ \{}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ prev\_j\ =\ i;}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ j\ =\ p.at(i);}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(i\ !=\ j)\ \{}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ swap(begin[prev\_j],\ begin[j]);}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ done.at(j)\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prev\_j\ =\ j;}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j\ =\ p.at(j);}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ done.at(i)\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//\ namespace\ detail}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ RandomAccessIterator1,\ \textcolor{keyword}{class}\ RandomAccessIterator2,\ \textcolor{keyword}{class}\ Compare>}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ zip\_sort(RandomAccessIterator1\ begin1,\ RandomAccessIterator1\ end1,}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RandomAccessIterator2\ begin2,\ RandomAccessIterator2\ end2,\ Compare\ compare)\ \{}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }D1\ =\ \textcolor{keyword}{typename}\ std::iterator\_traits<RandomAccessIterator1>::difference\_type;}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }D2\ =\ \textcolor{keyword}{typename}\ std::iterator\_traits<RandomAccessIterator2>::difference\_type;}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_same<D1,\ D2>::value,}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}RandomAccessIterator1\ and\ RandomAccessIterator2\ must\ have\ the\ same\ difference\_type."{}});}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ RSMESH\_ASSERT(std::distance(begin1,\ end1)\ ==\ std::distance(begin2,\ end2));}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ size\ =\ std::distance(begin1,\ end1);}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<D1>\ permutation(size);}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ std::iota(begin(permutation),\ end(permutation),\ 0);}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ std::sort(begin(permutation),\ end(permutation),\ [\&](\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\ \{}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ compare(std::make\_pair(begin1[i],\ begin2[i]),\ std::make\_pair(begin1[j],\ begin2[j]));}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ detail::inverse\_permute(begin1,\ end1,\ permutation);}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ detail::inverse\_permute(begin2,\ end2,\ permutation);}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00067}00067\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00068}00068\ \}}
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{zip__sort_8h_source_l00070}00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_ZIP\_SORT\_H}}
+
+\end{DoxyCode}

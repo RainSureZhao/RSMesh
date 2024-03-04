@@ -1,0 +1,51 @@
+\doxysection{point3d.\+h}
+\hypertarget{point3d_8h_source}{}\label{point3d_8h_source}\index{include/geometry/point3d.h@{include/geometry/point3d.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2023/10/25.}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_POINT3D\_H}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_POINT3D\_H}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}Eigen/Core"{}}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}Eigen/Geometry"{}}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00011}00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh}{rsmesh}}\ \{}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{namespace\ }geometry\ \{}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00021}\mbox{\hyperlink{namespacersmesh_1_1geometry_a9662782c18131ab29192eee95e94155f}{00021}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacersmesh_1_1geometry_a9662782c18131ab29192eee95e94155f}{vector2d}}\ =\ Eigen::RowVector2d;}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00026}\mbox{\hyperlink{namespacersmesh_1_1geometry_a15324d649d0a9dc9344d387caa1b9123}{00026}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacersmesh_1_1geometry_a15324d649d0a9dc9344d387caa1b9123}{point2d}}\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9662782c18131ab29192eee95e94155f}{vector2d}};}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00030}\mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{00030}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{vector3d}}\ =\ Eigen::RowVector3d;}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00034}\mbox{\hyperlink{namespacersmesh_1_1geometry_ab2282312283d04b4a391a1c6523b13b3}{00034}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacersmesh_1_1geometry_ab2282312283d04b4a391a1c6523b13b3}{matrix3d}}\ =\ Eigen::Matrix<double,\ 3,\ 3,\ Eigen::RowMajor>;}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00039}\mbox{\hyperlink{namespacersmesh_1_1geometry_a5a8298c925fa95dd2345ab74c96efaf8}{00039}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacersmesh_1_1geometry_a5a8298c925fa95dd2345ab74c96efaf8}{point3d}}\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{vector3d}};}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00044}\mbox{\hyperlink{namespacersmesh_1_1geometry_a20da587d2d750d8fdf5a15d2171aaaa4}{00044}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacersmesh_1_1geometry_a20da587d2d750d8fdf5a15d2171aaaa4}{vectors3d}}\ =\ Eigen::Matrix<double,\ Eigen::Dynamic,\ 3,\ Eigen::RowMajor>;}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00048}\mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{00048}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacersmesh_1_1geometry_a2b737a5439a8e112e2371509dac6ea44}{points3d}}\ =\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a20da587d2d750d8fdf5a15d2171aaaa4}{vectors3d}};}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00053}\mbox{\hyperlink{namespacersmesh_1_1geometry_a72e45be83081efde821fab26fdbdaae3}{00053}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespacersmesh_1_1geometry_a72e45be83081efde821fab26fdbdaae3}{linear\_transformation3d}}\ =\ Eigen::Matrix<double,\ 3,\ 3,\ Eigen::RowMajor>;}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00063}\mbox{\hyperlink{namespacersmesh_1_1geometry_a352f92f563081131bb38bf26e43e1aef}{00063}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a72e45be83081efde821fab26fdbdaae3}{linear\_transformation3d}}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a352f92f563081131bb38bf26e43e1aef}{to\_linear\_transformation3d}}(T\ t)\ \{}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Eigen::Transform<double,\ 3,\ Eigen::Affine,\ Eigen::RowMajor>(t).linear();}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00065}00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00075}\mbox{\hyperlink{namespacersmesh_1_1geometry_a2f87b1ef9ad7cab8fb11b8247dc0c774}{00075}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a5a8298c925fa95dd2345ab74c96efaf8}{point3d}}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a2f87b1ef9ad7cab8fb11b8247dc0c774}{transform\_point}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a72e45be83081efde821fab26fdbdaae3}{linear\_transformation3d}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a5a8298c925fa95dd2345ab74c96efaf8}{point3d}}\ \&p)\ \{}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs\ *\ p.transpose();}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00087}\mbox{\hyperlink{namespacersmesh_1_1geometry_a48974d1e3db5a23c6025e7d53d595a13}{00087}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{vector3d}}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a48974d1e3db5a23c6025e7d53d595a13}{transform\_vector}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a72e45be83081efde821fab26fdbdaae3}{linear\_transformation3d}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a9076acee1b46c372f8242499125dc608}{vector3d}}\ \&v)\ \{}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lhs\ *\ v.transpose();}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00091}00091\ \ \ \ \ \}\ \textcolor{comment}{//\ geometry}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00092}00092\ \}\ \textcolor{comment}{//\ rsmesh}}
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{point3d_8h_source_l00094}00094\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_POINT3D\_H}}
+
+\end{DoxyCode}

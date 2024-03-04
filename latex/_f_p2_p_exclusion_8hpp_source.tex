@@ -1,0 +1,42 @@
+\doxysection{FP2\+PExclusion.\+hpp}
+\hypertarget{_f_p2_p_exclusion_8hpp_source}{}\label{_f_p2_p_exclusion_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Core/FP2PExclusion.hpp@{third\_party/ScalFMM/include/ScalFMM/Core/FP2PExclusion.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FP2PEXCLUSION\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FP2PEXCLUSION\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Containers/FTreeCoordinate.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ BoxSeparations\ =\ 2>}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_p2_p_exclusion}{FP2PExclusion}}\{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ BoxesPerDim\ =\ (BoxSeparations+1);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SizeShape\ =\ BoxesPerDim*BoxesPerDim*BoxesPerDim;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetShapeIdx(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inX,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inY,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inZ)\{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (inX\%BoxesPerDim)*(BoxesPerDim*BoxesPerDim)\ +\ (inY\%BoxesPerDim)*BoxesPerDim\ +\ (inZ\%BoxesPerDim);}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetShapeIdx(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ coord)\{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetShapeIdx(coord.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),\ coord.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),\ coord.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}());}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_p2_p_middle_exclusion}{FP2PMiddleExclusion}}\{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SizeShape\ =\ 3*3*2;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetShapeIdx(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inX,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inY,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inZ)\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (inX\%2)*9\ +\ (inY\%3)*3\ +\ (inZ\%3);}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetShapeIdx(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_tree_coordinate}{FTreeCoordinate}}\&\ coord)\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetShapeIdx(coord.\mbox{\hyperlink{class_f_point_a58d3859160347552d6a4a94fbdf883c3}{getX}}(),\ coord.\mbox{\hyperlink{class_f_point_ae4383512b9b8d216775b3fb92325cfc9}{getY}}(),\ coord.\mbox{\hyperlink{class_f_point_a02208d4db50cbafe597adcbfb152b536}{getZ}}());}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FP2PEXCLUSION\_HPP}}
+\DoxyCodeLine{00050\ }
+
+\end{DoxyCode}

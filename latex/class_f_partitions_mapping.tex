@@ -1,0 +1,63 @@
+\doxysection{FPartitions\+Mapping\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_partitions_mapping}{}\label{class_f_partitions_mapping}\index{FPartitionsMapping$<$ FReal $>$@{FPartitionsMapping$<$ FReal $>$}}
+\doxysubsubsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_f_partitions_mapping_1_1_test_particle}{Test\+Particle}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_partitions_mapping_a002323570a70b565f42f88f41ccc6c17}\label{class_f_partitions_mapping_a002323570a70b565f42f88f41ccc6c17} 
+{\bfseries FPartitions\+Mapping} (const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} \&in\+Comm)
+\item 
+\Hypertarget{class_f_partitions_mapping_ae23f4a764e773fb8dbb17866a793b404}\label{class_f_partitions_mapping_ae23f4a764e773fb8dbb17866a793b404} 
+void {\bfseries set\+Comm} (const \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} \&in\+Comm)
+\item 
+\Hypertarget{class_f_partitions_mapping_ac8020d6653967572f47513f6e55b62b4}\label{class_f_partitions_mapping_ac8020d6653967572f47513f6e55b62b4} 
+{\footnotesize template$<$int Nb\+Physical\+Values\+Per\+Part, class Filler\+Class $>$ }\\\mbox{\hyperlink{class_f_vector}{FVector}}$<$ \mbox{\hyperlink{struct_f_partitions_mapping_1_1_test_particle}{Test\+Particle}}$<$ Nb\+Physical\+Values\+Per\+Part $>$ $>$ {\bfseries distribute\+Particles} (const FSize in\+Nb\+Particles, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&center\+Of\+Box, const FReal box\+Width, const int Tree\+Height, Filler\+Class filler)
+\item 
+\Hypertarget{class_f_partitions_mapping_ad373cebfb70213d1ba91d0e86ec9ce98}\label{class_f_partitions_mapping_ad373cebfb70213d1ba91d0e86ec9ce98} 
+{\footnotesize template$<$int Nb\+Physical\+Values\+Per\+Part$>$ }\\std\+::unique\+\_\+ptr$<$ std\+::array$<$ FReal, Nb\+Physical\+Values\+Per\+Part $>$\mbox{[}$\,$\mbox{]}$>$ {\bfseries distribute\+Data} (const std\+::array$<$ FReal, Nb\+Physical\+Values\+Per\+Part $>$ physical\+Values\mbox{[}$\,$\mbox{]})
+\item 
+\Hypertarget{class_f_partitions_mapping_a4eff0aa78e056cda6c2525705c158fe2}\label{class_f_partitions_mapping_a4eff0aa78e056cda6c2525705c158fe2} 
+{\footnotesize template$<$int Nb\+Res\+Values\+Per\+Part$>$ }\\std\+::unique\+\_\+ptr$<$ std\+::array$<$ FReal, Nb\+Res\+Values\+Per\+Part $>$\mbox{[}$\,$\mbox{]}$>$ {\bfseries get\+Resulting\+Data} (const std\+::array$<$ FReal, Nb\+Res\+Values\+Per\+Part $>$ res\+Values\mbox{[}$\,$\mbox{]})
+\item 
+\Hypertarget{class_f_partitions_mapping_aaaf8e31a48f88c7e96f5e5b22db7466b}\label{class_f_partitions_mapping_aaaf8e31a48f88c7e96f5e5b22db7466b} 
+FSize {\bfseries get\+Nb\+Particles\+Working} () const
+\item 
+\Hypertarget{class_f_partitions_mapping_a11bd29a7f24b0dcb8fee689c129e3187}\label{class_f_partitions_mapping_a11bd29a7f24b0dcb8fee689c129e3187} 
+FSize {\bfseries get\+Mapping\+Result\+To\+Local} (const FSize in\+Idx) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_partitions_mapping_a0db658675d308a87757a5238c4135fea}\label{class_f_partitions_mapping_a0db658675d308a87757a5238c4135fea} 
+\mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi\+::\+FComm}} {\bfseries comm}
+\item 
+\Hypertarget{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09}\label{class_f_partitions_mapping_a01a8d718f301e66a4cc9a32f3e8ecd09} 
+FSize {\bfseries nb\+Particles\+Initial}
+\begin{DoxyCompactList}\small\item\em The number of particles from the initial decomposition \end{DoxyCompactList}\item 
+\Hypertarget{class_f_partitions_mapping_a7c495b5cc6db0ec2f8fd8aa051f650e3}\label{class_f_partitions_mapping_a7c495b5cc6db0ec2f8fd8aa051f650e3} 
+FSize {\bfseries nb\+Particles\+Working}
+\begin{DoxyCompactList}\small\item\em The number of particles from the scalfmm decomposition \end{DoxyCompactList}\item 
+\Hypertarget{class_f_partitions_mapping_a543c1784dbbbf6b268e73c65691a9d83}\label{class_f_partitions_mapping_a543c1784dbbbf6b268e73c65691a9d83} 
+std\+::unique\+\_\+ptr$<$ FSize\mbox{[}$\,$\mbox{]}$>$ {\bfseries nb\+Particles\+Sent\+To\+Others}
+\item 
+\Hypertarget{class_f_partitions_mapping_a0efbff449e052d51107dee8f286d4dac}\label{class_f_partitions_mapping_a0efbff449e052d51107dee8f286d4dac} 
+std\+::unique\+\_\+ptr$<$ FSize\mbox{[}$\,$\mbox{]}$>$ {\bfseries offset\+Nb\+Particles\+Sent\+To\+Others}
+\item 
+\Hypertarget{class_f_partitions_mapping_a89adbcca8a61d6c64690f4c349bac3bd}\label{class_f_partitions_mapping_a89adbcca8a61d6c64690f4c349bac3bd} 
+std\+::unique\+\_\+ptr$<$ FSize\mbox{[}$\,$\mbox{]}$>$ {\bfseries nb\+Particles\+Recv\+From\+Others}
+\item 
+\Hypertarget{class_f_partitions_mapping_a5452f16b429c2e4b9042a8f72e653c3c}\label{class_f_partitions_mapping_a5452f16b429c2e4b9042a8f72e653c3c} 
+std\+::unique\+\_\+ptr$<$ FSize\mbox{[}$\,$\mbox{]}$>$ {\bfseries offset\+Nb\+Particles\+Recv\+From\+Others}
+\item 
+\Hypertarget{class_f_partitions_mapping_a5f6a161eae79b00808033651895d51e1}\label{class_f_partitions_mapping_a5f6a161eae79b00808033651895d51e1} 
+std\+::unique\+\_\+ptr$<$ FSize\mbox{[}$\,$\mbox{]}$>$ {\bfseries mapping\+To\+Others}
+\end{DoxyCompactItemize}
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Utils/FPartitions\+Mapping.\+hpp\end{DoxyCompactItemize}

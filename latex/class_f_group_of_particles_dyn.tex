@@ -1,0 +1,276 @@
+\doxysection{FGroup\+Of\+Particles\+Dyn类 参考}
+\hypertarget{class_f_group_of_particles_dyn}{}\label{class_f_group_of_particles_dyn}\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+
+
+The \doxylink{class_f_group_of_particles_dyn}{FGroup\+Of\+Particles\+Dyn} class manages the leaves in block allocation.  
+
+
+
+
+{\ttfamily \#include $<$FGroup\+Of\+Particles\+Dyn.\+hpp$>$}
+
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_of_particles_dyn_acac4442b121942f51f774fc307c99608}\label{class_f_group_of_particles_dyn_acac4442b121942f51f774fc307c99608} 
+typedef int {\bfseries Particle\+Data\+Type}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_group_of_particles_dyn_aa21ec8d719b9ec8e3a74c236cf8cb2a6}{FGroup\+Of\+Particles\+Dyn}} (unsigned char \texorpdfstring{$\ast$}{*}in\+Buffer, const size\+\_\+t in\+Allocated\+Memory\+In\+Byte, unsigned char \texorpdfstring{$\ast$}{*}in\+Attributes)
+\item 
+\mbox{\hyperlink{class_f_group_of_particles_dyn_a3c58e0e0105cc6423fdf102148251ebd}{FGroup\+Of\+Particles\+Dyn}} (const Morton\+Index in\+Starting\+Index, const Morton\+Index in\+Ending\+Index, const int in\+Number\+Of\+Leaves, const size\+\_\+t size\+Per\+Leaf\+Symb\mbox{[}$\,$\mbox{]}, const size\+\_\+t size\+Per\+Leaf\+Down\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em \doxylink{class_f_group_of_particles_dyn}{FGroup\+Of\+Particles\+Dyn} \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_group_of_particles_dyn_a00d435a1ee9dd45aa069179840818a34}{\texorpdfstring{$\sim$}{\string~}\+FGroup\+Of\+Particles\+Dyn}} ()
+\item 
+const unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_particles_dyn_a3b9b5205c32523a3569c3fe72ea9e97b}{get\+Raw\+Buffer}} () const
+\item 
+size\+\_\+t \mbox{\hyperlink{class_f_group_of_particles_dyn_a4bc1718fea3335ba6c98d704b018b761}{get\+Buffer\+Size\+In\+Byte}} () const
+\item 
+const unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_particles_dyn_afb248e91c4d455df7f02d38c1767574a}{get\+Raw\+Attributes\+Buffer}} () const
+\item 
+unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_particles_dyn_a9c9734f099ecde905242f0d6fba49a93}{get\+Raw\+Attributes\+Buffer}} ()
+\item 
+size\+\_\+t \mbox{\hyperlink{class_f_group_of_particles_dyn_abb1f2b97bda9b5188cfe79ba8c4e98d1}{get\+Attributes\+Buffer\+Size\+In\+Byte}} () const
+\item 
+bool \mbox{\hyperlink{class_f_group_of_particles_dyn_afc7851e0cadbe005d1504015560c0f8b}{get\+Delete\+Memory}} () const
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_group_of_particles_dyn_a75e0a1159f89a34b678b3425b59d6696}{get\+Starting\+Index}} () const
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_group_of_particles_dyn_a366e624986863f8326eeed96722974e3}{get\+Ending\+Index}} () const
+\item 
+int \mbox{\hyperlink{class_f_group_of_particles_dyn_a1d52779f2ee719f064a33d7a6b27a9fc}{get\+Number\+Of\+Leaves\+In\+Block}} () const
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_group_of_particles_dyn_a313df54324d3a39d3ffafe995acc4500}{get\+Size\+Of\+Interval}} () const
+\item 
+bool \mbox{\hyperlink{class_f_group_of_particles_dyn_ad663e9705fa998a71084c178ff4e74e4}{is\+Inside}} (const Morton\+Index in\+Index) const
+\item 
+Morton\+Index \mbox{\hyperlink{class_f_group_of_particles_dyn_a262dc64f944df7328395bb4f37881b45}{get\+Leaf\+Morton\+Index}} (const int id) const
+\item 
+int \mbox{\hyperlink{class_f_group_of_particles_dyn_afdf38644f3ccbc4ae4af967ece78d687}{get\+Leaf\+Index}} (const Morton\+Index leaf\+Idx) const
+\item 
+bool \mbox{\hyperlink{class_f_group_of_particles_dyn_ab1f4acf6ceaf7516c21ebfaa957923db}{exists}} (const Morton\+Index in\+Index) const
+\item 
+void \mbox{\hyperlink{class_f_group_of_particles_dyn_a5777a38094e50f8766614af0c0fd19a1}{new\+Leaf}} (const Morton\+Index in\+Index, const int id)
+\item 
+{\footnotesize template$<$class Particles\+Attached\+Class $>$ }\\void \mbox{\hyperlink{class_f_group_of_particles_dyn_a8b031ddc0f3c1909f9dd407848aee388}{for\+Each\+Leaf}} (std\+::function$<$ void(Particles\+Attached\+Class \texorpdfstring{$\ast$}{*})$>$ function)
+\item 
+{\footnotesize template$<$class Particles\+Attached\+Class $>$ }\\Particles\+Attached\+Class \mbox{\hyperlink{class_f_group_of_particles_dyn_a1c1648493b0f87dec5b5215b6774062a}{get\+Leaf}} (const int id)
+\item 
+unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_particles_dyn_a410d5fa140edcdce04acf69786e4bfc8}{get\+Leaf\+Symb\+Buffer}} (const int id)
+\item 
+unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_group_of_particles_dyn_ac378998a580cb442368871615cb93db1}{get\+Leaf\+Down\+Buffer}} (const int id)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_of_particles_dyn_aa92aa46d47ab474b6f44a277ca5e4e7a}\label{class_f_group_of_particles_dyn_aa92aa46d47ab474b6f44a277ca5e4e7a} 
+size\+\_\+t {\bfseries allocated\+Memory\+In\+Byte\+Symb}
+\item 
+\Hypertarget{class_f_group_of_particles_dyn_ad7564b69dae2c4de7db4ff8c5d531c53}\label{class_f_group_of_particles_dyn_ad7564b69dae2c4de7db4ff8c5d531c53} 
+unsigned char \texorpdfstring{$\ast$}{*} {\bfseries memory\+Buffer}
+\item 
+\Hypertarget{class_f_group_of_particles_dyn_aac874aef3abb955da02502ba47a2ed73}\label{class_f_group_of_particles_dyn_aac874aef3abb955da02502ba47a2ed73} 
+Block\+Header \texorpdfstring{$\ast$}{*} {\bfseries block\+Header}
+\item 
+\Hypertarget{class_f_group_of_particles_dyn_a8392d0f7f3dc73238dacb6cfb3bf8edb}\label{class_f_group_of_particles_dyn_a8392d0f7f3dc73238dacb6cfb3bf8edb} 
+Leaf\+Header \texorpdfstring{$\ast$}{*} {\bfseries leaf\+Header}
+\item 
+\Hypertarget{class_f_group_of_particles_dyn_a47ff5d5b93276886833cf4d7e7a0480c}\label{class_f_group_of_particles_dyn_a47ff5d5b93276886833cf4d7e7a0480c} 
+unsigned char \texorpdfstring{$\ast$}{*} {\bfseries symb\+Part}
+\item 
+\Hypertarget{class_f_group_of_particles_dyn_a0e69c487b1a75b15c49437356aa37bdd}\label{class_f_group_of_particles_dyn_a0e69c487b1a75b15c49437356aa37bdd} 
+unsigned char \texorpdfstring{$\ast$}{*} {\bfseries down\+Part}
+\item 
+\Hypertarget{class_f_group_of_particles_dyn_a9c86589a069e7d041f5acf6c03c7719c}\label{class_f_group_of_particles_dyn_a9c86589a069e7d041f5acf6c03c7719c} 
+size\+\_\+t {\bfseries allocated\+Memory\+In\+Byte\+Down}
+\item 
+bool \mbox{\hyperlink{class_f_group_of_particles_dyn_a80d0f484039059507c577dc5f4fd5cc8}{delete\+Buffer}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_group_of_particles_dyn_ab58e4414ab7d29aa04074b1c65af7ffd}\label{class_f_group_of_particles_dyn_ab58e4414ab7d29aa04074b1c65af7ffd} 
+static const int {\bfseries Memory\+Alignement\+Bytes} = FP2\+PDefault\+Alignement
+\item 
+\Hypertarget{class_f_group_of_particles_dyn_adf41bcd9146aaad569a6456f8329d0cc}\label{class_f_group_of_particles_dyn_adf41bcd9146aaad569a6456f8329d0cc} 
+static const int {\bfseries Leaf\+Is\+Empty\+Flag} = -\/1
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+The \doxylink{class_f_group_of_particles_dyn}{FGroup\+Of\+Particles\+Dyn} class manages the leaves in block allocation. 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_group_of_particles_dyn_aa21ec8d719b9ec8e3a74c236cf8cb2a6}\label{class_f_group_of_particles_dyn_aa21ec8d719b9ec8e3a74c236cf8cb2a6} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{FGroupOfParticlesDyn()}{FGroupOfParticlesDyn()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily FGroup\+Of\+Particles\+Dyn\+::\+FGroup\+Of\+Particles\+Dyn (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{in\+Buffer,  }\item[{const size\+\_\+t}]{in\+Allocated\+Memory\+In\+Byte,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{in\+Attributes }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Init from a given buffer 
+\begin{DoxyParams}{参数}
+{\em in\+Buffer} & \\
+\hline
+{\em in\+Allocated\+Memory\+In\+Byte} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_group_of_particles_dyn_a3c58e0e0105cc6423fdf102148251ebd}\label{class_f_group_of_particles_dyn_a3c58e0e0105cc6423fdf102148251ebd} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{FGroupOfParticlesDyn()}{FGroupOfParticlesDyn()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily FGroup\+Of\+Particles\+Dyn\+::\+FGroup\+Of\+Particles\+Dyn (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Starting\+Index,  }\item[{const Morton\+Index}]{in\+Ending\+Index,  }\item[{const int}]{in\+Number\+Of\+Leaves,  }\item[{const size\+\_\+t}]{size\+Per\+Leaf\+Symb\mbox{[}$\,$\mbox{]},  }\item[{const size\+\_\+t}]{size\+Per\+Leaf\+Down\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxylink{class_f_group_of_particles_dyn}{FGroup\+Of\+Particles\+Dyn} 
+
+
+\begin{DoxyParams}{参数}
+{\em in\+Starting\+Index} & first leaf morton index \\
+\hline
+{\em in\+Ending\+Index} & last leaf morton index + 1 \\
+\hline
+{\em in\+Number\+Of\+Leaves} & total number of leaves in the interval (should be \texorpdfstring{$<$}{<}= in\+Ending\+Index-\/in\+Ending\+Index) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_group_of_particles_dyn_a00d435a1ee9dd45aa069179840818a34}\label{class_f_group_of_particles_dyn_a00d435a1ee9dd45aa069179840818a34} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!````~FGroupOfParticlesDyn@{\texorpdfstring{$\sim$}{\string~}FGroupOfParticlesDyn}}
+\index{````~FGroupOfParticlesDyn@{\texorpdfstring{$\sim$}{\string~}FGroupOfParticlesDyn}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FGroupOfParticlesDyn()}{\string~FGroupOfParticlesDyn()}}
+{\footnotesize\ttfamily FGroup\+Of\+Particles\+Dyn\+::\texorpdfstring{$\sim$}{\string~}\+FGroup\+Of\+Particles\+Dyn (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Call the destructor of leaves and dealloc block memory 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_group_of_particles_dyn_ab1f4acf6ceaf7516c21ebfaa957923db}\label{class_f_group_of_particles_dyn_ab1f4acf6ceaf7516c21ebfaa957923db} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!exists@{exists}}
+\index{exists@{exists}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{exists()}{exists()}}
+{\footnotesize\ttfamily bool FGroup\+Of\+Particles\+Dyn\+::exists (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return true if in\+Index is located in the current block and is not empty \Hypertarget{class_f_group_of_particles_dyn_a8b031ddc0f3c1909f9dd407848aee388}\label{class_f_group_of_particles_dyn_a8b031ddc0f3c1909f9dd407848aee388} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!forEachLeaf@{forEachLeaf}}
+\index{forEachLeaf@{forEachLeaf}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{forEachLeaf()}{forEachLeaf()}}
+{\footnotesize\ttfamily template$<$class Particles\+Attached\+Class $>$ \\
+void FGroup\+Of\+Particles\+Dyn\+::for\+Each\+Leaf (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(Particles\+Attached\+Class \texorpdfstring{$\ast$}{*})$>$}]{function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Iterate on each allocated leaves \Hypertarget{class_f_group_of_particles_dyn_abb1f2b97bda9b5188cfe79ba8c4e98d1}\label{class_f_group_of_particles_dyn_abb1f2b97bda9b5188cfe79ba8c4e98d1} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getAttributesBufferSizeInByte@{getAttributesBufferSizeInByte}}
+\index{getAttributesBufferSizeInByte@{getAttributesBufferSizeInByte}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getAttributesBufferSizeInByte()}{getAttributesBufferSizeInByte()}}
+{\footnotesize\ttfamily size\+\_\+t FGroup\+Of\+Particles\+Dyn\+::get\+Attributes\+Buffer\+Size\+In\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The the size of the allocated buffer \Hypertarget{class_f_group_of_particles_dyn_a4bc1718fea3335ba6c98d704b018b761}\label{class_f_group_of_particles_dyn_a4bc1718fea3335ba6c98d704b018b761} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getBufferSizeInByte@{getBufferSizeInByte}}
+\index{getBufferSizeInByte@{getBufferSizeInByte}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getBufferSizeInByte()}{getBufferSizeInByte()}}
+{\footnotesize\ttfamily size\+\_\+t FGroup\+Of\+Particles\+Dyn\+::get\+Buffer\+Size\+In\+Byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The the size of the allocated buffer \Hypertarget{class_f_group_of_particles_dyn_afc7851e0cadbe005d1504015560c0f8b}\label{class_f_group_of_particles_dyn_afc7851e0cadbe005d1504015560c0f8b} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getDeleteMemory@{getDeleteMemory}}
+\index{getDeleteMemory@{getDeleteMemory}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getDeleteMemory()}{getDeleteMemory()}}
+{\footnotesize\ttfamily bool FGroup\+Of\+Particles\+Dyn\+::get\+Delete\+Memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To know if the object will delete the memory block \Hypertarget{class_f_group_of_particles_dyn_a366e624986863f8326eeed96722974e3}\label{class_f_group_of_particles_dyn_a366e624986863f8326eeed96722974e3} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getEndingIndex@{getEndingIndex}}
+\index{getEndingIndex@{getEndingIndex}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getEndingIndex()}{getEndingIndex()}}
+{\footnotesize\ttfamily Morton\+Index FGroup\+Of\+Particles\+Dyn\+::get\+Ending\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The index of the last leaf + 1 (set from the constructor) \Hypertarget{class_f_group_of_particles_dyn_a1c1648493b0f87dec5b5215b6774062a}\label{class_f_group_of_particles_dyn_a1c1648493b0f87dec5b5215b6774062a} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getLeaf@{getLeaf}}
+\index{getLeaf@{getLeaf}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getLeaf()}{getLeaf()}}
+{\footnotesize\ttfamily template$<$class Particles\+Attached\+Class $>$ \\
+Particles\+Attached\+Class FGroup\+Of\+Particles\+Dyn\+::get\+Leaf (\begin{DoxyParamCaption}\item[{const int}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the address of the leaf if it exists (or NULL) \Hypertarget{class_f_group_of_particles_dyn_ac378998a580cb442368871615cb93db1}\label{class_f_group_of_particles_dyn_ac378998a580cb442368871615cb93db1} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getLeafDownBuffer@{getLeafDownBuffer}}
+\index{getLeafDownBuffer@{getLeafDownBuffer}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getLeafDownBuffer()}{getLeafDownBuffer()}}
+{\footnotesize\ttfamily unsigned char \texorpdfstring{$\ast$}{*} FGroup\+Of\+Particles\+Dyn\+::get\+Leaf\+Down\+Buffer (\begin{DoxyParamCaption}\item[{const int}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the buffer for a leaf or null if it does not exist \Hypertarget{class_f_group_of_particles_dyn_afdf38644f3ccbc4ae4af967ece78d687}\label{class_f_group_of_particles_dyn_afdf38644f3ccbc4ae4af967ece78d687} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getLeafIndex@{getLeafIndex}}
+\index{getLeafIndex@{getLeafIndex}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getLeafIndex()}{getLeafIndex()}}
+{\footnotesize\ttfamily int FGroup\+Of\+Particles\+Dyn\+::get\+Leaf\+Index (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{leaf\+Idx }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Check if a cell exist (by binary search) and return it index \Hypertarget{class_f_group_of_particles_dyn_a262dc64f944df7328395bb4f37881b45}\label{class_f_group_of_particles_dyn_a262dc64f944df7328395bb4f37881b45} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getLeafMortonIndex@{getLeafMortonIndex}}
+\index{getLeafMortonIndex@{getLeafMortonIndex}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getLeafMortonIndex()}{getLeafMortonIndex()}}
+{\footnotesize\ttfamily Morton\+Index FGroup\+Of\+Particles\+Dyn\+::get\+Leaf\+Morton\+Index (\begin{DoxyParamCaption}\item[{const int}]{id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the idx in array of the cell \Hypertarget{class_f_group_of_particles_dyn_a410d5fa140edcdce04acf69786e4bfc8}\label{class_f_group_of_particles_dyn_a410d5fa140edcdce04acf69786e4bfc8} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getLeafSymbBuffer@{getLeafSymbBuffer}}
+\index{getLeafSymbBuffer@{getLeafSymbBuffer}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getLeafSymbBuffer()}{getLeafSymbBuffer()}}
+{\footnotesize\ttfamily unsigned char \texorpdfstring{$\ast$}{*} FGroup\+Of\+Particles\+Dyn\+::get\+Leaf\+Symb\+Buffer (\begin{DoxyParamCaption}\item[{const int}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return the buffer for a leaf or null if it does not exist \Hypertarget{class_f_group_of_particles_dyn_a1d52779f2ee719f064a33d7a6b27a9fc}\label{class_f_group_of_particles_dyn_a1d52779f2ee719f064a33d7a6b27a9fc} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getNumberOfLeavesInBlock@{getNumberOfLeavesInBlock}}
+\index{getNumberOfLeavesInBlock@{getNumberOfLeavesInBlock}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getNumberOfLeavesInBlock()}{getNumberOfLeavesInBlock()}}
+{\footnotesize\ttfamily int FGroup\+Of\+Particles\+Dyn\+::get\+Number\+Of\+Leaves\+In\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The number of leaf (set from the constructor) \Hypertarget{class_f_group_of_particles_dyn_a9c9734f099ecde905242f0d6fba49a93}\label{class_f_group_of_particles_dyn_a9c9734f099ecde905242f0d6fba49a93} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getRawAttributesBuffer@{getRawAttributesBuffer}}
+\index{getRawAttributesBuffer@{getRawAttributesBuffer}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getRawAttributesBuffer()}{getRawAttributesBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily unsigned char \texorpdfstring{$\ast$}{*} FGroup\+Of\+Particles\+Dyn\+::get\+Raw\+Attributes\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Give access to the buffer to send the data \Hypertarget{class_f_group_of_particles_dyn_afb248e91c4d455df7f02d38c1767574a}\label{class_f_group_of_particles_dyn_afb248e91c4d455df7f02d38c1767574a} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getRawAttributesBuffer@{getRawAttributesBuffer}}
+\index{getRawAttributesBuffer@{getRawAttributesBuffer}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getRawAttributesBuffer()}{getRawAttributesBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const unsigned char \texorpdfstring{$\ast$}{*} FGroup\+Of\+Particles\+Dyn\+::get\+Raw\+Attributes\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Give access to the buffer to send the data \Hypertarget{class_f_group_of_particles_dyn_a3b9b5205c32523a3569c3fe72ea9e97b}\label{class_f_group_of_particles_dyn_a3b9b5205c32523a3569c3fe72ea9e97b} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getRawBuffer@{getRawBuffer}}
+\index{getRawBuffer@{getRawBuffer}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getRawBuffer()}{getRawBuffer()}}
+{\footnotesize\ttfamily const unsigned char \texorpdfstring{$\ast$}{*} FGroup\+Of\+Particles\+Dyn\+::get\+Raw\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Give access to the buffer to send the data \Hypertarget{class_f_group_of_particles_dyn_a313df54324d3a39d3ffafe995acc4500}\label{class_f_group_of_particles_dyn_a313df54324d3a39d3ffafe995acc4500} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getSizeOfInterval@{getSizeOfInterval}}
+\index{getSizeOfInterval@{getSizeOfInterval}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getSizeOfInterval()}{getSizeOfInterval()}}
+{\footnotesize\ttfamily Morton\+Index FGroup\+Of\+Particles\+Dyn\+::get\+Size\+Of\+Interval (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The size of the interval ending\+Index-\/starting\+Index (set from the constructor) \Hypertarget{class_f_group_of_particles_dyn_a75e0a1159f89a34b678b3425b59d6696}\label{class_f_group_of_particles_dyn_a75e0a1159f89a34b678b3425b59d6696} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!getStartingIndex@{getStartingIndex}}
+\index{getStartingIndex@{getStartingIndex}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{getStartingIndex()}{getStartingIndex()}}
+{\footnotesize\ttfamily Morton\+Index FGroup\+Of\+Particles\+Dyn\+::get\+Starting\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The index of the fist leaf (set from the constructor) \Hypertarget{class_f_group_of_particles_dyn_ad663e9705fa998a71084c178ff4e74e4}\label{class_f_group_of_particles_dyn_ad663e9705fa998a71084c178ff4e74e4} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!isInside@{isInside}}
+\index{isInside@{isInside}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{isInside()}{isInside()}}
+{\footnotesize\ttfamily bool FGroup\+Of\+Particles\+Dyn\+::is\+Inside (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Return true if in\+Index should be located in the current block \Hypertarget{class_f_group_of_particles_dyn_a5777a38094e50f8766614af0c0fd19a1}\label{class_f_group_of_particles_dyn_a5777a38094e50f8766614af0c0fd19a1} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!newLeaf@{newLeaf}}
+\index{newLeaf@{newLeaf}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{newLeaf()}{newLeaf()}}
+{\footnotesize\ttfamily void FGroup\+Of\+Particles\+Dyn\+::new\+Leaf (\begin{DoxyParamCaption}\item[{const Morton\+Index}]{in\+Index,  }\item[{const int}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Allocate a new leaf by calling its constructor 
+
+\doxysubsection{类成员变量说明}
+\Hypertarget{class_f_group_of_particles_dyn_a80d0f484039059507c577dc5f4fd5cc8}\label{class_f_group_of_particles_dyn_a80d0f484039059507c577dc5f4fd5cc8} 
+\index{FGroupOfParticlesDyn@{FGroupOfParticlesDyn}!deleteBuffer@{deleteBuffer}}
+\index{deleteBuffer@{deleteBuffer}!FGroupOfParticlesDyn@{FGroupOfParticlesDyn}}
+\doxysubsubsection{\texorpdfstring{deleteBuffer}{deleteBuffer}}
+{\footnotesize\ttfamily bool FGroup\+Of\+Particles\+Dyn\+::delete\+Buffer\hspace{0.3cm}{\ttfamily [protected]}}
+
+To know if we have to delete the buffer 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Group\+Tree/\+Core/FGroup\+Of\+Particles\+Dyn.\+hpp\end{DoxyCompactItemize}

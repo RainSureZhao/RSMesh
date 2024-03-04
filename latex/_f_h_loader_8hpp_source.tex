@@ -1,0 +1,94 @@
+\doxysection{FHLoader.\+hpp}
+\hypertarget{_f_h_loader_8hpp_source}{}\label{_f_h_loader_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Files/FHLoader.hpp@{third\_party/ScalFMM/include/ScalFMM/Files/FHLoader.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FHLOADER\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FHLOADER\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}FAbstractLoader.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../Utils/FPoint.hpp"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00041\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_h_loader}{FHLoader}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_f_abstract_loader}{FAbstractLoader}}<FReal>\ \{}
+\DoxyCodeLine{00042\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00043\ \ \ \ \ FILE*\ file;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ file\ to\ read}}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ centerOfBox;\ \ \ \ \textcolor{comment}{//<\ The\ center\ of\ box\ read\ from\ file}}
+\DoxyCodeLine{00045\ \ \ \ \ FReal\ boxWidth;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ the\ box\ width\ read\ from\ file}}
+\DoxyCodeLine{00046\ \ \ \ \ FSize\ nbParticles;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ the\ number\ of\ particles\ read\ from\ file}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_f_h_loader_a4ceac6793b786751c1843af5dc0eaa11}{FHLoader}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ filename):\ file(0)\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ file\ =\ fopen(filename,\textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ test\ if\ open}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>file)\{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ x,y,z,\ fBoxWidth;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbReadElements\ =\ fscanf(file,\textcolor{stringliteral}{"{}\%d\ \%f\ \%f\ \%f\ \%f\%*c"{}},\&this-\/>nbParticles,\&fBoxWidth,\&x,\&y,\&z);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nbReadElements\ ==\ 5)\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>boxWidth\ =\ fBoxWidth;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>centerOfBox.\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(x,y,z);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buff[512];}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\ ret\ =\ fgets(buff,\ 512,\ file);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!ret)\{\}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fclose(file);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ =\ NULL;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>boxWidth\ =\ 0;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>nbParticles\ =\ 0;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_h_loader_a0f65439be4932415a7c4b5a75f06afcf}{\string~FHLoader}}()\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(file)\ fclose(file);}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_h_loader_af41b5a24fc1bd4d837f350fd503337ee}{isOpen}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>file\ !=\ NULL;}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00098\ \ \ \ \ FSize\ \mbox{\hyperlink{class_f_h_loader_accbba8762bd8addffb0464a2884443ad}{getNumberOfParticles}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FSize(this-\/>nbParticles);}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{class_f_point}{FPoint<FReal>}}\ \mbox{\hyperlink{class_f_h_loader_a35d2af7687a32e3f2f403adda05cb734}{getCenterOfBox}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>centerOfBox;}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00114\ \ \ \ \ FReal\ \mbox{\hyperlink{class_f_h_loader_a4a68307eaaa483082b009d081cc388f7}{getBoxWidth}}()\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>boxWidth;}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_h_loader_a80ab096ee6b457d9b08baab505236b27}{fillParticle}}(\mbox{\hyperlink{class_f_point}{FPoint<FReal>}}*\textcolor{keyword}{const}\ inParticlePositions,\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const}\ inData)\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>file)\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buff[128];}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ x,y,z;}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nbReadElements\ =\ fscanf(this-\/>file,\textcolor{stringliteral}{"{}\%s\ \%f\ \%f\ \%f"{}},buff,\&x,\&y,\&z);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nbReadElements\ ==\ 4)\{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inParticlePositions-\/>\mbox{\hyperlink{class_f_point_ad2eec275cf9bddb1c00acff4f7873e4d}{setPosition}}(x,y,z);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*inData)\ =\ buff[0];}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fclose(this-\/>file);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>file\ =\ NULL;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \};}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FHLOADER\_HPP}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ }
+
+\end{DoxyCode}

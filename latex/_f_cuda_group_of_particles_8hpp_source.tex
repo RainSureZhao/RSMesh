@@ -1,0 +1,162 @@
+\doxysection{FCuda\+Group\+Of\+Particles.\+hpp}
+\hypertarget{_f_cuda_group_of_particles_8hpp_source}{}\label{_f_cuda_group_of_particles_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/GroupTree/Cuda/FCudaGroupOfParticles.hpp@{third\_party/ScalFMM/include/ScalFMM/GroupTree/Cuda/FCudaGroupOfParticles.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FCUDAGROUPOFPARTICLES\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FCUDAGROUPOFPARTICLES\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}FCudaGlobal.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../../Utils/FGlobal.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../StarPUUtils/FStarPUDefaultAlign.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal,\ \textcolor{keywordtype}{unsigned}\ NbSymbAttributes,\ \textcolor{keywordtype}{unsigned}\ NbAttributesPerParticle,\ \textcolor{keyword}{class}\ AttributeClass\ =\ FReal>}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_cuda_group_of_particles}{FCudaGroupOfParticles}}\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{struct\ }\textcolor{keyword}{alignas}(FStarPUDefaultAlign::StructAlign)\ BlockHeader\{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ MortonIndex\ startingIndex;}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ MortonIndex\ endingIndex;}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ numberOfLeavesInBlock;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ real\ number\ of\ particles\ allocated}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ FSize\ nbParticlesAllocatedInGroup;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Starting\ point\ of\ position}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offsetPosition;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Bytes\ difference/offset\ between\ position}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ positionsLeadingDim;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Bytes\ difference/offset\ between\ attributes}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ attributeLeadingDim;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ The\ total\ number\ of\ particles\ in\ the\ group}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ FSize\ nbParticlesInGroup;}
+\DoxyCodeLine{00026\ \ \ \ \ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{struct\ }\textcolor{keyword}{alignas}(FStarPUDefaultAlign::StructAlign)\ LeafHeader\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ MortonIndex\ mindex;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ FSize\ nbParticles;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ offSet;}
+\DoxyCodeLine{00033\ \ \ \ \ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MemoryAlignementBytes\ \ \ \ \ =\ FP2PDefaultAlignement;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MemoryAlignementParticles\ =\ MemoryAlignementBytes/\textcolor{keyword}{sizeof}(FReal);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ NumClass>}
+\DoxyCodeLine{00046\ \ \ \ \ \_\_device\_\_\ \textcolor{keyword}{static}\ NumClass\ \mbox{\hyperlink{class_f_cuda_group_of_particles_a5c7b66857b37c4ff04a3924d050f1243}{RoundToUpperParticles}}(\textcolor{keyword}{const}\ NumClass\&\ nbParticles)\{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nbParticles\ +\ (MemoryAlignementParticles\ -\/\ (nbParticles\%MemoryAlignementParticles));}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//<\ This\ value\ is\ for\ not\ used\ leaves}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ LeafIsEmptyFlag\ =\ -\/1;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//<\ The\ size\ of\ memoryBuffer\ in\ byte}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ allocatedMemoryInByte;}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//<\ Pointer\ to\ a\ block\ memory}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ memoryBuffer;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//<\ Pointer\ to\ the\ header\ inside\ the\ block\ memory}}
+\DoxyCodeLine{00059\ \ \ \ \ BlockHeader*\ \ \ \ blockHeader;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{//<\ Pointer\ to\ leaves\ information}}
+\DoxyCodeLine{00061\ \ \ \ \ LeafHeader*\ \ \ \ \ leafHeader;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//<\ Pointers\ to\ particle\ position\ x,\ y,\ z}}
+\DoxyCodeLine{00064\ \ \ \ \ FReal*\ particlePosition[3];}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//<\ Pointers\ to\ the\ particles\ data\ inside\ the\ block\ memory}}
+\DoxyCodeLine{00067\ \ \ \ \ AttributeClass*\ attributesBuffer;}
+\DoxyCodeLine{00068\ \ \ \ \ AttributeClass*\ particleAttributes[NbSymbAttributes+NbAttributesPerParticle];}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00076\ \ \ \ \ \_\_device\_\_\ \mbox{\hyperlink{class_f_cuda_group_of_particles_afd2d7d49e965f2af1af8f404bc7038ef}{FCudaGroupOfParticles}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ inBuffer,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ inAllocatedMemoryInByte,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ inAttributes)}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ :\ allocatedMemoryInByte(inAllocatedMemoryInByte),\ memoryBuffer(inBuffer),}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ blockHeader(nullptr),\ leafHeader(nullptr),}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ attributesBuffer(nullptr)\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ the\ pointers\ to\ the\ correct\ position}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ blockHeader\ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{reinterpret\_cast<}BlockHeader*\textcolor{keyword}{>}(inBuffer);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ inBuffer\ +=\ \textcolor{keyword}{sizeof}(BlockHeader);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ leafHeader\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{reinterpret\_cast<}LeafHeader*\textcolor{keyword}{>}(inBuffer);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ particle\ pointers}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assert\ blockHeader-\/>positionsLeadingDim\ ==\ (sizeof(FReal)\ *\ blockHeader-\/>nbParticlesAllocatedInGroup);}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ particlePosition[0]\ =\ \textcolor{keyword}{reinterpret\_cast<}FReal*\textcolor{keyword}{>}(memoryBuffer\ +\ blockHeader-\/>offsetPosition);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ particlePosition[1]\ =\ (particlePosition[0]\ +\ blockHeader-\/>nbParticlesAllocatedInGroup);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ particlePosition[2]\ =\ (particlePosition[1]\ +\ blockHeader-\/>nbParticlesAllocatedInGroup);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Redirect\ pointer\ to\ data}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assert\ blockHeader-\/>attributeLeadingDim\ ==\ (sizeof(AttributeClass)\ *\ blockHeader-\/>nbParticlesAllocatedInGroup);}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ AttributeClass*\ symAttributes\ =\ (AttributeClass*)(\&particlePosition[2][blockHeader-\/>nbParticlesAllocatedInGroup]);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbSymbAttributes\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ particleAttributes[idxAttribute]\ =\ symAttributes;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ symAttributes\ +=\ blockHeader-\/>nbParticlesAllocatedInGroup;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inAttributes)\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ attributesBuffer\ =\ (AttributeClass*)inAttributes;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ idxAttribute\ =\ 0\ ;\ idxAttribute\ <\ NbAttributesPerParticle\ ;\ ++idxAttribute)\{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particleAttributes[idxAttribute+NbSymbAttributes]\ =\ \&attributesBuffer[idxAttribute*blockHeader-\/>nbParticlesAllocatedInGroup];}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00108\ \ \ \ \ \_\_device\_\_\ MortonIndex\ \mbox{\hyperlink{class_f_cuda_group_of_particles_a02cdeb45a1baea6b8a7581b2e51304c9}{getStartingIndex}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>startingIndex;}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00113\ \ \ \ \ \_\_device\_\_\ MortonIndex\ \mbox{\hyperlink{class_f_cuda_group_of_particles_aa38e63b0cad191d0904ded0ad19ca9c3}{getEndingIndex}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>endingIndex;}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00118\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_cuda_group_of_particles_a1eab354d9dd0a729d655199bbc7db17d}{getNumberOfLeavesInBlock}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>numberOfLeavesInBlock;}
+\DoxyCodeLine{00120\ \ \ \ \ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00123\ \ \ \ \ \_\_device\_\_\ FSize\ \mbox{\hyperlink{class_f_cuda_group_of_particles_a1424386ea80f07d290c54ca92321db00}{getNbParticlesInGroup}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>nbParticlesInGroup;}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00128\ \ \ \ \ \_\_device\_\_\ MortonIndex\ \mbox{\hyperlink{class_f_cuda_group_of_particles_a9443112715753fd900e9245909f74814}{getSizeOfInterval}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (blockHeader-\/>endingIndex-\/blockHeader-\/>startingIndex);}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00133\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_cuda_group_of_particles_a61cffe25aba339a8c29875138861abe3}{isInside}}(\textcolor{keyword}{const}\ MortonIndex\ inIndex)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ blockHeader-\/>startingIndex\ <=\ inIndex\ \&\&\ inIndex\ <\ blockHeader-\/>endingIndex;}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00138\ \ \ \ \ \_\_device\_\_\ MortonIndex\ \mbox{\hyperlink{class_f_cuda_group_of_particles_a3dc0bd65943a90ff346d8d7bd411863a}{getLeafMortonIndex}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ leafHeader[id].mindex;}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00143\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_cuda_group_of_particles_abcadf688ab5ee0abb4c777dc1d3a6554}{getLeafIndex}}(\textcolor{keyword}{const}\ MortonIndex\ leafIdx)\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxLeft\ =\ 0;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idxRight\ =\ blockHeader-\/>numberOfLeavesInBlock-\/1;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(idxLeft\ <=\ idxRight)\{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idxMiddle\ =\ (idxLeft+idxRight)/2;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leafHeader[idxMiddle].mindex\ ==\ leafIdx)\{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ idxMiddle;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(leafIdx\ <\ leafHeader[idxMiddle].mindex)\{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxRight\ =\ idxMiddle-\/1;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ idxLeft\ =\ idxMiddle+1;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00159\ \ \ \ \ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00162\ \ \ \ \ \_\_device\_\_\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_f_cuda_group_of_particles_a3e1a34c79b25434e80ea0f51408c7bb6}{exists}}(\textcolor{keyword}{const}\ MortonIndex\ inIndex)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_cuda_group_of_particles_a61cffe25aba339a8c29875138861abe3}{isInside}}(inIndex)\ \&\&\ (\mbox{\hyperlink{class_f_cuda_group_of_particles_abcadf688ab5ee0abb4c777dc1d3a6554}{getLeafIndex}}(inIndex)\ !=\ -\/1);}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ ParticlesAttachedClass>}
+\DoxyCodeLine{00168\ \ \ \ \ \_\_device\_\_\ ParticlesAttachedClass\ \mbox{\hyperlink{class_f_cuda_group_of_particles_aca89d1df5563bf5e05f54af5357f6c84}{getLeaf}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ParticlesAttachedClass(leafHeader[\textcolor{keywordtype}{id}].nbParticles,}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ particlePosition[0]\ +\ leafHeader[\textcolor{keywordtype}{id}].offSet,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockHeader-\/>positionsLeadingDim,}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (attributesBuffer?particleAttributes[NbSymbAttributes]\ +\ leafHeader[\textcolor{keywordtype}{id}].offSet:\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockHeader-\/>attributeLeadingDim);}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ \};}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FCUDAGROUPOFPARTICLES\_HPP}}
+\DoxyCodeLine{00178\ }
+
+\end{DoxyCode}

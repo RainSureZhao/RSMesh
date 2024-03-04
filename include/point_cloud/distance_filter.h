@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2023/11/1.
+// Created by RainSure on 2023/11/1.
 //
 
 #ifndef RSMESH_DISTANCE_FILTER_H
@@ -17,6 +17,10 @@
 #include "types.h"
 
 namespace rsmesh {
+    /**
+     * \namespace rsmesh::point_cloud
+     * \brief 该命名空间下主要定义了点云计算相关的类和函数
+     */
     namespace point_cloud {
 
         class distance_filter {

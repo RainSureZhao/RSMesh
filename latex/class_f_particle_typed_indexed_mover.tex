@@ -1,0 +1,67 @@
+\doxysection{FParticle\+Typed\+Indexed\+Mover\texorpdfstring{$<$}{<} FReal, Octree\+Class, Container\+Class \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_particle_typed_indexed_mover}{}\label{class_f_particle_typed_indexed_mover}\index{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$@{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$}}
+
+
+{\ttfamily \#include $<$FParticle\+Typed\+Indexed\+Mover.\+hpp$>$}
+
+类 FParticle\+Typed\+Indexed\+Mover\texorpdfstring{$<$}{<} FReal, Octree\+Class, Container\+Class \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_particle_typed_indexed_mover}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_f_particle_typed_indexed_mover_aff6d74478e47e86e23cd1809b4622a65}{get\+Particle\+Position}} (Container\+Class \texorpdfstring{$\ast$}{*}lf, const FSize idx\+Part, \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}particle\+Pos)
+\item 
+void \mbox{\hyperlink{class_f_particle_typed_indexed_mover_a180b3cfdac84d45746c8d0628d622bdb}{remove\+From\+Leaf\+And\+Keep}} (Container\+Class \texorpdfstring{$\ast$}{*}lf, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&particle\+Pos, const FSize idx\+Part, FParticle\+Type type)
+\item 
+void \mbox{\hyperlink{class_f_particle_typed_indexed_mover_a582b356c3d7c59ac0bfa43664d0ef89e}{insert\+All\+Particles}} (Octree\+Class \texorpdfstring{$\ast$}{*}tree)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal, class Octree\+Class, class Container\+Class$>$\newline
+class FParticle\+Typed\+Indexed\+Mover$<$ FReal, Octree\+Class, Container\+Class $>$}
+This class should be use with the octree arrange to move particles that are typed (src/tgt) and stored in a \doxylink{class_f_basic_particle_container}{FBasic\+Particle\+Container} 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_particle_typed_indexed_mover_aff6d74478e47e86e23cd1809b4622a65}\label{class_f_particle_typed_indexed_mover_aff6d74478e47e86e23cd1809b4622a65} 
+\index{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$@{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$}!getParticlePosition@{getParticlePosition}}
+\index{getParticlePosition@{getParticlePosition}!FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$@{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{getParticlePosition()}{getParticlePosition()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_particle_typed_indexed_mover}{FParticle\+Typed\+Indexed\+Mover}}$<$ FReal, Octree\+Class, Container\+Class $>$\+::get\+Particle\+Position (\begin{DoxyParamCaption}\item[{Container\+Class \texorpdfstring{$\ast$}{*}}]{lf,  }\item[{const FSize}]{idx\+Part,  }\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}}]{particle\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+To get the position of the particle at idx idx\+Part in leaf lf 
+
+实现了 \mbox{\hyperlink{class_f_abstract_mover}{FAbstract\+Mover$<$ FReal, Octree\+Class, Container\+Class $>$}}.
+
+\Hypertarget{class_f_particle_typed_indexed_mover_a582b356c3d7c59ac0bfa43664d0ef89e}\label{class_f_particle_typed_indexed_mover_a582b356c3d7c59ac0bfa43664d0ef89e} 
+\index{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$@{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$}!insertAllParticles@{insertAllParticles}}
+\index{insertAllParticles@{insertAllParticles}!FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$@{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{insertAllParticles()}{insertAllParticles()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_particle_typed_indexed_mover}{FParticle\+Typed\+Indexed\+Mover}}$<$ FReal, Octree\+Class, Container\+Class $>$\+::insert\+All\+Particles (\begin{DoxyParamCaption}\item[{Octree\+Class \texorpdfstring{$\ast$}{*}}]{tree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Reinsert the previously saved particles 
+
+实现了 \mbox{\hyperlink{class_f_abstract_mover}{FAbstract\+Mover$<$ FReal, Octree\+Class, Container\+Class $>$}}.
+
+\Hypertarget{class_f_particle_typed_indexed_mover_a180b3cfdac84d45746c8d0628d622bdb}\label{class_f_particle_typed_indexed_mover_a180b3cfdac84d45746c8d0628d622bdb} 
+\index{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$@{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$}!removeFromLeafAndKeep@{removeFromLeafAndKeep}}
+\index{removeFromLeafAndKeep@{removeFromLeafAndKeep}!FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$@{FParticleTypedIndexedMover$<$ FReal, OctreeClass, ContainerClass $>$}}
+\doxysubsubsection{\texorpdfstring{removeFromLeafAndKeep()}{removeFromLeafAndKeep()}}
+{\footnotesize\ttfamily template$<$class FReal , class Octree\+Class , class Container\+Class $>$ \\
+void \mbox{\hyperlink{class_f_particle_typed_indexed_mover}{FParticle\+Typed\+Indexed\+Mover}}$<$ FReal, Octree\+Class, Container\+Class $>$\+::remove\+From\+Leaf\+And\+Keep (\begin{DoxyParamCaption}\item[{Container\+Class \texorpdfstring{$\ast$}{*}}]{lf,  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{particle\+Pos,  }\item[{const FSize}]{idx\+Part,  }\item[{FParticle\+Type}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Remove a particle but keep it to reinsert it later 
+
+实现了 \mbox{\hyperlink{class_f_abstract_mover}{FAbstract\+Mover$<$ FReal, Octree\+Class, Container\+Class $>$}}.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Arranger/FParticle\+Typed\+Indexed\+Mover.\+hpp\end{DoxyCompactItemize}

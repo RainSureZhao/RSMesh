@@ -1,0 +1,433 @@
+\doxysection{FMpi.\+hpp}
+\hypertarget{_f_mpi_8hpp_source}{}\label{_f_mpi_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FMpi.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FMpi.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FMPI\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FMPI\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}FGlobal.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ SCALFMM\_USE\_MPI}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#error\ The\ MPI\ header\ is\ included\ while\ SCALFMM\_USE\_MPI\ is\ turned\ OFF}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}FNoCopyable.hpp"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}FMath.hpp"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}FAssert.hpp"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//Need\ that\ for\ converting\ datas}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}FComplex.hpp"{}}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <mpi.h>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_mpi}{FMpi}}\ \{}
+\DoxyCodeLine{00055\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ MPI\ Flag}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{enum}\ FMpiTag\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ FMpiTreeBuilder}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ TagExchangeIndexs\ =\ 100,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ TagSplittedLeaf\ =\ 200,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ TagExchangeNbLeafs\ =\ 300,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ TagSandSettling\ =\ 400,}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ FQuickSort}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ TagQuickSort\ =\ 500,}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ FMM}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ TagFmmM2M\ =\ 1000,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ TagFmmM2MSize\ =\ 1500,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ TagFmmL2L\ =\ 2000,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ TagFmmL2LSize\ =\ 2500,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ TagFmmP2P\ =\ 3000,}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Bitonic,}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ TagBitonicMin\ =\ 4000,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ TagBitonicMax\ =\ 5000,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ TagBitonicMinMess\ =\ 6000,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ TagBitonicMaxMess\ =\ 7000,}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Last\ defined\ tag}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ TagLast\ =\ 8000,}
+\DoxyCodeLine{00084\ \ \ \ \ \};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{//\ FComm\ to\ factorize\ MPI\_Comm\ work}}
+\DoxyCodeLine{00089\ \ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FComm}}\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rank;\ \ \ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nbProc;\ }
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ MPI\_Comm\ communicator;\ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ MPI\_Group\ group;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ reset()\{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_rank(communicator,\&rank),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_size(communicator,\&nbProc),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a14cf4dab9b65b77f2766076c5ec3f1cf}{FComm}}(MPI\_Comm\ inCommunicator\ )\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_dup(inCommunicator,\ \&communicator),\ \ \_\_LINE\_\_\ ,\ \textcolor{stringliteral}{"{}comm\ dup"{}});}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_group(communicator,\ \&group),\ \ \_\_LINE\_\_\ ,\ \textcolor{stringliteral}{"{}comm\ group"{}});}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ reset();}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a17c5121320abe48eed7eea0a6b967603}{FComm}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FComm}}\&\ inCommunicator\ )\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_dup(inCommunicator.communicator,\ \&communicator),\ \ \_\_LINE\_\_\ ,\ \textcolor{stringliteral}{"{}comm\ dup"{}});}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_group(communicator,\ \&group),\ \ \_\_LINE\_\_\ ,\ \textcolor{stringliteral}{"{}comm\ group"{}});}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ reset();}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FComm}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FComm}}\&\ inCommunicator\ )\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_free(\&communicator),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Group\_free(\&group),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_dup(inCommunicator.communicator,\ \&communicator),\ \ \_\_LINE\_\_\ ,\ \textcolor{stringliteral}{"{}comm\ dup"{}});}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_group(communicator,\ \&group),\ \ \_\_LINE\_\_\ ,\ \textcolor{stringliteral}{"{}comm\ group"{}});}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ reset();}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_ac6bb3892f098f2f51468c68dc9e5d363}{\string~FComm}}()\{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_free(\&communicator),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Group\_free(\&group),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ MPI\_Comm\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ communicator;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rank;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nbProc;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Split/Chunk\ functions}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ T\ >}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a5047688378c76e3f8e5be04fec58d013}{getLeft}}(\textcolor{keyword}{const}\ T\ inSize)\textcolor{keyword}{\ \ const\ }\{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ step\ =\ (double(inSize)\ /\ double(\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()));}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ T(\mbox{\hyperlink{struct_f_math_aa08cb73d8007e11deade2717340f7f35}{FMath::Ceil}}(step\ *\ \textcolor{keywordtype}{double}(\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}())));}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ T\ >}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a6977b20abe28c7a0efd75d3e50e5450f}{getRight}}(\textcolor{keyword}{const}\ T\ inSize)\textcolor{keyword}{\ \ const\ }\{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ step\ =\ (double(inSize)\ /\ double(\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()));}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\ res\ =\ T(\mbox{\hyperlink{struct_f_math_aa08cb73d8007e11deade2717340f7f35}{FMath::Ceil}}(step\ *\ \textcolor{keywordtype}{double}(\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3f21607da8f2938bd39de261c4cff703}{processId}}()+1)));}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(res\ >\ inSize)\ \textcolor{keywordflow}{return}\ inSize;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ T\ >}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a04e0745ab3ec3fbae73963c75ab88ca5}{getOtherRight}}(\textcolor{keyword}{const}\ T\ inSize,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ other)\textcolor{keyword}{\ \ const\ }\{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ step\ =\ (double(inSize)\ /\ double(\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()));}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\ res\ =\ T(\mbox{\hyperlink{struct_f_math_aa08cb73d8007e11deade2717340f7f35}{FMath::Ceil}}(step\ *\ \textcolor{keywordtype}{double}(other+1)));}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(res\ >\ inSize)\ \textcolor{keywordflow}{return}\ inSize;}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ T\ >}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8f3e8204fc554c9b2ff0eb044adda766}{getOtherLeft}}(\textcolor{keyword}{const}\ T\ inSize,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ step\ =\ (double(inSize)\ /\ double(\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()));}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ T(\mbox{\hyperlink{struct_f_math_aa08cb73d8007e11deade2717340f7f35}{FMath::Ceil}}(step\ *\ \textcolor{keywordtype}{double}(other)));}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ T\ >}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a1bd924c9f324728fa07e4bed5fa230bf}{getProc}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ position,\ \textcolor{keyword}{const}\ T\ inSize)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ step\ =\ (double(inSize)\ /\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}());}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int(position/step);}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mpi\ interface\ functions}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ T\ >}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a3a264f8c03cbaaa67b1974d3e87046e6}{reduceSum}}(T\ data)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ T\ result(0);}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Reduce(\ \&data,\ \&result,\ 1,\ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{FMpi::GetType}}(data),\ MPI\_SUM,\ 0,\ communicator\ ),\ \_\_LINE\_\_);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ T\ >}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a7b5c98c22212678620cdfd85037e015e}{allReduceSum}}(T\ data)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ T\ result(0);}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Allreduce(\ \&data,\ \&result,\ 1,\ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{FMpi::GetType}}(data),\ MPI\_SUM,\ communicator\ ),\ \_\_LINE\_\_);}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\ \textcolor{keyword}{class}\ T\ >}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ T\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a5107891dcbd627b7bf8de2f36651db3b}{reduceAverageAll}}(T\ data)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ T\ result[\mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()];}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Allgather(\ \&data,\ 1,\ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{FMpi::GetType}}(data),\ result,\ 1,\ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{FMpi::GetType}}(data),\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}()),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ T\ average\ =\ 0;}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;\ idxProc\ <\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}()\ ;++idxProc)\{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ average\ +=\ result[idxProc]\ /\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a8608b660084f464599aa35c411100854}{processCount}}();}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ average;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_ac3b117571c348f334ad6a8687d93f0ac}{groupReduce}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ from\ ,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ to)\{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *\ procsIdArray\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{int}\ [to\ -\/\ from\ +\ 1];}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ from\ ;idxProc\ <=\ to\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ procsIdArray[idxProc\ -\/\ from]\ =\ idxProc;}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Group\ previousGroup\ =\ group;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Group\_incl(previousGroup,\ to\ -\/\ from\ +\ 1\ ,\ procsIdArray,\ \&group),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Comm\ previousComm\ =\ communicator;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_create(previousComm,\ group,\ \&communicator),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Comm\_free(\&previousComm);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Group\_free(\&previousGroup);}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ reset();}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ \ procsIdArray\ ;}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_a4be0feb6187f65dc867556288b94a045}{groupReduce}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ processInGroup[])\{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *\ procsIdArray\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{int}\ [nbProc];}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ counterNewGroup\ =\ 0;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ idxProc\ =\ 0\ ;idxProc\ <\ nbProc\ ;\ ++idxProc)\{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(processInGroup[rank]\ \&\&\ processInGroup[idxProc])\{}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ procsIdArray[counterNewGroup++]\ =\ idxProc;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(!processInGroup[rank]\ \&\&\ !processInGroup[idxProc])\{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ procsIdArray[counterNewGroup++]\ =\ idxProc;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Group\ previousGroup\ =\ group;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Group\_incl(previousGroup,\ counterNewGroup\ ,\ procsIdArray,\ \&group),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Comm\ previousComm\ =\ communicator;}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Comm\_create(previousComm,\ group,\ \&communicator),\ \ \_\_LINE\_\_\ );}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Comm\_free(\&previousComm);}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Group\_free(\&previousGroup);}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ reset();}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(nbProc\ ==\ counterNewGroup);}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ \ procsIdArray\ ;}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ barrier()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(MPI\_Barrier(\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}()),\ \_\_LINE\_\_);}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ hasPendingMessage()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Status\ status;}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ flag\ =\ 0;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Iprobe(MPI\_ANY\_SOURCE,\ MPI\_ANY\_TAG,\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ \&flag,\ \&status);}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (flag\ !=\ 0);}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00296\ \ \ \ \ \};}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{comment}{//\ FMpi\ methods}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00317\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_af3698f4f9b0b230c8e2309e2460c2cca}{FMpi}}()\ :\ communicator(nullptr)\ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ instanceCount\ >\ 0)\ \{}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}FMpi\ should\ not\ be\ instanciated\ more\ than\ once."{}});}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ instanceCount++;}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ provided\ =\ 0;}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Init\_thread(\textcolor{keyword}{nullptr},\textcolor{keyword}{nullptr},\ MPI\_THREAD\_SERIALIZED,\ \&provided),\ \_\_LINE\_\_);}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ communicator\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FComm}}(MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00327\ \ \ \ \ \}}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00330\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_ac241c993b989a087e4201bd882215b7e}{FMpi}}(\textcolor{keywordtype}{int}\ inArgc,\ \textcolor{keywordtype}{char}\ **\ \ inArgv\ )\ :\ communicator(nullptr)\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ instanceCount\ >\ 0)\ \{}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}FMpi\ should\ not\ be\ instanciatedmore\ than\ once."{}});}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ instanceCount++;}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ provided\ =\ 0;}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Init\_thread(\&inArgc,\&inArgv,\ MPI\_THREAD\_SERIALIZED,\ \&provided),\ \_\_LINE\_\_);}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ communicator\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FComm}}(MPI\_COMM\_WORLD);}
+\DoxyCodeLine{00340\ \ \ \ \ \}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00343\ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a831ecaab7d42c7bc5339c339990cef5b}{\string~FMpi}}()\{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ communicator;}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ MPI\_Finalize();}
+\DoxyCodeLine{00346\ \ \ \ \ \}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FComm}}\&\ \mbox{\hyperlink{class_f_mpi_a73d7961c53d98f2eef58f5c2ac39e528}{global}}()\ \{}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*communicator);}
+\DoxyCodeLine{00351\ \ \ \ \ \}}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{comment}{//\ Mpi\ Types\ meta\ function}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keyword}{static}\ MPI\_Datatype\ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{GetType}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\&)\{}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MPI\_LONG\_LONG;}
+\DoxyCodeLine{00360\ \ \ \ \ \}}
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetTypeCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\&)\{}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00363\ \ \ \ \ \}}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keyword}{static}\ MPI\_Datatype\ \mbox{\hyperlink{class_f_mpi_a57e0551efb1157245b2f3c5c0525a70e}{GetType}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\&)\{}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MPI\_LONG;}
+\DoxyCodeLine{00368\ \ \ \ \ \}}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetTypeCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\&)\{}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00371\ \ \ \ \ \}}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keyword}{static}\ MPI\_Datatype\ \mbox{\hyperlink{class_f_mpi_abd49726f52eed709ce1bec8c2ac5b63a}{GetType}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\&)\{}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MPI\_DOUBLE;}
+\DoxyCodeLine{00376\ \ \ \ \ \}}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetTypeCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\&)\{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00379\ \ \ \ \ \}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keyword}{static}\ MPI\_Datatype\ \mbox{\hyperlink{class_f_mpi_a00224d47b7157b00c16261ea28e84b71}{GetType}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\&)\{}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MPI\_FLOAT;}
+\DoxyCodeLine{00384\ \ \ \ \ \}}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetTypeCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\&)\{}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00387\ \ \ \ \ \}}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keyword}{static}\ MPI\_Datatype\ \mbox{\hyperlink{class_f_mpi_a931a33de11251940fc50647de8adf615}{GetType}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&)\{}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MPI\_INT;}
+\DoxyCodeLine{00392\ \ \ \ \ \}}
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetTypeCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&)\{}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00395\ \ \ \ \ \}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00398\ \ \ \ \ \textcolor{keyword}{static}\ MPI\_Datatype\ \mbox{\hyperlink{class_f_mpi_a167c459227373079d95a1cf45e517ea4}{GetType}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\&)\{}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MPI\_CHAR;}
+\DoxyCodeLine{00400\ \ \ \ \ \}}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetTypeCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\&)\{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00403\ \ \ \ \ \}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keyword}{static}\ MPI\_Datatype\ \mbox{\hyperlink{class_f_mpi_ac516021e64ef64488fd461b361f3f11d}{GetType}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\&)\{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MPI\_UNSIGNED\_CHAR;}
+\DoxyCodeLine{00408\ \ \ \ \ \}}
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetTypeCount(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\&)\{}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00411\ \ \ \ \ \}}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00415\ \ \ \ \ \textcolor{keyword}{static}\ MPI\_Datatype\ \mbox{\hyperlink{class_f_mpi_add6d667bb33c39cc18f9029b9bd327d6}{GetType}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}\&\ a)\{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_f_mpi_a48a971c22b91bf6b4b5f827c9d9fdbee}{GetType}}(a.\mbox{\hyperlink{class_f_complex_a33ec217df0f06432eec174977e0c87ff}{getReal}}());}
+\DoxyCodeLine{00417\ \ \ \ \ \}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ FReal>}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ GetTypeCount(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_complex}{FComplex<FReal>}}\&\ a)\{}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 2;}
+\DoxyCodeLine{00422\ \ \ \ \ \}}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{comment}{//\ Mpi\ interface\ functions}}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{Assert}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ test,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ line,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ message\ =\ \textcolor{keyword}{nullptr})\{}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(test\ !=\ MPI\_SUCCESS)\{}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}[ERROR-\/QS]\ Test\ failled\ at\ line\ \%d,\ result\ is\ \%d"{}},\ line,\ test);}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(message)\ printf(\textcolor{stringliteral}{"{},\ message:\ \%s"{}},message);}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ fflush(stdout);}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Abort(MPI\_COMM\_WORLD,\ \textcolor{keywordtype}{int}(line)\ );}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00437\ \ \ \ \ \}}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00440\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00441\ \ \ \ \ \textcolor{keyword}{static}\ T\ \mbox{\hyperlink{class_f_mpi_aa76168b1eaab4e13e07e27c4dc854b18}{GetLeft}}(\textcolor{keyword}{const}\ T\ inSize,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inIdProc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inNbProc)\ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ step\ =\ (double(inSize)\ /\ inNbProc);}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ T(ceil(step\ *\ inIdProc));}
+\DoxyCodeLine{00444\ \ \ \ \ \}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00447\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keyword}{static}\ T\ \mbox{\hyperlink{class_f_mpi_a7a4b75fdac85d6309e38b3e10c1cb538}{GetRight}}(\textcolor{keyword}{const}\ T\ inSize,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inIdProc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inNbProc)\ \{}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ step\ =\ (double(inSize)\ /\ inNbProc);}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\ res\ =\ T(ceil(step\ *\ (inIdProc+1)));}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(res\ >\ inSize)\ \textcolor{keywordflow}{return}\ inSize;}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00453\ \ \ \ \ \}}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00457\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_f_mpi_ab98ea114cd15e711b1d676c4a2d7b27c}{GetProc}}(\textcolor{keyword}{const}\ T\ position,\ \textcolor{keyword}{const}\ T\ inSize,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ inNbProc)\ \{}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ step\ =\ double(inSize)\ /\ double(inNbProc);}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int(\textcolor{keywordtype}{double}(position)/step);}
+\DoxyCodeLine{00460\ \ \ \ \ \}}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_f_mpi_a19638e5c5eb8a18b69a017e0df10cf33}{MpiAssert}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ test,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ line,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ message\ =\ \textcolor{keyword}{nullptr})\{}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(test\ !=\ MPI\_SUCCESS)\{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}[ERROR]\ Test\ failed\ at\ line\ \%d,\ result\ is\ \%d"{}},\ line,\ test);}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(message)\ printf(\textcolor{stringliteral}{"{},\ message:\ \%s"{}},message);}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ fflush(stdout);}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Abort(MPI\_COMM\_WORLD,\ \textcolor{keywordtype}{int}(line)\ );}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00471\ \ \ \ \ \}}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ MaxBytesPerDivMess\ =\ 20000000;}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ObjectType,\ \textcolor{keyword}{class}\ VectorType>}
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ ISendSplit(\textcolor{keyword}{const}\ ObjectType\ toSend[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nbItems,}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ dest,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ tagBase,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ communicator,}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VectorType*\ requestVector)\{}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ totalByteToSend\ \ =\ (nbItems*\textcolor{keyword}{sizeof}(ObjectType));}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const}\ ptrDataToSend\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)\textcolor{keyword}{const\_cast<}ObjectType*\textcolor{keyword}{>}(toSend);}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ idxSize\ =\ 0\ ;\ idxSize\ <\ totalByteToSend\ ;\ idxSize\ +=\ MaxBytesPerDivMess)\{}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Request\ currentRequest;}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nbBytesInMessage\ =\ \mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(MaxBytesPerDivMess,\ totalByteToSend-\/idxSize);}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(nbBytesInMessage\ <\ std::numeric\_limits<int>::max());}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Isend(\&ptrDataToSend[idxSize],\ \textcolor{keywordtype}{int}(nbBytesInMessage),\ MPI\_BYTE\ ,\ dest,}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tagBase\ +\ \textcolor{keywordtype}{int}(idxSize/MaxBytesPerDivMess),\ communicator.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ \&currentRequest)\ ,\ \_\_LINE\_\_);}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ requestVector-\/>push\_back(currentRequest);}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int((totalByteToSend+MaxBytesPerDivMess-\/1)/MaxBytesPerDivMess);}
+\DoxyCodeLine{00491\ \ \ \ \ \}}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ObjectType,\ \textcolor{keyword}{class}\ VectorType>}
+\DoxyCodeLine{00494\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ IRecvSplit(ObjectType\ toRecv[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nbItems,}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ source,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ tagBase,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_f_mpi_1_1_f_comm}{FMpi::FComm}}\&\ communicator,}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VectorType*\ requestVector)\{}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ totalByteToRecv\ \ =\ (nbItems*\textcolor{keyword}{sizeof}(ObjectType));}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const}\ ptrDataToRecv\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)(toRecv);}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ idxSize\ =\ 0\ ;\ idxSize\ <\ totalByteToRecv\ ;\ idxSize\ +=\ MaxBytesPerDivMess)\{}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ MPI\_Request\ currentRequest;}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nbBytesInMessage\ =\ \mbox{\hyperlink{struct_f_math_a43635af3d44bb1868015681ce994df7b}{FMath::Min}}(MaxBytesPerDivMess,\ totalByteToRecv-\/idxSize);}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ FAssertLF(nbBytesInMessage\ <\ std::numeric\_limits<int>::max());}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_f_mpi_a9a6f670ec0771204ba8bd5e8bc1637ba}{FMpi::Assert}}(\ MPI\_Irecv(\&ptrDataToRecv[idxSize],\ \textcolor{keywordtype}{int}(nbBytesInMessage),\ MPI\_BYTE\ ,\ source,}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tagBase\ +\ \textcolor{keywordtype}{int}(idxSize/MaxBytesPerDivMess),\ communicator.\mbox{\hyperlink{class_f_mpi_1_1_f_comm_afcb765b869e75a6bc6d458cd79bd34a2}{getComm}}(),\ \&currentRequest)\ ,\ \_\_LINE\_\_);}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ requestVector-\/>push\_back(currentRequest);}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ int((totalByteToRecv+MaxBytesPerDivMess-\/1)/MaxBytesPerDivMess);}
+\DoxyCodeLine{00509\ \ \ \ \ \}}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00511\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00513\ \ \ \ \ FComm*\ communicator;}
+\DoxyCodeLine{00514\ \ \ \ \ }
+\DoxyCodeLine{00516\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ instanceCount;}
+\DoxyCodeLine{00517\ \};}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FMPI\_HPP}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ }
+
+\end{DoxyCode}

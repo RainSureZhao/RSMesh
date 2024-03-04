@@ -1,0 +1,74 @@
+\doxysection{unisolvent\+\_\+point\+\_\+set.\+h}
+\hypertarget{unisolvent__point__set_8h_source}{}\label{unisolvent__point__set_8h_source}\index{include/polynomial/unisolvent\_point\_set.h@{include/polynomial/unisolvent\_point\_set.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/1/22.}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_UNISOLVENT\_POINT\_SET\_H}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_UNISOLVENT\_POINT\_SET\_H}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}geometry/point3d.h"{}}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}polynomial/lagrange\_basis.h"{}}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}polynomial/polynomial\_basic\_base.h"{}}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}types.h"{}}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00017}00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh_1_1polynomial}{rsmesh::polynomial}}\ \{}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00018}\mbox{\hyperlink{classrsmesh_1_1polynomial_1_1unisolvent__point__set}{00018}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1polynomial_1_1unisolvent__point__set}{unisolvent\_point\_set}}\ \{}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ kMaxTrial\ =\ 32;}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1polynomial_1_1unisolvent__point__set}{unisolvent\_point\_set}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacersmesh_1_1geometry_a20da587d2d750d8fdf5a15d2171aaaa4}{geometry::vectors3d}}\ \&points,\ \textcolor{keywordtype}{int}\ dimension,\ \textcolor{keywordtype}{int}\ degree)\ \{}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(degree\ <\ 0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_points\ =\ points.rows();}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\_poly\_basis\ =\ polynomial\_basis\_base::basis\_size(dimension,\ degree);}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ std::random\_device\ rd;}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ std::mt19937\ gen(rd());}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ std::uniform\_int\_distribution<index\_t>\ dist(index\_t\{0\},\ n\_points\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ std::set<index\_t>\ set;}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ found\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ trial\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!found\ and\ trial\ <\ kMaxTrial)\ \{}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ set.clear();}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\textcolor{keyword}{static\_cast<}index\_t\textcolor{keyword}{>}(set.size())\ <\ n\_poly\_basis)\ \{}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ set.insert(dist(gen));}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1polynomial_1_1lagrange__basis}{lagrange\_basis}}\ basis(dimension,\ degree,}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ points(std::vector<index\_t>(begin(set),\ end(set)),\ Eigen::all));}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ found\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::domain\_error\&)\ \{}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ do\ nothing}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ trial\ ++;}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!found\ and\ trial\ ==\ kMaxTrial)\ \{}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Could\ not\ find\ a\ unisolvent\ set\ of\ points."{}});}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ point\_idcs\_.insert(begin(point\_idcs\_),\ begin(set),\ end(set));}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00058}00058\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{const}\ std::vector<index\_t>\&\ point\_indices()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ point\_idcs\_;}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00062}00062\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ std::vector<index\_t>\ point\_idcs\_;}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00064}00064\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00065}00065\ \}}
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{unisolvent__point__set_8h_source_l00068}00068\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_UNISOLVENT\_POINT\_SET\_H}}
+
+\end{DoxyCode}

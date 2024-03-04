@@ -1,0 +1,111 @@
+\doxysection{model.\+h}
+\hypertarget{model_8h_source}{}\label{model_8h_source}\index{include/model.h@{include/model.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00001}00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00002}00002\ \textcolor{comment}{//\ Created\ by\ RainSure\ on\ 2024/1/31.}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00003}00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00005}00005\ \textcolor{preprocessor}{\#ifndef\ RSMESH\_MODEL\_H}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ RSMESH\_MODEL\_H}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include<limits>}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include<memory>}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include"{}polynomial/polynomial\_basic\_base.h"{}}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include"{}rbf/rbf\_base.h"{}}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include"{}types.h"{}}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include<stdexcept>}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include<vector>}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00016}00016\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacersmesh}{rsmesh}}\ \{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00021}\mbox{\hyperlink{classrsmesh_1_1model}{00021}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classrsmesh_1_1model}{model}}\{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1model}{model}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf::rbf\_base}}\&\ rbf,\ \textcolor{keywordtype}{int}\ poly\_dimension,\ \textcolor{keywordtype}{int}\ poly\_degree)\ :\ rbf\_(rbf.clone()),}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ poly\_dimension\_(poly\_dimension),\ poly\_degree\_(poly\_degree)\ \{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(poly\_dimension\ <\ 0\ or\ poly\_dimension\ >\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}poly\_dimension\ must\ be\ within\ the\ range\ of\ 0\ to\ 3."{}});}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(poly\_degree\ <\ rbf.cpd\_order()\ -\/\ 1\ or\ poly\_degree\ >\ 2)\ \{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}poly\_degree\ must\ be\ within\ the\ range\ of\ rbf.cpd\_order()\ -\/\ 1\ to\ 2."{}});}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00033}00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1model}{\string~model}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1model}{model}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1model}{model}}\&\ \mbox{\hyperlink{classrsmesh_1_1model}{model}})\ :\ rbf\_(\mbox{\hyperlink{classrsmesh_1_1model}{model}}.rbf\_-\/>clone()),\ poly\_dimension\_(\mbox{\hyperlink{classrsmesh_1_1model}{model}}.poly\_dimension\_),}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ poly\_degree\_(\mbox{\hyperlink{classrsmesh_1_1model}{model}}.poly\_degree\_),\ nugget\_(\mbox{\hyperlink{classrsmesh_1_1model}{model}}.nugget\_)\ \{\}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1model}{model}}(\mbox{\hyperlink{classrsmesh_1_1model}{model}}\&\&\ \mbox{\hyperlink{classrsmesh_1_1model}{model}})\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1model}{model}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1model}{model}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classrsmesh_1_1model}{model}}\&\ operator=(\mbox{\hyperlink{classrsmesh_1_1model}{model}}\&\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{double}\ nugget()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ nugget\_;\}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{int}\ num\_parameters()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ 1\ +\ rbf\_-\/>num\_parameters();\}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ [[nodiscard]]\ std::vector<double>\ parameter\_lower\_bounds()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ lower\_bounds\{0.0\};}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ lower\_bounds.insert(std::end(lower\_bounds),\ std::begin(rbf\_-\/>parameter\_lower\_bounds()),\ std::end(rbf\_-\/>parameter\_lower\_bounds()));}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lower\_bounds;}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ [[nodiscard]]\ std::vector<double>\ parameter\_upper\_bounds()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ upper\_bounds\{std::numeric\_limits<double>::infinity()\};}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ upper\_bounds.insert(std::end(upper\_bounds),\ std::begin(rbf\_-\/>parameter\_upper\_bounds()),\ std::end(rbf\_-\/>parameter\_upper\_bounds()));}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ upper\_bounds;}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00059}00059\ \ \ \ \ \ \ \ \ [[nodiscard]]\ std::vector<double>\ parameters()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<double>\ params\{nugget()\};}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ params.insert(std::end(params),\ std::begin(rbf\_-\/>parameters()),\ std::end(rbf\_-\/>parameters()));}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ params;}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00065}00065\ \ \ \ \ \ \ \ \ [[nodiscard]]\ index\_t\ poly\_basis\_size()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ polynomial::polynomial\_basis\_base::basis\_size(poly\_dimension\_,\ poly\_degree\_);}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00069}00069\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{int}\ poly\_degree()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ poly\_degree\_;}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00071}00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{int}\ poly\_dimension()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ poly\_dimension\_;}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf::rbf\_base}}\&\ rbf()\textcolor{keyword}{\ const\ }\{\textcolor{keywordflow}{return}\ *rbf\_;\}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_nugget(\textcolor{keywordtype}{double}\ nugget)\ \{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nugget\ <\ 0.0)\ \{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}nugget\ mest\ be\ greater\ than\ or\ equal\ to\ 0.0."{}});}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ nugget\_\ =\ nugget;}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00085}00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_parameters(\textcolor{keyword}{const}\ std::vector<double>\&\ params)\ \{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(params.size())\ !=\ num\_parameters())\ \{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}params.size()\ must\ be\ "{}}\ +\ std::to\_string(num\_parameters())\ +\ \textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ set\_nugget(params[0]);}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ rbf\_-\/>set\_parameters(std::vector<double>(std::begin(params)\ +\ 1,\ std::end(params)));}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00093}00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00095}00095\ \ \ \ \ \ \ \ \ [[nodiscard]]\ \mbox{\hyperlink{classrsmesh_1_1model}{model}}\ without\_poly()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classrsmesh_1_1model}{model}}(*rbf\_);}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00097}00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00099}00099\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classrsmesh_1_1model}{model}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classrsmesh_1_1rbf_1_1rbf__base}{rbf::rbf\_base}}\&\ rbf)\ :\ rbf\_(rbf.clone()),\ poly\_dimension\_(-\/1),\ poly\_degree\_(-\/1)\ \{\}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00102}00102\ \ \ \ \ \ \ \ \ std::unique\_ptr<rbf::rbf\_base>\ rbf\_;}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ poly\_dimension\_;}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ poly\_degree\_;}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ nugget\_\{\};\ \textcolor{comment}{//\ 针对高斯过程的参数}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00106}00106\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{model_8h_source_l00109}00109\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RSMESH\_MODEL\_H}}
+
+\end{DoxyCode}

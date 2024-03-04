@@ -1,0 +1,456 @@
+\doxysection{FBlas.\+hpp}
+\hypertarget{_f_blas_8hpp_source}{}\label{_f_blas_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FBlas.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FBlas.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FBLAS\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FBLAS\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <complex>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#if\ defined(RSMESH\_USE\_ACCELERATE)}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}FBlasAccelerate.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#elif\ defined(RSMESH\_USE\_MKL)}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}FBlasMKL.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#error\ "{}No\ BLAS/LAPACK\ has\ been\ selected"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ This\ file\ interfaces\ the\ blas\ functions}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ to\ enable\ a\ generic\ use.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ If\ no\ blas\ has\ been\ enabled\ in\ the\ cmake,}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ the\ function\ will\ be\ empty}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ for\ real}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }scalfmm\ \{}
+\DoxyCodeLine{00023\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ D\_ZERO\ =\ \ 0.0;}
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ D\_ONE\ \ =\ \ 1.0;}
+\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ D\_MONE\ =\ -\/1.0;}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ S\_ZERO\ =\ \ 0.0;}
+\DoxyCodeLine{00027\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ S\_ONE\ \ =\ \ 1.0;}
+\DoxyCodeLine{00028\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \ S\_MONE\ =\ -\/1.0;}
+\DoxyCodeLine{00029\ \ \ \textcolor{comment}{//\ for\ complex}}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{const}\ std::complex<double>\ Z\_ZERO\ =\ \ \{0.0,0.0\};}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{const}\ std::complex<double>\ Z\_ONE\ \ =\ \ \{1.0,0.0\};}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{const}\ std::complex<double>\ Z\_MONE\ =\ \ \{-\/1.0,0.0\};}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{const}\ std::complex<float>\ \ C\_ZERO\ =\ \ \{0.0,0.0\};}
+\DoxyCodeLine{00034\ \ \ \textcolor{keyword}{const}\ std::complex<float>\ \ C\_ONE\ \ =\ \ \{1.0,0.0\};}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{const}\ std::complex<float>\ \ C\_MONE\ =\ \ \{-\/1.0,0.0\};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \textcolor{comment}{//const\ double\ D\_PREC\ =\ 1e-\/16;}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ N\_ONE\ =\ 1;}
+\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ N\_MONE\ =\ -\/1;}
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ JOB\_STR[]\ =\ \textcolor{stringliteral}{"{}NTOSVULCR"{}};}
+\DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{namespace\ }FBlas\ \{}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{//\ copy}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ copy(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *orig,\ \textcolor{keywordtype}{double}\ *dest)}
+\DoxyCodeLine{00049\ \ \ \{\ dcopy(\&n,\ orig,\ \&scalfmm::N\_ONE,\ dest,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ copy(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *orig,\ \textcolor{keywordtype}{float}\ *dest)}
+\DoxyCodeLine{00051\ \ \ \{\ scopy(\&n,\ orig,\ \&scalfmm::N\_ONE,\ dest,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_copy(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *orig,\ \textcolor{keywordtype}{double}\ *dest)}
+\DoxyCodeLine{00053\ \ \ \{\ zcopy(\&n,\ as\_z(orig),\ \&scalfmm::N\_ONE,\ as\_z(dest),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_copy(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *orig,\ \textcolor{keywordtype}{float}\ *dest)}
+\DoxyCodeLine{00055\ \ \ \{\ ccopy(\&n,\ as\_c(orig),\ \&scalfmm::N\_ONE,\ as\_c(dest),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \textcolor{comment}{//\ copy\ (variable\ increment)}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ copy(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *orig,\ \textcolor{keywordtype}{int}\ inco,\ \textcolor{keywordtype}{double}\ *dest,\ \textcolor{keywordtype}{int}\ incd)}
+\DoxyCodeLine{00059\ \ \ \{\ dcopy(\&n,\ orig,\ \&inco,\ dest,\ \&incd);\ \}}
+\DoxyCodeLine{00060\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ copy(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *orig,\ \textcolor{keywordtype}{int}\ inco,\ \textcolor{keywordtype}{float}\ *dest,\ \textcolor{keywordtype}{int}\ incd)}
+\DoxyCodeLine{00061\ \ \ \{\ scopy(\&n,\ orig,\ \&inco,\ dest,\ \&incd);\ \}}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_copy(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *orig,\ \textcolor{keywordtype}{int}\ inco,\ \textcolor{keywordtype}{double}\ *dest,\ \textcolor{keywordtype}{int}\ incd)}
+\DoxyCodeLine{00063\ \ \ \{\ zcopy(\&n,\ as\_z(orig),\ \&inco,\ as\_z(dest),\ \&incd);\ \}}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_copy(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *orig,\ \textcolor{keywordtype}{int}\ inco,\ \textcolor{keywordtype}{float}\ *dest,\ \textcolor{keywordtype}{int}\ incd)}
+\DoxyCodeLine{00065\ \ \ \{\ ccopy(\&n,\ as\_c(orig),\ \&inco,\ as\_c(dest),\ \&incd);\ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{comment}{//\ scale}}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scal(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ *x)}
+\DoxyCodeLine{00069\ \ \ \{\ dscal(\&n,\ \&d,\ x,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scal(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,\ \textcolor{keywordtype}{float}\ *x)}
+\DoxyCodeLine{00071\ \ \ \{\ sscal(\&n,\ \&d,\ x,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_scal(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ *x)}
+\DoxyCodeLine{00073\ \ \ \{\ zscal(\&n,\ as\_z(\&d),\ as\_z(x),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_scal(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,\ \textcolor{keywordtype}{float}\ *x)}
+\DoxyCodeLine{00075\ \ \ \{\ cscal(\&n,\ as\_c(\&d),\ as\_c(x),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{comment}{//\ scale\ (variable\ increment)}}
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scal(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{int}\ incd)}
+\DoxyCodeLine{00079\ \ \ \{\ dscal(\&n,\ \&d,\ x,\ \&incd);\ \}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ scal(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{int}\ incd)}
+\DoxyCodeLine{00081\ \ \ \{\ sscal(\&n,\ \&d,\ x,\ \&incd);\ \}}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_scal(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{int}\ incd)}
+\DoxyCodeLine{00083\ \ \ \{\ zscal(\&n,\ as\_z(\&d),\ as\_z(x),\ \&incd);\ \}}
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_scal(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{int}\ incd)}
+\DoxyCodeLine{00085\ \ \ \{\ cscal(\&n,\ as\_c(\&d),\ as\_c(x),\ \&incd);\ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{comment}{//\ set\ zero}}
+\DoxyCodeLine{00088\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ setzero(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ n,\ \textcolor{keywordtype}{double}\ *x)}
+\DoxyCodeLine{00089\ \ \ \{\ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ i=0;\ i<n;\ ++i)\ x[i]\ =\ 0.0;\ \}}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ setzero(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ n,\ \textcolor{keywordtype}{float}\ *x)}
+\DoxyCodeLine{00091\ \ \ \{\ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ i=0;\ i<n;\ ++i)\ x[i]\ =\ 0.0f;\ \}}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_setzero(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ n,\ \textcolor{keywordtype}{double}\ *x)}
+\DoxyCodeLine{00093\ \ \ \{\ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ i=0;\ i<n;\ ++i)\ x[i*2]\ =\ x[i*2+1]\ =\ 0.0;\ \}}
+\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_setzero(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ n,\ \textcolor{keywordtype}{float}\ *x)}
+\DoxyCodeLine{00095\ \ \ \{\ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ i=0;\ i<n;\ ++i)\ x[i*2]\ =\ x[i*2+1]\ =\ 0.0f;\ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{comment}{//\ y\ +=\ x}}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00099\ \ \ \{\ daxpy(\&n,\ \&scalfmm::D\_ONE,\ x,\ \&scalfmm::N\_ONE,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00101\ \ \ \{\ saxpy(\&n,\ \&scalfmm::S\_ONE,\ x,\ \&scalfmm::N\_ONE,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_add(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00103\ \ \ \{\ caxpy(\&n,\ as\_const\_c(\&scalfmm::C\_ONE),\ as\_c(x),\ \&scalfmm::N\_ONE,\ as\_c(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_add(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *x,\textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00105\ \ \ \{\ zaxpy(\&n,\ as\_const\_z(\&scalfmm::Z\_ONE),\ as\_z(x),\ \&scalfmm::N\_ONE,\ as\_z(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{comment}{//\ y\ +=\ d\ x}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ axpy(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00109\ \ \ \{\ daxpy(\&n,\ \&d,\ x,\ \&scalfmm::N\_ONE,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ axpy(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ d,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00111\ \ \ \{\ saxpy(\&n,\ \&d,\ x,\ \&scalfmm::N\_ONE,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_axpy(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *d,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00113\ \ \ \{\ caxpy(\&n,\ as\_const\_c(d),\ as\_const\_c(x),\ \&scalfmm::N\_ONE,\ as\_c(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_axpy(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *d,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00115\ \ \ \{\ zaxpy(\&n,\ as\_const\_z(d),\ as\_const\_z(x),\ \&scalfmm::N\_ONE,\ as\_z(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \textcolor{comment}{//\ y\ =\ d\ Ax}}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00119\ \ \ \{\ dgemv(scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&d,\ A,\ \&m,\ x,\ \&scalfmm::N\_ONE,\ \&scalfmm::D\_ZERO,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00120\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00121\ \ \ \{\ sgemv(scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&d,\ A,\ \&m,\ x,\ \&scalfmm::N\_ONE,\ \&scalfmm::S\_ZERO,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00122\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00123\ \ \ \{\ cgemv(scalfmm::JOB\_STR,\ \&m,\ \&n,\ as\_c(d),\ as\_c(A),\ \&m,\ as\_c(x),\ \&scalfmm::N\_ONE,\ as\_const\_c(\&scalfmm::C\_ZERO),\ as\_c(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00125\ \ \ \{\ zgemv(scalfmm::JOB\_STR,\ \&m,\ \&n,\ as\_z(d),\ as\_z(A),\ \&m,\ as\_z(x),\ \&scalfmm::N\_ONE,\ as\_const\_z(\&scalfmm::Z\_ZERO),\ as\_z(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \textcolor{comment}{//\ y\ +=\ d\ Ax}}
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemva(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00129\ \ \ \{\ dgemv(scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&d,\ A,\ \&m,\ x,\ \&scalfmm::N\_ONE,\ \&scalfmm::D\_ONE,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemva(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00131\ \ \ \{\ sgemv(scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&d,\ A,\ \&m,\ x,\ \&scalfmm::N\_ONE,\ \&scalfmm::S\_ONE,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemva(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *d,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00133\ \ \ \{\ cgemv(scalfmm::JOB\_STR,\ \&m,\ \&n,\ as\_const\_c(d),\ as\_const\_c(A),\ \&m,\ as\_const\_c(x),\ \&scalfmm::N\_ONE,\ as\_const\_c(\&scalfmm::C\_ONE),\ as\_c(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00134\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemva(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *d,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00135\ \ \ \{\ zgemv(scalfmm::JOB\_STR,\ \&m,\ \&n,\ as\_const\_z(d),\ as\_const\_z(A),\ \&m,\ as\_const\_z(x),\ \&scalfmm::N\_ONE,\ as\_const\_z(\&scalfmm::Z\_ONE),\ as\_z(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{comment}{//\ y\ =\ d\ A\string^T\ x}}
+\DoxyCodeLine{00138\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemtv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00139\ \ \ \{\ dgemv(scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&d,\ A,\ \&m,\ x,\ \&scalfmm::N\_ONE,\ \&scalfmm::D\_ZERO,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00140\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemtv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00141\ \ \ \{\ sgemv(scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&d,\ A,\ \&m,\ x,\ \&scalfmm::N\_ONE,\ \&scalfmm::S\_ZERO,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00142\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemtv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00143\ \ \ \{\ cgemv(scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ as\_c(d),\ as\_c(A),\ \&m,\ as\_c(x),\ \&scalfmm::N\_ONE,\ as\_const\_c(\&scalfmm::C\_ZERO),\ as\_c(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00144\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemtv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00145\ \ \ \{\ zgemv(scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ as\_z(d),\ as\_z(A),\ \&m,\ as\_z(x),\ \&scalfmm::N\_ONE,\ as\_const\_z(\&scalfmm::Z\_ZERO),\ as\_z(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemhv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00147\ \ \ \{\ cgemv(scalfmm::JOB\_STR+7,\ \&m,\ \&n,\ as\_c(d),\ as\_c(A),\ \&m,\ as\_c(x),\ \&scalfmm::N\_ONE,\ as\_const\_c(\&scalfmm::C\_ZERO),\ as\_c(y),\ \&scalfmm::N\_ONE);\ \}\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00148\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemhv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00149\ \ \ \{\ zgemv(scalfmm::JOB\_STR+7,\ \&m,\ \&n,\ as\_z(d),\ as\_z(A),\ \&m,\ as\_z(x),\ \&scalfmm::N\_ONE,\ as\_const\_z(\&scalfmm::Z\_ZERO),\ as\_z(y),\ \&scalfmm::N\_ONE);\ \}\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \textcolor{comment}{//\ y\ +=\ d\ A\string^T\ x}}
+\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemtva(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00153\ \ \ \{\ dgemv(scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&d,\ A,\ \&m,\ x,\ \&scalfmm::N\_ONE,\ \&scalfmm::D\_ONE,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemtva(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00155\ \ \ \{\ sgemv(scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&d,\ A,\ \&m,\ x,\ \&scalfmm::N\_ONE,\ \&scalfmm::S\_ONE,\ y,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00156\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemtva(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00157\ \ \ \{\ cgemv(scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ as\_c(d),\ as\_c(A),\ \&m,\ as\_c(x),\ \&scalfmm::N\_ONE,\ as\_const\_c(\&scalfmm::C\_ONE),\ as\_c(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemtva(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00159\ \ \ \{\ zgemv(scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ as\_z(d),\ as\_z(A),\ \&m,\ as\_z(x),\ \&scalfmm::N\_ONE,\ as\_const\_z(\&scalfmm::Z\_ONE),\ as\_z(y),\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00160\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemhva(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *x,\ \textcolor{keywordtype}{float}\ *y)}
+\DoxyCodeLine{00161\ \ \ \{\ cgemv(scalfmm::JOB\_STR+7,\ \&m,\ \&n,\ as\_c(d),\ as\_c(A),\ \&m,\ as\_c(x),\ \&scalfmm::N\_ONE,\ as\_const\_c(\&scalfmm::C\_ONE),\ as\_c(y),\ \&scalfmm::N\_ONE);\ \}\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00162\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemhva(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *x,\ \textcolor{keywordtype}{double}\ *y)}
+\DoxyCodeLine{00163\ \ \ \{\ zgemv(scalfmm::JOB\_STR+7,\ \&m,\ \&n,\ as\_z(d),\ as\_z(A),\ \&m,\ as\_z(x),\ \&scalfmm::N\_ONE,\ as\_const\_z(\&scalfmm::Z\_ONE),\ as\_z(y),\ \&scalfmm::N\_ONE);\ \}\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{comment}{//\ C\ =\ d\ A\ B,\ A\ is\ m\ x\ p,\ B\ is\ p\ x\ n}}
+\DoxyCodeLine{00169\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemm(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00171\ \ \ \{\ dgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&p,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::D\_ZERO,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00172\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemm(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00174\ \ \ \{\ sgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&p,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::S\_ZERO,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00175\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemm(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *d,}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00177\ \ \ \{\ cgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&p,\ as\_const\_c(d),\ as\_c(A),\ \&ldA,\ as\_c(B),\ \&ldB,\ as\_const\_c(\&scalfmm::C\_ZERO),\ as\_c(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00178\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemm(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *d,}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00180\ \ \ \{\ zgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&p,\ as\_const\_z(d),\ as\_z(A),\ \&ldA,\ as\_z(B),\ \&ldB,\ as\_const\_z(\&scalfmm::Z\_ZERO),\ as\_z(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{//\ C\ +=\ d\ A\ B,\ A\ is\ m\ x\ p,\ B\ is\ p\ x\ n}}
+\DoxyCodeLine{00183\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemma(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00185\ \ \ \{\ dgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&p,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::D\_ONE,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemma(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00188\ \ \ \{\ sgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&p,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::S\_ONE,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00189\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemma(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00191\ \ \ \{\ cgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&p,\ as\_c(d),\ as\_c(A),\ \&ldA,\ as\_c(B),\ \&ldB,\ as\_const\_c(\&scalfmm::C\_ONE),\ as\_c(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00192\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemma(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00194\ \ \ \{\ zgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR,\ \&m,\ \&n,\ \&p,\ as\_z(d),\ as\_z(A),\ \&ldA,\ as\_z(B),\ \&ldB,\ as\_const\_z(\&scalfmm::Z\_ONE),\ as\_z(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \textcolor{comment}{//\ C\ =\ d\ A\string^T\ B,\ A\ is\ m\ x\ p,\ B\ is\ m\ x\ n}}
+\DoxyCodeLine{00197\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemtm(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00199\ \ \ \{\ dgemm(scalfmm::JOB\_STR+1,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::D\_ZERO,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemtm(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00202\ \ \ \{\ sgemm(scalfmm::JOB\_STR+1,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::S\_ZERO,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00203\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemtm(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00205\ \ \ \{\ cgemm(scalfmm::JOB\_STR+1,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ as\_c(d),\ as\_c(A),\ \&ldA,\ as\_c(B),\ \&ldB,\ as\_const\_c(\&scalfmm::C\_ZERO),\ as\_c(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00206\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemtm(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00208\ \ \ \{\ zgemm(scalfmm::JOB\_STR+1,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ as\_z(d),\ as\_z(A),\ \&ldA,\ as\_z(B),\ \&ldB,\ as\_const\_z(\&scalfmm::Z\_ZERO),\ as\_z(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00209\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemhm(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,\ \textcolor{comment}{//\ hermitialn\ transposed}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00211\ \ \ \{\ cgemm(scalfmm::JOB\_STR+7,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ as\_c(d),\ as\_c(A),\ \&ldA,\ as\_c(B),\ \&ldB,\ as\_const\_c(\&scalfmm::C\_ZERO),\ as\_c(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00212\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemhm(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00214\ \ \ \{\ zgemm(scalfmm::JOB\_STR+7,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ as\_z(d),\ as\_z(A),\ \&ldA,\ as\_z(B),\ \&ldB,\ as\_const\_z(\&scalfmm::Z\_ZERO),\ as\_z(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \textcolor{comment}{//\ C\ +=\ d\ A\string^T\ B,\ A\ is\ m\ x\ p,\ B\ is\ m\ x\ n}}
+\DoxyCodeLine{00217\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemtma(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00219\ \ \ \{\ dgemm(scalfmm::JOB\_STR+1,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::D\_ONE,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00220\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemtma(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00222\ \ \ \{\ sgemm(scalfmm::JOB\_STR+1,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::S\_ONE,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00223\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemtma(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00225\ \ \ \{\ cgemm(scalfmm::JOB\_STR+1,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ as\_c(d),\ as\_c(A),\ \&ldA,\ as\_c(B),\ \&ldB,\ as\_const\_c(\&scalfmm::C\_ONE),\ as\_c(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00226\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemtma(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00228\ \ \ \{\ zgemm(scalfmm::JOB\_STR+1,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ as\_z(d),\ as\_z(A),\ \&ldA,\ as\_z(B),\ \&ldB,\ as\_const\_z(\&scalfmm::Z\_ONE),\ as\_z(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00229\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemhma(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00231\ \ \ \{\ cgemm(scalfmm::JOB\_STR+7,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ as\_c(d),\ as\_c(A),\ \&ldA,\ as\_c(B),\ \&ldB,\ as\_const\_c(\&scalfmm::C\_ONE),\ as\_c(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemhma(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00234\ \ \ \{\ zgemm(scalfmm::JOB\_STR+7,\ scalfmm::JOB\_STR,\ \&p,\ \&n,\ \&m,\ as\_z(d),\ as\_z(A),\ \&ldA,\ as\_z(B),\ \&ldB,\ as\_const\_z(\&scalfmm::Z\_ONE),\ as\_z(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \textcolor{comment}{//\ C\ =\ d\ A\ B\string^T,\ A\ is\ m\ x\ p,\ B\ is\ n\ x\ p}}
+\DoxyCodeLine{00238\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemmt(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00240\ \ \ \{\ dgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&p,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::D\_ZERO,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00241\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemmt(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00243\ \ \ \{\ sgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&p,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::S\_ZERO,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00244\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemmt(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00246\ \ \ \{\ cgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&p,\ as\_c(\&d),\ as\_c(A),\ \&ldA,\ as\_c(B),\ \&ldB,\ as\_const\_c(\&scalfmm::C\_ZERO),\ as\_c(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00247\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemmt(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00249\ \ \ \{\ zgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&p,\ as\_z(\&d),\ as\_z(A),\ \&ldA,\ as\_z(B),\ \&ldB,\ as\_const\_z(\&scalfmm::Z\_ZERO),\ as\_z(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00250\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemmh(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00252\ \ \ \{\ cgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+7,\ \&m,\ \&n,\ \&p,\ as\_c(\&d),\ as\_c(A),\ \&ldA,\ as\_c(B),\ \&ldB,\ as\_const\_c(\&scalfmm::C\_ZERO),\ as\_c(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00253\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemmh(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00255\ \ \ \{\ zgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+7,\ \&m,\ \&n,\ \&p,\ as\_z(\&d),\ as\_z(A),\ \&ldA,\ as\_z(B),\ \&ldB,\ as\_const\_z(\&scalfmm::Z\_ZERO),\ as\_z(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \textcolor{comment}{//\ C\ +=\ d\ A\ B\string^T,\ A\ is\ m\ x\ p,\ B\ is\ n\ x\ p}}
+\DoxyCodeLine{00258\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemmta(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ d,}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00260\ \ \ \{\ dgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&p,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::D\_ONE,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00261\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ gemmta(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ d,}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00263\ \ \ \{\ sgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&p,\ \&d,\ A,\ \&ldA,\ B,\ \&ldB,\ \&scalfmm::S\_ONE,\ C,\ \&ldC);\ \}}
+\DoxyCodeLine{00264\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemmta(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00266\ \ \ \{\ cgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&p,\ as\_c(d),\ as\_c(A),\ \&ldA,\ as\_c(B),\ \&ldB,\ as\_const\_c(\&scalfmm::C\_ONE),\ as\_c(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00267\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemmta(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00269\ \ \ \{\ zgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+1,\ \&m,\ \&n,\ \&p,\ as\_z(d),\ as\_z(A),\ \&ldA,\ as\_z(B),\ \&ldB,\ as\_const\_z(\&scalfmm::Z\_ONE),\ as\_z(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00270\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemmha(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *d,\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{float}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00272\ \ \ \{\ cgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+7,\ \&m,\ \&n,\ \&p,\ as\_c(d),\ as\_c(A),\ \&ldA,\ as\_c(B),\ \&ldB,\ as\_const\_c(\&scalfmm::C\_ONE),\ as\_c(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00273\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ c\_gemmha(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ p,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *d,\ \textcolor{comment}{//\ hermitian\ transposed}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{int}\ ldA,\ \textcolor{keywordtype}{double}\ *B,\ \textcolor{keywordtype}{int}\ ldB,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ ldC)}
+\DoxyCodeLine{00275\ \ \ \{\ zgemm(scalfmm::JOB\_STR,\ scalfmm::JOB\_STR+7,\ \&m,\ \&n,\ \&p,\ as\_z(d),\ as\_z(A),\ \&ldA,\ as\_z(B),\ \&ldB,\ as\_const\_z(\&scalfmm::Z\_ONE),\ as\_z(C),\ \&ldC);\ \}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \textcolor{comment}{//\ singular\ value\ decomposition}}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00280\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ gesvd(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *S,\ \textcolor{keywordtype}{double}\ *VT,\ \textcolor{keywordtype}{int}\ ldVT,}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{double}\ *wk)}
+\DoxyCodeLine{00282\ \ \ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00284\ \ \ \ \ dgesvd(scalfmm::JOB\_STR+2,\ scalfmm::JOB\_STR+3,\ \&m,\ \&n,\ A,\ \&m,\ S,\ A,\ \&m,\ VT,\ \&ldVT,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00286\ \ \ \}}
+\DoxyCodeLine{00287\ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00288\ \ \ \textcolor{comment}{//\ \ \ \ A\ =\ U\ *\ SIGMA\ *\ conjugate-\/transpose(V)}}
+\DoxyCodeLine{00289\ \ \ \textcolor{comment}{//\ scalfmm::JOB\_STR+2\ =\ 'O':\ \ the\ first\ min(m,n)\ columns\ of\ U\ (the\ left\ singular\ vectors)\ are\ overwritten\ on\ the\ array\ A;}}
+\DoxyCodeLine{00290\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ c\_gesvd(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *S,\ \textcolor{keywordtype}{double}\ *VT,\ \textcolor{keywordtype}{int}\ ldVT,}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\&\ nwk,\ \textcolor{keywordtype}{double}\ *wk,\textcolor{keywordtype}{double}\ *rwk)}
+\DoxyCodeLine{00292\ \ \ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00294\ \ \ \ \ zgesvd(scalfmm::JOB\_STR+2,\ scalfmm::JOB\_STR+3,\ \&m,\ \&n,\ as\_z(A),\ \&m,\ S,\ as\_z(A),\ \&m,\ as\_z(VT),\ \&ldVT,\ as\_z(wk),\ \&nwk,\ rwk,\ \&INF);}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00296\ \ \ \}}
+\DoxyCodeLine{00297\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ gesvd(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *S,\ \textcolor{keywordtype}{float}\ *VT,\ \textcolor{keywordtype}{int}\ ldVT,}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{float}\ *wk)}
+\DoxyCodeLine{00299\ \ \ \{}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00301\ \ \ \ \ sgesvd(scalfmm::JOB\_STR+2,\ scalfmm::JOB\_STR+3,\ \&m,\ \&n,\ A,\ \&m,\ S,\ A,\ \&m,\ VT,\ \&ldVT,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00303\ \ \ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \textcolor{comment}{//\ singular\ value\ decomposition\ (SO)}}
+\DoxyCodeLine{00306\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ gesvdSO(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *S,\ \textcolor{keywordtype}{double}\ *U,\ \textcolor{keywordtype}{int}\ ldU,}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{double}\ *wk)}
+\DoxyCodeLine{00308\ \ \ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00310\ \ \ \ \ dgesvd(scalfmm::JOB\_STR+3,\ scalfmm::JOB\_STR+2,\ \&m,\ \&n,\ A,\ \&m,\ S,\ U,\ \&m,\ A,\ \&ldU,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00312\ \ \ \}}
+\DoxyCodeLine{00313\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ gesvdSO(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *S,\ \textcolor{keywordtype}{float}\ *U,\ \textcolor{keywordtype}{int}\ ldU,}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{float}\ *wk)}
+\DoxyCodeLine{00315\ \ \ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00317\ \ \ \ \ sgesvd(scalfmm::JOB\_STR+3,\ scalfmm::JOB\_STR+2,\ \&m,\ \&n,\ A,\ \&m,\ S,\ U,\ \&m,\ A,\ \&ldU,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00319\ \ \ \}}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \ \ \textcolor{comment}{//\ singular\ value\ decomposition\ (AA)}}
+\DoxyCodeLine{00322\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ gesvdAA(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *S,\ \textcolor{keywordtype}{double}\ *U,\ \textcolor{keywordtype}{int}\ ldU,}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{double}\ *wk)}
+\DoxyCodeLine{00324\ \ \ \{}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00326\ \ \ \ \ dgesvd(\textcolor{stringliteral}{"{}A"{}},\ \textcolor{stringliteral}{"{}A"{}},\ \&m,\ \&n,\ A,\ \&m,\ S,\ U,\ \&m,\ A,\ \&ldU,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00328\ \ \ \}}
+\DoxyCodeLine{00329\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ gesvdAA(\textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *S,\ \textcolor{keywordtype}{float}\ *U,\ \textcolor{keywordtype}{int}\ ldU,}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{float}\ *wk)}
+\DoxyCodeLine{00331\ \ \ \{}
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00333\ \ \ \ \ sgesvd(\textcolor{stringliteral}{"{}A"{}},\ \textcolor{stringliteral}{"{}A"{}},\ \&m,\ \&n,\ A,\ \&m,\ S,\ U,\ \&m,\ A,\ \&ldU,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00335\ \ \ \}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \textcolor{comment}{//\ Scalar\ product\ v1'*v2}}
+\DoxyCodeLine{00338\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ scpr(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *v1,\ \textcolor{keywordtype}{double}\ *v2)}
+\DoxyCodeLine{00339\ \ \ \{\ \textcolor{keywordflow}{return}\ ddot(\&n,\ v1,\ \&scalfmm::N\_ONE,\ v2,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00340\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ scpr(\textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *v1,\ \textcolor{keywordtype}{float}\ *v2)}
+\DoxyCodeLine{00341\ \ \ \{\ \textcolor{keywordflow}{return}\ sdot(\&n,\ v1,\ \&scalfmm::N\_ONE,\ v2,\ \&scalfmm::N\_ONE);\ \}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \textcolor{comment}{//\ QR\ factorisation}}
+\DoxyCodeLine{00346\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ geqrf(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *tau,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{double}\ *wk)}
+\DoxyCodeLine{00347\ \ \ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00349\ \ \ \ \ dgeqrf(\&m,\ \&n,\ A,\ \&m,\ tau,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00351\ \ \ \}}
+\DoxyCodeLine{00352\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ geqrf(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *tau,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{float}\ *wk)}
+\DoxyCodeLine{00353\ \ \ \{}
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00355\ \ \ \ \ sgeqrf(\&m,\ \&n,\ A,\ \&m,\ tau,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00357\ \ \ \}}
+\DoxyCodeLine{00358\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ c\_geqrf(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *tau,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{float}\ *wk)}
+\DoxyCodeLine{00359\ \ \ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00361\ \ \ \ \ cgeqrf(\&m,\ \&n,\ as\_c(A),\ \&m,\ as\_c(tau),\ as\_c(wk),\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00363\ \ \ \}}
+\DoxyCodeLine{00364\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ c\_geqrf(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *tau,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{double}\ *wk)}
+\DoxyCodeLine{00365\ \ \ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00367\ \ \ \ \ zgeqrf(\&m,\ \&n,\ as\_z(A),\ \&m,\ as\_z(tau),\ as\_z(wk),\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00369\ \ \ \}}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \textcolor{comment}{//\ return\ full\ of\ Q-\/Matrix\ (QR\ factorization)\ in\ A}}
+\DoxyCodeLine{00372\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ orgqr\_full(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *tau,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{double}\ *wk)}
+\DoxyCodeLine{00373\ \ \ \{}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00375\ \ \ \ \ dorgqr(\&m,\ \&m,\ \&n,\ A,\ \&m,\ tau,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00376\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00377\ \ \ \}}
+\DoxyCodeLine{00378\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ orgqr\_full(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *tau,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{float}\ *wk)}
+\DoxyCodeLine{00379\ \ \ \{}
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00381\ \ \ \ \ sorgqr(\&m,\ \&m,\ \&n,\ A,\ \&m,\ tau,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00383\ \ \ \}}
+\DoxyCodeLine{00384\ \ \ \textcolor{comment}{//\ return\ the\ leading\ n\ columns\ of\ Q-\/Matrix\ (QR\ factorization)\ in\ A}}
+\DoxyCodeLine{00385\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ orgqr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *tau,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{double}\ *wk)}
+\DoxyCodeLine{00386\ \ \ \{}
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00388\ \ \ \ \ dorgqr(\&m,\ \&n,\ \&n,\ A,\ \&m,\ tau,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00389\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00390\ \ \ \}}
+\DoxyCodeLine{00391\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ orgqr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *tau,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{float}\ *wk)}
+\DoxyCodeLine{00392\ \ \ \{}
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00394\ \ \ \ \ sorgqr(\&m,\ \&n,\ \&n,\ A,\ \&m,\ tau,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00396\ \ \ \}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \textcolor{comment}{//\ apply\ Q-\/Matrix\ (from\ QR\ factorization)\ to\ C}}
+\DoxyCodeLine{00401\ \ \ \textcolor{comment}{//\ LEFT:\ Q(\string^T)C}}
+\DoxyCodeLine{00402\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ left\_ormqr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ TRANS,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *tau,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{double}\ *wk)}
+\DoxyCodeLine{00403\ \ \ \{}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00405\ \ \ \ \ dormqr(\textcolor{stringliteral}{"{}L"{}},\ TRANS,\ \&m,\ \&n,\ \&m,\ A,\ \&m,\ tau,\ C,\ \&m,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00407\ \ \ \}}
+\DoxyCodeLine{00408\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ left\_ormqr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ TRANS,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *tau,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{float}\ *wk)}
+\DoxyCodeLine{00409\ \ \ \{}
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00411\ \ \ \ \ sormqr(\textcolor{stringliteral}{"{}L"{}},\ TRANS,\ \&m,\ \&n,\ \&m,\ A,\ \&m,\ tau,\ C,\ \&m,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00412\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00413\ \ \ \}}
+\DoxyCodeLine{00414\ \ \ \textcolor{comment}{//\ RIGHT:\ CQ(\string^T)}}
+\DoxyCodeLine{00415\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ right\_ormqr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ TRANS,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keywordtype}{double}\ *tau,\ \textcolor{keywordtype}{double}\ *C,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{double}\ *wk)}
+\DoxyCodeLine{00416\ \ \ \{}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00418\ \ \ \ \ dormqr(\textcolor{stringliteral}{"{}R"{}},\ TRANS,\ \&m,\ \&n,\ \&n,\ A,\ \&n,\ tau,\ C,\ \&m,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00420\ \ \ \}}
+\DoxyCodeLine{00421\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ right\_ormqr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ TRANS,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keywordtype}{float}\ *tau,\ \textcolor{keywordtype}{float}\ *C,\ \textcolor{keywordtype}{int}\ nwk,\ \textcolor{keywordtype}{float}\ *wk)}
+\DoxyCodeLine{00422\ \ \ \{}
+\DoxyCodeLine{00423\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;}
+\DoxyCodeLine{00424\ \ \ \ \ sormqr(\textcolor{stringliteral}{"{}R"{}},\ TRANS,\ \&m,\ \&n,\ \&n,\ A,\ \&n,\ tau,\ C,\ \&m,\ wk,\ \&nwk,\ \&INF);}
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00426\ \ \ \}}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \textcolor{comment}{//\ Cholesky\ decomposition:\ A=LL\string^T\ (if\ A\ is\ symmetric\ definite\ positive)}}
+\DoxyCodeLine{00429\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ potrf(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{double}\ *A,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n)}
+\DoxyCodeLine{00430\ \ \ \{\ }
+\DoxyCodeLine{00431\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;\ \ }
+\DoxyCodeLine{00432\ \ \ \ \ dpotrf(\textcolor{stringliteral}{"{}L"{}},\ \&m,\ A,\ \&n,\ \&INF);}
+\DoxyCodeLine{00433\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00434\ \ \ \}}
+\DoxyCodeLine{00435\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ potrf(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ m,\ \textcolor{keywordtype}{float}\ *A,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n)}
+\DoxyCodeLine{00436\ \ \ \{\ }
+\DoxyCodeLine{00437\ \ \ \ \ \textcolor{keywordtype}{int}\ INF;\ \ }
+\DoxyCodeLine{00438\ \ \ \ \ spotrf(\textcolor{stringliteral}{"{}L"{}},\ \&m,\ A,\ \&n,\ \&INF);}
+\DoxyCodeLine{00439\ \ \ \ \ \textcolor{keywordflow}{return}\ INF;}
+\DoxyCodeLine{00440\ \ \ \}}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \}\ \textcolor{comment}{//\ end\ namespace\ FBlas}}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#undef\ as\_c}}
+\DoxyCodeLine{00445\ \textcolor{preprocessor}{\#undef\ as\_z}}
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\#undef\ as\_const\_c}}
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\#undef\ as\_const\_z}}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//FBLAS\_HPP}}
+\DoxyCodeLine{00450\ }
+
+\end{DoxyCode}

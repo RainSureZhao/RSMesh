@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2023/11/10.
+// Created by RainSure on 2023/11/10.
 //
 
 #include "point_cloud/offset_points_generator.h"

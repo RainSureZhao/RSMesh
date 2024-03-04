@@ -1,0 +1,413 @@
+\doxysection{FVector\texorpdfstring{$<$}{<} Object\+Type \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_vector}{}\label{class_f_vector}\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+
+
+{\ttfamily \#include $<$FVector.\+hpp$>$}
+
+\doxysubsubsection*{类}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_f_vector_1_1_basic_iterator}{Basic\+Iterator}}
+\item 
+class \mbox{\hyperlink{class_f_vector_1_1_const_basic_iterator}{Const\+Basic\+Iterator}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 类型}
+\begin{DoxyCompactItemize}
+\item 
+typedef Object\+Type \mbox{\hyperlink{class_f_vector_a301d06b6a32335eea1d95d38473831b0}{Value\+Type}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_vector_a0f4bc84b785b4b72d147e87149c008f7}\label{class_f_vector_a0f4bc84b785b4b72d147e87149c008f7} 
+{\bfseries FVector} ()
+\begin{DoxyCompactList}\small\item\em Constructor Create a vector with a default size capacity \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_vector_a22252f6e498f866ce3dd38f5a10fb037}{FVector}} (const FSize in\+Capacity)
+\begin{DoxyCompactList}\small\item\em Constructor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_f_vector_a52670624962c5347f7fd4bcd599c9cd1}{FVector}} (const \mbox{\hyperlink{class_f_vector}{FVector}} \&other)
+\item 
+\mbox{\hyperlink{class_f_vector_a0856495499a9e55c9f095e1358431221}{FVector}} (\mbox{\hyperlink{class_f_vector}{FVector}} \&\&other)
+\item 
+\mbox{\hyperlink{class_f_vector}{FVector}} \& \mbox{\hyperlink{class_f_vector_a2cbe5fc96f4cbc715c959ddabdf49602}{operator=}} (const \mbox{\hyperlink{class_f_vector}{FVector}} \&other)
+\item 
+\Hypertarget{class_f_vector_a58117d61709f1a06bfe53db5a934f2a4}\label{class_f_vector_a58117d61709f1a06bfe53db5a934f2a4} 
+\mbox{\hyperlink{class_f_vector}{FVector}} \& {\bfseries operator=} (\mbox{\hyperlink{class_f_vector}{FVector}} \&\&other)
+\begin{DoxyCompactList}\small\item\em Copy operator \end{DoxyCompactList}\item 
+\Hypertarget{class_f_vector_a4215607d446287062c73920619bc7aad}\label{class_f_vector_a4215607d446287062c73920619bc7aad} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+FVector} ()
+\begin{DoxyCompactList}\small\item\em destructor \end{DoxyCompactList}\item 
+FSize \mbox{\hyperlink{class_f_vector_aaab03868714aa800fe61395a143e80ca}{get\+Capacity}} () const
+\begin{DoxyCompactList}\small\item\em Get the buffer capacity \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_vector_a9578b661231074c7850e64c717ceb7d8}{set\+Capacity}} (const FSize in\+Capacity)
+\begin{DoxyCompactList}\small\item\em Set the buffer capacity \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{class_f_vector_a3e3b9dba82b157bbaf4dc2fe01e3ffae}{resize}} (const FSize new\+Size, Args... args)
+\item 
+const Object\+Type \& \mbox{\hyperlink{class_f_vector_a347d7fc4881f566c5efbb1b8f6d54ce5}{head}} () const
+\item 
+Object\+Type \& \mbox{\hyperlink{class_f_vector_adb2b4dfe408e7467bd07a07594d6b784}{head}} ()
+\item 
+\Hypertarget{class_f_vector_a2170b11fb4c60ab9660884a210e9fa6f}\label{class_f_vector_a2170b11fb4c60ab9660884a210e9fa6f} 
+void {\bfseries clear} ()
+\begin{DoxyCompactList}\small\item\em Delete all, then size = 0 but capacity is unchanged \end{DoxyCompactList}\item 
+FSize \mbox{\hyperlink{class_f_vector_ae27a83b0b3e11851c9b3f5991937e3f2}{get\+Size}} () const
+\item 
+\Hypertarget{class_f_vector_a9bd94d7ab93406cd5017ad85ae8e4662}\label{class_f_vector_a9bd94d7ab93406cd5017ad85ae8e4662} 
+void {\bfseries pop} ()
+\begin{DoxyCompactList}\small\item\em pop the first value Warning, \doxylink{class_f_vector}{FVector} do not check that there is an element before poping The capacity is unchanged \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_vector_a0474667853d9c574c79c19a8f2a9dc2b}{push}} (const Object\+Type \&in\+Value)
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\void \mbox{\hyperlink{class_f_vector_a4d11e5c3ed2e1d850a62b9db577e1641}{push\+New}} (Args... args)
+\item 
+void \mbox{\hyperlink{class_f_vector_ad621d915aaa6f3719cbafe1a6cfbe857}{set}} (const Object\+Type \&in\+Value, const FSize in\+Repeat)
+\item 
+Object\+Type \& \mbox{\hyperlink{class_f_vector_abe35fde8a7321f14a2d95628ebf6fad7}{operator\mbox{[}$\,$\mbox{]}}} (const FSize in\+Position)
+\begin{DoxyCompactList}\small\item\em Get a reference of a given value \end{DoxyCompactList}\item 
+const Object\+Type \& \mbox{\hyperlink{class_f_vector_a62de6549b0cb7fc4d1ff8a304ec78a86}{operator\mbox{[}$\,$\mbox{]}}} (const FSize in\+Position) const
+\begin{DoxyCompactList}\small\item\em Get a const reference of a given value \end{DoxyCompactList}\item 
+Object\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_vector_a7609237a1fe28ddad0d24b032d1c0d41}{data}} ()
+\item 
+const Object\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_vector_aa66380437c34b615e15bf548f8eb3bb9}{data}} () const
+\item 
+void \mbox{\hyperlink{class_f_vector_a0d32ad6f2f6a75e713a763f124949441}{extract\+Values}} (const Object\+Type \texorpdfstring{$\ast$}{*}const in\+Array, const FSize in\+Size)
+\item 
+void \mbox{\hyperlink{class_f_vector_a3fe7095863dd96a1fc8fb4b096466831}{memocopy}} (const Object\+Type \texorpdfstring{$\ast$}{*}const in\+Array, const FSize in\+Size)
+\item 
+void \mbox{\hyperlink{class_f_vector_acf0167334f95b2fbaec4ae88f0c99b12}{remove\+One}} (const FSize idx\+To\+Remove)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+Object\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_vector_a44ab97a6247f343a48e4e636c4e2d20d}{array}}
+\item 
+FSize \mbox{\hyperlink{class_f_vector_afa3cbaf0d03d00f4c878250606ae6951}{capacity}}
+\item 
+FSize \mbox{\hyperlink{class_f_vector_aa2ea640a0e33aa034aca66032e558514}{index}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静态 Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+static const FSize \mbox{\hyperlink{class_f_vector_a8df12dfec9144af84910804245085ed4}{Default\+Size}} = 10
+\end{DoxyCompactItemize}
+\doxysubsubsection*{友元}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_vector_a2e6f4d487495f689ab8fc8b413a22373}\label{class_f_vector_a2e6f4d487495f689ab8fc8b413a22373} 
+class {\bfseries Basic\+Iterator}
+\item 
+\Hypertarget{class_f_vector_a727bea24b59e4eca57c0d9115b038ed6}\label{class_f_vector_a727bea24b59e4eca57c0d9115b038ed6} 
+class {\bfseries Const\+Basic\+Iterator}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class Object\+Type$>$\newline
+class FVector$<$ Object\+Type $>$}
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+Please read the license
+
+This class is a vector container. It is a very basic vector to enable strong performance.
+
+Please refere to unit test utest\+Vector.\+cpp to know more. 
+
+\doxysubsection{成员类型定义说明}
+\Hypertarget{class_f_vector_a301d06b6a32335eea1d95d38473831b0}\label{class_f_vector_a301d06b6a32335eea1d95d38473831b0} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!ValueType@{ValueType}}
+\index{ValueType@{ValueType}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{ValueType}{ValueType}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+typedef Object\+Type \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::\+Value\+Type}
+
+data type of data in \doxylink{class_f_vector}{FVector} 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_vector_a22252f6e498f866ce3dd38f5a10fb037}\label{class_f_vector_a22252f6e498f866ce3dd38f5a10fb037} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!FVector@{FVector}}
+\index{FVector@{FVector}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{FVector()}{FVector()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+\mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\mbox{\hyperlink{class_f_vector}{\+::\+FVector}} (\begin{DoxyParamCaption}\item[{const FSize}]{in\+Capacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor 
+
+
+\begin{DoxyParams}{参数}
+{\em in\+Capacity} & the memory to allocate \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_vector_a52670624962c5347f7fd4bcd599c9cd1}\label{class_f_vector_a52670624962c5347f7fd4bcd599c9cd1} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!FVector@{FVector}}
+\index{FVector@{FVector}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{FVector()}{FVector()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+\mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\mbox{\hyperlink{class_f_vector}{\+::\+FVector}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Copy constructor 
+\begin{DoxyParams}{参数}
+{\em other} & original vector object must have an copy constructor \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_vector_a0856495499a9e55c9f095e1358431221}\label{class_f_vector_a0856495499a9e55c9f095e1358431221} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!FVector@{FVector}}
+\index{FVector@{FVector}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{FVector()}{FVector()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+\mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\mbox{\hyperlink{class_f_vector}{\+::\+FVector}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Copy constructor 
+\begin{DoxyParams}{参数}
+{\em other} & original vector object must have an copy constructor \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_vector_a7609237a1fe28ddad0d24b032d1c0d41}\label{class_f_vector_a7609237a1fe28ddad0d24b032d1c0d41} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!data@{data}}
+\index{data@{data}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+Object\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get the entire array memory \begin{DoxyReturn}{返回}
+the array allocated by the vector 
+\end{DoxyReturn}
+\Hypertarget{class_f_vector_aa66380437c34b615e15bf548f8eb3bb9}\label{class_f_vector_aa66380437c34b615e15bf548f8eb3bb9} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!data@{data}}
+\index{data@{data}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+const Object\+Type \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+To get the entire array memory \begin{DoxyReturn}{返回}
+the array allocated by the vector 
+\end{DoxyReturn}
+\Hypertarget{class_f_vector_a0d32ad6f2f6a75e713a763f124949441}\label{class_f_vector_a0d32ad6f2f6a75e713a763f124949441} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!extractValues@{extractValues}}
+\index{extractValues@{extractValues}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{extractValues()}{extractValues()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+void \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::extract\+Values (\begin{DoxyParamCaption}\item[{const Object\+Type \texorpdfstring{$\ast$}{*}const}]{in\+Array,  }\item[{const FSize}]{in\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To take values from C array but copy with = operator 
+\begin{DoxyParams}{参数}
+{\em in\+Array} & the array to copy values \\
+\hline
+{\em in\+Size} & the size of the array \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_vector_aaab03868714aa800fe61395a143e80ca}\label{class_f_vector_aaab03868714aa800fe61395a143e80ca} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!getCapacity@{getCapacity}}
+\index{getCapacity@{getCapacity}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{getCapacity()}{getCapacity()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+FSize \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::get\+Capacity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the buffer capacity 
+
+\begin{DoxyReturn}{返回}
+the buffer capacity The capacity is the current memory size allocated. 
+\end{DoxyReturn}
+\Hypertarget{class_f_vector_ae27a83b0b3e11851c9b3f5991937e3f2}\label{class_f_vector_ae27a83b0b3e11851c9b3f5991937e3f2} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!getSize@{getSize}}
+\index{getSize@{getSize}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+FSize \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{返回}
+The number of element added into the vector This is not the capcity 
+\end{DoxyReturn}
+\Hypertarget{class_f_vector_adb2b4dfe408e7467bd07a07594d6b784}\label{class_f_vector_adb2b4dfe408e7467bd07a07594d6b784} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!head@{head}}
+\index{head@{head}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{head()}{head()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+Object\+Type \& \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::head (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{返回}
+Last inserted object This function return the data at the last position 
+\end{DoxyReturn}
+\Hypertarget{class_f_vector_a347d7fc4881f566c5efbb1b8f6d54ce5}\label{class_f_vector_a347d7fc4881f566c5efbb1b8f6d54ce5} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!head@{head}}
+\index{head@{head}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{head()}{head()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+const Object\+Type \& \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::head (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{返回}
+Last inserted object This function return the data at the last position 
+\end{DoxyReturn}
+\Hypertarget{class_f_vector_a3fe7095863dd96a1fc8fb4b096466831}\label{class_f_vector_a3fe7095863dd96a1fc8fb4b096466831} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!memocopy@{memocopy}}
+\index{memocopy@{memocopy}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{memocopy()}{memocopy()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+void \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::memocopy (\begin{DoxyParamCaption}\item[{const Object\+Type \texorpdfstring{$\ast$}{*}const}]{in\+Array,  }\item[{const FSize}]{in\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To take values from C array but copy with memcpy 
+\begin{DoxyParams}{参数}
+{\em in\+Array} & the array to copie values \\
+\hline
+{\em in\+Size} & the size of the array \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_vector_a2cbe5fc96f4cbc715c959ddabdf49602}\label{class_f_vector_a2cbe5fc96f4cbc715c959ddabdf49602} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+\mbox{\hyperlink{class_f_vector}{FVector}} \& \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Copy operator 
+\begin{DoxyParams}{参数}
+{\em other} & the original vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+this after copying data Objects of the current vector are deleted then objects from other are copied using copy constructor. The capacity is not copied. 
+\end{DoxyReturn}
+\Hypertarget{class_f_vector_abe35fde8a7321f14a2d95628ebf6fad7}\label{class_f_vector_abe35fde8a7321f14a2d95628ebf6fad7} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+Object\+Type \& \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const FSize}]{in\+Position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get a reference of a given value 
+
+
+\begin{DoxyParams}{参数}
+{\em in\+Position} & the query position \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the value 
+\end{DoxyReturn}
+\Hypertarget{class_f_vector_a62de6549b0cb7fc4d1ff8a304ec78a86}\label{class_f_vector_a62de6549b0cb7fc4d1ff8a304ec78a86} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+const Object\+Type \& \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const FSize}]{in\+Position }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get a const reference of a given value 
+
+
+\begin{DoxyParams}{参数}
+{\em in\+Position} & the query position \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{返回}
+the value 
+\end{DoxyReturn}
+\Hypertarget{class_f_vector_a0474667853d9c574c79c19a8f2a9dc2b}\label{class_f_vector_a0474667853d9c574c79c19a8f2a9dc2b} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!push@{push}}
+\index{push@{push}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+void \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::push (\begin{DoxyParamCaption}\item[{const Object\+Type \&}]{in\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Add a value at the end, resize the capacity if needed 
+\begin{DoxyParams}{参数}
+{\em in\+Value} & the new value \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_vector_a4d11e5c3ed2e1d850a62b9db577e1641}\label{class_f_vector_a4d11e5c3ed2e1d850a62b9db577e1641} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!pushNew@{pushNew}}
+\index{pushNew@{pushNew}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{pushNew()}{pushNew()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+template$<$typename... Args$>$ \\
+void \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::push\+New (\begin{DoxyParamCaption}\item[{Args...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+To Create a new object \Hypertarget{class_f_vector_acf0167334f95b2fbaec4ae88f0c99b12}\label{class_f_vector_acf0167334f95b2fbaec4ae88f0c99b12} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!removeOne@{removeOne}}
+\index{removeOne@{removeOne}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{removeOne()}{removeOne()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+void \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::remove\+One (\begin{DoxyParamCaption}\item[{const FSize}]{idx\+To\+Remove }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Remove a values by shifting all the next values \Hypertarget{class_f_vector_a3e3b9dba82b157bbaf4dc2fe01e3ffae}\label{class_f_vector_a3e3b9dba82b157bbaf4dc2fe01e3ffae} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!resize@{resize}}
+\index{resize@{resize}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{resize()}{resize()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+template$<$typename... Args$>$ \\
+void \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::resize (\begin{DoxyParamCaption}\item[{const FSize}]{new\+Size,  }\item[{Args...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Resize the vector (and change the capacity if needed) \Hypertarget{class_f_vector_ad621d915aaa6f3719cbafe1a6cfbe857}\label{class_f_vector_ad621d915aaa6f3719cbafe1a6cfbe857} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!set@{set}}
+\index{set@{set}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{set()}{set()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+void \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::set (\begin{DoxyParamCaption}\item[{const Object\+Type \&}]{in\+Value,  }\item[{const FSize}]{in\+Repeat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Add one value multiple time 
+\begin{DoxyParams}{参数}
+{\em in\+Value} & the new value \\
+\hline
+{\em in\+Repeat} & the number of time the value is inserted \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_vector_a9578b661231074c7850e64c717ceb7d8}\label{class_f_vector_a9578b661231074c7850e64c717ceb7d8} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!setCapacity@{setCapacity}}
+\index{setCapacity@{setCapacity}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{setCapacity()}{setCapacity()}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+void \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::set\+Capacity (\begin{DoxyParamCaption}\item[{const FSize}]{in\+Capacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the buffer capacity 
+
+
+\begin{DoxyParams}{参数}
+{\em in\+Capacity} & to change the capacity If capacity given is lower than size elements after capacity are removed \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{类成员变量说明}
+\Hypertarget{class_f_vector_a44ab97a6247f343a48e4e636c4e2d20d}\label{class_f_vector_a44ab97a6247f343a48e4e636c4e2d20d} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!array@{array}}
+\index{array@{array}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{array}{array}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+Object\+Type\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::array\hspace{0.3cm}{\ttfamily [protected]}}
+
+memory area \Hypertarget{class_f_vector_afa3cbaf0d03d00f4c878250606ae6951}\label{class_f_vector_afa3cbaf0d03d00f4c878250606ae6951} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!capacity@{capacity}}
+\index{capacity@{capacity}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{capacity}{capacity}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+FSize \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::capacity\hspace{0.3cm}{\ttfamily [protected]}}
+
+memory capacity, the size of array \Hypertarget{class_f_vector_a8df12dfec9144af84910804245085ed4}\label{class_f_vector_a8df12dfec9144af84910804245085ed4} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!DefaultSize@{DefaultSize}}
+\index{DefaultSize@{DefaultSize}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{DefaultSize}{DefaultSize}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+const FSize \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::\+Default\+Size = 10\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+Default size \Hypertarget{class_f_vector_aa2ea640a0e33aa034aca66032e558514}\label{class_f_vector_aa2ea640a0e33aa034aca66032e558514} 
+\index{FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}!index@{index}}
+\index{index@{index}!FVector$<$ ObjectType $>$@{FVector$<$ ObjectType $>$}}
+\doxysubsubsection{\texorpdfstring{index}{index}}
+{\footnotesize\ttfamily template$<$class Object\+Type $>$ \\
+FSize \mbox{\hyperlink{class_f_vector}{FVector}}$<$ Object\+Type $>$\+::index\hspace{0.3cm}{\ttfamily [protected]}}
+
+index in array, the current position to insert 
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Containers/FVector.\+hpp\end{DoxyCompactItemize}

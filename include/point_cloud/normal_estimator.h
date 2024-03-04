@@ -1,5 +1,5 @@
 //
-// Created by 赵润朔 on 2023/11/3.
+// Created by RainSure on 2023/11/3.
 //
 
 #ifndef RSMESH_NORMAL_ESTIMATOR_H

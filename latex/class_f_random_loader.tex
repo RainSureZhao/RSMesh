@@ -1,0 +1,172 @@
+\doxysection{FRandom\+Loader\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 模板类 参考}
+\hypertarget{class_f_random_loader}{}\label{class_f_random_loader}\index{FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}}
+
+
+{\ttfamily \#include $<$FRandom\+Loader.\+hpp$>$}
+
+类 FRandom\+Loader\texorpdfstring{$<$}{<} FReal \texorpdfstring{$>$}{>} 继承关系图\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_f_random_loader}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public 成员函数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_f_random_loader_abe78a826f876ca67944f308f2c396aa3}{FRandom\+Loader}} (const FSize in\+Nb\+Particles, const FReal in\+Box\+Width=1.\+0, const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&in\+Center\+Of\+Box=\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$(0, 0, 0), const unsigned int in\+Seed=static\+\_\+cast$<$ unsigned int $>$(time(nullptr)))
+\item 
+virtual \mbox{\hyperlink{class_f_random_loader_a4ac1ad92e53c39371551719ced86f6b0}{\texorpdfstring{$\sim$}{\string~}\+FRandom\+Loader}} ()
+\item 
+bool \mbox{\hyperlink{class_f_random_loader_ade10eb1237fc856a9d9eb25c4b9f98ff}{is\+Open}} () const
+\item 
+FSize \mbox{\hyperlink{class_f_random_loader_ae89fc8d0094362544726dd52377b9089}{get\+Number\+Of\+Particles}} () const
+\item 
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_random_loader_a8614c831bbe9120125931a36cd4fd2b5}{get\+Center\+Of\+Box}} () const
+\item 
+FReal \mbox{\hyperlink{class_f_random_loader_a256450fd24db70862715bb8da6480912}{get\+Box\+Width}} () const
+\item 
+void \mbox{\hyperlink{class_f_random_loader_a79ad94ee19f3f9528521029cb0905356}{fill\+Particle}} (\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const in\+Particle\+Positions)
+\item 
+FReal \mbox{\hyperlink{class_f_random_loader_ab96b9dca113d0319dfc63a944d18988b}{get\+Random}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public 成员函数 继承自 \mbox{\hyperlink{class_f_abstract_loader}{FAbstract\+Loader$<$ FReal $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_f_abstract_loader_a50fdd33c7eac1ec0733b79ed1bd4b4e8}{\texorpdfstring{$\sim$}{\string~}\+FAbstract\+Loader}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected 属性}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_f_random_loader_a2fcdd935c76a7d8ce682923509464ae3}\label{class_f_random_loader_a2fcdd935c76a7d8ce682923509464ae3} 
+const FSize {\bfseries nb\+Particles}
+\item 
+\Hypertarget{class_f_random_loader_a5fb3caa2e4e190610ce6b00935ffbce2}\label{class_f_random_loader_a5fb3caa2e4e190610ce6b00935ffbce2} 
+const FReal {\bfseries box\+Width}
+\item 
+\Hypertarget{class_f_random_loader_a1cc1d87d1eb418df141a58f977dc700d}\label{class_f_random_loader_a1cc1d87d1eb418df141a58f977dc700d} 
+const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ {\bfseries center\+Of\+Box}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{详细描述}
+\subsubsection*{template$<$class FReal$>$\newline
+class FRandom\+Loader$<$ FReal $>$}
+\begin{DoxyAuthor}{作者}
+Berenger Bramas (\href{mailto:berenger.bramas@inria.fr}{\texttt{ berenger.\+bramas@inria.\+fr}})
+\end{DoxyAuthor}
+Please read the license 
+
+\doxysubsection{构造及析构函数说明}
+\Hypertarget{class_f_random_loader_abe78a826f876ca67944f308f2c396aa3}\label{class_f_random_loader_abe78a826f876ca67944f308f2c396aa3} 
+\index{FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}!FRandomLoader@{FRandomLoader}}
+\index{FRandomLoader@{FRandomLoader}!FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{FRandomLoader()}{FRandomLoader()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\mbox{\hyperlink{class_f_random_loader}{FRandom\+Loader}}$<$ FReal $>$\mbox{\hyperlink{class_f_random_loader}{\+::\+FRandom\+Loader}} (\begin{DoxyParamCaption}\item[{const FSize}]{in\+Nb\+Particles,  }\item[{const FReal}]{in\+Box\+Width = {\ttfamily 1.0},  }\item[{const \mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \&}]{in\+Center\+Of\+Box = {\ttfamily \mbox{\hyperlink{class_f_point}{FPoint}}$<$FReal$>$(0,0,0)},  }\item[{const unsigned int}]{in\+Seed = {\ttfamily static\+\_\+cast$<$unsigned~int$>$(time(nullptr))} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+The constructor need the simulation data 
+\begin{DoxyParams}{参数}
+{\em in\+Nb\+Particles} & Number of partcles to generate randomly \\
+\hline
+{\em in\+Box\+Width} & the width of the box \\
+\hline
+{\em in\+Center\+Of\+Box} & the center of the box \\
+\hline
+{\em in\+Seed} & The seed for the random generator (default value time(nullptr)) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_random_loader_a4ac1ad92e53c39371551719ced86f6b0}\label{class_f_random_loader_a4ac1ad92e53c39371551719ced86f6b0} 
+\index{FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}!````~FRandomLoader@{\texorpdfstring{$\sim$}{\string~}FRandomLoader}}
+\index{````~FRandomLoader@{\texorpdfstring{$\sim$}{\string~}FRandomLoader}!FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FRandomLoader()}{\string~FRandomLoader()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+virtual \mbox{\hyperlink{class_f_random_loader}{FRandom\+Loader}}$<$ FReal $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_f_random_loader}{FRandom\+Loader}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Default destructor 
+
+\doxysubsection{成员函数说明}
+\Hypertarget{class_f_random_loader_a79ad94ee19f3f9528521029cb0905356}\label{class_f_random_loader_a79ad94ee19f3f9528521029cb0905356} 
+\index{FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}!fillParticle@{fillParticle}}
+\index{fillParticle@{fillParticle}!FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{fillParticle()}{fillParticle()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+void \mbox{\hyperlink{class_f_random_loader}{FRandom\+Loader}}$<$ FReal $>$\+::fill\+Particle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \texorpdfstring{$\ast$}{*}const}]{in\+Particle\+Positions }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Fill a particle \begin{DoxyWarning}{警告}
+to work with the loader, particles has to expose a set\+Position method 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{参数}
+{\em the} & particle to fill \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_f_random_loader_a256450fd24db70862715bb8da6480912}\label{class_f_random_loader_a256450fd24db70862715bb8da6480912} 
+\index{FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}!getBoxWidth@{getBoxWidth}}
+\index{getBoxWidth@{getBoxWidth}!FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getBoxWidth()}{getBoxWidth()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_random_loader}{FRandom\+Loader}}$<$ FReal $>$\+::get\+Box\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+The box width \begin{DoxyReturn}{返回}
+box width 
+\end{DoxyReturn}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_a2cbf052128fb47a1072fe556e1b37a3e}{FAbstract\+Loader$<$ FReal $>$}}.
+
+\Hypertarget{class_f_random_loader_a8614c831bbe9120125931a36cd4fd2b5}\label{class_f_random_loader_a8614c831bbe9120125931a36cd4fd2b5} 
+\index{FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}!getCenterOfBox@{getCenterOfBox}}
+\index{getCenterOfBox@{getCenterOfBox}!FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getCenterOfBox()}{getCenterOfBox()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+\mbox{\hyperlink{class_f_point}{FPoint}}$<$ FReal $>$ \mbox{\hyperlink{class_f_random_loader}{FRandom\+Loader}}$<$ FReal $>$\+::get\+Center\+Of\+Box (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+The center of the box \begin{DoxyReturn}{返回}
+box center 
+\end{DoxyReturn}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_ad3b312747bb0063d23477ea2706ccd5b}{FAbstract\+Loader$<$ FReal $>$}}.
+
+\Hypertarget{class_f_random_loader_ae89fc8d0094362544726dd52377b9089}\label{class_f_random_loader_ae89fc8d0094362544726dd52377b9089} 
+\index{FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}!getNumberOfParticles@{getNumberOfParticles}}
+\index{getNumberOfParticles@{getNumberOfParticles}!FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getNumberOfParticles()}{getNumberOfParticles()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FSize \mbox{\hyperlink{class_f_random_loader}{FRandom\+Loader}}$<$ FReal $>$\+::get\+Number\+Of\+Particles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+To get the number of particles from this loader 
+\begin{DoxyParams}{参数}
+{\em the} & number of particles the loader can fill \\
+\hline
+\end{DoxyParams}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_aa2e8ad65f225d66660fede162fe2765b}{FAbstract\+Loader$<$ FReal $>$}}.
+
+\Hypertarget{class_f_random_loader_ab96b9dca113d0319dfc63a944d18988b}\label{class_f_random_loader_ab96b9dca113d0319dfc63a944d18988b} 
+\index{FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}!getRandom@{getRandom}}
+\index{getRandom@{getRandom}!FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{getRandom()}{getRandom()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+FReal \mbox{\hyperlink{class_f_random_loader}{FRandom\+Loader}}$<$ FReal $>$\+::get\+Random (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get a random number between 0 \& 1 \Hypertarget{class_f_random_loader_ade10eb1237fc856a9d9eb25c4b9f98ff}\label{class_f_random_loader_ade10eb1237fc856a9d9eb25c4b9f98ff} 
+\index{FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}!isOpen@{isOpen}}
+\index{isOpen@{isOpen}!FRandomLoader$<$ FReal $>$@{FRandomLoader$<$ FReal $>$}}
+\doxysubsubsection{\texorpdfstring{isOpen()}{isOpen()}}
+{\footnotesize\ttfamily template$<$class FReal $>$ \\
+bool \mbox{\hyperlink{class_f_random_loader}{FRandom\+Loader}}$<$ FReal $>$\+::is\+Open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{返回}
+true 
+\end{DoxyReturn}
+
+
+实现了 \mbox{\hyperlink{class_f_abstract_loader_ad1c647e0fb2ae0de47c1cfab4ad6d811}{FAbstract\+Loader$<$ FReal $>$}}.
+
+
+
+该类的文档由以下文件生成\+:\begin{DoxyCompactItemize}
+\item 
+third\+\_\+party/\+Scal\+FMM/include/\+Scal\+FMM/\+Files/FRandom\+Loader.\+hpp\end{DoxyCompactItemize}

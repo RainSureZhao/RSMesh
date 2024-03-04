@@ -1,0 +1,90 @@
+\doxysection{FAligned\+Memory.\+hpp}
+\hypertarget{_f_aligned_memory_8hpp_source}{}\label{_f_aligned_memory_8hpp_source}\index{third\_party/ScalFMM/include/ScalFMM/Utils/FAlignedMemory.hpp@{third\_party/ScalFMM/include/ScalFMM/Utils/FAlignedMemory.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ See\ LICENCE\ file\ at\ project\ root}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ FALIGNEDMEMORY\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ FALIGNEDMEMORY\_HPP}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_f_aligned_memory}{FAlignedMemory}}\ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{template}\ <std::\textcolor{keywordtype}{size\_t}\ AlignementValue>}
+\DoxyCodeLine{00014\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}*\ AllocateBytes(\textcolor{keyword}{const}\ std::size\_t\ inSize)\{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordflow}{if}(inSize\ ==\ 0)\{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00017\ \ \ \ \ \}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{//\ Ensure\ it\ is\ a\ power\ of\ 2}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static\_assert}(AlignementValue\ !=\ 0\ \&\&\ ((AlignementValue-\/1)\&AlignementValue)\ ==\ 0,\ \textcolor{stringliteral}{"{}Alignement\ must\ be\ a\ power\ of\ 2"{}});}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ We\ will\ need\ to\ store\ the\ adress\ of\ the\ real\ blocks}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{const}\ std::size\_t\ sizeForAddress\ =\ (AlignementValue\ <\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)?\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)\ :\ AlignementValue);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ allocatedMemory\ \ \ \ \ \ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}[inSize\ +\ AlignementValue-\/1\ +\ sizeForAddress];}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ alignedMemoryAddress\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}((\textcolor{keyword}{reinterpret\_cast<}std::size\_t\textcolor{keyword}{>}(allocatedMemory)\ +\ AlignementValue-\/1\ +\ sizeForAddress)\ \&\ \string~static\_cast<std::size\_t>(AlignementValue-\/1));}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ ptrForAddress\ \ \ \ \ \ \ \ =\ (alignedMemoryAddress\ -\/\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*));}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ Save\ allocated\ adress}}
+\DoxyCodeLine{00029\ \ \ \ \ *\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}**\textcolor{keyword}{>}(ptrForAddress)\ =\ allocatedMemory;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//\ Return\ aligned\ address}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(alignedMemoryAddress);}
+\DoxyCodeLine{00032\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ DeallocBytes(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ ptrToFree)\{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{if}(\ ptrToFree\ )\{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const}*\ storeRealAddress\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const\ }*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(ptrToFree)\ -\/\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*));}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(*storeRealAddress);}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{template}\ <std::\textcolor{keywordtype}{size\_t}\ AlignementValue,\ \textcolor{keyword}{class}\ ArrayType>}
+\DoxyCodeLine{00042\ \textcolor{keyword}{inline}\ ArrayType*\ AllocateArray(\textcolor{keyword}{const}\ std::size\_t\ inNbElementsInArray)\{}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{if}(inNbElementsInArray\ ==\ 0)\{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{const}\ std::size\_t\ inSize\ =\ (inNbElementsInArray*\textcolor{keyword}{sizeof}(ArrayType));}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ Ensure\ it\ is\ a\ power\ of\ 2}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static\_assert}(AlignementValue\ !=\ 0\ \&\&\ ((AlignementValue-\/1)\&AlignementValue)\ ==\ 0,\ \textcolor{stringliteral}{"{}Alignement\ must\ be\ a\ power\ of\ 2"{}});}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//\ We\ will\ need\ to\ store\ the\ adress\ of\ the\ real\ blocks}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{const}\ std::size\_t\ sizeForAddressAndNumber\ =\ (AlignementValue\ <\ (\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)+\textcolor{keyword}{sizeof}(std::size\_t))?\ (\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)+\textcolor{keyword}{sizeof}(std::size\_t))\ :\ AlignementValue);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ allocatedMemory\ \ \ \ \ \ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}[inSize\ +\ AlignementValue-\/1\ +\ sizeForAddressAndNumber];}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ alignedMemoryAddress\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}((\textcolor{keyword}{reinterpret\_cast<}std::size\_t\textcolor{keyword}{>}(allocatedMemory)\ +\ AlignementValue-\/1\ +\ sizeForAddressAndNumber)\ \&\ \string~static\_cast<std::size\_t>(AlignementValue-\/1));}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ ptrForAddress\ \ \ \ \ \ \ \ =\ (alignedMemoryAddress\ -\/\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*));}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ ptrForNumber\ \ \ \ \ \ \ \ \ =\ (ptrForAddress\ -\/\ \textcolor{keyword}{sizeof}(std::size\_t));}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ Save\ allocated\ adress}}
+\DoxyCodeLine{00059\ \ \ \ \ *\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}**\textcolor{keyword}{>}(ptrForAddress)\ =\ allocatedMemory;}
+\DoxyCodeLine{00060\ \ \ \ \ *\textcolor{keyword}{reinterpret\_cast<}std::size\_t*\textcolor{keyword}{>}(ptrForNumber)\ =\ inNbElementsInArray;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ Return\ aligned\ address}}
+\DoxyCodeLine{00062\ \ \ \ \ ArrayType*\ array\ =\ \textcolor{keyword}{reinterpret\_cast<}ArrayType*\textcolor{keyword}{>}(alignedMemoryAddress);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ idx\ =\ 0\ ;\ idx\ <\ inNbElementsInArray\ ;\ ++idx)\{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{new}\ (\&array[idx])\ ArrayType();}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{return}\ array;}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ ArrayType>}
+\DoxyCodeLine{00071\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ DeallocArray(\textcolor{keyword}{const}\ ArrayType*\ ptrToFree)\{}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{if}(\ ptrToFree\ )\{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::size\_t\ numberOfElements\ =\ (*\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }std::size\_t*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(ptrToFree)\ -\/\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*)\ -\/\ \textcolor{keyword}{sizeof}(std::size\_t)));}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(std::size\_t\ idx\ =\ 0\ ;\ idx\ <\ numberOfElements\ ;\ ++idx)\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ ptrToFree[idx].\string~ArrayType();}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const}*\ storeRealAddress\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{const\ }*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(ptrToFree)\ -\/\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*));}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\textcolor{keyword}{>}(*storeRealAddress);}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FALIGNEDMEMORY\_HPP}}
+
+\end{DoxyCode}
