@@ -6,4 +6,4 @@ RSMesh是一款基于OpenMesh、CGAL、libigl、PCL等计算几何处理库的�
 
 ### 文档
 
-[文档](https://github.com/RainSureZhao/RSMesh/html/index.html)
+[文档](https://github.com/RainSureZhao/RSMesh/tree/master/html/index.html)
