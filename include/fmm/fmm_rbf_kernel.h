@@ -25,9 +25,9 @@ namespace rsmesh::fmm {
         explicit fmm_rbf_kernel(const rbf::rbf_base& rbf) : rbf_(rbf.clone()) {}
 
         // returns position in reduced storage
-        int getPosition(const unsigned int) const { return 0; }
+        [[nodiscard]] int getPosition(const unsigned int) const { return 0; }
 
-        double getMutualCoefficient() const {
+        [[nodiscard]] double getMutualCoefficient() const {
             // The kernel is symmetric.
             return 1.0;
         }
@@ -58,17 +58,17 @@ namespace rsmesh::fmm {
             }
         }
 
-        double getScaleFactor(const double, const int) const override {
+        [[nodiscard]] double getScaleFactor(const double, const int) const override {
             // The kernel is not homogeneous.
             return 1.0;
         }
 
-        double getScaleFactor(const double) const override {
+        [[nodiscard]] double getScaleFactor(const double) const override {
             // The kernel is not homogeneous.
             return 1.0;
         }
 
-        double evaluate(const FPoint<double>& pt, const FPoint<double>& ps) const {
+        [[nodiscard]] double evaluate(const FPoint<double>& pt, const FPoint<double>& ps) const {
             return evaluate(pt.getX(), pt.getY(), pt.getZ(), ps.getX(), ps.getY(), ps.getZ());
         }
 

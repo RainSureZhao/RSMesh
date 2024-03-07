@@ -120,7 +120,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND WIN32)
     )
 endif()
 target_compile_definitions(RSMesh PUBLIC
-    # EIGEN_USE_MKL_ALL
+    EIGEN_USE_MKL_ALL
     RSMESH_USE_MKL
 )
 
@@ -131,9 +131,17 @@ target_compile_definitions(RSMesh PUBLIC
 
 # Disable warnings in msvc
 if(MSVC)
-    target_compile_options(RSMesh PRIVATE
+    target_compile_options(RSMesh PUBLIC
         /wd4819
         /wd5055
+        /wd4702
+    )
+endif()
+
+if(MSVC)
+    target_compile_definitions(RSMesh PUBLIC
+            -DWIN32_LEAN_AND_MEAN
+            -DNOMINMAX
     )
 endif()
 

@@ -9,6 +9,11 @@
 
 namespace rsmesh {
     namespace common {
+        /**
+         * @brief 计算pi的值
+         * @tparam T 模板参数
+         * @return 返回pi的值
+         */
         template<class T>
         T pi() {
             return T(4.0) * std::atan(T(1.0)); // 4 * pi / 4

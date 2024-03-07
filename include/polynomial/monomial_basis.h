@@ -81,8 +81,8 @@ namespace rsmesh::polynomial {
                             for(index_t i = 0; i < sigma; i ++) {
                                 auto i_x = mu + 2 * i;
                                 auto i_y = mu + 2 * i + 1;
-                                result(0, i_x) = 0.0;
-                                result(0, i_y) = 0.0;
+                                result(0, i_x) = 0.0; // 1_x
+                                result(0, i_y) = 0.0; // 1_y
                             }
                             break;
                         case 1:

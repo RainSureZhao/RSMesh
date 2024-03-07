@@ -11,12 +11,12 @@ int main(int argc, char *argv[]) {
 //        .sdf_multiplication = 2.0
 //    });
     rsmesh::examples::reconstruct_surface(rsmesh::examples::ReconstructionParameters{
-        .input = R"(E:\Code\Cpp_project\RSMesh\data\sdf\Block_sdf.csv)",
-        .output = R"(E:\Code\Cpp_project\RSMesh\data\surfaces\Block.obj)",
+        .input = R"(E:\Code\Cpp_project\RSMesh\data\sdf\Bunny_sdf.csv)",
+        .output = R"(E:\Code\Cpp_project\RSMesh\data\surfaces\Bunny.obj)",
         .rbf_name = "biharmonic3d",
-        .absolute_tolerance = 1e-6,
-        .bbox = rsmesh::geometry::bbox3d({-20.0, -20.0, -20.0}, {20.0, 20.0, 20.0}),
-        .mesh_resolution = 0.1,
+        .absolute_tolerance = 4e-2,
+        .bbox = rsmesh::geometry::bbox3d({-1.0, -1.0, -1.0}, {1.0, 1.0, 1.0}),
+        .mesh_resolution = 0.001,
         .rbf_parameters = {1.0},
         .aniso = rsmesh::geometry::linear_transformation3d::Identity(),
         .min_distance = 1e-10,

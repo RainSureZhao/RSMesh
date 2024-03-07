@@ -16,6 +16,7 @@
 #include "interpolant.h"
 #include "isosurface/isosurface.h"
 #include "isosurface/rbf_field_function.h"
+#include <iostream>
 
 namespace rsmesh::examples {
     struct ReconstructionParameters {
@@ -27,12 +28,12 @@ namespace rsmesh::examples {
         double mesh_resolution;
         std::vector<double> rbf_parameters;
         geometry::linear_transformation3d aniso = geometry::linear_transformation3d::Identity();
-        double min_distance = 1e-10;
+        double min_distance = 1e-4;
         double nugget = 0.0;
         int poly_degree = 0;
         int max_iterations = 30;
-        bool inequality;
-        bool reduce;
+        bool inequality = false;
+        bool reduce = false;
     };
     void reconstruct_surface(
         const ReconstructionParameters& params
@@ -48,8 +49,11 @@ namespace rsmesh::examples {
         }
 
         // Remove very close points;
+
+        std::cout << "The number of points before filter: " << points.rows() << std::endl;
         point_cloud::distance_filter filter(points, params.min_distance);
         std::tie(points, values) = filter(points, values);
+        std::cout << "The number of points after filter: "  << points.rows() << std::endl;
         if(params.inequality) {
             *values_lb = filter(*values_lb);
             *values_ub = filter(*values_ub);

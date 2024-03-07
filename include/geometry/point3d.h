@@ -16,45 +16,44 @@ namespace rsmesh {
     namespace geometry {
 
         /**
-         * \brief 2维向量
+         * @brief 2维向量
          */
         using vector2d = Eigen::RowVector2d;
 
         /**
-         * \brief 2维点
+         * @brief 2维点
          */
         using point2d = vector2d;
         /**
-         * \brief 3维向量
+         * @brief 3维向量
          */
         using vector3d = Eigen::RowVector3d;
         /**
-         * \brief 3维矩阵
+         * @brief 3维矩阵
          */
         using matrix3d = Eigen::Matrix<double, 3, 3, Eigen::RowMajor>;
 
         /**
-         * \brief 3维点
+         * @brief 3维点
          */
         using point3d = vector3d;
 
         /**
-         * \brief 3维向量的集合
+         * @brief 3维向量的集合
          */
         using vectors3d = Eigen::Matrix<double, Eigen::Dynamic, 3, Eigen::RowMajor>;
         /**
-         * \brief 3维点的集合
+         * @brief 3维点的集合
          */
         using points3d = vectors3d;
 
         /**
-         * \brief 线性变换矩阵
+         * @brief 线性变换矩阵
          */
         using linear_transformation3d = Eigen::Matrix<double, 3, 3, Eigen::RowMajor>;
 
         /**
-         * \function to_linear_transformation3d
-         * \brief 从一个变换矩阵中提取出线性变换矩阵
+         * @brief 从一个变换矩阵中提取出线性变换矩阵
          * @tparam T 模板参数
          * @param t 变换矩阵
          * @return
@@ -65,8 +64,7 @@ namespace rsmesh {
         }
 
         /**
-         * \function transform_point
-         * \brief 对一个三维点进行线性变换
+         * @brief 对一个三维点进行线性变换
          * @param lhs 线性变换矩阵
          * @param p 三维点
          * @return
@@ -77,8 +75,7 @@ namespace rsmesh {
         }
 
         /**
-         * \function transform_vector
-         * \brief 对一个三维向量进行线性变换
+         * @brief 对一个三维向量进行线性变换
          * @param lhs  线性变换矩阵
          * @param v 三维向量
          * @return

@@ -15,6 +15,9 @@
 #define RSMESH_UNLIKELY(X) (X)
 
 namespace rsmesh {
+    /**
+     * \brief 用于标记不可达的代码
+     */
     inline void RSMESH_UNREACHABLE() {
         assert(false);
     }

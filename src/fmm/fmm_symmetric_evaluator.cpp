@@ -43,7 +43,7 @@ namespace rsmesh::fmm {
                                          int{FmmAlgorithmScheduleChunkSize});
         }
 
-        valuesd evaluate() const {
+        [[nodiscard]] valuesd evaluate() const {
             reset_tree();
 
             fmm_->execute();
@@ -66,6 +66,7 @@ namespace rsmesh::fmm {
             for (index_t idx = 0; idx < n_points_; idx++) {
                 auto ap = geometry::transform_point(a, points.row(idx));
                 tree_->insert(FPoint<double>(ap.data()), idx, 0.0);
+                // std::cout << tree_->getHeight() << std::endl;
             }
 
             update_weight_ptrs();
@@ -84,7 +85,7 @@ namespace rsmesh::fmm {
         }
 
     private:
-        valuesd potentials() const {
+        [[nodiscard]] valuesd potentials() const {
             valuesd phi = valuesd::Zero(n_points_);
 
             for (index_t i = 0; i < n_points_; i++) {

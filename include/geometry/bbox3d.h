@@ -11,6 +11,10 @@
 namespace rsmesh {
     namespace geometry {
 
+        /**
+         * @brief 3D包围盒类
+         *
+         */
         class bbox3d {
         public:
             bbox3d();

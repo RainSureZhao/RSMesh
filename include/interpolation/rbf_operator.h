@@ -24,7 +24,7 @@ namespace rsmesh::interpolation {
             model_(model), n_poly_basis_(model.poly_basis_size()) {
             auto n_points = points.rows();
             auto bbox = geometry::bbox3d::from_points(points);
-            std::cout << n_points << std::endl;
+            // std::cout << n_points << std::endl;
             a_ = std::make_unique<fmm::fmm_symmetric_evaluator<Order>>(model, fmm::fmm_tree_height(n_points), bbox);
 
             if (n_poly_basis_ > 0) {
