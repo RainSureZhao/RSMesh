@@ -57,7 +57,7 @@ namespace rsmesh {
             [[nodiscard]] indices_and_distaces radius_search(const geometry::point3d& point, double radius) const;
             
         private:
-            class impl;                     // 前置声明, Pimpl设计模式
+            class impl;                     /// 前置声明, Pimpl设计模式
             std::unique_ptr<impl> impl_;
         };
 

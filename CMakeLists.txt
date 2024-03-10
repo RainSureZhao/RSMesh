@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 project(RSMesh)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -21,6 +22,8 @@ find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
+        3DCore 3DRender 3DExtras 3DInput
+        Quick Quick3D
         REQUIRED)
 find_package(Eigen3 CONFIG REQUIRED)
 find_package(openmesh REQUIRED)
@@ -69,10 +72,15 @@ file(GLOB KRYLOV "${PROJECT_SOURCE_DIR}/include/krylov/*.h" "${PROJECT_SOURCE_DI
 file(GLOB PRECONDITIONER "${PROJECT_SOURCE_DIR}/include/preconditioner/*.h" "${PROJECT_SOURCE_DIR}/src/preconditioner/*.cpp")
 #isosurface
 file(GLOB ISOSURFACE "${PROJECT_SOURCE_DIR}/include/isosurface/*.h" "${PROJECT_SOURCE_DIR}/src/isosurface/*.cpp")
-
+#ui
+file(GLOB UI "${PROJECT_SOURCE_DIR}/resources/ui/*.ui" "${PROJECT_SOURCE_DIR}/resources/ui/*.h" "${PROJECT_SOURCE_DIR}/resources/ui/*.cpp" "${PROJECT_SOURCE_DIR}/resources/ui/*.qml")
 
 #examples
 file(GLOB EXAMPLES "${PROJECT_SOURCE_DIR}/include/examples/*.h" "${PROJECT_SOURCE_DIR}/examples/*.cpp")
+
+qt6_add_resources(QRC_FILES
+        ${PROJECT_SOURCE_DIR}/resources/qml.qrc
+)
 
 add_executable(RSMesh 
         main.cpp
@@ -89,15 +97,65 @@ add_executable(RSMesh
         ${PRECONDITIONER}
         ${EXAMPLES}
         ${ISOSURFACE}
+        ${UI}
+        ${QRC_FILES}
 )
+
+if(MSVC)
+    target_link_libraries(RSMesh PUBLIC
+            MKL::MKL
+    )
+endif()
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND WIN32)
+    target_link_libraries(RSMesh PUBLIC
+            ${MKL_LIBRARIES}
+    )
+endif()
+target_compile_definitions(RSMesh PUBLIC
+        EIGEN_USE_MKL_ALL
+        RSMESH_USE_MKL
+)
+
+target_compile_definitions(RSMesh PUBLIC
+        -DEIGEN_DONT_PARALLELIZE
+        -DEIGEN_MPL2_ONLY
+)
+
+# Disable warnings in msvc
+if(MSVC)
+    target_compile_options(RSMesh PUBLIC
+            /wd4819
+            /wd5055
+            /wd4702
+    )
+endif()
+
+if(MSVC)
+    target_compile_definitions(RSMesh PUBLIC
+            -DWIN32_LEAN_AND_MEAN
+            -DNOMINMAX
+    )
+endif()
+
+if(MSVC)
+    # 为MSVC添加/Zc:__cplusplus选项
+    target_compile_options(RSMesh PUBLIC
+            /Zc:__cplusplus)
+endif()
+
+
 target_include_directories(RSMesh PUBLIC "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(RSMesh PRIVATE ${OPENMESH_INCLUDE_DIRS})
 target_include_directories(RSMesh PRIVATE ${MKL_INCLUDE_DIRS})
+target_include_directories(RSMesh PUBLIC "resources/ui")
 
 target_link_libraries(RSMesh PUBLIC
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        Qt6::3DCore Qt6::3DRender Qt6::3DExtras Qt6::3DInput
+        Qt6::Quick Qt6::Quick3D
         ${OPENMESH_LIBRARIES}
         CGAL::CGAL
         flann::flann flann::flann_cpp
@@ -108,42 +166,7 @@ target_link_libraries(RSMesh PUBLIC
         Boost::boost
 )
 
-if(MSVC)
-    target_link_libraries(RSMesh PUBLIC
-        MKL::MKL
-    )
-endif()
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND WIN32)
-    target_link_libraries(RSMesh PUBLIC
-            ${MKL_LIBRARIES}
-    )
-endif()
-target_compile_definitions(RSMesh PUBLIC
-    EIGEN_USE_MKL_ALL
-    RSMESH_USE_MKL
-)
-
-target_compile_definitions(RSMesh PUBLIC
-    -DEIGEN_DONT_PARALLELIZE
-    -DEIGEN_MPL2_ONLY
-)
-
-# Disable warnings in msvc
-if(MSVC)
-    target_compile_options(RSMesh PUBLIC
-        /wd4819
-        /wd5055
-        /wd4702
-    )
-endif()
-
-if(MSVC)
-    target_compile_definitions(RSMesh PUBLIC
-            -DWIN32_LEAN_AND_MEAN
-            -DNOMINMAX
-    )
-endif()
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
