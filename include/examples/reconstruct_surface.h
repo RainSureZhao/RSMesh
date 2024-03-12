@@ -88,7 +88,7 @@ namespace rsmesh::examples {
         isosurface::isosurface isosurface(params.bbox, params.mesh_resolution);
         isosurface::rbf_field_function field_function(interpolant);
 
-        isosurface.generate_from_seed_points(surface_points, field_function).export_obj(params.output);
+        isosurface.generate_from_seed_points(surface_points, field_function).export_stl(params.output);
     }
 }
 

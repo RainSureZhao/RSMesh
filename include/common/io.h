@@ -8,6 +8,8 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
+#include "geometry/point3d.h"
+#include "numeric/roundtrip_string.h"
 
 namespace rsmesh {
     namespace common {
@@ -141,6 +143,17 @@ namespace rsmesh {
             }
             
             write<T>{}(ofs, t);
+        }
+
+        void write_points(const geometry::points3d& points, std::string& filename) {
+            std::ofstream ofs(filename);
+            if(!ofs) {
+                throw std::runtime_error("Failed to open file '" + filename + "'.");
+            }
+            for (auto v : points.rowwise()) {
+                ofs << numeric::to_string(v(0)) << ' ' << numeric::to_string(v(1)) << ' '
+                    << numeric::to_string(v(2)) << '\n';
+            }
         }
     }
 }

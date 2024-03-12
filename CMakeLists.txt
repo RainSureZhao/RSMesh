@@ -33,6 +33,7 @@ find_package(flann CONFIG REQUIRED)
 find_package(MKL CONFIG REQUIRED)
 find_package(OpenMP REQUIRED)
 #find_package(Ceres CONFIG REQUIRED)
+find_package(assimp CONFIG REQUIRED)
 
 add_subdirectory(third_party)
 set(MKL_INCLUDE_DIRS "${MKL_ROOT}/include")
@@ -74,6 +75,9 @@ file(GLOB PRECONDITIONER "${PROJECT_SOURCE_DIR}/include/preconditioner/*.h" "${P
 file(GLOB ISOSURFACE "${PROJECT_SOURCE_DIR}/include/isosurface/*.h" "${PROJECT_SOURCE_DIR}/src/isosurface/*.cpp")
 #ui
 file(GLOB UI "${PROJECT_SOURCE_DIR}/resources/ui/*.ui" "${PROJECT_SOURCE_DIR}/resources/ui/*.h" "${PROJECT_SOURCE_DIR}/resources/ui/*.cpp" "${PROJECT_SOURCE_DIR}/resources/ui/*.qml")
+#qt
+file(GLOB QT "${PROJECT_SOURCE_DIR}/include/qt/*.h" "${PROJECT_SOURCE_DIR}/src/qt/*.cpp")
+
 
 #examples
 file(GLOB EXAMPLES "${PROJECT_SOURCE_DIR}/include/examples/*.h" "${PROJECT_SOURCE_DIR}/examples/*.cpp")
@@ -82,7 +86,8 @@ qt6_add_resources(QRC_FILES
         ${PROJECT_SOURCE_DIR}/resources/qml.qrc
 )
 
-add_executable(RSMesh 
+add_executable(RSMesh
+        Application.h
         main.cpp
         ${GEOMETRY}
         ${COMMON}
@@ -99,6 +104,7 @@ add_executable(RSMesh
         ${ISOSURFACE}
         ${UI}
         ${QRC_FILES}
+        ${QT}
 )
 
 if(MSVC)
@@ -128,6 +134,7 @@ if(MSVC)
             /wd4819
             /wd5055
             /wd4702
+            /wd4038
     )
 endif()
 
@@ -164,9 +171,8 @@ target_link_libraries(RSMesh PUBLIC
         double-conversion
 #        ceres
         Boost::boost
+        assimp::assimp
 )
-
-
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
