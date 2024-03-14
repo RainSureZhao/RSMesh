@@ -11,7 +11,8 @@ FileDialog {
 
     onAccepted: {
         fileChosen(selectedFile);
-        fileLoader.openFile(selectedFile);
+        // fileLoader.openFile(selectedFile);
+        modelViewer.setModelSource(selectedFile);
     }
     onRejected: {
         console.log("FileDialog dismissed.");

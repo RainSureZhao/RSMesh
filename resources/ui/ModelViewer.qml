@@ -1,10 +1,11 @@
-// ThreeDView.qml
+// ModelViewer.qml
 import QtQuick
 import QtQuick3D
 
 View3D {
     id: view3d
-    anchors.fill: parent
+
+    property string modelSource: ""
 
     environment: SceneEnvironment {
         backgroundMode: SceneEnvironment.Color
@@ -24,5 +25,10 @@ View3D {
         materials: [PrincipledMaterial {
             baseColor: "gray"
         }]
+        source: modelSource // 绑定模型
+    }
+
+    function setModelSource(source) {
+        modelSource = source
     }
 }
