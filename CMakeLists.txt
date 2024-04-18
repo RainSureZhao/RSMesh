@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.27)
 project(RSMesh)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -8,7 +8,6 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CGAL_DO_NOT_WARN_ABOUT_CMAKE_BUILD_TYPE TRUE)
 set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS ON)
-
 set(MKL_ARCH "intel64")
 if(UNIX)
     set(MKL_LINK "static")
@@ -29,7 +28,6 @@ find_package(Eigen3 CONFIG REQUIRED)
 find_package(openmesh REQUIRED)
 find_package(CGAL CONFIG REQUIRED)
 find_package(flann CONFIG REQUIRED)
-# find_package(double-conversion CONFIG REQUIRED)
 find_package(MKL CONFIG REQUIRED)
 find_package(OpenMP REQUIRED)
 #find_package(Ceres CONFIG REQUIRED)
@@ -105,6 +103,8 @@ add_executable(RSMesh
         ${UI}
         ${QRC_FILES}
         ${QT}
+        src/qt/ModelConverter.cpp
+        include/qt/ModelConverter.h
 )
 
 if(MSVC)
